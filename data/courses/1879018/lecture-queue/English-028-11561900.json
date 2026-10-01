@@ -1,0 +1,1014 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "11561900",
+      "title": "Parsing Request Bodies",
+      "lectureOrder": 34,
+      "videoOrder": 28,
+      "sourceHash": "b6eb969635af3ad148994129e6ba96444f7b03fa76d965f83417be819ad867bc",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.26,
+          "end": 8.8,
+          "en": "So time to parse the incoming requests and get the data that is part of the request because that data",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.8,
+          "end": 11.22,
+          "en": "should be whatever we entered here.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 11.62,
+          "end": 14.2,
+          "en": "Now how do we get access to that?",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 14.2,
+          "end": 17.24,
+          "en": "Well we get requests url and request method,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.26,
+          "end": 22.41,
+          "en": "you might think there is something like request data but there isn't.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.78,
+          "end": 30.67,
+          "en": "Instead the incoming data is basically sent as a stream of data and that is a special construct javascript",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 30.67,
+          "end": 31.6,
+          "en": "in general knows",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 31.66,
+          "end": 34.27,
+          "en": "but nodejs uses a lot,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 34.27,
+          "end": 36.89,
+          "en": "now what is such a stream of data though?",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 37.3,
+          "end": 41.24,
+          "en": "There is a connected concept, buffers and we'll have a look at both here.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 41.26,
+          "end": 43.92,
+          "en": "So let's take our incoming request as an example,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 44.02,
+          "end": 48.8,
+          "en": "there also are other streams like for example when working with files, we can also work with streams",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 48.88,
+          "end": 51.2,
+          "en": "but let's stick to requests here.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 51.67,
+          "end": 55.27,
+          "en": "Our stream here is basically an ongoing process,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 55.48,
+          "end": 59.83,
+          "en": "the request is simply read by node in chunks",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 59.83,
+          "end": 64.83,
+          "en": "you could say, in multiple parts and in the end at some point of time it's done",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 64.84,
+          "end": 71.23,
+          "en": "and this is done so that we theoretically can start working on this, on the individual chunks without",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 71.23,
+          "end": 73.98,
+          "en": "having to wait for the full request being read.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 74.2,
+          "end": 79.51,
+          "en": "Now for a simple request like the one we're working with, this is not really required,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 79.51,
+          "end": 81.94,
+          "en": "we only got one input field data,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 81.94,
+          "end": 87.76,
+          "en": "it doesn't take so long to parse that. But consider a file being uploaded,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 87.76,
+          "end": 94.24000000000001,
+          "en": "this will take considerably longer and therefore streaming that data could make sense because it could",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 94.24000000000001,
+          "end": 97.61,
+          "en": "allow you to start writing this to your disk,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 97.63,
+          "end": 103.47999999999999,
+          "en": "so to your hard drive where your app runs, your node app runs on your server",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 103.47999999999999,
+          "end": 109.69,
+          "en": "whilst the data is coming in, so that you don't have to parse the entire file which is of course taking",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 109.69,
+          "end": 114.35,
+          "en": "some time and you have to wait for it being fully uploaded before you can do anything with it.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 114.52000000000001,
+          "end": 121.3,
+          "en": "But this is how node handles all requests because it doesn't know in advance how complex and big they",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 121.3,
+          "end": 122.8,
+          "en": "are.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 122.8,
+          "end": 124.92,
+          "en": "So you can start working on the data earlier,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 124.93,
+          "end": 134.36,
+          "en": "the problem is with your code, you can't arbitrarily try to work with these chunks. Instead to organize",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 134.56,
+          "end": 135.73,
+          "en": "these incoming chunks,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 135.97,
+          "end": 138.35,
+          "en": "you use a so-called buffer,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 138.35,
+          "end": 140.57,
+          "en": "a buffer is like a bus stop.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 140.77,
+          "end": 144,
+          "en": "If you consider buses, they're always driving",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 144.22,
+          "end": 151.87,
+          "en": "but for users or customers being able to work with them, to climb on the bus and leave the bus, you need",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 151.87,
+          "end": 159.13,
+          "en": "bus stops where you well you can track the bus basically and that is what a buffer is. A buffer is simply",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 159.13,
+          "end": 167.32,
+          "en": "a construct which allows you to hold multiple chunks and work with them before they are released",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 167.32,
+          "end": 173.56,
+          "en": "once you're done and you work with that buffer. Now that's pretty abstract but it's pretty easy to work",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 173.56,
+          "end": 174.64,
+          "en": "with fortunately",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 174.75,
+          "end": 181.28,
+          "en": "so let's see how that works in practice. When receiving a posted message before sending the response",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 181.39,
+          "end": 185.63,
+          "en": "and before writing to the file, we want to get our request data, right",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 185.83,
+          "end": 192.73,
+          "en": "and we do this by going to our request and registering an event listener.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 192.73,
+          "end": 198.56,
+          "en": "We haven't done that thus far but as I mentioned, node uses these heavily. For create server,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 198.64,
+          "end": 201.16,
+          "en": "it implicitly creates one for us,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 201.19,
+          "end": 209.99,
+          "en": "now we do this on our own by using the on method. Now on allows us to listen to certain events and the event",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 210.01,
+          "end": 212.85,
+          "en": "I want to listen to here is the data event,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 212.92000000000002,
+          "end": 219.3,
+          "en": "you see my IDE even gives me some help here and tells me which events I can listen to for a request.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 219.4,
+          "end": 226.69,
+          "en": "So here I want to listen for the data event, the data event will be fired whenever a new chunk is ready",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 226.69,
+          "end": 227.61,
+          "en": "to be read,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 227.62,
+          "end": 233.05,
+          "en": "you remember that buffer thing, this is basically helping us with that.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 233.25,
+          "end": 239.9,
+          "en": "Now here we have to add a second argument which is that function that should be executed for every data",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 239.9,
+          "end": 242.14,
+          "en": "event, you remember create server,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 242.15,
+          "end": 247.88,
+          "en": "it had a similar concept. There we defined a function that should be executed for every incoming request,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 247.88,
+          "end": 252.76,
+          "en": "now we're defining a function to be executed for every incoming data piece.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 252.8,
+          "end": 256.42,
+          "en": "So here I'll again using an ES6 arrow function,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 256.43,
+          "end": 260.33,
+          "en": "you could also use the function keyword without that arrow then",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 260.63,
+          "end": 267.51,
+          "en": "and as you can also see on data, this listener receives a chunk of data.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 267.77,
+          "end": 275,
+          "en": "So here we receive a chunk and this chunk is something we can work with here and now we have to do something",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 275,
+          "end": 278.32,
+          "en": "with this chunk to be able to interact with it.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 278.44,
+          "end": 287.02,
+          "en": "For this I will create a new constant here and I'll name it body because I'll try to read the request",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 287.03,
+          "end": 287.53,
+          "en": "body,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 287.56,
+          "end": 290.44,
+          "en": "you can name it however you want but it is the request body",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 290.44,
+          "end": 292.4,
+          "en": "we're working with. Now",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 292.42,
+          "end": 295.59000000000003,
+          "en": "the body should be an empty array",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 295.87,
+          "end": 303.76,
+          "en": "and now in that function here in the data event, I'll take my body and push a new element onto it.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 303.97,
+          "end": 310.9,
+          "en": "By the way if you're wondering how we can edit a constant value, this only means that we can never",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 310.9,
+          "end": 315.74,
+          "en": "re-assign a new value, so we can never use body equals something again",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 316,
+          "end": 324.45,
+          "en": "but with push we're changing the object behind that body element, that body object, we're editing that",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 324.46,
+          "end": 329.26,
+          "en": "data in that object not the value itself, not the object itself.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 329.26,
+          "end": 333.29,
+          "en": "It's a bit strange to wrap your head around but this is in the end how it works.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 333.37,
+          "end": 341.04,
+          "en": "So we can now push a new element into this array to make it non-empty and we push our chunk here. Now nodejs",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 341.09000000000003,
+          "end": 346.4,
+          "en": "will execute this so often until it's done getting all the data out of our request,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 346.48,
+          "end": 352.3,
+          "en": "that can be once, that can be multiple times and we can even log this to see how app, how often it does this",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 352.45,
+          "end": 353.65,
+          "en": "and what's inside of this",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 353.65,
+          "end": 361.95,
+          "en": "chunk. Now we need to register another event listener and that is the end listener, this will be fired",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 361.95,
+          "end": 365.9,
+          "en": "once it's done parsing the incoming requests data or the incoming requests",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 365.91,
+          "end": 373.35,
+          "en": "in general. Here it will again execute a function we define as a second argument and in this function, we",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 373.35,
+          "end": 379.26,
+          "en": "can now rely on all the chunks being read in and they're all stored in the body now.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 380.5,
+          "end": 382.83,
+          "en": "Now to interact with this",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 383.17,
+          "end": 389.43,
+          "en": "and don't forget the comma after end, to interact with that, to work with all these chunks,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 389.5,
+          "end": 392.01,
+          "en": "we now need to buffer them.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 392.05,
+          "end": 394.1,
+          "en": "Remember that bus stop concept,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 394.12,
+          "end": 399.58,
+          "en": "we get all these chunks we now need to do is something to be able to work with them, to basically have",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 399.58,
+          "end": 404.4,
+          "en": "one place where the bus stops and we can interact with it.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 404.40999999999997,
+          "end": 412.03,
+          "en": "So here I'll now create a new constant, parsedBody and there I will use the buffer object which is available",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 412.03,
+          "end": 415.76,
+          "en": "globally, made available by nodejs",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 416.08,
+          "end": 419.08,
+          "en": "and I can concat my body.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 419.44,
+          "end": 424.86,
+          "en": "So this will in the end create a new buffer and add all the chunks from inside my body to it.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 425.35,
+          "end": 433.07,
+          "en": "And then on this buffer which I got here, parsed body is now a buffer, there I can call toString to convert",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 433.15,
+          "end": 434.35,
+          "en": "it to a string.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 434.35,
+          "end": 440.08,
+          "en": "So this is a utility method offered by nodejs where we do something to our buffered chunks,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 440.11,
+          "end": 446.98,
+          "en": "remember the bus is now waiting in the bus stop so to say, the buffer is our bus stop and now we do",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 446.98,
+          "end": 448.12,
+          "en": "something with it,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 448.21,
+          "end": 453.94,
+          "en": "here we convert it to a string and this only works because I know that the incoming data will be text",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 454.15,
+          "end": 458.2,
+          "en": "because the body of that request will be text.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 458.32,
+          "end": 461.05,
+          "en": "If it were a file, we would have to do something different",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 461.08,
+          "end": 464.93,
+          "en": "but it is no file and I know that it isn't because we're writing the code,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 465.01,
+          "end": 466.43,
+          "en": "we know what we will receive,",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 466.45,
+          "end": 467.40999999999997,
+          "en": "right.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 467.40999999999997,
+          "end": 469.09000000000003,
+          "en": "So this is the parsed body",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 469.21,
+          "end": 472.54,
+          "en": "and this is now finally what we can work with,",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 472.65999999999997,
+          "end": 476.54,
+          "en": "so let's also output the parsed body.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 476.56,
+          "end": 483.04,
+          "en": "And this was a lot of talking so let's simply have a look with the server, with control c and restart it and",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 483.04,
+          "end": 488.21,
+          "en": "then send another request with some message here.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 488.46,
+          "end": 492.7,
+          "en": "And now if you have a look at what's being logged, you see two elements.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 492.78,
+          "end": 495,
+          "en": "The first one is coming from this console log",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 495.12,
+          "end": 499.1,
+          "en": "and you see that is a chunk, that is a chunk we can't work with",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 499.32,
+          "end": 506.22,
+          "en": "but now the parsed body receives or yields this line and that is something we can work with and it's",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 506.22,
+          "end": 512.32,
+          "en": "message equals something because we named our input here message",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 512.34,
+          "end": 518.46,
+          "en": "and as I said, that form will automatically send the request where it takes all the input data and",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 518.46,
+          "end": 525.21,
+          "en": "puts it into the request body as key value pairs where the names assigned to the inputs are the keys",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 525.42,
+          "end": 529.29,
+          "en": "and the values are what the user entered and that is what we have here,",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 529.35,
+          "end": 534.9,
+          "en": "a key value pair separating the key from the value with an equal sign.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 534.9,
+          "end": 543.84,
+          "en": "Now and with that, we can now work with that and finally store the input in our file and we can do that",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 544.53,
+          "end": 547.23,
+          "en": "here in request on, request on",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 547.23,
+          "end": 556.01,
+          "en": "end to be precise by creating a new constant, message, taking the parsed body and splitting it on the equal",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 556.01,
+          "end": 562.14,
+          "en": "sign and then taking the element with the index one which is the second element in the resulting array",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 562.23,
+          "end": 564.83,
+          "en": "which is the element on the right of the equal sign.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 565.11,
+          "end": 570.03,
+          "en": "And now we can move write file sync into the end function,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 570.03,
+          "end": 575.81,
+          "en": "we don't want to execute it here because this will actually run before this function is called",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 575.94,
+          "end": 579.9,
+          "en": "because here we just register a function to be called in the future,",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 579.9,
+          "end": 581.78,
+          "en": "it's not executed immediately,",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 581.83,
+          "end": 586.95,
+          "en": "remember node doesn't wait and pause, it will not block the script execution,",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 586.95,
+          "end": 590.97,
+          "en": "it just registers this as a to-be-executed action",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 591.03,
+          "end": 592.92,
+          "en": "and then right away continues.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 592.92,
+          "end": 598.67,
+          "en": "So if we have something that depends on the incoming data, we have to move it into the event listener",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 598.68,
+          "end": 602.63,
+          "en": "too so that it's also part of the to-be-executed code",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 602.68,
+          "end": 605.98,
+          "en": "sometimes in the future and doesn't run too early",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 606.18,
+          "end": 611.66,
+          "en": "and now we can write message to the message.txt file.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 611.89,
+          "end": 614.51,
+          "en": "Let's now restart this file one more time",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 615.75,
+          "end": 616.5,
+          "en": "and enter",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 620.32,
+          "end": 622.69,
+          "en": "hello here and hit send",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 623.17,
+          "end": 628.89,
+          "en": "and now if you look into message text, we see hello, you see the exclamation mark was encoded.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 629.05,
+          "end": 631.25,
+          "en": "Now that is something we can worry about later",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 631.33,
+          "end": 634.76,
+          "en": "but in general, this worked just fine.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 634.99,
+          "end": 642.64,
+          "en": "And if you're now totally frightened by how complex nodejs is, this is the raw logic, we'll later",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 642.64,
+          "end": 646.27,
+          "en": "use expressjs which hides all that raw logic",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 646.27,
+          "end": 652.51,
+          "en": "but to understand why we use that, you first of all need to understand what is happening and why using",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 652.51,
+          "end": 658.66,
+          "en": "tools like expressjs which will make all of this much easier are great.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 658.72,
+          "end": 661.5,
+          "en": "So with that, we've got our basic logic down,",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 661.63,
+          "end": 668.5,
+          "en": "let's now dive again into that event listener and writing files thing because there is something really",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 668.5,
+          "end": 670.51,
+          "en": "important you have to understand.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

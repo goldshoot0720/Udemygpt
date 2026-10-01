@@ -1,0 +1,692 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "12025864",
+      "title": "Downloading Files with Authentication",
+      "lectureOrder": 328,
+      "videoOrder": 292,
+      "sourceHash": "3110d0e6cd9a55906420f7f9085e03b9b54a092984de70a36f4c484c187fc46b",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.33,
+          "end": 9.87,
+          "en": "So serving images statically is fine but we don't want to serve only images or only public files,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 9.9,
+          "end": 15.28,
+          "en": "I want to serve an invoice and that invoice should only be available to me.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 16.44,
+          "end": 22.04,
+          "en": "Now for that, let's start with a dummy invoice and I'll create a new folder for that,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 23.47,
+          "end": 25.84,
+          "en": "I'll name it invoices.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 26.31,
+          "end": 32.52,
+          "en": "You could of course put all images and invoices and so on into a parent folder, like data to not have them",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 32.55,
+          "end": 35.4,
+          "en": "all as root level folders,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 35.4,
+          "end": 39.96,
+          "en": "that might be something you want to do. I'll move the invoices in there, images is kind of like a special",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 39.96,
+          "end": 43.68,
+          "en": "case but my private data should be maybe somewhere else,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 43.68,
+          "end": 46.97,
+          "en": "so I'll put it into the data folder which was redundant until now,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 46.98,
+          "end": 48.14,
+          "en": "now it's not anymore",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 48.42,
+          "end": 52.09,
+          "en": "and I prepared a simple pdf which I'll move in there.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 52.13,
+          "end": 53.78,
+          "en": "Now this is a really simple pdf,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 54.15,
+          "end": 56.31,
+          "en": "you can write it on your own,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 56.4,
+          "end": 60.54,
+          "en": "it's just holding some text looking like this.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 60.54,
+          "end": 64.5,
+          "en": "So here is my invoice, that is the pdf file I'm serving now,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 64.5,
+          "end": 66.87,
+          "en": "later we'll also generate this dynamically,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 66.87,
+          "end": 67.99,
+          "en": "now we won't,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 68.08,
+          "end": 70.06,
+          "en": "now I just want to show you how to serve that.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 70.12,
+          "end": 77.4,
+          "en": "Now obviously, we could make our invoices folder here statically accessible but that's not what I want to do.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 77.4,
+          "end": 82.44,
+          "en": "Now first of all let me work on the orders view to make sure we have a link to get that invoice.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 83.7,
+          "end": 91.46000000000001,
+          "en": "So for each order, this list item here which we have, let's maybe add a dash in the list item and in there,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 91.46000000000001,
+          "end": 98.21000000000001,
+          "en": "let's add an anchor tag which says invoice and then it should be pointing at the invoice.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 98.21000000000001,
+          "end": 103.31,
+          "en": "So now if I reload this page we have invoice here as a link,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 103.31,
+          "end": 105.95,
+          "en": "now I want to be able to click this and download the invoice,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 105.97999999999999,
+          "end": 107.99000000000001,
+          "en": "how can we do that?",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 108.02000000000001,
+          "end": 115.19,
+          "en": "Well since I want to handle this privately, I need to set up my own route for working with invoices because",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 115.19,
+          "end": 120.48,
+          "en": "that will then allow me to check for things like is the user authenticated and so on.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 120.5,
+          "end": 126.06,
+          "en": "So let me go to the routes folder and in there under",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 126.06,
+          "end": 134.16,
+          "en": "shop because this is a customer feature, not admin related, under shop here I'll add a new route,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 135.74,
+          "end": 136.72,
+          "en": "orders",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 136.85,
+          "end": 145.15,
+          "en": "and then maybe invoice ID or order ID maybe because the invoice let's say will have a name of that order",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 145.15,
+          "end": 145.53,
+          "en": "ID",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 145.55,
+          "end": 146.21,
+          "en": "ultimately,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 148.85,
+          "end": 154.4,
+          "en": "we could name this file differently, we can name it invoice and then let me quickly look up my order",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 154.4,
+          "end": 157.28,
+          "en": "ID to make this all work correctly.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 158.13,
+          "end": 166.15,
+          "en": "Got a bunch of orders in there but this is my latest order which I just placed, so let's grab",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 166.15,
+          "end": 167.47,
+          "en": "that text ID here",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 170.03,
+          "end": 174.35,
+          "en": "and add that to the invoice name here,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 174.44,
+          "end": 177.4,
+          "en": "maybe after a dash we have the order ID, something like this.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 177.62,
+          "end": 184.88,
+          "en": "So this is my invoice and I'm getting the order ID in this route, I should be protected, authenticated",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 184.88,
+          "end": 190.53,
+          "en": "to see tha, so I'll protect this route and then I'll use my shop controller and there, I get invoice controller",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 190.56,
+          "end": 192.8,
+          "en": "action which I have yet to add.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 192.95,
+          "end": 196.12,
+          "en": "So that's why it crashed here because I don't have that action yet.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 196.34,
+          "end": 204.62,
+          "en": "In the shop controller at the bottom maybe, let's export get invoice here and that will be our default",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 204.65,
+          "end": 208.07,
+          "en": "middleware function with request response and next",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 208.43,
+          "end": 212.32999999999998,
+          "en": "and in here, I now want to return that file.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 212.32999999999998,
+          "end": 221.95,
+          "en": "First of all, I need the invoice ID for that, the order ID, excuse me, order ID will be a request and then it's",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 221.95,
+          "end": 229.78,
+          "en": "encoded in the url, so it's params and then order ID, that is what I specified here in my routes",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 229.93,
+          "end": 235.84,
+          "en": "file, order ID that's the name and therefore I have to retrieve it by that name in my controller,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 235.84,
+          "end": 237.84,
+          "en": "so order ID here.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 238.09,
+          "end": 247.69,
+          "en": "Now I have that order ID, the file name or the invoice name we'll be looking therefore will be invoice- and then my order",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 248.38,
+          "end": 251.63,
+          "en": "ID and then .pdf right,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 251.65,
+          "end": 255.56,
+          "en": "that is the format in which all our invoices are stored let's say.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 255.61,
+          "end": 261.28,
+          "en": "So now we need to retrieve that file and we can retrieve files with nodes file system.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 261.28,
+          "end": 263.56,
+          "en": "We use that before in the course already,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 263.59,
+          "end": 265.22,
+          "en": "so let's start using it again,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 265.27,
+          "end": 272.92,
+          "en": "let's import it, file system by requiring file system, this is a core node module if you remember,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 272.98,
+          "end": 278.59000000000003,
+          "en": "you don't need to install a package it's already included in node and the file system allows you to do things",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 278.59000000000003,
+          "end": 283.63,
+          "en": "like read files which sounds like a thing that makes sense here.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 283.75,
+          "end": 287.83,
+          "en": "So let's use the file system and read a file,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 287.83,
+          "end": 290.57,
+          "en": "we know it will be found in the data folder,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 290.58,
+          "end": 297.04,
+          "en": "now the path here should be constructed with the path core module so that it works on all operating",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 297.04,
+          "end": 298.09000000000003,
+          "en": "systems.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 298.12,
+          "end": 306.61,
+          "en": "So let's also import path by requiring path, another core node module, the path module and let's construct",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 306.67,
+          "end": 316.62,
+          "en": "that path to the invoice, so here I'll have my invoice path and I'll create it with path join and I'll be looking",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 316.86,
+          "end": 318.94,
+          "en": "for the data folder,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 318.99,
+          "end": 321.03,
+          "en": "that's the first element,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 321.03,
+          "end": 326.73,
+          "en": "then the invoices folder and then the invoice name, the file name.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 326.75,
+          "end": 329.65,
+          "en": "So this is the path which I want to read,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 329.69,
+          "end": 335.98,
+          "en": "so I'll pass that invoice path to read file, read file then gives me a callback,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 336.05,
+          "end": 342.58,
+          "en": "so a function which it will execute once it's done reading that file,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 342.58,
+          "end": 351.35,
+          "en": "so here I will either get an error or the data. Now data will be in the form of a buffer.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 351.36,
+          "end": 354,
+          "en": "Now of course we should check if we have an error",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 354.03,
+          "end": 360.15,
+          "en": "and if that is the case, well then we simply next it so that the default error handling function can",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 360.15,
+          "end": 364.03,
+          "en": "take over otherwise if we don't have an error,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 365.29,
+          "end": 368.28,
+          "en": "here I'll return by the way so that the other code won't execute.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 368.29,
+          "end": 373.11,
+          "en": "So if we don't have an error, then data should be my my file right,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 373.12,
+          "end": 376.13,
+          "en": "so then I can call res send",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 376.3,
+          "end": 381.81,
+          "en": "which is a function provided by the express middleware, my data.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 381.82,
+          "end": 384.46,
+          "en": "Now theoretically that should be the file,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 384.46,
+          "end": 385.76,
+          "en": "now let's see if that works",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 385.78,
+          "end": 391.95,
+          "en": "and to make it work, we have to use this route in our anchor tag.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 392.29,
+          "end": 401.81,
+          "en": "So in orders.ejs, in this anchor tag we'll be looking for /orders/",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 401.99,
+          "end": 406.64,
+          "en": "and now we need to output something dynamic with ejs and that is the order ID because that's what",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 406.64,
+          "end": 408.86,
+          "en": "we're looking for in the route,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 408.86,
+          "end": 415.43,
+          "en": "so the order ID is simply order_id which we use up there already.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 415.48,
+          "end": 417.3,
+          "en": "So let's output that here,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 417.89,
+          "end": 423.1,
+          "en": "let's save that and reload that page and now",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 423.11,
+          "end": 424.64,
+          "en": "let's click this invoice here",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 424.66,
+          "end": 431.88,
+          "en": "and I do get my download option here. Let me save that and try to open that file",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 432.13,
+          "end": 438.1,
+          "en": "and indeed, it should open as a pdf or you should be able to open it as a pdf but of course it was",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 438.1,
+          "end": 441.06,
+          "en": "not the most convenient way of downloading this.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 441.1,
+          "end": 443.46,
+          "en": "We had a strange filename right,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 443.5,
+          "end": 447.61,
+          "en": "this strange cryptic name, we don't have the pdf extension and all of that.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 447.85,
+          "end": 449.74,
+          "en": "So we can certainly improve that,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 449.74,
+          "end": 451.61,
+          "en": "let's do that in the next lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

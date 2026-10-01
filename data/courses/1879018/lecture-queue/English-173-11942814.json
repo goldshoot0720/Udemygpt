@@ -1,0 +1,615 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "11942814",
+      "title": "Working on Cart Items & Orders",
+      "lectureOrder": 196,
+      "videoOrder": 173,
+      "sourceHash": "408b4155c05aabac5d7677a2b6a742a92f6c1840be837c58fadc804d941cb58c",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.17,
+          "end": 4.36,
+          "en": "So we worked on products and users,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.39,
+          "end": 8.77,
+          "en": "it's now time to work on the cart and the cart items again and that will now change",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.77,
+          "end": 10.64,
+          "en": "now that we're using mongodb.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.66,
+          "end": 15.58,
+          "en": "So let me start with the cart model, now what is, what's the overall goal we have here?",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.58,
+          "end": 23.71,
+          "en": "Well obviously for every user we have, we want to store a cart right and that user will have a cart and",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 23.77,
+          "end": 27.16,
+          "en": "that cart will then hold the products.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 27.16,
+          "end": 29.21,
+          "en": "So actually with mongodb,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 29.23,
+          "end": 35.08,
+          "en": "this is a great place for embedded documents because we have a strict one-to-one relation between a",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 35.08,
+          "end": 39.64,
+          "en": "user and a cart and therefore there is no need to manage this with a reference,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 39.91,
+          "end": 47.5,
+          "en": "I could actually get rid of my cart items, my cart model so that I just have product and user",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 47.5,
+          "end": 49.68,
+          "en": "and for now, also the orders",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 49.89,
+          "end": 56.29,
+          "en": "and now on the user model, there I also want to store my cart items.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 56.29,
+          "end": 57.89,
+          "en": "Now the question is how,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 58.33,
+          "end": 68.01,
+          "en": "the answer is we get our shop.js controller and in there we got code to store something in a cart,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 68.22,
+          "end": 73.83,
+          "en": "here for the user we got the cart and then we got the products to see what's in there, update it and then",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 73.83,
+          "end": 75.36,
+          "en": "save it back.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 75.42,
+          "end": 78.21000000000001,
+          "en": "Now we can do that with the help of the user model.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 80.52,
+          "end": 87.96000000000001,
+          "en": "Let's say on a user object, instead of just having save I also add a new method, add to cart, something",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 87.96000000000001,
+          "end": 88.8,
+          "en": "like this.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 90.03999999999999,
+          "end": 95.58,
+          "en": "Now here add to cart would be a product I want to add to the cart of course,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 95.59,
+          "end": 99.84,
+          "en": "essentially what we're doing here in shop.js already, here",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 99.88,
+          "end": 106.62,
+          "en": "we already fetch or we got everything we need to fetch a product which we could then add to the cart.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 106.75,
+          "end": 115.36,
+          "en": "So I expect to get a product here which I can add and then in add to cart, I can have all the logic I need",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 115.6,
+          "end": 121,
+          "en": "to find out if that product is already inside of the cart and therefore if I just want to increase",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 121,
+          "end": 128.72,
+          "en": "the quantity or if it is not and therefore I want to add it for the first time. Now to understand how",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 128.72,
+          "end": 134.87,
+          "en": "this works you must not forget that add to cart will be called on a user object and we'll create that",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 134.87,
+          "end": 142.53,
+          "en": "object with data we fetched from the database with the help of find by ID, here we will return a user.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 142.57999999999998,
+          "end": 147,
+          "en": "So therefore we just need to be able to accept more data in a constructor,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 147.11,
+          "end": 154.46,
+          "en": "for example the cart so we can also store the cart in our javascript object here which will be based",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 154.46,
+          "end": 158.48,
+          "en": "on the data stored in the database.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 158.49,
+          "end": 165.09,
+          "en": "So now we can assume that we'll have a cart property on our user and now we just need to find out if",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 165.09,
+          "end": 168.07,
+          "en": "that cart contains a certain product already.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 168.1,
+          "end": 175.89,
+          "en": "Now the cart will essentially be an object let's say that looks something like this, an object with some",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 175.98,
+          "end": 180.31,
+          "en": "items, so an object which has the items array in there.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 180.32,
+          "end": 187.07,
+          "en": "So what we could do if we assume that this is the case, we could create a new constant, cart product and",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 187.07,
+          "end": 197.21,
+          "en": "then use this cart items and find, let's say the index of a product in that cart with the same ID",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 197.21,
+          "end": 199.37,
+          "en": "as the product we're trying to add again.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 200.24,
+          "end": 208.1,
+          "en": "So I'll pass a function to find index which simply is a function javascript will execute for every element",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 208.13,
+          "end": 209.47,
+          "en": "in the items array",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 209.7,
+          "end": 214.67000000000002,
+          "en": "and then here I want to return true if I found the right product in my items array and this will be the",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 214.67000000000002,
+          "end": 217.57,
+          "en": "case if cp which is the product in the items array,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 217.64,
+          "end": 225.26,
+          "en": "if the _id there matches the _id of the product I'm trying to insert. If that is",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 225.26,
+          "end": 226.2,
+          "en": "the case,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 226.3,
+          "end": 231.23,
+          "en": "so if this returns a valid index, so something else than minus one which would be the default otherwise,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 231.68,
+          "end": 237.37,
+          "en": "then I know this product already exists in a cart and then I just need to find out what its quantity",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 237.37,
+          "end": 238.4,
+          "en": "is.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 238.43,
+          "end": 239.98,
+          "en": "Now we'll do this a second step,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 239.99,
+          "end": 245.15,
+          "en": "first of all we can assume that there will be no products in the cart because we're just starting from",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 245.15,
+          "end": 245.65,
+          "en": "scratch,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 245.78,
+          "end": 250.78,
+          "en": "so let's add the code to add a product without checking whether that product exists yet,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 250.85,
+          "end": 257.47,
+          "en": "so we can comment this out for now and instead create a constant, maybe named updated cart",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 258.34,
+          "end": 267.64,
+          "en": "which is an object where we might have an items property which is an array where I will now include my",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 267.64,
+          "end": 268.64,
+          "en": "product.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 268.72,
+          "end": 271.46,
+          "en": "However not just the product as I'm getting here,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 271.57,
+          "end": 279.48,
+          "en": "I also want to add a quantity field, so I'll actually say product quantity and this is how you can",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 279.48,
+          "end": 286.71,
+          "en": "add a field on the fly in javascript equals one. Now another approach, maybe a bit more elegant than",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 286.71,
+          "end": 293.15999999999997,
+          "en": "that is that in items, you create an object with curly braces because we'll add an object here and then",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 293.15999999999997,
+          "end": 299.94,
+          "en": "you use the javascript spread operator, three dots to pull out all properties of this object so of the",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 299.94,
+          "end": 305.46,
+          "en": "product object and then with a comma, you can add or overwrite a property,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 305.49,
+          "end": 309.4,
+          "en": "so here I'll add the quantity property and set it to one.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 309.72,
+          "end": 315.51,
+          "en": "Whatever approach you choose, this will create an object which holds an items property which is an array",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 315.63,
+          "end": 316.05,
+          "en": "of",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 316.05,
+          "end": 322.71,
+          "en": "in our case only one object, one product with an additional quantity information. And now I want to update",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 322.74,
+          "end": 326.74,
+          "en": "the user to store that cart in there,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 326.94,
+          "end": 335.92,
+          "en": "so I will get access to my database with get db and I'll reach out to my users collection and I'll",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 335.98,
+          "end": 341.19,
+          "en": "update one user in there and I'll update the user with this user ID here,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 341.32,
+          "end": 345.92,
+          "en": "so what I need to do is I need to accept that ID as an argument.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 346.07,
+          "end": 353.77,
+          "en": "So this _id will be equal to ID let's say and then here I can say I want to find the user where",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 353.78,
+          "end": 362.15,
+          "en": "_id is equal to new and I'll use object ID which I extracted up here because I need that",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 362.15,
+          "end": 363.36,
+          "en": "for the comparison",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 364.44,
+          "end": 367.6,
+          "en": "where this is equal to this _id",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 367.75,
+          "end": 373.85,
+          "en": "and once I found that, I'll describe how to update and I'll use $set where I pass an object which",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 373.85,
+          "end": 378.29,
+          "en": "holds all the information about which field to update in which way.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 378.83,
+          "end": 386.48,
+          "en": "And here I essentially want to keep everything as it is, I dont want to change the user name or anything",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 386.48,
+          "end": 387.26,
+          "en": "like that,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 387.29,
+          "end": 391.25,
+          "en": "I'll just set cart equal to updated cart, that is it.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 391.4,
+          "end": 398.46,
+          "en": "So cart which I expect to have in a user in the database will now receive updated cart,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 398.48,
+          "end": 403.67,
+          "en": "so this object as a new value which will overwrite the old one and this is important,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 403.7,
+          "end": 409.11,
+          "en": "it will not merge this with the old one, it will not merge the elements in the items array, it will simply",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 409.13,
+          "end": 411.76,
+          "en": "overwrite the old cart with the new cart.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 412.90999999999997,
+          "end": 419.92,
+          "en": "Now I can return this here, this update one call and what this should do is well, it should update our user to",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 420.01,
+          "end": 421.42,
+          "en": "add a product to the cart,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 421.45,
+          "end": 426.39,
+          "en": "for now it will always overwrite any existing products in the cart, we'll fix this later",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 426.52,
+          "end": 428.55,
+          "en": "but for now, this should work.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 428.56,
+          "end": 430.57,
+          "en": "Now let's wire it up in the next lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

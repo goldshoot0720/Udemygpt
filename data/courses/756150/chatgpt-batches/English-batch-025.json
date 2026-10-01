@@ -1,0 +1,5604 @@
+{
+  "version": 1,
+  "courseId": 756150,
+  "courseSlug": "the-complete-guide-to-angular-2",
+  "courseTitle": "Angular - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "44116174",
+      "title": "Triggering Change Detection Manually & Using RxJS Subjects",
+      "lectureOrder": 204,
+      "videoOrder": 196,
+      "sourceHash": "f2e7daf289249e96b2bad733e0e0e46574905d9e2921599b90f2acf98b95fd4c",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.48,
+          "end": 2.64,
+          "en": "So how can we get change detection",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 2.64,
+          "end": 5.91,
+          "en": "to run again for the MessagesListComponent?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.91,
+          "end": 9.6,
+          "en": "Well, we in the end need to trigger it manually,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.6,
+          "end": 13.44,
+          "en": "and Angular gives you the tools for triggering it manually.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 13.44,
+          "end": 17.37,
+          "en": "It gives you an object you can inject into your components",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 17.37,
+          "end": 20.403,
+          "en": "to trigger change detection in those components.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 21.45,
+          "end": 24.66,
+          "en": "So we can inject that thing here",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 24.66,
+          "end": 29.25,
+          "en": "and I'll name it cdRef for ChangeDetectorRef,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 29.25,
+          "end": 34.25,
+          "en": "because what I'll inject is the ChangeDetectorRef token.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 35.04,
+          "end": 36.93,
+          "en": "And that turns out to be a class.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 36.93,
+          "end": 40.803,
+          "en": "So in the end, again, it's a service provided by Angular.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 42.12,
+          "end": 45.93,
+          "en": "And you can call a method on that service",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 45.93,
+          "end": 47.55,
+          "en": "to trigger change detection.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 47.55,
+          "end": 52.55,
+          "en": "The problem just is where exactly would we call it here?",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 52.8,
+          "end": 57.27,
+          "en": "We want to call it when the data in the service changes,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 57.27,
+          "end": 59.73,
+          "en": "but we can't call it in the service",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 59.73,
+          "end": 62.61,
+          "en": "because this ChangeDetectorRef thing",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 62.61,
+          "end": 66.27,
+          "en": "needs to be used in the component which should be checked,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 66.27,
+          "end": 69.303,
+          "en": "not in the place where the changes occurred.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 70.62,
+          "end": 75.62,
+          "en": "So we need a way of finding out that something changed.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 75.9,
+          "end": 78.45,
+          "en": "We need a way of getting notified",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 78.45,
+          "end": 80.78999999999999,
+          "en": "about changes in this component",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 80.78999999999999,
+          "end": 85.05,
+          "en": "so that we can then trigger change detection manually.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 85.05,
+          "end": 87.03,
+          "en": "To get notified about events",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 87.03,
+          "end": 89.67,
+          "en": "that could have an impact on a component,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 89.67,
+          "end": 92.61,
+          "en": "Angular uses a third-party library",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 92.61,
+          "end": 96.15,
+          "en": "that's deeply incorporated into Angular,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 96.15,
+          "end": 99.813,
+          "en": "at least into parts of Angular, called RxJS.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 100.77000000000001,
+          "end": 104.88300000000001,
+          "en": "And it is part of the project I provided to you,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 105.75,
+          "end": 110.75,
+          "en": "and it is part of all Angular projects that are created.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 110.85,
+          "end": 112.62,
+          "en": "It's not part of Angular,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 112.62,
+          "end": 116.82,
+          "en": "but it's, as I just explained, used a lot by Angular.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 116.82,
+          "end": 119.00999999999999,
+          "en": "Internally, in certain parts,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 119.00999999999999,
+          "end": 121.44,
+          "en": "and it can also be used by you as a developer",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 121.44,
+          "end": 124.83,
+          "en": "and there are Angular developers who absolutely love it",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 124.83,
+          "end": 127.56,
+          "en": "and there are developers who don't like it at all.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 127.56,
+          "end": 129.72,
+          "en": "But here in this course, we'll use the basics",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 129.72,
+          "end": 133.32,
+          "en": "of this RxJS library, since you should know about it,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 133.32,
+          "end": 136.41,
+          "en": "and we'll use one specific feature here",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 136.41,
+          "end": 141.3,
+          "en": "which allows us such a subscription to changes",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 141.3,
+          "end": 143.61,
+          "en": "that will allow us to trigger events",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 143.61,
+          "end": 145.653,
+          "en": "in that MessagesListComponent.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 146.79,
+          "end": 149.7,
+          "en": "For that, I'll start here in that service, though,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 149.7,
+          "end": 152.163,
+          "en": "because it's here where the change happens.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 153.06,
+          "end": 155.52,
+          "en": "And in there, I'll start by importing something",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 155.52,
+          "end": 157.81,
+          "en": "from this rxjs package",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 158.82,
+          "end": 162.303,
+          "en": "and that something is a so-called BehaviorSubject,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 164.1,
+          "end": 166.74,
+          "en": "which is kind of like a Signal.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 166.74,
+          "end": 170.22,
+          "en": "Now if you know RxJS, please don't kill me.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 170.22,
+          "end": 172.29,
+          "en": "I know there are many differences,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 172.29,
+          "end": 176.46,
+          "en": "but in its core, this indeed is a thing",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 176.46,
+          "end": 180.39,
+          "en": "that allows you to create a wrapper around a value",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 180.39,
+          "end": 183.84,
+          "en": "and it then also allows you to set up subscriptions",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 183.84,
+          "end": 185.703,
+          "en": "to changes to that value.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 186.72,
+          "end": 189.51,
+          "en": "Now there also are many differences compared to Signals,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 189.51,
+          "end": 193.62,
+          "en": "but you can use such a BehaviorSubject to wrap a value",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 193.62,
+          "end": 197.25,
+          "en": "and let others know when that value changes.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 197.25,
+          "end": 200.79,
+          "en": "And that's a functionality we need here.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 200.79,
+          "end": 204.66,
+          "en": "Therefore, here in this service, I'll add a new property,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 204.66,
+          "end": 205.827,
+          "en": "messages$.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 208.56,
+          "end": 210.57,
+          "en": "And this is a special naming convention",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 210.57,
+          "end": 215.57,
+          "en": "that's typically used for RxJS-related variables",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 216.6,
+          "end": 218.13,
+          "en": "or properties.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 218.13,
+          "end": 221.13,
+          "en": "So variables or properties that hold values",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 221.13,
+          "end": 224.16,
+          "en": "that are managed with help of RxJS.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 224.16,
+          "end": 225.81,
+          "en": "They are typically named like this,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 225.81,
+          "end": 228.3,
+          "en": "though that's not a technical requirement.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 228.3,
+          "end": 231.12,
+          "en": "That's just something that has been established",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 231.12,
+          "end": 232.44299999999998,
+          "en": "over all those years.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 233.82,
+          "end": 236.52,
+          "en": "And the value I want to store in this property",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 236.52,
+          "end": 238.90699999999998,
+          "en": "is a new BehaviorSubject.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 240.05,
+          "end": 243.9,
+          "en": "So BehaviorSubject is a class which can be instantiated",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 243.9,
+          "end": 248.16,
+          "en": "to create a new subject, a new wrapper therefore",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 248.16,
+          "end": 250.08,
+          "en": "around some value.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 250.08,
+          "end": 251.43,
+          "en": "Indeed, like a Signal,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 251.43,
+          "end": 256.14,
+          "en": "BehaviorSubject then takes an initial value as an input.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 256.14,
+          "end": 258.9,
+          "en": "And it's also a generic class which allows you",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 258.9,
+          "end": 261.36,
+          "en": "to add extra type information to it",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 261.36,
+          "end": 263.67,
+          "en": "so that we can let TypeScript know",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 263.67,
+          "end": 266.703,
+          "en": "which kind of value will eventually be managed here.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 267.69,
+          "end": 269.37,
+          "en": "In this case, I'll let Angular know",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 269.37,
+          "end": 272.19,
+          "en": "that this will be an array of strings",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 272.19,
+          "end": 274.14,
+          "en": "that will be managed here.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 274.14,
+          "end": 276.99,
+          "en": "Now with that subject being set up here,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 276.99,
+          "end": 281.19,
+          "en": "we can go to addMessage, and after updating our messages,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 281.19,
+          "end": 286.19,
+          "en": "we can use this subject and call the next method on it,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 287.76,
+          "end": 291.3,
+          "en": "which allows us to emit a new value in the end.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 291.3,
+          "end": 294.303,
+          "en": "And the value I want to emit is my updated messages.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 295.35,
+          "end": 299.61,
+          "en": "Now you could solve this all in a bit of a more elegant way",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 299.61,
+          "end": 302.16,
+          "en": "if you fully embraced RxJS,",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 302.16,
+          "end": 304.62,
+          "en": "but in order to keep things simple",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 304.62,
+          "end": 307.83,
+          "en": "and hopefully understandable, I'll use it like this.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 307.83,
+          "end": 309.57,
+          "en": "I'll set up that BehaviorSubject,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 309.57,
+          "end": 312.57,
+          "en": "I'll manage the messages in a separate property,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 312.57,
+          "end": 314.73,
+          "en": "and after updating those messages,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 314.73,
+          "end": 319.5,
+          "en": "I'll emit a new event, if you want to call it like this,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 319.5,
+          "end": 321.48,
+          "en": "through that BehaviorSubject,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 321.48,
+          "end": 323.823,
+          "en": "which carries the updated data.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 325.71,
+          "end": 328.86,
+          "en": "Now we can use this BehaviorSubject here",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 328.86,
+          "end": 331.17,
+          "en": "to set up a so-called subscription",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 331.17,
+          "end": 334.32,
+          "en": "to be notified about new data.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 334.32,
+          "end": 338.4,
+          "en": "So to be notified whenever this event here is emitted.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 338.4,
+          "end": 341.82,
+          "en": "For that, we can go back to the MessagesListComponent,",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 341.82,
+          "end": 346.82,
+          "en": "and there we could use ngOnInit to set up this subscription.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 347.4,
+          "end": 350.07,
+          "en": "That would be a great place for that.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 350.07,
+          "end": 352.92,
+          "en": "So let's implement the OnInit interface,",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 352.92,
+          "end": 354.993,
+          "en": "which is imported from angular/core.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 356.88,
+          "end": 361.713,
+          "en": "And let's then add this ngOnInit method here.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 363.66,
+          "end": 365.56,
+          "en": "And now we can use the messagesService",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 366.66,
+          "end": 371.1,
+          "en": "and access this messages$ subject",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 371.1,
+          "end": 374.763,
+          "en": "and call the subscribe method to set up a subscription.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 376.08,
+          "end": 379.92,
+          "en": "And subscribe then takes a function which will be executed",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 379.92,
+          "end": 384.92,
+          "en": "by RxJS whenever a new value is emitted by that subject.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 386.43,
+          "end": 387.63,
+          "en": "And it's now in here",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 387.63,
+          "end": 391.93,
+          "en": "where we can use this change detection reference thing here",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 392.85,
+          "end": 395.823,
+          "en": "to call the markForCheck function,",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 397.08,
+          "end": 401.79,
+          "en": "which will tell Angular that it should check this component",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 401.79,
+          "end": 403.29,
+          "en": "in which this function is called",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 403.29,
+          "end": 407.31,
+          "en": "and into which this change detector has been injected,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 407.31,
+          "end": 411.27,
+          "en": "that this component should now be checked for changes.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 411.27,
+          "end": 414.48,
+          "en": "And we could now actually also change the code a little bit",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 414.48,
+          "end": 417.63,
+          "en": "and change messages from being a getter",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 417.63,
+          "end": 419.4,
+          "en": "to being a regular property",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 419.4,
+          "end": 422.52,
+          "en": "which initially holds an empty array, let's say,",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 422.52,
+          "end": 424.83,
+          "en": "though I'll set the type to string array",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 424.83,
+          "end": 428.13,
+          "en": "to make it clear which kind of value will be stored here.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 428.13,
+          "end": 431.52,
+          "en": "And then here in this subscription method,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 431.52,
+          "end": 434.31,
+          "en": "we could also set our messages",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 434.31,
+          "end": 436.89300000000003,
+          "en": "to the messages we get from this subject.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 438.6,
+          "end": 442.35,
+          "en": "Because in our service, when I emit this value here,",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 442.35,
+          "end": 446.79,
+          "en": "I'm passing my messages along with that event.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 446.79,
+          "end": 450.18,
+          "en": "It is the value I'm emitting after all here.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 450.18,
+          "end": 453.753,
+          "en": "So we can use that value in the place where we subscribe.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 454.68,
+          "end": 458.04,
+          "en": "And actually here, we also might want to emit such a copy",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 458.04,
+          "end": 460.68,
+          "en": "so that in the place where I do subscribe,",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 460.68,
+          "end": 464.493,
+          "en": "I can't accidentally change the array that's managed here.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 466.02,
+          "end": 468.81,
+          "en": "But the key thing is that I do pass this array along",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 468.81,
+          "end": 470.85,
+          "en": "with the event, so to say.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 470.85,
+          "end": 473.52,
+          "en": "And therefore, in the place where I subscribe,",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 473.52,
+          "end": 478.29,
+          "en": "I will actually get my messages here as a parameter.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 478.29,
+          "end": 479.37,
+          "en": "Automatically.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 479.37,
+          "end": 483.06,
+          "en": "It will be passed into this function by RxJS.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 483.06,
+          "end": 486.39,
+          "en": "And therefore, I can overwrite my locally-managed messages",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 486.39,
+          "end": 488.43,
+          "en": "with the messages from the service,",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 488.43,
+          "end": 490.44,
+          "en": "and this value will be updated",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 490.44,
+          "end": 495.09,
+          "en": "whenever a new message is added with help of the service.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 495.09,
+          "end": 498.27,
+          "en": "And then thanks to markForCheck,",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 498.27,
+          "end": 501.963,
+          "en": "I make sure that change detector runs for this component.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 502.92,
+          "end": 506.04,
+          "en": "With that, if I reload",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 506.04,
+          "end": 510.57,
+          "en": "and I again wait for my timers to expire here,",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 510.57,
+          "end": 514.5,
+          "en": "if I enter a new message and I click Save,",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 514.5,
+          "end": 517.26,
+          "en": "you see that now the message appears here",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 517.26,
+          "end": 519.3,
+          "en": "and that MessagesList log is here",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 519.3,
+          "end": 521.88,
+          "en": "because now the component has been checked",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 521.88,
+          "end": 524.283,
+          "en": "because we did now trigger that manually.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 525.3,
+          "end": 527.52,
+          "en": "If I were to remove that,",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 527.52,
+          "end": 531.4,
+          "en": "so if we would not mark this component for checking",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 532.59,
+          "end": 535.11,
+          "en": "and I would then enter a message here,",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 535.11,
+          "end": 537.54,
+          "en": "this would still not work.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 537.54,
+          "end": 541.14,
+          "en": "So the usage of RxJS alone is not enough.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 541.14,
+          "end": 544.29,
+          "en": "I am just using it here so that I have a place",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 544.29,
+          "end": 547.773,
+          "en": "where I can trigger change detection manually.",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 548.76,
+          "end": 552.78,
+          "en": "Now if you are using RxJS, then you should actually also",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 552.78,
+          "end": 555,
+          "en": "clean up this subscription here",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 555,
+          "end": 558.24,
+          "en": "so that if this component were to be removed,",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 558.24,
+          "end": 560.58,
+          "en": "because it's maybe rendered conditionally,",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 560.58,
+          "end": 562.02,
+          "en": "which is not the case here,",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 562.02,
+          "end": 564.81,
+          "en": "but which could be the case in other applications,",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 564.81,
+          "end": 567.57,
+          "en": "so that if that component were to be removed,",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 567.57,
+          "end": 569.79,
+          "en": "this subscription would be cleaned up",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 569.79,
+          "end": 572.82,
+          "en": "and you don't end up with subscriptions going on",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 572.82,
+          "end": 575.973,
+          "en": "behind the scenes, even though they're not needed anymore.",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 577.02,
+          "end": 579.12,
+          "en": "And to clean up this subscription,",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 579.12,
+          "end": 581.52,
+          "en": "you could use the ngOnDestroy hook",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 581.52,
+          "end": 584.43,
+          "en": "or simply add a new property here,",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 584.43,
+          "end": 586.03,
+          "en": "which I'll name destroyRef",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 586.89,
+          "end": 591.89,
+          "en": "where I inject the DestroyRef value.",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 592.14,
+          "end": 595.05,
+          "en": "And you learned about that earlier in the course as well.",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 595.05,
+          "end": 598.47,
+          "en": "This can then be used here in ngOnInit",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 598.47,
+          "end": 602.073,
+          "en": "to call this.destroyRef.onDestroy",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 603.42,
+          "end": 606.15,
+          "en": "and register a function that should be executed",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 606.15,
+          "end": 608.733,
+          "en": "if this component is about to be destroyed.",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 610.08,
+          "end": 615.08,
+          "en": "And now subscribe conveniently returns a Subscription value,",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 615.42,
+          "end": 617.61,
+          "en": "which we can store in a constant",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 617.61,
+          "end": 619.383,
+          "en": "that could be called subscription.",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 620.403,
+          "end": 623.49,
+          "en": "And we can then use this here in this onDestroy code",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 623.49,
+          "end": 626.94,
+          "en": "to call unsubscribe,",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 626.94,
+          "end": 629.46,
+          "en": "which will clean up this subscription",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 629.46,
+          "end": 632.223,
+          "en": "if this component here should be removed.",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 633.18,
+          "end": 635.19,
+          "en": "It's not really required here",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 635.19,
+          "end": 637.65,
+          "en": "because this component is never removed,",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 637.65,
+          "end": 640.47,
+          "en": "but it is a good practice to follow",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 640.47,
+          "end": 643.08,
+          "en": "and something you want to get used to.",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 643.08,
+          "end": 646.11,
+          "en": "So that's therefore how you could make sure",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 646.11,
+          "end": 648.72,
+          "en": "that this component is checked for changes",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 648.72,
+          "end": 653.72,
+          "en": "and is updated when using a service, when not using Signals.",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 654.72,
+          "end": 656.94,
+          "en": "This is then a way of making sure",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 656.94,
+          "end": 659.133,
+          "en": "that the app still works as it should.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "44116184",
+      "title": "Introducing The async Pipe",
+      "lectureOrder": 205,
+      "videoOrder": 197,
+      "sourceHash": "df6f91b831682c141c5478b252621346fb5e96be087b2585d363c0340c77016f",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.287,
+          "end": 3.93,
+          "en": "So using such a rxjs subject",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.93,
+          "end": 6.96,
+          "en": "and setting up that subscription here",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.96,
+          "end": 9.9,
+          "en": "and triggering change detection manually",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.9,
+          "end": 11.76,
+          "en": "can be a good alternative",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.76,
+          "end": 15.15,
+          "en": "to using signals when using OnPush components",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.15,
+          "end": 17.043,
+          "en": "and services in combination.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 17.94,
+          "end": 20.52,
+          "en": "However, as you can tell, this was of course,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 20.52,
+          "end": 23.1,
+          "en": "quite a lot of code we had to write here",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 23.1,
+          "end": 25.32,
+          "en": "in this messages-list component.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 25.32,
+          "end": 29.31,
+          "en": "And that's why Angular also offers a shortcut,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 29.31,
+          "end": 32.58,
+          "en": "a built-in feature, if you want to call it like this,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 32.58,
+          "end": 35.19,
+          "en": "for situations like this.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 35.19,
+          "end": 39.12,
+          "en": "Instead of managing this messages property here,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 39.12,
+          "end": 42.18,
+          "en": "and instead of triggering change detection manually",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 42.18,
+          "end": 46.08,
+          "en": "and injecting this change detector reference thing,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 46.08,
+          "end": 49.11,
+          "en": "and instead of managing the subscription",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 49.11,
+          "end": 54.06,
+          "en": "and its cleanup, instead of doing all these things,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 54.06,
+          "end": 58.98,
+          "en": "you can get rid of all that code, get rid of that interface,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 58.98,
+          "end": 60.96,
+          "en": "and get rid of all these imports",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 60.96,
+          "end": 63.033,
+          "en": "which are not needed anymore.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 64.74,
+          "end": 66.69,
+          "en": "And instead of doing all these things,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 66.69,
+          "end": 71.13,
+          "en": "you can add one simple new property to this component.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 71.13,
+          "end": 74.1,
+          "en": "Let's maybe name it messages$ as well,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 74.1,
+          "end": 75.27,
+          "en": "though the name is up to you",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 75.27,
+          "end": 78.723,
+          "en": "and does not have to be the same one as in the service.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 79.89,
+          "end": 81.63,
+          "en": "But here I will use the same one",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 81.63,
+          "end": 85.98,
+          "en": "because I, in the end, wanna bind my messages subject",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 85.98,
+          "end": 88.413,
+          "en": "from the service to the messages here.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 89.37,
+          "end": 91.92,
+          "en": "Now what will this achieve though?",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 91.92,
+          "end": 95.88,
+          "en": "Well, now this property holds a behavior subject",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 95.88,
+          "end": 99.993,
+          "en": "which emits events that carry that messages array.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 101.75999999999999,
+          "end": 106.05,
+          "en": "Angular now offers us a special pipe we can use",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 106.05,
+          "end": 109.8,
+          "en": "in the template to automatically set up",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 109.8,
+          "end": 112.47,
+          "en": "and clean up that subscription",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 112.47,
+          "end": 116.31,
+          "en": "and read those values from the subject.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 116.31,
+          "end": 120.09,
+          "en": "For that, I'll use my messages$ property here,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 120.09,
+          "end": 123.813,
+          "en": "and then I'll use the special async pipe thereafter.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 124.68,
+          "end": 126.972,
+          "en": "And that's a built-in pipe that's meant",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 126.972,
+          "end": 130.41,
+          "en": "to be used in conjunction with observables,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 130.41,
+          "end": 134.52,
+          "en": "which is the main thing this rxjs package offers.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 134.52,
+          "end": 137.1,
+          "en": "And in the end, that subject we're using",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 137.1,
+          "end": 141.78,
+          "en": "that behavior subject, is also just kind of an observable,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 141.78,
+          "end": 146.07,
+          "en": "and we'll dive a bit deeper into rxjs later in the course.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 146.07,
+          "end": 147.993,
+          "en": "For now, that's all you need to know.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 149.13,
+          "end": 150.9,
+          "en": "So async is a built-in pipe",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 150.9,
+          "end": 153.63,
+          "en": "that can be used on such an observable",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 153.63,
+          "end": 156.39,
+          "en": "on such a subject here, in this case,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 156.39,
+          "end": 159.57,
+          "en": "and behind the scenes when using this async pipe,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 159.57,
+          "end": 164.19,
+          "en": "Angular will set up a subscription, will read the values",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 164.19,
+          "end": 166.82999999999998,
+          "en": "that are emitted by that subject",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 166.82999999999998,
+          "end": 169.62,
+          "en": "and will provide them here in the template",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 169.62,
+          "end": 172.797,
+          "en": "so that this for loop will continue to work.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 172.797,
+          "end": 176.462,
+          "en": "And it will also unsubscribe if this component shouldn't",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 176.462,
+          "end": 178.86,
+          "en": "be active anymore.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 178.86,
+          "end": 183.3,
+          "en": "In addition, it will also trigger change detection",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 183.3,
+          "end": 184.71,
+          "en": "for this component",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 184.71,
+          "end": 188.04,
+          "en": "whenever a new value is received from that subject",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 188.04,
+          "end": 190.62,
+          "en": "or from that observable.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 190.62,
+          "end": 193.62,
+          "en": "So that's also something the async pipe will do.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 193.62,
+          "end": 196.98,
+          "en": "It will trigger change detection when new values",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 196.98,
+          "end": 198.123,
+          "en": "are received.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 199.68,
+          "end": 202.11,
+          "en": "Now I just have to enable it here",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 202.11,
+          "end": 205.62,
+          "en": "by adding the imports array in that messages-list component,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 205.62,
+          "end": 208.683,
+          "en": "and by adding the async pipe here,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 209.7,
+          "end": 212.793,
+          "en": "and for that you must import it from Angular common.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 214.35,
+          "end": 217.11,
+          "en": "With it imported and unlocked,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 217.11,
+          "end": 219.54,
+          "en": "this will work though, and as a result,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 219.54,
+          "end": 224.52,
+          "en": "the application will work the same way it did before.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 224.52,
+          "end": 226.82999999999998,
+          "en": "So here, if I enter test",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 226.82999999999998,
+          "end": 229.623,
+          "en": "and I save this, you see that shows up here.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 230.97,
+          "end": 235.38,
+          "en": "If I add testing, clean this and click save,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 235.38,
+          "end": 238.41,
+          "en": "you see the messages-list component was evaluated",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 238.41,
+          "end": 241.65,
+          "en": "because the async pipe triggered the change detection",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 241.65,
+          "end": 243.423,
+          "en": "and the message shows up here,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 244.77,
+          "end": 248.07,
+          "en": "and that's therefore a more elegant way of handling this.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 248.07,
+          "end": 250.2,
+          "en": "Nonetheless, it's super important",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 250.2,
+          "end": 252.96,
+          "en": "to understand what's going on behind the scenes.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 252.96,
+          "end": 254.22,
+          "en": "And if you ever need",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 254.22,
+          "end": 258.24,
+          "en": "to do more than just output the subject value",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 258.24,
+          "end": 262.23,
+          "en": "in your template, you will need to manually set up",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 262.23,
+          "end": 266.04,
+          "en": "and manage such a subscription as I showed it to you before.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 266.04,
+          "end": 269.94,
+          "en": "That's why you should know about both approaches,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 269.94,
+          "end": 271.053,
+          "en": "and now you do.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "44116190",
+      "title": "Going Zoneless!",
+      "lectureOrder": 207,
+      "videoOrder": 198,
+      "sourceHash": "613a3e146b42529fa51622fd35f99d9fb76a55bdfdb0cf3f61f380df2b3968d3",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.75,
+          "end": 3.15,
+          "en": "So you did learn a lot",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.15,
+          "end": 6.12,
+          "en": "about Angulars change detection mechanism,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.12,
+          "end": 9.36,
+          "en": "but at its core, everything you learned here,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.36,
+          "end": 13.68,
+          "en": "pretty much everything, still only works the way it does",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 13.68,
+          "end": 18.68,
+          "en": "because Angular uses zone.js because it's that zone",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.59,
+          "end": 22.92,
+          "en": "that wraps the Angular app kind of",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 22.92,
+          "end": 26.22,
+          "en": "that tells Angular when an event occurs",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 26.22,
+          "end": 31.22,
+          "en": "or once something changed and that in the end is the source",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 31.95,
+          "end": 33.99,
+          "en": "for the change detection or",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 33.99,
+          "end": 36.785,
+          "en": "for most change detection cycles here, no matter",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 36.785,
+          "end": 41.19,
+          "en": "if you're using a service or signals,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 41.19,
+          "end": 46.05,
+          "en": "but if you are using signals like here",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 46.05,
+          "end": 48.36,
+          "en": "in the counter.component,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 48.36,
+          "end": 52.492,
+          "en": "then you can actually get rid of zone.js because",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 52.492,
+          "end": 57.42,
+          "en": "that Signal feature is a feature provided by Angular.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 57.42,
+          "end": 60.66,
+          "en": "You create signals with that Signal function",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 60.66,
+          "end": 62.4,
+          "en": "that's provided by Angular",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 62.4,
+          "end": 67.14,
+          "en": "and therefore when you change a Signal anywhere",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 67.14,
+          "end": 69.223,
+          "en": "in your code, no matter if you do it",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 69.223,
+          "end": 71.82,
+          "en": "because a timer expired or",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 71.82,
+          "end": 74.898,
+          "en": "because a user clicked a button, when you change",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 74.898,
+          "end": 79.86,
+          "en": "a signal's value, Angular of course knows about it",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 79.86,
+          "end": 81.592,
+          "en": "because the Signal is created",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 81.592,
+          "end": 85.62,
+          "en": "with a function that comes from Angular.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 85.62,
+          "end": 90.114,
+          "en": "So internally, that Signal object that is created here can",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 90.114,
+          "end": 95.114,
+          "en": "of course notify Angular if it's value changed.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 95.4,
+          "end": 99.926,
+          "en": "And the same is true for event bindings, for example, just",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 99.926,
+          "end": 103.2,
+          "en": "like signals, this is an Angular feature.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 103.2,
+          "end": 107.52000000000001,
+          "en": "So of course Angular knows when that button gets clicked",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 107.52000000000001,
+          "end": 109.8,
+          "en": "because it handles the click Event,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 109.8,
+          "end": 112.74000000000001,
+          "en": "it triggers these methods which we set up",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 112.74000000000001,
+          "end": 114.093,
+          "en": "with event binding.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 114.93,
+          "end": 118.457,
+          "en": "So of course it can still also trigger change detection",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 118.457,
+          "end": 121.98,
+          "en": "for this component without zone.js",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 121.98,
+          "end": 125.88,
+          "en": "because it does know about such events.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 125.88,
+          "end": 127.172,
+          "en": "And therefore with that",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 127.172,
+          "end": 132.172,
+          "en": "in mind, we can actually consider removing zone.js",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 133.8,
+          "end": 138.8,
+          "en": "because if we only use signals or event bindings",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 139.05,
+          "end": 144.05,
+          "en": "like this, then in the end we have good sources",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 144.57,
+          "end": 147.3,
+          "en": "that will tell Angular that something changed",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 147.3,
+          "end": 150.663,
+          "en": "and that will allow Angular to run change detection.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 151.98,
+          "end": 154.195,
+          "en": "It's just timers like the one we had",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 154.195,
+          "end": 158.875,
+          "en": "in the counter variable, which no longer will be considered",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 158.875,
+          "end": 160.958,
+          "en": "because it's timers like these",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 160.958,
+          "end": 165.958,
+          "en": "that were previously handled by zone.js.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 166.11,
+          "end": 169.05,
+          "en": "Zone.js listened to expiring timers",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 169.05,
+          "end": 171.63,
+          "en": "and told Angular that something changed",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 171.63,
+          "end": 175.32,
+          "en": "and that Angular should consider running change detection.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 175.32,
+          "end": 178.86,
+          "en": "But if we use signals and we update signals",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 178.86,
+          "end": 183.36,
+          "en": "inside of timers, then we have a way of telling Angular",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 183.36,
+          "end": 187.11,
+          "en": "that something changed even without zone.js.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 187.11,
+          "end": 190.29,
+          "en": "And that's why they offer when using signals,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 190.29,
+          "end": 193.47,
+          "en": "we can get rid of zone.js.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 193.47,
+          "end": 197.7,
+          "en": "And it turns out that Angular nowadays when using",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 197.7,
+          "end": 202.14,
+          "en": "at least version 18, allows you to do that.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 202.14,
+          "end": 205.11,
+          "en": "And since Angular sets up subscriptions",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 205.11,
+          "end": 208.5,
+          "en": "in the places where you read a Signal",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 208.5,
+          "end": 212.7,
+          "en": "in your templates, since Angular does that, it",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 212.7,
+          "end": 217.17000000000002,
+          "en": "of course also knows which parts should be checked",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 217.17000000000002,
+          "end": 221.67000000000002,
+          "en": "for changes and which parts of the application should update",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 221.67000000000002,
+          "end": 224.57999999999998,
+          "en": "as a Signal value changes.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 224.57999999999998,
+          "end": 228.48,
+          "en": "And therefore you can actually get rid of zone.js.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 228.48,
+          "end": 231.18,
+          "en": "And that in the end of course will lead",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 231.18,
+          "end": 234.81,
+          "en": "to more fine-grained change detection.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 234.81,
+          "end": 239.7,
+          "en": "It leads to a smaller bundle size to a smaller code bundle",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 239.7,
+          "end": 243.84,
+          "en": "that's being produced because the zone.js code isn't part of",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 243.84,
+          "end": 247.256,
+          "en": "that bundle anymore and it leads to less",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 247.256,
+          "end": 250.77,
+          "en": "behind the scenes checks, less listeners",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 250.77,
+          "end": 252.69,
+          "en": "for events behind the scenes.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 252.69,
+          "end": 256.83,
+          "en": "So lots of good things and therefore here",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 256.83,
+          "end": 258.6,
+          "en": "in this application I'll switch back",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 258.6,
+          "end": 262.8,
+          "en": "to using signals by going to the messages service.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 262.8,
+          "end": 267.8,
+          "en": "And here I'll remove that subject and set messages back",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 268.052,
+          "end": 273.052,
+          "en": "to being a Signal, which will manage an array of strings.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 274.89,
+          "end": 277.33,
+          "en": "I'll get rid of the 'rxjs' import",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 278.49,
+          "end": 281.15999999999997,
+          "en": "and I'll get rid of the allMessages() gather",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 281.15999999999997,
+          "end": 283.5,
+          "en": "and instead set all messages",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 283.5,
+          "end": 288.183,
+          "en": "to this.messages.asReadonly() as it was before.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 289.257,
+          "end": 293.73,
+          "en": "And here in addMessage I'll simply",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 293.73,
+          "end": 297.176,
+          "en": "update() my messages Signal with",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 297.176,
+          "end": 301.71,
+          "en": "that update() method where I get the oldMessages",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 301.71,
+          "end": 305.49,
+          "en": "and where I then return a new array which copies",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 305.49,
+          "end": 307.41,
+          "en": "all the old messages into it",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 307.41,
+          "end": 309.513,
+          "en": "and adds the new message at the end.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 311.94,
+          "end": 313.83,
+          "en": "In the new message component,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 313.83,
+          "end": 318.627,
+          "en": "I also wanna set enteredText back to being a signal();",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 320.16,
+          "end": 322.96,
+          "en": "and therefore Signal must be imported here of course",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 323.94,
+          "end": 328.23,
+          "en": "and I'll therefore read the value down there where I need it",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 328.23,
+          "end": 330.7,
+          "en": "and I'll reset it by using the set(''); method",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 333.12,
+          "end": 337.17,
+          "en": "and then the MessagesListComponent TypeScript file.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 337.17,
+          "end": 341.49,
+          "en": "I no longer register this property like this anymore.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 341.49,
+          "end": 344.28,
+          "en": "Instead I just add messages and reach out",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 344.28,
+          "end": 347.317,
+          "en": "to thismessagesService.allMessages",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 349.23,
+          "end": 352.383,
+          "en": "so that I store a reference to that Signal here.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 354,
+          "end": 357.21,
+          "en": "I can get rid of the AsyncPipe import here",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 357.21,
+          "end": 362.21,
+          "en": "and here and then the template instead of using",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 362.31,
+          "end": 364.56,
+          "en": "that AsyncPipe, I now simply read",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 364.56,
+          "end": 366.513,
+          "en": "that messages Signal again.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 368.52,
+          "end": 372.06,
+          "en": "And with that, this entire app uses Signals",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 372.06,
+          "end": 375,
+          "en": "in all the places where I'm managing data",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 375,
+          "end": 378.783,
+          "en": "that might change, I'm using Signals.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 380.97,
+          "end": 385.5,
+          "en": "As a result we can now get rid of zone.js,",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 385.5,
+          "end": 389.37,
+          "en": "and we do that in a two step process.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 389.37,
+          "end": 392.79,
+          "en": "The first step is to go to the angular.json file,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 392.79,
+          "end": 396.33,
+          "en": "which configures this Angular project and how it's built.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 396.33,
+          "end": 401.04,
+          "en": "And there in the \"build\" node under \"polyfills\",",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 401.04,
+          "end": 405.49,
+          "en": "you wanna make sure that this zone.js polyfill is removed",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 407.7,
+          "end": 410.01,
+          "en": "and you'll need to stop your development server",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 410.01,
+          "end": 412.683,
+          "en": "and restart it for that to have an effect.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 414.69,
+          "end": 418.17,
+          "en": "In addition, in the main TS file, you should now go",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 418.17,
+          "end": 420.54,
+          "en": "to bootstrapApplication",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 420.54,
+          "end": 424.59,
+          "en": "and add that configuration object to add providers",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 424.59,
+          "end": 426.315,
+          "en": "and it's now a special provider",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 426.315,
+          "end": 431.315,
+          "en": "that should be imported from '@angular/core'",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 433.538,
+          "end": 435.54,
+          "en": "and the provider we need here is",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 435.54,
+          "end": 437.76,
+          "en": "the provideExperimentalZonelessChangeDetection",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 441.3,
+          "end": 444.96,
+          "en": "And this provider has this name for a reason.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 444.96,
+          "end": 447.93,
+          "en": "At the point of time where I'm recording this,",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 447.93,
+          "end": 450.993,
+          "en": "it's experimental, it's not stable.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 451.92,
+          "end": 455.55,
+          "en": "It may contain bugs and it's likely to change.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 455.55,
+          "end": 458.61,
+          "en": "The name will also likely change.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 458.61,
+          "end": 459.727,
+          "en": "So if you are watching this,",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 459.727,
+          "end": 462.577,
+          "en": "it might already be named provideZonelessChangeDetection.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 464.58,
+          "end": 467.07,
+          "en": "At the moment, it still has that name.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 467.07,
+          "end": 470.28,
+          "en": "And in the end this here is a function",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 470.28,
+          "end": 473.523,
+          "en": "which you should execute here in your provider's array.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 475.11,
+          "end": 480.11,
+          "en": "That will now disable zone.js for this Angular application.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 480.24,
+          "end": 484.68,
+          "en": "So now, zone.js won't help Angular detect",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 484.68,
+          "end": 488.52,
+          "en": "whether some timer expired or anything like that.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 488.52,
+          "end": 492.423,
+          "en": "Now it really comes down to signals telling Angular",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 492.423,
+          "end": 495.423,
+          "en": "that something changed and that's it.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 496.62,
+          "end": 499.95,
+          "en": "This also means that in the counter.component",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 499.95,
+          "end": 502.56,
+          "en": "where I opt out of zone.js",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 502.56,
+          "end": 506.55,
+          "en": "for this second timer, we shouldn't do that anymore",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 506.55,
+          "end": 509.703,
+          "en": "because we're not using zone.js anymore anyways.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 511.11,
+          "end": 514.797,
+          "en": "So I don't opt out here and I no longer inject(NgZone);",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 516.96,
+          "end": 519.81,
+          "en": "which also means that the inject import",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 519.81,
+          "end": 522.363,
+          "en": "and the NgZone import should be removed here.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 523.936,
+          "end": 528.936,
+          "en": "And with that you hopefully should not get any error here",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 528.96,
+          "end": 532.53,
+          "en": "and the app should also still work as it did before.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 532.53,
+          "end": 535.32,
+          "en": "But now in this application here,",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 535.32,
+          "end": 537.9,
+          "en": "you'll see the timer, once it expires,",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 537.9,
+          "end": 541.56,
+          "en": "still does not trigger any change detection",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 541.56,
+          "end": 545.37,
+          "en": "even though I do not opt out of zone.js anymore.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 545.37,
+          "end": 547.68,
+          "en": "But since we don't have zone.js here",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 547.68,
+          "end": 550.533,
+          "en": "in this app anymore, it's the same effect here.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 551.73,
+          "end": 555.51,
+          "en": "And if I change the [Counter], it's only the [Counter]",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 555.51,
+          "end": 558.75,
+          "en": "and the [AppComponent] that's checked",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 558.75,
+          "end": 560.82,
+          "en": "and that happens for the same reason as",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 560.82,
+          "end": 563.5,
+          "en": "before the counter.component is checked",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 563.5,
+          "end": 566.43,
+          "en": "because a Signal value changes in there.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 566.43,
+          "end": 567.31,
+          "en": "And then just as",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 567.31,
+          "end": 571.35,
+          "en": "before, change detection kind of bubbles up,",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 571.35,
+          "end": 573.157,
+          "en": "at least still at the point of time",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 573.157,
+          "end": 574.893,
+          "en": "where I'm recording this.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 575.79,
+          "end": 578.882,
+          "en": "So even though the app.component does not use",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 578.882,
+          "end": 582.113,
+          "en": "that Signal, it's still checked for changes",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 582.113,
+          "end": 585.483,
+          "en": "because one of its child Components changed,",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 586.77,
+          "end": 590.493,
+          "en": "but no other component was checked here, as you can tell.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 591.39,
+          "end": 594.318,
+          "en": "If I enter text here, you see it is",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 594.318,
+          "end": 598.264,
+          "en": "in the end the [AppComponent] and the messages",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 598.264,
+          "end": 600.33,
+          "en": "and the new message component",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 600.33,
+          "end": 603.12,
+          "en": "that is checked for every keystroke.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 603.12,
+          "end": 607.143,
+          "en": "But if I then Save this, this appears just as",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 607.143,
+          "end": 612.143,
+          "en": "before, even though I'm not using zone.js anymore.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 612.18,
+          "end": 615.06,
+          "en": "So the app works the way it did before",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 615.06,
+          "end": 618.42,
+          "en": "and we still got quite some checking going on",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 618.42,
+          "end": 622.59,
+          "en": "because change detection still checks parent Components",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 622.59,
+          "end": 625.41,
+          "en": "of Components where something changed.",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 625.41,
+          "end": 627.539,
+          "en": "But the entire change detection is now",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 627.539,
+          "end": 630.123,
+          "en": "in the end driven by signals.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 631.74,
+          "end": 634.181,
+          "en": "Without zone.js, if you were to manage",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 634.181,
+          "end": 638.22,
+          "en": "that counter as a non Signal value.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 638.22,
+          "end": 642.69,
+          "en": "So as a regular property which you reset",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 642.69,
+          "end": 647.69,
+          "en": "like this and which you update like this for example,",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 652.8,
+          "end": 657.8,
+          "en": "in both directions, if you do that",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 659.64,
+          "end": 662.694,
+          "en": "and in the template, you therefore don't read it",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 662.694,
+          "end": 666.723,
+          "en": "as a value anymore because it's not a Signal anymore.",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 667.65,
+          "end": 670.592,
+          "en": "If you do all that and you switch back",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 670.592,
+          "end": 675.592,
+          "en": "to this non Signal world, you'll see that if you reload",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 675.99,
+          "end": 679.2,
+          "en": "and you change that counter, that still works",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 679.2,
+          "end": 681.127,
+          "en": "because as I mentioned before, Angular",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 681.127,
+          "end": 684.96,
+          "en": "of course handles those click listeners in the end",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 684.96,
+          "end": 687.48,
+          "en": "and they operate is also able to listen to them",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 687.48,
+          "end": 689.695,
+          "en": "and it's able to trigger change detection",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 689.695,
+          "end": 693.426,
+          "en": "when those clicks occur because it can guess",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 693.426,
+          "end": 696.995,
+          "en": "that maybe some data changed due to those events and",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 696.995,
+          "end": 700.62,
+          "en": "that it should therefore check this component for changes.",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 700.62,
+          "end": 704.193,
+          "en": "So that still works even when not using signals.",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 705.03,
+          "end": 707.1,
+          "en": "But you'll notice that as you change",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 707.1,
+          "end": 712.1,
+          "en": "that here, this counter is never reset.",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 712.35,
+          "end": 714.3,
+          "en": "And keep in mind, I still have this timeout",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 714.3,
+          "end": 717.573,
+          "en": "that does reset the counter,",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 719.13,
+          "end": 721.5,
+          "en": "but this doesn't have any effect anymore",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 721.5,
+          "end": 723.344,
+          "en": "because this is now an event",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 723.344,
+          "end": 726.39,
+          "en": "that's not picked up by Angular.",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 726.39,
+          "end": 728.823,
+          "en": "This is something that was previously handled",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 728.823,
+          "end": 733.823,
+          "en": "by zone.js and now with zone.js disabled, it's ignored.",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 735.21,
+          "end": 738.96,
+          "en": "That's why we wanna go back to that Signal world here",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 738.96,
+          "end": 741.9,
+          "en": "and why I will revert all these changes",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 741.9,
+          "end": 744.42,
+          "en": "and instead manage my count as a Signal.",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 744.42,
+          "end": 748.02,
+          "en": "Because with that we update the Signal here",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 748.02,
+          "end": 751.08,
+          "en": "and therefore it doesn't matter why we update it",
+          "zh": ""
+        },
+        {
+          "id": 204,
+          "start": 751.08,
+          "end": 755.49,
+          "en": "or how that's triggered, it just matters that we updated",
+          "zh": ""
+        },
+        {
+          "id": 205,
+          "start": 755.49,
+          "end": 759.39,
+          "en": "and therefore Angular will be notified about that.",
+          "zh": ""
+        },
+        {
+          "id": 206,
+          "start": 759.39,
+          "end": 762.09,
+          "en": "We also have to read the Signal in the template again now,",
+          "zh": ""
+        },
+        {
+          "id": 207,
+          "start": 762.09,
+          "end": 766.11,
+          "en": "by the way, but Angular will be notified about that",
+          "zh": ""
+        },
+        {
+          "id": 208,
+          "start": 766.11,
+          "end": 770.55,
+          "en": "and therefore now the timer will eventually reset here.",
+          "zh": ""
+        },
+        {
+          "id": 209,
+          "start": 770.55,
+          "end": 774.57,
+          "en": "It will reset once the timer expires even without zone.js",
+          "zh": ""
+        },
+        {
+          "id": 210,
+          "start": 774.57,
+          "end": 776.523,
+          "en": "because I'm using signals here.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "44116196",
+      "title": "Module Introduction",
+      "lectureOrder": 208,
+      "videoOrder": 199,
+      "sourceHash": "2af0119294d82e23f51404d7579090a58097cde273c5bf3874cdba4c46058f19",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.48,
+          "end": 3.18,
+          "en": "In the previous section,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.18,
+          "end": 8.18,
+          "en": "I introduced you to RxJS and subjects.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.37,
+          "end": 10.05,
+          "en": "In this section,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.05,
+          "end": 14.34,
+          "en": "we'll now take a closer look at RxJS",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 14.34,
+          "end": 17.19,
+          "en": "and at a concept called observables,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 17.19,
+          "end": 20.25,
+          "en": "which subjects in the end are,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 20.25,
+          "end": 24.57,
+          "en": "and we'll explore what exactly observables are,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 24.57,
+          "end": 27.15,
+          "en": "how we can create and use them,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 27.15,
+          "end": 31.59,
+          "en": "how we can use so-called observable operators",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 31.59,
+          "end": 36.59,
+          "en": "to manipulate values created by observables.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 36.78,
+          "end": 41.07,
+          "en": "And we'll also compare observables to signals,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 41.07,
+          "end": 44.76,
+          "en": "which you also already learned about.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 44.76,
+          "end": 46.89,
+          "en": "And therefore, let's get started.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 46.89,
+          "end": 50.613,
+          "en": "What exactly are observables?",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "44116204",
+      "title": "What Are Observables & What Is RxJS?",
+      "lectureOrder": 209,
+      "videoOrder": 200,
+      "sourceHash": "6576d02d1d14100478c9aa7b34d9fddda0ffac109ee9d0a2ef56ec6c5b043e0d",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.36,
+          "end": 4.92,
+          "en": "So what are observables in Angular?",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.92,
+          "end": 9.39,
+          "en": "Well, first of all, it's not an Angular-specific concept.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.39,
+          "end": 12.09,
+          "en": "Instead, it's a concept introduced",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.09,
+          "end": 16.11,
+          "en": "by a third party library called RxJS,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 16.11,
+          "end": 19.17,
+          "en": "which is independent from Angular,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.17,
+          "end": 20.82,
+          "en": "but which is used",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 20.82,
+          "end": 24.3,
+          "en": "by Angular also internally in certain parts.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 24.3,
+          "end": 26.25,
+          "en": "And you'll see it being used",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 26.25,
+          "end": 29.94,
+          "en": "by Angular in future course sections.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 29.94,
+          "end": 34.94,
+          "en": "And an observable, as introduced by that RxJS library,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 35.55,
+          "end": 37.47,
+          "en": "is in the end, an object",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 37.47,
+          "end": 42.47,
+          "en": "that produces and controls a stream of data, you could say.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 44.79,
+          "end": 47.04,
+          "en": "And later in the course, as mentioned,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 47.04,
+          "end": 50.31,
+          "en": "we'll use some Angular features",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 50.31,
+          "end": 52.86,
+          "en": "that give us such an observable,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 52.86,
+          "end": 55.8,
+          "en": "so that give us such a stream of data.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 55.8,
+          "end": 58.71,
+          "en": "But to get started with observables",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 58.71,
+          "end": 60.84,
+          "en": "and understand how they work,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 60.84,
+          "end": 63.24,
+          "en": "we'll simply create one ourselves,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 63.24,
+          "end": 66.033,
+          "en": "and that's what we'll do in the next lectures.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "44116208",
+      "title": "Creating & Using an Observable",
+      "lectureOrder": 210,
+      "videoOrder": 201,
+      "sourceHash": "bb133190892a99cb4c0e1cf27ed6fc27bc1a932517fdebe9fbd217263a2f8093",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.69,
+          "end": 4.05,
+          "en": "So in order to work with observables,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.05,
+          "end": 6.75,
+          "en": "and in order to create one ourselves,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.75,
+          "end": 9.57,
+          "en": "I prepared a brand new starting project,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.57,
+          "end": 12.03,
+          "en": "which you find attached, as always.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.03,
+          "end": 15.63,
+          "en": "And if you then start that development server",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.63,
+          "end": 18.27,
+          "en": "after installing all dependencies,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.27,
+          "end": 22.98,
+          "en": "you should see this simple page here on the screen.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 22.98,
+          "end": 26.25,
+          "en": "And currently clicking this button won't do anything.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 26.25,
+          "end": 28.68,
+          "en": "And of course the page isn't too exciting",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 28.68,
+          "end": 31.32,
+          "en": "because in this section we'll not build",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 31.32,
+          "end": 33.78,
+          "en": "some kind of demo project.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 33.78,
+          "end": 38.25,
+          "en": "Instead we'll just play around with that observables feature",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 38.25,
+          "end": 41.28,
+          "en": "so that you get an idea of how it works,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 41.28,
+          "end": 43.65,
+          "en": "and so that you know how you can work",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 43.65,
+          "end": 46.23,
+          "en": "with observables if you encounter them",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 46.23,
+          "end": 49.41,
+          "en": "as part of your Angular applications.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 49.41,
+          "end": 52.65,
+          "en": "Now as I mentioned before, you already saw",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 52.65,
+          "end": 57.39,
+          "en": "one special kind of observable in action in the last section",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 57.39,
+          "end": 60.063,
+          "en": "where we got started with this BehaviorSubject.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 61.29,
+          "end": 65.64,
+          "en": "This is a feature provided by this RxJS library",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 65.64,
+          "end": 69.06,
+          "en": "and the idea behind this subject, in the end,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 69.06,
+          "end": 72.96000000000001,
+          "en": "is an object that you can use to emit values",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 72.96000000000001,
+          "end": 75.48,
+          "en": "to which you can then listen in another part",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 75.48,
+          "end": 77.31,
+          "en": "of your application,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 77.31,
+          "end": 80.76,
+          "en": "kind of similar to how Signals work in Angular,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 80.76,
+          "end": 83.1,
+          "en": "but you'll also learn about the difference",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 83.1,
+          "end": 87.06,
+          "en": "between these two concepts in this section here.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 87.06,
+          "end": 90.78,
+          "en": "And subjects like this BehaviorSubject are, in the end,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 90.78,
+          "end": 94.08,
+          "en": "such a kind of observable because, in the end,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 94.08,
+          "end": 98.58,
+          "en": "with them you're creating and controlling a stream of data",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 98.58,
+          "end": 101.16,
+          "en": "to which you can then listen in another part",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 101.16,
+          "end": 103.08,
+          "en": "of your application.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 103.08,
+          "end": 107.85,
+          "en": "But subjects are just one way of creating observables.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 107.85,
+          "end": 110.28,
+          "en": "The special kinds of observables",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 110.28,
+          "end": 113.78999999999999,
+          "en": "that act as event emitters, to be precise.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 113.78999999999999,
+          "end": 117.42,
+          "en": "In this demo project I'll show you a different way",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 117.42,
+          "end": 120.693,
+          "en": "of creating observables and working with them.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 121.53,
+          "end": 124.23,
+          "en": "And for that I'll start here in that app component,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 124.23,
+          "end": 128.55,
+          "en": "which is the only component I have in this dummy app here.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 128.55,
+          "end": 133.38,
+          "en": "And I'll start by implementing the OnInit interface,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 133.38,
+          "end": 135.69,
+          "en": "which must be imported from Angular core",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 135.69,
+          "end": 138.903,
+          "en": "so that we're forced to add this ngOnInit method.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 140.31,
+          "end": 144.18,
+          "en": "And in here I now wanna create a new observable",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 144.18,
+          "end": 149.18,
+          "en": "with help of that RxJS library without creating a subject.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 149.34,
+          "end": 154.293,
+          "en": "Instead, we can import something from RxJS.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 155.16,
+          "end": 159.52,
+          "en": "And that something could be the interval function",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 161.07,
+          "end": 164.76,
+          "en": "because RxJS gives you multiple functions",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 164.76,
+          "end": 168.12,
+          "en": "you can use to create observables.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 168.12,
+          "end": 172.56,
+          "en": "Now you can find a full list of all the functions",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 172.56,
+          "end": 176.73,
+          "en": "offered by this library and a description of what they do",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 176.73,
+          "end": 181.23,
+          "en": "on the official website of this RxJS library.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 181.23,
+          "end": 183.18,
+          "en": "And as an Angular developer,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 183.18,
+          "end": 185.58,
+          "en": "you don't need to know all these functions",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 185.58,
+          "end": 189.33,
+          "en": "and you also don't necessarily need to know",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 189.33,
+          "end": 192.36,
+          "en": "a lot about RxJS if you don't want to,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 192.36,
+          "end": 196.35,
+          "en": "though I will say that there definitely are Angular",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 196.35,
+          "end": 201.35,
+          "en": "developers and teams and projects that fully embrace RxJS",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 201.99,
+          "end": 204.3,
+          "en": "and might use it a lot.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 204.3,
+          "end": 208.86,
+          "en": "But just to work with Angular, you don't need to know",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 208.86,
+          "end": 211.713,
+          "en": "that much about it nowadays, in my opinion.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 212.64,
+          "end": 215.16,
+          "en": "Nonetheless, here on this website, you for example,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 215.16,
+          "end": 218.19,
+          "en": "find details about this interval function.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 218.19,
+          "end": 221.34,
+          "en": "And there you learn that this creates an observable",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 221.34,
+          "end": 226.32,
+          "en": "that emits numbers every specified interval of time.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 226.32,
+          "end": 231.183,
+          "en": "And you then also find a usage example here on this page.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 232.29,
+          "end": 236.16,
+          "en": "So you could use this function now here in ngOnInit",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 236.16,
+          "end": 237.75,
+          "en": "and call it.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 237.75,
+          "end": 240.69,
+          "en": "And as a result you'd get back an observable",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 240.69,
+          "end": 243,
+          "en": "that produces numbers.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 243,
+          "end": 246.03,
+          "en": "That's what this generic type here tells you.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 246.03,
+          "end": 248.7,
+          "en": "That's the type of value that will be managed",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 248.7,
+          "end": 251.13,
+          "en": "by this observable that is returned",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 251.13,
+          "end": 252.693,
+          "en": "by this interval function.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 254.01,
+          "end": 258.96,
+          "en": "So unlike this BehaviorSubject we created before,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 258.96,
+          "end": 262.41,
+          "en": "this observable created with help of interval",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 262.41,
+          "end": 265.59,
+          "en": "will now automatically produce values",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 265.59,
+          "end": 268.29,
+          "en": "instead of doing that when we emit them,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 268.29,
+          "end": 270.72,
+          "en": "which is what we did with the subject.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 270.72,
+          "end": 274.23,
+          "en": "Here the values will get produced automatically.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 274.23,
+          "end": 276.69,
+          "en": "And we also can't really control",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 276.69,
+          "end": 280.29,
+          "en": "which kind of value will be produced here.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 280.29,
+          "end": 282.75,
+          "en": "And there are other creation methods",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 282.75,
+          "end": 284.58,
+          "en": "where you can control it,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 284.58,
+          "end": 288.003,
+          "en": "but here, with interval, you don't have that much control.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 288.9,
+          "end": 291.6,
+          "en": "Instead, here you just pass an argument to interval,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 291.6,
+          "end": 294.27,
+          "en": "which defines the time in milliseconds",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 294.27,
+          "end": 296.82,
+          "en": "after which a value will be produced.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 296.82,
+          "end": 301.113,
+          "en": "So every 1,000 milliseconds a value would now be produced.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 301.95,
+          "end": 305.223,
+          "en": "And then you can set up a subscription by calling subscribe,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 306.15,
+          "end": 309.63,
+          "en": "just as you also saw it with the subject.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 309.63,
+          "end": 313.05,
+          "en": "So that's the same with any observable.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 313.05,
+          "end": 317.1,
+          "en": "In order to listen to the values that are emitted",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 317.1,
+          "end": 321.57,
+          "en": "and in order to use them, you must set up a subscription.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 321.57,
+          "end": 325.41,
+          "en": "Now, just as a side note here about subscribing,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 325.41,
+          "end": 327.45,
+          "en": "you indeed need to subscribe",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 327.45,
+          "end": 331.62,
+          "en": "to kick off the observable, so to say.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 331.62,
+          "end": 334.62,
+          "en": "By default, when you call interval here,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 334.62,
+          "end": 338.25,
+          "en": "it will not do anything unless you have a subscriber",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 338.25,
+          "end": 342.51,
+          "en": "because internally the RxJS library recognizes",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 342.51,
+          "end": 346.40999999999997,
+          "en": "that if there's no one who's interested in the values,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 346.40999999999997,
+          "end": 349.26,
+          "en": "it doesn't make sense to emit any.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 349.26,
+          "end": 351.78,
+          "en": "So you need at least one subscriber",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 351.78,
+          "end": 355.71,
+          "en": "in order to really kick off this interval.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 355.71,
+          "end": 358.08,
+          "en": "This subscribe methods then takes",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 358.08,
+          "end": 361.92,
+          "en": "a so-called observer object, which is an object",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 361.92,
+          "end": 366.24,
+          "en": "that can implement up to three methods.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 366.24,
+          "end": 369.54,
+          "en": "A next method, or a next function,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 369.54,
+          "end": 370.86,
+          "en": "however you want to call it,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 370.86,
+          "end": 374.403,
+          "en": "that will be triggered for every new value that's emitted.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 375.81,
+          "end": 379.83299999999997,
+          "en": "And the emitted value will be received as a parameter here.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 380.94,
+          "end": 383.82,
+          "en": "And here we could then log that.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 383.82,
+          "end": 387.3,
+          "en": "In addition, you could also implement a complete function,",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 387.3,
+          "end": 391.59,
+          "en": "which would be called if this observable would not emit",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 391.59,
+          "end": 395.94,
+          "en": "any more numbers, though it depends on the observable,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 395.94,
+          "end": 397.83,
+          "en": "whether this will ever be triggered.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 397.83,
+          "end": 399.87,
+          "en": "In case of the interval, for example,",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 399.87,
+          "end": 402.54,
+          "en": "it'll by default keep on emitting,",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 402.54,
+          "end": 406.413,
+          "en": "so the complete function might never execute there.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 407.85,
+          "end": 410.94,
+          "en": "And you can also implement an error function",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 410.94,
+          "end": 414,
+          "en": "which will be triggered if an error occurs,",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 414,
+          "end": 417.65999999999997,
+          "en": "which here, for this observable also shouldn't be the case,",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 417.65999999999997,
+          "end": 420.06,
+          "en": "but which could be the case if you, for example,",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 420.06,
+          "end": 424.35,
+          "en": "had an observable that's used for sending HTTP requests",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 424.35,
+          "end": 427.47,
+          "en": "and then providing the response of that request.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 427.47,
+          "end": 430.29,
+          "en": "Something you'll see later once we dive into",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 430.29,
+          "end": 434.25,
+          "en": "sending HTTP requests with Angular.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 434.25,
+          "end": 437.043,
+          "en": "Here I'll only implement the next function.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 438.24,
+          "end": 441.78,
+          "en": "And with that done, if you go back, reload your page,",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 441.78,
+          "end": 444.78,
+          "en": "and open the Developer Tools, you'll see a new",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 444.78,
+          "end": 448.11,
+          "en": "incrementing number being emitted every one second.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 448.11,
+          "end": 453.09000000000003,
+          "en": "And that number is now produced by that interval observable.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 453.09000000000003,
+          "end": 456.87,
+          "en": "Now of course, this observable here isn't too useful.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 456.87,
+          "end": 459.39,
+          "en": "It could be though, if you had an application",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 459.39,
+          "end": 463.05,
+          "en": "where you need some kind of timer that fires every second.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 463.05,
+          "end": 466.23,
+          "en": "But even here it's a good example for an observable",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 466.23,
+          "end": 468.65999999999997,
+          "en": "that is created with help of this function",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 468.65999999999997,
+          "end": 471.06,
+          "en": "that's provided by RxJS,",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 471.06,
+          "end": 475.83,
+          "en": "which is now not, like the subject, depending on us",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 475.83,
+          "end": 478.38,
+          "en": "emitting values, but which instead here,",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 478.38,
+          "end": 480.54,
+          "en": "in case of the interval function,",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 480.54,
+          "end": 482.823,
+          "en": "produces values automatically.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 483.78,
+          "end": 485.49,
+          "en": "And then we can subscribe to it.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 485.49,
+          "end": 489.33,
+          "en": "And just as before with the BehaviorSubject,",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 489.33,
+          "end": 492.72,
+          "en": "it is a good idea to store that subscription",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 492.72,
+          "end": 495.57,
+          "en": "and to clean it up when this component",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 495.57,
+          "end": 497.79,
+          "en": "is about to be removed from the DOM",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 497.79,
+          "end": 500.73,
+          "en": "to make sure that you're not leaking memory",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 500.73,
+          "end": 503.79,
+          "en": "and you're not having some ongoing observable",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 503.79,
+          "end": 506.523,
+          "en": "behind the scenes that might not be needed anymore.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 507.57,
+          "end": 511.98,
+          "en": "Therefor here, I'll again inject this destroyRef",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 511.98,
+          "end": 514.06,
+          "en": "with help of the inject function",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 516.27,
+          "end": 520.353,
+          "en": "by importing inject and destroyRef from Angular core.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 522.18,
+          "end": 526.53,
+          "en": "And with that injected we can use this destroyRef thing",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 526.53,
+          "end": 531.123,
+          "en": "to register the onDestroy hook here, so to say,",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 532.02,
+          "end": 534.03,
+          "en": "where this function will be executed",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 534.03,
+          "end": 536.76,
+          "en": "when the component is about to be removed.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 536.76,
+          "end": 540,
+          "en": "And it's in here now where I want to call unsubscribe",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 540,
+          "end": 541.923,
+          "en": "to clean up that subscription.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 543.96,
+          "end": 546.63,
+          "en": "That's something you always want to do",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 546.63,
+          "end": 548.88,
+          "en": "when working with observables,",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 548.88,
+          "end": 551.55,
+          "en": "no matter how they're created.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 551.55,
+          "end": 555.543,
+          "en": "But with that, we now created and used this observable here.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "44116212",
+      "title": "Working with RxJS Operators",
+      "lectureOrder": 211,
+      "videoOrder": 202,
+      "sourceHash": "6b948aa606ed517b8d03f07484c09df89a3094d815e77ed4e802844422d5d514",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.54,
+          "end": 2.7,
+          "en": "So, in the previous lecture,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 2.7,
+          "end": 5.25,
+          "en": "we created an observable",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.25,
+          "end": 9.03,
+          "en": "based on an interval which fires every second.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.03,
+          "end": 11.88,
+          "en": "And this could be a valid use case.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.88,
+          "end": 14.19,
+          "en": "You might be building an application",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.19,
+          "end": 18.12,
+          "en": "where something should happen every couple of seconds.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.12,
+          "end": 22.05,
+          "en": "For example, you might wanna send an HTTP request",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 22.05,
+          "end": 25.299,
+          "en": "and fetch data every X seconds,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 25.299,
+          "end": 30.299,
+          "en": "or you might want to update some UI element",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 30.39,
+          "end": 35.39,
+          "en": "for an animation or something like that every X seconds.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 35.4,
+          "end": 39.36,
+          "en": "In such scenarios, you could use this interval function",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 39.36,
+          "end": 43.65,
+          "en": "to handle these use cases with an observable.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 43.65,
+          "end": 45.54,
+          "en": "You don't have to, of course.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 45.54,
+          "end": 49.29,
+          "en": "There always also are alternative ways",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 49.29,
+          "end": 52.2,
+          "en": "of implementing such features, but you could.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 52.2,
+          "end": 55.41,
+          "en": "Now, this interval function here is of course",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 55.41,
+          "end": 59.1,
+          "en": "not the only function you can use to create an observable.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 59.1,
+          "end": 62.13,
+          "en": "Instead, if you take a look at the official documentation,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 62.13,
+          "end": 65.07,
+          "en": "you'll find plenty of functions you can use",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 65.07,
+          "end": 67.47,
+          "en": "when working with RxJS,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 67.47,
+          "end": 72.47,
+          "en": "though not all of these functions will create observables.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 72.63,
+          "end": 76.26,
+          "en": "Instead, indeed, most of these functions operate",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 76.26,
+          "end": 78.63,
+          "en": "on existing observables",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 78.63,
+          "end": 81.33,
+          "en": "and allow you to manipulate them",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 81.33,
+          "end": 83.97,
+          "en": "or their values to be precise.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 83.97,
+          "end": 88.14,
+          "en": "Because RxJS also has this concept of operators,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 88.14,
+          "end": 91.59,
+          "en": "which you can use when dealing with observables,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 91.59,
+          "end": 94.624,
+          "en": "which are in the end functions you can pipe",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 94.624,
+          "end": 99.624,
+          "en": "into your observable data stream to perform transformations",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 100.05,
+          "end": 101.61,
+          "en": "or any other kind",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 101.61,
+          "end": 105.50999999999999,
+          "en": "of operation on those observable values.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 105.50999999999999,
+          "end": 107.46000000000001,
+          "en": "And I'll show you an example here",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 107.46000000000001,
+          "end": 110.00999999999999,
+          "en": "for this interval observable.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 110.00999999999999,
+          "end": 113.75999999999999,
+          "en": "You can add operators to this observable pipeline",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 113.75999999999999,
+          "end": 117.6,
+          "en": "by calling the pipe method before you subscribe.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 117.6,
+          "end": 120.39,
+          "en": "And indeed, you need at least one subscriber",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 120.39,
+          "end": 123.3,
+          "en": "to kick off the observable.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 123.3,
+          "end": 125.97,
+          "en": "If you do not subscribe at least once,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 125.97,
+          "end": 129.36,
+          "en": "there will be no values being emitted here.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 129.36,
+          "end": 130.743,
+          "en": "That's just a side note.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 131.73,
+          "end": 135.6,
+          "en": "But with that, I'm calling pipe here before I'm subscribing.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 135.6,
+          "end": 139.32,
+          "en": "And pipe then allows you to add some operators,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 139.32,
+          "end": 143.497,
+          "en": "some RxJS operators to this pipeline.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 143.497,
+          "end": 146.67000000000002,
+          "en": "And you'll find these operator functions here",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 146.67000000000002,
+          "end": 148.56,
+          "en": "in the official documentation as well.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 148.56,
+          "end": 150.63,
+          "en": "Of course, not just in the reference,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 150.63,
+          "end": 154.05,
+          "en": "but also if you go to the dedicated operators page",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 154.05,
+          "end": 156.31799999999998,
+          "en": "where you can learn all about them.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 156.31799999999998,
+          "end": 160.68,
+          "en": "Though, as I mentioned before, it in the end depends on you,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 160.68,
+          "end": 164.43,
+          "en": "the team you work in and your personal preferences,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 164.43,
+          "end": 167.88,
+          "en": "how deep you want to dive into RxJS.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 167.88,
+          "end": 171.72,
+          "en": "It's a feature you can use in your Angular apps,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 171.72,
+          "end": 175.26,
+          "en": "but not a feature you have to use too much.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 175.26,
+          "end": 177.72,
+          "en": "Nonetheless, here to get started with operators,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 177.72,
+          "end": 180.06,
+          "en": "I'll add the map operator,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 180.06,
+          "end": 184.08,
+          "en": "which therefore must be imported from RxJS.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 184.08,
+          "end": 186.963,
+          "en": "So the map function is imported here.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 189.12,
+          "end": 192.39,
+          "en": "This function is then called here as an argument",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 192.39,
+          "end": 193.89,
+          "en": "for this pipe function,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 193.89,
+          "end": 197.853,
+          "en": "and that then adds it as an operator to this pipeline.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 199.56,
+          "end": 202.05,
+          "en": "Now if we take a look at the official reference",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 202.05,
+          "end": 204.733,
+          "en": "and we search for this map function there,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 204.733,
+          "end": 208.23,
+          "en": "we can see that this is an operator",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 208.23,
+          "end": 211.47,
+          "en": "which in the end converts a value",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 211.47,
+          "end": 214.14,
+          "en": "that is emitted by an observable.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 214.14,
+          "end": 215.97,
+          "en": "So it in the end is a function",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 215.97,
+          "end": 218.34,
+          "en": "that takes a function as an argument.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 218.34,
+          "end": 222.18,
+          "en": "And that function will then be executed on every value",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 222.18,
+          "end": 224.16,
+          "en": "that's emitted by the observable,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 224.16,
+          "end": 226.44,
+          "en": "and it's then the function result",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 226.44,
+          "end": 228.663,
+          "en": "that will be passed to the subscribers.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 229.53,
+          "end": 231.6,
+          "en": "So here we can pass a function to map",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 231.6,
+          "end": 234.63,
+          "en": "and we'll get the value that's emitted",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 234.63,
+          "end": 237.06,
+          "en": "by this observable on which we call map.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 237.06,
+          "end": 240.788,
+          "en": "In the end, we'll get that as an input here as a parameter,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 240.788,
+          "end": 245.16,
+          "en": "and we then must return the updated value.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 245.16,
+          "end": 248.34,
+          "en": "Now, since interval gives us a value of type number,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 248.34,
+          "end": 251.958,
+          "en": "we can, for example, multiply it with two",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 251.958,
+          "end": 255.12,
+          "en": "and the subscriber will then get the result",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 255.12,
+          "end": 257.79,
+          "en": "of this operator here.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 257.79,
+          "end": 260.04,
+          "en": "So the doubled number.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 260.04,
+          "end": 263.35,
+          "en": "And we could add multiple operators here if we wanted",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 264.577,
+          "end": 268.097,
+          "en": "to perform multiple operations, not just map operations,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 268.097,
+          "end": 269.49,
+          "en": "but any kind of operations.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 269.49,
+          "end": 272.454,
+          "en": "Here, however it is just map.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 272.454,
+          "end": 274.86,
+          "en": "With that, if we do that and reload,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 274.86,
+          "end": 278.235,
+          "en": "you'll see we still got some numbers being locked,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 278.235,
+          "end": 280.86,
+          "en": "but now we got double the number than before.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 280.86,
+          "end": 285.39,
+          "en": "So two instead of one, four instead of two, and so on.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 285.39,
+          "end": 289.5,
+          "en": "Because we added this map operator here.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 289.5,
+          "end": 294.5,
+          "en": "And operators indeed are one of the key RX features.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 295.11,
+          "end": 299.25,
+          "en": "And also one important difference between observables",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 299.25,
+          "end": 303.132,
+          "en": "and signals, though I'll get back to that in just a second.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 303.132,
+          "end": 306.27,
+          "en": "But operators are an important feature",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 306.27,
+          "end": 310.29,
+          "en": "and you'll see me use some operators at least from time",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 310.29,
+          "end": 312.663,
+          "en": "to time throughout the rest of this course,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 313.57,
+          "end": 314.97,
+          "en": "though all then always explain",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 314.97,
+          "end": 318.112,
+          "en": "why I'm using a certain operator and what it'll do.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 318.112,
+          "end": 321.42,
+          "en": "It's just important for now to be aware of the fact",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 321.42,
+          "end": 324.45,
+          "en": "that with RxJS and these observables,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 324.45,
+          "end": 326.31,
+          "en": "you can add these operators",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 326.31,
+          "end": 330.21,
+          "en": "that will then operate on the values that are emitted",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 330.21,
+          "end": 332.493,
+          "en": "and managed by the observable.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

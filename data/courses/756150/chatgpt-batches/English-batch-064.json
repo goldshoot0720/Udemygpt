@@ -1,0 +1,5146 @@
+{
+  "version": 1,
+  "courseId": 756150,
+  "courseSlug": "the-complete-guide-to-angular-2",
+  "courseTitle": "Angular - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "14466346",
+      "title": "Using a Service for Http Requests",
+      "lectureOrder": 586,
+      "videoOrder": 539,
+      "sourceHash": "56e8be69d1eaab61f2b484c18fe5f43d4e1085aee6e2bf1aa4c81766a2bf5cc8",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.25,
+          "end": 3.9,
+          "en": "Instructor: The code we have thus far",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.9,
+          "end": 6.03,
+          "en": "is not bad and it does its job.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.03,
+          "end": 9.27,
+          "en": "And if our application were as simple as it is here,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.27,
+          "end": 11.31,
+          "en": "it would be perfectly fine.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.31,
+          "end": 14.52,
+          "en": "But in bigger applications and maybe even in this one,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.52,
+          "end": 17.61,
+          "en": "we already have a quite big component",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 17.61,
+          "end": 20.61,
+          "en": "with a lot of code that is only indirectly",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 20.61,
+          "end": 22.68,
+          "en": "related to the user interface.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 22.68,
+          "end": 25.17,
+          "en": "Of course, we wanna send a request when a button is clicked",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 25.17,
+          "end": 27.48,
+          "en": "and we wanna display that response data,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 27.48,
+          "end": 30.48,
+          "en": "but for example, transforming the result,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 30.48,
+          "end": 31.89,
+          "en": "transforming the data,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 31.89,
+          "end": 35.61,
+          "en": "we can do it here, it's not inherently bad,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 35.61,
+          "end": 39.72,
+          "en": "but it is a nice practice to outsource that into services,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 39.72,
+          "end": 43.14,
+          "en": "so that services are the parts in your Angular application",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 43.14,
+          "end": 46.35,
+          "en": "that do the heavy lifting, the dirty work",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 46.35,
+          "end": 49.59,
+          "en": "and your components are relatively lean,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 49.59,
+          "end": 51.39,
+          "en": "as lean as they can be,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 51.39,
+          "end": 55.38,
+          "en": "and are mostly concerned with template related work.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 55.38,
+          "end": 58.77,
+          "en": "So with things like there is fetching property and so on.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 58.77,
+          "end": 61.8,
+          "en": "And therefore, let's create a new service now,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 61.8,
+          "end": 64.47,
+          "en": "the posts service here.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 64.47,
+          "end": 67.043,
+          "en": "And I'll create it by exporting a class PostsService,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 68.55,
+          "end": 70.32,
+          "en": "and we need to provide that,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 70.32,
+          "end": 72.81,
+          "en": "and for that we can use two approaches.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 72.81,
+          "end": 75,
+          "en": "We can use @Injectable,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 75,
+          "end": 77.67,
+          "en": "which you need to import from @angular/core.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 77.67,
+          "end": 81.15,
+          "en": "And there we can pass an object and set provided into root,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 81.15,
+          "end": 83.97,
+          "en": "which is the more modern and recommended approach.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 83.97,
+          "end": 85.89,
+          "en": "But you could also provide it here",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 85.89,
+          "end": 88.17,
+          "en": "in the providers array of the app module,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 88.17,
+          "end": 91.11,
+          "en": "and this also wouldn't be bad or a problem.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 91.11,
+          "end": 93.15299999999999,
+          "en": "Here, however I will use this approach.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 94.22999999999999,
+          "end": 96.69,
+          "en": "Now what's my idea behind that service?",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 96.69,
+          "end": 100.8,
+          "en": "In this service, I want to have my HTTP request methods.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 100.8,
+          "end": 103.59,
+          "en": "So the methods that do the HTTP requests.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 103.59,
+          "end": 107.85,
+          "en": "And I only want to get the responses or the message",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 107.85,
+          "end": 111.53999999999999,
+          "en": "whether we're done with the request in my front end.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 111.53999999999999,
+          "end": 113.88,
+          "en": "So therefore, in this service,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 113.88,
+          "end": 116.013,
+          "en": "I will add a new method,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 117.973,
+          "end": 120.03,
+          "en": "createAndStorePost,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 120.03,
+          "end": 122.13,
+          "en": "you can of course name this however you want.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 122.13,
+          "end": 125.22,
+          "en": "And there I expect to get a title which is a string,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 125.22,
+          "end": 128.73,
+          "en": "and the content which is a string as an argument, let's say.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 128.73,
+          "end": 132.3,
+          "en": "And here I wanna send my HTTP request.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 132.3,
+          "end": 135.81,
+          "en": "Now of course, I also want to be able to fetch my post,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 135.81,
+          "end": 138.21,
+          "en": "so we'll add fetchPosts here.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 138.21,
+          "end": 141.24,
+          "en": "And there, I also want to send a request.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 141.24,
+          "end": 143.82,
+          "en": "Now of course, I only want to move my code over.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 143.82,
+          "end": 145.38,
+          "en": "That's in the end what I want to do here.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 145.38,
+          "end": 149.28,
+          "en": "So let's grab that HTTP request here from onCreatePost",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 149.28,
+          "end": 152.55,
+          "en": "and let's move it into the PostsService here.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 152.55,
+          "end": 154.8,
+          "en": "Now we're sending the HTTP request here.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 154.8,
+          "end": 156.12,
+          "en": "However, for this to work,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 156.12,
+          "end": 158.07,
+          "en": "we need to inject the HTTP service",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 158.07,
+          "end": 159.72,
+          "en": "into this PostsService.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 159.72,
+          "end": 161.79,
+          "en": "So let's add a constructor,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 161.79,
+          "end": 163.89,
+          "en": "and with the help of that constructor,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 163.89,
+          "end": 166.17000000000002,
+          "en": "we inject the HTTP client,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 166.17000000000002,
+          "end": 168.623,
+          "en": "and we store it in a property named http.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 168.623,
+          "end": 171.45,
+          "en": "And the HTTP client is imported",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 171.45,
+          "end": 175.023,
+          "en": "from @angular/common/http.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 176.31,
+          "end": 180.42,
+          "en": "Now of course, here we have no post data property anymore.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 180.42,
+          "end": 184.11,
+          "en": "I can create that here though, and this will in the end",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 184.11,
+          "end": 186.06,
+          "en": "be of type Post",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 186.06,
+          "end": 189.09,
+          "en": "and therefore it will have a title and so on",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 189.09,
+          "end": 192.6,
+          "en": "but we first of all need to import our own post model.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 192.6,
+          "end": 196.883,
+          "en": "So let's import Post from ./post.model.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 198.57,
+          "end": 201.66,
+          "en": "And now to be a real post,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 201.66,
+          "end": 203.61,
+          "en": "we need to set a title property here",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 203.61,
+          "end": 206.64,
+          "en": "which is equal to our title we're getting as a argument,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 206.64,
+          "end": 208.68,
+          "en": "and we need to set a content property",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 208.68,
+          "end": 211.11,
+          "en": "which is equal to the content we're getting as a argument.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 211.11,
+          "end": 212.49,
+          "en": "So the right set of the colon",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 212.49,
+          "end": 214.86,
+          "en": "refers to these arguments here.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 214.86,
+          "end": 216.96,
+          "en": "Now that's the post data we're sending.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 216.96,
+          "end": 221.96,
+          "en": "And now we can call createAndStorePost to send that request.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 222.45,
+          "end": 224.04,
+          "en": "So back in the app component,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 224.04,
+          "end": 226.803,
+          "en": "I now need to inject my own PostsService,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 227.7,
+          "end": 232.7,
+          "en": "private postsService like this,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 232.74,
+          "end": 236.37,
+          "en": "and make sure to add that import path here at the top.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 236.37,
+          "end": 238.86,
+          "en": "You need to import PostsService from there.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 238.86,
+          "end": 240.84,
+          "en": "And now in onCreatePost,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 240.84,
+          "end": 245.127,
+          "en": "I simply call this.postService.createAndStorePost.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 247.38,
+          "end": 248.31,
+          "en": "I get an error here",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 248.31,
+          "end": 250.89,
+          "en": "because I need to pass some data to that method.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 250.89,
+          "end": 253.23,
+          "en": "I need to pass the title and the content.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 253.23,
+          "end": 255.33,
+          "en": "Now I get my post data here",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 255.33,
+          "end": 257.67,
+          "en": "so I access postData.title,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 257.67,
+          "end": 261.81,
+          "en": "and my second argument I send is postData.content.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 261.81,
+          "end": 264.63,
+          "en": "And with that, we should be able to create new posts.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 264.63,
+          "end": 269.22,
+          "en": "Let's add a new post here,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 269.22,
+          "end": 271.8,
+          "en": "the best Angular course,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 271.8,
+          "end": 273.09000000000003,
+          "en": "which this one hopefully is.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 273.09000000000003,
+          "end": 275.76,
+          "en": "I'm of course interested in your feedback.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 275.76,
+          "end": 279.72,
+          "en": "So I hope so, sent that post.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 279.72,
+          "end": 281.52,
+          "en": "Now we have no logic to automatically",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 281.52,
+          "end": 284.4,
+          "en": "update our list of posts down there but that's fine.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 284.4,
+          "end": 286.14,
+          "en": "We can click fetch posts again",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 286.14,
+          "end": 289.35,
+          "en": "and now we see our post here.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 289.35,
+          "end": 290.61,
+          "en": "So that now still works",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 290.61,
+          "end": 294.81,
+          "en": "but now the logic was outsourced into the PostsService.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 294.81,
+          "end": 297.09000000000003,
+          "en": "Let's do the same for fetching posts.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 297.09000000000003,
+          "end": 300.21,
+          "en": "Let's grab this logic here",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 300.21,
+          "end": 302.22,
+          "en": "and we'll have a problem with isFetching",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 302.22,
+          "end": 303.48,
+          "en": "but I'll come back to this.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 303.48,
+          "end": 307.53,
+          "en": "Let's grab this logic here and move it into fetchPosts",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 307.53,
+          "end": 309.39300000000003,
+          "en": "in the PostsService like that.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 310.29,
+          "end": 312.21,
+          "en": "Now let's remove isFetching",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 312.21,
+          "end": 314.31,
+          "en": "and let's remove this.loadedPosts",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 314.31,
+          "end": 317.22,
+          "en": "because we have, we don't have these properties here",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 317.22,
+          "end": 320.016,
+          "en": "and we don't really need them here in the PostsService.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 320.016,
+          "end": 322.23,
+          "en": "isFetching and the loadedPosts",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 322.23,
+          "end": 324.75,
+          "en": "clearly belong into our app component",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 324.75,
+          "end": 326.19,
+          "en": "and not into the service",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 326.19,
+          "end": 328.11,
+          "en": "because the component is where we use them,",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 328.11,
+          "end": 329.22,
+          "en": "where we want to display them",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 329.22,
+          "end": 331.14,
+          "en": "or where we need them to change",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 331.14,
+          "end": 333.45,
+          "en": "what we display in the template.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 333.45,
+          "end": 336.21,
+          "en": "Let's focus on the rest of this code for now.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 336.21,
+          "end": 338.19,
+          "en": "We're missing the map operator",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 338.19,
+          "end": 340.40999999999997,
+          "en": "so let's make sure we import that here.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 340.40999999999997,
+          "end": 345.40999999999997,
+          "en": "Let's import map from rxjs/operators.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 345.51,
+          "end": 349.11,
+          "en": "And with that we have a request that should work",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 349.11,
+          "end": 351.873,
+          "en": "but we'll still need to fine tune this later.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 352.89,
+          "end": 354.42,
+          "en": "At the moment, we can get rid",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 354.42,
+          "end": 356.94,
+          "en": "of that private method here, of course,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 356.94,
+          "end": 360.45,
+          "en": "and instead where we previously called the this.fetchPosts,",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 360.45,
+          "end": 364.29,
+          "en": "we can now use the postsService and call fetchPosts there.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 364.29,
+          "end": 368.82,
+          "en": "So we do that here in onFetchPosts and in ngOnInit.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 368.82,
+          "end": 370.35,
+          "en": "However, what you will see, of course",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 370.35,
+          "end": 374.13,
+          "en": "is that now we have no posts available,",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 374.13,
+          "end": 378.12,
+          "en": "because whilst we're running that code in the service",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 378.12,
+          "end": 381.15,
+          "en": "and indeed you can see that if I click fetch posts",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 381.15,
+          "end": 385.02,
+          "en": "a HTTP request is sent and we are fetching the posts.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 385.02,
+          "end": 387.21,
+          "en": "Whilst all of that is happening,",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 387.21,
+          "end": 388.71,
+          "en": "we're not seeing the post here",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 388.71,
+          "end": 390.78,
+          "en": "because we lost the connection",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 390.78,
+          "end": 394.83,
+          "en": "between the data we fetched in the service and our template.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 394.83,
+          "end": 395.703,
+          "en": "Let's fix that.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14466348",
+      "title": "Services & Components Working Together",
+      "lectureOrder": 587,
+      "videoOrder": 540,
+      "sourceHash": "12f9e925aea220c924a9b4d4aacb94429ae39b058f9c54749a1e11f553eed896",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.52,
+          "end": 6.69,
+          "en": "Now to fix that, we have two possible ways of doing that.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.69,
+          "end": 15.27,
+          "en": "The first alternative is that we use a subject in the post service where we next our posts when we",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 15.27,
+          "end": 18.96,
+          "en": "got them and we subscribe to that subject in the app component",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 18.96,
+          "end": 20.55,
+          "en": "and this would be a fine pattern,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 20.55,
+          "end": 22.48,
+          "en": "nothing wrong with that.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.53,
+          "end": 28.44,
+          "en": "The alternative and maybe a bit more suited here because the subject would be perfect if we have multiple",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 28.44,
+          "end": 30.25,
+          "en": "components interested in the posts,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 30.27,
+          "end": 31.86,
+          "en": "that's not the case here,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 32.16,
+          "end": 40.83,
+          "en": "so a simpler and for this scenario, a better solution would be to simply return the result of our get",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 40.83,
+          "end": 43.99,
+          "en": "method and of the pipe method thereafter",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 44.31,
+          "end": 46.55,
+          "en": "and that would be our observable.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 46.62,
+          "end": 49.32,
+          "en": "So I don't want to subscribe here,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 49.32,
+          "end": 55.53,
+          "en": "instead I only return the prepared observable here in fetch posts and therefore right now no",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 55.53,
+          "end": 61.26,
+          "en": "HTTP request gets sent because as you learned, requests are only sent when someone is interested.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 61.26,
+          "end": 68.78999999999999,
+          "en": "So here I'm not subscribing but now that I return this here, I can and I have to subscribe in the app",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 68.78999999999999,
+          "end": 70.08,
+          "en": "component.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 70.08,
+          "end": 75.42,
+          "en": "So here where I call fetch posts, I can now subscribe again and I get my posts",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 75.6,
+          "end": 77.09,
+          "en": "and now here we can set",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 77.22,
+          "end": 82.68,
+          "en": "this is fetching to false and I want to set",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 82.68,
+          "end": 88.92,
+          "en": "this is fetching to true here right before I start sending that request and even more importantly, we",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 88.92,
+          "end": 92.94,
+          "en": "can set this loaded post equal to the posts we get back and",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 93.58,
+          "end": 97.86,
+          "en": "this is now the code snippet I can also copy to onFetchPosts",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 97.95,
+          "end": 103.65,
+          "en": "and yes you could of course also outsource this into a separate private method again to avoid this code",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 103.68,
+          "end": 106.02000000000001,
+          "en": "duplication here if you want to.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 106.02000000000001,
+          "end": 112.15,
+          "en": "So now we moved the result handling so to say into the component",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 112.35,
+          "end": 119.00999999999999,
+          "en": "but the more heavy lifting, the part detached from the template and from the UI which is the sending",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 119.00999999999999,
+          "end": 123.98,
+          "en": "of the request and the transformation of the data, that now lives in the service",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 124.17,
+          "end": 129.61,
+          "en": "and this is a best practice when working with Angular and HTTP requests. Move",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 129.63,
+          "end": 135.39,
+          "en": "the part that is related to your template, which in my case here is managing the loading status and managing",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 135.39,
+          "end": 142.5,
+          "en": "the loaded data, move that into the component and be informed about the result of your HTTP request",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 142.74,
+          "end": 149.46,
+          "en": "by subscribing in the component but move the rest into the service and simply return the observable",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 149.46,
+          "end": 156.73,
+          "en": "there so that you set up everything in the service but you can subscribe in the component. Now of course",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 156.73,
+          "end": 159.67000000000002,
+          "en": "I'm using a different pattern for creating a post, there",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 159.7,
+          "end": 166.48,
+          "en": "I am subscribing in the service and this can be fine too. If your component doesn't care about",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 166.66,
+          "end": 172.6,
+          "en": "the response and about whether the request is done or not, as it is the case here in our application,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 172.6,
+          "end": 177.73,
+          "en": "if the component doesn't care about it, then there is no reason to subscribe in the component,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 177.73,
+          "end": 181.07,
+          "en": "then you can just subscribe in the service as we're doing it here",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 181.21,
+          "end": 187.6,
+          "en": "but if it does care about the response and the response status as it does for fetching posts, then having",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 187.6,
+          "end": 190.72,
+          "en": "that service component split is great.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 190.72,
+          "end": 197.62,
+          "en": "And now with that if this reloads, you see the loading indicator again, you see the posts again and now",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 197.62,
+          "end": 202.9,
+          "en": "we have the best of both worlds and we have a setup which you will see a lot and which you will work",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 202.9,
+          "end": 205.54,
+          "en": "with a lot when you're working with Angular.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14466350",
+      "title": "Sending a DELETE Request",
+      "lectureOrder": 588,
+      "videoOrder": 541,
+      "sourceHash": "b5103265e44b99a89ea566b694e6cf0e1fd64906c6cb574c1cb38a15cf5f2acf",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.16,
+          "end": 3.63,
+          "en": "Instructor: Now that we had a look",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.63,
+          "end": 5.43,
+          "en": "at how we can send requests,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.43,
+          "end": 8.07,
+          "en": "how we can post data, how we can get data",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.07,
+          "end": 11.91,
+          "en": "let's finish this basic request sending up by making sure",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.91,
+          "end": 16.44,
+          "en": "that we can also clear our posts so that we can delete data.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 16.44,
+          "end": 18.57,
+          "en": "And for that, of course, definitely feel free",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.57,
+          "end": 21.66,
+          "en": "to pause this video and try it on your own first.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 21.66,
+          "end": 25.53,
+          "en": "Try making sure that whenever this onClearPosts method runs,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 25.53,
+          "end": 27.78,
+          "en": "which will happen when we click that,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 27.78,
+          "end": 30.03,
+          "en": "Clear Posts button up there,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 30.03,
+          "end": 31.68,
+          "en": "that whenever this method runs",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 31.68,
+          "end": 35.46,
+          "en": "that you send a request that deletes all the posts",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 35.46,
+          "end": 36.45,
+          "en": "on the backend.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 36.45,
+          "end": 38.16,
+          "en": "You learned everything you need for that,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 38.16,
+          "end": 40.14,
+          "en": "so here's your chance to pause the video",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 40.14,
+          "end": 41.613,
+          "en": "and try it on your own.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 44.04,
+          "end": 45.42,
+          "en": "Were you successful?",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 45.42,
+          "end": 47.37,
+          "en": "Well, it's not that hard.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 47.37,
+          "end": 51.18,
+          "en": "It's almost the same type of request we sent before.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 51.18,
+          "end": 53.1,
+          "en": "Now let's keep the structure",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 53.1,
+          "end": 56.85,
+          "en": "of sending the requests in the post service.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 56.85,
+          "end": 58.8,
+          "en": "So in there I will add a new method",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 58.8,
+          "end": 60.72,
+          "en": "which I'll name, deletePosts,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 60.72,
+          "end": 61.56,
+          "en": "of course, you can name it",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 61.56,
+          "end": 64.53,
+          "en": "also clearPosts or whatever you want.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 64.53,
+          "end": 68.37,
+          "en": "Now in there I will use the HTTP client",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 68.37,
+          "end": 71.01,
+          "en": "because that is our central client",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 71.01,
+          "end": 73.23,
+          "en": "for all HTTP requests you wanna send",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 73.23,
+          "end": 75.33,
+          "en": "from inside our Angular app.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 75.33,
+          "end": 78.18,
+          "en": "And there we can now use the delete method",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 78.18,
+          "end": 81.24,
+          "en": "which will send a, well, delete request.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 81.24,
+          "end": 83.55,
+          "en": "Now this method requires a URL",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 83.55,
+          "end": 85.32,
+          "en": "to which it should send the request.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 85.32,
+          "end": 89.91,
+          "en": "And since I want to clear all posts, I will grab this URL",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 89.91,
+          "end": 92.52000000000001,
+          "en": "which targets the overall posts node",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 92.52000000000001,
+          "end": 94.56,
+          "en": "and send my request there,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 94.56,
+          "end": 97.113,
+          "en": "so that all the posts there get deleted.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 98.46000000000001,
+          "end": 101.55,
+          "en": "Now, if I want to be informed about that deletion process",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 101.55,
+          "end": 104.31,
+          "en": "in the component, which in this case I want,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 104.31,
+          "end": 107.22,
+          "en": "but if you chose a different solution, that's fine too,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 107.22,
+          "end": 109.35,
+          "en": "but if I want to be informed in a component,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 109.35,
+          "end": 111.53999999999999,
+          "en": "I will return my observable here",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 111.53999999999999,
+          "end": 114.57,
+          "en": "and I will not subscribe here in the service.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 114.57,
+          "end": 117.72999999999999,
+          "en": "But instead now in the app component in onClearPosts",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 118.71000000000001,
+          "end": 122.31,
+          "en": "I can reach out to the post service and call deletePosts",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 122.31,
+          "end": 124.29,
+          "en": "and since this returns an observable,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 124.29,
+          "end": 126.54,
+          "en": "we now have to subscribe here.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 126.54,
+          "end": 129,
+          "en": "Now why do I want to subscribe here?",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 129,
+          "end": 131.1,
+          "en": "Well, if I deleted all posts,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 131.1,
+          "end": 134.13,
+          "en": "I also want to clear my loadedPosts array here",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 134.13,
+          "end": 135.42,
+          "en": "in the component.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 135.42,
+          "end": 138.51,
+          "en": "So I will add a method here where I don't really care",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 138.51,
+          "end": 142.59,
+          "en": "about the result of our request or of the response",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 142.59,
+          "end": 144.27,
+          "en": "but I know that this function here",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 144.27,
+          "end": 146.19,
+          "en": "will only run if it's succeeded",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 146.19,
+          "end": 149.7,
+          "en": "and therefore here I will then simply",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 149.7,
+          "end": 152.97,
+          "en": "just set this loadedPosts equal to an empty array again",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 152.97,
+          "end": 154.113,
+          "en": "to reset it.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 154.98,
+          "end": 158.31,
+          "en": "And with these changes to the service and to the component,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 158.31,
+          "end": 161.28,
+          "en": "if we go back to our application and we let this reload,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 161.28,
+          "end": 164.61,
+          "en": "if it click Clear Posts, you see, eventually it gets rid",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 164.61,
+          "end": 165.57,
+          "en": "of all the posts",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 165.57,
+          "end": 168.6,
+          "en": "and on Firebase, we also see that this posts node",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 168.6,
+          "end": 170.25,
+          "en": "does not exist anymore.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 170.25,
+          "end": 174.573,
+          "en": "And, of course, we can still add new posts here.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 175.77,
+          "end": 178.53,
+          "en": "So all our old functionality still is there.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 178.53,
+          "end": 181.11,
+          "en": "The only thing we have, of course, is that currently",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 181.11,
+          "end": 184.71,
+          "en": "we got no logic to automatically update our list down there",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 184.71,
+          "end": 186.45,
+          "en": "once we added a new post.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 186.45,
+          "end": 188.55,
+          "en": "Now you can definitely score some bonus point",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 188.55,
+          "end": 189.78,
+          "en": "if you implement this.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 189.78,
+          "end": 190.89,
+          "en": "I'll not do it here",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 190.89,
+          "end": 193.62,
+          "en": "because it's not really related to the fetching of data,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 193.62,
+          "end": 198.03,
+          "en": "just to how you react to the sending of a post being done.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 198.03,
+          "end": 200.22,
+          "en": "So with that, we had a thorough look",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 200.22,
+          "end": 202.86,
+          "en": "at different kinds of requests we can send.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 202.86,
+          "end": 204.78300000000002,
+          "en": "Now what if something goes wrong?",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14466352",
+      "title": "Handling Errors",
+      "lectureOrder": 589,
+      "videoOrder": 542,
+      "sourceHash": "20ff3bd6c7a76ca14fe8f809a8b749dbdeaf34262db3d7afc59cb67cfa780cb5",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.31,
+          "end": 5.43,
+          "en": "Instructor: Thus far our requests always succeeded.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.43,
+          "end": 8.37,
+          "en": "But of course when interacting with servers,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.37,
+          "end": 9.72,
+          "en": "things can go wrong.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.72,
+          "end": 12.42,
+          "en": "You might not have an internet connection",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.42,
+          "end": 15.36,
+          "en": "or you're sending a request with incorrect data somehow",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.36,
+          "end": 18.69,
+          "en": "because you have a bug in your program or whatever it is",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.69,
+          "end": 20.43,
+          "en": "or your server fails.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 20.43,
+          "end": 23.22,
+          "en": "Maybe it's offline or there's an error",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 23.22,
+          "end": 25.83,
+          "en": "on the server or you are not authenticated.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 25.83,
+          "end": 28.89,
+          "en": "There are dozens of things that can go wrong",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 28.89,
+          "end": 32.61,
+          "en": "and we can simulate such a thing that can go wrong",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 32.61,
+          "end": 34.23,
+          "en": "by going to Firebase,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 34.23,
+          "end": 35.61,
+          "en": "and there in the database,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 35.61,
+          "end": 37.14,
+          "en": "let's go to Rules.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 37.14,
+          "end": 39.93,
+          "en": "And remember that when we created that database,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 39.93,
+          "end": 41.43,
+          "en": "we enabled test mode",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 41.43,
+          "end": 44.34,
+          "en": "which essentially means that read and write access",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 44.34,
+          "end": 47.04,
+          "en": "to this database is granted to everyone.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 47.04,
+          "end": 50.01,
+          "en": "You don't need to authenticate yourself.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 50.01,
+          "end": 51.96,
+          "en": "Now, we will add authentication",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 51.96,
+          "end": 54.96,
+          "en": "in the authentication module later in the course",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 54.96,
+          "end": 58.29,
+          "en": "and therefore for now we open this up to everyone.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 58.29,
+          "end": 60.45,
+          "en": "Now, if I lock this down though",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 60.45,
+          "end": 63.81,
+          "en": "so if I say you're not allowed, to read for example",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 63.81,
+          "end": 66.143,
+          "en": "you can still write but you're not allowed to read.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 66.143,
+          "end": 67.98,
+          "en": "And by setting this to false,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 67.98,
+          "end": 70.77,
+          "en": "there is no condition under which you would ever be allowed,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 70.77,
+          "end": 72.99,
+          "en": "not even if you are authenticated.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 72.99,
+          "end": 76.62,
+          "en": "So if I lock this down, what happens is that",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 76.62,
+          "end": 79.35,
+          "en": "if I now try to fetch posts here,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 79.35,
+          "end": 81.24,
+          "en": "you see we get an error",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 81.24,
+          "end": 85.17,
+          "en": "and that of course happens, errors occur.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 85.17,
+          "end": 88.95,
+          "en": "But it is important how we react to that error.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 88.95,
+          "end": 93.12,
+          "en": "For now, for example, here we stay in this loading state",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 93.12,
+          "end": 95.28,
+          "en": "and that is not a great user experience",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 95.28,
+          "end": 97.97999999999999,
+          "en": "because now we as a user have no idea",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 97.97999999999999,
+          "end": 101.31,
+          "en": "that there was an error and that something failed.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 101.31,
+          "end": 104.13,
+          "en": "Therefore, proper error handling matters.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 104.13,
+          "end": 106.71000000000001,
+          "en": "Now, how can we handle errors?",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 106.71000000000001,
+          "end": 108.78,
+          "en": "There are different ways of doing that.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 108.78,
+          "end": 111.517,
+          "en": "Let me demonstrate the first possible way here,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 111.517,
+          "end": 115.92,
+          "en": "\"onFetchPosts\" fails because, well, we have an error.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 115.92,
+          "end": 118.97999999999999,
+          "en": "Thus far, we only passed one function to subscribe",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 118.97999999999999,
+          "end": 120,
+          "en": "and that is the function",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 120,
+          "end": 122.25,
+          "en": "that fires when new data is emitted.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 122.25,
+          "end": 124.65,
+          "en": "Now, as you learned in the observables section",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 124.65,
+          "end": 126.757,
+          "en": "you can pass more arguments to subscribe",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 126.757,
+          "end": 129.33,
+          "en": "and the second argument is a function",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 129.33,
+          "end": 132.6,
+          "en": "that triggers whenever an error is thrown",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 132.6,
+          "end": 135.66,
+          "en": "and there we will get the error object as an argument.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 135.66,
+          "end": 139.23,
+          "en": "And now here we can do something to handle that error.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 139.23,
+          "end": 141.45,
+          "en": "To do something, to provide a better user",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 141.45,
+          "end": 144.36,
+          "en": "interface or a better user experience.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 144.36,
+          "end": 147.39,
+          "en": "And that often starts with a better user interface.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 147.39,
+          "end": 149.97,
+          "en": "So, for example here what we could do is,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 149.97,
+          "end": 152.82,
+          "en": "we could display an error message instead of loading.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 152.82,
+          "end": 155.25,
+          "en": "So down there where we display loading",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 155.25,
+          "end": 157.65,
+          "en": "or the content we loaded,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 157.65,
+          "end": 162.03,
+          "en": "we could actually introduce a new property error",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 162.03,
+          "end": 163.92000000000002,
+          "en": "and set this to null initially.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 163.92000000000002,
+          "end": 167.22,
+          "en": "So, we have no error initially,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 167.22,
+          "end": 168.48,
+          "en": "if this is not now.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 168.48,
+          "end": 169.77,
+          "en": "So, if we do have an error",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 169.77,
+          "end": 172.23,
+          "en": "and we'll add logic to change that soon,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 172.23,
+          "end": 173.97,
+          "en": "I want to add a div here",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 173.97,
+          "end": 177,
+          "en": "with the class as alert and alert danger",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 177,
+          "end": 179.04,
+          "en": "which are bootstrap classes,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 179.04,
+          "end": 181.35,
+          "en": "where I simply have let's say,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 181.35,
+          "end": 185.523,
+          "en": "h1 tag, an error occurred.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 186.54,
+          "end": 189.87,
+          "en": "And below that I wanna output error",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 189.87,
+          "end": 191.46,
+          "en": "because error in my case,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 191.46,
+          "end": 194.07,
+          "en": "in this application here could just be an error message.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 194.07,
+          "end": 196.68,
+          "en": "And of course it's up to you how you exactly manage that",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 196.68,
+          "end": 198.57,
+          "en": "and what you store in there.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 198.57,
+          "end": 200.28,
+          "en": "Now, the idea is that this here,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 200.28,
+          "end": 203.94,
+          "en": "this div is only shown if we have an error.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 203.94,
+          "end": 207.32999999999998,
+          "en": "So if error is true-ish, which it is not",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 207.32999999999998,
+          "end": 208.41,
+          "en": "if it is null.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 208.41,
+          "end": 209.4,
+          "en": "Initially it's null",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 209.4,
+          "end": 211.71,
+          "en": "and therefore, it's treated as a false value",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 211.71,
+          "end": 213.9,
+          "en": "and therefore initially this will not show up.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 213.9,
+          "end": 216.6,
+          "en": "But as soon as we set this to some string",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 216.6,
+          "end": 219.96,
+          "en": "it becomes true-ish and then this will show up.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 219.96,
+          "end": 222.06,
+          "en": "This all means that I only want to show loading",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 222.06,
+          "end": 226.14,
+          "en": "if we are fetching and we're not having an error.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 226.14,
+          "end": 228.96,
+          "en": "Because if we have an error, I never wanna show loading.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 228.96,
+          "end": 231.543,
+          "en": "I want to show my alert here.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 232.56,
+          "end": 235.98,
+          "en": "Now, the remaining step is to set that error",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 235.98,
+          "end": 237.39,
+          "en": "and of course I want to do this here",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 237.39,
+          "end": 239.85,
+          "en": "in my error handling function.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 239.85,
+          "end": 244.74,
+          "en": "And I will simply set this error, \"equal.message\"",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 244.74,
+          "end": 247.56,
+          "en": "because by default error objects have a message.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 247.56,
+          "end": 249.78,
+          "en": "The question is if that message is helpful",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 249.78,
+          "end": 253.29,
+          "en": "but at least we can set this message for now.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 253.29,
+          "end": 257.58,
+          "en": "Now, important, of course we are fetching post not just here",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 257.58,
+          "end": 260.52,
+          "en": "but all \"ngOnInit\", so there we should add",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 260.52,
+          "end": 262.76,
+          "en": "the second argument as well.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 262.76,
+          "end": 264.69,
+          "en": "And with that, let's have a look.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 264.69,
+          "end": 266.01,
+          "en": "Let's wait for that to reload.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 266.01,
+          "end": 267.96,
+          "en": "And here it is already.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 267.96,
+          "end": 268.92,
+          "en": "Now, of course you can see,",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 268.92,
+          "end": 270.78,
+          "en": "this is the error message we're getting.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 270.78,
+          "end": 272.76,
+          "en": "Might not be too useful.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 272.76,
+          "end": 274.53,
+          "en": "You can definitely tweak that,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 274.53,
+          "end": 277.14,
+          "en": "you can show your own error message.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 277.14,
+          "end": 280.29,
+          "en": "You can dive into that in more details",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 280.29,
+          "end": 281.67,
+          "en": "and if you for example,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 281.67,
+          "end": 284.878,
+          "en": "need more information from the error response.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 284.878,
+          "end": 289.878,
+          "en": "Well, let's have a look at the error we got here.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 289.92,
+          "end": 291.63,
+          "en": "Let me save that.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 291.63,
+          "end": 293.34000000000003,
+          "en": "Now if a fetch posts,",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 293.34000000000003,
+          "end": 295.11,
+          "en": "this is getting locked and you see,",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 295.11,
+          "end": 299.34000000000003,
+          "en": "what I log here is indeed a full error response object.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 299.34000000000003,
+          "end": 302.28,
+          "en": "Now there you see that message we accessed,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 302.28,
+          "end": 303.346,
+          "en": "but you also see,",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 303.346,
+          "end": 307.08,
+          "en": "you got, for example, another error key",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 307.08,
+          "end": 308.55,
+          "en": "with yet another error key",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 308.55,
+          "end": 311.61,
+          "en": "that has maybe a more helpful error message.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 311.61,
+          "end": 313.8,
+          "en": "This however is not guaranteed to exist.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 313.8,
+          "end": 314.633,
+          "en": "This only exists",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 314.633,
+          "end": 318,
+          "en": "because our error here is an error response.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 318,
+          "end": 320.13,
+          "en": "So, the fire base server sending back",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 320.13,
+          "end": 322.29,
+          "en": "a customized error response.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 322.29,
+          "end": 324.63,
+          "en": "Now the important thing to memorize about that",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 324.63,
+          "end": 328.62,
+          "en": "however is, you will get that HTTP error response object",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 328.62,
+          "end": 331.62,
+          "en": "by angular and it will have an error key.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 331.62,
+          "end": 336,
+          "en": "But the detailed content of what's in there,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 336,
+          "end": 338.61,
+          "en": "depends on the API you're talking to.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 338.61,
+          "end": 341.94,
+          "en": "Fire base gives you an object with another error key",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 341.94,
+          "end": 343.68,
+          "en": "and that permission denied message.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 343.68,
+          "end": 346.32,
+          "en": "Your own API might not be sending this",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 346.32,
+          "end": 348.06,
+          "en": "or might be sending different data.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 348.06,
+          "end": 349.666,
+          "en": "So, it's always important to understand",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 349.666,
+          "end": 352.2,
+          "en": "which API you are working with",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 352.2,
+          "end": 354.39,
+          "en": "and what this API sends back",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 354.39,
+          "end": 358.74,
+          "en": "in the case of a success message or in the case of an error.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 358.74,
+          "end": 361.89,
+          "en": "If you need more information about the error though",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 361.89,
+          "end": 363.99,
+          "en": "and not just that generic message",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 363.99,
+          "end": 367.02,
+          "en": "then you can dive into that error object you're getting,",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 367.02,
+          "end": 368.85,
+          "en": "which is that object we're logging here",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 368.85,
+          "end": 369.69,
+          "en": "and there you see,",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 369.69,
+          "end": 372.36,
+          "en": "you can also get information about the headers.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 372.36,
+          "end": 375.06,
+          "en": "You can get the exact status code that was thrown",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 375.06,
+          "end": 379.2,
+          "en": "which can be very helpful in showing a more useful message.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 379.2,
+          "end": 380.25,
+          "en": "Ends on.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 380.25,
+          "end": 383.19,
+          "en": "So, you have all of that at your disposal",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 383.19,
+          "end": 385.77,
+          "en": "and I strongly encourage you to simply play around",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 385.77,
+          "end": 389.995,
+          "en": "with that to properly handle errors in your application too.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 389.995,
+          "end": 392.49,
+          "en": "However, this is just one way of handing errors.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 392.49,
+          "end": 394.71,
+          "en": "Let me show you another way that might be more",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 394.71,
+          "end": 396.123,
+          "en": "suitable in other cases.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14466356",
+      "title": "Using Subjects for Error Handling",
+      "lectureOrder": 590,
+      "videoOrder": 543,
+      "sourceHash": "b715dd1391da107914f19b32d537a74346a51180a5bba1daafa5534d67aa2f3f",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.19,
+          "end": 5.01,
+          "en": "-: This other way of handling errors could be interesting",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.01,
+          "end": 6.12,
+          "en": "in cases like",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.12,
+          "end": 8.19,
+          "en": "when you send a request",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.19,
+          "end": 10.68,
+          "en": "and don't subscribe to it in your component.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.68,
+          "end": 14.433,
+          "en": "It's easy for us to react to an error in the component here,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.433,
+          "end": 16.71,
+          "en": "if we do return the observable",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 16.71,
+          "end": 18.18,
+          "en": "and we subscribe in the component,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 18.18,
+          "end": 21.48,
+          "en": "because then we can pass this second argument to subscribe,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 21.48,
+          "end": 24.03,
+          "en": "which is this error-handling function.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 24.03,
+          "end": 25.71,
+          "en": "But what about creating a post?",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 25.71,
+          "end": 28.14,
+          "en": "There I subscribe in the service.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 28.14,
+          "end": 30.78,
+          "en": "Now obviously you could just return the observable there too",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 30.78,
+          "end": 33.54,
+          "en": "and simply subscribe in the component instead,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 33.54,
+          "end": 35.64,
+          "en": "and that would not be wrong.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 35.64,
+          "end": 36.57,
+          "en": "But you can of course",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 36.57,
+          "end": 38.88,
+          "en": "also implement a different pattern",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 38.88,
+          "end": 41.16,
+          "en": "of handling that error.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 41.16,
+          "end": 42.87,
+          "en": "You could use a subject,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 42.87,
+          "end": 44.19,
+          "en": "and that is especially useful",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 44.19,
+          "end": 46.47,
+          "en": "if you have multiple places in the application",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 46.47,
+          "end": 48.66,
+          "en": "that might be interested in your error.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 48.66,
+          "end": 49.805,
+          "en": "So for example here",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 49.805,
+          "end": 51.88,
+          "en": "you could have your",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 53.4,
+          "end": 55.47,
+          "en": "error property,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 55.47,
+          "end": 57.24,
+          "en": "which is a new subject",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 57.24,
+          "end": 60.813,
+          "en": "and subject needs to be imported from rxjs.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 61.89,
+          "end": 63.36,
+          "en": "And that will,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 63.36,
+          "end": 65.91,
+          "en": "let's say eventually give us a string that error message.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 65.91,
+          "end": 69.21000000000001,
+          "en": "But of course you can store in there whatever you want.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 69.21000000000001,
+          "end": 72.93,
+          "en": "And the idea then simply is that here where we subscribe,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 72.93,
+          "end": 74.64,
+          "en": "where we get that error,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 74.64,
+          "end": 76.53,
+          "en": "we now use that subject.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 76.53,
+          "end": 78.96000000000001,
+          "en": "So this error we call 'next'",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 78.96000000000001,
+          "end": 80.82,
+          "en": "and we pass on error message.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 80.82,
+          "end": 82.41,
+          "en": "And now the remaining step is",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 82.41,
+          "end": 84.78,
+          "en": "that we subscribe to that subject",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 84.78,
+          "end": 85.95,
+          "en": "in all the places",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 85.95,
+          "end": 88.28999999999999,
+          "en": "we're interested in that error message.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 88.28999999999999,
+          "end": 90.93,
+          "en": "So here in this example,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 90.93,
+          "end": 93.57300000000001,
+          "en": "we would subscribe an ngOnInit in it for example,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 95.13,
+          "end": 96.53999999999999,
+          "en": "like this.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 96.53999999999999,
+          "end": 99.27000000000001,
+          "en": "And whenever we get our error message here,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 99.27000000000001,
+          "end": 102.72,
+          "en": "we could set this error equal to the error message.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 102.72,
+          "end": 104.00999999999999,
+          "en": "Now, of course, as you learned,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 104.00999999999999,
+          "end": 107.16,
+          "en": "it's a good and recommended practice to unsubscribe",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 107.16,
+          "end": 108.87299999999999,
+          "en": "if you get rid of this component.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 110.1,
+          "end": 112.8,
+          "en": "So I'll add a new property error sub,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 112.8,
+          "end": 114.9,
+          "en": "which is a subscription",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 114.9,
+          "end": 116.03999999999999,
+          "en": "and therefore we need to",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 116.03999999999999,
+          "end": 119.583,
+          "en": "import subscription from rxjs,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 120.99,
+          "end": 122.01,
+          "en": "like this.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 122.01,
+          "end": 124.35,
+          "en": "And now we can store our subscription",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 124.35,
+          "end": 125.53,
+          "en": "in that property",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 129.75,
+          "end": 131.25,
+          "en": "here in ngOnInit,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 131.25,
+          "end": 132.38,
+          "en": "and now we just need to add",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 132.38,
+          "end": 135.18,
+          "en": "OnDestroy here - this interface",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 135.18,
+          "end": 138.57,
+          "en": "and import that from at @anglular/core as well.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 138.57,
+          "end": 140.7,
+          "en": "and add ngOnDestroy,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 140.7,
+          "end": 141.53300000000002,
+          "en": "therefore,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 141.53300000000002,
+          "end": 143.463,
+          "en": "maybe here at the end of the component.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 144.78,
+          "end": 146.94,
+          "en": "And there we now just want to unsubscribe,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 146.94,
+          "end": 151.94,
+          "en": "so this.errorSub.unsubscribe.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 151.98,
+          "end": 154.11,
+          "en": "Now we use a subject-based strategy",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 154.11,
+          "end": 156.633,
+          "en": "for forwarding the error and that is fine too.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14466358",
+      "title": "Using the catchError Operator",
+      "lectureOrder": 591,
+      "videoOrder": 544,
+      "sourceHash": "10d59f3f8f0c85a2fbe98b96031ca14b54d25b39761bb1640de77199b8db7da4",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.64,
+          "end": 5.04,
+          "en": "-: No matter how you handle your error,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.04,
+          "end": 8.34,
+          "en": "what can be useful is a special operator",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.34,
+          "end": 11.04,
+          "en": "that can assist you with handling errors.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.04,
+          "end": 13.68,
+          "en": "And that special operator needs to be imported",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 13.68,
+          "end": 17.28,
+          "en": "from RxJS operators and it's named catchError,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 17.28,
+          "end": 20.04,
+          "en": "and it does exactly what the name suggests.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 20.04,
+          "end": 22.14,
+          "en": "Now let's say here,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 22.14,
+          "end": 25.853,
+          "en": "when we fetch posts, where we already piped some data,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 25.853,
+          "end": 30.66,
+          "en": "we got an error and we want to handle that.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 30.66,
+          "end": 34.44,
+          "en": "Now we can simply add the catchError operator here.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 34.44,
+          "end": 36.933,
+          "en": "We get our error response in here.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 38.4,
+          "end": 40.89,
+          "en": "So we get exactly the same data we would get",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 40.89,
+          "end": 45.57,
+          "en": "in that second argument of the subscribe method.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 45.57,
+          "end": 48.367,
+          "en": "And in here, you could now do stuff like,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 48.367,
+          "end": 51.66,
+          "en": "\"Send to analytics server,\" or anything like that.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 51.66,
+          "end": 55.14,
+          "en": "So some generic error handling task you might wanna do.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 55.14,
+          "end": 57.09,
+          "en": "Maybe not related to the UI,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 57.09,
+          "end": 59.272,
+          "en": "though of course, you could use the subject",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 59.272,
+          "end": 62.22,
+          "en": "and next the error message here too.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 62.22,
+          "end": 63.99,
+          "en": "But maybe you have some behind the scenes stuff",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 63.99,
+          "end": 66.24,
+          "en": "you wanna do when an error occurs,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 66.24,
+          "end": 68.505,
+          "en": "log it somewhere, send it to your own server,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 68.505,
+          "end": 71.85,
+          "en": "your analytics server, anything like that.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 71.85,
+          "end": 73.83,
+          "en": "And once you're done handling that error,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 73.83,
+          "end": 75.39,
+          "en": "you should pass it on though.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 75.39,
+          "end": 78.51,
+          "en": "It definitely needs to be able to reach Subscribe,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 78.51,
+          "end": 82.05,
+          "en": "just as you need to pass something here in Map as well.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 82.05,
+          "end": 86.46000000000001,
+          "en": "So, you also now need to create a new observable",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 86.46000000000001,
+          "end": 87.811,
+          "en": "that wraps that error.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 87.811,
+          "end": 91.043,
+          "en": "And for that, you can import something from RxJS",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 91.043,
+          "end": 94.35,
+          "en": "and that something is throwError.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 94.35,
+          "end": 97.77000000000001,
+          "en": "And that is a function that will yield a new observable",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 97.77000000000001,
+          "end": 101.85,
+          "en": "and it yields a new observable by wrapping an error.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 101.85,
+          "end": 106.85,
+          "en": "So here we can now throw the error response.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 107.03999999999999,
+          "end": 110.67,
+          "en": "You could also throw a new custom error which you generated.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 110.67,
+          "end": 112.95,
+          "en": "Whatever you want.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 112.95,
+          "end": 116.25,
+          "en": "Important, you need to return that observable",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 116.25,
+          "end": 118.41,
+          "en": "which is created by a throwError.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 118.41,
+          "end": 119.424,
+          "en": "And now with that,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 119.424,
+          "end": 122.19,
+          "en": "this of course doesn't do anything useful here,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 122.19,
+          "end": 125.31,
+          "en": "but it's just an idea that you could consider",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 125.31,
+          "end": 127.728,
+          "en": "using catchError if you have some generic",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 127.728,
+          "end": 131.103,
+          "en": "error handling task you also wanna execute.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14466360",
+      "title": "Error Handling & UX",
+      "lectureOrder": 592,
+      "videoOrder": 545,
+      "sourceHash": "0ff4c9c23c16e6486715d68ecbeb71c30b238965dd8256df83f92c3a9fade153",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.22,
+          "end": 3.57,
+          "en": "Instructor: That is error handling",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.57,
+          "end": 5.07,
+          "en": "and what you can do some ideas",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.07,
+          "end": 7.86,
+          "en": "on how to get started with error handling.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.86,
+          "end": 10.2,
+          "en": "For the moment, I'll switch this rule back",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.2,
+          "end": 13.026,
+          "en": "to true so that we can work with the data again",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 13.026,
+          "end": 16.499,
+          "en": "but it is worth keeping these concepts, these ideas",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 16.499,
+          "end": 18.899,
+          "en": "in mind because it can be very helpful",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 18.899,
+          "end": 22.29,
+          "en": "and will definitely improve the experience users have",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 22.29,
+          "end": 26.31,
+          "en": "on your webpage if you properly handle errors.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 26.31,
+          "end": 27.66,
+          "en": "Speaking of handling errors",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 27.66,
+          "end": 30.66,
+          "en": "one last thing we could do here in our alert.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 30.66,
+          "end": 32.62,
+          "en": "Of course, we could also add a button",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 37.587,
+          "end": 40.26,
+          "en": "where we say okay or anything like this.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 40.26,
+          "end": 41.773,
+          "en": "And this is simply there for the user to get rid",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 41.773,
+          "end": 44.37,
+          "en": "of that error message where we then trigger",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 44.37,
+          "end": 47.043,
+          "en": "on handle error.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 48.24,
+          "end": 51.311,
+          "en": "And now in that method, in the app component",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 51.311,
+          "end": 53.797,
+          "en": "let's add onHandleError",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 56.16,
+          "end": 58.62,
+          "en": "and there I simply set error back to knowledge.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 58.62,
+          "end": 61.342,
+          "en": "This will get rid of this error alert as well.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 61.342,
+          "end": 65.04,
+          "en": "Now to see that I will indeed quickly switch back",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 65.04,
+          "end": 69.42,
+          "en": "to false here again so that we can get an error.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 69.42,
+          "end": 72.5,
+          "en": "So let's fetch post, here's the error, let's think, okay,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 72.5,
+          "end": 74.07,
+          "en": "now we get rid of that.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 74.07,
+          "end": 75.66,
+          "en": "Now we see loading again.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 75.66,
+          "end": 77.88,
+          "en": "And that of course should also not be the case.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 77.88,
+          "end": 82.23,
+          "en": "And indeed the right thing to do would be to reset.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 82.23,
+          "end": 86.7,
+          "en": "This is fetching property whenever we get an error as well",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 86.7,
+          "end": 88.56,
+          "en": "because even if we have an error",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 88.56,
+          "end": 91.2,
+          "en": "we are definitely not fetching data again.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 91.2,
+          "end": 92.55,
+          "en": "So setting is fetching",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 92.55,
+          "end": 95.43,
+          "en": "to false here in the error use case when",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 95.43,
+          "end": 98.7,
+          "en": "we subscribe, is the right thing to do because even",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 98.7,
+          "end": 101.1,
+          "en": "with an error, you're not fetching data anymore.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 101.1,
+          "end": 102.862,
+          "en": "So that state definitely changed",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 102.862,
+          "end": 104.82,
+          "en": "and the effort should be reflected",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 104.82,
+          "end": 107.67,
+          "en": "in the UI too and in your data too.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 107.67,
+          "end": 110.46000000000001,
+          "en": "So now if this changed, here's the error",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 110.46000000000001,
+          "end": 113.00999999999999,
+          "en": "and if we handle this, we just see no posts available",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 113.00999999999999,
+          "end": 115.44,
+          "en": "which makes more sense than loading, I guess.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 115.44,
+          "end": 117.6,
+          "en": "So with that out of the way, however",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 117.6,
+          "end": 119.28,
+          "en": "let's now really switch this back",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 119.28,
+          "end": 122.19,
+          "en": "to true and now we have an error handling",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 122.19,
+          "end": 125.07300000000001,
+          "en": "strategy that is very basic, but a good start.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14466362",
+      "title": "Setting Headers",
+      "lectureOrder": 593,
+      "videoOrder": 546,
+      "sourceHash": "8cabe59910fb205c60923ec947e59d15f4de8a3c9be23488a79c99b69b4e3035",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.22,
+          "end": 6.33,
+          "en": "-: We now kind of enter the second part of this module,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.33,
+          "end": 7.53,
+          "en": "you could say.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.53,
+          "end": 9.36,
+          "en": "Thus far we had a thorough look",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.36,
+          "end": 11.67,
+          "en": "at how we can send HTTP requests,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.67,
+          "end": 13.11,
+          "en": "how we can handle errors,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 13.11,
+          "end": 14.97,
+          "en": "how we can work with the data we get back",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 14.97,
+          "end": 17.91,
+          "en": "if we don't have errors and so on.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 17.91,
+          "end": 21.18,
+          "en": "Now let me dive into a little bit more advanced parts",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 21.18,
+          "end": 23.46,
+          "en": "of the Angular HTTPClient",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 23.46,
+          "end": 25.77,
+          "en": "and how you can configure your requests",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 25.77,
+          "end": 27.72,
+          "en": "and which kind of different responses",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 27.72,
+          "end": 29.91,
+          "en": "you can back and so on.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 29.91,
+          "end": 32.22,
+          "en": "Let's start with headers.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 32.22,
+          "end": 34.11,
+          "en": "When sending an HTTP request",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 34.11,
+          "end": 36.21,
+          "en": "and of course we are configuring our requests",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 36.21,
+          "end": 37.44,
+          "en": "in the posts service.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 37.44,
+          "end": 39.48,
+          "en": "So this is the place to look at now.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 39.48,
+          "end": 42.42,
+          "en": "So when configuring these HTTP requests",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 42.42,
+          "end": 45.93,
+          "en": "you set things like the URL you sent the request to",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 45.93,
+          "end": 47.76,
+          "en": "or in the case of a POST request",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 47.76,
+          "end": 52.76,
+          "en": "you also set the data you wanna attach to your request.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 52.77,
+          "end": 54.51,
+          "en": "Now of course",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 54.51,
+          "end": 58.08,
+          "en": "sometimes you also need to set some special headers.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 58.08,
+          "end": 58.95,
+          "en": "For example,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 58.95,
+          "end": 61.83,
+          "en": "when you have a backend that requires authorization",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 61.83,
+          "end": 64.26,
+          "en": "and looks for an authorization header,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 64.26,
+          "end": 67.02,
+          "en": "or if you wanna set your own content type",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 67.02,
+          "end": 69.27,
+          "en": "or you need to attach a custom header",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 69.27,
+          "end": 73.11,
+          "en": "because your API you are sending the request to needs it.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 73.11,
+          "end": 76.74,
+          "en": "Now, setting your own headers is extremely simple.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 76.74,
+          "end": 79.41,
+          "en": "Any HTTP request method,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 79.41,
+          "end": 82.17,
+          "en": "no matter if it's POST or GET or DELETE",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 82.17,
+          "end": 83.61,
+          "en": "or PATCH or whatever,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 83.61,
+          "end": 88.47,
+          "en": "any of these methods has an extra last argument.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 88.47,
+          "end": 90.69,
+          "en": "So in the case of GET, it's the second argument.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 90.69,
+          "end": 93.3,
+          "en": "In the case of POST it would be the third argument,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 93.3,
+          "end": 96.36,
+          "en": "which is an object where you can configure that request.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 96.36,
+          "end": 99.39,
+          "en": "And there you can configure a bunch of stuff as you can see",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 99.39,
+          "end": 101.58,
+          "en": "and will start with the headers here.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 101.58,
+          "end": 105.09,
+          "en": "And headers now takes a header's object",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 105.09,
+          "end": 108,
+          "en": "which allows you to set the headers you wanna send.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 108,
+          "end": 111.50999999999999,
+          "en": "To be precise, it's a HTTP header's object",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 111.50999999999999,
+          "end": 116.13,
+          "en": "which you need to import from @angular/common/http.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 116.13,
+          "end": 118.89,
+          "en": "So you need to add this import at the top.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 118.89,
+          "end": 122.94,
+          "en": "And this allows you to create a new instance of this object",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 122.94,
+          "end": 126.36,
+          "en": "with a new keyword and queue this object.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 126.36,
+          "end": 128.52,
+          "en": "You can pass a JavaScript object here",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 128.52,
+          "end": 130.77,
+          "en": "with the object literal notation,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 130.77,
+          "end": 134.01,
+          "en": "where you can have key value pairs of your headers,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 134.01,
+          "end": 137.46,
+          "en": "and headers are of course key value pairs.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 137.46,
+          "end": 140.49,
+          "en": "So for example, here you could set your custom header",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 140.49,
+          "end": 144.78,
+          "en": "in case your API would need that to \"Hello\"",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 144.78,
+          "end": 145.71,
+          "en": "or whatever you need.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 145.71,
+          "end": 149.46,
+          "en": "You can set any header, any HTTP header pair here.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 149.46,
+          "end": 152.31,
+          "en": "And if I do this and I save that",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 152.31,
+          "end": 154.9,
+          "en": "and I now do try to fetch some POSTs",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 155.79,
+          "end": 157.98,
+          "en": "I fetch POSTs as before.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 157.98,
+          "end": 160.32,
+          "en": "But if we have a look at the Network tab,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 160.32,
+          "end": 163.29,
+          "en": "let's actually do that again with the cleared Network tab,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 163.29,
+          "end": 166.05,
+          "en": "and we have a look at our request here,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 166.05,
+          "end": 168.13,
+          "en": "if we inspect the headers",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 170.31,
+          "end": 171.84,
+          "en": "you see here on the request headers,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 171.84,
+          "end": 174.32999999999998,
+          "en": "there is this Custom Header: Hello",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 174.32999999999998,
+          "end": 176.37,
+          "en": "and that's that custom header I attached",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 176.37,
+          "end": 178.2,
+          "en": "and it's as simple as that.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 178.2,
+          "end": 180.78,
+          "en": "You can add as many headers as you want",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 180.78,
+          "end": 182.67,
+          "en": "with this simple approach",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 182.67,
+          "end": 186.57,
+          "en": "by simply setting the header's conflict option here",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 186.57,
+          "end": 191.5,
+          "en": "to a new HttpHeaders object to which you pass your headers",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 192.63,
+          "end": 195.903,
+          "en": "in a object literal with a key value notation.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14466364",
+      "title": "Adding Query Params",
+      "lectureOrder": 594,
+      "videoOrder": 547,
+      "sourceHash": "764f165bc46f297b0b8dc4e2d3a003d2bb6cd6a7358459cf27a4d342859fe6b2",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.25,
+          "end": 4.83,
+          "en": "Instructor: Headers aren't the only thing you can set.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.83,
+          "end": 6.39,
+          "en": "For many API endpoints,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.39,
+          "end": 9.36,
+          "en": "you can also attach certain query parameters",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.36,
+          "end": 10.53,
+          "en": "And of course, again,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.53,
+          "end": 12.39,
+          "en": "it depends on the API endpoint",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 12.39,
+          "end": 13.89,
+          "en": "you are sending the request to,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 13.89,
+          "end": 16.71,
+          "en": "which query parameters are supported.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 16.71,
+          "end": 19.29,
+          "en": "For example, the Firebase REST API,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 19.29,
+          "end": 21.51,
+          "en": "and you can learn that in the official docs,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 21.51,
+          "end": 23.37,
+          "en": "supports one query parameter",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 23.37,
+          "end": 26.04,
+          "en": "which effect we can immediately see.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 26.04,
+          "end": 29.25,
+          "en": "You set parameters by adding the params key here",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 29.25,
+          "end": 32.64,
+          "en": "in that same config object where you added headers",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 32.64,
+          "end": 37.56,
+          "en": "and you set params equal to new HTTP params.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 37.56,
+          "end": 39.96,
+          "en": "Now just as HTTP headers,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 39.96,
+          "end": 43.71,
+          "en": "you import HTTP params from at angular slash",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 43.71,
+          "end": 45.513,
+          "en": "common slash HTTP.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 46.83,
+          "end": 51.15,
+          "en": "Now HTTP params works a bit differently than HTTP headers.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 51.15,
+          "end": 54.24,
+          "en": "There you can call set",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 54.24,
+          "end": 58.14,
+          "en": "and now you can set a para name and a value for that.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 58.14,
+          "end": 61.32,
+          "en": "And there, for example, you can set print.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 61.32,
+          "end": 63.51,
+          "en": "And that is a search param at query param",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 63.51,
+          "end": 66.06,
+          "en": "supported by Firebase. Print and you sent this",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 66.06,
+          "end": 69.96000000000001,
+          "en": "to a value to pretty. And this just changes the format",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 69.96000000000001,
+          "end": 72.9,
+          "en": "in which Firebase returns its data.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 72.9,
+          "end": 74.133,
+          "en": "Now if we save that,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 76.71000000000001,
+          "end": 80.49,
+          "en": "this loads, and now if I clear that and I click this again,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 80.49,
+          "end": 82.83,
+          "en": "and we inspect this request,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 82.83,
+          "end": 85.62,
+          "en": "you see now it has this query parameter attached",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 85.62,
+          "end": 87.18,
+          "en": "to the end of the URL.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 87.18,
+          "end": 89.55,
+          "en": "And, of course, you could have added this",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 89.55,
+          "end": 91.74,
+          "en": "to the URL yourself up there, too.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 91.74,
+          "end": 95.78999999999999,
+          "en": "You could have added print equals pretty up there and add",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 95.78999999999999,
+          "end": 100.05,
+          "en": "with an ampersand in between as many key value pairs",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 100.05,
+          "end": 102.84,
+          "en": "as you need, or as your API endpoint supports.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 102.84,
+          "end": 105.42,
+          "en": "You can do that here in the URL",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 105.42,
+          "end": 107.00999999999999,
+          "en": "but by using this params config,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 107.00999999999999,
+          "end": 108.57,
+          "en": "it's a bit more convenient",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 108.57,
+          "end": 111.87,
+          "en": "because you don't need to concatenate a super long string.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 111.87,
+          "end": 115.5,
+          "en": "You simply set them here with the set method.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 115.5,
+          "end": 117.9,
+          "en": "Now, if you wanted to set multiple params,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 117.9,
+          "end": 122.19,
+          "en": "you can simply do this by adding a search params constant",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 122.19,
+          "end": 124.11,
+          "en": "or whatever you wanna name it.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 124.11,
+          "end": 126.51,
+          "en": "Create your new params object there.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 126.51,
+          "end": 130.14,
+          "en": "And now here you can call search params append",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 130.14,
+          "end": 134.01,
+          "en": "and append a new param key value pair like print pretty.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 134.01,
+          "end": 137.97,
+          "en": "Important, however, search params, this object is immutable.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 137.97,
+          "end": 140.88,
+          "en": "So you actually need to override this and therefore",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 140.88,
+          "end": 143.28300000000002,
+          "en": "this needs to be a variable with a new,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 144.96,
+          "end": 147.39,
+          "en": "the result of append.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 147.39,
+          "end": 149.34,
+          "en": "So what you would do here in the end is,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 149.34,
+          "end": 150.39,
+          "en": "you call append,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 150.39,
+          "end": 153.48,
+          "en": "and this returns a new HTTP params object.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 153.48,
+          "end": 156.3,
+          "en": "And you store that new object which has these new key value",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 156.3,
+          "end": 158.88,
+          "en": "pairs added to it in the search purpose variable,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 158.88,
+          "end": 159.84,
+          "en": "overriding the old one.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 159.84,
+          "end": 162.24,
+          "en": "So you still have an HTTP params object in there,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 162.24,
+          "end": 163.26,
+          "en": "but a new one.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 163.26,
+          "end": 167.25,
+          "en": "And you have... and if you have multiple key value pairs",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 167.25,
+          "end": 169.95,
+          "en": "then you simply repeat that step with append.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 169.95,
+          "end": 172.53,
+          "en": "The old ones will be kept, but the new ones will be added",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 172.53,
+          "end": 175.35,
+          "en": "to a new HTTP params object which will then",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 175.35,
+          "end": 178.5,
+          "en": "replace the old one by storing it in it's same variable.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 178.5,
+          "end": 180.75,
+          "en": "So, here you could also have your custom key",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 180.75,
+          "end": 182.61,
+          "en": "which is not supported by Firebase",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 182.61,
+          "end": 186.12,
+          "en": "but you can still set as it won't cause any harm.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 186.12,
+          "end": 189.09,
+          "en": "And then you simply add your search params here",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 189.09,
+          "end": 190.98,
+          "en": "for the params in your config object.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 190.98,
+          "end": 194.25,
+          "en": "And this is how you can attach multiple params",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 194.25,
+          "end": 195.36,
+          "en": "if you want to.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 195.36,
+          "end": 196.56,
+          "en": "We can see the effect here.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 196.56,
+          "end": 197.79,
+          "en": "If I fetch,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 197.79,
+          "end": 201.18,
+          "en": "now you see we have multiple search parameters attached.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 201.18,
+          "end": 204.27,
+          "en": "Again, you could have done that directly in the URL,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 204.27,
+          "end": 206.57999999999998,
+          "en": "but by using the HTTP params object,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 206.57999999999998,
+          "end": 208.32,
+          "en": "and the configuration object,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 208.32,
+          "end": 210.45,
+          "en": "it's a bit more convenient.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 210.45,
+          "end": 212.04,
+          "en": "Now, by the way, in case you're wondering",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 212.04,
+          "end": 214.8,
+          "en": "what these parameters do, custom key does nothing.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 214.8,
+          "end": 216.45,
+          "en": "That's just something I came up with.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 216.45,
+          "end": 217.92000000000002,
+          "en": "It's not supported by Firebase.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 217.92000000000002,
+          "end": 219.84,
+          "en": "But, as I mentioned, it's also no problem",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 219.84,
+          "end": 221.07,
+          "en": "if we add this.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 221.07,
+          "end": 223.5,
+          "en": "Print pretty does something in the response.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 223.5,
+          "end": 225.63,
+          "en": "It prints this in a more pretty way.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 225.63,
+          "end": 228,
+          "en": "It adds some extra white space and line breaks",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 228,
+          "end": 230.28,
+          "en": "so that this is more human readable.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 230.28,
+          "end": 232.82999999999998,
+          "en": "Absolutely does not matter for our app where",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 232.82999999999998,
+          "end": 234.93,
+          "en": "we read this with our code anyways,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 234.93,
+          "end": 236.88,
+          "en": "but I just wanted some example",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 236.88,
+          "end": 238.983,
+          "en": "to show how to add query parameters.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

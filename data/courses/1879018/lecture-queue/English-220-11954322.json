@@ -1,0 +1,286 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "11954322",
+      "title": "Two Tiny Improvements",
+      "lectureOrder": 246,
+      "videoOrder": 220,
+      "sourceHash": "d5e74c8155c123225ca2d7c47bcfe7c80f97b4831baf061cbe44601d4d9b877b",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.11,
+          "end": 7.64,
+          "en": "So we learned a lot about how we work with sessions and cookies and how we can use it to store data",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.67,
+          "end": 13.1,
+          "en": "and what potential issues are if we store mongoose model data in there because we don't store the full",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 13.1,
+          "end": 17.89,
+          "en": "mongoose model but only the data but not the magic methods,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 17.96,
+          "end": 21.97,
+          "en": "so we have to recreate that mongoose model, we have to re-fetch the data.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 22.31,
+          "end": 29.51,
+          "en": "Now one thing I just noticed is in the views, if I go to my product detail, there this add to cart of course",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 29.57,
+          "end": 35.03,
+          "en": "also should only be rendered if I am authenticated, so I'll grab that link from product list and",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 35.1,
+          "end": 42.62,
+          "en": "replace this here to make sure this works correctly because previously, if I clicked on details even",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 42.62,
+          "end": 46.16,
+          "en": "though I'm not logged in, I did see my button there,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 46.17,
+          "end": 55.56,
+          "en": "now if I login and I go to the, whoops, details I see it here, I don't see it",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 55.56,
+          "end": 57.7,
+          "en": "if I'm logged out.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 57.78,
+          "end": 66.49,
+          "en": "Now one other thing you might notice is if you do login like this, you sometimes might end up in a scenario",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 67.36,
+          "end": 72.22,
+          "en": "where after logging in, the view didn't update accordingly.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 72.22,
+          "end": 78.22,
+          "en": "Now I fail to reproduce this at the moment but you might see this, that you login and still some items",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 78.22,
+          "end": 80.9,
+          "en": "are missing and you need to reload the page to get there.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 80.92,
+          "end": 87.01,
+          "en": "The reason for this is that in auth.js when I have post login here, I do set my session and when",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 87.01,
+          "end": 92.78999999999999,
+          "en": "I then redirect, when I send a response, the session middleware goes ahead and creates that session",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 92.83,
+          "end": 98.12,
+          "en": "and that means it writes it to mongodb because we use the mongodb sessions store and it sets",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 98.13,
+          "end": 98.92,
+          "en": "the cookie.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 98.92,
+          "end": 104.25999999999999,
+          "en": "Now the problem we can face here is writing that data to a database like mongodb",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 104.25999999999999,
+          "end": 108.45,
+          "en": "can take a couple of milliseconds or depending on your speed even a bit more",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 108.46000000000001,
+          "end": 109.99000000000001,
+          "en": "milliseconds.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 109.99000000000001,
+          "end": 116.84,
+          "en": "The redirect is fired independent from that though, so you might redirect too early.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 116.89,
+          "end": 120.51,
+          "en": "Now to be sure that your session has been set,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 120.55,
+          "end": 124.33,
+          "en": "you can use request session here and call the save method,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 124.36,
+          "end": 130.24,
+          "en": "you normally don't need to do that but you need to do it in scenarios where you need to be sure that",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 130.24,
+          "end": 136.72,
+          "en": "your session was created before you continue because here, you can pass in a function that will be",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 136.72,
+          "end": 137.32999999999998,
+          "en": "called",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 137.44,
+          "end": 141.01,
+          "en": "once you're done saving the session. You'll get an error here",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 141.1,
+          "end": 148.21,
+          "en": "if an error exists, most of the time that should not be the case and then in here, you can safely redirect",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 148.32999999999998,
+          "end": 151.31,
+          "en": "and you can be sure that your session has been created here.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 152.15,
+          "end": 162.17000000000002,
+          "en": "So now with that, if I log out and I login again here, now this will only continue once that session has",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 162.17000000000002,
+          "end": 163.2,
+          "en": "really been created.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 163.22,
+          "end": 169.07,
+          "en": "Normally you don't need to call that but you need to call it if you need that guarantee which typically",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 169.07,
+          "end": 175.82,
+          "en": "is the case when you do redirect for example because in such scenarios, the redirect will be fired independent",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 175.82,
+          "end": 177.3,
+          "en": "from the session being saved",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 177.38,
+          "end": 182.66,
+          "en": "and therefore the redirect might be finished and the new page might be rendered before your session",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 182.66,
+          "end": 185.61,
+          "en": "was updated on the server and in the database.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 185.72,
+          "end": 189.26,
+          "en": "That's something to keep in mind and that is why I wanted to show you this method too.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

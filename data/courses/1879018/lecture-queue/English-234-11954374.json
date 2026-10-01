@@ -1,0 +1,384 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "11954374",
+      "title": "Adding CSRF Protection",
+      "lectureOrder": 262,
+      "videoOrder": 234,
+      "sourceHash": "f97c8ad7ca782db5b011c542e972e49ffc5bd32379a1754aed1423e689a5ffa8",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.13,
+          "end": 9.15,
+          "en": "So we added csrf token protection but it will only work if we are visiting our get index page.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 9.15,
+          "end": 15.93,
+          "en": "Now we want to have such a token and by the way also, our authentication status on every page we render.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 16.74,
+          "end": 23.91,
+          "en": "What we can do to get it onto every page is we can remove it from our render function here and instead",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 23.94,
+          "end": 26.28,
+          "en": "tell expressjs",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 26.34,
+          "end": 32.85,
+          "en": "and this is now totally unrelated from csrf thing, tell expressjs that we have some",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 32.85,
+          "end": 36.19,
+          "en": "data that should be included in every rendered view.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 36.72,
+          "end": 43.76,
+          "en": "We'll do this in the app.js file and there after this middleware where we extract the user",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 43.83,
+          "end": 51.18,
+          "en": "but before all our routes, I'll add another middleware, a normal middleware with our normal middleware function",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 51.18,
+          "end": 58.08,
+          "en": "with the three arguments and in there, we can use a special feature provided by expressjs, we can access",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 58.08,
+          "end": 62.42,
+          "en": "a special field on the response, the locals field.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 62.43,
+          "end": 69.36,
+          "en": "This allows us to set local variables that are passed into the views, local simply because well they",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 69.36,
+          "end": 72.1,
+          "en": "will only exist in the views which are rendered.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 72.3,
+          "end": 79.77,
+          "en": "So there, we can add our isAuthenticated property which I removed from the render function where I access",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 79.77,
+          "end": 83.57,
+          "en": "request session is logged in",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 83.75,
+          "end": 94.03,
+          "en": "and I can also add my csrf token variable which I get from request csrf token from this function.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 94.03999999999999,
+          "end": 99.77000000000001,
+          "en": "So now for every request that is executed, these two fields will be set for the views that are rendered",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 100.13,
+          "end": 106.7,
+          "en": "and then we have to call next so that we are able to continue. With this if we go back and we reload",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 106.7,
+          "end": 109.67,
+          "en": "this page, seems to work, seems to work",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 109.7,
+          "end": 114.47999999999999,
+          "en": "and now let's also try signing in where we also have a post request",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 114.89,
+          "end": 116.03999999999999,
+          "en": "and now this fails",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 116.06,
+          "end": 118.7,
+          "en": "and now do you know why? Well",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 118.72,
+          "end": 124.6,
+          "en": "because I do pass my token into all views but in the views, I still need to use it.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 124.94,
+          "end": 129.16,
+          "en": "So for that, we have to repeat the code we added to the navigation,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 129.16,
+          "end": 132.72,
+          "en": "we need that hidden input with that name and that value",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 132.91,
+          "end": 137.76,
+          "en": "and we have to add it into all our forms and that is something you just have to do.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 137.89,
+          "end": 144.73,
+          "en": "So for example here in the Add to Cart post form, we need that hidden input with the csrf token and also",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 144.74,
+          "end": 153.57999999999998,
+          "en": "in admin edit product, we need somewhere in that form that hidden token input. The same for our auth routes",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 153.57999999999998,
+          "end": 159.29,
+          "en": "of course, when logging in we need that hidden input and the same for signing up,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 159.29,
+          "end": 163.37,
+          "en": "this is required. In the products.ejs in the admin folder, there",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 163.39,
+          "end": 168.49,
+          "en": "we also have a form for deleting a product, we need the token in there too.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 169,
+          "end": 175.82,
+          "en": "And in the shop in the cart, we also have a delete cart item button, we need the hidden input there as well",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 176.71,
+          "end": 183.16,
+          "en": "and also down there for the order now button, this also sends a post request and we need our hidden input",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 183.17,
+          "end": 186.86,
+          "en": "there, our csrf token. On index.ejs",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 187.07,
+          "end": 189.28,
+          "en": "we don't need it, in add to cart",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 189.35,
+          "end": 195.83,
+          "en": "I just added it so there we already have it, in the product list page, it's the same, it was added",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 195.83,
+          "end": 198.47,
+          "en": "to add to cart and on the product detail page,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 198.47,
+          "end": 203.57,
+          "en": "I also only have add to cart. On the orders page here,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 203.65,
+          "end": 205.36,
+          "en": "we also have no post form.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 205.54,
+          "end": 209.23,
+          "en": "So now we should have this token everywhere where we need it",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 209.32,
+          "end": 216.99,
+          "en": "and if you save all that and you now go back to your let's say starting page and you visit the login page",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 217.02,
+          "end": 218.47,
+          "en": "and you do login,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 218.52,
+          "end": 224.64,
+          "en": "this now works because we have that token, we also can add items to the cart,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 224.94,
+          "end": 227.88,
+          "en": "we can also order them,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 228.53,
+          "end": 231.35,
+          "en": "well there is an error which we'll fix in a second.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 231.36,
+          "end": 234.11,
+          "en": "So for now let's not order them but let's delete them,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 234.11,
+          "end": 236.97,
+          "en": "this works and generally this works.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 237.01,
+          "end": 243.12,
+          "en": "Now let me fix this bug here which is not related to the csrf token in the next lecture real quick but this",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 243.13,
+          "end": 248.83,
+          "en": "hopefully and that is the main takeaway here, shows you how to use csrf protection and this is a",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 248.83,
+          "end": 253.78,
+          "en": "crucial thing which you have to add to any production ready application,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 253.78,
+          "end": 255.03,
+          "en": "it's not optional",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 255.13,
+          "end": 257.88,
+          "en": "otherwise you'll have a huge security issue on your page.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 258.01,
+          "end": 261.79,
+          "en": "You need to add this to ensure that your sessions don't get stolen.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

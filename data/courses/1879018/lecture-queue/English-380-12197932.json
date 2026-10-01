@@ -1,0 +1,468 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "12197932",
+      "title": "Adding a Login Query & a Resolver",
+      "lectureOrder": 428,
+      "videoOrder": 380,
+      "sourceHash": "057051a79ed302e373209c388277cc40064a24f1a3892b3739e58cfbed336e88",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.72,
+          "end": 5.55,
+          "en": "Now that we're able to create new users,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.57,
+          "end": 9.32,
+          "en": "how does authentication work in the graphql world?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.32,
+          "end": 13.37,
+          "en": "Does it work in a similar way to rest APIs,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.37,
+          "end": 15.35,
+          "en": "do we use sessions again?",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.83,
+          "end": 23.99,
+          "en": "Well remember this slide, a graphql API is also stateless and client independent,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 23.99,
+          "end": 30.38,
+          "en": "so generally we still authenticate by using such a token which we then attach to every request that should",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 30.38,
+          "end": 39.74,
+          "en": "be able to access protected resources and a login action is in the end just a normal query where",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 39.74,
+          "end": 43.55,
+          "en": "we send some user data and where we want to get back a token,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 43.55,
+          "end": 44.56,
+          "en": "right.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 44.69,
+          "end": 52.68,
+          "en": "So in the end what we can do here is the following, on our backend code, in our schema,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 52.75,
+          "end": 56.83,
+          "en": "I will now define a real query instead of my dummy placeholder",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 57.19,
+          "end": 61.64,
+          "en": "hello query which I'll name login. Here",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 61.78,
+          "end": 62.92,
+          "en": "I'll need some data",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 63.28,
+          "end": 66.04,
+          "en": "and I could again define my own input, like here",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 66.07,
+          "end": 70.5,
+          "en": "I did for user input data but also to show how to use multiple arguments,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 70.63,
+          "end": 77.12,
+          "en": "I will expect an email which is a string and a password which is a string",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 77.34,
+          "end": 84.53999999999999,
+          "en": "and then I will return not a user but some data that contains let's say the user id and the token because",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 84.63,
+          "end": 86.72,
+          "en": "these are the two pieces of information",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 86.82,
+          "end": 90.49,
+          "en": "I happen to need here and that makes sense as a response.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 90.53999999999999,
+          "end": 94.5,
+          "en": "Of course you could also return the overall user object.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 94.56,
+          "end": 106.88,
+          "en": "So here I'll define new type, I'll name it auth data and that will be my token which is a string and my",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 106.88,
+          "end": 113.78,
+          "en": "user ID which will be a string,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 113.78,
+          "end": 120.7,
+          "en": "this is the data I will return when someone sends a query to login.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 120.71,
+          "end": 128.85,
+          "en": "Now we need a resolver for this of course, so let's head over to resolvers and after create user,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 128.98,
+          "end": 131.07,
+          "en": "I'll add my login resolver,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 131.17,
+          "end": 138.34,
+          "en": "there again I get my args and I can use destructuring again to retrieve the email and the password argument",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 138.67000000000002,
+          "end": 146.89,
+          "en": "which I both get because I defined both here in my login query.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 146.94,
+          "end": 148.67000000000002,
+          "en": "Again I want to use async await,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 148.77,
+          "end": 156.62,
+          "en": "so I will turn this into an async function with this syntax and in there, in my login resolver, the",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 156.63,
+          "end": 156.87,
+          "en": "goal",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 156.88,
+          "end": 162.7,
+          "en": "now of course is to find a user with the right email address and then confirm the password.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 162.71,
+          "end": 172.32999999999998,
+          "en": "So first of all, I'll get my user by awaiting for user find one where I look for an e-mail address in the",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 172.32999999999998,
+          "end": 175.96,
+          "en": "database that should match the e-mail I'm getting as an argument.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 177.4,
+          "end": 179.89,
+          "en": "If this is not set, if the user is undefined",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 179.89,
+          "end": 187.18,
+          "en": "now, I know that I've found no user with that e-mail address and therefore I can create a new error where",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 187.18,
+          "end": 194.5,
+          "en": "I say user not found or whatever you want to set as an error message. I can set a code here just",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 194.5,
+          "end": 198.77,
+          "en": "as I did it for create user of let's say 404",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 198.79,
+          "end": 204.22,
+          "en": "because we didn't find the user or 401 because the user could not authenticate, I'll go with",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 204.22,
+          "end": 214.16,
+          "en": "401 and I'll throw that error. If we have passed this if check, then we know that we have a user with",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 214.16,
+          "end": 215.34,
+          "en": "that e-mail address,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 215.36,
+          "end": 221.6,
+          "en": "now we need to check the password. For that we used the bcrypt package and there, the compare function",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 222.06,
+          "end": 230.38,
+          "en": "and we pass in the password, send with the request and the stored hashed password.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 230.4,
+          "end": 237.79,
+          "en": "Now this is an asynchronous operation which gives us a promise so we can await that and I get back the",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 237.79,
+          "end": 239.57999999999998,
+          "en": "isEqual response.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 240.91,
+          "end": 250.24,
+          "en": "Now if it's not equal, then I know the user entered a wrong password, so I can create a new error here",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 250.24,
+          "end": 259.02,
+          "en": "where I say password is incorrect and I can also set an error code or 401 here",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 259.19,
+          "end": 266.92,
+          "en": "and then also throw that error of course, otherwise both the email exists and the password is correct",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 267.05,
+          "end": 274.1,
+          "en": "and now I can generate a token. And for that, I'll again import my json web token package by requiring",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 274.1,
+          "end": 282.65,
+          "en": "json web token here and then down there in the login resolver, I will generate a token by running",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 282.65,
+          "end": 290.98,
+          "en": "JWT sign, here you now pass the data you want to encode in the token, that could be your user ID which",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 290.98,
+          "end": 297.65,
+          "en": "you get from user_id toString to convert it to a string,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 297.88,
+          "end": 304.28,
+          "en": "maybe you also want to encode the email by getting that from the user you retrieve from the database",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 304.44,
+          "end": 313.17,
+          "en": "and the second argument to the sign method then is your super secret secret which you use for signing",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 313.17,
+          "end": 317.82,
+          "en": "the token which you then also use for verifying it, something we'll do later",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 317.82,
+          "end": 323.79,
+          "en": "and I'll configure the token with the third argument by setting the expires key in that object you",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 323.79,
+          "end": 329.75,
+          "en": "pass to the third argument to one hour, so that the token expires after one hour.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 329.76,
+          "end": 339.38,
+          "en": "That is exactly what we did in the rest API section too. Now I will return that token in a token key and",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 339.38,
+          "end": 347.89,
+          "en": "make sure to match that schema you defined here, so token and user ID is returned.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 348,
+          "end": 355.68,
+          "en": "So in the resolver, we return the token on the token key and the user ID which is again my user _id",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 355.68,
+          "end": 357.21,
+          "en": "toString.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 360.9,
+          "end": 367.35,
+          "en": "And now with that, we have a login query in place where we send like a get request to log the user in, to",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 367.35,
+          "end": 373.71,
+          "en": "get the token and so on you could say. Now we need to wire that up to the frontend in the next step",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 373.71,
+          "end": 375.27,
+          "en": "and then of course, test it.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 375.39,
+          "end": 378.24,
+          "en": "If you're feeling bold, also try that on your own of course.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

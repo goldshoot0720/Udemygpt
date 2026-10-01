@@ -1,0 +1,2071 @@
+{
+  "version": 1,
+  "courseId": 756150,
+  "courseSlug": "the-complete-guide-to-angular-2",
+  "courseTitle": "Angular - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "14466508",
+      "title": "Implementing Lazy Loading",
+      "lectureOrder": 657,
+      "videoOrder": 605,
+      "sourceHash": "34270b8a6fb9fadd19f539ff788bb340107fcca5f8a6b4544398d7af726fe4cb",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.16,
+          "end": 2.993,
+          "en": "-: For this,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 2.993,
+          "end": 4.86,
+          "en": "this is the app without lazy loading.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 4.86,
+          "end": 6.9,
+          "en": "So the app as we currently have it.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 6.9,
+          "end": 9.15,
+          "en": "If you go to the network tab",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 9.15,
+          "end": 12.48,
+          "en": "and you reload the app here",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 12.48,
+          "end": 14.8,
+          "en": "on this Auth page unauthenticated",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 16.14,
+          "end": 18.75,
+          "en": "you see we download a bunch of files here.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 18.75,
+          "end": 20.37,
+          "en": "We have our,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 20.37,
+          "end": 21.36,
+          "en": "let me shrink this.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 21.36,
+          "end": 22.74,
+          "en": "We have our polyfills files,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 22.74,
+          "end": 25.62,
+          "en": "styles.js, vendor.js, main.js.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 25.62,
+          "end": 28.38,
+          "en": "These are four JavaScript files",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 28.38,
+          "end": 30.18,
+          "en": "and we're in development mode here",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 30.18,
+          "end": 32.16,
+          "en": "which is why they are extremely big.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 32.16,
+          "end": 35.19,
+          "en": "They will be smaller once we built the app for production",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 35.19,
+          "end": 37.68,
+          "en": "because this code is not optimized at all.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 37.68,
+          "end": 40.02,
+          "en": "It contains many debug features",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 40.02,
+          "end": 43.86,
+          "en": "so it will be way smaller later and we'll see that later.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 43.86,
+          "end": 45.84,
+          "en": "But at the moment you see we have",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 45.84,
+          "end": 47.22,
+          "en": "pretty big files here.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 47.22,
+          "end": 49.53,
+          "en": "4 megabytes, 100 kilobytes",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 49.53,
+          "end": 51.09,
+          "en": "almost a megabyte,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 51.09,
+          "end": 53.22,
+          "en": "236 kilobytes.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 53.22,
+          "end": 55.5,
+          "en": "Now again, this will shrink significantly",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 55.5,
+          "end": 58.23,
+          "en": "but still this is our current file size.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 58.23,
+          "end": 59.22,
+          "en": "With lazy loading,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 59.22,
+          "end": 61.56,
+          "en": "We should be able to decrease that.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 61.56,
+          "end": 63.69,
+          "en": "How do we add lazy loading though?",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 63.69,
+          "end": 66.27,
+          "en": "Let's start with the recipes module.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 66.27,
+          "end": 68.01,
+          "en": "Because for example here,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 68.01,
+          "end": 69.75,
+          "en": "when we're not authenticated",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 69.75,
+          "end": 72.96000000000001,
+          "en": "we certainly don't need to load the recipes module code",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 72.96000000000001,
+          "end": 75.18,
+          "en": "because we can't even access anything",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 75.18,
+          "end": 77.46000000000001,
+          "en": "from the recipes module here.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 77.46000000000001,
+          "end": 78.66,
+          "en": "It might also not make sense",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 78.66,
+          "end": 80.16,
+          "en": "to load the shopping list module",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 80.16,
+          "end": 81.6,
+          "en": "even though we can access it",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 81.6,
+          "end": 83.1,
+          "en": "because unless we do,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 83.1,
+          "end": 85.65,
+          "en": "there is no need to download that code.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 85.65,
+          "end": 88.47,
+          "en": "So let's start with the recipes module nonetheless.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 88.47,
+          "end": 90.51,
+          "en": "There, we have the recipes module",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 90.51,
+          "end": 92.37,
+          "en": "and we have its own routes here",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 92.37,
+          "end": 94.62,
+          "en": "in the recipes routing module.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 94.62,
+          "end": 98.28,
+          "en": "Now, having the routes registered here",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 98.28,
+          "end": 100.56,
+          "en": "is an important starting point.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 100.56,
+          "end": 102,
+          "en": "For a lazy loading to work,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 102,
+          "end": 105.45,
+          "en": "your feature module needs to bring its own routes.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 105.45,
+          "end": 106.53,
+          "en": "As we're doing it here,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 106.53,
+          "end": 108.69,
+          "en": "it needs to bring its own route conflict.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 108.69,
+          "end": 110.88,
+          "en": "We're doing that here and it needs to bring that",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 110.88,
+          "end": 114.06,
+          "en": "with forChild, which is also what we're doing here.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 114.06,
+          "end": 116.61,
+          "en": "Now one thing we'll need to change though",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 116.61,
+          "end": 119.03999999999999,
+          "en": "that path recipes here,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 119.03999999999999,
+          "end": 119.87299999999999,
+          "en": "I will change it",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 119.87299999999999,
+          "end": 121.2,
+          "en": "to an empty path",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 121.2,
+          "end": 123.06,
+          "en": "because now we need to add something",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 123.06,
+          "end": 124.92,
+          "en": "to our app routing module",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 124.92,
+          "end": 126.93,
+          "en": "for lazy loading to work.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 126.93,
+          "end": 129.78,
+          "en": "Here, I'll again add another route",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 129.78,
+          "end": 131.97,
+          "en": "and that will be the route for recipes.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 131.97,
+          "end": 136.26,
+          "en": "So the path I just removed from the recipes module.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 136.26,
+          "end": 138.48,
+          "en": "Now here I'm in the app routing module.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 138.48,
+          "end": 139.82999999999998,
+          "en": "Important.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 139.82999999999998,
+          "end": 142.44,
+          "en": "I add that path again here,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 142.44,
+          "end": 143.43,
+          "en": "but now,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 143.43,
+          "end": 146.04,
+          "en": "I don't add a component which I wanna load",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 146.04,
+          "end": 148.95,
+          "en": "but instead you add loadChildren.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 148.95,
+          "end": 152.57999999999998,
+          "en": "That's a special property in a route conflict",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 152.57999999999998,
+          "end": 155.34,
+          "en": "which Angular understands as",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 155.34,
+          "end": 157.41,
+          "en": "please only load",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 157.41,
+          "end": 159.3,
+          "en": "the code content",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 159.3,
+          "end": 161.97,
+          "en": "or the module I'm going to point you at",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 161.97,
+          "end": 166.5,
+          "en": "when anyone, when the user visits this path here.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 166.5,
+          "end": 168.75,
+          "en": "Now let me show you what this means.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 168.75,
+          "end": 169.9,
+          "en": "We can now add",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 171.09,
+          "end": 171.93,
+          "en": "a string here,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 171.93,
+          "end": 173.25,
+          "en": "not a type,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 173.25,
+          "end": 175.77,
+          "en": "not a component type you pointed, but a string",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 175.77,
+          "end": 179.67000000000002,
+          "en": "which is a path to the module you wanna load when this page",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 179.67000000000002,
+          "end": 182.55,
+          "en": "or when this path here is visited.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 182.55,
+          "end": 185.64,
+          "en": "And I of course wanna load",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 185.64,
+          "end": 187.99,
+          "en": "relatively from the app routing module",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 189.57,
+          "end": 192.39,
+          "en": "my recipes folder and there",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 192.39,
+          "end": 195.3,
+          "en": "the recipes module",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 195.3,
+          "end": 198.077,
+          "en": "not the recipes routing module, but the recipes module.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 198.957,
+          "end": 201.372,
+          "en": "And now you also need to add something here.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 201.372,
+          "end": 202.20499999999998,
+          "en": "You know it's not just a path,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 202.20499999999998,
+          "end": 205.05,
+          "en": "but you also need to add the name of that module",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 205.05,
+          "end": 206.64,
+          "en": "because Angular can't know that",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 206.64,
+          "end": 208.11,
+          "en": "and it needs to know the class name",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 208.11,
+          "end": 209.31,
+          "en": "because technically",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 209.31,
+          "end": 211.35,
+          "en": "it will go to that path",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 211.35,
+          "end": 213.63,
+          "en": "and then try to dynamically import",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 213.63,
+          "end": 216.75,
+          "en": "a specific object from that file",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 216.75,
+          "end": 219.15,
+          "en": "and theoretically that could be named anything.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 219.15,
+          "end": 221.67000000000002,
+          "en": "We are of course following that naming convention",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 221.67000000000002,
+          "end": 225.27,
+          "en": "of naming this recipes module in this casing here",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 225.27,
+          "end": 228.39,
+          "en": "when the file name hat is named recipes.module",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 228.39,
+          "end": 231.3,
+          "en": "but no one is forcing us to follow that naming pattern",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 231.3,
+          "end": 234.36,
+          "en": "and therefore we explicitly have to tell Angular",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 234.36,
+          "end": 239.25,
+          "en": "what the name of the exported class in that file is.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 239.25,
+          "end": 243.09,
+          "en": "And you add that by adding a hashtag and then that name",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 243.09,
+          "end": 248,
+          "en": "so lowChildren points at ./recipes/recipes.module.ts",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 248.97,
+          "end": 252.84,
+          "en": "and then hashtag and the name of that class.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 252.84,
+          "end": 255.09,
+          "en": "The effect of that will be",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 255.09,
+          "end": 259.23,
+          "en": "that now the code is split at that point",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 259.23,
+          "end": 262.08,
+          "en": "and everything at this path here",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 262.08,
+          "end": 266.13,
+          "en": "so this entire module and everything that module uses",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 266.13,
+          "end": 268.5,
+          "en": "so all the declarations of that module",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 268.5,
+          "end": 271.38,
+          "en": "will be put into a separate code bundle",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 271.38,
+          "end": 272.82,
+          "en": "which is then downloaded",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 272.82,
+          "end": 277.17,
+          "en": "and parsed on the demand as soon as a user visits this page",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 277.17,
+          "end": 278.703,
+          "en": "but not sooner.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 280.44,
+          "end": 282.03,
+          "en": "And that is simply achieved",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 282.03,
+          "end": 286.5,
+          "en": "by the Angular CLI essentially analyzing this",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 286.5,
+          "end": 288,
+          "en": "when we build our app",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 288,
+          "end": 290.67,
+          "en": "and it will then analyze the recipes module",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 290.67,
+          "end": 292.62,
+          "en": "at which we point here",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 292.62,
+          "end": 296.37,
+          "en": "and it will look at what we declare in here and so on",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 296.37,
+          "end": 299.94,
+          "en": "and will put the code of all these things we declare here",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 299.94,
+          "end": 303.3,
+          "en": "into that separate bundle which is now built separately",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 303.3,
+          "end": 307.65,
+          "en": "detached from our main bundle with which the app starts.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 307.65,
+          "end": 310.44,
+          "en": "Important for this to have a real effect",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 310.44,
+          "end": 313.8,
+          "en": "and safe code is that you have",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 313.8,
+          "end": 316.89,
+          "en": "these import statements only in the recipes module",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 316.89,
+          "end": 319.74,
+          "en": "and you don't have any old import statements to",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 319.74,
+          "end": 321.24,
+          "en": "let's say the recipes component",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 321.24,
+          "end": 323.07,
+          "en": "in let's say the app module.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 323.07,
+          "end": 325.56,
+          "en": "Because ultimately for the build process",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 325.56,
+          "end": 328.59,
+          "en": "it's important what you import here at the top,",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 328.59,
+          "end": 329.73,
+          "en": "what you import here,",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 329.73,
+          "end": 332.19,
+          "en": "like that forms module, which I should remove",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 332.19,
+          "end": 333.33,
+          "en": "in the app module.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 333.33,
+          "end": 334.56,
+          "en": "What you import here",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 334.56,
+          "end": 337.77,
+          "en": "is all bundled together into one code bundle.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 337.77,
+          "end": 339.39,
+          "en": "So in the recipes module,",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 339.39,
+          "end": 340.26,
+          "en": "in the end,",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 340.26,
+          "end": 342.87,
+          "en": "the build process will look at these imports",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 342.87,
+          "end": 344.37,
+          "en": "which are required for this to work,",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 344.37,
+          "end": 346.05,
+          "en": "but it will look at these imports",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 346.05,
+          "end": 347.43,
+          "en": "and whatever is included here",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 347.43,
+          "end": 349.32,
+          "en": "will be included in the same bundle.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 349.32,
+          "end": 350.76,
+          "en": "So if you have another",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 350.76,
+          "end": 354.24,
+          "en": "even unused import at something like this",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 354.24,
+          "end": 356.31,
+          "en": "lying around in your app module,",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 356.31,
+          "end": 358.74,
+          "en": "then this part would be included into",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 358.74,
+          "end": 360.63,
+          "en": "the app module code bundle",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 360.63,
+          "end": 362.55,
+          "en": "even though you're not using it there.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 362.55,
+          "end": 365.49,
+          "en": "So to have the biggest effect and save the most code",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 365.49,
+          "end": 368.4,
+          "en": "make sure your imports here at the top are correct.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 368.4,
+          "end": 369.48,
+          "en": "If they are,",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 369.48,
+          "end": 372.45,
+          "en": "then you'll get the biggest possible effect",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 372.45,
+          "end": 374.64,
+          "en": "from that code splitting.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 374.64,
+          "end": 376.59,
+          "en": "Now in the recipe's routing module,",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 376.59,
+          "end": 378.96,
+          "en": "it's important that you have an empty path",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 378.96,
+          "end": 380.31,
+          "en": "because you have to keep in mind",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 380.31,
+          "end": 382.08,
+          "en": "that we now change the route conflict",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 382.08,
+          "end": 385.35,
+          "en": "to include the path here in the app routing module",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 385.35,
+          "end": 387.18,
+          "en": "and it will load the recipes module",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 387.18,
+          "end": 389.49,
+          "en": "whenever we visit /recipes.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 389.49,
+          "end": 391.53,
+          "en": "And therefore in the recipes module,",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 391.53,
+          "end": 394.68,
+          "en": "we now already are at /recipes.",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 394.68,
+          "end": 397.23,
+          "en": "And hence here in the recipes routing module,",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 397.23,
+          "end": 400.59000000000003,
+          "en": "which is only kicking in once we do visit this module,",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 400.59000000000003,
+          "end": 402.51,
+          "en": "we should start with /nothing",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 402.51,
+          "end": 405.843,
+          "en": "because again, we already are at /recipes.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 406.74,
+          "end": 410.55,
+          "en": "Now save all that and quit your build process",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 410.55,
+          "end": 412.08,
+          "en": "and restart NG server,",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 412.08,
+          "end": 414.18,
+          "en": "because after adding lazy loading",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 414.18,
+          "end": 416.7,
+          "en": "you will need to restart that to ensure",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 416.7,
+          "end": 418.92,
+          "en": "that, it really has an effect",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 418.92,
+          "end": 421.17,
+          "en": "and is taken into account.",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 421.17,
+          "end": 422.76,
+          "en": "Now here I'm getting an error",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 422.76,
+          "end": 427.29,
+          "en": "and the issue is that here we should remove the .ts.",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 427.29,
+          "end": 430.29,
+          "en": "-: Now one note about this syntax.",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 430.29,
+          "end": 432.6,
+          "en": "In newer versions of Angular,",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 432.6,
+          "end": 434.52,
+          "en": "you have an alternative syntax",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 434.52,
+          "end": 438.75,
+          "en": "and this syntax might even fail in newer projects.",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 438.75,
+          "end": 440.73,
+          "en": "So if you are getting an error,",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 440.73,
+          "end": 444.09,
+          "en": "like module cannot be found when trying this out,",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 444.09,
+          "end": 445.62,
+          "en": "which we'll do in a second.",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 445.62,
+          "end": 448.2,
+          "en": "Or if you wanna switch to that more modern,",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 448.2,
+          "end": 450.45,
+          "en": "different syntax for any other reason.",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 450.45,
+          "end": 452.85,
+          "en": "Here is that other syntax you could use.",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 452.85,
+          "end": 455.37,
+          "en": "Instead of having this string here",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 455.37,
+          "end": 458.22,
+          "en": "to identify the module which should be loaded,",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 458.22,
+          "end": 462.15,
+          "en": "you can add a function here, an anonymous arrow function.",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 462.15,
+          "end": 466.23,
+          "en": "And in the function body you call import like a function.",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 466.23,
+          "end": 468.54,
+          "en": "So you don't use import as we do it up there",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 468.54,
+          "end": 469.95,
+          "en": "to import modules,",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 469.95,
+          "end": 473.4,
+          "en": "but you call it dynamically as a function.",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 473.4,
+          "end": 476.55,
+          "en": "To import you then pass the path to the module",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 476.55,
+          "end": 481.55,
+          "en": "so /recipes/recipes.module.",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 481.767,
+          "end": 484.56,
+          "en": "And now you don't add a hashtag thereafter",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 484.56,
+          "end": 486.09,
+          "en": "to identify the module,",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 486.09,
+          "end": 489.48,
+          "en": "but instead import resolves a promise.",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 489.48,
+          "end": 491.58,
+          "en": "So now you call then there.",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 491.58,
+          "end": 492.69,
+          "en": "And in this promise",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 492.69,
+          "end": 496.29,
+          "en": "or in this then block you pass in a function which receives",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 496.29,
+          "end": 498.81,
+          "en": "in the end the module which was loaded here.",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 498.81,
+          "end": 501.06,
+          "en": "Hence I named the argument m.",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 501.06,
+          "end": 505.47,
+          "en": "And on this module object, you can extract your modules",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 505.47,
+          "end": 508.023,
+          "en": "the recipes module in this case.",
+          "zh": ""
+        },
+        {
+          "id": 204,
+          "start": 509.49,
+          "end": 510.71,
+          "en": "So this here is",
+          "zh": ""
+        },
+        {
+          "id": 205,
+          "start": 510.71,
+          "end": 515.25,
+          "en": "in the end an alternative syntax you could use",
+          "zh": ""
+        },
+        {
+          "id": 206,
+          "start": 515.25,
+          "end": 517.71,
+          "en": "for loading routes lazily",
+          "zh": ""
+        },
+        {
+          "id": 207,
+          "start": 517.71,
+          "end": 518.91,
+          "en": "instead of using the string",
+          "zh": ""
+        },
+        {
+          "id": 208,
+          "start": 518.91,
+          "end": 520.44,
+          "en": "you see in the videos thereafter,",
+          "zh": ""
+        },
+        {
+          "id": 209,
+          "start": 520.44,
+          "end": 522.33,
+          "en": "you can use this function.",
+          "zh": ""
+        },
+        {
+          "id": 210,
+          "start": 522.33,
+          "end": 524.16,
+          "en": "Now generally it doesn't matter which",
+          "zh": ""
+        },
+        {
+          "id": 211,
+          "start": 524.16,
+          "end": 525.81,
+          "en": "of the two approaches you use",
+          "zh": ""
+        },
+        {
+          "id": 212,
+          "start": 525.81,
+          "end": 527.46,
+          "en": "but this is the more modern one.",
+          "zh": ""
+        },
+        {
+          "id": 213,
+          "start": 527.46,
+          "end": 529.14,
+          "en": "And if you are getting errors",
+          "zh": ""
+        },
+        {
+          "id": 214,
+          "start": 529.14,
+          "end": 531.36,
+          "en": "with the approach I'm showing in the lectures",
+          "zh": ""
+        },
+        {
+          "id": 215,
+          "start": 531.36,
+          "end": 534.543,
+          "en": "which is the string-based one, switch to this one instead.",
+          "zh": ""
+        },
+        {
+          "id": 216,
+          "start": 536.7,
+          "end": 539.52,
+          "en": "-: Let's restart and NG server thereafter",
+          "zh": ""
+        },
+        {
+          "id": 217,
+          "start": 539.52,
+          "end": 542.52,
+          "en": "and this looks good, however",
+          "zh": ""
+        },
+        {
+          "id": 218,
+          "start": 542.52,
+          "end": 546.45,
+          "en": "now when this loads you should get an error like this.",
+          "zh": ""
+        },
+        {
+          "id": 219,
+          "start": 546.45,
+          "end": 549.723,
+          "en": "And do you have an idea what might be causing that?",
+          "zh": ""
+        },
+        {
+          "id": 220,
+          "start": 550.8,
+          "end": 552.69,
+          "en": "Well, in the app module",
+          "zh": ""
+        },
+        {
+          "id": 221,
+          "start": 552.69,
+          "end": 556.5,
+          "en": "I'm still importing the recipes module.",
+          "zh": ""
+        },
+        {
+          "id": 222,
+          "start": 556.5,
+          "end": 558.78,
+          "en": "Now the recipes module is the module",
+          "zh": ""
+        },
+        {
+          "id": 223,
+          "start": 558.78,
+          "end": 560.88,
+          "en": "we're now trying to load lazily.",
+          "zh": ""
+        },
+        {
+          "id": 224,
+          "start": 560.88,
+          "end": 564.09,
+          "en": "So we should only have this part here",
+          "zh": ""
+        },
+        {
+          "id": 225,
+          "start": 564.09,
+          "end": 566.4,
+          "en": "this route where we use loadChildren",
+          "zh": ""
+        },
+        {
+          "id": 226,
+          "start": 566.4,
+          "end": 569.52,
+          "en": "we must not import recipes module anymore",
+          "zh": ""
+        },
+        {
+          "id": 227,
+          "start": 569.52,
+          "end": 570.72,
+          "en": "otherwise we're importing it",
+          "zh": ""
+        },
+        {
+          "id": 228,
+          "start": 570.72,
+          "end": 573.3,
+          "en": "both eagerly and lazily at the same time",
+          "zh": ""
+        },
+        {
+          "id": 229,
+          "start": 573.3,
+          "end": 575.19,
+          "en": "and that will cause an error.",
+          "zh": ""
+        },
+        {
+          "id": 230,
+          "start": 575.19,
+          "end": 577.8,
+          "en": "Of course, I ought to remove that import statement,",
+          "zh": ""
+        },
+        {
+          "id": 231,
+          "start": 577.8,
+          "end": 579.93,
+          "en": "otherwise it will technically work",
+          "zh": ""
+        },
+        {
+          "id": 232,
+          "start": 579.93,
+          "end": 583.02,
+          "en": "but you won't save anything in code size.",
+          "zh": ""
+        },
+        {
+          "id": 233,
+          "start": 583.02,
+          "end": 584.37,
+          "en": "Now with that saved",
+          "zh": ""
+        },
+        {
+          "id": 234,
+          "start": 584.37,
+          "end": 588.09,
+          "en": "you should be able to save this again and recompile.",
+          "zh": ""
+        },
+        {
+          "id": 235,
+          "start": 588.09,
+          "end": 590.07,
+          "en": "And now this looks good, no error.",
+          "zh": ""
+        },
+        {
+          "id": 236,
+          "start": 590.07,
+          "end": 592.29,
+          "en": "And now let's go to the network tab here",
+          "zh": ""
+        },
+        {
+          "id": 237,
+          "start": 592.29,
+          "end": 593.733,
+          "en": "and reload this page.",
+          "zh": ""
+        },
+        {
+          "id": 238,
+          "start": 594.6,
+          "end": 597.33,
+          "en": "Now the vendor.js file is still pretty big",
+          "zh": ""
+        },
+        {
+          "id": 239,
+          "start": 597.33,
+          "end": 599.01,
+          "en": "because that's just Angular",
+          "zh": ""
+        },
+        {
+          "id": 240,
+          "start": 599.01,
+          "end": 601.68,
+          "en": "but main.js actually shrank.",
+          "zh": ""
+        },
+        {
+          "id": 241,
+          "start": 601.68,
+          "end": 605.34,
+          "en": "Previously that was, I think 117 kilobyte,",
+          "zh": ""
+        },
+        {
+          "id": 242,
+          "start": 605.34,
+          "end": 607.86,
+          "en": "so definitely above 100.",
+          "zh": ""
+        },
+        {
+          "id": 243,
+          "start": 607.86,
+          "end": 609.57,
+          "en": "Now it's 75.",
+          "zh": ""
+        },
+        {
+          "id": 244,
+          "start": 609.57,
+          "end": 611.85,
+          "en": "So this shrank,",
+          "zh": ""
+        },
+        {
+          "id": 245,
+          "start": 611.85,
+          "end": 613.23,
+          "en": "we can see where it went.",
+          "zh": ""
+        },
+        {
+          "id": 246,
+          "start": 613.23,
+          "end": 615.69,
+          "en": "If we clean that here",
+          "zh": ""
+        },
+        {
+          "id": 247,
+          "start": 615.69,
+          "end": 619.59,
+          "en": "and we do log in with valid credentials",
+          "zh": ""
+        },
+        {
+          "id": 248,
+          "start": 619.59,
+          "end": 621.57,
+          "en": "and now we are redirected to recipes.",
+          "zh": ""
+        },
+        {
+          "id": 249,
+          "start": 621.57,
+          "end": 623.463,
+          "en": "And indeed here you now see it.",
+          "zh": ""
+        },
+        {
+          "id": 250,
+          "start": 625.77,
+          "end": 630.57,
+          "en": "that you have this recipes-recipes-module.js file here.",
+          "zh": ""
+        },
+        {
+          "id": 251,
+          "start": 630.57,
+          "end": 631.8,
+          "en": "The naming might differ,",
+          "zh": ""
+        },
+        {
+          "id": 252,
+          "start": 631.8,
+          "end": 634.05,
+          "en": "but that has the 41 kilobytes",
+          "zh": ""
+        },
+        {
+          "id": 253,
+          "start": 634.05,
+          "end": 637.11,
+          "en": "by which our bundle effectively shrank roundabout.",
+          "zh": ""
+        },
+        {
+          "id": 254,
+          "start": 637.11,
+          "end": 640.05,
+          "en": "And that is that lazy loaded code snippet",
+          "zh": ""
+        },
+        {
+          "id": 255,
+          "start": 640.05,
+          "end": 642.72,
+          "en": "that lazy loaded module and we can interact",
+          "zh": ""
+        },
+        {
+          "id": 256,
+          "start": 642.72,
+          "end": 644.37,
+          "en": "with that just as we could before.",
+          "zh": ""
+        },
+        {
+          "id": 257,
+          "start": 644.37,
+          "end": 648.3,
+          "en": "So that is all working, but now we're lazy loading",
+          "zh": ""
+        },
+        {
+          "id": 258,
+          "start": 648.3,
+          "end": 651.63,
+          "en": "and this shrinks our initial bundle size.",
+          "zh": ""
+        },
+        {
+          "id": 259,
+          "start": 651.63,
+          "end": 652.92,
+          "en": "Now of course the big bundle",
+          "zh": ""
+        },
+        {
+          "id": 260,
+          "start": 652.92,
+          "end": 655.86,
+          "en": "the 4.1 megabyte bundle did not shrink, but again",
+          "zh": ""
+        },
+        {
+          "id": 261,
+          "start": 655.86,
+          "end": 658.26,
+          "en": "this will be optimized later.",
+          "zh": ""
+        },
+        {
+          "id": 262,
+          "start": 658.26,
+          "end": 662.31,
+          "en": "And the bigger your app grows, the bigger the features are",
+          "zh": ""
+        },
+        {
+          "id": 263,
+          "start": 662.31,
+          "end": 665.1,
+          "en": "your lazy loading, the bigger the effect will be.",
+          "zh": ""
+        },
+        {
+          "id": 264,
+          "start": 665.1,
+          "end": 669.15,
+          "en": "Of course, if you have a large app with an entire area",
+          "zh": ""
+        },
+        {
+          "id": 265,
+          "start": 669.15,
+          "end": 671.76,
+          "en": "in that app that the user might never visit",
+          "zh": ""
+        },
+        {
+          "id": 266,
+          "start": 671.76,
+          "end": 675.03,
+          "en": "if you lazy load that it might have a huge impact",
+          "zh": ""
+        },
+        {
+          "id": 267,
+          "start": 675.03,
+          "end": 678.63,
+          "en": "because you can save so much in that initial bundle.",
+          "zh": ""
+        },
+        {
+          "id": 268,
+          "start": 678.63,
+          "end": 680.52,
+          "en": "Now of course it makes most sense",
+          "zh": ""
+        },
+        {
+          "id": 269,
+          "start": 680.52,
+          "end": 682.95,
+          "en": "to lazy load parts of the app where there is",
+          "zh": ""
+        },
+        {
+          "id": 270,
+          "start": 682.95,
+          "end": 686.37,
+          "en": "at least a slight chance of the user never using it.",
+          "zh": ""
+        },
+        {
+          "id": 271,
+          "start": 686.37,
+          "end": 688.68,
+          "en": "For example, in this application you could argue",
+          "zh": ""
+        },
+        {
+          "id": 272,
+          "start": 688.68,
+          "end": 691.83,
+          "en": "that lazy loading the auth page doesn't make too much sense",
+          "zh": ""
+        },
+        {
+          "id": 273,
+          "start": 691.83,
+          "end": 693.9,
+          "en": "because the user will always see that.",
+          "zh": ""
+        },
+        {
+          "id": 274,
+          "start": 693.9,
+          "end": 696.03,
+          "en": "Though I guess that's also only correct",
+          "zh": ""
+        },
+        {
+          "id": 275,
+          "start": 696.03,
+          "end": 699.09,
+          "en": "if you assume that the user is already logged in",
+          "zh": ""
+        },
+        {
+          "id": 276,
+          "start": 699.09,
+          "end": 700.32,
+          "en": "the user is not logged in,",
+          "zh": ""
+        },
+        {
+          "id": 277,
+          "start": 700.32,
+          "end": 702.9,
+          "en": "we can't visit the recipes page",
+          "zh": ""
+        },
+        {
+          "id": 278,
+          "start": 702.9,
+          "end": 705.15,
+          "en": "and therefore will never see the auth page.",
+          "zh": ""
+        },
+        {
+          "id": 279,
+          "start": 705.15,
+          "end": 705.983,
+          "en": "And therefore",
+          "zh": ""
+        },
+        {
+          "id": 280,
+          "start": 705.983,
+          "end": 708.63,
+          "en": "even lazy loading the auth page might make sense,",
+          "zh": ""
+        },
+        {
+          "id": 281,
+          "start": 708.63,
+          "end": 711.54,
+          "en": "but if you have some page which will always be visited",
+          "zh": ""
+        },
+        {
+          "id": 282,
+          "start": 711.54,
+          "end": 714.69,
+          "en": "or with a very, very, very, very high chance,",
+          "zh": ""
+        },
+        {
+          "id": 283,
+          "start": 714.69,
+          "end": 717.24,
+          "en": "then lazy loading that page or that module",
+          "zh": ""
+        },
+        {
+          "id": 284,
+          "start": 717.24,
+          "end": 718.53,
+          "en": "might not be worth it,",
+          "zh": ""
+        },
+        {
+          "id": 285,
+          "start": 718.53,
+          "end": 719.88,
+          "en": "because you have to consider",
+          "zh": ""
+        },
+        {
+          "id": 286,
+          "start": 719.88,
+          "end": 722.79,
+          "en": "that lazy loading of course comes with the downside",
+          "zh": ""
+        },
+        {
+          "id": 287,
+          "start": 722.79,
+          "end": 725.85,
+          "en": "of that extra code bundle being downloaded later.",
+          "zh": ""
+        },
+        {
+          "id": 288,
+          "start": 725.85,
+          "end": 727.65,
+          "en": "And therefore, once it's needed",
+          "zh": ""
+        },
+        {
+          "id": 289,
+          "start": 727.65,
+          "end": 729.81,
+          "en": "there might be a slight delay in your app",
+          "zh": ""
+        },
+        {
+          "id": 290,
+          "start": 729.81,
+          "end": 732.15,
+          "en": "since that code needs to be downloaded and parsed.",
+          "zh": ""
+        },
+        {
+          "id": 291,
+          "start": 732.15,
+          "end": 734.13,
+          "en": "So you are basically just postponing that.",
+          "zh": ""
+        },
+        {
+          "id": 292,
+          "start": 734.13,
+          "end": 735.24,
+          "en": "Though, I'll also show",
+          "zh": ""
+        },
+        {
+          "id": 293,
+          "start": 735.24,
+          "end": 737.733,
+          "en": "an optimization technique with that in a second.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,1112 @@
+{
+  "version": 1,
+  "courseId": 756150,
+  "courseSlug": "the-complete-guide-to-angular-2",
+  "courseTitle": "Angular - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "14466370",
+      "title": "Introducing Interceptors",
+      "lectureOrder": 597,
+      "videoOrder": 550,
+      "sourceHash": "61e4ad2e80472cf7b152408296afd2759de159fd9c6431da68d93ccd00e400e7",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.16,
+          "end": 3.51,
+          "en": "Instructor: We're nearing the end,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.51,
+          "end": 5.28,
+          "en": "but I won't leave this module",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.28,
+          "end": 7.38,
+          "en": "without touching on one very important",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.38,
+          "end": 11.25,
+          "en": "and very useful concept or feature that is also supported",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.25,
+          "end": 15.18,
+          "en": "by the Angular HttpClient, and that would be interceptors.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.18,
+          "end": 17.28,
+          "en": "Now, what are interceptors?",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 17.28,
+          "end": 19.77,
+          "en": "We're sending our HTTP requests here,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 19.77,
+          "end": 22.2,
+          "en": "and whenever we want to configure something",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 22.2,
+          "end": 25.59,
+          "en": "like SearchParams, we're doing this on a per-request basis",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 25.59,
+          "end": 27.93,
+          "en": "and oftentimes this is the way it should be",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 27.93,
+          "end": 30.903,
+          "en": "because every request might need different headers.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 31.98,
+          "end": 34.56,
+          "en": "But let's imagine we wanna attach this custom header",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 34.56,
+          "end": 37.08,
+          "en": "to all our outgoing requests.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 37.08,
+          "end": 39.54,
+          "en": "And a more realistic scenario would be,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 39.54,
+          "end": 43.05,
+          "en": "that you want to authenticate your user,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 43.05,
+          "end": 46.35,
+          "en": "and you need to add a certain param,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 46.35,
+          "end": 49.59,
+          "en": "or a certain header to every outgoing request there for,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 49.59,
+          "end": 51.57,
+          "en": "so that the backend can read that.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 51.57,
+          "end": 54.27,
+          "en": "You don't wanna manually configure every request",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 54.27,
+          "end": 56.01,
+          "en": "because that is very cumbersome.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 56.01,
+          "end": 58.65,
+          "en": "And for that you can add interceptors.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 58.65,
+          "end": 60.693,
+          "en": "Now how do interceptors work though?",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 61.56,
+          "end": 65.13,
+          "en": "Let's create a new interceptor by adding a new file",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 65.13,
+          "end": 68.52,
+          "en": "and I will name this the AuthInterceptor",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 68.52,
+          "end": 71.16,
+          "en": "because I kind of wanna simulate that we dare attach",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 71.16,
+          "end": 73.95,
+          "en": "some header to every request that is required",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 73.95,
+          "end": 76.68,
+          "en": "for authentication on our backend.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 76.68,
+          "end": 79.02,
+          "en": "Of course, we're not really using authorization here,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 79.02,
+          "end": 81.36,
+          "en": "but that's just an example.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 81.36,
+          "end": 82.83,
+          "en": "So here, I will add a file",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 82.83,
+          "end": 86.61,
+          "en": "and I'll name it auth-interceptor.ts,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 86.61,
+          "end": 88.44,
+          "en": "or authinterceptor.service",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 88.44,
+          "end": 92.34,
+          "en": "because it actually, is basically an Angular service.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 92.34,
+          "end": 94.44,
+          "en": "And in there, you create such interceptor",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 94.44,
+          "end": 98.67,
+          "en": "by exporting a class and you give that a name which,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 98.67,
+          "end": 102.42,
+          "en": "well, probably should be AuthInterceptorService,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 102.42,
+          "end": 103.68,
+          "en": "you can name it however you want,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 103.68,
+          "end": 107.03999999999999,
+          "en": "but I will keep that general file naming convention",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 107.03999999999999,
+          "end": 109.56,
+          "en": "which we all, is used in the rest of the course.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 109.56,
+          "end": 112.68,
+          "en": "And this will implement a certain interface,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 112.68,
+          "end": 116.34,
+          "en": "and that is the HttpInterceptor interface",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 116.34,
+          "end": 121.34,
+          "en": "which you need to import from @angular/common/http.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 121.44,
+          "end": 126.44,
+          "en": "Now, this interface forces us to add a intercept method,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 126.81,
+          "end": 128.85,
+          "en": "and that intercept method here",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 128.85,
+          "end": 131.16,
+          "en": "will actually get two arguments,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 131.16,
+          "end": 133.77,
+          "en": "and did will get that automatically by Angular",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 133.77,
+          "end": 135.57,
+          "en": "when it applies our interceptor,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 135.57,
+          "end": 138.81,
+          "en": "and I'll show you how to apply it in just a second.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 138.81,
+          "end": 140.22,
+          "en": "So here we get two arguments,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 140.22,
+          "end": 143.73,
+          "en": "and the first one is a request object",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 143.73,
+          "end": 146.91,
+          "en": "which is of type HTTP request, which you need to import",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 146.91,
+          "end": 150.72,
+          "en": "from @angular/common/http, as well.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 150.72,
+          "end": 153.69,
+          "en": "This is a generic type, a generic object,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 153.69,
+          "end": 155.57999999999998,
+          "en": "so you can use the angle brackets",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 155.57999999999998,
+          "end": 160.29,
+          "en": "to basically inform Angular about the kind of data",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 160.29,
+          "end": 161.7,
+          "en": "this request will yield.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 161.7,
+          "end": 164.16,
+          "en": "And I want to write a generic interceptor here.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 164.16,
+          "end": 167.67000000000002,
+          "en": "So I will use any, because this will work for any data",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 167.67000000000002,
+          "end": 170.37,
+          "en": "that might be retrieved by a request.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 170.37,
+          "end": 174.09,
+          "en": "And you have a second argument which is passed to intercept",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 174.09,
+          "end": 176.94,
+          "en": "and that is typically called, next.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 176.94,
+          "end": 178.71,
+          "en": "You could, of course rename these arguments,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 178.71,
+          "end": 180.36,
+          "en": "but the the first one is a request object,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 180.36,
+          "end": 181.83,
+          "en": "so req makes sense.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 181.83,
+          "end": 185.49,
+          "en": "And this is a function which will forward the request",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 185.49,
+          "end": 189.67,
+          "en": "because the interceptor will basically run code",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 190.59,
+          "end": 193.29,
+          "en": "before your request leaves your app.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 193.29,
+          "end": 195.06,
+          "en": "So before it really is sent,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 195.06,
+          "end": 198.48,
+          "en": "and right before the response is forwarded to subscribe.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 198.48,
+          "end": 200.85,
+          "en": "So it steps into that request flow,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 200.85,
+          "end": 203.04,
+          "en": "and next is a function you need to call",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 203.04,
+          "end": 205.98,
+          "en": "to let the request continue its journey,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 205.98,
+          "end": 207.93,
+          "en": "but more on that in a second too.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 207.93,
+          "end": 211.98,
+          "en": "Next is of type HttpHandler which also needs to be imported",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 211.98,
+          "end": 214.053,
+          "en": "from @angularcommonhttp.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 215.19,
+          "end": 220.19,
+          "en": "Now this intercept method, now allows us to run code",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 220.65,
+          "end": 222.54,
+          "en": "that as I just mentioned,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 222.54,
+          "end": 227.54,
+          "en": "will run right before the request leaves our application.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 227.94,
+          "end": 231.51,
+          "en": "So for example here, we could for now just log,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 231.51,
+          "end": 233.883,
+          "en": "request is on its way.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 235.05,
+          "end": 238.17000000000002,
+          "en": "And thereafter we should return the result",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 238.17000000000002,
+          "end": 240.06,
+          "en": "that next yields us.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 240.06,
+          "end": 244.23,
+          "en": "Next, as I mentioned, is a function or actually an object,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 244.23,
+          "end": 246.69,
+          "en": "but an object with an important method",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 246.69,
+          "end": 250.11,
+          "en": "that will allow us to let the request continue its journey.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 250.11,
+          "end": 252.66,
+          "en": "To be precise, that's the handle method",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 252.66,
+          "end": 254.16,
+          "en": "which you have to call",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 254.16,
+          "end": 257.04,
+          "en": "to which you should pass that request object.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 257.04,
+          "end": 260.79,
+          "en": "And by calling this, you'll let the request continue",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 260.79,
+          "end": 262.89,
+          "en": "and you should actually return the result",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 262.89,
+          "end": 264.81,
+          "en": "to really let it continue.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 264.81,
+          "end": 266.91,
+          "en": "So that is the setup you need to use",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 266.91,
+          "end": 269.49,
+          "en": "to have some code that is run right before",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 269.49,
+          "end": 270.99,
+          "en": "the request leaves the app",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 270.99,
+          "end": 273.69,
+          "en": "and to still let the request leave the app.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 273.69,
+          "end": 277.32,
+          "en": "If you don't return next handle and pass the request,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 277.32,
+          "end": 279.6,
+          "en": "then the request will not continue",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 279.6,
+          "end": 281.88,
+          "en": "and therefore your app will basically break.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 281.88,
+          "end": 284.61,
+          "en": "You definitely have to return this here.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 284.61,
+          "end": 289.02,
+          "en": "Now with that, we have to provide that service,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 289.02,
+          "end": 291.15,
+          "en": "and we have to provide this in a special way.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 291.15,
+          "end": 294.75,
+          "en": "So let's go to the app module and in there,",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 294.75,
+          "end": 297.54,
+          "en": "add a new element to the providers array",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 297.54,
+          "end": 299.88,
+          "en": "and that should be a JavaScript object now,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 299.88,
+          "end": 302.31,
+          "en": "and not the name of that service,",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 302.31,
+          "end": 305.07,
+          "en": "where you have three keys.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 305.07,
+          "end": 307.44,
+          "en": "The first key is to provide key",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 307.44,
+          "end": 312.21,
+          "en": "and there you have to use HTTP_INTERCEPTORS,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 312.21,
+          "end": 313.68,
+          "en": "all capital cases,",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 313.68,
+          "end": 318.68,
+          "en": "that is a type that is imported from @angular/common/http.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 319.35,
+          "end": 323.07,
+          "en": "So import that from this package",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 323.07,
+          "end": 325.65,
+          "en": "and use it here as a value for provide.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 325.65,
+          "end": 327.99,
+          "en": "This is the token by which this injection",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 327.99,
+          "end": 330.9,
+          "en": "can later be identified by Angular.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 330.9,
+          "end": 334.92,
+          "en": "So it will basically know that all the classes",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 334.92,
+          "end": 336.69,
+          "en": "you provide on that token,",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 336.69,
+          "end": 339.63,
+          "en": "so by using that identifier should be treated",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 339.63,
+          "end": 342.42,
+          "en": "as HTTP Interceptors and should therefore,",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 342.42,
+          "end": 344.1,
+          "en": "run their intercept method",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 344.1,
+          "end": 346.383,
+          "en": "whenever a request leaves the application.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 347.34000000000003,
+          "end": 350.4,
+          "en": "The second key you pass to that object",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 350.4,
+          "end": 353.46,
+          "en": "is to use class key where you now point",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 353.46,
+          "end": 358.23,
+          "en": "at your interceptor class you wanna add as interceptor.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 358.23,
+          "end": 361.71,
+          "en": "And here that would be the AuthInterceptorService",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 361.71,
+          "end": 364.23,
+          "en": "which you of course, also need to import.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 364.23,
+          "end": 365.4,
+          "en": "And last but not least,",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 365.4,
+          "end": 367.65,
+          "en": "you can have more than one interceptor",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 367.65,
+          "end": 369.84,
+          "en": "and you inform Angular about that",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 369.84,
+          "end": 372.66,
+          "en": "and that it should not replace the existing interceptors",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 372.66,
+          "end": 376.563,
+          "en": "with this one, by adding multi and setting this to true.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 377.43,
+          "end": 380.04,
+          "en": "So this is just a dependency injection syntax supported",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 380.04,
+          "end": 383.46,
+          "en": "by Angular that allows us to register a service",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 383.46,
+          "end": 385.08,
+          "en": "under a different identifier,",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 385.08,
+          "end": 388.38,
+          "en": "and to have actually multiple services under that identifier",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 388.38,
+          "end": 391.803,
+          "en": "which will then all be provided and injected.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 393.21,
+          "end": 394.59000000000003,
+          "en": "Now Angular will do the rest",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 394.59000000000003,
+          "end": 397.86,
+          "en": "and will automatically grab all your HTTP Interceptors,",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 397.86,
+          "end": 399.75,
+          "en": "and run their intercept method",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 399.75,
+          "end": 402.21,
+          "en": "whenever a request leaves the application.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 402.21,
+          "end": 403.71,
+          "en": "And therefore with this setup,",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 403.71,
+          "end": 405.93,
+          "en": "we should now be able to reload,",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 405.93,
+          "end": 408.57,
+          "en": "and we see request is on its way.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 408.57,
+          "end": 410.73,
+          "en": "And if I click Fetch Posts, you see it again.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 410.73,
+          "end": 413.97,
+          "en": "And if I send a different request, like sending a new post,",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 413.97,
+          "end": 416.883,
+          "en": "you see it too, because this code now runs for every request",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 416.883,
+          "end": 418.38,
+          "en": "that leaves the app.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 418.38,
+          "end": 420.36,
+          "en": "And if you wanna restrict the request",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 420.36,
+          "end": 421.59,
+          "en": "for which this executes,",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 421.59,
+          "end": 423.78,
+          "en": "you have to do that here in the interceptor.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 423.78,
+          "end": 425.76,
+          "en": "You got that request object in the end",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 425.76,
+          "end": 427.89,
+          "en": "and that request object has information",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 427.89,
+          "end": 429.93,
+          "en": "like the URL to which it sent.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 429.93,
+          "end": 434.07,
+          "en": "So if you know you don't wanna send this to a certain URL,",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 434.07,
+          "end": 436.56,
+          "en": "well then, you can use the URL here,",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 436.56,
+          "end": 438.99,
+          "en": "in a If Check and compare it, and so on.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 438.99,
+          "end": 442.473,
+          "en": "So you can control that all in here, in the interceptor.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

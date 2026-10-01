@@ -1,0 +1,531 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "11942812",
+      "title": "Storing the User in our Database",
+      "lectureOrder": 195,
+      "videoOrder": 172,
+      "sourceHash": "a67f8d547c6dec1e44fe9cdd4b863b211897abf75fce562cd0f4650485c16c17",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.25,
+          "end": 4.98,
+          "en": "Ok so time to use our user object",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.1,
+          "end": 8.8,
+          "en": "and the question of course is where do I want to use my user object?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.03,
+          "end": 12.34,
+          "en": "Well I want to use that user object when creating a new product,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.48,
+          "end": 12.72,
+          "en": "right,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.72,
+          "end": 18.44,
+          "en": "when saving a product, I want to store a reference to a user here or embed the entire user data",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 18.45,
+          "end": 19.22,
+          "en": "as you learned.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 19.35,
+          "end": 24.86,
+          "en": "However for products in users, you could actually find arguments for both approaches here,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 24.87,
+          "end": 30.69,
+          "en": "you certainly don't want to enclose all the user data in an embedded document because that would mean",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 30.69,
+          "end": 34.71,
+          "en": "that if the user data changes, you need to change that data in all products",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 34.71,
+          "end": 40.29,
+          "en": "but if you do include something which is unlikely to change very often, like the username for example,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 40.65,
+          "end": 45.6,
+          "en": "well then you could certainly go ahead and embed that together with the ID so that you always have",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 45.6,
+          "end": 48.86,
+          "en": "that ID to fetch more data about the user if you need to,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 48.9,
+          "end": 54.42,
+          "en": "you've got to find by the method in the user model after all or that you have at least some snapshot data",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 54.6,
+          "end": 59.08,
+          "en": "like the username available immediately, if that should change, you need to update it everywhere.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 59.19,
+          "end": 61.98,
+          "en": "The alternative to this is that you just store the ID,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 62.01,
+          "end": 66.96,
+          "en": "so just a reference and therefore if you need connected data, you always have to fetch it manually from",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 66.96,
+          "end": 68.42,
+          "en": "two collections",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 68.52,
+          "end": 71.87,
+          "en": "but on the other hand you might not do that too often and therefore here",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 71.91,
+          "end": 77.58,
+          "en": "indeed when I fetch the product, I don't really need the user data, we're not displaying the user name anywhere",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 77.58,
+          "end": 78.32,
+          "en": "in our app,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 78.36,
+          "end": 83.03,
+          "en": "so I actually just want to store the user id so that we know who is connected",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 83.1,
+          "end": 84.99,
+          "en": "even though we're not fetching that a lot.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 84.99,
+          "end": 88.43,
+          "en": "Now what does this mean for our application here though?",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 88.89,
+          "end": 94.99000000000001,
+          "en": "Well it means that when creating a new product, we can pass the user id, we can accept the user",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 94.97999999999999,
+          "end": 95.74000000000001,
+          "en": "id here,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 95.94,
+          "end": 102.93,
+          "en": "so this user ID is equal to user ID, we store this as a property of our product now and with that, we",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 102.93,
+          "end": 105.45,
+          "en": "have all we need in the product model.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 105.45,
+          "end": 109.68,
+          "en": "Now we need to make sure that we do pass that user data when creating a product,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 109.68,
+          "end": 120.61,
+          "en": "so in the admin.js controller when adding new products, here I want to pass null for the product ID because",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 120.61,
+          "end": 127.18,
+          "en": "we dont have that when creating a new product but for the user id, I want to pass the ID of the user which",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 127.21,
+          "end": 131.16,
+          "en": "as you know we now store in our request. We do this in the app.js file right,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 131.17,
+          "end": 136.91,
+          "en": "we have that middleware which we set up in an earlier module where we find that user and where I then store",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 136.91,
+          "end": 139.06,
+          "en": "that user in our request.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 139.06,
+          "end": 145,
+          "en": "Now this is a bit of a constructed example because I'm storing it just to extract the ID which I hardcoded",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 145,
+          "end": 148.25,
+          "en": "here, so we could just hardcode it into our code anyways",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 148.36,
+          "end": 153.57999999999998,
+          "en": "but the idea here of course is to show you how you can extract the user in one central place and then",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 153.57999999999998,
+          "end": 156.45,
+          "en": "reuse it in any other route",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 156.52,
+          "end": 157.97,
+          "en": "and that's the idea here.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 158.11,
+          "end": 163.12,
+          "en": "Later once we get an authentication, we'll manage that user a bit differently.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 163.15,
+          "end": 168.64,
+          "en": "So for now, we just have that user object in the request and therefore in the admin.js controller,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 168.88,
+          "end": 176.2,
+          "en": "here I can access request user and then _id which will be just a string here because when",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 176.2,
+          "end": 180.48,
+          "en": "retrieving data, the object id is converted to a string for us,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 180.55,
+          "end": 182.97,
+          "en": "so we have just the string here.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 184.02,
+          "end": 191.42,
+          "en": "Now with that, we should actually store the user ID when creating a new product.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 191.49,
+          "end": 196.86,
+          "en": "Let me first of all delete that old product and then let's quickly add a new product here",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 197.73,
+          "end": 205.71,
+          "en": "and I get an error that I can't read Property ID of undefined and this should be coming from inside our",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 205.92000000000002,
+          "end": 210.75,
+          "en": "admin.js file here when I try to access my user _id,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 211.05,
+          "end": 213.99,
+          "en": "so something seems to be going wrong here.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 215.12,
+          "end": 217.63,
+          "en": "I'm storing the request user here though,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 219.72,
+          "end": 229.04,
+          "en": "let's go to the user model, find by ID, let's add then and catch here and catch any error we might",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 229.04,
+          "end": 234.35,
+          "en": "be getting when fetching that user",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 234.42000000000002,
+          "end": 240,
+          "en": "and here I'll also console log the user object I'm getting right before I return it again.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 240.89,
+          "end": 246.95,
+          "en": "And with that let me try to reload the admin product, add product page and I now get an error.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 246.95,
+          "end": 254.21,
+          "en": "We did retrieve the user here but then I sent duplicate headers by the look of it,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 254.45,
+          "end": 257.26,
+          "en": "yeah because I'm calling next too often here in app.js,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 257.29,
+          "end": 257.92,
+          "en": ".",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 257.95,
+          "end": 262.58,
+          "en": "since I added the other code again, I don't need to call next at the bottom of it.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 262.69,
+          "end": 266.05,
+          "en": "So let's save that to not call next too often.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 266.65,
+          "end": 274.96,
+          "en": "Let's now reload this page here and now I just fetch the user with the ID which is a string here, so",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 275.07,
+          "end": 277.15,
+          "en": "that is actually valid.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 277.15,
+          "end": 279.67,
+          "en": "Now let me try adding this again",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 282.32,
+          "end": 283.6,
+          "en": "and now this works,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 283.61,
+          "end": 287.39,
+          "en": "so it was that error with the double next.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 287.4,
+          "end": 293.34000000000003,
+          "en": "So now if we have a look at our products here, we see that products now also have a user ID which is just",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 293.34000000000003,
+          "end": 300.33,
+          "en": "a reference pointing at the user who did create that product which is one way of establishing relations",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 300.42,
+          "end": 306.9,
+          "en": "the way you already know from MySQL of course, this is not an embedded document but here, the argument simply",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 306.9,
+          "end": 311.4,
+          "en": "is when we're fetching products, we don't really need any user information",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 311.49,
+          "end": 317.85,
+          "en": "hence we do it just like that. This of course will change once we start storing orders,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 317.85,
+          "end": 322.72,
+          "en": "there you could say it does make sense to store information about the user,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 322.74,
+          "end": 329.03,
+          "en": "for example the e-mail at least and for the product you want to store the title and the price maybe.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 329.22,
+          "end": 333.25,
+          "en": "So there it makes sense to suddenly aggregate this together.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 333.45,
+          "end": 337.44,
+          "en": "Speaking of that, why don't we work on cart items and orders",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 337.46,
+          "end": 337.90999999999997,
+          "en": "next.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

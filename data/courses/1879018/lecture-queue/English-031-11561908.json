@@ -1,0 +1,1035 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "11561908",
+      "title": "Node.js - Looking Behind the Scenes",
+      "lectureOrder": 37,
+      "videoOrder": 31,
+      "sourceHash": "f9990cddeecca35bf355bba1f19e2f75ac8083b54493e53aafd96c4fcc0343e3",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.18,
+          "end": 8.37,
+          "en": "Over the last lectures, I extensively mentioned how node works with asynchronous code",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.39,
+          "end": 11.61,
+          "en": "and i mentioned this event loop which is important.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 11.72,
+          "end": 16.07,
+          "en": "Let me dive deeper into that and deeper into how",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.06,
+          "end": 24.38,
+          "en": "nodejs exactly executes your code to stay performant and still be able to handle long taking tasks",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 24.56,
+          "end": 29.36,
+          "en": "like working with files or things like that because there is an important concept which you have to",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 29.36,
+          "end": 34.1,
+          "en": "understand to understand, well what is happening behind the scenes.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 34.1,
+          "end": 37.25,
+          "en": "So in our node application we have our code",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 37.28,
+          "end": 44.42,
+          "en": "and one important thing to understand and to really keep in mind is that nodejs uses only one single",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 44.45,
+          "end": 46.1,
+          "en": "javascript thread,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 46.46,
+          "end": 50.71,
+          "en": "a thread is basically like a process in your operating system you could say.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 50.9,
+          "end": 57.38,
+          "en": "So it's only using that one thread and the obvious question is how is it then able to handle multiple",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 57.38,
+          "end": 65.39,
+          "en": "requests because if we're not able to assign a new thread for each request, they ultimately end up all",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 65.39,
+          "end": 67.39,
+          "en": "running in one on the same thread",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 67.43,
+          "end": 70.31,
+          "en": "and this of course poses a security question,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 70.31,
+          "end": 77.99,
+          "en": "can you then access data from request A, from request B and most importantly here at this point when",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 77.99,
+          "end": 83.93,
+          "en": "we talk about performance, there of course also is the question of does this not mean that if the",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 83.93,
+          "end": 90.48,
+          "en": "request A is still doing work, request B can't be handled? Well both is taken care of",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 90.5,
+          "end": 90.84,
+          "en": "nodejs",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 90.89,
+          "end": 91.47,
+          "en": ".",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 91.55,
+          "end": 97.34,
+          "en": "and at this point of time here, I want to focus on the performance question though I'll also briefly",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 97.34,
+          "end": 99.15,
+          "en": "touch on the security question.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 99.28999999999999,
+          "end": 101.50999999999999,
+          "en": "Now let's start with the performance.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 101.50999999999999,
+          "end": 109.1,
+          "en": "Let's say we have some code which accesses the file system as we already did in this course too. Now working",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 109.1,
+          "end": 115.67,
+          "en": "with files often is a task that takes longer because files can be very big and it doesn't necessarily",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 115.67,
+          "end": 117.38,
+          "en": "complete instantly,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 117.62,
+          "end": 123.95,
+          "en": "therefore if we're doing this upon an incoming request, a second request might have to wait because we're",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 123.95,
+          "end": 127.07,
+          "en": "not able to handle it yet or it even gets declined,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 127.07,
+          "end": 131.27,
+          "en": "so basically our webpage is down for that user.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 131.27,
+          "end": 137.78,
+          "en": "Now one important construct I already mentioned is that event loop, the event loop is automatically started",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 137.78,
+          "end": 140.57999999999998,
+          "en": "by nodejs when your program starts,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 140.6,
+          "end": 142.82999999999998,
+          "en": "you don't have to do that explicitly,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 142.88,
+          "end": 144.81,
+          "en": "nodejs does that when well",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 144.86,
+          "end": 147.38,
+          "en": "it basically starts running code.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 147.62,
+          "end": 151.97,
+          "en": "This is responsible for handling event callbacks though,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 152.09,
+          "end": 159.26,
+          "en": "so all these nice functions we basically added thus far in create server for example, the event loop",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 159.29,
+          "end": 165.82999999999998,
+          "en": "is responsible for basically running that code when a certain event occurs you could say, it's aware",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 165.82999999999998,
+          "end": 172.52,
+          "en": "of all these callbacks and basically well, execute said code. That doesn't help us with our long taking",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 172.52,
+          "end": 179.32999999999998,
+          "en": "file operation though and it's important to understand that this operation is not handled by the event",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 179.32999999999998,
+          "end": 184.89,
+          "en": "loop, just the callback that we might have defined on write file",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 184.94,
+          "end": 191.15,
+          "en": "once it's done, that code will be handled in event loop but that code will finish fast,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 191.15,
+          "end": 197.95,
+          "en": "so basically the event loop will only handle callbacks that contain fast finishing code.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 198.71,
+          "end": 205.37,
+          "en": "Instead our file system operation and a couple of other long taking operations are sent to a worker",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 205.4,
+          "end": 209.81,
+          "en": "pool which is also spun up and managed by nodejs automatically.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 210.18,
+          "end": 214.45,
+          "en": "This worker pool is responsible for all the heavy lifting,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 214.65,
+          "end": 222.45,
+          "en": "this worker pool is kind of totally detached of your javascript code you could say and it runs on different",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 222.45,
+          "end": 227.99,
+          "en": "threads, it can spin up multiple threads, it's closely intervened with your operating system you're",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 227.99,
+          "end": 229.2,
+          "en": "running the app on,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 229.22,
+          "end": 235.56,
+          "en": "so this is really detached from your code and this worker pool is therefore doing all the heavy lifting.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 235.64,
+          "end": 241.71,
+          "en": "If you're doing something with a file, well a worker from that pool will take care and will do its job",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 241.76,
+          "end": 249,
+          "en": "totally detached from your code and from the request and from the event loop. The one connection to the event loop",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 249.02,
+          "end": 251.36,
+          "en": "we will have though is that",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 251.39,
+          "end": 259.55,
+          "en": "once the worker is done, so for example once we read a file, it will trigger the callback for that read",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 259.55,
+          "end": 265.46,
+          "en": "file operation and since the event loop is responsible for the events and the callbacks, this will in",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 265.46,
+          "end": 268.1,
+          "en": "the end end up in the event loop,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 268.1,
+          "end": 273.56,
+          "en": "so there nodejs will then basically execute the appropriate callback.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 273.56,
+          "end": 279.05,
+          "en": "Now this is a lot of behind the scenes stuff which is nice to know, you don't have to write any code",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 279.35,
+          "end": 280.36,
+          "en": "to make this work,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 280.36,
+          "end": 282.62,
+          "en": "this is all built into nodejs",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 282.65,
+          "end": 287.81,
+          "en": "and if you write code as you learn it in this course, you automatically take advantage of this.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 287.84000000000003,
+          "end": 293.21,
+          "en": "I still of course want you to understand how that works behind the scenes because I believe that helps",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 293.21,
+          "end": 294.1,
+          "en": "you understand",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 294.11,
+          "end": 296.06,
+          "en": "nodejs better.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 296.06,
+          "end": 297.61,
+          "en": "Now let's look into that event loop",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 297.62,
+          "end": 300.71,
+          "en": "then. That event loop is in the end",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 300.71,
+          "end": 307.57,
+          "en": "a loop which is run or started by nodejs that keeps the nodejs process running",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 307.65,
+          "end": 314.06,
+          "en": "and as I just mentioned, that handles all the callbacks and it has a certain order in which it goes through",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 314.16,
+          "end": 315.3,
+          "en": "the callbacks.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 315.69,
+          "end": 319.25,
+          "en": "So basically it's a loop that just well keeps on looping",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 319.29,
+          "end": 325.65,
+          "en": "unsurprisingly, at the beginning of each new iteration it checks if there are any timer callbacks it",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 325.65,
+          "end": 329.41,
+          "en": "should execute. We haven't set up any timers yet",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 329.59,
+          "end": 332.84000000000003,
+          "en": "but basically there is set timeout and set interval,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 332.86,
+          "end": 339.76,
+          "en": "you might know this from frontend javascript too, there these methods also exist. Now in nodejs you can",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 339.76,
+          "end": 347.04,
+          "en": "also set a timer and basically you set a timer and always pass a method, a function that should be executed",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 347.08,
+          "end": 352.84000000000003,
+          "en": "once that timer completes and nodejs is aware of this and at the beginning of each new loop iteration,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 353.17,
+          "end": 356.02,
+          "en": "it executes any due timer callbacks,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 356.02,
+          "end": 362.74,
+          "en": "so any callbacks that have to be executed because a timer completes. Then as a next step, it checks other",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 362.74,
+          "end": 363.52,
+          "en": "callbacks,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 363.55,
+          "end": 370.24,
+          "en": "for example if we had write or read file, we might have a callback because that operation finished and",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 370.24,
+          "end": 373.6,
+          "en": "it will then also execute these callbacks.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 373.63,
+          "end": 381.34,
+          "en": "Now be aware that with IO here, I mean generally any input output operations that typically is file",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 381.34,
+          "end": 387.37,
+          "en": "operations but can also be network operations and in general, I'm talking about blocking long taking",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 387.37,
+          "end": 388.73,
+          "en": "operations.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 388.75,
+          "end": 394.54,
+          "en": "Now it's important to understand that nodejs will leave that phase at a certain point of time and that",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 394.54,
+          "end": 400.9,
+          "en": "can also mean that if there are too many outstanding callbacks, it will continue its loop iteration and",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 400.9,
+          "end": 408.90999999999997,
+          "en": "postpone these callbacks to the next iteration to execute them. After working on these open callbacks",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 408.94,
+          "end": 410.93,
+          "en": "and hopefully finishing them all,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 410.98,
+          "end": 420.31,
+          "en": "it will enter a pull phase. The pull phase is basically a phase where nodejs will look for new IO events",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 420.34,
+          "end": 427,
+          "en": "and basically do its best to execute their callbacks immediately if possible.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 427,
+          "end": 434.44,
+          "en": "Now if that's not possible, it will defer the execution and basically register this as a pending callback,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 434.47,
+          "end": 436.16,
+          "en": "so this is how that works.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 437.22,
+          "end": 443.97,
+          "en": "Important, it also will check if there are any timer callbacks due to be executed",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 444.03,
+          "end": 449.01,
+          "en": "and if that is the case, it will jump to that timer phase and execute them right away,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 449.07,
+          "end": 452.51,
+          "en": "so it can actually jump back there and not finish the iteration",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 452.64,
+          "end": 454.15,
+          "en": "otherwise it will continue",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 454.35,
+          "end": 462.03,
+          "en": "and next set immediate callbacks will be executed in a so-called check phase. Set immediate is a bit like",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 462.03,
+          "end": 470,
+          "en": "set timeout or set interval, just that it will execute immediately but always after any open callbacks",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 470.07,
+          "end": 471.75,
+          "en": "have been executed,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 471.87,
+          "end": 478.14,
+          "en": "so typically faster than set timeout with one millisecond of open duration, let's say",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 478.23,
+          "end": 481.45,
+          "en": "but after the current cycle",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 481.62,
+          "end": 486.75,
+          "en": "well finished or at least finished open callbacks that were due to be handled in that current iteration.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 486.96,
+          "end": 489.77,
+          "en": "And now we're entering a highly theoretical terrain",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 489.9,
+          "end": 495.78,
+          "en": "and I don't want to dive too deep into that, though you will find a couple of resources that do dive",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 495.78,
+          "end": 501.6,
+          "en": "deeper at the end of this module in case you want to join the nodejs team and really dive super",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 501.6,
+          "end": 503.27,
+          "en": "hardcore into this.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 503.49,
+          "end": 510.51,
+          "en": "Now we're nearing the end of each iteration cycle and now nodejs will execute all close event callbacks,",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 510.51,
+          "end": 514.86,
+          "en": "so if you registered any close events and in our code, we haven't",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 514.92,
+          "end": 520.89,
+          "en": "but if you had any close events, this would be the point of time where nodejs executes their appropriate",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 520.89,
+          "end": 521.94,
+          "en": "callbacks.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 522.12,
+          "end": 529.29,
+          "en": "So roughly spoken, we have timer callbacks, we then have any IO related callbacks and other event callbacks",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 529.65,
+          "end": 533.47,
+          "en": "and set immediate followed by close event callbacks,",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 533.52,
+          "end": 538.83,
+          "en": "so close events are basically handled separately or their callbacks are handled separately we should",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 538.83,
+          "end": 549.75,
+          "en": "say. Well and then we might exit the whole nodejs program but only if there are no remaining event",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 549.84,
+          "end": 557.15,
+          "en": "handlers which are registered and that is what I mean with this refs equal null thing here. Internally",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 557.18,
+          "end": 565.05,
+          "en": "nodejs keeps track of its open event listeners and it basically has a counter, references or refs",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 565.26,
+          "end": 570,
+          "en": "which it increments by 1 for every new callback that is registered,",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 570,
+          "end": 572.76,
+          "en": "every new event listener that is registered",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 572.85,
+          "end": 575.63,
+          "en": "so every new future work that it has to do",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 575.63,
+          "end": 581.46,
+          "en": "you could say and it reduces that counter by 1 for every event listener that it doesn't need anymore,",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 581.64,
+          "end": 587.28,
+          "en": "every callback it finished and since in a server environment",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 587.28,
+          "end": 593.37,
+          "en": "we create a server with create server and then listen to incoming requests with listen,",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 593.46,
+          "end": 599.82,
+          "en": "this is an event which never is finished by default and therefore, we always have at least one reference",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 600,
+          "end": 606.63,
+          "en": "and therefore we don't exit in a normal node web server program. We can call the exit function as you",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 606.63,
+          "end": 607.72,
+          "en": "already saw",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 607.95,
+          "end": 614.07,
+          "en": "and if we do anything else like at the beginning of the course when we just used node to execute a file",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 614.07,
+          "end": 621.27,
+          "en": "that did not listen to a web server or on a web server, then it also finishes eventually once its done",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 621.36,
+          "end": 623.15,
+          "en": "with its work.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 623.16,
+          "end": 625.34,
+          "en": "So this is how the event loop works",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 625.74,
+          "end": 634.11,
+          "en": "and this can be very theoretical, all these different phases typically don't matter to you, certainly",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 634.11,
+          "end": 636.65,
+          "en": "not when getting started with nodejs.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 636.78,
+          "end": 640.93,
+          "en": "Now consult these advanced resources if you want to learn more,",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 640.95,
+          "end": 648.66,
+          "en": "for now just be aware of that first picture I showed you, of how nodejs handles complex work, that",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 648.66,
+          "end": 654.27,
+          "en": "there is this worker pool that takes care that your things are not getting blocked and that it therefore",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 654.27,
+          "end": 656.28,
+          "en": "stays performant.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 656.28,
+          "end": 662.11,
+          "en": "Now I also touched on that security thing with that one javascript thread",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 662.35,
+          "end": 666.34,
+          "en": "and regarding that, we also got no problems by default,",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 666.48,
+          "end": 673.92,
+          "en": "though I will come back later to how we can manage global data and how we should manage it to ensure",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 673.92,
+          "end": 679.05,
+          "en": "that we do not spoil data from request A to request B. By default",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 679.05,
+          "end": 685.35,
+          "en": "we have some separation because remember that callback method in create server gets executed for every",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 685.35,
+          "end": 691.08,
+          "en": "new incoming request and therefore this function only runs for that incoming request and anything we do",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 691.08,
+          "end": 696.9,
+          "en": "to the request or response object there will not be exposed to our request or response objects because",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 696.9,
+          "end": 702.1,
+          "en": "each function is only scoped to itself and not accessible by the other functions,",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 702.12,
+          "end": 707.76,
+          "en": "so by default we have that separation due to how javascript works.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 707.76,
+          "end": 710.13,
+          "en": "Now that was a big chunk of theory,",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 710.13,
+          "end": 715.2,
+          "en": "again not something you have to learn by heart but something where you should at least keep that big",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 715.2,
+          "end": 718.91,
+          "en": "picture in mind of how nodejs manages its work.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,391 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "11602958",
+      "title": "Refactoring the File Storage Code",
+      "lectureOrder": 103,
+      "videoOrder": 87,
+      "sourceHash": "54ced6dc5705c618b4fa25bfe9926cf4a3f4e0199c615c3e9e979e0955b3be46",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.29,
+          "end": 5.4,
+          "en": "Now we added that file storage logic to our model,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.45,
+          "end": 10.79,
+          "en": "let's now fix this a little bit or improve the code in the model, we're reusing some code",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.84,
+          "end": 20.26,
+          "en": "and if we reuse code that always screams for some refactoring and indeed, that is what I want to do. I",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 20.26,
+          "end": 29.88,
+          "en": "will create a helper function and I'll store it in a constant and I'll name that helper function get products",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 29.94,
+          "end": 35.36,
+          "en": "from file and this helper function will do this",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 35.36,
+          "end": 39.12,
+          "en": "path construction here for me and it will also read the file,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 39.12,
+          "end": 47.3,
+          "en": "so it will basically do everything I do here in fetch all, like this and I will even get my callback here",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 48.36,
+          "end": 53.76,
+          "en": "because I do execute that here and ultimately return this because the issue of this process taking",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 53.76,
+          "end": 60.15,
+          "en": "some time and the need to inform the caller of this function about when it's done hasn't gone away.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 60.18,
+          "end": 65.85,
+          "en": "So I still use the same pattern of having this helper function which receives a callback which it executes",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 66.03,
+          "end": 67.92,
+          "en": "once it's done reading the file.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 68.28,
+          "end": 74.74,
+          "en": "With this, get products from file is really just all I execute here in fetch all,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 74.85,
+          "end": 81.21000000000001,
+          "en": "so I simply just call this and forward the callback.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 81.4,
+          "end": 88.86,
+          "en": "Now for save however, it means that here I can also call get products from file",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 89.17,
+          "end": 94.5,
+          "en": "but here I don't forward any callback because instead I have my own logic here,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 94.6,
+          "end": 99.64,
+          "en": "I do retrieve my products there and that's essentially the same logic I do have in get products from",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 99.64,
+          "end": 104.67,
+          "en": "file, I either return an empty array if I have an error or I parse my content,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 104.83,
+          "end": 106.1,
+          "en": "here we did it the other way around",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 106.21000000000001,
+          "end": 109.03999999999999,
+          "en": "but in the end it will result in the same result.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 109.39,
+          "end": 111.49000000000001,
+          "en": "So I'm only interested in this logic here",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 111.49000000000001,
+          "end": 117.2,
+          "en": "then, you can remove that and instead just take this code here",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 118.8,
+          "end": 124.65,
+          "en": "and then create a new anonymous function where I know that I will get my products because this again",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 125.04,
+          "end": 126.69,
+          "en": "is the callback function,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 126.69,
+          "end": 130.58,
+          "en": "it is the function I will pass as an argument to get products from file,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 130.59,
+          "end": 133.07,
+          "en": "so it is what will get called here.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 133.26,
+          "end": 139.35,
+          "en": "So this function will get called in, will receive an empty array or the array with the data and I should",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 139.35,
+          "end": 144.84,
+          "en": "by the way add a return statement here to make sure that we never execute this code after having executed",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 144.84,
+          "end": 145.74,
+          "en": "this code,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 145.74,
+          "end": 149.02,
+          "en": "that was an error we had in the code before.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 149.02,
+          "end": 154.97,
+          "en": "Alternatively you simply wrap the other code in a else statement, either of the two,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 154.99,
+          "end": 156.9,
+          "en": "so here I'll use the if else approach.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 157.09,
+          "end": 161.53,
+          "en": "But now with that the callback will get executed and will get this array of products",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 161.86,
+          "end": 169.27,
+          "en": "and now here in save, I do have this anonymous function which receives the products and in this anonymous",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 169.27,
+          "end": 169.93,
+          "en": "function,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 169.93,
+          "end": 176.32,
+          "en": "I will then put in my code where I append a new product and make sure to always use arrow functions so",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 176.32,
+          "end": 183.97,
+          "en": "that this never loses its context and always refers to the class and therefore to the object based",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 183.97,
+          "end": 185.19,
+          "en": "on the class",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 185.41,
+          "end": 187.66,
+          "en": "and then I write to the file,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 187.66,
+          "end": 189.95,
+          "en": "this means I can get rid of this line too.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 190.03,
+          "end": 196.11,
+          "en": "And now we get a slimmer version because we're reusing code but it still should work if I reload here,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 196.24,
+          "end": 198.31,
+          "en": "loading product seems to work",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 198.61,
+          "end": 207.73,
+          "en": "and if I add a second book even though it's the fourth one, this crashes because p is not defined. Yeah",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 207.8,
+          "end": 213.2,
+          "en": "the path here in save, that is a problem the path is not defined",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 214.68,
+          "end": 218.56,
+          "en": "because I'm only defining it in my helper function now.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 218.57,
+          "end": 221.09,
+          "en": "Now there are various ways of fixing that,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 221.36,
+          "end": 228.41,
+          "en": "one of the easier ways is to simply create this as a global helper constant here, p so that I can",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 228.41,
+          "end": 234.13,
+          "en": "use it in the entire file, you can of course also go for different solutions and pass it around in the functions",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 234.26,
+          "end": 239.76,
+          "en": "but now the path should be available in the save method and in get products from file.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 239.82999999999998,
+          "end": 248.09,
+          "en": "And with that if I now reload and try this second, actually fourth book again,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 248.26,
+          "end": 250.18,
+          "en": "this now works.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 250.18,
+          "end": 256.24,
+          "en": "So now we are able to elegantly work with our products, store them in a file, fetch them from there",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 256.36,
+          "end": 258.58,
+          "en": "and all of that through a model.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 258.58,
+          "end": 263.08,
+          "en": "And that is the MVC pattern implemented into our project.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

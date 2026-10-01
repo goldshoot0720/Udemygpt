@@ -1,0 +1,265 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "12025790",
+      "title": "Throwing Errors in Code",
+      "lectureOrder": 310,
+      "videoOrder": 277,
+      "sourceHash": "be5e6540891fa37a347270c27581bec0714feb5c9dfbbe3dbcc849b8d06bd747",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.35,
+          "end": 10.84,
+          "en": "Let's start in app.js and there, I have some code where I do get my user out of the session and then I",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 10.84,
+          "end": 16.13,
+          "en": "find the user by ID in a database and then I store the found user in my request object",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 16.16,
+          "end": 19.25,
+          "en": "so that for the entire request, I can access that user object,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 19.27,
+          "end": 22.09,
+          "en": "it's a mongoose user object and I also catch",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 22.09,
+          "end": 27.88,
+          "en": "any potential errors that might be happening. Again because it's really important, this catch block will",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 27.88,
+          "end": 31,
+          "en": "not fire if I don't find the user with this ID,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 31.23,
+          "end": 36.73,
+          "en": "it will only fire if there are any technical issues you could say, if the database is down or if the",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 36.73,
+          "end": 40.63,
+          "en": "user of this app does not have sufficient permissions to execute this action.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 41.93,
+          "end": 45.79,
+          "en": "Now we kind of have our own error handling in place",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 45.85,
+          "end": 51.04,
+          "en": "and again we're not working with technical error objects here but here I am checking whether we do have",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 51.04,
+          "end": 52.14,
+          "en": "a session user",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 52.24,
+          "end": 57.52,
+          "en": "and I do have a solution for the case that this is not the case because if I would not add this check,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 57.85,
+          "end": 63.46,
+          "en": "then I could try to find a user without the session object existing and that would then crash our",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 63.46,
+          "end": 63.89,
+          "en": "app.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 63.91,
+          "end": 70.6,
+          "en": "So it makes sense to write clever code that avoids such scenarios and tries to only execute code that",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 70.6,
+          "end": 72.01,
+          "en": "will succeed.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 72.52,
+          "end": 74.35,
+          "en": "It might of course still fail",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 74.35,
+          "end": 79.39,
+          "en": "and for some reason, we might still not find that user even if we have it stored in a session,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 79.57,
+          "end": 83.15,
+          "en": "maybe because the user was deleted in a database in-between.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 83.17,
+          "end": 87.87,
+          "en": "So it would make sense to also check for the existence of user or for the opposite,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 87.87,
+          "end": 94.36,
+          "en": "so if user does not exist and if it does not exist, here we could also return next without storing the",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 94.36,
+          "end": 95.63,
+          "en": "request user.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 95.65,
+          "end": 101.92,
+          "en": "So just that we are super safe that we don't store some undefined object in the user object but that",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 101.95,
+          "end": 110.14,
+          "en": "we continue without the user instead if we can't find the user. Here in the catch block, logging it is not",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 110.14,
+          "end": 117.85,
+          "en": "really useful though. It will make more sense to throw a new error here where we simply wrap the error",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 117.91,
+          "end": 119.34,
+          "en": "object we get here.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 119.74000000000001,
+          "end": 125.63,
+          "en": "Throwing this error has a significant advantage which I will show you in a second",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 125.92,
+          "end": 127.99,
+          "en": "but with that, this looks good.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 127.99,
+          "end": 133.87,
+          "en": "We added an extra check and if we do have some technical issue, we throw a real error",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 133.87,
+          "end": 139.02,
+          "en": "and as it turns out, expressjs gives us a way of taking care of such errors,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 139.03,
+          "end": 140.82999999999998,
+          "en": "that is why I'm doing it like this.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 140.82999999999998,
+          "end": 149.86,
+          "en": "Alternatively, we could of course also simply call next here to continue without request user being set",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 150.19,
+          "end": 151.28,
+          "en": "or anything like that",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 151.39,
+          "end": 156.16,
+          "en": "but I want to throw an error because we had a technical issue connecting to our database and that is",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 156.16,
+          "end": 160.41,
+          "en": "something that might be a bigger problem than just a non-existing user.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

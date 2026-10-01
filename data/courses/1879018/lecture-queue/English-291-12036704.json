@@ -1,0 +1,426 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "12036704",
+      "title": "Serving Images Statically",
+      "lectureOrder": 327,
+      "videoOrder": 291,
+      "sourceHash": "131e84810e62bdc9b1ae37130541771221b7eb9a60a8a8c894ced45786a2009d",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.27,
+          "end": 9.94,
+          "en": "So how can we ensure that all our beautiful images are also served to the client, that they are downloaded?",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 9.95,
+          "end": 15.65,
+          "en": "We got multiple options for serving files and I will walk you through all of them. Now",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 15.71,
+          "end": 20.84,
+          "en": "option number one which you would typically use for a scenario like this where you have files that are",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 20.84,
+          "end": 22.67,
+          "en": "publicly available to everyone,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 22.7,
+          "end": 29.22,
+          "en": "like our product images is that we simply serve our images folder in a static way.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 29.27,
+          "end": 30.53,
+          "en": "What does this mean?",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 30.53,
+          "end": 37.85,
+          "en": "This means you go to app.js and there we already are statically serving a folder, we are serving the public",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 37.85,
+          "end": 40.82,
+          "en": "folder with the express static middleware.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 40.82,
+          "end": 46.55,
+          "en": "Now we can serve more than one folder statically and remember, statically serving a folder simply means",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 46.79,
+          "end": 52.5,
+          "en": "that requests to files in that folder will be handled automatically and the files will be returned,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 52.64,
+          "end": 58.85,
+          "en": "so all the heavy lifting is done behind the scenes by express then. I can duplicate this middleware and",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 58.85,
+          "end": 62.63,
+          "en": "now also serve the images folder, just like this",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 62.78,
+          "end": 68.36,
+          "en": "and with this little change if I save that and the server therefore restarts, if we reload this page,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 69.42,
+          "end": 71.68,
+          "en": "we still fail.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 72.15,
+          "end": 78.28,
+          "en": "Well if we inspect that failing request, we see that it tried to get the image from admin/images,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 78.33,
+          "end": 81.57,
+          "en": "the reason for that is that I'm on the admin route here,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 81.69,
+          "end": 83.48,
+          "en": "admin products to be precise,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 84.19,
+          "end": 89.07,
+          "en": "so it's only replacing the last part of my path with that image",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 89.08,
+          "end": 92.78,
+          "en": "url and the solution for that is pretty straightforward.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 93.1,
+          "end": 102.46000000000001,
+          "en": "In our view products.ejs where I do show my image, we simply need to add a slash at the beginning",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 102.52000000000001,
+          "end": 104.61,
+          "en": "which will turn this into an absolute path,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 104.65,
+          "end": 111.28,
+          "en": "so it will not append it to the current path but rather create a new path with only our domain and then",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 111.37,
+          "end": 114.77000000000001,
+          "en": "the path which gets rendered here and I do this in products",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 114.85,
+          "end": 117.4,
+          "en": "and of course also on my shop pages,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 117.47,
+          "end": 118.97,
+          "en": "so on index.ejs,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 119.2,
+          "end": 124.18,
+          "en": "so basically everywhere where I do render an image, I add a slash at the beginning.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 124.21,
+          "end": 129.43,
+          "en": "The alternative would be to store that path in a database with a slash at the beginning of course, might",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 129.43,
+          "end": 130.15,
+          "en": "have been easier",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 130.18,
+          "end": 132.05,
+          "en": "but I want to show you both ways",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 132.07,
+          "end": 137.07999999999998,
+          "en": "so here I'll add it in my views, also here in the product list.ejs file,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 139.79,
+          "end": 143.28,
+          "en": "like this and also in the product detail file of course,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 143.28,
+          "end": 145.05,
+          "en": "there we also have an image.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 145.16,
+          "end": 154.34,
+          "en": "If we change all of that and I now reload this page, I still fail and now the reason for that is something",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 154.34,
+          "end": 155.44,
+          "en": "different.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 155.45,
+          "end": 161.69,
+          "en": "The reason for that is that the path now is correct but my images here in the images folder are served",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 161.72,
+          "end": 165.72,
+          "en": "incorrectly. In app.js where I set up this static middleware,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 166.07,
+          "end": 173.52,
+          "en": "keep in mind what I taught you earlier in this course, we basically point to a folder there like public and",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 173.55,
+          "end": 181.1,
+          "en": "images and we then tell express serve the files from inside that folder as if they were on the root",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 181.22,
+          "end": 182.31,
+          "en": "folder.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 182.54,
+          "end": 188.05,
+          "en": "So we would see that image if we go there and we see the path under which I try to find that,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 188.06,
+          "end": 195.05,
+          "en": "if we open that in a new tab, we can't find it of course but we will see it if I remove images there",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 195.05,
+          "end": 201.11,
+          "en": "and the reason for that is that express assumes that the files in the images folder are served as if",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 201.11,
+          "end": 202.57,
+          "en": "they were in the root folder,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 202.57999999999998,
+          "end": 204.06,
+          "en": "so slash nothing.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 204.2,
+          "end": 208.24,
+          "en": "Of course we want to keep them in the images folder and keep the path like this",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 208.4,
+          "end": 214.22,
+          "en": "and for this, we can simply adjust our middleware here and say if we have a request that goes to",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 214.28,
+          "end": 223.31,
+          "en": "/images, that starts with /images, then serve these files statically and now /images is the folder",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 223.4,
+          "end": 226.01,
+          "en": "we assume for this static serving",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 226.04,
+          "end": 230.38,
+          "en": "and now with that if we save that and we reload, we see our image here.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 230.66,
+          "end": 236.87,
+          "en": "So now we got that working and now we got a static way of serving our files and that is a great way",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 236.87,
+          "end": 238.66,
+          "en": "of serving them.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 238.73,
+          "end": 241.34,
+          "en": "Now I want to do something different though,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 241.64,
+          "end": 249.23,
+          "en": "I want to add this to the cart, order it so that I have an order and I want to download an invoice",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 249.38,
+          "end": 255.59,
+          "en": "for that order and that will now work differently because invoices will not be public files that everyone",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 255.59,
+          "end": 256.97,
+          "en": "should be able to access,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 257,
+          "end": 259.05,
+          "en": "I want to be able to access my invoice",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 259.13,
+          "end": 260.58,
+          "en": "but no one else should be.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 260.73,
+          "end": 262.94,
+          "en": "So let's focus on this in the next lectures.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

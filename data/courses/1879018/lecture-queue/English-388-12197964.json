@@ -1,0 +1,412 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "12197964",
+      "title": "Adding Pagination",
+      "lectureOrder": 436,
+      "videoOrder": 388,
+      "sourceHash": "443adefd1794710a2713422adabb5ff9532cd69dfa9fba91ae7e5c0f9e18c41c",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.12,
+          "end": 8.15,
+          "en": "Now that we're able to fetch our posts through graphql, let's add pagination again.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.15,
+          "end": 10.19,
+          "en": "How does that work with graphql?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.58,
+          "end": 12.9,
+          "en": "Turns out not too difficult.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.92,
+          "end": 18.7,
+          "en": "We start on our graphql schema again because there, we'll need to change something on our posts query",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 18.92,
+          "end": 22.24,
+          "en": "because it is the post query where we want to add pagination right,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.25,
+          "end": 25.5,
+          "en": "we want to be able to paginate through all the posts.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 25.65,
+          "end": 32.12,
+          "en": "Therefore the posts query needs an argument, it needs an argument that allows us to define the page we",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 32.12,
+          "end": 34.58,
+          "en": "are on and I'll name that page,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 34.61,
+          "end": 38.27,
+          "en": "you can name it however you want and this will be of type integer.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 38.27,
+          "end": 46.83,
+          "en": "Now with that argument added in the schema, in our resolver we can implement pagination. There",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 47.05,
+          "end": 55.3,
+          "en": "in my posts resolver, my arguments now will have that page property, so I can retrieve it with destructuring",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 55.99,
+          "end": 59.29,
+          "en": "and after checking whether I'm authenticated or not,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 59.29,
+          "end": 65.75,
+          "en": "I now need to setup pagination or I need to find out which page I'm on and use that.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 65.9,
+          "end": 74.89,
+          "en": "Now first of all, I'll quickly check if page is not set because if it is not set, so if it is undefined, I'll",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 74.89,
+          "end": 75.96000000000001,
+          "en": "set it equal to 1",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 76.03999999999999,
+          "end": 77.78,
+          "en": "so that I always start on page 1",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 77.81,
+          "end": 86.36,
+          "en": "in case I don't specify any other page. As a next step, we can define the per page variable which is two",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 86.59,
+          "end": 88.85,
+          "en": "as it was in our rest API scenario,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 88.96000000000001,
+          "end": 93.37,
+          "en": "you could theoretically also fetch this as an argument, I'll hardcode it here",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 93.91,
+          "end": 98.92,
+          "en": "for simplicity reasons because this was primarily something we would have to manage in the frontend",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 99.03999999999999,
+          "end": 103.06,
+          "en": "with a dropdown offering the user different page sizes and so on.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 103.12,
+          "end": 106.15,
+          "en": "So I'll hardcode it here and now we have per page,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 106.15,
+          "end": 107.53,
+          "en": "we have the current page,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 107.74000000000001,
+          "end": 113.53,
+          "en": "now we can use that here when we find the posts. And you already learned that you can paginate with",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 113.53,
+          "end": 121.17,
+          "en": "skip and limit, so skip and limit is what you can add here and in skip, you want to skip your current",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 121.17,
+          "end": 124.98,
+          "en": "page minus one times per page.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 124.98,
+          "end": 131.17,
+          "en": "So if you're on page two you have two minus one which is one obviously and you skip one times two,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 131.19,
+          "end": 135.42,
+          "en": "so the first two items, the two items that were on page 1.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 135.5,
+          "end": 140.93,
+          "en": "You don't just want to skip though, you also want to limit and you limit the result set to the amount",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 140.93,
+          "end": 144.04,
+          "en": "of pages, of items you want to render per page",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 144.17000000000002,
+          "end": 151.16,
+          "en": "by adding per page as an argument here. And that is it, this is pagination in place on the server side.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 151.16,
+          "end": 161.54,
+          "en": "Now in the frontend there, we already have some logic for the pagination if we go to load posts and there",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 161.94,
+          "end": 166.06,
+          "en": "I do already get my page variable,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 166.17000000000002,
+          "end": 173.82,
+          "en": "now I just need to send that with my query and for that on the posts query, I can set page equal to",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 174.21,
+          "end": 179.34,
+          "en": "well the page I calculate up there, since this is a number",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 179.34,
+          "end": 183.42,
+          "en": "I also don't need to wrap that in double quotation marks.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 183.42,
+          "end": 184.79,
+          "en": "Let me save all that,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 184.79,
+          "end": 190.35,
+          "en": "also make sure the backend code is saved and let's reload our frontend application.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 190.56,
+          "end": 192.21,
+          "en": "For that I should restart the server",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 197.24,
+          "end": 201.65,
+          "en": "and indeed here, I got pagination in place.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 201.65,
+          "end": 207.07,
+          "en": "And when I add a new post to make sure that it does not show up as a third element",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 207.11,
+          "end": 213.92000000000002,
+          "en": "when we only want to have two, I will go back to my react code and there to the finish edit handler",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 215.09,
+          "end": 218.82999999999998,
+          "en": "and here in set state where you find that unshift statement,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 219.07999999999998,
+          "end": 223.29,
+          "en": "simply add update posts pop in front of that.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 223.4,
+          "end": 224.13,
+          "en": "And that is all,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 224.15,
+          "end": 227.37,
+          "en": "this will remove one element and add the new one at the beginning",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 227.66,
+          "end": 229.25,
+          "en": "and now let's give this a try,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 229.37,
+          "end": 242.82,
+          "en": "let's add another duck, choose the duck image, also very lovely, accept this and here is the another duck, another",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 242.97,
+          "end": 243.9,
+          "en": "cup,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 243.92,
+          "end": 244.7,
+          "en": "here is the rest",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 248.64,
+          "end": 251.65,
+          "en": "and this is exactly the data we find in the database too.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 251.66,
+          "end": 256.65,
+          "en": "We got tWo another ducks just in case you got confused.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 256.65,
+          "end": 257.84,
+          "en": "So this is working,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 257.88,
+          "end": 262.98,
+          "en": "let's now work on the image upload because that obviously is something very interesting which we haven't",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 262.98,
+          "end": 264.24,
+          "en": "touched on thus far",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 264.27,
+          "end": 265.92,
+          "en": "for our graphql API.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

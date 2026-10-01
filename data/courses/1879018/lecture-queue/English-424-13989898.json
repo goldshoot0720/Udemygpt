@@ -1,0 +1,1266 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "13989898",
+      "title": "Testing Code That Requires Authentication",
+      "lectureOrder": 478,
+      "videoOrder": 424,
+      "sourceHash": "b24988125210153e150e15d52cc3340d9c7188eb478a8f0a0f74a5ee46216fd9",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.11,
+          "end": 5.17,
+          "en": "Now in the last lectures, you'll learn a lot of useful things.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.17,
+          "end": 10.06,
+          "en": "You'll learn about these hooks, which are super important for setting up and for clean up work.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.48,
+          "end": 17.05,
+          "en": "You also learn that for a code that interacts with the database, it could be fine to really use a database.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 17.05,
+          "end": 20.14,
+          "en": "It just should be a dedicated testing database.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 20.17,
+          "end": 24.43,
+          "en": "Now, of course, it's all fine to use stubs, as we did here.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 24.43,
+          "end": 30.58,
+          "en": "In case you don't really need or want that database access in case you want to speed up your tests,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 30.58,
+          "end": 32.62,
+          "en": "you can setup functionalities.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 32.62,
+          "end": 34.99,
+          "en": "And of course, we could have done that down there too.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 34.99,
+          "end": 37.87,
+          "en": "But I want to show both and both is fine.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 37.9,
+          "end": 42.43,
+          "en": "Now, obviously, as always in the Internet, you'll find people arguing strongly for either of the",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 42.43,
+          "end": 43.27,
+          "en": "two directions.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 43.27,
+          "end": 48.94,
+          "en": "But in practice you find good arguments for both alternatives, and therefore you should go with the",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 48.94,
+          "end": 55.21,
+          "en": "one you prefer and you can even change it on a per test basis, depending on a test needs to be faster",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 55.21,
+          "end": 62.1,
+          "en": "or really doesn't care about the database access or if checking that database code might be useful too.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 62.11,
+          "end": 68.41,
+          "en": "Like for our status here where we implicitly also check that our default status assignment works because",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 68.41,
+          "end": 71.44,
+          "en": "we're checking for that default status to find here in the model.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 72.1,
+          "end": 79.42,
+          "en": "Now with that, let me wrap this module up by also testing some functionality from the feed controller.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 79.42,
+          "end": 85.24,
+          "en": "And here the interesting part, of course, is that here we actually have code that relies on the user",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 85.24,
+          "end": 88.75,
+          "en": "being authenticated, like for creating a post here.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 88.75,
+          "end": 95.35,
+          "en": "When we create a post, we actually do access the user ID, which should be part of the request object.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 95.38,
+          "end": 98.38,
+          "en": "Now why is the user ID part of the request object?",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 98.38,
+          "end": 101.65,
+          "en": "Because of the of middleware right here we add that.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 101.65,
+          "end": 107.71000000000001,
+          "en": "So how can we now test this since we now have a controller that actually requires on the off middleware",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 107.71000000000001,
+          "end": 108.58,
+          "en": "doing its job?",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 108.58,
+          "end": 115.18,
+          "en": "How can we make this work if we only want to test the controller and not the full flow?",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 117.00999999999999,
+          "end": 123.31,
+          "en": "It's super easy to make this work because whilst it could look difficult at first, it's important that",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 123.31,
+          "end": 129.88,
+          "en": "you configure your tests, you pass in a request response object and the next function.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 129.88,
+          "end": 136.81,
+          "en": "And if you have code that tries to get something out of the request object like the user ID of course",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 136.81,
+          "end": 141.07,
+          "en": "in the real app that is set by the middleware and we are actually testing this middleware.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 141.07,
+          "end": 146.89,
+          "en": "But for the controller, we can just fake that and we can pass in a request object that simply has a",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 146.89,
+          "end": 149.26,
+          "en": "user ID and we're done, that's all.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 149.62,
+          "end": 157.51,
+          "en": "So let's now write a test for create post and let's interact with the database here and then also make",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 157.51,
+          "end": 165.91,
+          "en": "sure we do create a post successfully here and for example, validate that this post then really was",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 165.91,
+          "end": 170.17000000000002,
+          "en": "added to our users posts array for this.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 170.17000000000002,
+          "end": 178.32999999999998,
+          "en": "I'll add a new file here in the test folder and I'll name it Feed Controller JJ's and I'll have a look",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 178.32999999999998,
+          "end": 183.88,
+          "en": "at the off controller and actually I will copy the entire content from there and they added in the feed",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 183.88,
+          "end": 186.49,
+          "en": "controller and now of course change some things.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 186.49,
+          "end": 191.89,
+          "en": "I need access to Mongoose and so on though because here again I want to connect to a testing database.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 192.43,
+          "end": 200.14,
+          "en": "So in here I will not need the user model though, but the the post mode model.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 200.14,
+          "end": 207.55,
+          "en": "So let's get that from models post and of course not the off controller but the feed controller which",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 207.55,
+          "end": 210.67000000000002,
+          "en": "I get from controllers feed.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 211.99,
+          "end": 215.73,
+          "en": "Now I'll therefore describe this as the feet controller.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 215.74,
+          "end": 217.06,
+          "en": "Doesn't hurt, I guess.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 217.66,
+          "end": 222.25,
+          "en": "And now time for the initialization work we're connecting to the testing database.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 222.25,
+          "end": 226.24,
+          "en": "Could also be a different one here for the post if we want to, but I want to use the same one.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 227.31,
+          "end": 230.94,
+          "en": "I will actually set up my dummy user because I need a user.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 230.97,
+          "end": 234.09,
+          "en": "A user created a post and that should be my dummy user.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 234.45,
+          "end": 239.46,
+          "en": "And we could set up some dummy posts, especially when we're testing different controller actions like",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 239.46,
+          "end": 240.48,
+          "en": "getting posts and so on.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 240.48,
+          "end": 244.92,
+          "en": "But for creating a post, of course I don't need one, so my dummy user is all I need.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 244.92,
+          "end": 248.31,
+          "en": "So the test set up here is fine for me.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 249.38,
+          "end": 251.21,
+          "en": "I don't eat before each and after each.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 251.57,
+          "end": 255.94,
+          "en": "But I only need one test case here, so I'll actually get rid of the other one.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 255.95,
+          "end": 262.07,
+          "en": "I'll keep the after hook here though, and clean my users so that our tests are not affected by it.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 262.1,
+          "end": 264.34,
+          "en": "Our test files are not affected by it.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 264.35,
+          "end": 265.43,
+          "en": "It does test file.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 265.46,
+          "end": 268.52,
+          "en": "Your really works stand alone on its own.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 268.94,
+          "end": 273.14,
+          "en": "So now let's work on that single test there.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 273.35,
+          "end": 280.61,
+          "en": "I want to test whether a post is created successfully and then add it to the post array of my user,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 280.61,
+          "end": 282.05,
+          "en": "the user who created it.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 284.57,
+          "end": 288.83,
+          "en": "So it should add a created post.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 289.72,
+          "end": 292.51,
+          "en": "To the posts over.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 294.2,
+          "end": 296,
+          "en": "Off the creator.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 296.33,
+          "end": 297.35,
+          "en": "Something like this.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 298.49,
+          "end": 300.56,
+          "en": "Now, I'll not stop here.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 300.95,
+          "end": 304.94,
+          "en": "Instead, I really want to interact with the database, so no need to use.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 304.94,
+          "end": 306.86,
+          "en": "Sign in here and stop anything.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 307.55,
+          "end": 308.21,
+          "en": "And.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 309.79,
+          "end": 311.56,
+          "en": "We have a look at that feed controller.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 311.77,
+          "end": 315.46,
+          "en": "We now see that we need a couple of things on the request object.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 315.61,
+          "end": 322.99,
+          "en": "On the request object, for example, we need a file object that in turn needs a path which is the path",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 322.99,
+          "end": 328.39,
+          "en": "to the image, doesn't have to be a real path, just needs to be there so that we can extract it can",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 328.39,
+          "end": 329.86,
+          "en": "be a dummy string, though.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 330.07,
+          "end": 338.14,
+          "en": "We need a title, we need a content because we're setting this on our post and we need that user ID.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 339,
+          "end": 345.24,
+          "en": "So back in the off controller should be in the feed controller file here where I configure my request.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 346.02,
+          "end": 349.32,
+          "en": "As we saw, we're retrieving title and content from the body.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 349.44,
+          "end": 353.37,
+          "en": "Then we have a file object which has a path key and we have a user ID.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 353.37,
+          "end": 357.78,
+          "en": "So in the feed controller in the bottom body here we have title, which could be.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 358.63,
+          "end": 361.45,
+          "en": "Test post with the content.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 361.83,
+          "end": 366.19,
+          "en": "A test post really doesn't matter, of course, unless you're testing it.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 367.64,
+          "end": 374.42,
+          "en": "We need a file object which needs a path key which can be ABC doesn't matter and we need the user ID,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 374.45,
+          "end": 376.1,
+          "en": "which can be z set.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 376.25,
+          "end": 380.06,
+          "en": "We just need these fields because we're using them in the controller.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 380.66,
+          "end": 387.77,
+          "en": "This will then save a valid post to the database and we'll then extract a user with the user ID.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 387.86,
+          "end": 391.31,
+          "en": "And now here we already have the first trap we could run into.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 391.34,
+          "end": 396.92,
+          "en": "The user ID does actually matter because the creator we assign here does not matter.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 396.92,
+          "end": 404.06,
+          "en": "But to really work later and to be connected to the user object in the database, we need a real user",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 404.06,
+          "end": 404.6,
+          "en": "ID.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 405.29,
+          "end": 406.76,
+          "en": "Thankfully we got one.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 406.76,
+          "end": 412.76,
+          "en": "We're creating a user with our own hardcoded ID here, so let's use that instead of x, y, z and pass",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 412.76,
+          "end": 413.42,
+          "en": "that in.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 414.14,
+          "end": 418.61,
+          "en": "So now the feed controller should be able to save a post and then make the connection to a user and",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 418.61,
+          "end": 421.22,
+          "en": "add that post to that user object.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 423.93,
+          "end": 426.09,
+          "en": "Now to check whether that really worked.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 426.51,
+          "end": 428.33,
+          "en": "I need to get access to.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 429.1,
+          "end": 432.88,
+          "en": "Our user object outside of this controller function.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 433.48,
+          "end": 435.31,
+          "en": "And for this we can just.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 437.39,
+          "end": 445.46,
+          "en": "Store are the result of user safe here in a safe user constant and actually return that here.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 447.13,
+          "end": 450.76,
+          "en": "In that controller will not change the behavior of the controller.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 450.76,
+          "end": 454.75,
+          "en": "We still send the response status code and everything that still works fine.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 454.75,
+          "end": 458.8,
+          "en": "But now our test has a look of validating that created user.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 459.79,
+          "end": 466.67,
+          "en": "And now in the feed controller here, we're not calling off controller log in or anything like that.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 466.69,
+          "end": 470.94,
+          "en": "Instead we're calling feed controller, create post.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 470.95,
+          "end": 473.09000000000003,
+          "en": "We pass in our request object.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 473.11,
+          "end": 476.71,
+          "en": "Now for the response object, we need to make sure that we don't get an error.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 476.71,
+          "end": 482.41,
+          "en": "So we need to provide a status method and adjacent method even if we don't care about what they do.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 482.41,
+          "end": 483.64,
+          "en": "But we need them.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 483.97,
+          "end": 491.66,
+          "en": "So I pass in a dummy response object here to which is an object which needs these two methods so that",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 491.66,
+          "end": 493.87,
+          "en": "they can be called without throwing error.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 493.87,
+          "end": 500.53,
+          "en": "So status is a function that does nothing and Jason is a function that does nothing here.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 500.53,
+          "end": 502.21,
+          "en": "Why are they not doing anything?",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 502.21,
+          "end": 504.01,
+          "en": "Because for this test I don't care.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 504.01,
+          "end": 508.06,
+          "en": "So I pass in this and I pass in this dummy next function here.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 511.12,
+          "end": 513.82,
+          "en": "Now this is an async function.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 513.82,
+          "end": 519.79,
+          "en": "We have the async keyword here and therefore it returns a promise automatically and hence in the then",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 519.79,
+          "end": 520.63,
+          "en": "block here.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 522.17,
+          "end": 524.99,
+          "en": "I want you to define my expectations.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 525.72,
+          "end": 531,
+          "en": "Now I know that we get something back here because I'm returning that saved user.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 531.03,
+          "end": 535.71,
+          "en": "Now, by the way, if you're not liking this pattern of changing the controller just so that we can",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 535.71,
+          "end": 536.46,
+          "en": "test this.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 536.49,
+          "end": 542.07,
+          "en": "Of course, the alternative would be to simply test some other controller action that actually needs",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 542.07,
+          "end": 549,
+          "en": "that user object with its post and then simply call create post and then that other controller action",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 549,
+          "end": 554.46,
+          "en": "to and execute two controller actions in the same test and only test something on the result of the",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 554.46,
+          "end": 555.33,
+          "en": "second action.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 555.33,
+          "end": 559.02,
+          "en": "But here, I'll just beat this up and merge this into one controller action.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 559.29,
+          "end": 565.59,
+          "en": "So here I get my saved user and I expect that saved user.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 566.56,
+          "end": 572.35,
+          "en": "To have a property of posts that should be set.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 575.7,
+          "end": 580.44,
+          "en": "And I expect saved user posts.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 581.42,
+          "end": 582.08,
+          "en": "Do you?",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 583.29,
+          "end": 583.95,
+          "en": "Have.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 584.89,
+          "end": 585.91,
+          "en": "A length.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 587.38,
+          "end": 588.25,
+          "en": "Of one.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 590.01,
+          "end": 593.27,
+          "en": "Because there should be one new post added to it.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 593.92,
+          "end": 595.66,
+          "en": "And thereafter we called none.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 596.96,
+          "end": 598.7,
+          "en": "Now let's give this a try.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 598.73,
+          "end": 600.65,
+          "en": "Let's run NPM test here.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 601.1,
+          "end": 604.4,
+          "en": "This will now take a while because of course, we have a couple of different tests.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 609.58,
+          "end": 614.14,
+          "en": "Now, of course, I get an error here because I have an issue in my testing file.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 614.44,
+          "end": 615.7,
+          "en": "I'm importing the post model.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 615.7,
+          "end": 616.89,
+          "en": "But this of course, was incorrect.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 616.9,
+          "end": 618.91,
+          "en": "I'm actually not using the post model here.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 618.91,
+          "end": 620.59,
+          "en": "I need a defeat controller.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 620.59,
+          "end": 624.97,
+          "en": "But regarding the models, we still need to use user controller of course, because I'm creating a user.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 625.03,
+          "end": 626.77,
+          "en": "So that's my mistake here.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 626.77,
+          "end": 632.98,
+          "en": "Let's quit that process and rerun NPM test thereafter so that now we don't have an error here in the",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 632.98,
+          "end": 633.97,
+          "en": "testing file.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 638.05,
+          "end": 639.22,
+          "en": "And now here, I'm getting an error.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 639.25,
+          "end": 646.15,
+          "en": "Target cannot be null or undefined, and that is stemming from our validation here in the feed controller,",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 646.15,
+          "end": 646.72,
+          "en": "as you can see.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 646.72,
+          "end": 648.58,
+          "en": "And we only have one test case in there.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 648.58,
+          "end": 649.96,
+          "en": "So it's this test case.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 649.96,
+          "end": 657.97,
+          "en": "So saved user seems to be null or undefined, even though I'm trying to return it here where I store",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 658,
+          "end": 659.11,
+          "en": "my saved user.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 659.79,
+          "end": 663.18,
+          "en": "And that actually still is an issue with my testing set up.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 663.51,
+          "end": 667.36,
+          "en": "I do define my response object with status and JSON functions.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 667.38,
+          "end": 673.08,
+          "en": "Now the tiny problem I have, if we watch closely, of course we're calling the Jason method here,",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 673.08,
+          "end": 677.49,
+          "en": "not on the response object but on the result of the status method call.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 678.09,
+          "end": 684.11,
+          "en": "So for that to work back in a feed controller, we need to make sure that in this function here for",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 684.11,
+          "end": 690.03,
+          "en": "a status which we call first, we return this so that we return the number reference at the entire object,",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 690.03,
+          "end": 693.51,
+          "en": "which then has switched and has this JSON function here.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 694.32,
+          "end": 697.2,
+          "en": "So now with this adjustment, let's run NPM test again.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 697.2,
+          "end": 698.7,
+          "en": "Let's see if we now succeed.",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 700.14,
+          "end": 700.98,
+          "en": "And this looks better.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 700.98,
+          "end": 703.86,
+          "en": "It's now passing your cue for the feed controller.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 703.86,
+          "end": 708.84,
+          "en": "And if I would check for a length of zero here, for example, then it actually should fail.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 708.84,
+          "end": 710.4,
+          "en": "So if I now let this run.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 717.84,
+          "end": 719.88,
+          "en": "Now you see it failed.",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 719.88,
+          "end": 721.77,
+          "en": "And if we scroll up, we see it failed.",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 721.8,
+          "end": 729.24,
+          "en": "It expected a ray with a length of one to have a length of zero, but got one so correctly it failed",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 729.24,
+          "end": 730.48,
+          "en": "and it doesn't fail.",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 730.5,
+          "end": 732.24,
+          "en": "If I check for the correct length.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 732.9,
+          "end": 735.69,
+          "en": "Now, this is another example for testing here.",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 735.69,
+          "end": 737.7,
+          "en": "The feed controller clearly as you can see.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 738.03,
+          "end": 741.84,
+          "en": "And now with that, we wrote quite some nice tests here.",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 741.84,
+          "end": 747.06,
+          "en": "I hopefully gave you a good introduction to how testing works and how you generally have to think about",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 747.06,
+          "end": 747.31,
+          "en": "it.",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 747.33,
+          "end": 753.72,
+          "en": "Now let me wrap this up, because I know that at this point it still can feel entirely overwhelming",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 753.72,
+          "end": 755.16,
+          "en": "and it doesn't have to be.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

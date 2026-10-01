@@ -1,0 +1,1525 @@
+{
+  "version": 1,
+  "courseId": 756150,
+  "courseSlug": "the-complete-guide-to-angular-2",
+  "courseTitle": "Angular - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "6656360",
+      "title": "Resolving Dynamic Data with the resolve Guard",
+      "lectureOrder": 476,
+      "videoOrder": 437,
+      "sourceHash": "66bbeaf42e0f49aa2b0b92ebcc959278c9ef16f79db66b7d0a22e434d2d8fac9",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.45,
+          "end": 6.21,
+          "en": "-: In the last lecture, we learned how to pass static data.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.21,
+          "end": 9.24,
+          "en": "Now let's say we have some dynamic data we have to fetch",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.24,
+          "end": 12.42,
+          "en": "before a route can be displayed or can be rendered.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.42,
+          "end": 14.1,
+          "en": "For example, here on the servers,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 14.1,
+          "end": 17.1,
+          "en": "let's say these servers already have been loaded.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 17.1,
+          "end": 19.62,
+          "en": "But once we click a server here,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 19.62,
+          "end": 22.95,
+          "en": "and maybe I should log in to demonstrate this.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 22.95,
+          "end": 27.15,
+          "en": "I want to load the individual server from some backend.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 27.15,
+          "end": 28.56,
+          "en": "So we are going to simulate",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 28.56,
+          "end": 32.58,
+          "en": "that this takes a couple of milliseconds or seconds.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 32.58,
+          "end": 33.963,
+          "en": "So how could this work?",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 34.92,
+          "end": 39.18,
+          "en": "If we have such a use case, we need a resolver.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 39.18,
+          "end": 40.56,
+          "en": "There's always a service",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 40.56,
+          "end": 43.74,
+          "en": "just like CanActivate or CanDeactivate,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 43.74,
+          "end": 46.92,
+          "en": "which will allow us to run some code",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 46.92,
+          "end": 48.78,
+          "en": "before a route is rendered.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 48.78,
+          "end": 51.12,
+          "en": "Now the difference to CanActivate is",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 51.12,
+          "end": 52.856,
+          "en": "that the resolver will not decide",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 52.856,
+          "end": 55.65,
+          "en": "whether this route should be rendered or not,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 55.65,
+          "end": 58.02,
+          "en": "whether the component should be loaded or not.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 58.02,
+          "end": 62.04,
+          "en": "The resolver will always render the component in the end,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 62.04,
+          "end": 64.5,
+          "en": "but it will do some preloading, you could say.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 64.5,
+          "end": 66.03,
+          "en": "It will fetch some data",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 66.03,
+          "end": 68.25,
+          "en": "the component will then need later on.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 68.25,
+          "end": 71.07,
+          "en": "Of course, the alternative is to render the component",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 71.07,
+          "end": 73.23,
+          "en": "or the target page instantly,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 73.23,
+          "end": 77.22,
+          "en": "and in the OnInit method of this page",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 77.22,
+          "end": 78.72,
+          "en": "you could then fetch the data",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 78.72,
+          "end": 81.03,
+          "en": "and display some spinner whilst you're doing so.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 81.03,
+          "end": 82.41,
+          "en": "So that is an alternative.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 82.41,
+          "end": 83.52,
+          "en": "But if you want to load it",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 83.52,
+          "end": 85.368,
+          "en": "before actually displaying the route",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 85.368,
+          "end": 88.28999999999999,
+          "en": "this is how you would add such a resolver.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 88.28999999999999,
+          "end": 91.32,
+          "en": "So let's say for the single server here,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 91.32,
+          "end": 94.02000000000001,
+          "en": "I will add it in the Server, File,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 94.02000000000001,
+          "end": 97.2,
+          "en": "my server-resolver.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 97.2,
+          "end": 99.68299999999999,
+          "en": "And again, this will be technically just be a service.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 99.68299999999999,
+          "end": 102.15,
+          "en": "So I'll export my class here",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 102.15,
+          "end": 105.42,
+          "en": "which I'll name ServerResolver.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 105.42,
+          "end": 110.22,
+          "en": "And now this has to implement the resolve interface",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 110.22,
+          "end": 113.7,
+          "en": "provided by @angular/router.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 113.7,
+          "end": 116.31,
+          "en": "Resolve is a generic type and it should wrap",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 116.31,
+          "end": 120.39,
+          "en": "whichever item or data field you will get here,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 120.39,
+          "end": 122.46,
+          "en": "will fetch here in the end.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 122.46,
+          "end": 124.792,
+          "en": "So we will fetch a server here",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 124.792,
+          "end": 127.65,
+          "en": "and therefore we should define the type here.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 127.65,
+          "end": 129.09,
+          "en": "Now, you could outsource this",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 129.09,
+          "end": 131.94,
+          "en": "into an interface or a model in general.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 131.94,
+          "end": 134.37,
+          "en": "So we will know that a server will have an id",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 134.37,
+          "end": 136.68,
+          "en": "which is of type number,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 136.68,
+          "end": 139.32,
+          "en": "that it will have a name which is a string,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 139.32,
+          "end": 140.88,
+          "en": "and a status, which is a string.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 140.88,
+          "end": 144.15,
+          "en": "So this is simply a type definition of,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 144.15,
+          "end": 147.78,
+          "en": "well, the thing this resolver will give us in the end",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 147.78,
+          "end": 150.51,
+          "en": "to what it will resolve in the end.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 150.51,
+          "end": 153.464,
+          "en": "Now the resolve interface requires us to implement",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 153.464,
+          "end": 155.88,
+          "en": "the resolve method.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 155.88,
+          "end": 159.84300000000002,
+          "en": "And this resolve method here now takes two arguments",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 159.84300000000002,
+          "end": 163.41,
+          "en": "the route, so the activated route snapshot",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 163.41,
+          "end": 164.243,
+          "en": "which you already know,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 164.243,
+          "end": 167.46,
+          "en": "which you need to import from at angular core,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 167.46,
+          "end": 170.64,
+          "en": "and it will also provide us the state snapshot.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 170.64,
+          "end": 173.91,
+          "en": "So the RouterStateSnapshot,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 173.91,
+          "end": 178.14,
+          "en": "which also needs to be imported from @angular/router.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 178.14,
+          "end": 180.63,
+          "en": "These are the two information pieces",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 180.63,
+          "end": 184.02,
+          "en": "the resolve method gets by angular,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 184.02,
+          "end": 188.46,
+          "en": "and in the end, this then also has to return",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 188.46,
+          "end": 191.34,
+          "en": "either an observable, which you need to import",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 191.34,
+          "end": 194.07,
+          "en": "from rxjs/Observable.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 194.07,
+          "end": 198.3,
+          "en": "This observable will then also return this type here.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 198.3,
+          "end": 199.53,
+          "en": "So we can copy this,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 199.53,
+          "end": 202.17000000000002,
+          "en": "but since we're creating a lot of overheads here,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 202.17000000000002,
+          "end": 205.53,
+          "en": "we can also quickly define an interface here,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 205.53,
+          "end": 206.82,
+          "en": "and it would of course be better",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 206.82,
+          "end": 209.34,
+          "en": "to outsource this in its own file.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 209.34,
+          "end": 211.29,
+          "en": "But let's quickly do it here.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 211.29,
+          "end": 212.813,
+          "en": "So the interface for the server",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 212.813,
+          "end": 217.38,
+          "en": "which has an ID of type number,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 217.38,
+          "end": 219.18,
+          "en": "and then the name which is a string,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 219.18,
+          "end": 221.52,
+          "en": "and the status, which is a string.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 221.52,
+          "end": 225,
+          "en": "And now this allows us to simply use server here",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 225,
+          "end": 227.52,
+          "en": "for as a shortcut for this type.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 227.52,
+          "end": 229.26,
+          "en": "So the observable should in the end,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 229.26,
+          "end": 231.273,
+          "en": "give us back such a server,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 232.62,
+          "end": 233.72,
+          "en": "or we get a promise",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 233.72,
+          "end": 237.54,
+          "en": "which in the end will return such a server,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 237.54,
+          "end": 241.65,
+          "en": "or well, just such a server synchronously.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 241.65,
+          "end": 244.65,
+          "en": "So this is what we will get back here and resolve.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 244.65,
+          "end": 248.58,
+          "en": "So now we need to implement logic to get this back.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 248.58,
+          "end": 253.5,
+          "en": "Now we have our server's service here.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 253.5,
+          "end": 256.02,
+          "en": "And there we have the get server method",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 256.02,
+          "end": 258.51,
+          "en": "which will give us back a server.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 258.51,
+          "end": 260.82,
+          "en": "Now this gritty is some synchronous code,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 260.82,
+          "end": 262.62,
+          "en": "it will run instantly here.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 262.62,
+          "end": 265.74,
+          "en": "So there is nothing wrong with this code,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 265.74,
+          "end": 268.98,
+          "en": "we will resolve this instantly.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 268.98,
+          "end": 271.59,
+          "en": "And as you saw in your resolver, that's fine.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 271.59,
+          "end": 275.22,
+          "en": "One return possibility is to instantly return the data.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 275.22,
+          "end": 276.72,
+          "en": "So the easiest thing we can do here",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 276.72,
+          "end": 279.36,
+          "en": "is reach out to our server service",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 279.36,
+          "end": 281.1,
+          "en": "and forward as we need to inject it,",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 281.1,
+          "end": 286.067,
+          "en": "so we should provide our server serversService like this.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 287.28,
+          "end": 288.9,
+          "en": "That's a real hard word for me.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 288.9,
+          "end": 291.737,
+          "en": "Servers ServersService like this.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 294.474,
+          "end": 297.27,
+          "en": "And of course, if you want to inject a service",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 297.27,
+          "end": 301.59,
+          "en": "into another service, you have to add, @Injectable to it,",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 301.59,
+          "end": 304.17,
+          "en": "make sure to import this from at @angular/core,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 304.17,
+          "end": 306.67,
+          "en": "also, make sure to import your own ServersService.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 308.43,
+          "end": 311.61,
+          "en": "And with this, the easiest way to use this resolve function",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 311.61,
+          "end": 313.68,
+          "en": "is to reach out to your service,",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 313.68,
+          "end": 315.9,
+          "en": "and there we call getServer.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 315.9,
+          "end": 317.25,
+          "en": "And now we need to know",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 317.25,
+          "end": 320.55,
+          "en": "the idea of the server we have to fetch.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 320.55,
+          "end": 321.75,
+          "en": "Because that is what we do",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 321.75,
+          "end": 324.03,
+          "en": "in this server component here in the end, right?",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 324.03,
+          "end": 326.85,
+          "en": "There in on in it, we're getting this server right now.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 326.85,
+          "end": 328.5,
+          "en": "So now we want to outsource this",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 328.5,
+          "end": 331.21,
+          "en": "because let's say we want to do it before it loads.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 331.21,
+          "end": 333.837,
+          "en": "The good thing is, we do get the route here.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 333.837,
+          "end": 335.82,
+          "en": "It only needs this snapshot,",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 335.82,
+          "end": 339.03,
+          "en": "but this service here will actually run on",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 339.03,
+          "end": 340.83,
+          "en": "each time we re-render the route.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 340.83,
+          "end": 342.346,
+          "en": "So the snapshot is all we need.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 342.346,
+          "end": 344.4,
+          "en": "Unlike the component itself,",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 344.4,
+          "end": 346.89,
+          "en": "again, this is executed each time.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 346.89,
+          "end": 350.76,
+          "en": "So no need to set up an observable or something like that.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 350.76,
+          "end": 353.97,
+          "en": "So here we can access our route, and the route params,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 353.97,
+          "end": 356.90999999999997,
+          "en": "and then the id, and make sure to cast it",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 356.90999999999997,
+          "end": 360.33,
+          "en": "with a plus sign in front of it to an integer.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 360.33,
+          "end": 363.576,
+          "en": "This is the easiest way of using this resolver",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 363.576,
+          "end": 367.41,
+          "en": "which will do the loading of our data in advance.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 367.41,
+          "end": 368.88,
+          "en": "And now this would also work",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 368.88,
+          "end": 371.67,
+          "en": "if this were to return an observable or a promise,",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 371.67,
+          "end": 376.2,
+          "en": "so with asynchronous code, for example, an HTP request.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 376.2,
+          "end": 378.39,
+          "en": "So this is our resolver.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 378.39,
+          "end": 380.58,
+          "en": "With this resolver in place,",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 380.58,
+          "end": 382.8,
+          "en": "we of course now have to add it.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 382.8,
+          "end": 385.26,
+          "en": "So first thing is in app module,",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 385.26,
+          "end": 387.68,
+          "en": "we should add it to our providers,",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 387.68,
+          "end": 392.68,
+          "en": "our server resolver like this.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 392.73,
+          "end": 395.7,
+          "en": "Make sure to also add the import at the top.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 395.7,
+          "end": 397.408,
+          "en": "And with that added now,",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 397.408,
+          "end": 401.04,
+          "en": "we want to add it to our routing module.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 401.04,
+          "end": 403.32,
+          "en": "Here for the route where we want to use it,",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 403.32,
+          "end": 407.22,
+          "en": "so let's say for this component here,",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 407.22,
+          "end": 410.67,
+          "en": "we add another property, the resolve property.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 410.67,
+          "end": 412.65,
+          "en": "This takes a JavaScript object,",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 412.65,
+          "end": 415.584,
+          "en": "and here we map all the resolvers.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 415.584,
+          "end": 418.68,
+          "en": "This is different to the AuthGuards.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 418.68,
+          "end": 421.65,
+          "en": "There we used arrays, but for resolve,",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 421.65,
+          "end": 423.27,
+          "en": "a different approach is taken,",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 423.27,
+          "end": 425.85,
+          "en": "and you will see why in a second.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 425.85,
+          "end": 428.19,
+          "en": "So here we have key value pairs",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 428.19,
+          "end": 430.29,
+          "en": "of the resolvers we want to use.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 430.29,
+          "end": 433.47,
+          "en": "So for the server, and this name of the property",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 433.47,
+          "end": 435.12,
+          "en": "is totally up to you.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 435.12,
+          "end": 437.913,
+          "en": "We will use our ServerResolver.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 440.7,
+          "end": 441.533,
+          "en": "Like this.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 441.533,
+          "end": 444.195,
+          "en": "Make sure to import it here at the top.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 444.195,
+          "end": 446.223,
+          "en": "This will now map the data.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 446.223,
+          "end": 448.83,
+          "en": "This resolver gives us back,",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 448.83,
+          "end": 450.93,
+          "en": "and remember, it gives us back some data",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 450.93,
+          "end": 453.57,
+          "en": "with this resolve method it had to implement.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 453.57,
+          "end": 455.52,
+          "en": "This method will be called by angular",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 455.52,
+          "end": 457.62,
+          "en": "when this route is loaded.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 457.62,
+          "end": 460.95,
+          "en": "So the data it gives us back here",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 460.95,
+          "end": 464.55,
+          "en": "will be stored in this server object",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 464.55,
+          "end": 465.99,
+          "en": "we will then have available,",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 465.99,
+          "end": 468.99,
+          "en": "or in this server property we will have available",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 468.99,
+          "end": 471.24,
+          "en": "in this to be loaded component.",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 471.24,
+          "end": 474,
+          "en": "So in this to be loaded component,",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 474,
+          "end": 476.07,
+          "en": "in our server component,",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 476.07,
+          "end": 479.85,
+          "en": "right now we get the server like this, using the params.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 479.85,
+          "end": 481.848,
+          "en": "Well, I will comment this out,",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 481.848,
+          "end": 484.32,
+          "en": "because now we use a resolver for this.",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 484.32,
+          "end": 485.76,
+          "en": "That's the goal of the resolver.",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 485.76,
+          "end": 486.99,
+          "en": "And it makes even more sense",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 486.99,
+          "end": 489.84,
+          "en": "if this is some asynchronous task, of course.",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 489.84,
+          "end": 494.328,
+          "en": "So here we can easily get our server",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 494.328,
+          "end": 498.27,
+          "en": "by binding the data observable.",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 498.27,
+          "end": 500.25,
+          "en": "So just like static data,",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 500.25,
+          "end": 504.21,
+          "en": "which you passed with this data object here,",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 504.21,
+          "end": 507.27,
+          "en": "with this data property you could add to a route,",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 507.27,
+          "end": 509.37,
+          "en": "the data returned by your resolver",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 509.37,
+          "end": 512.4,
+          "en": "will also go into this data baggage",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 512.4,
+          "end": 514.89,
+          "en": "and this data object you have",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 514.89,
+          "end": 517.77,
+          "en": "in your to be loaded component.",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 517.77,
+          "end": 520.35,
+          "en": "So here we can listen to any changes,",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 520.35,
+          "end": 521.88,
+          "en": "and I'm setting up an observable here,",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 521.88,
+          "end": 524.28,
+          "en": "or I'm using the observable here I should say,",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 524.28,
+          "end": 526.5,
+          "en": "because the server can change",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 526.5,
+          "end": 529.95,
+          "en": "while we already are on the page, as we have this side menu.",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 529.95,
+          "end": 531.39,
+          "en": "This is why we also had to set up",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 531.39,
+          "end": 534.21,
+          "en": "our route patterns here dynamically.",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 534.21,
+          "end": 536.632,
+          "en": "And here we know we will get back our data",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 536.632,
+          "end": 539.01,
+          "en": "of type data as learned before,",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 539.01,
+          "end": 542.7,
+          "en": "make sure to import data from angular router.",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 542.7,
+          "end": 546.63,
+          "en": "And now we know that we can simply assign our server",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 546.63,
+          "end": 548.536,
+          "en": "to server property in this component",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 548.536,
+          "end": 551.58,
+          "en": "by binding to data server.",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 551.58,
+          "end": 553.504,
+          "en": "And now this name here is important.",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 553.504,
+          "end": 556.77,
+          "en": "This server here, this name here,",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 556.77,
+          "end": 560.82,
+          "en": "of course has to match the name you use here",
+          "zh": ""
+        },
+        {
+          "id": 204,
+          "start": 560.82,
+          "end": 563.46,
+          "en": "when you assign your resolver to some property.",
+          "zh": ""
+        },
+        {
+          "id": 205,
+          "start": 563.46,
+          "end": 564.99,
+          "en": "So if you change the name here,",
+          "zh": ""
+        },
+        {
+          "id": 206,
+          "start": 564.99,
+          "end": 567.93,
+          "en": "you have to change it when you retrieve the data.",
+          "zh": ""
+        },
+        {
+          "id": 207,
+          "start": 567.93,
+          "end": 570.24,
+          "en": "Well, with this in place, if we save this",
+          "zh": ""
+        },
+        {
+          "id": 208,
+          "start": 570.24,
+          "end": 571.68,
+          "en": "with angular server still running,",
+          "zh": ""
+        },
+        {
+          "id": 209,
+          "start": 571.68,
+          "end": 575.19,
+          "en": "if we log in and go to Servers and we click on a server,",
+          "zh": ""
+        },
+        {
+          "id": 210,
+          "start": 575.19,
+          "end": 577.35,
+          "en": "you see this still works as intended,",
+          "zh": ""
+        },
+        {
+          "id": 211,
+          "start": 577.35,
+          "end": 580.08,
+          "en": "it still loads the server like before",
+          "zh": ""
+        },
+        {
+          "id": 212,
+          "start": 580.08,
+          "end": 584.07,
+          "en": "but now not using the params here in the server component",
+          "zh": ""
+        },
+        {
+          "id": 213,
+          "start": 584.07,
+          "end": 586.98,
+          "en": "but instead using a resolver before this,",
+          "zh": ""
+        },
+        {
+          "id": 214,
+          "start": 586.98,
+          "end": 589.02,
+          "en": "again, of course especially important",
+          "zh": ""
+        },
+        {
+          "id": 215,
+          "start": 589.02,
+          "end": 590.943,
+          "en": "when using asynchronous data.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

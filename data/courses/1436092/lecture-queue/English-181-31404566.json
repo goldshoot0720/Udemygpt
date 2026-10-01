@@ -1,0 +1,1728 @@
+{
+  "version": 1,
+  "courseId": 1436092,
+  "courseSlug": "react-native-the-practical-guide",
+  "courseTitle": "React Native - The Practical Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "31404566",
+      "title": "Storing Auth Tokens on the Device & Logging Users In Automatically",
+      "lectureOrder": 185,
+      "videoOrder": 181,
+      "sourceHash": "98b585f6913d3f693d35b30b6b08ff436ba554464c6095207ae708c6d7c744a0",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.13,
+          "end": 4.5,
+          "en": "Okay, so now we can use this token",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.5,
+          "end": 7,
+          "en": "to log in to get protected data,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7,
+          "end": 8.6,
+          "en": "like this Hello World text,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.6,
+          "end": 10.167,
+          "en": "which we used as a demo here",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.167,
+          "end": 13.39,
+          "en": "and we can also log out to clear all of that.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 13.39,
+          "end": 15.45,
+          "en": "With that, we're basically finished.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 15.45,
+          "end": 17.35,
+          "en": "We've got the entire flow implemented",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 17.35,
+          "end": 19.6,
+          "en": "but we have a problem now.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 19.6,
+          "end": 24.05,
+          "en": "What if we did log in like this",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 24.05,
+          "end": 26.56,
+          "en": "and we then closed the app?",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 26.56,
+          "end": 30.02,
+          "en": "If I now close the app here on my iPhone simulator,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 30.02,
+          "end": 32.473,
+          "en": "and I then restart my app thereafter,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 33.43,
+          "end": 38.43,
+          "en": "I actually do start on the login screen again like this",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 39.6,
+          "end": 43.98,
+          "en": "because this token and this authentication status",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 43.98,
+          "end": 48.58,
+          "en": "is only stored in our context and therefore in memory.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 48.58,
+          "end": 50.72,
+          "en": "Now, this works while the app is running",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 50.72,
+          "end": 52.96,
+          "en": "but as soon as it's closed and reopened,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 52.96,
+          "end": 56.69,
+          "en": "the state will be lost and of course, most users",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 56.69,
+          "end": 59.11,
+          "en": "won't keep on using our app forever.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 59.11,
+          "end": 62.623,
+          "en": "They will quit using it at some point and come back later.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 63.47,
+          "end": 67.02,
+          "en": "Now, therefore, you might wanna store that token",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 67.02,
+          "end": 69.3,
+          "en": "on the device and not just in memory",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 69.3,
+          "end": 72.68,
+          "en": "so that you can load it when the app starts up again",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 72.68,
+          "end": 76.49,
+          "en": "and you can auto log in the user so to say",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 76.49,
+          "end": 78.803,
+          "en": "if a token was stored before.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 79.92,
+          "end": 82.58,
+          "en": "Now, how could this be achieved though?",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 82.58,
+          "end": 85.64,
+          "en": "Well, the first step is to store the token",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 85.64,
+          "end": 88.15,
+          "en": "when a user does log in.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 88.15,
+          "end": 90.22,
+          "en": "So here in the authenticate function",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 90.22,
+          "end": 93.49000000000001,
+          "en": "in our context, we don't just wanna update our state here,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 93.49000000000001,
+          "end": 96.05,
+          "en": "we do want to do that but not just.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 96.05,
+          "end": 99.42,
+          "en": "Instead, we also want to store the token on the device.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 99.42,
+          "end": 101.93,
+          "en": "Now, for storing the token on the device,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 101.93,
+          "end": 105.52000000000001,
+          "en": "we can use a extra third-party package.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 105.52000000000001,
+          "end": 109.57,
+          "en": "You can search for React Native AsyncStorage",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 109.57,
+          "end": 112.47,
+          "en": "to find a third-party package,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 112.47,
+          "end": 113.68,
+          "en": "which you can use.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 113.68,
+          "end": 116.5,
+          "en": "It's actually also still built into React Native",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 116.5,
+          "end": 118.5,
+          "en": "at the point of time I'm recording this",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 118.5,
+          "end": 121.69,
+          "en": "but you should now use one of these third-party packages",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 121.69,
+          "end": 125.403,
+          "en": "like the @react-native-async-storage package here.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 126.46,
+          "end": 128.19,
+          "en": "Now, you can learn more about this package",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 128.19,
+          "end": 131.11,
+          "en": "on its official page and the documentation",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 131.11,
+          "end": 132.59,
+          "en": "but in the end, this is a package",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 132.59,
+          "end": 134.04,
+          "en": "which you can install,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 134.04,
+          "end": 137.1,
+          "en": "which allows you to store data on the device",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 137.1,
+          "end": 141.13,
+          "en": "and it will store it in different ways for Android and iOS",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 141.13,
+          "end": 142.39,
+          "en": "but most importantly,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 142.39,
+          "end": 144.99,
+          "en": "it will do all the heavy lifting for you.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 144.99,
+          "end": 147.39,
+          "en": "It's super simple to use thereafter",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 147.39,
+          "end": 149.82999999999998,
+          "en": "and you don't have to worry with interacting",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 149.82999999999998,
+          "end": 152.023,
+          "en": "with the device storage itself.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 153.38,
+          "end": 156.15,
+          "en": "Therefore, we have to install this package here",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 156.15,
+          "end": 157.36,
+          "en": "and that is what I will do.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 157.36,
+          "end": 160.59,
+          "en": "I will run nmp install here",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 160.59,
+          "end": 164.56,
+          "en": "to install @react-native-async-storage",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 164.56,
+          "end": 167.17000000000002,
+          "en": "and then the AsyncStorage package.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 167.17000000000002,
+          "end": 168.95,
+          "en": "So the package I just showed you.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 168.95,
+          "end": 170.31,
+          "en": "And with that installed,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 170.31,
+          "end": 175.31,
+          "en": "here in AuthContext, we can import AsyncStorage",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 175.54,
+          "end": 177.403,
+          "en": "from that package like this.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 180.02,
+          "end": 181.56,
+          "en": "And once it is imported,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 181.56,
+          "end": 185.7,
+          "en": "we can use this package in the authenticate function here.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 185.7,
+          "end": 188.18,
+          "en": "There besides setting our token,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 188.18,
+          "end": 190.13,
+          "en": "we can use AsyncStorage",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 190.13,
+          "end": 192.683,
+          "en": "and call the set.Item method on it.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 193.56,
+          "end": 196.43,
+          "en": "This will store a new item in the storage",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 196.43,
+          "end": 198.97,
+          "en": "and that's exactly what I wanna do here.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 198.97,
+          "end": 200.5,
+          "en": "Now, when calling setItem,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 200.5,
+          "end": 202.84,
+          "en": "you need to give that item a key,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 202.84,
+          "end": 206.4,
+          "en": "for example, token, which you can then later use",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 206.4,
+          "end": 208.623,
+          "en": "to retrieve or delete that item.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 209.79,
+          "end": 212.29,
+          "en": "The second argument you pass to setItem",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 212.29,
+          "end": 213.85,
+          "en": "is the item you wanna store",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 213.85,
+          "end": 215.997,
+          "en": "and that should always be a string.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 215.997,
+          "end": 219.74,
+          "en": "So if you have a non-string value, like a number,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 219.74,
+          "end": 221.92000000000002,
+          "en": "you should convert it to a string first.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 221.92000000000002,
+          "end": 224.52,
+          "en": "An object could be converted to JSON,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 224.52,
+          "end": 226.25,
+          "en": "which is a string.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 226.25,
+          "end": 228.09,
+          "en": "Token, however, is a string already,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 228.09,
+          "end": 230.19299999999998,
+          "en": "so we can just store it like this.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 231.82999999999998,
+          "end": 234.26,
+          "en": "So now we store that token here",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 234.26,
+          "end": 235.97,
+          "en": "in our AsyncStorage,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 235.97,
+          "end": 238.68,
+          "en": "and now we can also use it when the app loads up",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 238.68,
+          "end": 241.233,
+          "en": "to see if we have a stored token.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 242.28,
+          "end": 244.83,
+          "en": "So for that, we, of course, also want",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 244.83,
+          "end": 249.09,
+          "en": "to make sure we run some code whenever the app does start.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 249.09,
+          "end": 251.7,
+          "en": "And we can, therefore simply run some code here",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 251.7,
+          "end": 253.52,
+          "en": "in the AuthContextProvider",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 253.52,
+          "end": 256.6,
+          "en": "whenever this provider component is created",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 256.6,
+          "end": 258.55,
+          "en": "because since we're using that directly",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 258.55,
+          "end": 260.29,
+          "en": "in our App component,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 260.29,
+          "end": 262.55,
+          "en": "we know that the provider component",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 262.55,
+          "end": 266.32,
+          "en": "will be initialized when the app is initialized.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 266.32,
+          "end": 268.2,
+          "en": "Therefore, to run some code here",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 268.2,
+          "end": 270.3,
+          "en": "when this component is loaded,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 270.3,
+          "end": 272.72,
+          "en": "we can use useEffect.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 272.72,
+          "end": 276.08,
+          "en": "This useEffect hook provided by React.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 276.08,
+          "end": 278.21,
+          "en": "We provide an effect function",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 278.21,
+          "end": 280.483,
+          "en": "and our dependencies array for that.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 281.79,
+          "end": 285.73,
+          "en": "Now, the dependencies array can be empty here for the moment",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 285.73,
+          "end": 288.11,
+          "en": "and in this function,",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 288.11,
+          "end": 293.11,
+          "en": "I now want to use AsyncStorage to get an item by key.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 293.26,
+          "end": 295.78,
+          "en": "And the key should be the same key as before,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 295.78,
+          "end": 297.71,
+          "en": "so in my case, it's token here",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 297.71,
+          "end": 299.653,
+          "en": "because it was token down here.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 301.07,
+          "end": 302.66,
+          "en": "Now, this will give us the token",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 302.66,
+          "end": 304.81,
+          "en": "but what's very important to understand now",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 304.81,
+          "end": 308.47,
+          "en": "is that getItem will actually return a promise.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 308.47,
+          "end": 311.183,
+          "en": "Therefore, I will add a helper function here,",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 312.4,
+          "end": 314.4,
+          "en": "which I'll name fetchToken,",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 314.4,
+          "end": 317.76,
+          "en": "which is async so that inside of this function,",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 317.76,
+          "end": 320.17,
+          "en": "we can use the await keyword",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 320.17,
+          "end": 323.2,
+          "en": "in front of AsyncStorage.getItem.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 323.2,
+          "end": 326.13,
+          "en": "And this will then eventually give us our token",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 326.13,
+          "end": 327.77,
+          "en": "by fetching it.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 327.77,
+          "end": 331.53,
+          "en": "So our storedToken to be precise.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 331.53,
+          "end": 336.02,
+          "en": "And then we can call fetchToken here in our effect function.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 336.02,
+          "end": 338.76,
+          "en": "So this will then eventually give us our storedToken,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 338.76,
+          "end": 340.613,
+          "en": "which is retrieved from AsyncStorage,",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 342.1,
+          "end": 344.32,
+          "en": "and if we did find such a token here,",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 344.32,
+          "end": 346.65,
+          "en": "we can then update our state.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 346.65,
+          "end": 350.8,
+          "en": "So we can now check if storedToken is truthy",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 350.8,
+          "end": 352.2,
+          "en": "and if we did find one,",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 352.2,
+          "end": 354.723,
+          "en": "we setAuthToken to our storedToken.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 356.29,
+          "end": 357.87,
+          "en": "If we did not find one,",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 357.87,
+          "end": 360.65,
+          "en": "no token was stored and therefore, we, of course,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 360.65,
+          "end": 363.39,
+          "en": "also don't set our AuthToken to it.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 363.39,
+          "end": 366.93,
+          "en": "So we only auto log in the user",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 366.93,
+          "end": 369.623,
+          "en": "if we did find a storedToken here.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 371.17,
+          "end": 375.09,
+          "en": "Now, with that, we should be able to save this and reload",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 375.09,
+          "end": 377.763,
+          "en": "and if we now log in again here,",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 379.95,
+          "end": 381.46,
+          "en": "we, of course, switch the page",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 381.46,
+          "end": 383.623,
+          "en": "but if I now close my app here,",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 384.66,
+          "end": 386.69,
+          "en": "and I then restart it,",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 386.69,
+          "end": 390.53,
+          "en": "we should be able to move forward",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 390.53,
+          "end": 392.29,
+          "en": "to the welcome screen automatically",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 392.29,
+          "end": 394.68,
+          "en": "because we are logged in automatically.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 394.68,
+          "end": 395.623,
+          "en": "Here we go.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 397.12,
+          "end": 398.94,
+          "en": "Now, what you will notice, of course,",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 398.94,
+          "end": 402.22,
+          "en": "is that briefly, we saw the login screen",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 402.22,
+          "end": 404.85,
+          "en": "because that was actually the first screen loaded",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 404.85,
+          "end": 407.75,
+          "en": "before fetching the token finished.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 407.75,
+          "end": 411.74,
+          "en": "Now, to avoid this flickering, to get rid of that,",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 411.74,
+          "end": 415.64,
+          "en": "what we can do is prolong the loading screen of our app,",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 415.64,
+          "end": 419.003,
+          "en": "the splash screen until we tried to fetch a token.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 420.04,
+          "end": 422.32,
+          "en": "To achieve this, we can cut useEffect",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 422.32,
+          "end": 425,
+          "en": "and remove it from AuthContextProvider",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 425,
+          "end": 428.743,
+          "en": "and instead add it here in App.js in the App component.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 429.65,
+          "end": 431.27,
+          "en": "And of course, therefore make sure",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 431.27,
+          "end": 434.64,
+          "en": "that you import useEffect from react here",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 434.64,
+          "end": 438.96,
+          "en": "and that you also import AsyncStorage here",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 438.96,
+          "end": 440.023,
+          "en": "in this component.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 441.62,
+          "end": 444.48,
+          "en": "And then here, in the App component,",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 444.48,
+          "end": 448.19,
+          "en": "we, of course, can't call setAuthToken like this",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 448.19,
+          "end": 451.463,
+          "en": "but instead, we wanna update our context here.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 452.32,
+          "end": 454.15,
+          "en": "Now, since I am in the component here",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 454.15,
+          "end": 455.95,
+          "en": "where the context is provided,",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 455.95,
+          "end": 458.61,
+          "en": "we can't tap into our context here though",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 458.61,
+          "end": 460.08,
+          "en": "and therefore, a workaround here",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 460.08,
+          "end": 462.28,
+          "en": "could be to add another component,",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 462.28,
+          "end": 463.88,
+          "en": "which could be named Root",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 465.06,
+          "end": 467.653,
+          "en": "where we actually have that code.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 468.75,
+          "end": 472.18,
+          "en": "And where we then actually return our navigation.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 472.18,
+          "end": 476.08299999999997,
+          "en": "So where I return Navigation like this.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 477.85,
+          "end": 480.4,
+          "en": "And it's the Root component which we render here",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 480.4,
+          "end": 483.08,
+          "en": "between AuthContextProvider",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 483.08,
+          "end": 484.74,
+          "en": "and therefore, in the Root component,",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 484.74,
+          "end": 486.97,
+          "en": "we can use our AuthContext",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 486.97,
+          "end": 488.96,
+          "en": "and get our AuthContext here.",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 488.96,
+          "end": 492.07,
+          "en": "And now we just need to authenticate the user,",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 492.07,
+          "end": 494.32,
+          "en": "which we can do by using authCtx.authenticate",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 495.74,
+          "end": 498.72,
+          "en": "to which we forward our storedToken,",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 498.72,
+          "end": 501.25,
+          "en": "just as we did it for logging in manually.",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 501.25,
+          "end": 502.13,
+          "en": "Now we're doing it",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 502.13,
+          "end": 504.33,
+          "en": "with the token we fetched from AsyncStorage.",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 506.43,
+          "end": 508.1,
+          "en": "Now, the advantage of this approach",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 508.1,
+          "end": 511.8,
+          "en": "is now that we can now use the AppLoading component,",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 511.8,
+          "end": 514.02,
+          "en": "which you saw earlier in the course already",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 514.02,
+          "end": 516.03,
+          "en": "to prolong the loading screen",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 516.03,
+          "end": 518.093,
+          "en": "until we're done fetching this token.",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 519.64,
+          "end": 522.5,
+          "en": "To do this, we need to install another package.",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 522.5,
+          "end": 527.5,
+          "en": "We need to expo install or npm install expo-app-loading",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 528.6,
+          "end": 530.483,
+          "en": "so that we can use this component.",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 532.18,
+          "end": 535.113,
+          "en": "And wait for this installation to finish here.",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 537.45,
+          "end": 540.109,
+          "en": "And once this finished, once we installed this package,",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 540.109,
+          "end": 544.56,
+          "en": "we can import AppLoading from expo-app-loading",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 544.56,
+          "end": 547.95,
+          "en": "and use the component in our Root component.",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 547.95,
+          "end": 549.67,
+          "en": "So here we now wanna find out",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 549.67,
+          "end": 551.67,
+          "en": "whether we're done loading or not.",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 551.67,
+          "end": 554.21,
+          "en": "So if we did fetch our token or not",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 554.21,
+          "end": 555.4,
+          "en": "and to control that,",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 555.4,
+          "end": 558.59,
+          "en": "we can add some state here with useState,",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 558.59,
+          "end": 560.94,
+          "en": "which is imported from React.",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 560.94,
+          "end": 563.463,
+          "en": "And we could name this isTryingLogin",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 567.1,
+          "end": 568.15,
+          "en": "and setIsTryingLogin.",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 569.54,
+          "end": 570.81,
+          "en": "And initially, this is true",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 570.81,
+          "end": 574.02,
+          "en": "because we are trying to log the user in.",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 574.02,
+          "end": 576.29,
+          "en": "But then here once we're done fetching the token,",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 576.29,
+          "end": 578.65,
+          "en": "no matter if we did find the token or not,",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 578.65,
+          "end": 581.4,
+          "en": "either way, we are done trying to log in,",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 581.4,
+          "end": 582.93,
+          "en": "so we can set this to false then",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 582.93,
+          "end": 584.8,
+          "en": "because we are no longer trying",
+          "zh": ""
+        },
+        {
+          "id": 204,
+          "start": 584.8,
+          "end": 586.18,
+          "en": "to log the user in.",
+          "zh": ""
+        },
+        {
+          "id": 205,
+          "start": 586.18,
+          "end": 590.8,
+          "en": "And we can use this is trying to login state here",
+          "zh": ""
+        },
+        {
+          "id": 206,
+          "start": 590.8,
+          "end": 594.59,
+          "en": "to return AppLoading whilst we are still trying it.",
+          "zh": ""
+        },
+        {
+          "id": 207,
+          "start": 594.59,
+          "end": 596.51,
+          "en": "And AppLoading, when returned,",
+          "zh": ""
+        },
+        {
+          "id": 208,
+          "start": 596.51,
+          "end": 599.593,
+          "en": "will ensure that the splash screen is prolonged.",
+          "zh": ""
+        },
+        {
+          "id": 209,
+          "start": 600.62,
+          "end": 602.53,
+          "en": "So if we switch to this approach,",
+          "zh": ""
+        },
+        {
+          "id": 210,
+          "start": 602.53,
+          "end": 606.31,
+          "en": "instead of using useEffect directly in the AuthContext,",
+          "zh": ""
+        },
+        {
+          "id": 211,
+          "start": 606.31,
+          "end": 608.113,
+          "en": "we can get rid of that flickering.",
+          "zh": ""
+        },
+        {
+          "id": 212,
+          "start": 609.27,
+          "end": 612.4,
+          "en": "Now if I close this app here",
+          "zh": ""
+        },
+        {
+          "id": 213,
+          "start": 612.4,
+          "end": 615.55,
+          "en": "and I then restart it here on iOS,",
+          "zh": ""
+        },
+        {
+          "id": 214,
+          "start": 615.55,
+          "end": 618.43,
+          "en": "we should immediately end up on the welcome screen",
+          "zh": ""
+        },
+        {
+          "id": 215,
+          "start": 618.43,
+          "end": 620.81,
+          "en": "after this loading screen here, this screen.",
+          "zh": ""
+        },
+        {
+          "id": 216,
+          "start": 620.81,
+          "end": 621.643,
+          "en": "Here we go.",
+          "zh": ""
+        },
+        {
+          "id": 217,
+          "start": 622.82,
+          "end": 625.26,
+          "en": "And if I do log out, of course,",
+          "zh": ""
+        },
+        {
+          "id": 218,
+          "start": 625.26,
+          "end": 627.47,
+          "en": "and I then close this app,",
+          "zh": ""
+        },
+        {
+          "id": 219,
+          "start": 627.47,
+          "end": 631.38,
+          "en": "and I then restart, we should end up on the login screen",
+          "zh": ""
+        },
+        {
+          "id": 220,
+          "start": 631.38,
+          "end": 632.74,
+          "en": "after the loading screen",
+          "zh": ""
+        },
+        {
+          "id": 221,
+          "start": 633.64,
+          "end": 635.48,
+          "en": "because no token was found",
+          "zh": ""
+        },
+        {
+          "id": 222,
+          "start": 635.48,
+          "end": 638.66,
+          "en": "and therefore, we are not logged in automatically.",
+          "zh": ""
+        },
+        {
+          "id": 223,
+          "start": 638.66,
+          "end": 640.919,
+          "en": "However, actually this failed here",
+          "zh": ""
+        },
+        {
+          "id": 224,
+          "start": 640.919,
+          "end": 643.94,
+          "en": "because we do still have a token stored",
+          "zh": ""
+        },
+        {
+          "id": 225,
+          "start": 645.23,
+          "end": 647.13,
+          "en": "because when I log out here,",
+          "zh": ""
+        },
+        {
+          "id": 226,
+          "start": 647.13,
+          "end": 650.68,
+          "en": "we do clear the token but only in AuthContext,",
+          "zh": ""
+        },
+        {
+          "id": 227,
+          "start": 650.68,
+          "end": 655.12,
+          "en": "just as before, we only set it in AuthContext.",
+          "zh": ""
+        },
+        {
+          "id": 228,
+          "start": 655.12,
+          "end": 658.19,
+          "en": "Now we also want to clear the token in AsyncStorage",
+          "zh": ""
+        },
+        {
+          "id": 229,
+          "start": 658.19,
+          "end": 659.34,
+          "en": "when we log out",
+          "zh": ""
+        },
+        {
+          "id": 230,
+          "start": 659.34,
+          "end": 663.4,
+          "en": "so that automatically logging in again won't work.",
+          "zh": ""
+        },
+        {
+          "id": 231,
+          "start": 663.4,
+          "end": 666.13,
+          "en": "And to do this, we can use AsyncStorage",
+          "zh": ""
+        },
+        {
+          "id": 232,
+          "start": 666.13,
+          "end": 668.347,
+          "en": "and use the removeItem method.",
+          "zh": ""
+        },
+        {
+          "id": 233,
+          "start": 669.369,
+          "end": 671.91,
+          "en": "And remove the token here in the logout function",
+          "zh": ""
+        },
+        {
+          "id": 234,
+          "start": 671.91,
+          "end": 674.46,
+          "en": "in our AuthContextProvider component",
+          "zh": ""
+        },
+        {
+          "id": 235,
+          "start": 674.46,
+          "end": 677.393,
+          "en": "so that we clear the token once we logged out.",
+          "zh": ""
+        },
+        {
+          "id": 236,
+          "start": 678.71,
+          "end": 681.16,
+          "en": "With that, if we now reload this,",
+          "zh": ""
+        },
+        {
+          "id": 237,
+          "start": 681.16,
+          "end": 685.8,
+          "en": "and I do log out, if we now close this app here,",
+          "zh": ""
+        },
+        {
+          "id": 238,
+          "start": 685.8,
+          "end": 687.42,
+          "en": "and we then restart it,",
+          "zh": ""
+        },
+        {
+          "id": 239,
+          "start": 687.42,
+          "end": 690.08,
+          "en": "we will end up on the login screen again",
+          "zh": ""
+        },
+        {
+          "id": 240,
+          "start": 690.08,
+          "end": 691.43,
+          "en": "after the loading screen",
+          "zh": ""
+        },
+        {
+          "id": 241,
+          "start": 692.37,
+          "end": 695.05,
+          "en": "because now we don't have any token stored",
+          "zh": ""
+        },
+        {
+          "id": 242,
+          "start": 695.05,
+          "end": 697.91,
+          "en": "and therefore, we are not logged in automatically.",
+          "zh": ""
+        },
+        {
+          "id": 243,
+          "start": 697.91,
+          "end": 701.71,
+          "en": "And that's how we can persist that token on the device",
+          "zh": ""
+        },
+        {
+          "id": 244,
+          "start": 701.71,
+          "end": 704.363,
+          "en": "so that we keep a user logged in.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,356 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "13989880",
+      "title": "Cleaning Up",
+      "lectureOrder": 476,
+      "videoOrder": 422,
+      "sourceHash": "75a1d3f1c3941f92d9999baa99e7c2a60d063a8d3f76817b1f5a61a0eec433b4",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.89,
+          "end": 6.25,
+          "en": "Now, first of all, why do I need to quit this process with control?",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.28,
+          "end": 14.44,
+          "en": "See, the reason for this is that despite me calling done, Mocha detects that there is still some open",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 14.44,
+          "end": 20.92,
+          "en": "process in the event loop and indeed there is our database connection which we open but never closed.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 21.34,
+          "end": 28.18,
+          "en": "So one thing we should do here is when we're done with our expectations, we might want to call mongoose",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 28.21,
+          "end": 31.24,
+          "en": "disconnect and only when this is done.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 31.24,
+          "end": 34.24,
+          "en": "So here in the then callback we call done.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 34.48,
+          "end": 39.25,
+          "en": "Now this is the first important step, but right now this wouldn't work because we actually have an",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 39.25,
+          "end": 41.17,
+          "en": "overall error in our test case.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 41.17,
+          "end": 44.09,
+          "en": "Therefore we don't even make it into this then block here.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 44.11,
+          "end": 50.5,
+          "en": "Instead, our setup right here already fails and frozen error because of that duplicate key because",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 50.5,
+          "end": 57.04,
+          "en": "we hard coding and ID here and we already have a user with that ID in the database and the ID has to",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 57.04,
+          "end": 60.58,
+          "en": "be unique and therefore MongoDB complains when we create it again.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 61.27,
+          "end": 63.85,
+          "en": "The solution is to clean up once we're done.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 63.85,
+          "end": 71.14,
+          "en": "So besides disconnecting before we actually disconnect, I want to call user delete many and pass on",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 71.14,
+          "end": 77.17,
+          "en": "an empty object, which means all users are deleted and that is generally not the worst idea.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 77.2,
+          "end": 83.26,
+          "en": "If you have a test where you set up dummy data, clean up everything after that test so that you can",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 83.26,
+          "end": 90.49,
+          "en": "be sure that you have a clean setup for the next test thereafter and also for the next test run, which",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 90.49,
+          "end": 91.35,
+          "en": "is the issue here.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 91.36,
+          "end": 98.05,
+          "en": "Here for our second test run, we have no clean setup because we already have that user now with delete",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 98.05,
+          "end": 98.35,
+          "en": "many.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 98.35,
+          "end": 105.03999999999999,
+          "en": "We cleaned it up there, we now have that then lock and there I then want to disconnect and in the then",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 105.03999999999999,
+          "end": 107.89,
+          "en": "block there I then want to use done.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 108.00999999999999,
+          "end": 114.78999999999999,
+          "en": "Of course we can clean this up a little bit by converting this to one promise chain and we can even",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 114.78999999999999,
+          "end": 116.5,
+          "en": "convert this to one promise chain.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 116.5,
+          "end": 119.8,
+          "en": "But anyways, the code isn't super pretty and we'll fix this soon.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 119.8,
+          "end": 124.09,
+          "en": "But for now the result should at least be that if we run this again.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 124.96,
+          "end": 128.61,
+          "en": "Well, it still fails because we still have that an issue initially.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 128.93,
+          "end": 131.83,
+          "en": "Let me actually go there and manually delete this user.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 133.3,
+          "end": 136.57,
+          "en": "And now if I run this again, obviously it will succeed.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 136.57,
+          "end": 139.11,
+          "en": "But now also for subsequent runs, it should work.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 139.12,
+          "end": 139.81,
+          "en": "So now.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 141.53,
+          "end": 142.52,
+          "en": "This, uh.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 144.39,
+          "end": 147.23,
+          "en": "Fails because I have one extra exclamation mark here.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 147.24,
+          "end": 148.35,
+          "en": "So let me now.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 149.1,
+          "end": 152.91,
+          "en": "Convert this back to the valid validation here.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 153.06,
+          "end": 155.61,
+          "en": "Let's now rerun this test here.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 156.29,
+          "end": 157.85,
+          "en": "And of course, clean.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 159.31,
+          "end": 163.54,
+          "en": "And of course, refresh here and clean up this user one more time.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 165.26,
+          "end": 167.48,
+          "en": "So that we have one clean run.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 168.4,
+          "end": 170.07999999999998,
+          "en": "Now if we run NPM test.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 172.05,
+          "end": 174.66,
+          "en": "Now they all pass and aspergillosis finishes.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 174.66,
+          "end": 176.34,
+          "en": "But of course this is not perfect.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 176.34,
+          "end": 181.5,
+          "en": "As you can tell, whenever a test fails, we don't make it into this cleanup phase here because that",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 181.5,
+          "end": 186.87,
+          "en": "will throw an error and therefore we would have to add a catch phrase overall so we don't make it into",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 186.87,
+          "end": 190.41,
+          "en": "this cleanup part here if an expectation fails.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 190.41,
+          "end": 194.28,
+          "en": "And in general, this is pretty clunky and pretty hard to read code.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 194.28,
+          "end": 201.48,
+          "en": "And if we have a number test that requires a MongoDB database or our dummy set up, well then we have",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 201.48,
+          "end": 206.91,
+          "en": "to repeat all that code and therefore there is a cleaner solution to all of that.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

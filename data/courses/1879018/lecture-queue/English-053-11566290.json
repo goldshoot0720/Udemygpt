@@ -1,0 +1,790 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "11566290",
+      "title": "Parsing Incoming Requests",
+      "lectureOrder": 64,
+      "videoOrder": 53,
+      "sourceHash": "3accbfbdb3ddab9fa57415e76941a263188913d9d501fadaa7f9dcc94722239c",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.07,
+          "end": 4.99,
+          "en": "Now we had a very close look at the whole middleware thing,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5,
+          "end": 10.3,
+          "en": "let's now understand how we can actually work with incoming requests and how we can extract data and",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.3,
+          "end": 10.74,
+          "en": "for that",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.76,
+          "end": 13.87,
+          "en": "I again want to be able to handle a post request.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 14.03,
+          "end": 16.94,
+          "en": "So let's say on add product here,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 17.39,
+          "end": 24.62,
+          "en": "I want to actually return a html page with a form. For that I'll again return a form and just as a side",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 24.62,
+          "end": 28.7,
+          "en": "note, this of course is a bit of an incomplete html document,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 28.79,
+          "end": 30.48,
+          "en": "we should also wrap this in",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 30.48,
+          "end": 36.95,
+          "en": "html and body and so on tags. I'm keeping this shorter here to make it easier to read but later we",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 36.95,
+          "end": 39.21,
+          "en": "will also write proper html code,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 39.23,
+          "end": 40.49,
+          "en": "no worries.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 40.49,
+          "end": 48.47,
+          "en": "So I have my form here and in there, I'll have my input of type title, of type text here with a name of",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 48.77,
+          "end": 54.4,
+          "en": "title let's say and I'll add a button again and that button will be of",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 54.4,
+          "end": 60.05,
+          "en": "type submit because it should submit this form and send a post request therefore and I'll simply give",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 60.05,
+          "end": 62.89,
+          "en": "it a caption of add product.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 62.94,
+          "end": 68.18,
+          "en": "So let's simulate that this is a form that allows us to add a product to our own online shop or something",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 68.18,
+          "end": 69.62,
+          "en": "like that.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 69.68,
+          "end": 73.52,
+          "en": "Now this is our form here and the form needs an action,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 73.58,
+          "end": 81.83,
+          "en": "so the path, the url to which the requests should be sent and let's name this product and the method",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 82.22,
+          "end": 82.97,
+          "en": "should be post",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 82.97,
+          "end": 85.31,
+          "en": "let's say, can also be written like this.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 86.34,
+          "end": 90.83,
+          "en": "So this will send a html code back which holds a form",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 90.99,
+          "end": 92.67,
+          "en": "and now we need a route",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 92.72999999999999,
+          "end": 96.50999999999999,
+          "en": "or a middleware that handles requests to product.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 96.78,
+          "end": 100.75999999999999,
+          "en": "So we can add app use/product,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 100.87,
+          "end": 107.16,
+          "en": "now the important part here is we can place that prior or after this middleware, they won't clash because",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 107.16,
+          "end": 112.77000000000001,
+          "en": "they have nothing in common regarding the path, they have product in common but /add-product",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 112.89,
+          "end": 114.8,
+          "en": "is different to /product,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 114.84,
+          "end": 121.03,
+          "en": "it just has to come before this one because otherwise this would execute prior to that.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 121.41,
+          "end": 126.78,
+          "en": "So this position here looks all right and then we again have our function which receives these three",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 126.78,
+          "end": 132.78,
+          "en": "arguments, as a side note, you can of course omit an argument you are not planning to use, at least the",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 132.77,
+          "end": 137.79,
+          "en": "third one you can't omit to the first one if you want the response because the order does matter",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 137.79,
+          "end": 140.42000000000002,
+          "en": "but if you never use the third one, you can omit it",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 140.64,
+          "end": 144.51,
+          "en": "but I always add it here to make it clear that it exists.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 144.54,
+          "end": 148.75,
+          "en": "So now with that, we have this function which we'll execute for product and in there",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 148.8,
+          "end": 155.32,
+          "en": "I want to redirect and for now I want to log the incoming data to the console.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 155.46,
+          "end": 159.04,
+          "en": "Now what we can do here is for redirecting,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 159.18,
+          "end": 165.48,
+          "en": "I can use response redirect which certainly is easier than manually setting the status code and setting",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 165.48,
+          "end": 170.44,
+          "en": "the location header. So redirect is another convenience function added by express",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 170.52,
+          "end": 173.7,
+          "en": "and here I can redirect to let's say just slash,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 173.82,
+          "end": 177.13,
+          "en": "so it will automatically redirect me to the slash route.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 177.42000000000002,
+          "end": 183.97,
+          "en": "But of course this is not the only thing, I'm also interested in getting the body of my incoming requests,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 184.08,
+          "end": 191.43,
+          "en": "so extracting what the user has sent me and for this, expressjs now has a convenience feature for",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 191.43,
+          "end": 200.61,
+          "en": "us. If I console log request body here, this is a new field added by express and let's see what's",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 200.7,
+          "end": 201.86,
+          "en": "in there.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 202.05,
+          "end": 210.06,
+          "en": "So if I now save this, we should be able to go back to /add-product and hopefully see an input",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 210.06,
+          "end": 214.23,
+          "en": "field and let's add a book here and hit add product,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 214.23,
+          "end": 215.74,
+          "en": "we're redirected to slash,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 215.76,
+          "end": 223.7,
+          "en": "this is working and in the console, we see undefined. Now let's get rid of the other console logs so that",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 223.71,
+          "end": 226.57999999999998,
+          "en": "this is less clouded with logs,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 226.59,
+          "end": 229.12,
+          "en": "we can also remove that.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 229.17000000000002,
+          "end": 230.73,
+          "en": "So we see undefined",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 230.91,
+          "end": 232.84,
+          "en": "and the reason is that we're almost there,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 232.86,
+          "end": 241.83,
+          "en": "request gives us this body convenience property here but by default, request doesn't try to parse the",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 241.83,
+          "end": 244.98,
+          "en": "incoming request body. To do that,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 244.98,
+          "end": 249.12,
+          "en": "we need to register a parser and we do that by adding another middleware.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 249.24,
+          "end": 256.11,
+          "en": "and you typically do that before your route handling middlewares because the parsing of the body should",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 256.11,
+          "end": 259.46,
+          "en": "be done no matter where your request ends up",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 259.49,
+          "end": 266.55,
+          "en": "and there, I want to parse the incoming request body. Now for that we can install a third party package",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 267.02,
+          "end": 269.87,
+          "en": "and we do that by running npm install --save",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 269.91,
+          "end": 275.22,
+          "en": "because this will also be a package that is used in our code here,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 275.22,
+          "end": 277.43,
+          "en": "that does matter for production.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 277.65,
+          "end": 282.55,
+          "en": "So just save not save dev and the name is body parser.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 282.6,
+          "end": 287.99,
+          "en": "Now this would actually be included in express by default because the community wanted that again,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 288.03,
+          "end": 291.64,
+          "en": "it was in the past, then it was removed, then it was re-added,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 291.65999999999997,
+          "end": 296.73,
+          "en": "I will use that third party package which is the recommended way of using it because if they ever decide",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 296.76,
+          "end": 301.97,
+          "en": "to pull it out of express again, this code I'm teaching you will still work.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 301.98,
+          "end": 307.26,
+          "en": "So now we installed a new package, the body parser and we can import that here,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 307.58,
+          "end": 312.96,
+          "en": "I'll store it in a body parser constant, the name as always is up to you and the package is named",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 312.96,
+          "end": 314.67,
+          "en": "body-parser",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 315.03,
+          "end": 318.95,
+          "en": "and now we can use that here by calling body parser,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 319.02,
+          "end": 325.83,
+          "en": "so using that object and then .urlEncoded.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 325.97,
+          "end": 330.75,
+          "en": "This is a function you have to execute and you can pass options to configure it but you don't have to",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 330.75,
+          "end": 334.59000000000003,
+          "en": "here and now what this does is it registers a middleware,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 334.77,
+          "end": 339.48,
+          "en": "so this function in the end just yields us such a middleware function,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 339.51,
+          "end": 344.64,
+          "en": "so this parses such a function here in the end even though we can't see it and this package will in the",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 344.64,
+          "end": 350.28,
+          "en": "end, in this middleware function call next in the end, so that the request also reaches our middleware",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 350.67,
+          "end": 357.69,
+          "en": "but before it does that, it will do that whole request body parsing we had to do manually in the previous",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 357.69,
+          "end": 359.29,
+          "en": "core sections.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 359.28,
+          "end": 366.12,
+          "en": "Now this will not parse all kinds of possible bodies, files, json and so on but this will parse bodies",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 366.3,
+          "end": 372.33,
+          "en": "like the one we're getting here, sent through a form. If we have other bodies like files and we'll do that",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 372.33,
+          "end": 373.33,
+          "en": "also in this course,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 373.38,
+          "end": 378.88,
+          "en": "we'll use different parsers and this makes expressjs so extensible. If we need something, we can",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 378.88,
+          "end": 379.85,
+          "en": "just plug it in,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 379.89,
+          "end": 381.01,
+          "en": "you see how easy that is,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 381.06,
+          "end": 382.24,
+          "en": "it's one line of code,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 382.34,
+          "end": 384.57,
+          "en": "well two if you count the import then.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 384.99,
+          "end": 389.43,
+          "en": "Now with that, we should actually get an output for this console log statement.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 389.43,
+          "end": 391.18,
+          "en": "So now let's restart the server,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 391.32,
+          "end": 394.53,
+          "en": "by the way if you install a new package, you need to restart,",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 394.53,
+          "end": 397.55,
+          "en": "you can't rely on the auto-restart from nodemon",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 397.8,
+          "end": 401.1,
+          "en": "and we should configure one thing as I'm getting warned here,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 401.19,
+          "end": 404.57,
+          "en": "you should pass the config options here and set",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 404.58,
+          "end": 406.31,
+          "en": "extended to false,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 406.32,
+          "end": 411.61,
+          "en": "this is if it should be able to parse non-default features you could say,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 411.72,
+          "end": 416.04,
+          "en": "so let's add this to comply with what we should use here",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 416.31,
+          "end": 419.71,
+          "en": "and with that, we get the body parser enabled.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 419.73,
+          "end": 427.81,
+          "en": "Now let's try this again and let's go back to add product and let's add our book again, add product, we're",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 427.86,
+          "end": 428.84,
+          "en": "redirected",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 429.03,
+          "end": 436.47,
+          "en": "and now we see this is what we get, a javascript object with a key value pair which also makes extracting",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 436.47,
+          "end": 437.66,
+          "en": "that value easier",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 437.73,
+          "end": 442.97,
+          "en": "than we had to do before with the split function where we manually had to create that array and so on.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 442.98,
+          "end": 448.02,
+          "en": "Now we get an object where we simply get the key we defined in our input here,",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 448.11,
+          "end": 454.11,
+          "en": "so this name and then the value the user entered and this is definitely simpler than our custom approach",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 454.11,
+          "end": 455.06,
+          "en": "we used before",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 455.15999999999997,
+          "end": 460.92,
+          "en": "and now we can work with all the data our users yield us, store them in the database, something we'll",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 460.92,
+          "end": 465.03,
+          "en": "do later, show them in the response, whatever we need to do.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 465.08,
+          "end": 472.44,
+          "en": "Now one thing of course is missing. This right now would also execute for incoming data request,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 472.44,
+          "end": 475.19,
+          "en": "well we only want to listen to a post request,",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 475.2,
+          "end": 477.65999999999997,
+          "en": "so what can we do regarding that?",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,1077 @@
+{
+  "version": 1,
+  "courseId": 756150,
+  "courseSlug": "the-complete-guide-to-angular-2",
+  "courseTitle": "Angular - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "44116508",
+      "title": "Implementing Route-based Lazy Loading",
+      "lectureOrder": 304,
+      "videoOrder": 289,
+      "sourceHash": "f24ba68f54af60fb709f8785de9afee4f6dc3c50ec609767735d54778f86f000",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.6,
+          "end": 3.69,
+          "en": "So how could we add lazy loading",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.69,
+          "end": 8.31,
+          "en": "based on routes to this application here?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.31,
+          "end": 11.28,
+          "en": "Well, first, it's important to analyze",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.28,
+          "end": 15.54,
+          "en": "for which routes lazy loading could make sense.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.54,
+          "end": 16.71,
+          "en": "And for example,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 16.71,
+          "end": 21.71,
+          "en": "this starting page probably is not a good candidate.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 21.84,
+          "end": 23.91,
+          "en": "Loading the code that belongs",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 23.91,
+          "end": 28.2,
+          "en": "to this NoTaskComponent lazily doesn't make too much sense",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 28.2,
+          "end": 30.33,
+          "en": "because it's our starting page,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 30.33,
+          "end": 34.2,
+          "en": "so most users will probably end up on this route",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 34.2,
+          "end": 37.68,
+          "en": "and therefore, load this code anyways.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 37.68,
+          "end": 42.06,
+          "en": "And in such scenarios, lazy loading could actually be bad",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 42.06,
+          "end": 45.87,
+          "en": "because the code wouldn't be part of the initial bundle,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 45.87,
+          "end": 48.36,
+          "en": "but would then immediately be requested",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 48.36,
+          "end": 51.24,
+          "en": "by the browser once this page has rendered,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 51.24,
+          "end": 53.07,
+          "en": "leading to another request",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 53.07,
+          "end": 57.183,
+          "en": "and actually delaying the time until the app is ready to go.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 58.47,
+          "end": 61.47,
+          "en": "So instead, typically, you wanna load the code",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 61.47,
+          "end": 65.61,
+          "en": "for routes lazily if those routes are unlikely",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 65.61,
+          "end": 70.02,
+          "en": "to be loaded right at the start of the application.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 70.02,
+          "end": 72.69,
+          "en": "And I would argue that this is the case",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 72.69,
+          "end": 75.903,
+          "en": "for this tasks route here, for example,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 76.86,
+          "end": 80.13,
+          "en": "because we only activate this route",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 80.13,
+          "end": 82.98,
+          "en": "and load this component and therefore,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 82.98,
+          "end": 85.5,
+          "en": "also any components that might be used",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 85.5,
+          "end": 86.52,
+          "en": "by this component,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 86.52,
+          "end": 90.12,
+          "en": "and any other code that might be related to this component.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 90.12,
+          "end": 95.12,
+          "en": "We only load that if we actually select a user here.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 95.85,
+          "end": 98.82,
+          "en": "So at that point of time, this code is required,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 98.82,
+          "end": 100.59,
+          "en": "but that's not the case initially",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 100.59,
+          "end": 102.753,
+          "en": "when we first visit this page.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 104.07,
+          "end": 107.25,
+          "en": "Therefore adding lazy loading here would make sense",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 107.25,
+          "end": 109.8,
+          "en": "and that's therefore what we'll do.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 109.8,
+          "end": 111.33,
+          "en": "So how can we make sure",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 111.33,
+          "end": 116.33,
+          "en": "that this TasksComponent here is loaded lazily?",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 116.4,
+          "end": 119.19,
+          "en": "At the moment, it isn't, just to make that clear.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 119.19,
+          "end": 121.5,
+          "en": "Instead, it's loaded eagerly",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 121.5,
+          "end": 124.92,
+          "en": "because we have this import up here.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 124.92,
+          "end": 127.38,
+          "en": "And whenever you import something",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 127.38,
+          "end": 131.37,
+          "en": "with this import statement like this into a file,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 131.37,
+          "end": 132.903,
+          "en": "you're loading it eagerly.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 134.04,
+          "end": 136.65,
+          "en": "To use lazy loading instead,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 136.65,
+          "end": 140.62,
+          "en": "you should remove this component property from your task",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 141.78,
+          "end": 145.173,
+          "en": "and instead use the loadComponent property.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 146.55,
+          "end": 151.35,
+          "en": "And loadComponent then actually wants a function",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 151.35,
+          "end": 155.04,
+          "en": "instead of a value, like the name of a class",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 155.04,
+          "end": 156.453,
+          "en": "or anything like that.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 157.47,
+          "end": 162.18,
+          "en": "And this function should return a value produced",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 162.18,
+          "end": 165.75,
+          "en": "by calling import as a function.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 165.75,
+          "end": 168.03,
+          "en": "Now, I just mentioned that using import",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 168.03,
+          "end": 170.88,
+          "en": "will load something eagerly,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 170.88,
+          "end": 173.913,
+          "en": "but that will only be the case if you use it like this.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 175.02,
+          "end": 179.43,
+          "en": "If you instead call import as a function like this,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 179.43,
+          "end": 182.91,
+          "en": "the thing you're importing will only be imported",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 182.91,
+          "end": 184.68,
+          "en": "and the code that belongs to it",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 184.68,
+          "end": 188.733,
+          "en": "will only be loaded when this code here executes.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 189.72,
+          "end": 191.85,
+          "en": "And since this is wrapped in a function,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 191.85,
+          "end": 193.29,
+          "en": "Angular will make sure",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 193.29,
+          "end": 196.74,
+          "en": "that this overall function is only executed",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 196.74,
+          "end": 199.53300000000002,
+          "en": "when this component here is activated.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 200.43,
+          "end": 203.61,
+          "en": "So therefore, the question now is what we have to pass",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 203.61,
+          "end": 205.023,
+          "en": "to this import function.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 206.25,
+          "end": 209.7,
+          "en": "And the answer is a string that contains the path",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 209.7,
+          "end": 211.98,
+          "en": "to the thing we wanna import,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 211.98,
+          "end": 214.23,
+          "en": "just as with the imports up here.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 214.23,
+          "end": 216.183,
+          "en": "So in the end, this path here.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 218.04,
+          "end": 221.553,
+          "en": "I'll copy that and add that here.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 223.17000000000002,
+          "end": 225.18,
+          "en": "Now, this import function",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 225.18,
+          "end": 229.11,
+          "en": "then will actually yield a promise",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 229.11,
+          "end": 233.19,
+          "en": "and loadComponent wants a promise, but a promise",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 233.19,
+          "end": 236.04,
+          "en": "that returns something different than returned",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 236.04,
+          "end": 238.56,
+          "en": "by this import promise.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 238.56,
+          "end": 241.17,
+          "en": "Therefore, you should call then here",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 241.17,
+          "end": 243.51,
+          "en": "and then pass a function to then.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 243.51,
+          "end": 245.31,
+          "en": "And that's now the regular way",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 245.31,
+          "end": 248.073,
+          "en": "of handling promises without async await.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 249.03,
+          "end": 252.18,
+          "en": "And the function you pass to then gets a module,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 252.18,
+          "end": 255.48,
+          "en": "which simply is the file content of this file.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 255.48,
+          "end": 257.733,
+          "en": "This is what we refer to as a module.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 259.32,
+          "end": 262.11,
+          "en": "And this module then contains the things",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 262.11,
+          "end": 264.12,
+          "en": "that are exported by that file.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 264.12,
+          "end": 266.02,
+          "en": "So the component and resolveUserTasks.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 267.717,
+          "end": 272.717,
+          "en": "And here it's the component I wanna access.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 272.88,
+          "end": 275.34000000000003,
+          "en": "And that's basically it.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 275.34000000000003,
+          "end": 279.36,
+          "en": "That's how you switch this route from a route",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 279.36,
+          "end": 282.78,
+          "en": "that loads its component eagerly to a route",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 282.78,
+          "end": 285.213,
+          "en": "that loads its component lazily.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 288,
+          "end": 292.11,
+          "en": "With that, you can and should remove this import up here.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 292.11,
+          "end": 294.63,
+          "en": "And now we can give this a try.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 294.63,
+          "end": 296.85,
+          "en": "If we save everything",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 296.85,
+          "end": 300.36,
+          "en": "and we open the developer tools on this running page",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 300.36,
+          "end": 302.85,
+          "en": "and you go to the network tab here",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 302.85,
+          "end": 307.12,
+          "en": "so that you can see any network requests sent by the browser",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 308.01,
+          "end": 311.85,
+          "en": "and you click on a user, you should see that a new chunk",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 311.85,
+          "end": 313.383,
+          "en": "of code is being loaded.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 314.58,
+          "end": 316.98,
+          "en": "We have this new request here",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 316.98,
+          "end": 321.39300000000003,
+          "en": "to this chunk something .js file.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 322.47,
+          "end": 325.68,
+          "en": "And if you preview the content there, you see",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 325.68,
+          "end": 329.793,
+          "en": "that in there, we got some code that was loaded now.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 330.96,
+          "end": 333.36,
+          "en": "And that proves that lazy loading is working",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 333.36,
+          "end": 335.55,
+          "en": "but at the moment,",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 335.55,
+          "end": 338.19,
+          "en": "we're actually not getting too many benefits",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 338.19,
+          "end": 341.28,
+          "en": "out of activating lazy loading here",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 341.28,
+          "end": 344.15999999999997,
+          "en": "because we still have this resolver here.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 344.15999999999997,
+          "end": 346.98,
+          "en": "And here I'm importing some function",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 346.98,
+          "end": 350.85,
+          "en": "that is actually imported from that TasksComponent file",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 350.85,
+          "end": 352.173,
+          "en": "in an eager way.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 353.31,
+          "end": 355.56,
+          "en": "So therefore, we're actually still importing",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 355.56,
+          "end": 358.5,
+          "en": "this tasks.component file eagerly",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 358.5,
+          "end": 361.95,
+          "en": "because I'm using this function without lazy loading.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 361.95,
+          "end": 364.74,
+          "en": "Now, how can you work around that though?",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 364.74,
+          "end": 367.26,
+          "en": "Well, one way which we can use here",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 367.26,
+          "end": 369.21,
+          "en": "as a temporary workaround",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 369.21,
+          "end": 374.21,
+          "en": "is that we simply grab this resolveUserTasks function.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 374.28,
+          "end": 375.46,
+          "en": "We cut this code",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 376.74,
+          "end": 380.25,
+          "en": "and remove the export statement here from the component file",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 380.25,
+          "end": 382.51,
+          "en": "so that this is a pretty lean file",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 383.49,
+          "end": 385.95,
+          "en": "and we then, for example, add this function here",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 385.95,
+          "end": 390.483,
+          "en": "to our user.routes.ts file, here, for example.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 391.98,
+          "end": 393.78,
+          "en": "Now you just must make sure",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 393.78,
+          "end": 397.743,
+          "en": "that you also import all the missing types again.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 399.15,
+          "end": 403.40999999999997,
+          "en": "So I'll quickly do that and also import the inject function",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 403.40999999999997,
+          "end": 405.39300000000003,
+          "en": "and the TasksService.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 407.13,
+          "end": 412.13,
+          "en": "And once you did that, you can entirely remove this import",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 412.8,
+          "end": 417.72,
+          "en": "because now resolveUserTasks is a function defined here",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 417.72,
+          "end": 420,
+          "en": "and therefore, it's no longer imported",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 420,
+          "end": 422.043,
+          "en": "from that tasks.component file.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 423.09,
+          "end": 426.06,
+          "en": "And as a result, this tasks.component file",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 426.06,
+          "end": 429.12,
+          "en": "is now really loaded lazily.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 429.12,
+          "end": 431.94,
+          "en": "And it's not just this file that's loaded lazily,",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 431.94,
+          "end": 434.64,
+          "en": "anything that's imported in this file",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 434.64,
+          "end": 436.02,
+          "en": "and that's not imported",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 436.02,
+          "end": 440.763,
+          "en": "by some other file already is now also loaded lazily.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 441.96,
+          "end": 444.69,
+          "en": "So with those changes made, if you save that,",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 444.69,
+          "end": 448.32,
+          "en": "if you reload your application, the starting page there",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 448.32,
+          "end": 451.23,
+          "en": "and you have the network tab open, if you click on a user,",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 451.23,
+          "end": 453.6,
+          "en": "you will again see some requests here.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 453.6,
+          "end": 455.94,
+          "en": "But now those chunks",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 455.94,
+          "end": 459.24,
+          "en": "that are loaded actually contain more code,",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 459.24,
+          "end": 462.27,
+          "en": "as you can tell if you take a look at the preview tab",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 462.27,
+          "end": 465.15,
+          "en": "of those incoming responses.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 465.15,
+          "end": 466.89,
+          "en": "And they do contain more code",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 466.89,
+          "end": 470.373,
+          "en": "because we did now properly implement lazy loading,",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 471.42,
+          "end": 473.15999999999997,
+          "en": "and that's therefore also important.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 473.15999999999997,
+          "end": 475.92,
+          "en": "It's not enough to just use loadComponent,",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 475.92,
+          "end": 477.84000000000003,
+          "en": "instead it's also important",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 477.84000000000003,
+          "end": 480.6,
+          "en": "that you don't have any other parts in your code",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 480.6,
+          "end": 484.47,
+          "en": "that would still eagerly load the file you're trying",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 484.47,
+          "end": 486.57,
+          "en": "to load lazily.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 486.57,
+          "end": 489.39,
+          "en": "But with that, we now would have properly set up",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 489.39,
+          "end": 492.513,
+          "en": "lazy loading for this tasks route.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

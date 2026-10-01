@@ -1,0 +1,825 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "12198032",
+      "title": "Setting Up a SSL Server",
+      "lectureOrder": 457,
+      "videoOrder": 405,
+      "sourceHash": "be866bb45e39431b285525619f4703a1e915593e72a10c07635e679314ce674a",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.19,
+          "end": 8.37,
+          "en": "Now last but not least before we then really ship our application to a server, to a hosting provider, I want",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.37,
+          "end": 9.92,
+          "en": "to have a look at ssl/tls",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.99,
+          "end": 14.98,
+          "en": "and tls is simply the newer version of that,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 15.08,
+          "end": 21.96,
+          "en": "ssl is the term more people know however. Both is about securing your data that is sent from a client",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 21.99,
+          "end": 27.84,
+          "en": "to the server because when we communicate between client server, we typically exchange data.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 27.87,
+          "end": 35.22,
+          "en": "Now we can have an attacker, third party who's eavesdropping on that data, this is technically possible,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 35.22,
+          "end": 41.12,
+          "en": "of course not super trivial but possible and therefore this attacker could read your data which you're",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 41.13,
+          "end": 44.68,
+          "en": "sending from the client to the server which is of course a problem",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 44.73,
+          "end": 48.7,
+          "en": "if we're talking about credit card data or anything like that.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 48.81,
+          "end": 54.53,
+          "en": "Hence we want to protect that data and we do that with ssl/tls encryption.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 54.63,
+          "end": 59.97,
+          "en": "Now once such encryption is in place, eavesdropping is not possible anymore because while the data is",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 60.25,
+          "end": 68.85,
+          "en": "unreadable as long as it is in transit and it will be decrypted on the server. Now to enable that encryption",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 68.93,
+          "end": 73.81,
+          "en": "and to be able to decrypt it, we work with a public private key pair,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 73.92,
+          "end": 76.26,
+          "en": "both is known to the server.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 76.68,
+          "end": 83.16,
+          "en": "Now that public key is as the name suggests, not something we have to protect, the private key is",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 83.16,
+          "end": 88.41,
+          "en": "however, the private key will ever only be known by the server because the private key will later be",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 88.41,
+          "end": 90.63,
+          "en": "important for decrypting the data,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 90.75,
+          "end": 96.22999999999999,
+          "en": "the public key will be used for encrypting. Now in ssl certificate,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 96.36,
+          "end": 100.07,
+          "en": "we bind that public key to the server identity,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 100.28999999999999,
+          "end": 106.92,
+          "en": "the identity is simply something like the domain, the admin email address, you set that data when you",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 106.92,
+          "end": 114.45,
+          "en": "create a certificate. That ssl certificate therefore connects a public key and a server and sends that",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 114.47999999999999,
+          "end": 119.91,
+          "en": "to the client, to the browser so that the client also is aware of the public key and knows that it belongs",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 119.91,
+          "end": 121.22,
+          "en": "to that server.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 121.26,
+          "end": 127.26,
+          "en": "Now typically you will use a certificate authority for that, though you can create your own ssl",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 127.26,
+          "end": 130.4,
+          "en": "certificates too and we'll do that in this module",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 130.65,
+          "end": 136.8,
+          "en": "but when you create your own keys, then the browser does not actually trust you that the information in there",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 136.8,
+          "end": 144.12,
+          "en": "is correct and that is when you get informations or warnings like hey this page uses ssl but doesn't",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 144.12,
+          "end": 145.29,
+          "en": "seem to be secure,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 145.29,
+          "end": 146.91,
+          "en": "do you really want to visit it.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 147.18,
+          "end": 155.03,
+          "en": "Hence in production, you would use a ssl certificate provided by a known certificate authority which the",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 155.04,
+          "end": 160.21,
+          "en": "browser trusts and therefore you have a real secure and trusted protection.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 160.47,
+          "end": 163.24,
+          "en": "Nonetheless the way it works always is the same,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 163.32,
+          "end": 169.89,
+          "en": "we have that public key, part of that certificate, certificate ideally is not created by you but by a trusted",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 169.89,
+          "end": 174.66,
+          "en": "authority, we will create it here on our own though because that will be free,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 174.66,
+          "end": 181.08,
+          "en": "that public key is then received by the client through that certificate and now the client can encrypt",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 181.14,
+          "end": 187.44,
+          "en": "the data which it sends to the server and the server can decrypt the data with that private key and",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 187.53,
+          "end": 190.91,
+          "en": "only that private key can decrypt that data",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 190.98,
+          "end": 195.54,
+          "en": "and this is how that works and how that secures your data in transit.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 195.54,
+          "end": 198.09,
+          "en": "Now let me show you how this works in practice,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 198.15,
+          "end": 203.68,
+          "en": "now to set up a ssl connection on your own server with your own certificate,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 203.76,
+          "end": 209.25,
+          "en": "again you should get one from an authority once you deploy that to production but for testing this, we",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 209.25,
+          "end": 211.48,
+          "en": "can definitely play around with our own one,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 211.5,
+          "end": 218.97,
+          "en": "we need to create a certificate and we do it with a command named open ssl. On Mac and Linux, you have",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 218.97,
+          "end": 220.49,
+          "en": "that available by default,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 220.74,
+          "end": 221.91,
+          "en": "on Windows you don't",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 222.03,
+          "end": 227.14,
+          "en": "but there you can find it by googling for open ssl windows and then that",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 227.15,
+          "end": 228.15,
+          "en": "second link here,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 228.15,
+          "end": 235.56,
+          "en": "this binaries link leads you to a page where you can take the first link to ssl pro web and there when",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 235.56,
+          "end": 242.52,
+          "en": "you scroll down, you'll find installers that install this open ssl tool on Windows too, so that you can",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 242.52,
+          "end": 243.92,
+          "en": "follow along with the commands",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 243.97,
+          "end": 250.53,
+          "en": "I'm about to run on Windows as well. Choose your version here, install it and once you have installed it, you",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 250.53,
+          "end": 264.85,
+          "en": "can run open ssl rec-nodes-new-x509-keyout server.key-out server.cert",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 264.9,
+          "end": 272.1,
+          "en": "and this will give you that private key and the public key packaged up in a certificate.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 272.11,
+          "end": 279.73,
+          "en": "Now once you hit enter, you will be asked a couple of questions and there make sure to choose valid values",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 279.73,
+          "end": 285.76,
+          "en": "though that does not really matter too much but the idea here is that you connect your identity,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 285.82,
+          "end": 289.3,
+          "en": "the identity of your application to your public key",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 289.3,
+          "end": 294.85,
+          "en": "though again your own self-signed certificate will not be accepted by browsers anyways,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 295,
+          "end": 298.33,
+          "en": "for production you should not use that option. Still",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 298.63,
+          "end": 306.2,
+          "en": "let's fill it out with some truthy values",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 306.5,
+          "end": 309.08,
+          "en": "and one important value is this common name,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 309.08,
+          "end": 315.23,
+          "en": "you must set this to localhost otherwise the certificate will not work because this has to be set to",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 315.23,
+          "end": 316.37,
+          "en": "your domain.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 316.37,
+          "end": 322.86,
+          "en": "So if you were to use your self-signed certificate on the server you deploy your app to and you host",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 322.86,
+          "end": 328.04,
+          "en": "this app on example.com, then then you would have to set this to example.com.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 328.22,
+          "end": 334.07,
+          "en": "Again typically you request a certificate for your domain by some authority and then they will do this",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 334.07,
+          "end": 334.61,
+          "en": "for you",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 334.7,
+          "end": 340.4,
+          "en": "but if you create your own one, use the domain your app is running on and locally, that is localhost",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 340.64,
+          "end": 344.34000000000003,
+          "en": "and this certificate will be denied and will not be accepted",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 344.45,
+          "end": 351.24,
+          "en": "if you set this to another value. Now after you did all that, you'll find two new files in your folder,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 351.39,
+          "end": 357.27,
+          "en": "server cert which is the certificate and server key which is the private key. Now the private key will",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 357.27,
+          "end": 358.78,
+          "en": "always stay on your server,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 358.83,
+          "end": 362.06,
+          "en": "the certificate is what we send to the client in the end.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 362.1,
+          "end": 364.95,
+          "en": "Now to use that, in app.js I",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 364.98,
+          "end": 371.58,
+          "en": "first of all have to import a new node module and that is the https module which allows us to spin",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 371.58,
+          "end": 373.74,
+          "en": "up an https server.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 373.86,
+          "end": 379.45,
+          "en": "Thus far, we directly or indirectly through app listen used http,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 379.53,
+          "end": 387.63,
+          "en": "now we'll use https. To use that, I need to read in my files and I will do that up here.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 387.99,
+          "end": 396.88,
+          "en": "I will read in my private key by using the node file system package which you need to make sure you",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 396.88,
+          "end": 398.44,
+          "en": "import in this file",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 398.47,
+          "end": 405.8,
+          "en": "here, you need that file system package and there, you can read a file synchronously.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 405.8,
+          "end": 410.22,
+          "en": "Now this will block code execution until the file is read and you learned",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 410.25,
+          "end": 412.61,
+          "en": "that typically, this is not what you want to do",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 412.79,
+          "end": 418.7,
+          "en": "but here I actually don't want to continue with starting the server unless I have read that file in.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 419.03,
+          "end": 425.65,
+          "en": "So here I will read that file synchronously and the file I want to read is server.key,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 425.69,
+          "end": 434.55,
+          "en": "so my private key file. I'll also add another constant which I'll name certificate and that will be fs read",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 434.55,
+          "end": 440.37,
+          "en": "file sync and then of course it's my server.cert file.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 440.57,
+          "end": 445.3,
+          "en": "Now with these two files read in, we can scroll down to the place where we start the server with app",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 445.31,
+          "end": 452.94,
+          "en": "listen and now I'll not use app listen any more but I'll use https, this new package we just imported and there,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 452.99,
+          "end": 456.34000000000003,
+          "en": "create server to create a https server.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 456.65,
+          "end": 458.43,
+          "en": "This now needs two arguments,",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 458.48,
+          "end": 460.43,
+          "en": "the first one configures the server",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 460.58,
+          "end": 467.24,
+          "en": "and here we have to point it at our private key and the certificate and the second argument will be our",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 467.24,
+          "end": 468.34000000000003,
+          "en": "request handler,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 468.40999999999997,
+          "end": 473.85,
+          "en": "in our case our express application. So the second argument will be our app,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 473.9,
+          "end": 480.56,
+          "en": "the first argument will be a javascript object where you need to set two things, you need to set the",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 480.56,
+          "end": 484.14,
+          "en": "key key and you set that to that private key",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 484.14,
+          "end": 491.54,
+          "en": "constant we created a second ago and you also need to set the cert key which you set to that certificate",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 491.72,
+          "end": 497.09,
+          "en": "constant we created a second ago and then we listen on that server.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 497.09,
+          "end": 501.39,
+          "en": "Now with that, if you run npm start, it will start your server",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 501.53,
+          "end": 510.41,
+          "en": "but now using ssl encryption and if we now go back to our application and we reload localhost 3000,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 510.59,
+          "end": 514.03,
+          "en": "this will fail because by default it uses http,",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 514.1,
+          "end": 522.46,
+          "en": "if I use https localhost 3000, it will fail because the browser does not accept that custom or that",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 522.47,
+          "end": 525.12,
+          "en": "self-signed certificate as you learned",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 525.19,
+          "end": 532.18,
+          "en": "but if you click on advanced here, you can proceed to localhost and now again, the browser does warn us",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 532.18,
+          "end": 534.89,
+          "en": "because it does not like our self-signed certificate",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 535.06,
+          "end": 541.07,
+          "en": "but technically we are now using ssl protection. And this is how you enable it",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 541.18,
+          "end": 546.55,
+          "en": "but just as with logging and compression, typically you would set this up differently,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 546.55,
+          "end": 551.77,
+          "en": "you would let your hosting provider set this up because technically the hosting provider often also",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 551.77,
+          "end": 558.7,
+          "en": "has its own servers in front of yours and the servers of the hosting provider then use ssl and the traffic",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 558.7,
+          "end": 565.33,
+          "en": "between your app and the in-between servers does use http because it's blocked or it's not available",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 565.33,
+          "end": 571.57,
+          "en": "to the public anyways and the hosting providers front servers would implement this logic. So you wouldn't",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 571.57,
+          "end": 573.18,
+          "en": "write that code on your own",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 573.28,
+          "end": 581.06,
+          "en": "and indeed here, I will fallback to my old code where I just had app listen because we'll need that",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 581.06,
+          "end": 585.8,
+          "en": "later when we deploy it because we will let our hosting provider manage ssl",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 585.8,
+          "end": 592.49,
+          "en": "but if you ever need to do it manually, this is how you do start a node server in https mode.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

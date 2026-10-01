@@ -1,0 +1,1084 @@
+{
+  "version": 1,
+  "courseId": 756150,
+  "courseSlug": "the-complete-guide-to-angular-2",
+  "courseTitle": "Angular - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "44116078",
+      "title": "Using Custom DI Tokens & Providers",
+      "lectureOrder": 188,
+      "videoOrder": 180,
+      "sourceHash": "79645ddee1f3c3b599a55451c5b927f0f94b1801a977f48977b79ae1597eeaad",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.589,
+          "end": 2.4,
+          "en": "Now that we learned",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 2.4,
+          "end": 4.71,
+          "en": "how to inject services into services,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 4.71,
+          "end": 7.32,
+          "en": "and we had a look at this injector tree",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.32,
+          "end": 9.42,
+          "en": "in the developer tools,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 9.42,
+          "end": 10.77,
+          "en": "I wanna dive a bit deeper",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 10.77,
+          "end": 15.24,
+          "en": "into the dependency injection mechanism offered by Angular.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 15.24,
+          "end": 18.3,
+          "en": "And I wanna start by diving a bit deeper",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 18.3,
+          "end": 22.86,
+          "en": "into how services or injectable values,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 22.86,
+          "end": 27.12,
+          "en": "in general, are registered with Angular.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 27.12,
+          "end": 29.88,
+          "en": "And I already showed you different places",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 29.88,
+          "end": 32.85,
+          "en": "where you can register services, for example.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 32.85,
+          "end": 35.7,
+          "en": "And I mentioned that this @Injectable approach,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 35.7,
+          "end": 39.51,
+          "en": "is the most common way of registering it.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 39.51,
+          "end": 41.79,
+          "en": "But I wanna show you what's happening behind the scenes",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 41.79,
+          "end": 44.553,
+          "en": "in the end when you register a service.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 45.63,
+          "end": 48.54,
+          "en": "And for that, I'll comment out @Injectable,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 48.54,
+          "end": 50.673,
+          "en": "and go back to the main TS file.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 51.54,
+          "end": 56.34,
+          "en": "And there, I'll bring back this code",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 56.34,
+          "end": 59.85,
+          "en": "where I provide the TasksService like this instead,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 59.85,
+          "end": 63.33,
+          "en": "which also works as you saw before.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 63.33,
+          "end": 67.29,
+          "en": "I got no error here when switching to that code.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 67.29,
+          "end": 70.5,
+          "en": "But this code here is actually a shortcut",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 70.5,
+          "end": 75.39,
+          "en": "for an alternative way of registering your service.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 75.39,
+          "end": 78.3,
+          "en": "And you would typically use that shortcut,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 78.3,
+          "end": 81.99,
+          "en": "don't get me wrong, but I find it important to understand",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 81.99,
+          "end": 83.67,
+          "en": "what's happening behind the scenes.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 83.67,
+          "end": 86.52,
+          "en": "Because what is happening behind the scenes is",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 86.52,
+          "end": 90.6,
+          "en": "that Angular creates a provider object,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 90.6,
+          "end": 93.513,
+          "en": "which is registered with the providers here in the end.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 94.5,
+          "end": 99.42,
+          "en": "And that's an object which has a provide property.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 99.42,
+          "end": 103.59,
+          "en": "And then one of these other use properties here,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 103.59,
+          "end": 105.43299999999999,
+          "en": "like useClass, useExisting,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 105.43299999999999,
+          "end": 107.88300000000001,
+          "en": "useFactory or useValue.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 109.2,
+          "end": 112.35,
+          "en": "And the idea behind this provide property is",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 112.35,
+          "end": 116.85,
+          "en": "that it registers the so-called injection token",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 116.85,
+          "end": 121.08,
+          "en": "of the injectable thing you are trying to register,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 121.08,
+          "end": 123.87,
+          "en": "so of the service, you are trying to register,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 123.87,
+          "end": 125.79,
+          "en": "in this case here.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 125.79,
+          "end": 129.45,
+          "en": "And the idea behind an injection token is simply",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 129.45,
+          "end": 133.923,
+          "en": "that it acts as the identifier of the injectable thing.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 135.27,
+          "end": 136.38,
+          "en": "Now, by default,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 136.38,
+          "end": 138.21,
+          "en": "when you use that shortcut,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 138.21,
+          "end": 142.65,
+          "en": "the name of the service class is the token.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 142.65,
+          "end": 145.82999999999998,
+          "en": "That's why in the places where you need it",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 145.82999999999998,
+          "end": 148.41,
+          "en": "in the tasks list component, for example,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 148.41,
+          "end": 153.24,
+          "en": "you can use it as a token, as an identifier passed",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 153.24,
+          "end": 156.84300000000002,
+          "en": "to the inject function or in the constructor function.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 157.86,
+          "end": 160.95,
+          "en": "So that is the identifier that tells Angular",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 160.95,
+          "end": 163.315,
+          "en": "what you wanna inject,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 163.315,
+          "end": 167.91,
+          "en": "but you could also register your own token instead.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 167.91,
+          "end": 170.01,
+          "en": "And you can create such a token,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 170.01,
+          "end": 173.973,
+          "en": "let's say, the tasks service token,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 175.14,
+          "end": 176.88,
+          "en": "by constructing a new value",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 176.88,
+          "end": 180.513,
+          "en": "of type injection token like this.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 181.89,
+          "end": 185.76,
+          "en": "And that is something that's imported from @angular/core,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 185.76,
+          "end": 188.343,
+          "en": "this injection token thing here.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 189.33,
+          "end": 192.6,
+          "en": "Now, injection token then needs a description,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 192.6,
+          "end": 194.88,
+          "en": "which in the end, is used internally",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 194.88,
+          "end": 197.55,
+          "en": "and for debugging purposes, which is up to you.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 197.55,
+          "end": 201.54,
+          "en": "And here, I'll name it tasks-service-token like this.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 201.54,
+          "end": 202.95,
+          "en": "But again, this is up to you,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 202.95,
+          "end": 205.32,
+          "en": "it's just some identifier that can help",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 205.32,
+          "end": 208.233,
+          "en": "with debugging error messages, for example.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 209.79,
+          "end": 212.01,
+          "en": "But now that we got such a token here,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 212.01,
+          "end": 216.63,
+          "en": "we can go back to this manual configuration mode here,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 216.63,
+          "end": 219.31,
+          "en": "and then set this TasksServiceToken",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 220.68,
+          "end": 222.903,
+          "en": "as a value for the provide property.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 224.31,
+          "end": 228.09300000000002,
+          "en": "Now, we just also need to add one of these used properties.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 229.02,
+          "end": 233.46,
+          "en": "And if we wanna make a class injectable",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 233.46,
+          "end": 234.99,
+          "en": "as it's the case here",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 234.99,
+          "end": 238.77,
+          "en": "where this task service class should be injectable,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 238.77,
+          "end": 240.873,
+          "en": "you wanna use useClass here,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 241.8,
+          "end": 244.563,
+          "en": "and then use TasksService like this.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 245.85,
+          "end": 248.22,
+          "en": "And that would be the long form",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 248.22,
+          "end": 250.47,
+          "en": "with a custom injection token",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 250.47,
+          "end": 254.133,
+          "en": "of providing your tasks service to the application.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 255.72,
+          "end": 258,
+          "en": "Now, if you wanted to inject it,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 258,
+          "end": 260.163,
+          "en": "you would have to use your own token,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 261.12,
+          "end": 262.62,
+          "en": "otherwise you'll get an error",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 262.62,
+          "end": 264.45,
+          "en": "that the dependency isn't found,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 264.45,
+          "end": 266.79,
+          "en": "because in the code,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 266.79,
+          "end": 269.34,
+          "en": "in the tasks list component, for example,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 269.34,
+          "end": 272.22,
+          "en": "we're still looking for a value with an injection token",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 272.22,
+          "end": 274.17,
+          "en": "of tasks service.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 274.17,
+          "end": 277.44,
+          "en": "And this injection token isn't registered anymore.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 277.44,
+          "end": 281.763,
+          "en": "Instead, this is my injection token now, TasksServiceToken.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 283.71,
+          "end": 286.29,
+          "en": "So it's that token that now needs to be used",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 286.29,
+          "end": 288.78,
+          "en": "in other places of the app,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 288.78,
+          "end": 291.09000000000003,
+          "en": "and therefore I'll export it here,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 291.09000000000003,
+          "end": 293.61,
+          "en": "and you might wanna store it in a separate file.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 293.61,
+          "end": 297.21,
+          "en": "Here, I'll just leave it in this file and I'll export it.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 297.21,
+          "end": 301.38,
+          "en": "And in the tasks list component, I now have to import",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 301.38,
+          "end": 304.893,
+          "en": "and use this tasks service token like this,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 308.37,
+          "end": 310.23,
+          "en": "with that TypeScript complaints",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 310.23,
+          "end": 313.95,
+          "en": "because it doesn't understand which kind of value,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 313.95,
+          "end": 316.83,
+          "en": "will be provided through that token.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 316.83,
+          "end": 320.91,
+          "en": "It's an unknown value because indeed,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 320.91,
+          "end": 324.15,
+          "en": "when we set up that token, we don't tell TypeScript",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 324.15,
+          "end": 326.883,
+          "en": "which kind of value will be provided through it.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 328.17,
+          "end": 331.56,
+          "en": "That's why injection token is a generic class,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 331.56,
+          "end": 333.48,
+          "en": "and you can use angle brackets",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 333.48,
+          "end": 336.96,
+          "en": "to add extra type information to it.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 336.96,
+          "end": 339.57,
+          "en": "In this case, you would tell TypeScript",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 339.57,
+          "end": 344.4,
+          "en": "which kind of value will be provided through that token.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 344.4,
+          "end": 345.24,
+          "en": "And in that case,",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 345.24,
+          "end": 348.45,
+          "en": "that will be a value of type TasksService,",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 348.45,
+          "end": 350.85,
+          "en": "since we're providing an instance of this class.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 352.40999999999997,
+          "end": 354.513,
+          "en": "With this annotation added here,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 355.53,
+          "end": 357.483,
+          "en": "the errors here would go away.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 359.07,
+          "end": 363.72,
+          "en": "Now the task item component needs a similar treatment",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 363.72,
+          "end": 366.39,
+          "en": "because they are injecting the tasks service,",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 366.39,
+          "end": 367.62,
+          "en": "like this won't work.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 367.62,
+          "end": 372.003,
+          "en": "Instead it's now the TasksServiceToken that's needed.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 374.4,
+          "end": 378.873,
+          "en": "And the new task component also needs an adjustment.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 379.74,
+          "end": 381.513,
+          "en": "Here, I'm using the constructor,",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 382.56,
+          "end": 385.51,
+          "en": "and therefore here we also wanna import",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 391.59,
+          "end": 393.6,
+          "en": "from this main file,",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 393.6,
+          "end": 395.343,
+          "en": "and import this TasksServiceToken.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 397.11,
+          "end": 400.98,
+          "en": "And we could try to use that as a value here now.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 400.98,
+          "end": 404.01,
+          "en": "But as you see, this would now give us an error",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 404.01,
+          "end": 407.04,
+          "en": "because indeed, when using a custom token,",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 407.04,
+          "end": 410.52,
+          "en": "you can't use it as a type definition like this.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 410.52,
+          "end": 414.21,
+          "en": "Instead, now you need to add a special decorator",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 414.21,
+          "end": 417.3,
+          "en": "in front of your parameter here,",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 417.3,
+          "end": 420.483,
+          "en": "when using this constructor approach for injecting,",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 421.41,
+          "end": 424.833,
+          "en": "and it's the inject decorator that you need to use here,",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 425.76,
+          "end": 429.18,
+          "en": "which is provided by Angular.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 429.18,
+          "end": 432.63,
+          "en": "So not the inject function with a lowercase eye,",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 432.63,
+          "end": 435.513,
+          "en": "but the inject decorator with an uppercase eye.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 436.77,
+          "end": 439.32,
+          "en": "And then you can pass your tasks service token",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 439.32,
+          "end": 440.763,
+          "en": "as a value to that.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 441.66,
+          "end": 445.08,
+          "en": "We now need to set the type of value",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 445.08,
+          "end": 447.303,
+          "en": "we'll get here for the TasksService,",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 448.59,
+          "end": 449.423,
+          "en": "and that, of course,",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 449.423,
+          "end": 452.7,
+          "en": "still will be the TasksService instance,",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 452.7,
+          "end": 455.943,
+          "en": "but we're now injecting it with help of our custom token.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 458.15999999999997,
+          "end": 462.24,
+          "en": "With that all done, the app will work again.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 462.24,
+          "end": 464.52,
+          "en": "As you can tell, that's all working.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 464.52,
+          "end": 468.15,
+          "en": "But now with help of a custom injection token,",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 468.15,
+          "end": 471.45,
+          "en": "and of course, this is more complex than just using",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 471.45,
+          "end": 472.89,
+          "en": "that shortcut, which is",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 472.89,
+          "end": 476.19,
+          "en": "why you typically would use that shortcut.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 476.19,
+          "end": 478.47,
+          "en": "Nonetheless, for advanced use cases,",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 478.47,
+          "end": 482.16,
+          "en": "you might need to register custom injection token",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 482.16,
+          "end": 483.51,
+          "en": "and work with those.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 483.51,
+          "end": 487.02,
+          "en": "And you should know what happens under the hood when using",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 487.02,
+          "end": 489.48,
+          "en": "that shortcut we used before.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 489.48,
+          "end": 492.84,
+          "en": "Therefore, this is the code you would typically not use,",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 492.84,
+          "end": 495.72,
+          "en": "but you should still know about, and now you do.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 495.72,
+          "end": 499.08,
+          "en": "And now we're going to build up on that knowledge",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 499.08,
+          "end": 501.99,
+          "en": "to inject non-service values",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 501.99,
+          "end": 505.113,
+          "en": "because it turns out that you can do that as well.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

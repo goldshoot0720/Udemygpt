@@ -1,0 +1,475 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "11954350",
+      "title": "Encrypting Passwords",
+      "lectureOrder": 255,
+      "videoOrder": 227,
+      "sourceHash": "1610bc2cc9db00a419a55515923273d3eb2264f6e0d92ca867dfdd32241a971c",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.13,
+          "end": 6.87,
+          "en": "We did add a basic authentication flow or a signup flow in the last lecture",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.96,
+          "end": 11.66,
+          "en": "but we have one huge security flaw in our current approach.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 11.7,
+          "end": 16.06,
+          "en": "Do you know which flaw that is? Well we can see it in this line",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.1,
+          "end": 17.9,
+          "en": "when we store a password.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.9,
+          "end": 22.07,
+          "en": "We're storing the password in plain text and we can see that here in compass,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.13,
+          "end": 26.12,
+          "en": "this is the password I entered and it's stored in plain text.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 26.12,
+          "end": 28.36,
+          "en": "Now this is not how you should do it",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 28.61,
+          "end": 33.37,
+          "en": "because if your database gets compromised which of course we want to avoid",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 33.38,
+          "end": 40.58,
+          "en": "but if it happens or if some employee of your company has the rights to look into it, your user passwords",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 40.73,
+          "end": 42.42,
+          "en": "are fully exposed.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 42.74,
+          "end": 46.36,
+          "en": "So what we should do is we should encrypt that password,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 46.37,
+          "end": 53.51,
+          "en": "we should hash it in a way that is not reversible, where people cannot construct the password from, so",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 53.65,
+          "end": 56.05,
+          "en": "that even if you get access to the database,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 56.15,
+          "end": 63.26,
+          "en": "you might be able to see the e-mail but you're not able to see the password, the real password that belongs",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 63.26,
+          "end": 64.55,
+          "en": "to the e-mail.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 64.58,
+          "end": 68.21000000000001,
+          "en": "This is something you should implement and this is something we will implement now",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 68.63,
+          "end": 74.63,
+          "en": "and for this we'll install another package. So I'll quit my server with Control C and install that package",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 74.63,
+          "end": 79.42,
+          "en": "with npm install --save and the name of the package is bcryptjs,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 79.59,
+          "end": 81.44,
+          "en": "written like this.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 81.44,
+          "end": 87.26,
+          "en": "This is a package that helps us with encryption and that will help us with encrypting the password.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 87.26,
+          "end": 93.71000000000001,
+          "en": "Now once this was installed, we can restart our server with npm start and now in the auth controller here,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 94.4,
+          "end": 96.89,
+          "en": "we can use bcrypt,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 96.89,
+          "end": 101.11,
+          "en": "so here I will add an import at the top and I'll name it bcrypt,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 101.15,
+          "end": 105.16,
+          "en": "the name is up to you and I'll require bcryptjs, like this,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 105.17,
+          "end": 108.88,
+          "en": "so the package we just installed. With it installed,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 109.03999999999999,
+          "end": 115.82,
+          "en": "let's head over to post sign up here and here instead of storing the password like this, I will store",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 115.82,
+          "end": 120.09,
+          "en": "a hash password. For this right before I create my user,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 120.2,
+          "end": 128.5,
+          "en": "I'll use the bcrypt package which I installed and which I imported here and I will call the hash",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 128.59,
+          "end": 134.27,
+          "en": "method. The hash method as a first value takes the string which you want to hash,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 134.29,
+          "end": 137.92000000000002,
+          "en": "so in our case the password, so we'll pass the password here.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 137.95,
+          "end": 142.11,
+          "en": "The second argument then is the salt value,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 142.12,
+          "end": 146.16,
+          "en": "now this is simply specifying how many rounds of hashing will be applied you could say",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 146.29,
+          "end": 150.4,
+          "en": "and the higher the value, the longer it will take but the more secure that will be,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 150.4,
+          "end": 155.62,
+          "en": "currently a value of 12 is accepted as highly secure.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 155.62,
+          "end": 158.25,
+          "en": "Now this will generate a hash password",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 158.44,
+          "end": 163.42000000000002,
+          "en": "but this is an asynchronous task and therefore this actually gives us back a promise.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 163.54,
+          "end": 171.55,
+          "en": "So I will return this so that I can chain another then call, a then block where I will get my hashed",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 171.55,
+          "end": 173.02,
+          "en": "password as an argument",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 173.02,
+          "end": 173.9,
+          "en": "once it's done,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 174.01,
+          "end": 180.01,
+          "en": "so this function here will be called once the hashing is done and therefore the user creation will go",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 180.01,
+          "end": 186.43,
+          "en": "into this then block and there I have the hashed password available and the hashed password is what I'll",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 186.43,
+          "end": 187.35,
+          "en": "store here.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 187.66,
+          "end": 196.74,
+          "en": "And with that, we dramatically improve the performance because now if I do sign up again, first of all",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 196.86,
+          "end": 198.26,
+          "en": "let's use a different e-mail",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 198.26,
+          "end": 200.9,
+          "en": "otherwise it should fail, we can test this in a second too.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 201.09,
+          "end": 202.51,
+          "en": "So I use a different e-mail,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 202.77,
+          "end": 209.07,
+          "en": "if I sign up now and I look into my collection, this is the new user and this is of course not the password",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 209.1,
+          "end": 210,
+          "en": "I entered,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 210,
+          "end": 217.13,
+          "en": "this is the hashed value and the important thing is you can't reconstruct the password I use,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 217.29,
+          "end": 219.38,
+          "en": "you can't decrypt this.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 219.38,
+          "end": 224.67000000000002,
+          "en": "This is also the reason why we don't encrypt the e-mail because we won't be able to decrypt this,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 224.73,
+          "end": 229.8,
+          "en": "I will still show you how we can then find out if the user entered a correct password but we can't decrypt",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 229.8,
+          "end": 230.13,
+          "en": "it,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 230.25,
+          "end": 235.8,
+          "en": "so if we need to send messages to that e-mail, that would not work if we encrypt the e-mail as well because",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 235.8,
+          "end": 237.6,
+          "en": "we could not revert that.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 237.6,
+          "end": 241.62,
+          "en": "So we need to store the e-mail like this but the password is secured,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 241.62,
+          "end": 243.66,
+          "en": "it's not readable.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 243.66,
+          "end": 245.22,
+          "en": "So this is how we should store it",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 245.25,
+          "end": 250.94,
+          "en": "and now I will get rid of my other user but not before testing whether that works.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 250.95,
+          "end": 256.65,
+          "en": "So if I try to create a user with that same email again, I'm redirected to sign up.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 256.74,
+          "end": 261.21,
+          "en": "So I don't see an error message because I didn't add anything that would show such a message",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 261.48,
+          "end": 263.15,
+          "en": "but it seems to fail here,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 263.16,
+          "end": 264.04,
+          "en": "that is good",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 264.09,
+          "end": 268.35,
+          "en": "so for now, we can't create a new user with the same credentials.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 268.35,
+          "end": 273.53,
+          "en": "Let's now get rid of this one with the insecure password and continue with the one with the secure password.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

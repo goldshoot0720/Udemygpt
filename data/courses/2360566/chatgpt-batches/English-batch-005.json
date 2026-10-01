@@ -1,0 +1,4803 @@
+{
+  "version": 1,
+  "courseId": 2360566,
+  "courseSlug": "sveltejs-the-complete-guide",
+  "courseTitle": "Svelte.js - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "14689604",
+      "title": "Emitting Custom Events",
+      "lectureOrder": 58,
+      "videoOrder": 50,
+      "sourceHash": "05c3efeb2c8388739e50529a6035c245b04c08bf51811f0cdc311582ba94bad0",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.3,
+          "end": 5.78,
+          "en": "Event forwarding is nice, but of course it's not always the right tool.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.81,
+          "end": 12.2,
+          "en": "For example, here we have two buttons and of course I can forward the click on Add to Cart with this",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 12.2,
+          "end": 13.04,
+          "en": "syntax.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.19,
+          "end": 15.92,
+          "en": "But if I do the same here on delete.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.18,
+          "end": 22.22,
+          "en": "You will see that I always fire the same alert no matter which button I click.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.22,
+          "end": 27.95,
+          "en": "But typically I of course want to do different things here in App svelte, but I got no way to differentiate",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 27.95,
+          "end": 29.3,
+          "en": "which button was clicked.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 29.33,
+          "end": 29.75,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 29.75,
+          "end": 35.72,
+          "en": "I could actually accept the event object and then analyze the target of the event and find out which",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 35.72,
+          "end": 36.71,
+          "en": "button it is.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 36.71,
+          "end": 43.46,
+          "en": "But that would require us to write a lot of code where we actually analyze the Dom element, maybe analyze",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 43.46,
+          "end": 46.01,
+          "en": "the caption of the button to find out what to do.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 46.04,
+          "end": 48.02,
+          "en": "It's not really how we want to write code.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 48.14,
+          "end": 56.12,
+          "en": "Instead, it would be nicer if we had, let's say on Add to Cart, maybe written like this, and then",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 56.12,
+          "end": 57.95,
+          "en": "we could say add to Cart.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 58.58,
+          "end": 61.97,
+          "en": "And now let me structure this across multiple lines.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 62,
+          "end": 67.49,
+          "en": "We also have a on delete event here and there.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 69.03999999999999,
+          "end": 70.81,
+          "en": "Let me put this between.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 71.47,
+          "end": 73.41,
+          "en": "Double quotes there.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 73.42,
+          "end": 76.87,
+          "en": "We then simply throw an alert where I say delete.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 76.87,
+          "end": 82,
+          "en": "And of course in a real app you would really delete it and not just throw the alert, but for demo purposes,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 82,
+          "end": 82.87,
+          "en": "this is fine.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 82.87,
+          "end": 88.3,
+          "en": "So it would be nice if we had these two different events, but these are not events built into the browser",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 88.3,
+          "end": 93.28,
+          "en": "because how would the browser know that this button is about adding something to a cart?",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 93.31,
+          "end": 96.72999999999999,
+          "en": "It's not like the browser reading our caption and understanding it.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 96.72999999999999,
+          "end": 98.5,
+          "en": "This would also be kind of scary.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 98.8,
+          "end": 103.99000000000001,
+          "en": "This is a typical use case where you want to create your own custom event and emit this event to the",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 103.99000000000001,
+          "end": 107.38,
+          "en": "parent component and you can create such an event.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 107.38,
+          "end": 108.82,
+          "en": "You can dispatch your own events.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 108.82,
+          "end": 112.75,
+          "en": "You just need to import something from Svelte.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 112.87,
+          "end": 115.47999999999999,
+          "en": "Now, we haven't really done this before thus far.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 115.47999999999999,
+          "end": 118.27000000000001,
+          "en": "We typically always imported our own components.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 118.27000000000001,
+          "end": 124.21,
+          "en": "But svelte, if you have a look at the Package.json file is a dependency of our project and you can",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 124.21,
+          "end": 131.02,
+          "en": "import from that dependency simply with this syntax, not dot slash, but simply by just using the package",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 131.12,
+          "end": 131.45,
+          "en": "name.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 131.45,
+          "end": 136.91,
+          "en": "And then this automatically is resolved to have a look at the package that was added in the Node modules",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 136.91,
+          "end": 138.53,
+          "en": "folder to this project.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 138.71,
+          "end": 144.68,
+          "en": "Now Svelte has a create event dispatcher function.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 144.68,
+          "end": 146.87,
+          "en": "Make sure you get the name correct.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 146.87,
+          "end": 148.25,
+          "en": "The casing does matter.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 148.25,
+          "end": 151.4,
+          "en": "So Capital E, capital D, lowercase C at the beginning.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 151.4,
+          "end": 155.45,
+          "en": "And this allows you to create your own event dispatching function.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 155.69,
+          "end": 161.27,
+          "en": "You can store it in a constant which you can name whatever you want, but dispatch makes a lot of sense",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 161.27,
+          "end": 162.56,
+          "en": "and you create that event.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 162.56,
+          "end": 166.49,
+          "en": "Dispatcher By simply calling, create event dispatcher like this.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 166.85,
+          "end": 169.16,
+          "en": "This here is now a function.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 169.16,
+          "end": 174.86,
+          "en": "So create event dispatcher itself returns a function which you can call the function is stored in the",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 174.86,
+          "end": 178.37,
+          "en": "dispatch constant and now here in onClick.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 178.97,
+          "end": 180.29,
+          "en": "Add to cart.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 180.32,
+          "end": 186.8,
+          "en": "We can either assign a in-line handler or we create a full flex function here.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 187.63,
+          "end": 188.74,
+          "en": "Let's maybe do that.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 188.74,
+          "end": 194.68,
+          "en": "Add to Cart in there, we can just call dispatch and now dispatch our own event.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 194.8,
+          "end": 197.57,
+          "en": "Dispatch takes two important arguments here.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 197.59,
+          "end": 202.77,
+          "en": "The first is the name of your event and that could be add to Cart.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 202.78,
+          "end": 206.86,
+          "en": "So this is the name of the event to which we can listen here.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 206.86,
+          "end": 211.48,
+          "en": "So here I try listening to the add to cart event.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 211.51,
+          "end": 213.76,
+          "en": "Hence we should name the event such here.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 214.15,
+          "end": 220.21,
+          "en": "You can also optionally pass a second argument which is any event data you want to pass along.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 220.21,
+          "end": 221.71,
+          "en": "Something like the product ID.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 222.07,
+          "end": 226.69,
+          "en": "This can be anything can be text, it can be a number, it can be an array, it can be a JavaScript",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 226.69,
+          "end": 231.97,
+          "en": "object, maybe something like this object with an ID of P1, whatever you want.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 232,
+          "end": 233.59,
+          "en": "You can pass your own data here.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 234.1,
+          "end": 240.79,
+          "en": "Now we can hook up, add to cart here as a function to be executed and for delete, I'll do the same",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 240.79,
+          "end": 241.03,
+          "en": "here.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 241.03,
+          "end": 244.45,
+          "en": "I'll just use the inline syntax to show both there.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 244.45,
+          "end": 246.25,
+          "en": "You can also call dispatch.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 246.28,
+          "end": 253.64,
+          "en": "I'll name the event delete because delete is also what I'm listening for here on my product component.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 254.29,
+          "end": 260.65,
+          "en": "And again here you can also pass additional arguments like here P1, maybe just the ID as a string instead",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 260.65,
+          "end": 262.12,
+          "en": "of wrapped in an object.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 262.12,
+          "end": 264.64,
+          "en": "Again, you're free to pass any data you want.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 265.42,
+          "end": 271.69,
+          "en": "Now let me go back to App Svelte and here where I do throw this alert.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 272.4,
+          "end": 276.27,
+          "en": "Please note that we have different texts in the alerts and let's see if this now works.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 276.3,
+          "end": 280.74,
+          "en": "If I now click Add to Cart, I see add to Cart as a text here.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 280.77,
+          "end": 283.59000000000003,
+          "en": "If I click delete I see delete.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 283.74,
+          "end": 290.01,
+          "en": "So this is how you can emit your own custom events and this allows you to really communicate between",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 290.01,
+          "end": 292.32,
+          "en": "your components in a very easy way.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14689606",
+      "title": "How to Extract Event Data",
+      "lectureOrder": 59,
+      "videoOrder": 51,
+      "sourceHash": "21acd3e9238f4aa52246ddb2347704075a30871c76af6b9b5bd5c3965dbfc0ac",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.06,
+          "end": 5.3,
+          "en": "Now, of course, our custom events hold some data right here.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.3,
+          "end": 7.85,
+          "en": "I'm sharing a JavaScript object down there.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.85,
+          "end": 8.96,
+          "en": "I have a string.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.99,
+          "end": 13.76,
+          "en": "Typically you want to extract that data in the place where you handle the event.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 13.76,
+          "end": 19.4,
+          "en": "So here in the app svelte file for this I'll add a new function add to Cart.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.43,
+          "end": 20.63,
+          "en": "The name is totally up to you.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 20.63,
+          "end": 22.73,
+          "en": "You don't have to name that add to cart.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 23.29,
+          "end": 31,
+          "en": "And in there just as on a normal Dom event, I receive an event object because svelte creates a custom",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 31,
+          "end": 37.84,
+          "en": "event and custom events are actually a feature built into browsers, so it's not something proxied or",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 37.84,
+          "end": 39.01,
+          "en": "added by svelte.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 39.04,
+          "end": 40.99,
+          "en": "This is a default browser feature.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 41.14,
+          "end": 47.44,
+          "en": "You get a complete event object and I'd say let's simply console.log the full object so that we can",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 47.44,
+          "end": 48.37,
+          "en": "have a look at it.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 48.4,
+          "end": 51.88,
+          "en": "Let's do the same for the delete.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 53.06,
+          "end": 53.8,
+          "en": "Event here.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 53.84,
+          "end": 54.24,
+          "en": "There.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 54.26,
+          "end": 57.83,
+          "en": "I also want to console log the full object.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 59.45,
+          "end": 64.1,
+          "en": "And since delete is a keyword, let's name it delete product.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 64.84,
+          "end": 71.14,
+          "en": "Now down there, instead of throwing alerts, I'll connect these functions by assigning those to my",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 71.14,
+          "end": 72.34,
+          "en": "events here.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 73.47,
+          "end": 79.11,
+          "en": "Delete product like this again without parentheses, just like that, so that they are executed for",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 79.11,
+          "end": 81.24,
+          "en": "us when the event occurs.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 81.3,
+          "end": 83.43,
+          "en": "And now let's click Add to Cart.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 83.67,
+          "end": 88.2,
+          "en": "You see, we get an object of type custom event and there is a bunch of information in it.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 88.2,
+          "end": 95.4,
+          "en": "This is all generated automatically and most importantly, there is a detail property and that holds",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 95.4,
+          "end": 98.00999999999999,
+          "en": "the data you are emitting in this case.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 98.03999999999999,
+          "end": 104.07,
+          "en": "As you can see, it holds a JavaScript object with the ID property, which in turn holds P1.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 104.07,
+          "end": 110.19,
+          "en": "And that is exactly the data I'm emitting here for adding it to a cart for deleting.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 110.19,
+          "end": 116.00999999999999,
+          "en": "I'm just emitting a string, so when I click delete, we should just see that we have a full event object",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 116.00999999999999,
+          "end": 118.68,
+          "en": "and under detail we have just the string.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 118.68,
+          "end": 120.89,
+          "en": "So this is how you can extract your event data.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 120.9,
+          "end": 128.07,
+          "en": "Then in the end you can simply call event dot detail and this gives you access to your event detail",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 128.07,
+          "end": 128.73,
+          "en": "data.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 128.91,
+          "end": 130.29,
+          "en": "So now if I.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 131.2,
+          "end": 131.56,
+          "en": "Delete.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 131.56,
+          "end": 136.73,
+          "en": "Again, I just print this because now I'm just accessing the detail property.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 136.75,
+          "end": 141.55,
+          "en": "This is how you can extract data from your custom events and with that you have all the tools you need",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 141.57999999999998,
+          "end": 145.75,
+          "en": "to pass data up the component tree instead of just down.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14689610",
+      "title": "Using Spread Props & Default Props",
+      "lectureOrder": 60,
+      "videoOrder": 52,
+      "sourceHash": "6d9304a0a61a922166993a48e666b68afff2c113f46476461f1af2e69a228b97",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.3,
+          "end": 8.27,
+          "en": "Now that we learned about events, we have all the tools we need to pass data down with props and pass",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.27,
+          "end": 10.16,
+          "en": "data up with events.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.16,
+          "end": 14.18,
+          "en": "This is how components communicate from child to parent component.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 14.18,
+          "end": 18.8,
+          "en": "So from product to app, in this case, with events and from parent to child.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 18.8,
+          "end": 21.86,
+          "en": "So from app to product here with props.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.16,
+          "end": 27.38,
+          "en": "Now let's dig deeper into props in the product Svelte file, I'm accepting one prop.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 27.38,
+          "end": 32.24,
+          "en": "You learned that you set up props with the export keyword here and that's product title.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 32.27,
+          "end": 34.67,
+          "en": "Let me just name this title.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 34.74,
+          "end": 36.98,
+          "en": "Let me also add another one price.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 37.01,
+          "end": 39.05,
+          "en": "So we have title and price to props here.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 39.05,
+          "end": 41.6,
+          "en": "And of course, you could have as many props as you want.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 42.05,
+          "end": 48.8,
+          "en": "Now here I'll therefore output the title and thereafter with the H2 tag, I'll output the price, maybe",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 48.8,
+          "end": 50.6,
+          "en": "with a dollar sign in front of it.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 51.45,
+          "end": 52.65,
+          "en": "That is normal text here.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 52.65,
+          "end": 54.39,
+          "en": "It's not svelte syntax.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 54.39,
+          "end": 56.07,
+          "en": "This is the only oops.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 57.09,
+          "end": 58.95,
+          "en": "This is the only svelte syntax here.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 59.19,
+          "end": 63.69,
+          "en": "So we got to props and of course we can pass that down from app as well.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 63.72,
+          "end": 65.25,
+          "en": "Here we pass a title.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 66.26,
+          "end": 68.51,
+          "en": "And we pass our price.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 69.57,
+          "end": 74.85,
+          "en": "Since there should be a number maybe like this so that I don't wrap it in quotes, but as a dynamic",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 74.85,
+          "end": 78.02,
+          "en": "value, which I can do by wrapping it in curly braces.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 78.03,
+          "end": 85.59,
+          "en": "Because remember, inside of curly braces in places where output data is expected, you can add text",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 85.59,
+          "end": 90.12,
+          "en": "like, I'm doing it here without curly braces then, or just the number like I'm doing it here.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 90.33,
+          "end": 96.18,
+          "en": "This would also be valid, but if you want to pass down a string then this here is shorter.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 96.33,
+          "end": 99.50999999999999,
+          "en": "But that's not even the main thing I want to talk about here.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 99.50999999999999,
+          "end": 105.03,
+          "en": "Instead, let's assume we have that data in an object, which certainly is a reasonable expectation.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 105.03,
+          "end": 110.72999999999999,
+          "en": "We could have a products array, after all, where we got a bunch of products in it, and each product,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 110.72999999999999,
+          "end": 116.75999999999999,
+          "en": "let's say, is represented in a JavaScript object with maybe an ID, and then most importantly, with",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 116.75999999999999,
+          "end": 120.36,
+          "en": "a title and a price, something like this.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 120.36,
+          "end": 125.64,
+          "en": "Here I only have one product, but of course you could have as many as you want and then down there",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 125.64,
+          "end": 127.77,
+          "en": "you could use each loop.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 129.13,
+          "end": 133.81,
+          "en": "To go through your products, close that once you're done.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 134.41,
+          "end": 136.24,
+          "en": "And we replicate this for every product.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 136.24,
+          "end": 142.6,
+          "en": "And then here we're passing the title, which is product dot title, and here we're passing the price.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 143.37,
+          "end": 150.51,
+          "en": "Which is product price and products again, is this variable up there.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 152.02,
+          "end": 153.04,
+          "en": "For save that.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 153.07,
+          "end": 155.17000000000002,
+          "en": "Unsurprisingly, it works, of course.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 155.17000000000002,
+          "end": 156.91,
+          "en": "As do our buttons.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 157.7,
+          "end": 163.91,
+          "en": "But what I want to show you here is a little convenience shortcut you can use if you have an object",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 163.94,
+          "end": 172.25,
+          "en": "where the properties you have here match the props the product expects or the item, the component you",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 172.25,
+          "end": 173.47,
+          "en": "have expects.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 173.48,
+          "end": 179.15,
+          "en": "Then you can pass it down like this, but you can also use a shortcut and just use curly braces like",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 179.15,
+          "end": 183.41,
+          "en": "that directly on the component element, selector on the tag here.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 183.65,
+          "end": 189.98,
+          "en": "And then use the spread operator these three dots and then your object.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 189.98,
+          "end": 191.93,
+          "en": "So here product is an object.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 191.96,
+          "end": 197.9,
+          "en": "Now what will happen is the same thing as always happens when you use the spread operator on an object.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 197.9,
+          "end": 204.59,
+          "en": "JavaScript pulls the key value, pairs out of this object and adds them normally to a new object.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 204.62,
+          "end": 210.53,
+          "en": "Here, Svelte automatically adds them as prop value pairs to this component.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 210.53,
+          "end": 217.56,
+          "en": "So now these three key value pairs are automatically passed down as props to product.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 217.56,
+          "end": 224.94,
+          "en": "So we pass it with P1 title, with book and price with 999 down as props to product.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 225.24,
+          "end": 229.11,
+          "en": "And if we save that, therefore it works as before.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 229.14,
+          "end": 235.32,
+          "en": "Now as a side note, you might be wondering why this is working since I'm passing down ID and I'm not",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 235.32,
+          "end": 241.5,
+          "en": "expecting ID here, you can pass down props here, not expecting you just can't use them here in product",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 241.5,
+          "end": 245.4,
+          "en": "so you won't get an error, but you also don't really use them here.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 245.4,
+          "end": 252.57,
+          "en": "But you don't have to manually remove the ID before you can use this trick just to pass down the rest",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 252.57,
+          "end": 253.5,
+          "en": "of this object.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 253.5,
+          "end": 255.75,
+          "en": "This works just as you can see here.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 256.19,
+          "end": 261.62,
+          "en": "Being able to spread props like this can be very useful if you have a huge object with a lot of key",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 261.62,
+          "end": 268.49,
+          "en": "value pairs which you need to pass down in exactly, or pretty much exactly the same way to your component.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 268.49,
+          "end": 275.36,
+          "en": "Just make sure that of course, your property names here have to exactly match the prop names you have",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 275.36,
+          "end": 276.32,
+          "en": "in your component.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 276.32,
+          "end": 280.76,
+          "en": "If you have an extra property like the ID here, which you don't need, that's no problem.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 280.76,
+          "end": 285.65,
+          "en": "But if we had titles here, then this of course would not reach the title prop.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 285.65,
+          "end": 287.27,
+          "en": "So that is important.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 287.63,
+          "end": 295.58,
+          "en": "You also might have the other scenario that you have a prop which you don't necessarily need.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 295.61,
+          "end": 303.77,
+          "en": "For example, we could have a highlighted or maybe here a best seller prop, and if we have a best seller",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 303.77,
+          "end": 306.95,
+          "en": "item, then we want to display something special.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 306.98,
+          "end": 313.01,
+          "en": "Maybe here I add a if tag and check if best seller is true ish.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 313.34,
+          "end": 321,
+          "en": "And inside of this, if it is true, I'll add an extra H3 tag where I say best seller something like",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 321,
+          "end": 321.6,
+          "en": "this.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 321.75,
+          "end": 326.73,
+          "en": "This is not strictly required because if we don't pass the best seller prop, then this is simply not",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 326.73,
+          "end": 329.67,
+          "en": "output, which is just fine for me and therefore it works.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 329.67,
+          "end": 333.24,
+          "en": "But we still get a warning here, so not an error.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 333.27,
+          "end": 335.28,
+          "en": "It works, but a warning.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 335.28,
+          "end": 338.88,
+          "en": "And of course it would be nice to have an application without warnings.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 338.88,
+          "end": 343.8,
+          "en": "And you might remember that it is this warning which we also saw in the course project.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 343.89,
+          "end": 347.94,
+          "en": "So here product was created without expected prop best seller.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 347.97,
+          "end": 352.62,
+          "en": "The reason for that is that we don't tell svelte that this is an optional prop.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 352.62,
+          "end": 358.26,
+          "en": "Thankfully it doesn't break the app automatically, but still it would be better if we inform Svelte",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 358.26,
+          "end": 360.39,
+          "en": "about the fact that this is optional.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 360.72,
+          "end": 363.51,
+          "en": "We can do this by assigning a default value.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 363.54,
+          "end": 368.1,
+          "en": "You do this by simply adding an equals sign here when you define your props with the export keyword",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 368.1,
+          "end": 373.53,
+          "en": "and then assigning a value you want to use in case this prop is not received from the parent.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 373.56,
+          "end": 375.18,
+          "en": "In this case it could be false.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 375.21,
+          "end": 380.49,
+          "en": "In other cases, the default could be a string, a number, maybe an object, maybe an array.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 380.49,
+          "end": 385.11,
+          "en": "Anything is allowed, any value you could normally receive as a prop anyways.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 385.74,
+          "end": 390.36,
+          "en": "If you do that, you see the warning is gone and the app still works as before.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 390.48,
+          "end": 397.59000000000003,
+          "en": "Side note if I set this to true, we of course have the best seller label here on every product because",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 397.59000000000003,
+          "end": 399.99,
+          "en": "this default value is indeed used.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 400.02,
+          "end": 406.11,
+          "en": "If the prop is not explicitly set on the parent component and I am not setting the best seller prop",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 406.11,
+          "end": 411.06,
+          "en": "here on product because I'm not doing it here and it's also not part of the product object.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 411.06,
+          "end": 413.82,
+          "en": "There is no best seller key value pair in here.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14689612",
+      "title": "Working with Slots",
+      "lectureOrder": 61,
+      "videoOrder": 53,
+      "sourceHash": "cc9c4e66c1cc9aba1b07f3549546b848795c3f391532fe698a111ec7c65076a1",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.14,
+          "end": 3.43,
+          "en": "We're almost done.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.43,
+          "end": 10.33,
+          "en": "But now I want to dive into a super important topic, a super important concept that can really help",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.33,
+          "end": 15.4,
+          "en": "you build more reusable components, and that would be slots.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 15.43,
+          "end": 16.99,
+          "en": "Now, what are slots?",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.5,
+          "end": 26.95,
+          "en": "Slots are placeholders in your component markup, so to say in your component HTML code where our components",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 26.95,
+          "end": 31.81,
+          "en": "parent components using your component can insert their own markup.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 31.99,
+          "end": 35.41,
+          "en": "Let's consider a modal component in the modal component.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 35.44,
+          "end": 43.33,
+          "en": "We just might want to provide a frame, maybe just the backdrop, and then the border slide box shadow",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 43.33,
+          "end": 44.32,
+          "en": "some padding.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 44.32,
+          "end": 47.05,
+          "en": "But we really don't care about the content in the modal.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 47.05,
+          "end": 53.26,
+          "en": "We don't want to force an opinion on the developer who uses this modal component because we might want",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 53.26,
+          "end": 56.53,
+          "en": "to use that modal component in many different places of our app.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 56.53,
+          "end": 60.67,
+          "en": "In one place we maybe want to show a sign up form in another place.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 60.67,
+          "end": 65.18,
+          "en": "We want to show a warning message, two totally different things, but the frame should always be the",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 65.18,
+          "end": 65.84,
+          "en": "same.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 66.02,
+          "end": 71.06,
+          "en": "And for that we can reserve certain slots in a component with a special syntax, which you of course",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 71.06,
+          "end": 71.81,
+          "en": "will learn.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 72.08,
+          "end": 76.52,
+          "en": "We could reserve a header, a content and a footer slot.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 76.52,
+          "end": 77.72,
+          "en": "Anything goes.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 77.75,
+          "end": 79.55,
+          "en": "This is the idea of slots.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 79.59,
+          "end": 81.11,
+          "en": "Now let's see how we use them.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 81.96000000000001,
+          "end": 84.23,
+          "en": "Back in our little demo project here.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 84.24,
+          "end": 86.88,
+          "en": "Let's take the modal as an example.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 86.88,
+          "end": 90.69,
+          "en": "The button would also be an example, the button we used in the course project.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 90.69,
+          "end": 94.28999999999999,
+          "en": "And we'll come back to this button when we work on the course project.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 94.28999999999999,
+          "end": 102.09,
+          "en": "But now for the Modal, as I said, a modal could in its simplest form be all about two divs, one div",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 102.12,
+          "end": 104.19,
+          "en": "for the modal and one for the backdrop.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 104.19,
+          "end": 106.53,
+          "en": "And then we could add a bunch of styles here.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 106.53,
+          "end": 112.92,
+          "en": "And here we have a class of backdrop and this is a class or an ID of modal.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 113.03999999999999,
+          "end": 119.7,
+          "en": "Then here in the styles you can bring in some styles that make up for a nicely looking modal.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 120.7,
+          "end": 121.18,
+          "en": "Attached.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 121.18,
+          "end": 124.54,
+          "en": "You find a CSS file with some styles you can just copy in there.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 125.45,
+          "end": 128.48,
+          "en": "This just makes sure that you should have a nicely looking modal.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 128.48,
+          "end": 129.86,
+          "en": "And with that.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 131.51,
+          "end": 135.23,
+          "en": "We have a nice container which could hold anything we want.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 135.44,
+          "end": 137.48,
+          "en": "Now, of course we could use a prop.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 137.48,
+          "end": 139.22,
+          "en": "We could then output.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 140.26,
+          "end": 143.32,
+          "en": "Some text here or some content, whatever you want to name it.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 143.35,
+          "end": 149.86,
+          "en": "Now we just need to add a script tag up there and in here we can export let content like this.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 150.13,
+          "end": 154.16,
+          "en": "And now here's our modal with the content inside of the div.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 154.18,
+          "end": 161.11,
+          "en": "Now we can go to the app svelte file, import the modal from the modal svelte file.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 161.29,
+          "end": 165.1,
+          "en": "And then here let's add modal like this.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 168.05,
+          "end": 169.42000000000002,
+          "en": "Self closing tag.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 169.43,
+          "end": 173.99,
+          "en": "And here content could be high and if we save that.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 174.6,
+          "end": 175.71,
+          "en": "Here's the modal.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 175.74,
+          "end": 177.14,
+          "en": "This is the modal screen.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 177.15,
+          "end": 181.22,
+          "en": "Let me actually add some padding to that modal here, to that style.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 181.23,
+          "end": 185.43,
+          "en": "So here, modal, let's give it a padding of, let's say one REM.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 186.18,
+          "end": 190.97,
+          "en": "So this could be our modal Nice, but we can't close it.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 190.98,
+          "end": 192.15,
+          "en": "You can ignore this for now.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 192.15,
+          "end": 195.42,
+          "en": "But of course, the downside here is that this is just some text.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 195.84,
+          "end": 199.11,
+          "en": "Now, of course, you could say that's no issue, right?",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 199.11,
+          "end": 205.65,
+          "en": "We learned that we can output HTML to all we have to do in the modal is we have to add at HTML in front",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 205.65,
+          "end": 212.7,
+          "en": "of this and then we can go back to the app svelte file and all of a sudden here we can start using HTML",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 212.7,
+          "end": 214.32,
+          "en": "and it will be output as such.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 214.32,
+          "end": 215.31,
+          "en": "And it is.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 215.49,
+          "end": 218.36,
+          "en": "But does this look like syntax you want to use?",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 218.37,
+          "end": 220.53,
+          "en": "Doesn't really look like that to me.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 220.56,
+          "end": 225.27,
+          "en": "Using or writing our HTML code here in the string and then outputting it like this.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 225.27,
+          "end": 230.28,
+          "en": "This is not only vulnerable to cross-site scripting attacks at least.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 230.28,
+          "end": 234.75,
+          "en": "Maybe it's also simply not how I as a developer want to work with that.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 234.75,
+          "end": 238.74,
+          "en": "And keep in mind that these components are there for us developers, not for the users.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 238.74,
+          "end": 240.03,
+          "en": "This is what the user sees.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 240.03,
+          "end": 244.83,
+          "en": "The user doesn't care how we build this, but we as a developer want to have a good time to.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 244.86,
+          "end": 250.27,
+          "en": "We want to write our apps in a way that is fun and easy so that we can focus on the difficult business",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 250.27,
+          "end": 255.31,
+          "en": "logic questions and not on the trivial stuff like rendering a modal here.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 255.88,
+          "end": 263.68,
+          "en": "Therefore, it would be much nicer if we could actually use a opening and closing tags and simply add",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 263.68,
+          "end": 268.6,
+          "en": "our content in here just as we can do it for normal HTML code too.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 268.63,
+          "end": 272.23,
+          "en": "We can add a div with H1 tag in there.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 272.23,
+          "end": 275.68,
+          "en": "So why can't we do this for our own components?",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 275.83,
+          "end": 277.09000000000003,
+          "en": "Well, turns out we can.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 277.12,
+          "end": 279.01,
+          "en": "Let me get rid of that div first.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 279.28,
+          "end": 283.84000000000003,
+          "en": "We can simply add our content here between the opening and closing tag.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 283.87,
+          "end": 290.95,
+          "en": "But now you see undefined here and that simply stems from the content which I'm not setting anymore.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 290.95,
+          "end": 293.8,
+          "en": "If I get rid of that and also get rid of the prop up there.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 293.83,
+          "end": 295.63,
+          "en": "So now I just have the div here.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 295.65999999999997,
+          "end": 302.62,
+          "en": "Now we have an absolutely empty modal and that makes sense because how should svelte know where to insert",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 302.62,
+          "end": 303.7,
+          "en": "this H1 tag?",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 303.7,
+          "end": 304.54,
+          "en": "It can't.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 304.57,
+          "end": 305.59,
+          "en": "We have to tell it.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 305.59,
+          "end": 308.38,
+          "en": "And that is exactly what we do with the help of a slot.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 308.62,
+          "end": 310.81,
+          "en": "A slot is a special HTML element.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 310.81,
+          "end": 314.92,
+          "en": "It's actually part of the web specification itself.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 314.92,
+          "end": 316.9,
+          "en": "It's not invented by svelte.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 316.93,
+          "end": 321.52,
+          "en": "If you took my web components and Stancil course, you saw slots there too.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 321.55,
+          "end": 323.44,
+          "en": "It's a normal HTML element.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 324.2,
+          "end": 325.33,
+          "en": "Use it like this.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 325.34,
+          "end": 331.73,
+          "en": "You add slot here can also be a self-closing tag here you can use both syntaxes here it auto formatted",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 331.73,
+          "end": 333.62,
+          "en": "it to a self-closing tag.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 333.62,
+          "end": 341.3,
+          "en": "And with this you tell svelte hey, any content between my opening and closing tags of this component",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 341.78,
+          "end": 343.03,
+          "en": "should go here.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 343.04,
+          "end": 345.89,
+          "en": "Therefore now if you go back here is what you see.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 346.49,
+          "end": 354.17,
+          "en": "This, of course is extremely powerful because now you can pass any markup you want into your modal.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 354.17,
+          "end": 357.14,
+          "en": "This works and you can reuse that modal.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 359.01,
+          "end": 362.61,
+          "en": "Here is, uh, the second time with totally different content.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 366.05,
+          "end": 370.91,
+          "en": "Now they're just overlapping each other, but they are both there and you can pass in whatever content",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 370.91,
+          "end": 371.12,
+          "en": "you want.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 371.15,
+          "end": 371.99,
+          "en": "This could be a form.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 371.99,
+          "end": 373.52,
+          "en": "This can be anything you need.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 373.55,
+          "end": 376.79,
+          "en": "Now, let me get rid of that and just have the first modal here.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 377.15,
+          "end": 383.72,
+          "en": "So these are slots, but you can actually do more with them than just pass in content in one place.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14689614",
+      "title": "Named & Default Slots",
+      "lectureOrder": 62,
+      "videoOrder": 54,
+      "sourceHash": "496303f9906259997540f07660193566c0082eac09de70371d47442c3fa1009e",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.17,
+          "end": 4.59,
+          "en": "We learned about a slot and that's very useful.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.6,
+          "end": 10.06,
+          "en": "But sometimes you have multiple places in your component where users should be able to enter something.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.21,
+          "end": 16.42,
+          "en": "Let's say in the modal here you have a header and you have that header because whatever the user passes",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.42,
+          "end": 18.19,
+          "en": "in the header, you don't care about that.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 18.19,
+          "end": 25.12,
+          "en": "But you do know that the header should be a bottom line which separates it from the main content.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 25.12,
+          "end": 30.58,
+          "en": "So therefore here maybe you also have a div with a class of content and inside of that div you want",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 30.58,
+          "end": 32.77,
+          "en": "to have the default slot in the header.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 32.77,
+          "end": 38.68,
+          "en": "You also want to have a slot, but now you need to give the user a way of targeting these slots because",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 38.68,
+          "end": 40.72,
+          "en": "just like this it probably won't work.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 40.72,
+          "end": 43.27,
+          "en": "How would Svelte know where to enter?",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 43.27,
+          "end": 43.93,
+          "en": "What?",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 44.09,
+          "end": 51.52,
+          "en": "That is why you can name your slots, you can add the name, attribute and name this for example header",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 51.52,
+          "end": 59.2,
+          "en": "and you could name this here content, but if you have only named slots and one unnamed slot, then",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 59.2,
+          "end": 65.99,
+          "en": "the unnamed slot will be the default slot for any content that doesn't specifically target a named slot.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 65.99,
+          "end": 70.1,
+          "en": "So we can actually leave it as it is now to target that named slot.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 70.13,
+          "end": 73.58,
+          "en": "We can simply go back and let's say this should go into the header.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 73.82,
+          "end": 78.08,
+          "en": "All we have to do is we have to add slot equal header here.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 78.26,
+          "end": 80.72,
+          "en": "And of course this could be on multiple items.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 80.72,
+          "end": 84.71000000000001,
+          "en": "This could be on a div which wraps multiple items that works.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 85.19,
+          "end": 90.92,
+          "en": "So now just so that we can see the difference, let me go here and let me actually add something to",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 90.92,
+          "end": 91.55,
+          "en": "header.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 91.55,
+          "end": 97.1,
+          "en": "Let me add a border bottom of one pixel solid and a light gray.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 98.25,
+          "end": 102.24000000000001,
+          "en": "With that if we save this, you see, Hello is above that border.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 102.24000000000001,
+          "end": 107.25,
+          "en": "And since it's a border bottom, we can clearly tell that this is well, really above it, that this",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 107.25,
+          "end": 109.38,
+          "en": "has to be inside of this slot.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 109.41,
+          "end": 113.78999999999999,
+          "en": "So this is how you can use named slots and how you can target different slots.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 114.18,
+          "end": 122.49,
+          "en": "Now, kind of related to that, you also sometimes might have slots which can be taken but which might",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 122.49,
+          "end": 123.81,
+          "en": "not be taken.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 123.81,
+          "end": 127.98,
+          "en": "And for this case you can define default content.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 128.25,
+          "end": 134.46,
+          "en": "Let's say you have a folder and in the folder you also want to allow the user to add content.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 134.46,
+          "end": 140.13,
+          "en": "But in case the user does not enter anything, you always want to show a button which closes the modal.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 140.13,
+          "end": 145.62,
+          "en": "So a user can provide his own buttons in case he wants different actions.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 145.62,
+          "end": 151.29,
+          "en": "But if nothing is provided here and therefore we should give this slot a name so that we only have one",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 151.29,
+          "end": 152.28,
+          "en": "unnamed slot.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 152.28,
+          "end": 153.87,
+          "en": "So this is now the folder slot.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 153.87,
+          "end": 157.92000000000002,
+          "en": "But in case nothing is provided for that folder slot, I want to show my own button here.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 158.75,
+          "end": 164.15,
+          "en": "Now, if I save this, I'm not providing anything for the footer slot, only for the header and for",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 164.15,
+          "end": 165.05,
+          "en": "the default.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 165.26,
+          "end": 166.76,
+          "en": "We see the close button.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 167.27,
+          "end": 174.74,
+          "en": "If I do go into the app svelte file and I add my own button and I name this confirm and I do target",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 174.74,
+          "end": 179.63,
+          "en": "my footer slot here, then you see that instead of close we have confirm.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 179.84,
+          "end": 182.75,
+          "en": "And just to make this really clear, confirm is not our default.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 182.75,
+          "end": 183.86,
+          "en": "The default was close.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 183.86,
+          "end": 188.12,
+          "en": "Confirm really is coming from this button which we pass into the footer slot.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 188.88,
+          "end": 192.18,
+          "en": "So this is an extremely useful feature.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 192.18,
+          "end": 199.82999999999998,
+          "en": "Slots together with props and custom events are the free tools that allow you to build extremely powerful",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 199.82999999999998,
+          "end": 206.49,
+          "en": "and versatile components and you will see all these free building blocks in action in the rest of the",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 206.49,
+          "end": 207.3,
+          "en": "course project.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 207.3,
+          "end": 208.29,
+          "en": "Of course, to.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14689616",
+      "title": "Example: Opening & Closing a Modal",
+      "lectureOrder": 63,
+      "videoOrder": 55,
+      "sourceHash": "1a07bfbf6d22743f74accb85e490efc580d2bb4ea3f9f83e48f4fce6dfc13a86",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.19,
+          "end": 7.41,
+          "en": "Now, just to finish this up, this modal here and to practice events again, let's make sure we can",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.41,
+          "end": 9.99,
+          "en": "actually close the modal because right now we can't.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.17,
+          "end": 14.82,
+          "en": "And for that, we also might want to have a way of showing the modal in the first place.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 14.82,
+          "end": 22.14,
+          "en": "So for that, I'll add a button here in the app svelte file and let's add a new variable in here, a",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 22.14,
+          "end": 26.51,
+          "en": "normal variable which could be show modal, which by default is false.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 26.52,
+          "end": 32.52,
+          "en": "And when we click this button here, so on a click, I want to set show modal to true and here because",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.52,
+          "end": 36.42,
+          "en": "I'm lazy, I'll just use the inline version and set show modal to true.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 36.45,
+          "end": 42.96,
+          "en": "Now with that, all we have to do is wrap that modal in a if check and only if show modal is true.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 43.41,
+          "end": 46.44,
+          "en": "Only then this will be added to the dom.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 46.47,
+          "end": 47.91,
+          "en": "Otherwise it's not added.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 47.91,
+          "end": 50.94,
+          "en": "It's a regular svelte if block.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 51.09,
+          "end": 52.14,
+          "en": "So now we don't see it.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 52.14,
+          "end": 53.97,
+          "en": "But if I click show modal, here it is.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 54.24,
+          "end": 55.38,
+          "en": "Now we want to close it.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 55.38,
+          "end": 60.36,
+          "en": "When I click the backdrop or when I click the confirm or the default close button.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 60.78,
+          "end": 63.91,
+          "en": "Now let's start with the backdrop and the default close button.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 63.91,
+          "end": 65.05,
+          "en": "For this.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 65.05,
+          "end": 66.46,
+          "en": "I want to emit my own event.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 66.46,
+          "end": 69.03999999999999,
+          "en": "I want to emit my own cancel event.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 69.67,
+          "end": 70.93,
+          "en": "So let's go here.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 70.93,
+          "end": 80.74,
+          "en": "Let's import create event dispatcher to practice this again from Svelte, let's create a dispatch constant",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 80.74,
+          "end": 82.87,
+          "en": "and store this event.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 82.87,
+          "end": 84.46000000000001,
+          "en": "Dispatcher function in it.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 84.61,
+          "end": 86.8,
+          "en": "And then here when we click the backdrop.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 87.53999999999999,
+          "end": 88.71000000000001,
+          "en": "We can.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 90.38,
+          "end": 91.76,
+          "en": "Emit our own event.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 92.64,
+          "end": 97.35,
+          "en": "By calling dispatch and maybe name this cancel because we clicked the backdrop.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 97.35,
+          "end": 100.32,
+          "en": "And then let's say maybe it matters to our application.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 100.32,
+          "end": 105.84,
+          "en": "When we click the button, we also emit our own custom event, but it's not called cancel, but it's",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 105.84,
+          "end": 109.59,
+          "en": "called close because maybe closing is different than canceling in the app here.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 109.59,
+          "end": 111.9,
+          "en": "It isn't, but of course it could be in your app.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 111.9,
+          "end": 115.11,
+          "en": "So here I'm emitting close the close event up there.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 115.11,
+          "end": 118.59,
+          "en": "I'm emitting cancel now in app svelte.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 118.68,
+          "end": 124.23,
+          "en": "We now just have to listen to that on the modal component here we can listen to on cancel.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 124.76,
+          "end": 128.09,
+          "en": "And we can listen to on close because we're emitting these two events.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 128.18,
+          "end": 132.35,
+          "en": "Now, of course, here I want to do the same thing on both events, but that's just how it is in this",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 132.35,
+          "end": 132.8,
+          "en": "app.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 132.8,
+          "end": 135.95,
+          "en": "So in both cases I want to set show modal to false.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 137.86,
+          "end": 140.41,
+          "en": "Do that here as well.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 141.7,
+          "end": 145.75,
+          "en": "And when we click this confirm button here, well, I want to do exactly the same.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 145.75,
+          "end": 149.95,
+          "en": "So here it's a normal on click listener because this is a normal button on which I'm registering it.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 149.98,
+          "end": 151.36,
+          "en": "That's also important.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 151.39,
+          "end": 157.84,
+          "en": "Just because you're passing this content into the slot of another component does not mean that you can",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 157.84,
+          "end": 160.32999999999998,
+          "en": "only interact with it from inside this component.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 160.32999999999998,
+          "end": 162.37,
+          "en": "Indeed, you can't easily do that.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 162.37,
+          "end": 167.92000000000002,
+          "en": "Instead, here you still interact from inside the component where the markup is defined, even if it",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 167.92000000000002,
+          "end": 170.82999999999998,
+          "en": "then technically is passed into another component.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 170.82999999999998,
+          "end": 178.39,
+          "en": "So here I still set up my click listener there and pass in exactly the same function code as I have",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 178.39,
+          "end": 179.17000000000002,
+          "en": "up there.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 179.17000000000002,
+          "end": 185.62,
+          "en": "So now if we do that show modal, click the backdrop and close it, click confirm and close it.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 185.62,
+          "end": 191.38,
+          "en": "And in case we would not provide our button here, the default should be shown the default close button",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 191.38,
+          "end": 193.24,
+          "en": "and that also closes the modal.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 193.24,
+          "end": 195.67,
+          "en": "So opening and closing, that works.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14689618",
+      "title": "Using Slot Props",
+      "lectureOrder": 64,
+      "videoOrder": 56,
+      "sourceHash": "c5ec7d20cb0f39673fc41cf2509b80b6ad22b755230cd5ea79b2afaee7661c86",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.01,
+          "end": 11.46,
+          "en": "Now, an advanced scenario could be that you want to control data that you pass into a component into",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 11.46,
+          "end": 14.55,
+          "en": "a slot from inside that component.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 14.58,
+          "end": 20.07,
+          "en": "Now, what could be an example, for example, and that's of course a bit made up, but let's say we",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 20.07,
+          "end": 24.54,
+          "en": "had a div in here which holds a disclaimer.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 25.68,
+          "end": 26.91,
+          "en": "Where we say.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 27.68,
+          "end": 32.69,
+          "en": "Before you close, you need to agree to our terms.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 33.2,
+          "end": 38.87,
+          "en": "Then here we have a button where we say Agree and we need to press this button here before we actually",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 38.87,
+          "end": 41.1,
+          "en": "enable the close button.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 41.12,
+          "end": 44.99,
+          "en": "Now, of course, for the default button, we can easily handle this from inside the modal because it",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 44.99,
+          "end": 45.97,
+          "en": "is inside of the modal.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 45.98,
+          "end": 50.51,
+          "en": "But what about the footer content passed into from outside?",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 51.11,
+          "end": 53.78,
+          "en": "So here, first of all, we need a new variable.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 54.35,
+          "end": 55.01,
+          "en": "Agreed.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 55.01,
+          "end": 56.96,
+          "en": "And that is false initially.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 57.02,
+          "end": 59.54,
+          "en": "And when this button here is clicked.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 61.47,
+          "end": 63.78,
+          "en": "Then I set agreed to.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 63.81,
+          "end": 64.36,
+          "en": "True.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 64.38,
+          "end": 70.71000000000001,
+          "en": "So this is the part where I now want to enable this button, which is easy, but also potentially enable",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 70.71000000000001,
+          "end": 74.58,
+          "en": "a button that lives outside of this modal.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 74.76,
+          "end": 79.26,
+          "en": "So for this button we simply set disabled here equal to.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 81.23,
+          "end": 82.37,
+          "en": "Not agreed.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 82.37,
+          "end": 85.03999999999999,
+          "en": "If you didn't agree yet, then this is disabled.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 85.52,
+          "end": 88.37,
+          "en": "Now let me show this with the default.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 88.37,
+          "end": 91.07,
+          "en": "So let's comment out this custom button here first.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 91.5,
+          "end": 92.27000000000001,
+          "en": "Now show the modal.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 92.27000000000001,
+          "end": 93.44,
+          "en": "This is disabled.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 93.47,
+          "end": 96.22999999999999,
+          "en": "If I click agree, it's enabled and now I can close.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 96.22999999999999,
+          "end": 97.64,
+          "en": "I want to have the same behavior.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 97.64,
+          "end": 103.31,
+          "en": "If I do pass in my own data and for that I need to pass data back from inside the modal to the parent",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 103.31,
+          "end": 104.66,
+          "en": "component where I use it.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 105.02000000000001,
+          "end": 108.11,
+          "en": "And Svelte has a special syntax for that.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 109.2,
+          "end": 111.72,
+          "en": "On the modal component here.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 111.72,
+          "end": 117.78,
+          "en": "So in the place where we use the modal, we can get access to variables that we manage inside of the",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 117.78,
+          "end": 118.02000000000001,
+          "en": "modal.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 118.02000000000001,
+          "end": 125.16,
+          "en": "So inside of the component to which we pass data into its slots, you get access to this with the special",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 125.16,
+          "end": 132.48,
+          "en": "Let directive that is a syntax understood by svelte, then a colon and then a name.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 132.72,
+          "end": 138.48,
+          "en": "And the name has to be defined here in the component that has the slots on the slot itself.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 138.48,
+          "end": 145.44,
+          "en": "So here on this footer slot where I want to pass the information back here, we could name it did agree",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 145.44,
+          "end": 148.74,
+          "en": "the name is up to you and the value is agreed.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 148.74,
+          "end": 154.29,
+          "en": "So the value is the value of this agreed variable in the modal component and I'm passing this into a",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 154.29,
+          "end": 155.88,
+          "en": "did agree prop.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 155.88,
+          "end": 162.57,
+          "en": "However, a slot of course has no prop, but it's funneled back to the parent component by svelte.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 162.57,
+          "end": 170.38,
+          "en": "And here we can now extract it after the colon of let on the component that has the slot did not agree.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 171.49,
+          "end": 173.92000000000002,
+          "en": "Okay, so here we get access to the value of the degree.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 173.92000000000002,
+          "end": 179.14,
+          "en": "And now on the right side of the equal sign, we store that in a new variable which is now defined in",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 179.14,
+          "end": 180.07,
+          "en": "the parent component.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 180.07,
+          "end": 187.18,
+          "en": "So in the app svelte file here, we could have a new variable Closable.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 189.11,
+          "end": 190.85,
+          "en": "Which initially is false.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 193.42,
+          "end": 195.01,
+          "en": "And want to set this to true here.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 195.01,
+          "end": 197.14,
+          "en": "So I bind closable to did agree.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 197.14,
+          "end": 199.94,
+          "en": "And if we did agree closable becomes true.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 199.96,
+          "end": 202.27,
+          "en": "Now this button here should be disabled.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 202.27,
+          "end": 204.4,
+          "en": "Therefore I add the disabled.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 205.07999999999998,
+          "end": 208.74,
+          "en": "Attribute if it's not closable.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 210.46,
+          "end": 213.61,
+          "en": "We now save that and I show that model.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 213.61,
+          "end": 215.47,
+          "en": "You see, it's disabled.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 215.5,
+          "end": 217.6,
+          "en": "If I click agree, it's enabled.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 217.87,
+          "end": 221.14,
+          "en": "Now this flow can be complex to wrap your head around.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 221.17000000000002,
+          "end": 226.99,
+          "en": "It's a way of passing data back from the component that has the slots to the component that uses the",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 226.99,
+          "end": 227.8,
+          "en": "slots.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 227.89,
+          "end": 231.54,
+          "en": "So here modal component is the component that has the slots.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 231.55,
+          "end": 236.66,
+          "en": "And for this slot, the footer slot, we want to pass back information to the parent component.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 236.68,
+          "end": 241.99,
+          "en": "Hence we add a normal property to the slot element, which of course doesn't really accept.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 241.99,
+          "end": 247.72,
+          "en": "That name is the only property the slot normally takes and that therefore is also a reserved property",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 247.75,
+          "end": 251.29,
+          "en": "name, but did agree is normally not understood.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 251.41,
+          "end": 257.2,
+          "en": "But we can extract the value which we do pass to the degree which in this case is the value stored in",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 257.2,
+          "end": 258.82,
+          "en": "the agreed property.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 258.85,
+          "end": 265.45,
+          "en": "We can extract that value in the place where we do pass data into that footer slot, which here is the",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 265.45,
+          "end": 266.47,
+          "en": "app svelte file.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 266.5,
+          "end": 272.75,
+          "en": "Here I'm passing data into the footer slot and there we extract this on the overall component, so not",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 272.78,
+          "end": 278.18,
+          "en": "on the element that receives the footer slot, but on the overall component that has the slot.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 278.18,
+          "end": 281.63,
+          "en": "So the modal component with the special let directive.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 281.65999999999997,
+          "end": 286.58,
+          "en": "Then the name of the property we used on one of the slots in that component.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 286.58,
+          "end": 290.03,
+          "en": "So here on this slot in the modal component, we use the degree.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 290.06,
+          "end": 296.54,
+          "en": "So I can extract it by that name and then bind it to a new variable which is managed inside of the parent",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 296.54,
+          "end": 297.05,
+          "en": "component.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 297.05,
+          "end": 301.49,
+          "en": "So inside of the app component here, the Closable component and the Closable variable.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 301.49,
+          "end": 306.29,
+          "en": "And now we can use that Closable variable just as before anywhere in this component.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 306.29,
+          "end": 309.56,
+          "en": "And here I'm using it to enabling or disabling this button.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 309.59,
+          "end": 317.36,
+          "en": "This is how this works and slot props are a very useful feature which you definitely should be aware",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 317.36,
+          "end": 324.77,
+          "en": "of because they aren't use that often probably, but they allow you to build very powerful things.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14689620",
+      "title": "The Component Lifecycle - Theory",
+      "lectureOrder": 65,
+      "videoOrder": 57,
+      "sourceHash": "1fe5360d86492798f31ca517d725aa5ecf5220cd4deb5ed6f7a59ae8e8a4a64f",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.1,
+          "end": 4.23,
+          "en": "Now, did we learn about slot props?",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.23,
+          "end": 8.76,
+          "en": "I want to conclude this module by having a look at the life cycle of such a component.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.79,
+          "end": 15.18,
+          "en": "Thus far we only use components and they always were there or they were not there depending on whether",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 15.18,
+          "end": 19.68,
+          "en": "we wrapped them with if and the condition was true or false or if we just use them like this.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 19.8,
+          "end": 22.32,
+          "en": "Now a component actually has a life cycle.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.97,
+          "end": 26.78,
+          "en": "The creation lifecycle of a component has three steps.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 26.78,
+          "end": 30.46,
+          "en": "The first is that the script tag of the component executes.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 30.47,
+          "end": 32.78,
+          "en": "It executes top to bottom.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 32.78,
+          "end": 40.73,
+          "en": "When this component gets used, when it is rendered somewhere in the Dom and there you do basic initialization",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 40.73,
+          "end": 43.54,
+          "en": "work, you define which props this component has.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 43.55,
+          "end": 46.1,
+          "en": "You define the variables, maybe some initial values.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 46.1,
+          "end": 50.84,
+          "en": "For these variables, you define some functions which are connected to the markup of the component.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 50.87,
+          "end": 52.19,
+          "en": "This is what happens there.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 52.19,
+          "end": 54.65,
+          "en": "You can run basic initialization code there.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 55.13,
+          "end": 62.03,
+          "en": "You also and you will see this in practice in a second can use the on mount lifecycle function.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 62.03,
+          "end": 67.85,
+          "en": "Svelte provides this function and this is the perfect place for a more complex initialization work typically,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 67.85,
+          "end": 72.98,
+          "en": "for example for data fetching when you need to fetch data from a server, then something like this should",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 72.98,
+          "end": 75.35,
+          "en": "happen in on mount specifically.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 75.35,
+          "end": 80.93,
+          "en": "Also because it has some advantages when you render your app on a server, something we'll dive into",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 80.93,
+          "end": 81.62,
+          "en": "later.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 81.62,
+          "end": 87.21000000000001,
+          "en": "For now, just keep in mind that more complex tasks and the typical example here is fetching data from",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 87.21000000000001,
+          "end": 92.1,
+          "en": "a database which you never do directly, but from a server which then talks to the database.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 92.1,
+          "end": 98.85,
+          "en": "This would be a typical typical example for on Mount you also have Ondestroy, which is executed when",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 98.85,
+          "end": 101.1,
+          "en": "the component is detached from the Dom.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 101.1,
+          "end": 106.28999999999999,
+          "en": "Maybe because it was inside of a if block and the condition now is false.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 106.65,
+          "end": 108.63,
+          "en": "Here you can do cleanup work.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 108.66,
+          "end": 113.13,
+          "en": "It's also something we'll need later once we dive into a different feature provided by Svelte.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 113.13,
+          "end": 118.95,
+          "en": "But any cleanup work, removing any listeners you set up on your own, anything like that should go",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 118.95,
+          "end": 119.55,
+          "en": "in there.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 120.12,
+          "end": 123.57,
+          "en": "Now, thus far we haven't used that because we had no cleanup work to do.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 123.6,
+          "end": 125.49,
+          "en": "This will change later in the course.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 126.18,
+          "end": 131.37,
+          "en": "There also is a second life cycle actually, and that is related to when the component updates.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 131.37,
+          "end": 138.3,
+          "en": "So when svelte updates, the real Dom of that component or produced by that component in that updating",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 138.3,
+          "end": 138.81,
+          "en": "lifecycle.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 138.81,
+          "end": 142.65,
+          "en": "Hook we also have three important steps, so to say.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 142.98,
+          "end": 144.87,
+          "en": "One is before update.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 144.87,
+          "end": 150.96,
+          "en": "This is a function that allows you to run code right before updates are flushed to the real Dom.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 150.96,
+          "end": 153.51,
+          "en": "So right before the real Dom is really touched.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 153.51,
+          "end": 156.69,
+          "en": "So something changed in your component markup.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 156.69,
+          "end": 162.6,
+          "en": "And that of course is translated by Svelte into instructions to touch the real Dom right before it does",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 162.6,
+          "end": 166.07,
+          "en": "touch the real Dom, you have the chance to run some extra code.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 166.07999999999998,
+          "end": 171.39,
+          "en": "For example, you can save some dom state like a scrolling position of the user before the Dom gets",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 171.39,
+          "end": 172.17000000000002,
+          "en": "updated.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 172.65,
+          "end": 178.05,
+          "en": "And you also have after update this runs right after svelte touched the dom.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 178.2,
+          "end": 184.45,
+          "en": "This can be good for manually updating the Dom or the browser view after a svelte update though you",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 184.45,
+          "end": 188.56,
+          "en": "shouldn't really use that for things like changing the text which is displayed.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 188.56,
+          "end": 191.04,
+          "en": "You should use the default svelte features for that.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 191.05,
+          "end": 195.43,
+          "en": "So by adding it in markup and setting up some dynamic bindings instead.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 195.43,
+          "end": 198.88,
+          "en": "The perfect example here really is the scrolling position.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 198.88,
+          "end": 204.88,
+          "en": "Let's say you updated the Dom, you added some new content and now the scrolling position isn't correct",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 204.88,
+          "end": 205.21,
+          "en": "anymore.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 205.24,
+          "end": 209.71,
+          "en": "You would want to scroll the user to the bottom of the page or to the top of the page.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 209.71,
+          "end": 215.44,
+          "en": "Well, this is not really something you can do with the normal markup instructions in svelte and therefore",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 215.44,
+          "end": 217.03,
+          "en": "manually programmatically.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 217.03,
+          "end": 218.47,
+          "en": "Doing that could be done here.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 218.47,
+          "end": 220.66,
+          "en": "And that's an example I will show you in a second.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 221.4,
+          "end": 223.26,
+          "en": "And then there is Tik.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 223.29,
+          "end": 226.82999999999998,
+          "en": "Now, Tik is a more technical thing.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 227.22,
+          "end": 232.05,
+          "en": "If you know the event loop from NodeJS, this might be a bit easier to grasp.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 232.05,
+          "end": 238.89,
+          "en": "The core idea here is that all these Dom updates and how svelte performs work does not work, such that",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 238.89,
+          "end": 241.98,
+          "en": "you change a variable and svelte instantly updates the dom.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 242.01,
+          "end": 248.04,
+          "en": "Of course it looks like it does, but actually it has a loop of tasks for which it goes all the time",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 248.04,
+          "end": 253.26,
+          "en": "and it schedules work in that loop and then does a couple of steps together.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 253.35,
+          "end": 257.91,
+          "en": "You could say So it schedules tasks to be done, and then once they are done, it removes them from",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 257.91,
+          "end": 259.71,
+          "en": "the to do loop.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 260.01,
+          "end": 267.6,
+          "en": "Tick allows you to hook into each completion of that, so to say so when the next task run executes.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 267.6,
+          "end": 277.29,
+          "en": "And this is therefore a great place to await the next time svelte updates the Dom to then do your own",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 277.29,
+          "end": 285.13,
+          "en": "work and to tap into the Dom and update it in a way that is not really achievable with before and after",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 285.13,
+          "end": 285.46,
+          "en": "update.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 285.46,
+          "end": 289.08,
+          "en": "And the best way of showing this is of course in concrete examples.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 289.09000000000003,
+          "end": 291.73,
+          "en": "So let's have a look at these lifecycle hooks now.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "14689622",
+      "title": "Creation & Update Lifecycle Hooks in Action",
+      "lectureOrder": 66,
+      "videoOrder": 58,
+      "sourceHash": "516c23d8f5cc7a2f66a34f65b51a854d7ea2f28be2f732c83b7a50d6ba774cd4",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.16,
+          "end": 7.8,
+          "en": "Let's start with on Mount and On Destroy, and I'll show it in the modal component because it is the",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.8,
+          "end": 16.17,
+          "en": "only component which I do both mount, add and destroy, remove to and from the Dom here.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 16.35,
+          "end": 22.86,
+          "en": "So in modal svelte, let's first of all add a console log here where I say script executed.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 22.86,
+          "end": 26.79,
+          "en": "And with that I mean that this script ran from top to bottom.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 27.12,
+          "end": 29.64,
+          "en": "If we save this, we reload.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 29.67,
+          "end": 30.78,
+          "en": "You don't see it here.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 30.78,
+          "end": 32.01,
+          "en": "You only see it.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 33.68,
+          "end": 35,
+          "en": "As soon as I click show modal.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 35,
+          "end": 36.98,
+          "en": "Now you see script executed here.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 37.16,
+          "end": 39.32,
+          "en": "If I close, the modal doesn't run again.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 39.32,
+          "end": 41.93,
+          "en": "But the next time I show the modal, it runs again.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 42.17,
+          "end": 47.03,
+          "en": "So this is when this executes, whenever this component is needed, so to say.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 47.3,
+          "end": 51.77,
+          "en": "Now, I mentioned on mount and on destroy and these are functions which you import.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 52.29,
+          "end": 53.49,
+          "en": "From svelte.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 53.79,
+          "end": 56.49,
+          "en": "So you import on Mount and ondestroy.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 56.52,
+          "end": 62.13,
+          "en": "Make sure you get the casing right from svelte and then you use them simply here in your script block.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 62.94,
+          "end": 66.78,
+          "en": "You use them like this, you call on mount and now two on mount you pass.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 66.78,
+          "end": 72.48,
+          "en": "Another function can be a pointer at a function or an anonymous inline function as I'm doing it here.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 72.48,
+          "end": 75.96000000000001,
+          "en": "And this function will be executed for you by svelte.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 75.99,
+          "end": 78.21000000000001,
+          "en": "So here I will console.log.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 79.5,
+          "end": 80.46000000000001,
+          "en": "On mount.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 81.58,
+          "end": 83.68,
+          "en": "And for Ondestroy it's the same.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 83.68,
+          "end": 86.53,
+          "en": "And it doesn't matter where you place these function calls.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 86.53,
+          "end": 89.78999999999999,
+          "en": "If you do it at the end of the script, at the beginning, that does not matter.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 89.8,
+          "end": 92.68,
+          "en": "Svelte will call that for you when the time is ripe.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 92.95,
+          "end": 96.88,
+          "en": "So here let's console.log Ondestroy.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 100.17,
+          "end": 101.03999999999999,
+          "en": "Like this.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 101.72999999999999,
+          "end": 104.85,
+          "en": "We now save this and I show that model.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 104.88,
+          "end": 108,
+          "en": "You see script executed and then on mount.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 108,
+          "end": 115.05,
+          "en": "And that is quite interesting because please note that script executed actually is printed here by a",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 115.05,
+          "end": 117.63,
+          "en": "console log that comes after on Mount.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 117.66,
+          "end": 118.95,
+          "en": "But that's what I meant.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 118.97999999999999,
+          "end": 125.07,
+          "en": "It does not execute or the code is parsed and executed in that order, but the function we pass to on",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 125.07,
+          "end": 127.7,
+          "en": "mount is not executed right away.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 127.71,
+          "end": 133.8,
+          "en": "Instead, svelte executes this once it's done executing this entire script, which is why we see script",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 133.8,
+          "end": 135.33,
+          "en": "executed first.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 135.48,
+          "end": 141.42000000000002,
+          "en": "And once it's done with the general initialization and mounting to the Dom of the component.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 141.42000000000002,
+          "end": 146.67000000000002,
+          "en": "And then on mount this run and this is the perfect place for you to load data, maybe show a loading",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 146.67000000000002,
+          "end": 151.92000000000002,
+          "en": "spinner here in between if you're still waiting for the data and then store the data in some variable",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 151.92000000000002,
+          "end": 152.82,
+          "en": "once it's there.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 153.15,
+          "end": 156.63,
+          "en": "Now Ondestroy will be printed once we close the modal.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 156.63,
+          "end": 161.26,
+          "en": "So for example by clicking agree confirm here is ondestroy.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 161.26,
+          "end": 166.99,
+          "en": "So this is this basic lifecycle hook and of course we'll do more than just print this information throughout",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 166.99,
+          "end": 167.82999999999998,
+          "en": "this course project.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 167.86,
+          "end": 168.72,
+          "en": "No worries.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 168.76,
+          "end": 174.31,
+          "en": "Now let's have a look at the updating lifecycle hooks, because I believe these are the more complex",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 174.31,
+          "end": 175.78,
+          "en": "ones for this.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 175.78,
+          "end": 180.85,
+          "en": "I'll first of all tweak the modal a little bit and I'll give the modal a.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 181.69,
+          "end": 184.35,
+          "en": "Max Height, which is actually just ten VH.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 186.29,
+          "end": 188.51,
+          "en": "If I do that, you see?",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 189.54,
+          "end": 190.77,
+          "en": "We can scroll in there.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 193.53,
+          "end": 195.84,
+          "en": "Now, actually, let's make 15 VH here.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 196.23,
+          "end": 202.65,
+          "en": "So now if I open this, I can scroll there and if I click agree, it would be nice if it actually scrolls",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 202.65,
+          "end": 203.57999999999998,
+          "en": "down to confirm.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 203.57999999999998,
+          "end": 207.66,
+          "en": "This is something we can do with the help of before update and after update.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 207.69,
+          "end": 214.11,
+          "en": "For this we first of all need to import these lifecycle hooks before update and after update also from",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 214.11,
+          "end": 214.82999999999998,
+          "en": "svelte.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 214.86,
+          "end": 221.01,
+          "en": "Simply update, import them like this and then you call them just like on mount and on destroy.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 221.01,
+          "end": 227.12,
+          "en": "Anywhere here in the script tag position doesn't matter and you pass functions to them which are executed.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 227.13,
+          "end": 231.78,
+          "en": "Now these functions run after every update, not just when we click this button.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 231.84,
+          "end": 237.69,
+          "en": "I think that's about the only button we have here that does update the modal dom from inside.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 237.69,
+          "end": 240.09,
+          "en": "But any update to the modal dom?",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 240.09,
+          "end": 243.66,
+          "en": "Any reactive event you would have in here would trigger this.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 244.02,
+          "end": 250.14,
+          "en": "So let's start with on not on on with before update here.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 251.19,
+          "end": 258.03,
+          "en": "And let's console log the same here in the function passed to after update so that we can get a feeling",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 258.03,
+          "end": 259.14,
+          "en": "for when this runs.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 259.47,
+          "end": 263.76,
+          "en": "So now if I click show modal, you see it runs right at the start.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 263.76,
+          "end": 264.69,
+          "en": "That's also interesting.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 264.69,
+          "end": 271.86,
+          "en": "It actually runs before on mount runs and now when I click agree here you see it also runs because something",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 271.86,
+          "end": 277.86,
+          "en": "changed in the dom of this modal or something in the modal changed and triggered an update in the real",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 277.86,
+          "end": 279.18,
+          "en": "Dom to be very clear.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 280.93,
+          "end": 282.67,
+          "en": "Now, let's say an before update.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 282.67,
+          "end": 290.32,
+          "en": "We want to find out if the upcoming update is actually related to us being able to close this because",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 290.44,
+          "end": 291.79,
+          "en": "greed is now true.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 295.22,
+          "end": 302.96,
+          "en": "For this, we can add a new autoscroll variable because I want to scroll automatically if we now can",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 302.96,
+          "end": 303.92,
+          "en": "close this.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 305.03,
+          "end": 310.52,
+          "en": "And here in before update I'll set autoscroll equal to agreed.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 310.52,
+          "end": 315.56,
+          "en": "And yes, since I just do that of course we could only use agreed but want to show both lifecycle hooks.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 315.56,
+          "end": 317.06,
+          "en": "So here I gather information.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 317.06,
+          "end": 324.56,
+          "en": "I gather information whether we did agree and I store that information here in Autoscroll in after update,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 324.56,
+          "end": 326.87,
+          "en": "I will now use that information here.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 326.87,
+          "end": 328.34,
+          "en": "I want to find out if.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 329.05,
+          "end": 330.49,
+          "en": "Autoscroll is true.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 330.49,
+          "end": 335.8,
+          "en": "And if it is true, I want to scroll the user so that he can actually see this confirm button.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 336.93,
+          "end": 337.35,
+          "en": "For that.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 337.35,
+          "end": 340.17,
+          "en": "I want to scroll to the bottom of this modal, let's say.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 340.47,
+          "end": 347.22,
+          "en": "And for this, instead of this if statement, I'll get access to my modal with document query selector",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 347.43,
+          "end": 352.5,
+          "en": "modal, selecting it by the class because this is the class I assigned here, there actually is a different",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 352.5,
+          "end": 356.76,
+          "en": "way of getting access to this div an easier way, which I'll show you later, but this way will also",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 356.76,
+          "end": 358.32,
+          "en": "work for now and then.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 358.32,
+          "end": 367.23,
+          "en": "Here I will call modal scroll to zero on the x axis and then modal scroll height.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 367.82,
+          "end": 372.89,
+          "en": "On the y axis to scroll all the way to the bottom and only do this if auto scroll is true, which only",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 372.89,
+          "end": 375.74,
+          "en": "is the case in turn if agreed is true.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 375.86,
+          "end": 381.38,
+          "en": "This is why if we now save this and I click show modal, we don't scroll down at the beginning.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 381.38,
+          "end": 384.11,
+          "en": "Keep in mind after update does run here as well.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 384.14,
+          "end": 390.14,
+          "en": "But nonetheless, we don't scroll because auto scroll is not set to true here because agreed initially",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 390.14,
+          "end": 391.01,
+          "en": "is false.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 391.28,
+          "end": 396.86,
+          "en": "If I now scroll down a tiny bit so that I can see the agree button but not the confirm button and I",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 396.89,
+          "end": 397.90999999999997,
+          "en": "click agree.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 397.94,
+          "end": 399.93,
+          "en": "You see I get scroll down.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 399.95,
+          "end": 405.32,
+          "en": "Now this is a typical example because scrolling is something you can't really control with your normal",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 405.32,
+          "end": 406.7,
+          "en": "markup syntax here.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 406.7,
+          "end": 411.53,
+          "en": "And therefore this is something where it makes sense to save a certain state before an update happens",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 411.53,
+          "end": 419.51,
+          "en": "and after the update check if this state now should yield or trigger a scrolling event because something",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 419.51,
+          "end": 421.62,
+          "en": "changed and then scroll manually.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 421.64,
+          "end": 427.46,
+          "en": "You could also use it to not scroll but to save the current position in case you added something to",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 427.56,
+          "end": 432.66,
+          "en": "the screen which would normally push an element down and you want to scroll the user back to the view",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 432.69,
+          "end": 434.37,
+          "en": "he was on previously.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 434.37,
+          "end": 440.65,
+          "en": "Then you could also save the old position and scroll the user back here in after update.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 440.67,
+          "end": 444,
+          "en": "So these are examples for before and after update.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 444.03,
+          "end": 445.44,
+          "en": "Now what about Tick?",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

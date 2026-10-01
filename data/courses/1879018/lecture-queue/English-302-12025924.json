@@ -1,0 +1,363 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "12025924",
+      "title": "Adding Pagination Links",
+      "lectureOrder": 339,
+      "videoOrder": 302,
+      "sourceHash": "2c3c0aa8ce3c0783958aba2d069b3acfe09409348cee4b0327ad9fbcd50e0d2d",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.47,
+          "end": 9.46,
+          "en": "Here's our shop and I created three products behind the scenes, so you can of course create any three products",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 9.55,
+          "end": 14.29,
+          "en": "on one or more user accounts, doesn't matter, in the end you will have three products.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 14.29,
+          "end": 18.58,
+          "en": "Now obviously we can absolutely display these three products like this,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 18.58,
+          "end": 22.68,
+          "en": "nothing wrong with that. But let's say we have hundreds of products,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 22.78,
+          "end": 25.9,
+          "en": "we would not want to display all these products on one page,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 25.99,
+          "end": 32.44,
+          "en": "instead we'd like to split them across multiple pages and then somewhere on the page, often at the bottom,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.65,
+          "end": 38.39,
+          "en": "we'd have some controls to go to page one, page two, the next or the previous page",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 38.39,
+          "end": 40.72,
+          "en": "and that is exactly what I want to implement here,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 40.72,
+          "end": 41.87,
+          "en": "pagination.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 42.1,
+          "end": 46.18,
+          "en": "Now you can certainly find some third party packages that can help you with that",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 46.27,
+          "end": 52.24,
+          "en": "and these would be fine to use but I will show you how to implement that from scratch on your own because",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 52.29,
+          "end": 55.06,
+          "en": "that is obviously how you learn the most.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 55.07,
+          "end": 59.24,
+          "en": "So back in our project, how can we implement pagination?",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 59.66,
+          "end": 61.66,
+          "en": "Well typically, you handle this",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 61.73,
+          "end": 66.44,
+          "en": "as I said by adding some controls which always leads to the same path.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 66.52,
+          "end": 69.67,
+          "en": "so always /products or slash",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 69.67,
+          "end": 70.39,
+          "en": "nothing",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 70.58,
+          "end": 76.73,
+          "en": "but then you add a query parameter, remember query parameters are these parameters you add after a questionmark",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 77.12,
+          "end": 83.48,
+          "en": "which allow you to specify optional data and there you could specify something like page equals one to load",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 83.48,
+          "end": 89.57,
+          "en": "the first page or page equals two to load the second page and you would change these query parameters with these",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 89.57,
+          "end": 90.83,
+          "en": "controls you add.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 91.1,
+          "end": 92.57,
+          "en": "Let me show you what I mean.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 92.78,
+          "end": 98.39,
+          "en": "I will go into my views folder and let's work on that slash, so on that root route,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 98.39,
+          "end": 105.13,
+          "en": "so that index.ejs file here and there at the bottom beneath my products",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 105.14,
+          "end": 112.03999999999999,
+          "en": "but inside of that first if block, so where I know that I have some products, in there I'll add a new section.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 112.03999999999999,
+          "end": 117.22999999999999,
+          "en": "I'll give it a class of pagination because this will be the section where I manage the pagination",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 117.53,
+          "end": 122.78,
+          "en": "and my idea is to have a link here which says 1 for Page 1 and 2 for Page 2",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 122.96,
+          "end": 128.85,
+          "en": "and here I would go to slash and have page equal to one let's say and here, page equal to two.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 128.89,
+          "end": 134.2,
+          "en": "So here I would set a query parameter to value one or respectively, to value two.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 134.6,
+          "end": 140.61,
+          "en": "If I save this and reload, we can see that on the left here,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 140.62,
+          "end": 143.48,
+          "en": "now let's change the styling real quick.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 143.49,
+          "end": 150.66,
+          "en": "So for that, I'll go into my public folder, css and there the main css file and I'll scroll all the way",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 150.66,
+          "end": 156.57,
+          "en": "to the bottom right before that media query, I'll add pagination so that class I added to the section",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 156.99,
+          "end": 161.89,
+          "en": "and I'll set text align to center and I'll also style my links.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 161.91,
+          "end": 167.91,
+          "en": "This is of course totally optional but I will style my anchor tags in there to have no text decoration,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 167.94,
+          "end": 174.51,
+          "en": "so to not be underlined. I'll give them a color of let's say my green which I'm using in this project,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 175.29,
+          "end": 183.81,
+          "en": "I will also add some padding of let's say .5rem and give them a border of one pixel solid and that same",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 184.05,
+          "end": 190.36,
+          "en": "green color and also some margin of 1rem left and right,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 190.53,
+          "end": 195.62,
+          "en": "something like this. If I now save that, I have these buttons here.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 195.68,
+          "end": 203.63,
+          "en": "Now one more thing, on the whole pagination section, I'll add a margin top of 2rem and I also want",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 203.63,
+          "end": 211.18,
+          "en": "to make sure my buttons have some hover style, so pagination a hover and pagination a",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 211.37,
+          "end": 217.99,
+          "en": "active sets these styles when I hover over them or when I click on them and there, I will set a background",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 219.62,
+          "end": 224.09,
+          "en": "of this green color and change the text color to white.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 224.09,
+          "end": 225.64,
+          "en": "Now this is all optional,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 225.71,
+          "end": 228.86,
+          "en": "I just want to have some stylings here for my buttons.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 228.86,
+          "end": 232.94,
+          "en": "So now we have these buttons and if I click one of them, you can see the url changes,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 233,
+          "end": 238.4,
+          "en": "it's the same path, just slash nothing but I have an optional parameter in there.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 238.52,
+          "end": 244.91,
+          "en": "Now with that set up here, let's now see how we can work with that parameter on the backend to control",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 244.91,
+          "end": 246.29,
+          "en": "the data we are fetching.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

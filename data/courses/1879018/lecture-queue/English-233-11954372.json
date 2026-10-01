@@ -1,0 +1,608 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "11954372",
+      "title": "Using a CSRF Token",
+      "lectureOrder": 261,
+      "videoOrder": 233,
+      "sourceHash": "eb958b08b0c1734f611ff2c8933e2288ed82b6f8d0800d0292003f7aa11b8dc9",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.14,
+          "end": 8.81,
+          "en": "So csrf protection is an important thing and to support that or to add it to the app,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.83,
+          "end": 15.43,
+          "en": "I'll quit my server and I'll install another package with npm install --save, the name of the",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 15.43,
+          "end": 16.01,
+          "en": "package",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.06,
+          "end": 23.48,
+          "en": "is csurf, this is a package for node express which allows us to generate a so-called csrf token.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 23.8,
+          "end": 27.1,
+          "en": "Basically a token, a string value",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 27.1,
+          "end": 35.32,
+          "en": "we can embed into our forms, so into our pages for every request that does something on the backend that",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 35.32,
+          "end": 37.63,
+          "en": "changes the users state,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 37.63,
+          "end": 44.08,
+          "en": "so anything like ordering something, anything that does something sensitive which we want to protect",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 44.08,
+          "end": 48.91,
+          "en": "against. We can include such a token in our views then and on the server,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 48.92,
+          "end": 54.52,
+          "en": "this package will check if the incoming request does have that valid token.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 54.52,
+          "end": 56.16,
+          "en": "Now how does this protect us?",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 56.31,
+          "end": 62.14,
+          "en": "Well the fake sites might send a request to your backend and they could theoretically use your session",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 62.14,
+          "end": 68.35,
+          "en": "therefore but the requests will be missing the token and they can't guess the token because it's a random",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 68.35,
+          "end": 74.86,
+          "en": "hashed value and only one value is valid of course and the package here which runs on the server determines",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 74.86,
+          "end": 81.03999999999999,
+          "en": "whether a token is valid, so they can't guess it and they also can steal it because a new token is generated",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 81.19,
+          "end": 83.66,
+          "en": "for every page you render.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 83.68,
+          "end": 89.18,
+          "en": "So with that package installed, let's rerun npm start and let's use that csurf package",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 89.23,
+          "end": 93.05,
+          "en": "and how do we use it? To enable csrf protection,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 93.1,
+          "end": 95.65,
+          "en": "we go to our app.js file and in there",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 95.65,
+          "end": 103.68,
+          "en": "first of all at the top, let's import this package, I'll name the constant csrf and I'll require the csurf",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 103.68,
+          "end": 104.21000000000001,
+          "en": "package.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 104.28999999999999,
+          "end": 106.71000000000001,
+          "en": "Please note the package is named csurf,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 106.94,
+          "end": 108.72999999999999,
+          "en": "the tag pattern is csrf,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 108.72999999999999,
+          "end": 110.17,
+          "en": "that is why I named the constant like this,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 110.2,
+          "end": 112.93,
+          "en": "you can name it however you want of course.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 112.93,
+          "end": 116.25,
+          "en": "Now we can create a new constant where we initialize this",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 116.25,
+          "end": 121.67,
+          "en": "you could say, so down there maybe where we initialized some other things too, I'll initialize my csrf",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 121.83,
+          "end": 127.36,
+          "en": "protection by executing csrf as a function.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 127.36,
+          "end": 133.69,
+          "en": "Now you can pass an object here where you can configure some things, for example that you want to store",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 133.96,
+          "end": 139.23,
+          "en": "the secret that is used for assigning your token, so for hashing them, that you want to store them in",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 139.23,
+          "end": 141.71,
+          "en": "a cookie instead of the session which is the default",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 141.73,
+          "end": 144.48,
+          "en": "but I want to use the session, the default",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 144.67000000000002,
+          "end": 149.36,
+          "en": "and we also don't need to set any of the other values, you can dive into the official docs of that package",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 149.48,
+          "end": 156.85,
+          "en": "to learn more but the default settings should work fine. So with that, we get this csrf protection middleware",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 156.85,
+          "end": 160.84,
+          "en": "here and we now just have to use that as a middleware.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 160.9,
+          "end": 163.57,
+          "en": "So here after we initialized the session,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 163.57,
+          "end": 168.85,
+          "en": "that's important because csrf, the package will use that session now. After we initialized the",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 168.85,
+          "end": 171.99,
+          "en": "session, I'll add csrf protection,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 172,
+          "end": 177.91,
+          "en": "so basically the constant which holds my created middleware here.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 178.04,
+          "end": 184.37,
+          "en": "So now with that, csrf protection is generally enabled but we still need to add something to our views",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 184.37,
+          "end": 185.79,
+          "en": "to really use it.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 185.96,
+          "end": 194,
+          "en": "Right now if I save this and I go back to my app and I reload this page, this works, if I go to orders",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 194.18,
+          "end": 195.83,
+          "en": "this works, if I logout,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 195.83,
+          "end": 203.78,
+          "en": "this fails, I get an invalid csrf token here and this is already showing us how we or what we have to",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 203.78,
+          "end": 205.18,
+          "en": "do in general.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 205.19,
+          "end": 214.16,
+          "en": "It failed here because that logout action here actually was a post request",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 214.35,
+          "end": 221.9,
+          "en": "and for any non-get requests because you change data via post requests typically, for any such requests,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 221.91,
+          "end": 230.6,
+          "en": "this package will look for the existence of a csrf token in your views, in the request basically in",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 230.61,
+          "end": 235.45,
+          "en": "the request body. Now to make sure that such a token is there,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 235.77,
+          "end": 241.19,
+          "en": "we first of all need to ensure we have it available in our views, to do that",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 241.2,
+          "end": 244.62,
+          "en": "we have to pass data into our view.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 244.85,
+          "end": 249.34,
+          "en": "So let's say I'm on the starting page slash nothing,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 249.59,
+          "end": 254.92,
+          "en": "so in the controller actions, that is my get index action, this one.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 255.03,
+          "end": 260.54,
+          "en": "Now here we would have to pass a new piece of information into the render method, you could name it csrf",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 260.57,
+          "end": 264.41,
+          "en": "token, that name is up to you and you get it from request",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 264.41,
+          "end": 268.47,
+          "en": "and then there, there will be a csrf token method.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 268.49,
+          "end": 274.19,
+          "en": "This method is provided by the csrf middleware which we added by this package.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 274.19,
+          "end": 279.92,
+          "en": "So now this will generate such a token and we'll store it in csrf token which we then can use in our",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 279.92,
+          "end": 286.76,
+          "en": "view and there we could use it for example in the navigation where I have my logout button form. In there",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 286.76,
+          "end": 289.18,
+          "en": "we would have to add input which is hidden",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 289.19,
+          "end": 295.7,
+          "en": "so that no real input is rendered but where the value now is a value we output with the help of ejs",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 295.7,
+          "end": 304.37,
+          "en": "and that value here will be our csrf token and the name here is just a field I'm storing that",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 304.4,
+          "end": 306.49,
+          "en": "token in when rendering that view,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 306.59,
+          "end": 315.51,
+          "en": "this field, csrf token. With that if I reload this page, let's inspect the logout button here",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 315.57,
+          "end": 316.69,
+          "en": "in the developer tools",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 319.92,
+          "end": 326.15,
+          "en": "and let's make sure that in the navigation.ejs file, we don't just add it to the mobile logout button",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 326.31,
+          "end": 328.64,
+          "en": "but also in the other menu here.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 328.65,
+          "end": 335.01,
+          "en": "So with that changed, let me reload this and now when inspecting the logout button, you will see that there",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 335.61,
+          "end": 342.45,
+          "en": "we also have that input with the value of this token and this here is the csrf token which was generated",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 342.45,
+          "end": 343.57,
+          "en": "by the package.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 343.74,
+          "end": 348.34000000000003,
+          "en": "If I now click on logout, I still get an error here though,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 348.96,
+          "end": 355.75,
+          "en": "the reason for that is that my package csrf does not know that this hidden input contains my token,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 355.77,
+          "end": 358.40999999999997,
+          "en": "it's just a hidden input without any name.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 358.40999999999997,
+          "end": 364.5,
+          "en": "So what we have to do is we also have to give this a name and here important, the name has to be _csrf",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 364.59,
+          "end": 370.6,
+          "en": "because the package which we added will look for this name,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 370.68,
+          "end": 376.37,
+          "en": "so for an input with that name and the same of course should be done here in the mobile login button.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 376.77,
+          "end": 381.51,
+          "en": "Now with that if we reload this view, if I click logout,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 381.51,
+          "end": 385.87,
+          "en": "now it works because now the package is able to extract that csrf token.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 386.01,
+          "end": 391.53,
+          "en": "It also finds out that the token is valid and therefore it allows us to proceed,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 391.68,
+          "end": 396.57,
+          "en": "so now it's not just a session that matters but also the existence of this token.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 396.75,
+          "end": 403.14,
+          "en": "Now we can add this to all our render functions because we need it in all our routes but that would",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 403.14,
+          "end": 404.45,
+          "en": "be a bit cumbersome,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 404.45,
+          "end": 412.23,
+          "en": "so let me show you an easier way of getting data like this or also isAuthenticated into every page",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 412.23,
+          "end": 414.27,
+          "en": "we render and not just some.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

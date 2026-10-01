@@ -1,0 +1,608 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "12097928",
+      "title": "Connecting Posts & Users",
+      "lectureOrder": 394,
+      "videoOrder": 350,
+      "sourceHash": "467afce82ee63aa73e5174b951a54e30e999e936e5df12f927737faae4894785",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.36,
+          "end": 7.16,
+          "en": "Let's connect posts and users. For this in my backend code,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.16,
+          "end": 11.85,
+          "en": "first of all I'll go to my post model and there we have that creator object,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 11.9,
+          "end": 12.45,
+          "en": "right.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.65,
+          "end": 17.1,
+          "en": "Well that was like an intermediate solution,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.18,
+          "end": 25.71,
+          "en": "now that we know users in our application, creator will no longer be of type object type schema types",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 26.06,
+          "end": 35.45,
+          "en": "object ID because I will store a reference to a user, so this will now be a reference to a user here,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 35.45,
+          "end": 37.46,
+          "en": "this will also be require true and",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 37.55,
+          "end": 41.01,
+          "en": "not required string, what I had before, this was a mistake of course.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 41.03,
+          "end": 44.61,
+          "en": "So now we have a relation between posts and users,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 44.66,
+          "end": 50.63,
+          "en": "we store the creator of a post in every post we create and on the user model, we add the post to the",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 50.63,
+          "end": 52.45,
+          "en": "list of posts for that user.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 52.64,
+          "end": 58.97,
+          "en": "That of course means we now need to adjust our feed controller in the place where we do create new posts.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 61.12,
+          "end": 66.86,
+          "en": "There in create post, the validation which we do at the beginning still is",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 66.88,
+          "end": 73.12,
+          "en": "all right but then before I create the post, I should get my user ID.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 73.31,
+          "end": 78.95,
+          "en": "Now I remember in my isAuth middleware, I do actually store that in the request object,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 78.95,
+          "end": 80.95,
+          "en": "I get it from the decoded token,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 81.14,
+          "end": 84.05,
+          "en": "so we have that user ID available here.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 84.05,
+          "end": 92.52000000000001,
+          "en": "Now with that information, I'll set creator equal to request user ID, that will be a string not an object",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 92.52000000000001,
+          "end": 92.82,
+          "en": "ID",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 92.85,
+          "end": 95.78999999999999,
+          "en": "but mongoose will take care about that and convert it,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 95.82,
+          "end": 100.35,
+          "en": "so now we create a new post assigned to that user.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 100.44,
+          "end": 104.67,
+          "en": "Now once I save the post, I'll not immediately send the response though,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 104.78999999999999,
+          "end": 110.5,
+          "en": "instead I now also want to add that post to the list of posts for the given user.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 110.5,
+          "end": 115.49000000000001,
+          "en": "Therefore I'll import my user model into that feed.js",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 115.5,
+          "end": 116.03,
+          "en": ".",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 116.07,
+          "end": 120.47,
+          "en": "file by requiring it from the models folder of course",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 121.6,
+          "end": 123.51,
+          "en": "and in create post",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 123.57,
+          "end": 131.46,
+          "en": "once we did save the post, I'll use that user model to find the user by ID for the request user ID,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 131.46,
+          "end": 139.03,
+          "en": "so for that user id I extracted from the token. Then I'll return this and close this",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 139.07999999999998,
+          "end": 141.75,
+          "en": "then block and add a new then block",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 142.26,
+          "end": 152.05,
+          "en": "where I now get that user that was created. Now in this second then block here, I now have a user, so",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 152.13,
+          "end": 155.3,
+          "en": "not the user which was created but the user which was found,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 155.31,
+          "end": 163.07999999999998,
+          "en": "I have that user which is the currently logged in user and now I can take that user object which is",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 163.29,
+          "end": 167.82,
+          "en": "a mongoose model here in the end and I can access the post of this user,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 167.82,
+          "end": 176.02,
+          "en": "keep in mind the user model has a posts property. I can access this post and I can push the newly",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 176.02,
+          "end": 177.63,
+          "en": "created post,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 177.7,
+          "end": 184.63,
+          "en": "so this post here, I can push that posts object to that user and mongoose will do all the heavy lifting",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 184.75,
+          "end": 191.75,
+          "en": "of pulling out the post ID and adding that to the user actually.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 191.76,
+          "end": 198.6,
+          "en": "Now I'll also add a new variable at the top which I'll name creator which is uninitialized",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 198.81,
+          "end": 203.82,
+          "en": "and once I found a user, I'll store the user in that creator variable.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 203.82,
+          "end": 205.37,
+          "en": "Now what do I need that for?",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 205.5,
+          "end": 209.19,
+          "en": "Well I do update my user here,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 209.28,
+          "end": 216.18,
+          "en": "that means that here I will also call user save and I will return that and hence we need another",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 216.21,
+          "end": 219.92000000000002,
+          "en": "then block where I get the result of this operation.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 220.02,
+          "end": 226.77,
+          "en": "Now in this next block, I'll send my response and there I will not just send the post but I also want",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 226.77,
+          "end": 229.66,
+          "en": "to send information about the creator,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 229.68,
+          "end": 236.43,
+          "en": "so here I'll add a creator key and that will be let's say some object with an ID _id",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 236.85,
+          "end": 243.61,
+          "en": "of creator _id and name which is creator name.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 243.63,
+          "end": 246.67,
+          "en": "So I'm just passing this extra information with the response",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 246.68,
+          "end": 249.39,
+          "en": "and if I want to do that, I have to do it through a variable.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 252.45,
+          "end": 258.65,
+          "en": "So now posts get saved and get connected to users in both directions,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 258.65,
+          "end": 260.09,
+          "en": "let's try that out.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 260.12,
+          "end": 265.16,
+          "en": "Let's save this code, go back to the frontend and there",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 265.17,
+          "end": 267.05,
+          "en": "let's create a new post.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 267.12,
+          "end": 268.86,
+          "en": "Good old duck again,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 269.13,
+          "end": 273.4,
+          "en": "let's add a duck image, a duck,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 273.43,
+          "end": 275.11,
+          "en": "how lovely,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 275.2,
+          "end": 276.47,
+          "en": "click accept here",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 277.35,
+          "end": 279.40999999999997,
+          "en": "and I get an error.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 279.69,
+          "end": 281.34000000000003,
+          "en": "Let's see what's going wrong,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 281.73,
+          "end": 284.15999999999997,
+          "en": "I do get back a response with a post",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 284.62,
+          "end": 291.2,
+          "en": "and the problem is that post holds my user data actually which is a mistake",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 291.21,
+          "end": 297.03,
+          "en": "on my side of course. The post I am sending back here is not the result, the result here is the user which",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 297.03,
+          "end": 300.91,
+          "en": "I updated. Here post should be the post model,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 300.93,
+          "end": 303.47,
+          "en": "the post object I created up there,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 303.63,
+          "end": 304.69,
+          "en": "so that's my mistake.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 304.8,
+          "end": 307.22,
+          "en": "I do create a post there, I store it in a constant,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 307.29,
+          "end": 312.58,
+          "en": "I can reuse that constant down there to send data about that create post back to the client.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 312.76,
+          "end": 314.79,
+          "en": "So let me save that, now",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 314.85,
+          "end": 318.96,
+          "en": "still what we'll see is in the database, if I go to the post collection,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 319.02,
+          "end": 324.45,
+          "en": "it was created though because it only failed when it came to sending back the correct data",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 324.45,
+          "end": 329.26,
+          "en": "and there we see that it's also connected to a user which ends with ABC.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 329.46,
+          "end": 335.79,
+          "en": "If you have a look at the users, this is this user and there in posts, we also find the ID of the post which",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 335.79,
+          "end": 337.61,
+          "en": "ends with 6E5,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 338.04,
+          "end": 339.8,
+          "en": "yes that is correct.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 339.84000000000003,
+          "end": 341.11,
+          "en": "So this worked, now",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 341.15999999999997,
+          "end": 344.44,
+          "en": "only a minor mistake here regarding the data I send back.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 344.58,
+          "end": 346.37,
+          "en": "Let's simply give this a try again,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 346.45,
+          "end": 347.86,
+          "en": "here's our post,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 347.94,
+          "end": 353.23,
+          "en": "let's add a cup like this,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 354.24,
+          "end": 358.9,
+          "en": "superhot and now this works without an error.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 359.09000000000003,
+          "end": 362.88,
+          "en": "So now we are able to connect posts and users,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 362.99,
+          "end": 368.99,
+          "en": "let's now take it a step further and make sure that editing and deleting is only possible for posts",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 369.14,
+          "end": 371.21,
+          "en": "that belong to the currently logged in user.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,860 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "12097922",
+      "title": "Using & Validating the Token",
+      "lectureOrder": 392,
+      "videoOrder": 348,
+      "sourceHash": "e76b0e41678f6c7ba24fa1dc4e9956b43ce60e64e2b694e8ec2b39d864e57f50",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.41,
+          "end": 6.46,
+          "en": "Now that we're generating a token and we're passing it to the client,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.55,
+          "end": 12.19,
+          "en": "we need to make sure that the client can pass back the token to the backend, to the rest API",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 12.4,
+          "end": 20.77,
+          "en": "and we then check for the A, existence and B, validity of the token before we allow the request to continue.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 20.77,
+          "end": 25.98,
+          "en": "So for example on our feed routes, on all these routes, none of these routes should be public,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 26.08,
+          "end": 33.01,
+          "en": "so if no token is attached to the incoming request, we should simply block access here and this is what",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 33.01,
+          "end": 36.33,
+          "en": "I'll work on now. For that I'll add a new middleware and",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 36.44,
+          "end": 39.8,
+          "en": "I'll create a new middleware folder for this,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 39.82,
+          "end": 45.11,
+          "en": "you could place it anywhere though and I'll name it isAuth.js,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 45.19,
+          "end": 48.73,
+          "en": "that is the name of my file. In there,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 48.94,
+          "end": 55.51,
+          "en": "I will import my json web token package because we'll need that package to validate incoming tokens,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 56.47,
+          "end": 63.28,
+          "en": "then I'll export one function in that file and that will be a normal middleware function with request, response,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 63.4,
+          "end": 66.81,
+          "en": "next so that I can use it as a middleware",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 67.36,
+          "end": 71.94,
+          "en": "and now I first of all need to extract the token from an incoming request.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 71.95,
+          "end": 75.88,
+          "en": "Now currently we are not attaching the token to any requests,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 75.88,
+          "end": 80.03999999999999,
+          "en": "how could we attach it? If we go back to our frontend let's say in feed.js",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 80.07,
+          "end": 83.68,
+          "en": "for loading posts we want to attach the token,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 83.74,
+          "end": 85.19,
+          "en": "how could we do that and",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 85.21000000000001,
+          "end": 92.72999999999999,
+          "en": "there are a couple of options. You could add a query parameter, something like token equals and then enter",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 92.74000000000001,
+          "end": 97.99000000000001,
+          "en": "your token value there and then append other query parameters, that would be a valid option,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 97.99000000000001,
+          "end": 100.22,
+          "en": "nothing wrong with that.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 100.45,
+          "end": 106.66,
+          "en": "You could include it in the request body but that is not ideal because for example get requests have",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 106.66,
+          "end": 107.35,
+          "en": "no body,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 107.38,
+          "end": 109.22,
+          "en": "so that is not a solution",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 109.36,
+          "end": 118.94,
+          "en": "you should use unless you never have authenticated get requests. A great solution is however that you",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 118.94,
+          "end": 120.86,
+          "en": "use a header.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 120.86,
+          "end": 121.78,
+          "en": "It keeps your urls",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 121.78,
+          "end": 123.4,
+          "en": "beautiful,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 123.53,
+          "end": 127.26,
+          "en": "of course that might not be the most important argument but still, it keeps your",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 127.28,
+          "end": 132.18,
+          "en": "urls beautiful and a header makes a lot of sense for meta information like",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 132.2,
+          "end": 134,
+          "en": "well the token which it is in the end.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 134.43,
+          "end": 139.52,
+          "en": "So let's add a second argument in the load posts function in the feed.js",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 139.63,
+          "end": 141.32999999999998,
+          "en": "file in the frontend,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 141.43,
+          "end": 144.26,
+          "en": "a second argument there to the fetch method",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 144.47,
+          "end": 150.05,
+          "en": "and here I will add some headers to this request. Now I will not add the content type because I'm not",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 150.05,
+          "end": 156.25,
+          "en": "sending any data here but I will add the authorization header.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 156.26,
+          "end": 161.57,
+          "en": "Theoretically you can add any header you want but this is an official header, a header you officially",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 161.57,
+          "end": 165.65,
+          "en": "use for passing authentication information to the backend",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 165.68,
+          "end": 172.31,
+          "en": "and please remember that on the backend in the app.js file where we added our course headers,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 172.31,
+          "end": 173.53,
+          "en": "I did enable",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 173.54,
+          "end": 178.68,
+          "en": "the authorization header, you need to have that enabled for this to work.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 178.68,
+          "end": 184.43,
+          "en": "So now I'm setting my authorization header there and I'm setting it to a value which is not just the token",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 184.64,
+          "end": 192.43,
+          "en": "but actually bearer whitespace and then this props token allows you to get the token in the react app.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 192.95,
+          "end": 194.44,
+          "en": "Why bearer?",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 194.66,
+          "end": 201.5,
+          "en": "Well this is just a convention to kind of identify that the type of token you have and the bearer token is simply",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 201.74,
+          "end": 205.73,
+          "en": "an authentication token, you typically use bearer for json",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 205.73,
+          "end": 206.78,
+          "en": "web tokens.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 206.78,
+          "end": 207.71,
+          "en": "It's not a must,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 207.71,
+          "end": 214.17000000000002,
+          "en": "you could actually work without that but it's a common convention and therefore I want to keep that convention.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 214.4,
+          "end": 220,
+          "en": "So this is how I could add my token to that get posts request on the frontend,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 220.16,
+          "end": 226.41,
+          "en": "now on the backend to extract it in my isAuth middleware, I will create a new variable",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 226.46,
+          "end": 231.01,
+          "en": "or a constant token and then access my request and with the get method,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 231.07999999999998,
+          "end": 234.87,
+          "en": "I can get some header value.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 234.95,
+          "end": 243.56,
+          "en": "The header is the authorization header of course and there, I will get this bearer whitespace token.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 243.56,
+          "end": 249.62,
+          "en": "Now I'm only interested in the token of course, so I will split on the whitespace which comes after bearer",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 249.77,
+          "end": 252.54,
+          "en": "and I'll get the second value which is the token then,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 252.86,
+          "end": 254.57,
+          "en": "so this is the token,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 254.58,
+          "end": 262.49,
+          "en": "now I will try to decode that. So I will actually use a try catch block because it could fail and I will",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 262.49,
+          "end": 273.86,
+          "en": "create a new variable here, decoded token and decoded token will then be JWT and there, you have a verify",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 273.86,
+          "end": 274.46,
+          "en": "method,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 274.46,
+          "end": 279.15,
+          "en": "this will both decode and verify your token.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 279.17,
+          "end": 284.05,
+          "en": "You also have a decode token but this will only decode it and not check if it's valid,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 284.15,
+          "end": 291.17,
+          "en": "so definitely use verify here and then you pass in that token which you extracted from the header and then",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 291.29,
+          "end": 296.73,
+          "en": "that secret and that has to be the same secret you used for signing the token of course,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 296.9,
+          "end": 301.34,
+          "en": "so the same secret you used in your auth controller, this one",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 301.34,
+          "end": 303.79,
+          "en": "otherwise you'll not get a matching result.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 303.92,
+          "end": 308.94,
+          "en": "So this is the secret which we will use for validating the token.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 308.97,
+          "end": 310.31,
+          "en": "Now this could fail,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 310.47,
+          "end": 312.23,
+          "en": "so here I'll have a catch block",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 313.65,
+          "end": 321.42,
+          "en": "and there, I want to add a status code to my error of 500 and then I will throw the error here.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 322.59,
+          "end": 331.82,
+          "en": "Since I'm in a middleware, now the expressjs error handler would take over, otherwise we know that",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 331.82,
+          "end": 338.06,
+          "en": "decoding worked and I'll check if it is undefined which would be the case if it didn't fail technically",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 338.33,
+          "end": 341.78,
+          "en": "but it was unable to verify the token.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 341.78,
+          "end": 351.45,
+          "en": "In this case I'll create a new error, not authenticated,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 353.05,
+          "end": 358.73,
+          "en": "add a status code of 401 and throw this error.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 359.06,
+          "end": 366.44,
+          "en": "If we make it past this if check, we know that we have a valid token however and that we were able to decode",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 366.44,
+          "end": 367.02,
+          "en": "it,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 367.04,
+          "end": 372.86,
+          "en": "so now I'll just extract some information from the token, the user id and I will store it in the request",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 372.98,
+          "end": 378.5,
+          "en": "so that I can use it in other places where this request will go, like in my routes and there I'll just",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 378.5,
+          "end": 383.53,
+          "en": "access the decoded token which now simply well is basically the part on the right",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 383.53,
+          "end": 386.58,
+          "en": "here, we can now access that data since we decoded it.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 386.93,
+          "end": 392.21,
+          "en": "So there I can now access my user ID field which I stored in the token,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 392.24,
+          "end": 394.31,
+          "en": "this will be useful for later,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 394.34000000000003,
+          "end": 400.39,
+          "en": "authorizing access to for example deleting posts because now I know the user ID stored in the token",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 400.61,
+          "end": 402.8,
+          "en": "and that should match the user id of the post",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 402.8,
+          "end": 408.25,
+          "en": "we tried to delete later and then I can forward this request. So we'll either have an error",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 408.35,
+          "end": 412.76,
+          "en": "if we have no token attached or everything will be fine.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 412.76,
+          "end": 421.54,
+          "en": "Now we can add that middleware to our routes and I will add it to my get posts route. So here get posts",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 421.54,
+          "end": 423.45,
+          "en": "should use that middleware, therefore I",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 423.46,
+          "end": 431.15,
+          "en": "first of all need to import it by requiring it from the middleware folder, isAuth",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 431.38,
+          "end": 436.19,
+          "en": "and I will add it like this here.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 436.25,
+          "end": 440.09,
+          "en": "Now I only can get posts if I do add a token.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 440.09,
+          "end": 446.78,
+          "en": "First of all, let me show you how this fails, if I remove this header,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 447.08,
+          "end": 452.99,
+          "en": "so this extra configuration on my get posts request in the frontend. If I remove that and I reload",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 452.99,
+          "end": 458.39,
+          "en": "the page, I get failed to fetch posts and in the console log, I also see that here",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 461.38,
+          "end": 464.2,
+          "en": "because it fails to read split of undefined,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 464.32,
+          "end": 469.51,
+          "en": "we get a technical error because in my middleware, it can't get anything from that header because the",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 469.51,
+          "end": 471.26,
+          "en": "header is not defined.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 471.31,
+          "end": 476.7,
+          "en": "Therefore we could add an extra check here and first of all get the header, auth",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 476.74,
+          "end": 484.9,
+          "en": "header would then be request get authorization",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 485.08,
+          "end": 488.74,
+          "en": "and if this is undefined,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 488.85,
+          "end": 493.15,
+          "en": "so if we can't find the header, then I will already create an error here,",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 494.99,
+          "end": 501.12,
+          "en": "not authenticated because we don't even append the token so we certainly are not authenticated.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 501.5,
+          "end": 506.37,
+          "en": "I can set my status code of 401 which is better than 500",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 506.39,
+          "end": 510.42,
+          "en": "and I can throw that error and then down there,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 510.77,
+          "end": 512.74,
+          "en": "we know that we do have the auth headers and",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 512.74,
+          "end": 516.43,
+          "en": "we know we can split it, so that's an improved way of handling that.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 516.44,
+          "end": 519.38,
+          "en": "Now if we reload on the frontend, we still get that error",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 519.38,
+          "end": 523.55,
+          "en": "but technically we now have a 401 error which is better.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 523.58,
+          "end": 530.81,
+          "en": "Now I can add that code back where I add the token but let's try adding some rubbish here which is not",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 530.81,
+          "end": 532.54,
+          "en": "a valid token,",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 532.55,
+          "end": 541.21,
+          "en": "now if that reloads it still fails and it fails because now the json web token package has a problem",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 541.21,
+          "end": 543.84,
+          "en": "with the format of our token.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 544.06,
+          "end": 552.91,
+          "en": "So now let me revert this and add the valid token and now as this reloads, now our posts load because now we",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 552.97,
+          "end": 554.69,
+          "en": "are validating this and",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 554.8,
+          "end": 556.87,
+          "en": "we have a valid token indeed.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 557.21,
+          "end": 565.21,
+          "en": "So this is now how we can validate on the server side, how we can check whether the token is valid and",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 565.27,
+          "end": 566.69,
+          "en": "then grant access",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 566.8,
+          "end": 572.44,
+          "en": "and now we just have to do that for all our routes before we then also make sure that only users who",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 572.44,
+          "end": 576.43,
+          "en": "created something can delete it because right now of course,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 576.67,
+          "end": 580.65,
+          "en": "well I can delete everything as you can see.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

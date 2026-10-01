@@ -1,0 +1,5772 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "11954380",
+      "title": "Providing User Feedback",
+      "lectureOrder": 265,
+      "videoOrder": 236,
+      "sourceHash": "07413466f3c3a7d826c061616abd59a61c4b623983c9cbeb7953789154defd5a",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.3,
+          "end": 5.92,
+          "en": "We've got all the core features that are related to authentication",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.96,
+          "end": 14.42,
+          "en": "implemented, now I want to work on the user experience a little bit at least. Right now when we login and",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 14.42,
+          "end": 20.66,
+          "en": "we for example try to login with invalid credentials where we don't find the email or the password",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 20.66,
+          "end": 25.87,
+          "en": "does not match or we try to create a user for whom the email already exists,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 26.06,
+          "end": 31.98,
+          "en": "then we are just redirected without any error message being shown on the page.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 32,
+          "end": 37.67,
+          "en": "Now I will dive deeper into how to validate user input in the validation module of the course but here",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 37.76,
+          "end": 43.62,
+          "en": "we're not talking about validation so much but really about giving some feedback to the user in general.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 43.76,
+          "end": 50.06,
+          "en": "Now when rendering views with the render method as we are doing it here, including data that should be",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 50.06,
+          "end": 53.87,
+          "en": "rendered on the page was simple, by the way isAuthenticated",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 53.93,
+          "end": 57.39,
+          "en": "can be deleted here because we always include this as a local and",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 57.5,
+          "end": 60.12,
+          "en": "that is the case for all our routes",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 60.14,
+          "end": 61.12,
+          "en": "as a side note,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 61.4,
+          "end": 68.45,
+          "en": "so you can remove that isAuthenticated thing from all render methods but this is not really what I wanted",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 68.45,
+          "end": 71.7,
+          "en": "to do here, it's a little side thing we can do though.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 71.87,
+          "end": 78.71000000000001,
+          "en": "The main thing is that it's easy to pass data to our views inside of the render method as you can see,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 78.95,
+          "end": 84.57,
+          "en": "it was never a problem to get our data into the views there.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 84.72,
+          "end": 91.77,
+          "en": "However it is a huge problem if we want to pass some data into the rendered view when we are redirecting",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 91.81,
+          "end": 98.5,
+          "en": "as we are doing it here because upon a redirect, technically a new request is started, a new request to",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 98.62,
+          "end": 100.69,
+          "en": "/login in this case",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 100.69,
+          "end": 108.28,
+          "en": "and on that new request, we don't know that we got here because the user entered an invalid e-mail or",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 108.28,
+          "end": 111.78,
+          "en": "anything like that, when we triggered this new request",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 111.92,
+          "end": 118.06,
+          "en": "this is treated in the same way as a request that was triggered by clicking on the login button in our menu.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 118.24000000000001,
+          "end": 122.41,
+          "en": "So we have no way of finding out if we want to display an error message or not",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 122.53,
+          "end": 128.08,
+          "en": "and hence in the render method of get login where we show that login page, we don't know if we want",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 128.08,
+          "end": 130.63,
+          "en": "to include some error message.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 130.63,
+          "end": 138.88,
+          "en": "Now to solve that problem and store some data before we redirect which we then use in the brand new request",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 138.91,
+          "end": 140.84,
+          "en": "that is triggered by the redirect,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 141.07,
+          "end": 150.35,
+          "en": "how could we do that? Well you learned if you want to store data across requests, you need a session.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 150.57999999999998,
+          "end": 152.52,
+          "en": "So we can use a session for that",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 152.65,
+          "end": 157.95,
+          "en": "but of course I don't want to store the error message in the session permanently,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 157.96,
+          "end": 165.09,
+          "en": "I want to add something to the error message, kind of flash it onto the session",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 165.29,
+          "end": 171.2,
+          "en": "and once the error message was then used, so once we pulled it out of the session and did something with",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 171.2,
+          "end": 173.61,
+          "en": "it, I want to remove it from the session",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 173.69,
+          "end": 179.55,
+          "en": "so that for subsequent requests, this error message is not part of the session anymore",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 179.81,
+          "end": 184.91,
+          "en": "and for this, we can use another package which makes this really easy.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 184.97,
+          "end": 189.62,
+          "en": "We install that with npm install --save and then the package is called connect",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 189.62,
+          "end": 192.9,
+          "en": "-flash, if you hit enter,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 193.01,
+          "end": 201.01,
+          "en": "this gets downloaded and added to your project, you can restart the server thereafter",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 201.15,
+          "end": 204.36,
+          "en": "and now connect flash is really simple to use.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 204.36,
+          "end": 211.35,
+          "en": "First of all we initialize in our app.js folder, file, in there we install it or we import it just",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 211.35,
+          "end": 213.02,
+          "en": "as we import other packages,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 213.21,
+          "end": 218.16,
+          "en": "you can store it in a constant which you name however you want, I'll name it flash and I will require",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 218.25,
+          "end": 225.07999999999998,
+          "en": "connect flash here. Now flash then needs to be registered",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 225.07999999999998,
+          "end": 228.1,
+          "en": "you could say, initialized, I'll do this here at the bottom,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 228.14,
+          "end": 233.87,
+          "en": "you need to do it after you initialized the session, so certainly after this middleware, there I will",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 233.87,
+          "end": 238.05,
+          "en": "call use and I will simply call flash as a function here.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 238.1,
+          "end": 245.93,
+          "en": "Now we can use that flash middleware anywhere in our application on the request object.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 245.96,
+          "end": 247.38,
+          "en": "So now let's save that and",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 247.55,
+          "end": 253.16,
+          "en": "let's head over to auth.js and let's say here when we're logging in and we don't find a user with that",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 253.19,
+          "end": 258.76,
+          "en": "e-mail which is the problem here, we want to flash an error message into our session and",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 258.98,
+          "end": 262.06,
+          "en": "we do this now with request and there will be a flash method",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 262.07,
+          "end": 272.03,
+          "en": "now added by this package. This flash message now simply takes a key under which this message will be",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 272.03,
+          "end": 272.65999999999997,
+          "en": "stored,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 272.65999999999997,
+          "end": 274.73,
+          "en": "we could name this error",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 275.27,
+          "end": 276.76,
+          "en": "and then the message",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 276.76,
+          "end": 283.38,
+          "en": "and in this case this would be invalid e-mail or password.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 283.39,
+          "end": 286.15,
+          "en": "Now you could also say just invalid e-mail,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 286.24,
+          "end": 289.6,
+          "en": "some people advocate not being as clear as people can",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 289.6,
+          "end": 292.86,
+          "en": "otherwise guess which part of the credentials was wrong,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 292.9,
+          "end": 296.52,
+          "en": "I'd argue they can test this anyways by trying to sign up with that e-mail",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 296.65,
+          "end": 301,
+          "en": "but whatever you want, you can output or flash such an error message.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 301,
+          "end": 304.15,
+          "en": "Now with that it's in session and it's in there until we use it.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 304.39,
+          "end": 308.8,
+          "en": "Now we want to use it here when we do render the login page, here",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 308.83,
+          "end": 314.65,
+          "en": "I want to include an error message variable let's say",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 314.98,
+          "end": 320.71,
+          "en": "and that error message variable will simply pull that by using request flash again",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 320.74,
+          "end": 325.45,
+          "en": "and here we now just access the key for which we want to get the message.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 325.45,
+          "end": 328.29,
+          "en": "So in my case that key is what I specified here,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 328.41,
+          "end": 329.13,
+          "en": "error,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 329.43,
+          "end": 332.1,
+          "en": "so now I can pull that message out with error.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 332.11,
+          "end": 338.56,
+          "en": "So whatever I stored in error will now be retrieved and stored in error message and thereafter, this information",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 338.68,
+          "end": 340.51,
+          "en": "is removed from the session.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 341.3,
+          "end": 348.29,
+          "en": "So now error message will be set and will hold a value only if we have an error flashed into our session",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 349.15,
+          "end": 356.77,
+          "en": "and therefore we can now move over to our view, to the login view and display the error message here.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 356.86,
+          "end": 360.28,
+          "en": "Let's say above all of that I add a div",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 360.31,
+          "end": 365.2,
+          "en": "and for now let's make this really simple and just output our error message,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 365.26,
+          "end": 371.56,
+          "en": "so here error message is the variable in which I'm storing it.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 371.56,
+          "end": 374.72,
+          "en": "Obviously I want to check if that exists before I render this,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 374.77,
+          "end": 380.61,
+          "en": "so I will wrap this with some ejs if statement where I check if error message,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 380.68,
+          "end": 386.83,
+          "en": "this will not be treated as true if it's simply not defined so if we simply are not able to retrieve",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 386.83,
+          "end": 387.71,
+          "en": "anything",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 388.09,
+          "end": 391.24,
+          "en": "and then let's try to output it like this,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 391.24,
+          "end": 392.9,
+          "en": "let's see if that works.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 393.04,
+          "end": 398.07,
+          "en": "If I go back to my application and I reload that login page, that seems to work",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 398.17,
+          "end": 400.49,
+          "en": "and now let me enter an invalid email",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 401.54,
+          "end": 410.81,
+          "en": "and indeed I see invalid e-mail or password. If I do enter a valid email but an invalid password, I don't",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 410.81,
+          "end": 415.98,
+          "en": "see that because there I don't flash anything onto my session yet.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 416.03,
+          "end": 417.7,
+          "en": "So this is working,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 417.8,
+          "end": 420.1,
+          "en": "now let's quickly reformat that,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 420.41,
+          "end": 421.69,
+          "en": "I'll do that in next lecture,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 421.7,
+          "end": 426.55,
+          "en": "you can skip it and download the finished formatted code if you want to and thereafter, let's add this",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 426.62,
+          "end": 427.97,
+          "en": "in other useful places too.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11954384",
+      "title": "Optional: Styling Error Messages",
+      "lectureOrder": 266,
+      "videoOrder": 237,
+      "sourceHash": "5207d5c754bd872f29112c8c50faed295527d36485b37f47e94c19aded2ba141",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.2,
+          "end": 6.12,
+          "en": "I'm outputting that error message, I just want to style it a little bit now",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.15,
+          "end": 13.79,
+          "en": "and for that I'll give it a css class and I'll simply name that user message and then maybe user",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 14.58,
+          "end": 18.91,
+          "en": "message --error using some BEM styling here,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 18.93,
+          "end": 25.25,
+          "en": "that's a css styling convention or a convention of naming your classes. Doesn't matter too much,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 25.25,
+          "end": 26.79,
+          "en": "you can name this whatever you want in the end,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 26.79,
+          "end": 32.43,
+          "en": "I added these two classes, one to have a general message look and then one for errors because maybe we",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.43,
+          "end": 35.85,
+          "en": "also want to be able to output success messages later.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 35.85,
+          "end": 42.77,
+          "en": "So with that, let me quickly add this to some css files and you can skip this lecture if you want,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 42.78,
+          "end": 47.4,
+          "en": "in the next lecture you find the finished code attached which you can use. In the main css, I'll",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 47.46,
+          "end": 51.32,
+          "en": "quickly add this, let's say at the bottom of this file,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 51.36,
+          "end": 56.28,
+          "en": "it's up to you right before the media query maybe, I have my user message,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 56.29,
+          "end": 59.06,
+          "en": "so this css class I just added here",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 60.04,
+          "end": 69.4,
+          "en": "and let's say such a user message should use a margin auto to be centered, get a width of 90%",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 69.43,
+          "end": 70.6,
+          "en": "by default,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 70.59,
+          "end": 74.72,
+          "en": "I'll also set up some styling in case I'm on a bigger screen,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 74.97,
+          "end": 85.4,
+          "en": "there user message will have a width of let's say 30rem and then here I'll give it a border of one",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 85.4,
+          "end": 92.53999999999999,
+          "en": "pixel solid and let's use maybe some bluish color here, maybe not that blue,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 93.87,
+          "end": 102.53999999999999,
+          "en": "well basically which ever blue color you want, maybe this one and a background color,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 102.6,
+          "end": 109.58,
+          "en": "I'll also use a blue here, also a different blue, so some light bluish color here",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 109.59,
+          "end": 115.28999999999999,
+          "en": "so the general info message should have maybe some neutral color, so some blue like this",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 115.43,
+          "end": 117,
+          "en": "and let's see how that looks like.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 118.28,
+          "end": 123.47,
+          "en": "With it added, let me try entering an invalid email again,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 123.47,
+          "end": 124.21,
+          "en": "looks like that,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 124.25,
+          "end": 126.28,
+          "en": "well not too pretty,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 126.29,
+          "end": 129.15,
+          "en": "that should be much lighter.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 129.35,
+          "end": 133.42,
+          "en": "I also want to have some padding in here,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 133.42,
+          "end": 140.12,
+          "en": "maybe 1rem and let's give it some rounded corners as well and",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 140.13,
+          "end": 144.86,
+          "en": "now with that, if we enter an invalid email that looks much better.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 145.2,
+          "end": 150.78,
+          "en": "Ok so now this is my general info message, let's also maybe also center the text if we want to",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 150.78,
+          "end": 158.49,
+          "en": "and now let's give this an error version basically with --error, that's the other class I added to this specific",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 158.49,
+          "end": 166.62,
+          "en": "box in my login screen and there I will change the border color to be red and the background should",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 166.62,
+          "end": 167.87,
+          "en": "be a light red,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 168,
+          "end": 172.97,
+          "en": "so let's start with red and then turn this into a light red",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 173.34,
+          "end": 182.46,
+          "en": "and now if we try this again, now it looks like this. Ok so this could be the error message we're outputting",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 182.46,
+          "end": 182.85,
+          "en": "here,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 182.85,
+          "end": 188.31,
+          "en": "you could also turn the text red if you want, so you could also say text color should be red here maybe",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 188.85,
+          "end": 192.56,
+          "en": "and reduce the padding maybe to .5, that could look a bit better,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 194.57,
+          "end": 196.16,
+          "en": "so an invalid email or password,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 196.16,
+          "end": 197.15,
+          "en": "that looks good.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 197.15,
+          "end": 199.57999999999998,
+          "en": "Now I always have that stickaround",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 199.57999999999998,
+          "end": 202.42000000000002,
+          "en": "now, reason for that is if I go back,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 202.7,
+          "end": 209.24,
+          "en": "error message seems to be set to something even if we're not having a message in there and that is something",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 209.24,
+          "end": 210.62,
+          "en": "I'll check in the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11954386",
+      "title": "Finishing the Flash Messages",
+      "lectureOrder": 267,
+      "videoOrder": 238,
+      "sourceHash": "e1006adf1e3bb2e8f7ecb2894e313d593208bfd6172d07686774de2ccaf1ddd2",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.17,
+          "end": 8.2,
+          "en": "So I added a message box in the last lecture, you can download the finished version of the entire project",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.23,
+          "end": 9.01,
+          "en": "attached,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.13,
+          "end": 14.07,
+          "en": "I simply added css classes to my div which surrounds the message",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 14.17,
+          "end": 17.2,
+          "en": "and then I worked on these classes in the main css file,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.29,
+          "end": 25.51,
+          "en": "I added user message and user message error and also added some user message entry to my desktop sys",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 25.81,
+          "end": 29.77,
+          "en": "classes. So you can add this manually from the attached code,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 29.77,
+          "end": 36.79,
+          "en": "now one thing you'll notice is that even if you load the login page regularly, you'll see an empty box",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 36.79,
+          "end": 37.54,
+          "en": "here.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 37.6,
+          "end": 44.98,
+          "en": "So even if no message is flashed, it looks like error message is not set to undefined and therefore let's",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 44.98,
+          "end": 52.78,
+          "en": "quickly go to auth and let's simply console log request flash error to see what's in there that's",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 52.78,
+          "end": 55.04,
+          "en": "causing this to not be undefined",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 55.05,
+          "end": 59.69,
+          "en": "basically. So if I reload this page, I see it's an empty array",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 61.09,
+          "end": 65.52,
+          "en": "and if I do enter something here, you see",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 65.74,
+          "end": 70.49,
+          "en": "it's an array of messages.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 70.55,
+          "end": 77.69,
+          "en": "So in the end what do we want to do is we want to extract our message here is equal to request flash",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 78.37,
+          "end": 88.53,
+          "en": "error. Now if message length is now greater than zero, then I know I have a message in there,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 89,
+          "end": 95.31,
+          "en": "so now I'll actually turn this into a variable by using let here and then I can set message equal to message the",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 95.31,
+          "end": 103.15,
+          "en": "first element because I want to retrieve that otherwise I'll set message equal to null and now down there,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 103.6,
+          "end": 113.6,
+          "en": "we can use the message and pass that as an error message. If we now save that, don't have the box here, if I",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 113.72999999999999,
+          "end": 115.12,
+          "en": "do enter something invalid,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 115.12,
+          "end": 116.6,
+          "en": "we do see the error message though",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 116.71000000000001,
+          "end": 120.4,
+          "en": "but if I go to the login page regularly without an error, I don't see it.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 120.4,
+          "end": 126.07,
+          "en": "So this is now how we can use these flash messages and output them in a nice error box.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 126.07,
+          "end": 128.11,
+          "en": "Now here's also a challenge for you,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 128.2,
+          "end": 131.7,
+          "en": "find some other places in the login and sign up screen",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 131.71,
+          "end": 135.87,
+          "en": "where it would make sense to flash other messages onto the screen.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 135.88,
+          "end": 137.98,
+          "en": "We'll do it together in the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11954394",
+      "title": "Adding Additional Flash Messages",
+      "lectureOrder": 268,
+      "videoOrder": 239,
+      "sourceHash": "0ff4a4a912a78a194a0030c76903e5c79fd434cdec7e5ed9c37161c3bf49bee1",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.13,
+          "end": 3.77,
+          "en": "So were you successful?",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.9,
+          "end": 9.72,
+          "en": "We added our flash message here when we used an email which we did not find,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.84,
+          "end": 15.87,
+          "en": "now obviously if we have a password that does not match, here where we also redirect to login, I also want",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 15.87,
+          "end": 19.57,
+          "en": "to flash my invalid email or password message onto the session.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 19.68,
+          "end": 24.76,
+          "en": "So this is another great place because if we now save this, on the login screen",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 24.78,
+          "end": 33.21,
+          "en": "I might have a valid email but an invalid password and I get this error message, with valid credentials,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 33.21,
+          "end": 34.7,
+          "en": "it of course works fine though.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 36.28,
+          "end": 42.49,
+          "en": "Now we can also do something when signing up because when signing up, I'm checking whether an email address",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 42.52,
+          "end": 43.93,
+          "en": "already exists,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 43.93,
+          "end": 48.26,
+          "en": "well before redirecting here I can also output something there,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 48.29,
+          "end": 52.35,
+          "en": "email exists already,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 52.35,
+          "end": 56.27,
+          "en": "please pick a different one,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 56.69,
+          "end": 64.06,
+          "en": "something like that. If we now save that and I enter the e-mail address which indeed does already exist,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 65.6,
+          "end": 68.71000000000001,
+          "en": "well then I'm redirected without having any effect",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 68.99,
+          "end": 72.35,
+          "en": "and that makes sense because we flashed a message but I'm not outputting it,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 72.38,
+          "end": 78.08,
+          "en": "so we need to go to the login page and copy that code for outputting an error message and then go to",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 78.08,
+          "end": 81.06,
+          "en": "sign up and there above the form,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 81.08,
+          "end": 83.53999999999999,
+          "en": "let's also output the error message here",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 83.66,
+          "end": 88.02,
+          "en": "but of course for this to work, we also need to extract it when loading the sign up page.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 88.16,
+          "end": 94.28,
+          "en": "So that code which I'm using in get login to render my error message, I need that in get sign up",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 94.28,
+          "end": 94.8,
+          "en": "too",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 94.97,
+          "end": 101.3,
+          "en": "and then there I also need to pass this error message variable to the view which holds that message I'm",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 101.3,
+          "end": 102.09,
+          "en": "extracting",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 102.14,
+          "end": 105.81,
+          "en": "otherwise we can't display it even though we flash it into the session.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 105.83,
+          "end": 112.00999999999999,
+          "en": "So now with that, let's try this again, let's reuse a password, an email that already exists",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 112.08,
+          "end": 117.72,
+          "en": "and now I get this error, if I do create a valid user with a valid email,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 117.75,
+          "end": 118.72999999999999,
+          "en": "this works however.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 118.74000000000001,
+          "end": 121.86,
+          "en": "So now if we quickly check our users collection,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 121.86,
+          "end": 124.07,
+          "en": "we see that was added.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 124.08,
+          "end": 125.22,
+          "en": "So these are some messages",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 125.25,
+          "end": 128.26,
+          "en": "I can flash onto the screen, you could add more,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 128.28,
+          "end": 133.71,
+          "en": "for example after logging out you could also output some confirmation for that but this should do it",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 133.71,
+          "end": 138.62,
+          "en": "for now. It was a nice practice and improves the user experience a little bit.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11954396",
+      "title": "Wrap Up",
+      "lectureOrder": 269,
+      "videoOrder": 240,
+      "sourceHash": "88a7ca7e62cd9ca2cd77d8cc8e21493902125bc8b34fe74479eb6fbfebb775de",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.14,
+          "end": 8.11,
+          "en": "So that's it for this module. I'll actually dive into some other authentication related things in the next",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.29,
+          "end": 14.47,
+          "en": "modules, for example we'll add password resetting but these are the basic things you need to know about",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 14.5,
+          "end": 21.07,
+          "en": "authentication. You learned what authentication means, that it means that not every visitor of your page",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 21.07,
+          "end": 27.58,
+          "en": "can view and do everything, that authentication has to happen on the server side to ensure that users",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 27.61,
+          "end": 34.18,
+          "en": "don't trick you into thinking they are authenticated and that you therefore use sessions to store the",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 34.18,
+          "end": 40.63,
+          "en": "authentication status and that you can protect routes by checking that session controlled login status",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 40.81,
+          "end": 46.75,
+          "en": "right before the request reaches your controller action or the code in general that is executed in a",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 46.75,
+          "end": 47.58,
+          "en": "route.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 48.1,
+          "end": 54.31,
+          "en": "Now authentication obviously also is strongly tied to security and providing a good user experience",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 54.9,
+          "end": 61.84,
+          "en": "and therefore passwords should absolutely be stored in a hashed form. If you store them in plain text,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 61.84,
+          "end": 67.7,
+          "en": "if your database gets compromised, the attackers have full access to your user accounts.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 67.72,
+          "end": 75.03999999999999,
+          "en": "Additionally csrf attacks, cross-site request forgery attacks are a real issue because your session",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 75.03999999999999,
+          "end": 81.88,
+          "en": "can be stolen there so to say and therefore you should implement csrf protection as shown in this module",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 82.06,
+          "end": 86.11,
+          "en": "in any production ready app you're planning to ship.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 86.11,
+          "end": 92.35,
+          "en": "Now for a better user experience, you can look into flashing data or messages as we did it in this module",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 92.65,
+          "end": 94.3,
+          "en": "into your session store,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 94.3,
+          "end": 100.38,
+          "en": "flashing means that this data will be removed from the session automatically by the package we used once",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 100.39,
+          "end": 108.28,
+          "en": "we used the data and we can use that data to persist data across redirects because redirects technically",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 108.58,
+          "end": 114.42,
+          "en": "trigger two different requests or we have the old request we redirect and then a new request starts and",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 114.44,
+          "end": 119.45,
+          "en": "if we want to share data across request as you learned, we need to use a session.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 119.92,
+          "end": 122.91,
+          "en": "So these are the general authentication related things you need",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 122.98,
+          "end": 128.01,
+          "en": "and with this knowledge, you already get very very far.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 128.01,
+          "end": 134.5,
+          "en": "Now in the next module, we'll have a look at how we can send mails from inside our node application because",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 134.5,
+          "end": 140.67000000000002,
+          "en": "we'll need that feature to then enhance our application a little bit regarding the authentication so that",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 140.68,
+          "end": 144.88,
+          "en": "we can also add a password resetting mechanism.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 145,
+          "end": 148.06,
+          "en": "We'll do this in the module thereafter but in the next module,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 148.06,
+          "end": 150.19,
+          "en": "let's first of all have a look at how we send mails.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11954400",
+      "title": "Module Introduction",
+      "lectureOrder": 271,
+      "videoOrder": 241,
+      "sourceHash": "adc2ca0c0176326f97119a6cd9646532e5594c041cadcf03ce3f09c3551629a2",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.08,
+          "end": 8.24,
+          "en": "In this module, I now want to give you an introduction to how you can send e-mails from inside your node",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.3,
+          "end": 15.63,
+          "en": "application. Obviously sending emails is a crucial task in many web applications and in our website here,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 15.8,
+          "end": 22.94,
+          "en": "we could want to send an e-mail after a user signed up for example to confirm the sign up, something like",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 22.94,
+          "end": 23.87,
+          "en": "that.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 23.97,
+          "end": 24.24,
+          "en": "Now for that",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 24.26,
+          "end": 29.93,
+          "en": "I will show you how that works, what sending e-mails in a node application actually means and which part",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 30.15,
+          "end": 36.17,
+          "en": "nodjs and expressjs play in that big picture and we'll then implement it. We'll then implement",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 36.17,
+          "end": 40.06,
+          "en": "a package that helps us sending e-mails and we'll send an e-mail",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 40.07,
+          "end": 42.06,
+          "en": "upon successful sign up.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 42.06,
+          "end": 44.06,
+          "en": "So let's work on this in this module.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11954402",
+      "title": "How Does Sending Emails Work?",
+      "lectureOrder": 272,
+      "videoOrder": 242,
+      "sourceHash": "668140affa532fb36560051e861f0c7bbe25b612cdbd1bd6670d11bf839762b4",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.12,
+          "end": 4.76,
+          "en": "So how does sending mails work?",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.03,
+          "end": 9.68,
+          "en": "Well we obviously get our node server with our code and we get our user and we want to send an email",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.68,
+          "end": 11.01,
+          "en": "to that user.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.03,
+          "end": 19.4,
+          "en": "Now it's super important to understand and a common misconception that node and expressjs, these are",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 19.51,
+          "end": 26.21,
+          "en": "language or frameworks runtimes that we use for writing our server side logic but with nodejs,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 26.42,
+          "end": 32.87,
+          "en": "you can't trivially create a mailing server. Handling mails",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.87,
+          "end": 36.36,
+          "en": "is totally different to handling incoming requests and responses,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 36.38,
+          "end": 41.69,
+          "en": "it's a totally different technology, something totally different happens behind the scenes.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 41.69,
+          "end": 48.98,
+          "en": "Therefore in reality, you will very likely never implement your own mail server because that is a very",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 48.98,
+          "end": 50.21,
+          "en": "complex task,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 50.33,
+          "end": 56.84,
+          "en": "creating a mail server that is capable of handling thousands or one hundred thousands of e-mails",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 56.84,
+          "end": 62.29,
+          "en": "at the same time, sending them and so on, security, all that stuff is highly complex,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 62.3,
+          "end": 68.18,
+          "en": "so in reality you typically use third party mail servers for that and that is exactly what we will",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 68.18,
+          "end": 69.31,
+          "en": "do in this module too",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 69.35,
+          "end": 74.65,
+          "en": "but I will show you how to interact with such a service to send that e-mail through that service.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 74.78,
+          "end": 81.44,
+          "en": "And by the way all major web applications you might be interacting with including Udemy don't have",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 81.44,
+          "end": 88.85,
+          "en": "their own mail servers, they are using third party providers like AWS or whatever it is for sending",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 88.85,
+          "end": 89.42,
+          "en": "e-mails,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 89.51,
+          "end": 91.78999999999999,
+          "en": "so that is exactly what we will do in this module too.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11954404",
+      "title": "Using SendGrid",
+      "lectureOrder": 273,
+      "videoOrder": 243,
+      "sourceHash": "d62eb91b960f80e462e3f2455c87ba7203500868ea886d3b53897335720185b2",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.23,
+          "end": 3.98,
+          "en": "So in this course, I will use sendgrid",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4,
+          "end": 10.54,
+          "en": "you'll find it on sendgrid.com and I'll use it because they have a free entry tier which",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.54,
+          "end": 13.84,
+          "en": "stays free as long as you send less than 100 e-mails a day.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.84,
+          "end": 22,
+          "en": "Now there are many alternatives, MailChimp, AWS, SCS and you can google for nodemailing and your favorite",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 22.63,
+          "end": 25.59,
+          "en": "mailing service to find tutorials on how to implement it,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 25.6,
+          "end": 28.44,
+          "en": "now I will use this one because we can use it for free.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 28.78,
+          "end": 33.76,
+          "en": "So let's click try for free and then we simply have to create an account there.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 33.79,
+          "end": 39.82,
+          "en": "Now once you did sign up, you can quit that page here and go back to your node project and there we'll",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 39.82,
+          "end": 46.56,
+          "en": "now install a package. I'll install a package with npm install --save which is called node",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 46.68,
+          "end": 50.35,
+          "en": "mailer and to interact with sendgrid,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 50.55,
+          "end": 57.32,
+          "en": "I'll also install another package in the same go, nodemailer-sendgrid-transport,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 57.39,
+          "end": 62.28,
+          "en": "that is a package that will help us with integrating sendgrid and conveniently use that together with",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 62.28,
+          "end": 69.38,
+          "en": "nodemailer. Nodemailer is a package that as the name suggests, makes sending emails from inside",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 69.39,
+          "end": 74.06,
+          "en": "nodejs a breeze. With that all added,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 74.15,
+          "end": 79.19,
+          "en": "we can move on to the next lecture and now start using nodemailer to send messages.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 79.19,
+          "end": 80.6,
+          "en": "So let me start that server again and",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 80.63,
+          "end": 82.19,
+          "en": "let's continue in the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11954406",
+      "title": "Using Nodemailer to Send an Email",
+      "lectureOrder": 274,
+      "videoOrder": 244,
+      "sourceHash": "5ef217076e163691033521a1bddbb2415da49f71f20ca418d6a46bfac168bfe1",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.11,
+          "end": 10.58,
+          "en": "I added nodemailer and now I want to use nodemailer to send an email. For that in my auth.js file",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 10.61,
+          "end": 13.08,
+          "en": "which is the only file where I will interact with it,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 13.52,
+          "end": 18.33,
+          "en": "I will import nodemailer and store it in a constant at the top,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 18.38,
+          "end": 25,
+          "en": "so require nodemailer like this and I will also import sendgridTransport,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 25.01,
+          "end": 31.55,
+          "en": "you can name these constants the way you want as always and this will inport nodemailer sendgridTransport.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 32.69,
+          "end": 33.77,
+          "en": "With that imported,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 33.86,
+          "end": 39.68,
+          "en": "I can initialise a couple of things here. For nodemailer, we need to initialize a so-called transporter,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 40.13,
+          "end": 44.59,
+          "en": "so that is essentially some setup telling nodemailer how your e-mails will be delivered",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 44.63,
+          "end": 48.35,
+          "en": "because as I mentioned, nodejs won't do this on its own,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 48.38,
+          "end": 50.73,
+          "en": "you need some third party service for that.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 50.9,
+          "end": 58.87,
+          "en": "So here I will use nodemailer and then call the create transport method. In create transport,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 58.91,
+          "end": 65.21,
+          "en": "we can now pass sendgridTransport and execute this as a function because this function will then",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 65.21,
+          "end": 70.17,
+          "en": "return a configuration that nodemailer can use to use sendgrid.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 70.28,
+          "end": 77.99,
+          "en": "Now to that sendgridTransport function, we pass an object where we pass an auth object and this in turn",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 77.99,
+          "end": 85.31,
+          "en": "holds an object where we have to pass in an API user and an API key field.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 85.31,
+          "end": 89.48,
+          "en": "Now both are values you get from inside your sendgrid account,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 89.48,
+          "end": 99.11,
+          "en": "so if you head back to your sendgrid account, you can click on settings here and then API keys and",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 99.11,
+          "end": 101.25,
+          "en": "there, create a new API key.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 101.81,
+          "end": 107.83,
+          "en": "You want to give that a name and I'll name it node shop, the name is totally up to you",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 108.17,
+          "end": 112.50999999999999,
+          "en": "and I'll take full access and create this.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 112.58,
+          "end": 115.91,
+          "en": "Now take that key and you actually only need that key,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 115.91,
+          "end": 121.01,
+          "en": "tou could have used your username and password but I'll just use the API key.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 121.25,
+          "end": 126.02,
+          "en": "So just that key which you copied here, of course use your own key not mine",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 126.02,
+          "end": 128.81,
+          "en": "and with that, you configured the transporter.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 131.45,
+          "end": 137.65,
+          "en": "Now with the transporter configured, you can now use it to send an e-mail and I want to send an e-mail",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 137.72,
+          "end": 142.19,
+          "en": "after signing up let's say, so in post sign up once I'm done,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 142.21,
+          "end": 148.66,
+          "en": "so here when I also redirect back to the login page, here I want to send my message",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 148.66,
+          "end": 150.51,
+          "en": "and I use the transporter for that",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 150.55,
+          "end": 154.86,
+          "en": "and then there is a send mail method we can execute. To that method,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 154.9,
+          "end": 159.8,
+          "en": "you pass a javascript object where you configure the email you want to send,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 160,
+          "end": 164.74,
+          "en": "for example the two fields, so to whom this should go,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 164.82,
+          "end": 171,
+          "en": "well this should go to our e-mail address of course from, so which e-mail address will be displayed",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 171.17000000000002,
+          "end": 176.57,
+          "en": "and here I will have shop@nodecomplete.com",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 176.57999999999998,
+          "end": 188.13,
+          "en": "let's say, then a subject, sign up succeeded and then html content, so the content of your message.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 188.16,
+          "end": 190.5,
+          "en": "Now you could have a complex html message,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 190.51,
+          "end": 193.11,
+          "en": "I'll just add a h1 tag here,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 193.27,
+          "end": 198.06,
+          "en": "you successfully signed up, like that.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 198.25,
+          "end": 205.04,
+          "en": "So this is the message I want to send, now send mail then gives me a promise so I can use then and",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 205.04,
+          "end": 211.57999999999998,
+          "en": "catch or of course I simply return that and then I redirect in the next then block, so once the email",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 211.57999999999998,
+          "end": 217.04,
+          "en": "has been sent. However that is up to you, you could also redirect immediately and not wait for this to",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 217.04,
+          "end": 220.36,
+          "en": "be sent because you're not really relying on that being sent",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 220.46,
+          "end": 221.66,
+          "en": "and so this will send",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 221.69,
+          "end": 223.64,
+          "en": "and at the same time you redirect,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 223.64,
+          "end": 231.53,
+          "en": "so whatever you want. What you should do though is if that is your plan, you might want to switch positions",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 231.53,
+          "end": 239.11,
+          "en": "here and still return that so that you can still catch any errors that are stemming from this",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 239.12,
+          "end": 246.29,
+          "en": "so that here we could still log any errors we might be getting or do something else with these errors",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 246.29,
+          "end": 249.8,
+          "en": "of course. With this set up added,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 249.92,
+          "end": 250.99,
+          "en": "let's give it a try.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 252.26,
+          "end": 253.78,
+          "en": "Let's head over and sign up",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 253.77,
+          "end": 256.46,
+          "en": "and now you should use a real e-mail address of course",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 256.46,
+          "end": 258.88,
+          "en": "otherwise it can't arrive,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 258.98,
+          "end": 260.57,
+          "en": "click sign up here,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 260.63,
+          "end": 262.21,
+          "en": "I am redirected",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 262.21,
+          "end": 265.8,
+          "en": "and now check your e-mail account",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 265.99,
+          "end": 271.46,
+          "en": "and in that e-mail account, you should have an e-mail from shop@nodecomplete.com with that message.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 271.51,
+          "end": 277.81,
+          "en": "If you don't get it, verify you entered a correct e-mail and also feel free to verify your sendgrid",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 277.87,
+          "end": 278.38,
+          "en": "e-mail,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 278.40999999999997,
+          "end": 283.48,
+          "en": "you should have gotten an e-mail from sendgrid when signing up verifying your e-mail address there.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 283.78,
+          "end": 289.78,
+          "en": "But with that, this should work and you should be able to send e-mails like this.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 289.78,
+          "end": 295.78,
+          "en": "Now dive into the official sendgrid docs and also in the nodemailer docs if you want to learn way more",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 295.78,
+          "end": 297.67,
+          "en": "about what you can do there,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 297.67,
+          "end": 303.25,
+          "en": "also as I mentioned, google for nodemailer and your favorite e-mailing service if you want to use a",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 303.25,
+          "end": 304.14,
+          "en": "different one",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 304.33,
+          "end": 307.51,
+          "en": "but this is the general theme of how this works.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11954408",
+      "title": "Potential Limitation for Large Scale Apps",
+      "lectureOrder": 275,
+      "videoOrder": 245,
+      "sourceHash": "b14b8ed35cd120d64d6cce170c2cb9c40cf675311486e7a6c0ac7e7f12e4601c",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.13,
+          "end": 8.79,
+          "en": "So in this module I showed you how to send mails with nodemailer and in this case, the sendgrid third party",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.79,
+          "end": 9.76,
+          "en": "service.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.78,
+          "end": 17.07,
+          "en": "Now one thing I also want to highlight is the way we send that an e-mail here works for our app and it's",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 17.07,
+          "end": 23.16,
+          "en": "good that we don't block the redirect but that we redirect and send the mail at the same time because",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 23.16,
+          "end": 28.77,
+          "en": "if you have an application with a lot of requests and you would wait for the email to be sent before you",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 28.77,
+          "end": 29.43,
+          "en": "redirect,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 29.43,
+          "end": 34.16,
+          "en": "you might slow down your application because you're sending a lot of e-mails.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 34.35,
+          "end": 40.47,
+          "en": "Now depending on the size of your app and now we're talking about really huge apps, you could also look",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 40.47,
+          "end": 42.41,
+          "en": "into totally different approaches",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 42.44,
+          "end": 49.11,
+          "en": "where you have some server side scripts running every x hours or every x minutes that send e-mails to",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 49.11,
+          "end": 50.75,
+          "en": "newly signed up users.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 50.76,
+          "end": 56.88,
+          "en": "Now this will only matter from a certain scale of app on and there you have different problems anyways",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 56.97,
+          "end": 63.06,
+          "en": "but I just want to highlight that you should strongly consider not using this in a blocking way because",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 63.12,
+          "end": 69.72,
+          "en": "if you wait for this to be finished, this can be slow and you have to evaluate if it's worth waiting for",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 69.72,
+          "end": 74.66,
+          "en": "this or if your user can continue even without that mail being delivered.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 74.67,
+          "end": 76.78,
+          "en": "Now with that, you learn how to send mails,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 76.83,
+          "end": 78.92,
+          "en": "not that difficult as you can tell.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 78.93,
+          "end": 85.56,
+          "en": "Now let's use that knowledge in the next module and enhance our authentication process or our authentication",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 85.56,
+          "end": 86.64,
+          "en": "features we offer.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11984560",
+      "title": "Module Introduction",
+      "lectureOrder": 277,
+      "videoOrder": 246,
+      "sourceHash": "5e676962612b41020b9141b2857e81953cfa8d84bf14ddc580fe4051fb244760",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.26,
+          "end": 6.11,
+          "en": "Now that we learned some new tricks regarding how we can send mails,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.2,
+          "end": 13.55,
+          "en": "let's use that new knowledge to improve our authentication features and in general, let's improve our",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 13.55,
+          "end": 21.71,
+          "en": "security or the authentication related things in our app. For example let's also work on ensuring that",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 21.77,
+          "end": 24.77,
+          "en": "only users who created a post can edit it",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 24.8,
+          "end": 28.18,
+          "en": "but let's start with resetting passwords. To be precise",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 28.18,
+          "end": 32.21,
+          "en": "in this module, we'll start with resetting passwords but then we'll have a look at",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.22,
+          "end": 33.24,
+          "en": "authorization",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 33.29,
+          "end": 39.62,
+          "en": "which is that part I just talked about with ensuring that you can only edit and delete what you created.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11984568",
+      "title": "Resetting Passwords",
+      "lectureOrder": 278,
+      "videoOrder": 247,
+      "sourceHash": "5de34aaf08556683115952cd6818e247a44380e9cf53e79297f73735ff1b4ffb",
+      "cues": [
+        {
+          "id": 1,
+          "start": 1.99,
+          "end": 5.23,
+          "en": "So let's start with resetting passwords.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.26,
+          "end": 8.29,
+          "en": "Obviously, that's a common thing you need to do in applications.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.29,
+          "end": 9.63,
+          "en": "People forget passwords.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.64,
+          "end": 12.22,
+          "en": "You want to offer them a way of resetting them.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.7,
+          "end": 17.26,
+          "en": "For that, we will need a new view and some new routes.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 17.74,
+          "end": 20.23,
+          "en": "Let's start with the view.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 20.23,
+          "end": 25.9,
+          "en": "Maybe so in the off folder I'll add a reset Edge's file.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 25.9,
+          "end": 27.09,
+          "en": "You can name it however you want.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 27.1,
+          "end": 33.31,
+          "en": "You could name it password reset edges, of course, and I'll copy my login Edge's code paste it in",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 33.31,
+          "end": 35.92,
+          "en": "there, but of course adjust it a little bit.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 36.22,
+          "end": 40.18,
+          "en": "I'll still leave the error message here because eventually I might display one.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 40.3,
+          "end": 45.46,
+          "en": "I don't want the password field here, but I need to see a xref token and I need to email field because",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 45.46,
+          "end": 49.43,
+          "en": "I want users to enter an email for which they want to reset the password.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 49.45,
+          "end": 54.49,
+          "en": "Then here I'll label this button reset password like this.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 54.97,
+          "end": 57.94,
+          "en": "So now we have that reset Edge's view.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 57.97,
+          "end": 64.21,
+          "en": "Let's now go to the off controller file and add some new actions to it.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 64.69,
+          "end": 71.41,
+          "en": "So we'll export a new action, which I'll name get reset that should simply render that reset page.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 71.74,
+          "end": 76.6,
+          "en": "So here we have the well-known function with the free arguments.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 77.53999999999999,
+          "end": 84.53,
+          "en": "And in there I'll use response render and we'll render a page just as we did it many times before.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 84.53,
+          "end": 93.38,
+          "en": "So I'll just copy that from up here to type less, render a page off reset is the view path here.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 93.38,
+          "end": 96.14,
+          "en": "The path in the URL will be just reset.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 96.14,
+          "end": 101.63,
+          "en": "Let's say title of the page could be reset password.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 101.84,
+          "end": 109.19,
+          "en": "Now regarding the error message, I'll also copy that this code here where I extract any message that",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 109.19,
+          "end": 111.41,
+          "en": "might exist and pass it to The View.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 112.1,
+          "end": 114.35,
+          "en": "And with that we got the controller action.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 114.35,
+          "end": 118.64,
+          "en": "Let's now create a fitting route in the off routes file here.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 118.97,
+          "end": 126.38,
+          "en": "I will add a new get route to slash reset and use off controller get reset here.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 126.38,
+          "end": 130.25,
+          "en": "This is the route I want to load when we request the password reset.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 130.31,
+          "end": 135.14,
+          "en": "With that, we just need a way to reach that route and that would be on the log in page.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 135.14,
+          "end": 140.6,
+          "en": "Of course there below the form we want to offer a reset password link.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 140.6,
+          "end": 148.49,
+          "en": "So here I'll add a new link which leads to slash reset where I say reset password like that.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 148.94,
+          "end": 151.82,
+          "en": "Now let's all wrap that in some diff.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 153.05,
+          "end": 156.26,
+          "en": "And give this death a class of centered.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 156.74,
+          "end": 159.23,
+          "en": "This is a class I defined earlier in the course.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 159.41,
+          "end": 161.21,
+          "en": "Now back on the login page.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 161.21,
+          "end": 164.73,
+          "en": "If we reload it, we have reset password here.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 164.75,
+          "end": 166.61,
+          "en": "Now you can work on the styling if you want.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 166.64,
+          "end": 170.66,
+          "en": "The main thing is if I click on it, I'm taking to my reset password page.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 171.11,
+          "end": 176.27,
+          "en": "Now in here, the idea would be that you enter a password and then you receive an email with the password",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 176.27,
+          "end": 177.44,
+          "en": "reset link.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 177.86,
+          "end": 181.49,
+          "en": "Now let's start working on that in the next lectures.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11984570",
+      "title": "Implementing the Token Logic",
+      "lectureOrder": 279,
+      "videoOrder": 248,
+      "sourceHash": "9b14bc4baa6624d272f5f3226d19c2c4b5427be3ddc77b61d8a1639556db3c38",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.16,
+          "end": 7.65,
+          "en": "So we want to be able to enter an email address here and then receive an email with a link that allows",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.65,
+          "end": 9.44,
+          "en": "us to reset the password.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.48,
+          "end": 18.27,
+          "en": "Now for that, we need to first of all create a unique token that also has some expiry date which we will",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 18.27,
+          "end": 25.32,
+          "en": "store in our database so that the link which we didn't click includes that token and we can verify that",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 25.39,
+          "end": 32.55,
+          "en": "the user did get that link from us because if we just, well let the user now change that password, we",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 32.56,
+          "end": 38.91,
+          "en": "got no security mechanism in place, so we need that token to put it into the email we're about to send",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 39.12,
+          "end": 44.18,
+          "en": "to only let users change the password through the email that contains that token,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 44.25,
+          "end": 46.65,
+          "en": "that's an additional security mechanism.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 46.73,
+          "end": 50.1,
+          "en": "So let's work on that token creation then and for that",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 50.1,
+          "end": 58.96,
+          "en": "first of all, I'll export a new action in my auth controller and that will be post reset, so that will basically",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 58.96,
+          "end": 65.11,
+          "en": "the action that should get triggered once we clicked that reset password button here and in there,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 65.2,
+          "end": 67.03,
+          "en": "I need to generate that token.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 67.03,
+          "end": 71.73,
+          "en": "Now nodejs has a built-in crypto library which I can use for that,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 71.95,
+          "end": 80.5,
+          "en": "so I'll name that crypto and require crypto like that. This is a library that helps us with creating secure",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 80.56,
+          "end": 86.75,
+          "en": "unique random values and other things but we'll need that unique secure random value here.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 86.83,
+          "end": 91.9,
+          "en": "So here in post, we settled and use that crypto library which I stored in a constant here",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 92.17,
+          "end": 97.53999999999999,
+          "en": "and I will call random bytes to generate some random bytes, I want",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 97.53999999999999,
+          "end": 104.47,
+          "en": "32 random bytes and this will call a callback function here, so this is the second argument, a function",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 104.47,
+          "end": 107.00999999999999,
+          "en": "will be called once it's done and there I",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 107.02000000000001,
+          "end": 112.02000000000001,
+          "en": "either get an error or a buffer, a buffer of these bytes.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 112.09,
+          "end": 115.12,
+          "en": "Now I have an error here",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 115.12,
+          "end": 121.33,
+          "en": "then I want to return redirect back to let's say reset and we could flash an error message here if we",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 121.33,
+          "end": 126.04,
+          "en": "wanted to, I'll also log the error so that we can debug it",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 126.37,
+          "end": 130.88,
+          "en": "but if we make it past this check, we do have a valid buffer",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 131.02,
+          "end": 138.74,
+          "en": "and then we can generate a token from that buffer, simply by using buffer toString and there we just",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 138.74,
+          "end": 142.4,
+          "en": "need to pass hex because that buffer will store hexadecimal values",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 142.49,
+          "end": 147.98,
+          "en": "and this is information toString needs to convert hexadecimal values to normal ASCII characters.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 147.98,
+          "end": 149.41,
+          "en": "So then we'll have a token.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 149.57,
+          "end": 155.06,
+          "en": "Now that token should get stored in the database and it should get stored on the user object because",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 155.06,
+          "end": 156.69,
+          "en": "it belongs to that user,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 157.07,
+          "end": 163.11,
+          "en": "so let's first of all go to our user model and there, I'll add two new fields,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 163.4,
+          "end": 167.75,
+          "en": "I'll add a reset token and I'll just assign a type of string here.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 167.78,
+          "end": 174.68,
+          "en": "Now important, this is not required because not always this token will be there, only if we requested",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 174.68,
+          "end": 181.1,
+          "en": "a reset and we'll have a reset token expiration or however you want to name it",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 181.19,
+          "end": 183.13,
+          "en": "and that will be of type date",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 183.56,
+          "end": 187.62,
+          "en": "and now I want to store that token on the user which we plan to reset.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 187.67,
+          "end": 192.23,
+          "en": "So first of all I need to find that user in the database and I'll use the mongoose user model for that,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 192.92,
+          "end": 201.8,
+          "en": "to find one user where the email matches the email we're trying to reset and that email which we're trying",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 201.8,
+          "end": 210.18,
+          "en": "to reset can be extracted from the request body email field because on our reset view here, we",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 210.18,
+          "end": 211.82999999999998,
+          "en": "do have that email field.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 211.82999999999998,
+          "end": 218.51,
+          "en": "By the way important, the action here should be /reset to reach the right route but with that, this is",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 218.55,
+          "end": 229.71,
+          "en": "prepared and now in our controller, I'm finding a user who has this email. Now let's add then and catch, handle",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 229.77,
+          "end": 233.15,
+          "en": "any potential error we might get by logging it for now",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 234.28,
+          "end": 240.91,
+          "en": "and then in then, we should get a user or undefined if that user does not exist.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 240.94,
+          "end": 245.73,
+          "en": "So in here I want to check if we don't have a user.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 245.83,
+          "end": 252.1,
+          "en": "If we don't have a user, then I will flash a message as you learned it in the authentication module",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 253.41,
+          "end": 262.52,
+          "en": "onto the error key, no account with that e-mail found or whatever message you want to show",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 262.75,
+          "end": 267.58,
+          "en": "and then here I'll return a redirect to /reset.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 267.58,
+          "end": 273.46,
+          "en": "If we make it past this if check, then we are looking for an e-mail address that is stored in the database",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 273.49,
+          "end": 279.73,
+          "en": "and now for that user which I retrieved for that e-mail address, I want to set the reset token",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 279.73,
+          "end": 287.74,
+          "en": "equal to the token which I generated and I will set the reset token expiration equal to date now which",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 287.74,
+          "end": 291.13,
+          "en": "gives me the current date and the time plus one hour",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 291.15999999999997,
+          "end": 293.95,
+          "en": "and this now has to be expressed in milliseconds,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 294.07,
+          "end": 298.05,
+          "en": "so you should use 3,600,000milliseconds,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 298.06,
+          "end": 304.4,
+          "en": "this will be one hour. So now I'm assigning these two fields and we can call user save to then update",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 304.43,
+          "end": 305.95,
+          "en": "our user in the database.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 306.29,
+          "end": 311.29,
+          "en": "Let's return this so that we can now chain another then call here, another",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 311.29,
+          "end": 316.13,
+          "en": "then block which will execute this function when user save succeeds.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 317.32,
+          "end": 322.69,
+          "en": "So at this point of time, we know that the updated user was stored in the database and now we want to",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 322.69,
+          "end": 326.02,
+          "en": "send that token reset email.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 326.08,
+          "end": 330.73,
+          "en": "Now I showed you how to send e-mails in the last lecture, in the last module I mean,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 330.73,
+          "end": 336,
+          "en": "so make sure you through that because I will now use that transporter again which I created there,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 336.1,
+          "end": 339.56,
+          "en": "the node mailer transporter which we use for sending email",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 339.82,
+          "end": 347.05,
+          "en": "and I will send an e-mail to the e-mail of the user which we found, so to user e-mail, excuse me, to",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 347.68,
+          "end": 355.63,
+          "en": "request body e-mail we can say, so to the e-mail we're requesting the reset for, the subject could be",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 356.02,
+          "end": 361.81,
+          "en": "password reset and now in the html code,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 362.06,
+          "end": 368.9,
+          "en": "I'll use a next gen feature, back ticks which allows me to write multiline strings which makes it a bit easier",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 368.9,
+          "end": 369.8,
+          "en": "to read.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 369.8,
+          "end": 377.36,
+          "en": "I'll add a paragraph where I say you requested a password reset, so users should be worried if they get",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 377.36,
+          "end": 377.64,
+          "en": "that",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 377.66,
+          "end": 388.73,
+          "en": "if they did not click this link to set a new password and you could include more information like the",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 388.73,
+          "end": 390.95,
+          "en": "fact that this is only valid for one hour.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 391.04,
+          "end": 401.9,
+          "en": "Now this link here, this will be anchor tag leading at some url and that url will be in",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 401.9,
+          "end": 405.09000000000003,
+          "en": "our case your localhost 3000",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 405.28,
+          "end": 412.51,
+          "en": "and then let's say reset and then the token which we have. Now since I'm using this back tick syntax,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 412.72,
+          "end": 416,
+          "en": "I can dynamically embed values with a special syntax where",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 416.03,
+          "end": 418.5,
+          "en": "I use ${}",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 418.6,
+          "end": 425.05,
+          "en": "and now I can inject variables and their values into this string and the values of the variables will",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 425.05,
+          "end": 426.65,
+          "en": "be placed in that string.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 426.85,
+          "end": 431.44,
+          "en": "So here, I can now output that token which we generated here,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 431.44,
+          "end": 438.4,
+          "en": "so now I am placing that in the url because that token is then what we'll later look for in the database",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 438.76,
+          "end": 444.02,
+          "en": "to confirm that this link was sent by us because only we know the token.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 444.31,
+          "end": 451.78,
+          "en": "So this will send an email and at the same time, I will redirect back to the starting page let's say",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 452.32,
+          "end": 456.7,
+          "en": "because the next instructions are received in the email of course.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 456.73,
+          "end": 458.9,
+          "en": "Now let's try this out in the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11984572",
+      "title": "Creating the Token",
+      "lectureOrder": 280,
+      "videoOrder": 249,
+      "sourceHash": "961d92dc0b33ac47b8b1b2c5f709f37917ed81a8f02fdbedb81ba126deb0225d",
+      "cues": [
+        {
+          "id": 1,
+          "start": 1.98,
+          "end": 4.66,
+          "en": "So let's give this a try, this reset mechanism.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.68,
+          "end": 10.02,
+          "en": "And for that, we first of all need to make sure that our newly added controller actions can be reached.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.35,
+          "end": 13.32,
+          "en": "So we added a get reset root.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.32,
+          "end": 20.73,
+          "en": "Now we also need to add a post reset root so that this reset password button actually works.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 20.73,
+          "end": 25.71,
+          "en": "So let's add this root and execute post reset that action we worked on.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 27.06,
+          "end": 29.79,
+          "en": "And with that on the reset password page.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 30.47,
+          "end": 37.07,
+          "en": "Let's first of all, try out an incorrect URL, an email, one which does not exist in the database.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 37.55,
+          "end": 39.62,
+          "en": "And we get this message, which is great.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 39.8,
+          "end": 46.1,
+          "en": "Now use a real email which you used for signing up and click Reset Password.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 46.34,
+          "end": 53.06,
+          "en": "Now you should be redirected back and if you check your emails there, you should have a password reset",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 53.09,
+          "end": 54.32,
+          "en": "email with a link.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 54.65,
+          "end": 60.56,
+          "en": "If you click that link, you should end up on a page not found error, but you will see that we are",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 60.56,
+          "end": 62.69,
+          "en": "on reset and then some token.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 63.11,
+          "end": 66.8,
+          "en": "And that token can also be seen in your user collection here.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 66.8,
+          "end": 69.35,
+          "en": "This is the password reset token which we stored.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 70.72,
+          "end": 78.46000000000001,
+          "en": "So now we just need to add some logic to add this root, extract that token, validate whether we have",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 78.46000000000001,
+          "end": 83.99,
+          "en": "a user for that token and then offer a form that allows the user to set a new password.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 84.01,
+          "end": 85.63,
+          "en": "Let's work on that next.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11984576",
+      "title": "Creating the Reset Password Form",
+      "lectureOrder": 281,
+      "videoOrder": 250,
+      "sourceHash": "72232d50ec9541bfb1d519c7d5cf907b01b4deed95ffcd17d51a4ce84c5fa68a",
+      "cues": [
+        {
+          "id": 1,
+          "start": 1.98,
+          "end": 3.45,
+          "en": "So we got a token.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.6,
+          "end": 9.72,
+          "en": "Let's now add a form which allows the user to enter a new password.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.17,
+          "end": 15.72,
+          "en": "And for that I will go into my views folder again, the all folder there.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.71,
+          "end": 24.75,
+          "en": "New passwords or however you want to name this and they're all use my log in each s page copy all that",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 24.75,
+          "end": 26.19,
+          "en": "content into here.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 27.01,
+          "end": 33.6,
+          "en": "And then let's just maybe grab our password field here, remove the email for sure.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 33.61,
+          "end": 35.2,
+          "en": "You can't add a new email.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 36.84,
+          "end": 40.94,
+          "en": "Re-enable the button to update password, you need to see a xref token.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 40.95,
+          "end": 44.52,
+          "en": "The action here should be maybe new password.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 44.52,
+          "end": 47.58,
+          "en": "Whatever you want a post request to new password.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 48.62,
+          "end": 52.13,
+          "en": "Reset password does not make any sense here, so let's remove that link.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 52.13,
+          "end": 55.04,
+          "en": "And now we got a prepared new password page.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 55.04,
+          "end": 56.51,
+          "en": "Now we want to load that.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 56.51,
+          "end": 59.06,
+          "en": "So we need a controller action.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 59.36,
+          "end": 67.31,
+          "en": "Exports get new password maybe, but we again have the free arguments we all know and love.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 68.13,
+          "end": 70.52,
+          "en": "And in there let's render a view.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 70.53,
+          "end": 77.34,
+          "en": "So I'll just copy that surrender method and I want to render my off new dash password view.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 77.49,
+          "end": 78.99,
+          "en": "Path is new.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 79.11,
+          "end": 79.47,
+          "en": "Oops.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 79.47,
+          "end": 80.19,
+          "en": "New.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 81.02,
+          "end": 85.52,
+          "en": "Passwords and here the title can be new password.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 85.55,
+          "end": 92.03,
+          "en": "I also will add my code for extracting a potential error message if I should work with one.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 92.12,
+          "end": 94.97,
+          "en": "So now I have my get new password action.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 95.45,
+          "end": 98.97999999999999,
+          "en": "Obviously, I don't just want to render that view here though.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 98.99000000000001,
+          "end": 105.28999999999999,
+          "en": "I also want to check whether I find a user for that token which I receive here, because this will be",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 105.28999999999999,
+          "end": 109.91,
+          "en": "the page we load for this page where we do have a token in the URL.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 110.36,
+          "end": 113.36,
+          "en": "So let's retrieve that token, first of all.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 114.75,
+          "end": 118.44,
+          "en": "By request from request params token.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 118.44,
+          "end": 124.65,
+          "en": "Let's say we'll need to add a root later that encodes the token in a token field in our parameters.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 124.89,
+          "end": 129.93,
+          "en": "And then I'll find one user where this token fits.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 129.96,
+          "end": 136.5,
+          "en": "Now, since our tokens are generated in a random non gas able way, you can't also enter random tokens",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 136.5,
+          "end": 138.6,
+          "en": "and start editing passwords of other users.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 138.6,
+          "end": 141.66,
+          "en": "And even if you could, you would not know the fitting email addresses.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 141.78,
+          "end": 148.74,
+          "en": "So here I'll find a token with the reset token field, which we added here, reset token.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 149.1,
+          "end": 153.72,
+          "en": "So I'm looking for reset token being equal to the token I have here.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 153.72,
+          "end": 160.23,
+          "en": "And we want to make sure that it's still valid from a date perspective so that the document I find does",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 160.23,
+          "end": 165.38,
+          "en": "not just fulfill this criteria, but another one too.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 165.48,
+          "end": 176.01,
+          "en": "I add more criteria with comma that the reset token expiration is still well higher than the current",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 176.01,
+          "end": 176.57999999999998,
+          "en": "date.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 176.67000000000002,
+          "end": 183.24,
+          "en": "For that, I can use a special operator wrapped in curly braces dollar sign GTI stands for a greater",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 183.24,
+          "end": 186.66,
+          "en": "than and I can simply compare if it's greater than now.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 186.66,
+          "end": 193.17,
+          "en": "So the current date and time only if the token matches and the token expiration is still greater than",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 193.17,
+          "end": 193.65,
+          "en": "now.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 193.65,
+          "end": 195.93,
+          "en": "So the token expiration is in the future.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 195.96,
+          "end": 199.82999999999998,
+          "en": "Only then I have the user I want to find.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 200.16,
+          "end": 203.31,
+          "en": "So here I'll add then and catch.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 204.17000000000002,
+          "end": 207.56,
+          "en": "Log, any errors I might be getting.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 207.56,
+          "end": 213.59,
+          "en": "And in the then block I get the user for whom we want to reset the password.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 213.89,
+          "end": 218.51,
+          "en": "So it's here inside of that then block that.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 218.51,
+          "end": 228.44,
+          "en": "I want to render my new password view and I want to pass my user ID to that view so that I can include",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 228.44,
+          "end": 231.95,
+          "en": "it in the post request where we will update the password.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 231.95,
+          "end": 235.91,
+          "en": "So here I will include user ID.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 236.74,
+          "end": 241.99,
+          "en": "To string, maybe to convert it from an object ID to a real string.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 242.35,
+          "end": 249.82,
+          "en": "So now we render new password, and on the new password page I will duplicate my hidden C as our F token",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 249.82,
+          "end": 256.87,
+          "en": "field because I'll also have a user ID field now which is also hidden where I output that user ID I'm",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 256.87,
+          "end": 258.1,
+          "en": "passing into the view.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 258.1,
+          "end": 263.44,
+          "en": "So this input is new with that hidden user ID and it will output that user ID.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 263.47,
+          "end": 267.52,
+          "en": "We'll need that for the post request where we want to save our new password.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 268,
+          "end": 268.28,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 268.33,
+          "end": 277.39,
+          "en": "So with that, let's go to our roots, to the off roots here and let's add a new get root here to get",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 277.39,
+          "end": 283.93,
+          "en": "new password root where I will use to get new password controller action.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 284.26,
+          "end": 288.37,
+          "en": "Now, it's not just new password, by the way, or it will not be new password at all.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 288.37,
+          "end": 291.37,
+          "en": "It will be reset, but then there will be a token.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 291.37,
+          "end": 298.09000000000003,
+          "en": "So the URL is reset and then a dynamic parameter, the token parameter, and it has to be named token",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 298.09000000000003,
+          "end": 305.95,
+          "en": "here because in that get new password off controller, I am looking for token in my parents.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 305.95,
+          "end": 308.86,
+          "en": "So token here which I'm looking for in request.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 308.86,
+          "end": 312.55,
+          "en": "Params means I have to name it token here as well.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 313.12,
+          "end": 317.05,
+          "en": "And with that let's go back and reload this page.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 317.41,
+          "end": 321.25,
+          "en": "And now I'm on that update password page, which is looking good.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 321.49,
+          "end": 325.36,
+          "en": "Now in the next lecture, let's add the logic to update that password.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11984584",
+      "title": "Adding Logic to Update the Password",
+      "lectureOrder": 282,
+      "videoOrder": 251,
+      "sourceHash": "cfac1be049328ae1d615d3e3e14011fc8f7c90aeac85c9be955c7580c011ea8d",
+      "cues": [
+        {
+          "id": 1,
+          "start": 1.98,
+          "end": 5.39,
+          "en": "We added a page that allows us to enter a new password.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.4,
+          "end": 8.28,
+          "en": "The new password view here and there.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.28,
+          "end": 11.45,
+          "en": "We will send a post request to slash new password.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.46,
+          "end": 17.73,
+          "en": "Now we need to add that root and controller action as a next step so that the existing user password",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.73,
+          "end": 19.68,
+          "en": "can be replaced with the new one.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.92,
+          "end": 21.87,
+          "en": "So back to the off controller.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 22.59,
+          "end": 28.38,
+          "en": "Let's add a new controller action the post new password action.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 28.71,
+          "end": 32.16,
+          "en": "And you guessed it, which arguments we have in that function here.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 33.04,
+          "end": 35.71,
+          "en": "And then in here, what do we need to do?",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 36.07,
+          "end": 44.29,
+          "en": "Well, we need to extract the new password from request body password, and that is request body password.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 44.29,
+          "end": 49.51,
+          "en": "Because in the new password view, I'm storing the password in a field named password.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 50.56,
+          "end": 53.44,
+          "en": "And we'll need to extract that user ID here too.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 53.44,
+          "end": 60.76,
+          "en": "So that user ID is also something user ID is equal to request body user ID.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 60.76,
+          "end": 62.47,
+          "en": "We need that as well.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 62.98,
+          "end": 69.4,
+          "en": "I also still want to have that token because otherwise people could start entering random tokens here",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 69.4,
+          "end": 75.55,
+          "en": "and still reach that page and then maybe change users on the back end by entering random user IDs in",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 75.55,
+          "end": 77.17,
+          "en": "that hidden input field as well.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 77.47,
+          "end": 82.27,
+          "en": "So I want to have that token and therefore a new password.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 82.66,
+          "end": 90.78999999999999,
+          "en": "I'll also add another hidden input field password token and output password token here.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 90.88,
+          "end": 95.25999999999999,
+          "en": "So that is another field and I need to pass that token into my view.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 95.25999999999999,
+          "end": 96.03999999999999,
+          "en": "So that is something.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 96.03999999999999,
+          "end": 99.4,
+          "en": "Forget new password for this action here.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 99.4,
+          "end": 107.56,
+          "en": "I need to pass password token as a variable into the view and it will hold the token I'm extracting",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 107.56,
+          "end": 111.22,
+          "en": "from the URL here and that is the token we originally generated.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 111.22,
+          "end": 118.18,
+          "en": "So this is not all the past and this is not also something I can extract here the password token.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 119.82,
+          "end": 126.57,
+          "en": "Request body password token extracted from that password token field here.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 127.97,
+          "end": 128.24,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 128.24,
+          "end": 131.48,
+          "en": "So now we got these three pieces of information in here.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 131.99,
+          "end": 134.03,
+          "en": "Now I want to reset my user.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 134.03,
+          "end": 141.26,
+          "en": "So I will again find one user in my database and I'll find the user where the reset token is equal to",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 141.26,
+          "end": 149.42000000000002,
+          "en": "the password token, where the reset token expiration is again greater than.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 150.37,
+          "end": 151.61,
+          "en": "Date now.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 151.63,
+          "end": 157.57,
+          "en": "So the same logic as I did up here and where the ID.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 158.71,
+          "end": 161.47,
+          "en": "Is equal to my user ID.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 161.95,
+          "end": 164.62,
+          "en": "I'll then again add then and catch.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 165.49,
+          "end": 174.99,
+          "en": "Log any errors we might be facing here, and then I'll have my user debt fulfills all these criterias.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 175.66,
+          "end": 176.92000000000002,
+          "en": "And then here.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 177.69,
+          "end": 181.36,
+          "en": "I want to assign a new password to the user.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 181.38,
+          "end": 185.29,
+          "en": "Now, obviously for that I'll again hash it because that doesn't change.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 185.31,
+          "end": 186.9,
+          "en": "It still should be hashed.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 187.14,
+          "end": 189.63,
+          "en": "So I'll again use decrypt.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 191,
+          "end": 197.06,
+          "en": "Hash pass in the new password and my number of salting rounds.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 197.06,
+          "end": 197.9,
+          "en": "12.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 198.81,
+          "end": 205.95,
+          "en": "And I will return this year and then add another, then block the hashed password.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 207.57999999999998,
+          "end": 210.19,
+          "en": "Where I can stored it on the extracted user.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 210.19,
+          "end": 216.73,
+          "en": "However, the user is an argument in this function, but I need it here to be able to access it in this",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 216.73,
+          "end": 217.93,
+          "en": "function as well.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 217.96,
+          "end": 225.01,
+          "en": "I will create a new variable up there user or reset user.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 226.17000000000002,
+          "end": 229.65,
+          "en": "And it will store user in reset user.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 229.65,
+          "end": 234.06,
+          "en": "So in that variable, because that variable is defined in this function scope.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 234.06,
+          "end": 240.63,
+          "en": "So I can use it in this end in this function and now I can use reset user in here too, and I can use",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 240.63,
+          "end": 245.55,
+          "en": "it to call reset user and set the password equal to the new hash password.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 246.8,
+          "end": 250.67,
+          "en": "And for the reset user, I will also set.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 251.87,
+          "end": 260.69,
+          "en": "Reset token equal to null and I will also set reset token expiration to null here or not to null.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 260.69,
+          "end": 262.43,
+          "en": "Let's set it to undefined.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 262.43,
+          "end": 265.88,
+          "en": "So these fields here are not required anymore.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 265.88,
+          "end": 267.86,
+          "en": "They don't need to store any values anymore.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 267.89,
+          "end": 272.72,
+          "en": "Once I'm done, I can call save here and return that.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 273.53,
+          "end": 278.03,
+          "en": "And here I'll then have my result of that safe operation.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 278.03,
+          "end": 286.15999999999997,
+          "en": "And once we did save, I can now redirect the user back to the login page with the new password.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 286.7,
+          "end": 290.42,
+          "en": "You could also send a number of mail confirming that reset if you wanted to.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 290.81,
+          "end": 292.43,
+          "en": "And now if you save this.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 293.47,
+          "end": 296.29,
+          "en": "Let's reload that password resetting page here.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 297.8,
+          "end": 300.04,
+          "en": "And let's add a new or enter a new password.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 300.05,
+          "end": 303.18,
+          "en": "Click update password and I get a page not found.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 303.2,
+          "end": 307.85,
+          "en": "Which makes sense obviously, because I have my new post route, but I need to register it as a route.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 307.85,
+          "end": 309.41,
+          "en": "I have my action here, I should say.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 309.41,
+          "end": 311.15,
+          "en": "I need to register it as a route.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 311.15,
+          "end": 321.23,
+          "en": "So in the off JJ's file here, we need to add a new post request to new password and execute of controller",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 321.23,
+          "end": 322.91,
+          "en": "post new password there.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 323.39,
+          "end": 324.29,
+          "en": "That is important.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 324.29,
+          "end": 325.37,
+          "en": "Safe that.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 326.21,
+          "end": 332.96,
+          "en": "Then simply go back to the page where you have that token in the URL and to your new password.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 333.11,
+          "end": 340.17,
+          "en": "Let's also quickly reload our users collection before we hit save and kind of memorize the value.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 340.19,
+          "end": 341.65999999999997,
+          "en": "Here it ends with x.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 341.65999999999997,
+          "end": 341.93,
+          "en": "Y.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 341.96,
+          "end": 342.98,
+          "en": "W y.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 344.99,
+          "end": 346.82,
+          "en": "And Click Update Password.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 347.33,
+          "end": 355.1,
+          "en": "I'm on the login page and now if I reload my users collection, that password here should change.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 355.55,
+          "end": 356.23,
+          "en": "And it does.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 356.24,
+          "end": 357.83,
+          "en": "And also the reset token and so on.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 357.83,
+          "end": 358.49,
+          "en": "It's gone.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 358.97,
+          "end": 364.37,
+          "en": "I also have no errors here, so it looks like password resetting was successful.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 364.37,
+          "end": 367.1,
+          "en": "We successfully assigned a new password.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 368.43,
+          "end": 372.69,
+          "en": "Now if we try going to reset.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 373.56,
+          "end": 375.45,
+          "en": "With some random token.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 376.47,
+          "end": 380.46,
+          "en": "Then this will not work and we're not doing proper error handling there.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 380.46,
+          "end": 384.81,
+          "en": "I'll have a whole module on that because we essentially fail to find a user for that token.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 384.81,
+          "end": 385.92,
+          "en": "So this all works.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 385.92,
+          "end": 390.78,
+          "en": "We can't start changing values of random tokens of random users.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 390.78,
+          "end": 392.90999999999997,
+          "en": "So this will not work here.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11984588",
+      "title": "Why we Need Authorization",
+      "lectureOrder": 283,
+      "videoOrder": 252,
+      "sourceHash": "151272a1f68f7cb679ffaf3f880de4f8c1419005dfe5ba0db0665049db83be1c",
+      "cues": [
+        {
+          "id": 1,
+          "start": 1.93,
+          "end": 5.05,
+          "en": "So we worked a lot on resetting passwords.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.08,
+          "end": 7.51,
+          "en": "Let's now work on authorization.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.51,
+          "end": 13.78,
+          "en": "And with that, I mean that not every authenticated user is allowed to do everything.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 14.14,
+          "end": 16.12,
+          "en": "A good example would be this one.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 16.3,
+          "end": 17.56,
+          "en": "I'm not logged in now.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 17.56,
+          "end": 19.63,
+          "en": "Let me log in with this user here.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 20.17,
+          "end": 21.52,
+          "en": "Test a test dot com.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 23.17,
+          "end": 30.13,
+          "en": "Here, I might be able to add a product and I can delete products, but right now I can delete all products",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 30.13,
+          "end": 33.82,
+          "en": "no matter if I created them or if someone else created them.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 33.82,
+          "end": 35.89,
+          "en": "And the same is true for editing them.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 36.21,
+          "end": 44.77,
+          "en": "Authorization means that I restrict the permissions of a logged in user, so every user might be able",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 44.77,
+          "end": 48.76,
+          "en": "to add anything to the card, including products created by the user.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 48.91,
+          "end": 53.62,
+          "en": "But you might not be able to delete and edit products which were not created by you.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 53.89,
+          "end": 60.37,
+          "en": "So for now, I can do that, but that's exactly what I want to work on next so that we can't do this.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 60.52,
+          "end": 62.62,
+          "en": "Now, how can we implement that?",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 63.31,
+          "end": 69.52,
+          "en": "Well, when I create a new product and let me quickly do that, remember, I'm locked in with test at",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 69.52,
+          "end": 70.97,
+          "en": "test com.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 72.15,
+          "end": 77.38,
+          "en": "This was created by test at test dotcom.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 77.4,
+          "end": 82.7,
+          "en": "When I create this product here, we have it here and we can see it in the product collection.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 82.71000000000001,
+          "end": 88.17,
+          "en": "Obviously it's linked to the user with an ID that ends with E five.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 88.17,
+          "end": 92.97,
+          "en": "And if we have a look at all our users, let me delete this one here.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 93.45,
+          "end": 95.3,
+          "en": "Then we see this is the one with E five.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 95.31,
+          "end": 97.25999999999999,
+          "en": "It is to test a test dot com user.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 97.59,
+          "end": 102.12,
+          "en": "Now if I log in with my test to account.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 103.08,
+          "end": 104.75999999999999,
+          "en": "So test to here.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 107.08,
+          "end": 109.50999999999999,
+          "en": "Then if I go to Avon products.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 110.38,
+          "end": 114.21000000000001,
+          "en": "I can also edit and delete that and that is exactly what I want to prevent.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 114.22,
+          "end": 116.11,
+          "en": "Let's do that in the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11984590",
+      "title": "Adding Authorization",
+      "lectureOrder": 284,
+      "videoOrder": 253,
+      "sourceHash": "976f2faf9228293e04582baba216cd13d4061f0da72a242e6598ffa76d8b550f",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.08,
+          "end": 4.13,
+          "en": "So how can we add authorization?",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.9,
+          "end": 10.72,
+          "en": "I want to ensure that I can't delete or edit this book with or this product with the wrong account.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.72,
+          "end": 13.38,
+          "en": "Now we do have important information stored on the product,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.42,
+          "end": 15.99,
+          "en": "we know which user did create it,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 16.12,
+          "end": 22.78,
+          "en": "so in the end we just want to check if the currently logged in user is the user who created that before",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.84,
+          "end": 25.83,
+          "en": "allowing any edits to that item.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 25.99,
+          "end": 33.55,
+          "en": "And that means that on the admin controller where we render our admin list here, get products here,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 33.76,
+          "end": 39.79,
+          "en": "I only want to render products that were created by the logged in user because there is no sense in",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 39.79,
+          "end": 46.52,
+          "en": "showing products on this page that were not created by the user because we're in the admin section,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 46.59,
+          "end": 49.72,
+          "en": "you are not able to do anything with it if you weren't a creator.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 49.81,
+          "end": 56.08,
+          "en": "So authorization simply means we restrict the permissions and we can do that by restricting the data",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 56.08,
+          "end": 57.59,
+          "en": "we return for example,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 57.64,
+          "end": 65.77,
+          "en": "so here when I find product, I dont find all but I'll add a filter and I'll filter for products where the",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 65.77,
+          "end": 73.48,
+          "en": "user ID is equal to the user id of the currently logged in user, so user ID is equal to request user",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 73.66,
+          "end": 75.72,
+          "en": "id, whoops, ID",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 76.09,
+          "end": 83.42,
+          "en": "and keep in mind request user exists because we do extract that user in app.js in a separate middleware",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 83.47,
+          "end": 85.03,
+          "en": "here, there",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 85.03,
+          "end": 87.13,
+          "en": "I do store the user in request",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 87.14,
+          "end": 98.07,
+          "en": "user, so I know that only products which were created by that user should be retrieved. With that changed",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 98.08,
+          "end": 107.75999999999999,
+          "en": "if I reload this page, I find no products for test2 but if I do login with my other account with",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 107.75999999999999,
+          "end": 111.96000000000001,
+          "en": "test@test.com and I go to admin products, I do find that book,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 112.09,
+          "end": 114.92,
+          "en": "so that is the first important step forward.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 115,
+          "end": 120.25,
+          "en": "The problem is I could theoretically still issue requests behind the scenes where I do try to delete",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 120.25,
+          "end": 122.07,
+          "en": "a product which was not created by me,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 122.17,
+          "end": 124.2,
+          "en": "so more protection is needed.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 124.21,
+          "end": 125.59,
+          "en": "Let's add that next.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11984594",
+      "title": "Adding Protection to Post Actions",
+      "lectureOrder": 285,
+      "videoOrder": 254,
+      "sourceHash": "62ade3b6307e40ca8a0a39759f258ab91320d2d2950c5621c78ed3a5e06adc32",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.11,
+          "end": 4.54,
+          "en": "We're restricting the amount of products we can see",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.6,
+          "end": 7.27,
+          "en": "and that is one great step forward",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.48,
+          "end": 14.2,
+          "en": "but it still doesn't mean we can't send requests somehow by creating our own pages where we still",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 14.2,
+          "end": 16.49,
+          "en": "try to delete another product.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 16.69,
+          "end": 24.96,
+          "en": "So we should also add protections in our post actions, like in post edit and post delete product, there",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 24.97,
+          "end": 30.7,
+          "en": "we want to check that the product I try to delete is really created by the user who is currently logged",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 30.7,
+          "end": 31.22,
+          "en": "in.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 31.45,
+          "end": 36.3,
+          "en": "So in post edit product, there I might want to add a check",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 36.31,
+          "end": 42.4,
+          "en": "once I found the product that should be edited where I see if I'm allowed to edit that product.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 42.4,
+          "end": 47.92,
+          "en": "So here in the then block where I have that product fetched from the database, there I will quickly",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 47.92,
+          "end": 59.05,
+          "en": "check if product user ID is not equal to request user ID because if it's not equal, then this means the",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 59.05,
+          "end": 61.8,
+          "en": "wrong user is trying to edit this.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 61.84,
+          "end": 70.03,
+          "en": "So here I then want to return and simply redirect back to the starting page let's say because we try",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 70.03,
+          "end": 71.53,
+          "en": "to do something fishy here,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 71.56,
+          "end": 72.83,
+          "en": "we don't want to continue,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 72.85,
+          "end": 77.28999999999999,
+          "en": "so all the other code will now not run.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 77.52,
+          "end": 78.65,
+          "en": "We would still go into that",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 78.66,
+          "end": 85.08,
+          "en": "then block though as you learned because the next then block is still executed even if I do redirect",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 85.08,
+          "end": 86.12,
+          "en": "here,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 86.34,
+          "end": 88.4,
+          "en": "so to circumvent this, I'll add",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 88.41,
+          "end": 90.36,
+          "en": "then right after save here",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 90.36,
+          "end": 100.1,
+          "en": "so a nested then block so to say and now we have protection in place that ensures that we can start editing",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 100.13,
+          "end": 107.57,
+          "en": "products that don't belong to us. To quickly check this, I'll temporarily remove my filter so that I can",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 107.57,
+          "end": 111.38,
+          "en": "see all the products again and I will log in with the wrong account,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 111.83,
+          "end": 120.54,
+          "en": "so with test2 and now what we should see is that when I edit this and add a couple of exclamation marks",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 120.54,
+          "end": 129.9,
+          "en": "and I click update, I'm redirected but the edit wasn't saved because I essentially ended up in my extra check",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 129.9,
+          "end": 138.35,
+          "en": "here and I was redirected back but without saving the changes because this code was never executed.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 138.35,
+          "end": 144.97,
+          "en": "Now let's try the same for deleting before I re-add my filter here. For deleting",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 144.98,
+          "end": 151.52,
+          "en": "I also want to check if I'm really allowed to delete that product and we can easily implement this by",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 151.52,
+          "end": 157.29,
+          "en": "changing our deletion method here and use delete one",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 157.31,
+          "end": 164.99,
+          "en": "and there I want to delete the product where the ID is equal to the prod ID but also where the user",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 164.99,
+          "end": 167.09,
+          "en": "ID is equal to the request",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 167.18,
+          "end": 169.5,
+          "en": "user ID.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 169.76,
+          "end": 170.92000000000002,
+          "en": "So both has to be true",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 170.93,
+          "end": 176.9,
+          "en": "now, the Product ID alone is not enough, the user id also has to match and therefore even if we have",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 176.9,
+          "end": 181.73,
+          "en": "a valid user id, it will not delete this product if the user ID does not match.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 181.73,
+          "end": 189.53,
+          "en": "So if I save this and I go to admin products with the wrong account still and I click delete,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 189.53,
+          "end": 192.33,
+          "en": "you see the product doesn't go anywhere,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 192.38,
+          "end": 194.55,
+          "en": "still there.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 194.77,
+          "end": 199.94,
+          "en": "Now let me add that filter in get products again so that we can't even see it",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 200.14,
+          "end": 205.48,
+          "en": "and now we have the best possible set up because now we can really only see it in that account where",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 205.48,
+          "end": 207.42000000000002,
+          "en": "we are able to interact with it.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 207.43,
+          "end": 214.42000000000002,
+          "en": "So if I do login with that valid account, there I do see it and there I now also should be able",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 214.42000000000002,
+          "end": 218.68,
+          "en": "to edit it, though if I try that, it fails.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 218.71,
+          "end": 221.29,
+          "en": "So let's explore what's wrong here in the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11984596",
+      "title": "Why Editing Fails",
+      "lectureOrder": 286,
+      "videoOrder": 255,
+      "sourceHash": "3f84933a0201da3ebdbd5d4d1e2e55bb709bb1495e9df0b85a077f09b3a1769b",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.19,
+          "end": 3.44,
+          "en": "Editing fails here",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.57,
+          "end": 6.52,
+          "en": "and do you have an idea why it fails?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.02,
+          "end": 8.93,
+          "en": "It fails because of my check here,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.94,
+          "end": 12.16,
+          "en": "I compare the product user ID to the request user ID.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.18,
+          "end": 18.39,
+          "en": "Now we have a type problem again, I should convert both to a string because I'm also checking for type",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 18.39,
+          "end": 19.25,
+          "en": "equality.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 19.59,
+          "end": 27.77,
+          "en": "So with this change, both converted to a string and not this strange object id thing, with this in place,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 27.81,
+          "end": 31.44,
+          "en": "now if I login or if I'm logged in with the right account,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 31.66,
+          "end": 36.66,
+          "en": "now I can update this and I can also delete this.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 36.75,
+          "end": 40.33,
+          "en": "So this now all works with the right account,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 40.33,
+          "end": 42.37,
+          "en": "so with the account who created it",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 45.6,
+          "end": 51.21,
+          "en": "but it will not work if I login with the wrong account because if I login there,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 51.24,
+          "end": 53.99,
+          "en": "so this is now the account which did not create it,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 54.21,
+          "end": 56.06,
+          "en": "I can view it on the normal pages,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 56.16,
+          "end": 60.98,
+          "en": "I can add it to my cart if I want to but under admin products, I do not see it",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 61.02,
+          "end": 64.12,
+          "en": "and even if I would see it, I could not interact with it.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "11984598",
+      "title": "Wrap Up",
+      "lectureOrder": 287,
+      "videoOrder": 256,
+      "sourceHash": "ff49810aa5d243b91aa94a4a0507b74d09c1d72680bf051bc60dde633c1d282d",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.14,
+          "end": 8.78,
+          "en": "In this module we had a look at some advanced authentication related topics, namely we had a look at",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.93,
+          "end": 15.14,
+          "en": "password resetting and there it was important to understand that you of course have to implement password",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 15.14,
+          "end": 20.17,
+          "en": "resetting in a way that prevents users from resetting random user accounts.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 20.17,
+          "end": 26.78,
+          "en": "Therefore we implemented such a short lived password token so that it's not valid forever",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 26.9,
+          "end": 34.88,
+          "en": "to reduce the chance of it being generated by some brute force attack and therefore, our reset token",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 35.12,
+          "end": 41.84,
+          "en": "is a great mechanism to identify the user for whom we want to reset the password. The token has to be",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 41.84,
+          "end": 45.11,
+          "en": "generated in a way that is random,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 45.11,
+          "end": 49.05,
+          "en": "unguessable, at least in a reasonable amount of time",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 49.07,
+          "end": 51.68,
+          "en": "hence the expiration date and unique",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 51.86,
+          "end": 56.39,
+          "en": "and in this module, we implemented a token in exactly that way.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 56.39,
+          "end": 63.11,
+          "en": "We also had a look at authorization and authorization is all about locking down access for authenticated",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 63.11,
+          "end": 69.02,
+          "en": "users because just because you're authenticated, you're not allowed to do everything. You might be logged",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 69.02,
+          "end": 73.91,
+          "en": "in in your udemy account but you can't edit my course because you are not the creator of the",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 73.91,
+          "end": 80.24,
+          "en": "course and that's the idea of authorization and that is also what we did in this module when we ensured",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 80.45,
+          "end": 86.55,
+          "en": "that only users who created a product can actually view, edit and delete it.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 86.9,
+          "end": 90.38,
+          "en": "So authorization is a crucial part of most applications",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 90.44,
+          "end": 96.95,
+          "en": "and together with authentication which is the surrounding topic of having users in general, you can really",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 96.95,
+          "end": 103.56,
+          "en": "control which visitor can do what in your web app in your website.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,468 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "12197946",
+      "title": "Extracting User Data From the Auth Token",
+      "lectureOrder": 431,
+      "videoOrder": 383,
+      "sourceHash": "db5d461f8142653c8d320ee1084c3e80ba380cd065ae0f498fa643795df1a657",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.36,
+          "end": 5.54,
+          "en": "The basic create post mutation is in place",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.59,
+          "end": 12.58,
+          "en": "but now we need to be able to validate our token and extract the user from it and that is not too far",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 12.58,
+          "end": 16.07,
+          "en": "off on how we did it in a rest API.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.87,
+          "end": 25.15,
+          "en": "First of all, we need to ensure that we send the token in a header of our incoming request and if we have",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 25.15,
+          "end": 31.03,
+          "en": "a look at our frontend code and there at feed.js which is where we do create new posts, we do that",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 31.03,
+          "end": 34.36,
+          "en": "in the finish edit händler, there",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 34.36,
+          "end": 41.1,
+          "en": "we do indeed attach our token to the outgoing request",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 41.16,
+          "end": 45.79,
+          "en": "and this is still the wrong url here but this is how we will send the request in the end.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 46.05,
+          "end": 47.78,
+          "en": "So we'll have that token",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 47.79,
+          "end": 54.77,
+          "en": "in the url and previously in the rest API, we use isAuth middleware to get our token from there,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 54.87,
+          "end": 61.38,
+          "en": "validated, extract the user data and add the user data, the user ID to the request object",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 61.38,
+          "end": 63.32,
+          "en": "and that is pretty close to what I want to do",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 63.32,
+          "end": 66.38,
+          "en": "now. I will just tweak it a little bit,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 66.42,
+          "end": 70.32,
+          "en": "I'll name it auth because it's not just there to validate authentication,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 70.32,
+          "end": 76.64,
+          "en": "it will also give me the user data but that is something purely cosmetic. In there",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 76.64,
+          "end": 80.5,
+          "en": "I will still first of all get my auth header,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 80.66,
+          "end": 87.48,
+          "en": "I'll check if it is set and if it is not set, then I will do something different though, I will not throw",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 87.48,
+          "end": 90.18,
+          "en": "an error, instead on my request",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 90.18,
+          "end": 95.84,
+          "en": "I'll set isAuth to false so that I can handle this inside of my resolvers",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 96.12,
+          "end": 102.36,
+          "en": "and then I will return next to continue with the next middleware and not execute the other code here,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 102.36,
+          "end": 104.89,
+          "en": "that is why I also have the return statement.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 105.09,
+          "end": 111.99000000000001,
+          "en": "If we do have the auth header, we continue, we extract the token as before, we try to decode it just as",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 111.99000000000001,
+          "end": 112.81,
+          "en": "before,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 112.83,
+          "end": 119.17,
+          "en": "make sure this key here matches the key you used in your resolver for signing the token by the way,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 119.19,
+          "end": 123.45,
+          "en": "if these two don't match, you have no chance of validating your token.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 123.59,
+          "end": 127.74,
+          "en": "We catch an error but if I get an error, I again don't throw it,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 127.74,
+          "end": 135.44,
+          "en": "instead I set request isAuth to false and return next here too to not execute any other code.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 135.78,
+          "end": 137.96,
+          "en": "If the decoded token is undefined,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 138.03,
+          "end": 140.43,
+          "en": "I also throw no error, instead",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 140.43,
+          "end": 151.34,
+          "en": "here again I set isAuth to false and I return next. And if I make it past all these checks, I will get my",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 151.34,
+          "end": 155.42000000000002,
+          "en": "user ID from the decoded token and I will set isAuth to true,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 155.42000000000002,
+          "end": 159.8,
+          "en": "so that is a new property I add to the request and I call next.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 160.19,
+          "end": 163.68,
+          "en": "Now this tweak middleware is something I add in app.js",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 163.71,
+          "end": 167.48,
+          "en": "before my graphql endpoint.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 167.84,
+          "end": 177.67000000000002,
+          "en": "So here, I will simply import that auth by requiring it from middleware auth,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 177.67000000000002,
+          "end": 187.78,
+          "en": "this is my middleware and I will add it here like that. This middleware will now run on every request that",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 187.78,
+          "end": 191.83,
+          "en": "reaches my graphql endpoint but it will not deny the request",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 191.83,
+          "end": 197.95,
+          "en": "if there is no token, the only thing it will do is it will set isAuth to false and then I can decide in",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 197.95,
+          "end": 205.2,
+          "en": "my resolver whether I want to continue or not and this is the next step. In my resolvers there,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 205.42000000000002,
+          "end": 208.29,
+          "en": "I don't care about isAuth in create user and so on,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 208.32999999999998,
+          "end": 213.85,
+          "en": "so there I will just not do anything with that information. In create post here,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 214.12,
+          "end": 217.84,
+          "en": "I will first of all check if request isAuth,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 217.87,
+          "end": 222.94,
+          "en": "if that is not true because then I know hey the user is not authenticated,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 223.03,
+          "end": 230.44,
+          "en": "I certainly don't want to grant access to creating a post. So if the user is not authenticated here, then",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 230.44,
+          "end": 235.69,
+          "en": "I will create a new error, not authenticated",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 240.82,
+          "end": 247.75,
+          "en": "and I'll set my code of let's say 401 and then I'll throw my error and therefore the other code",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 247.78,
+          "end": 251.48,
+          "en": "in this resolver here will not execute.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 251.87,
+          "end": 257.31,
+          "en": "If the user is authenticated, we can continue and then we validate the input and then before we create the",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 257.31,
+          "end": 264.51,
+          "en": "post, we can now also get the user from the database because remember that we do store the user id in",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 264.51,
+          "end": 274.76,
+          "en": "our request as well. So in the resolver right before creating the post now, I can get my user by awaiting",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 274.76,
+          "end": 278.98,
+          "en": "user find one or not find one,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 278.98,
+          "end": 285.73,
+          "en": "I can actually use find by ID of course and there I pass in request user id, so exactly the thing",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 285.90999999999997,
+          "end": 286.95,
+          "en": "I'm storing here.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 289.19,
+          "end": 300.27,
+          "en": "I passed it in and now I get a user. If I don't get a user here, then something is wrong and I will throw",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 300.42,
+          "end": 301.44,
+          "en": "an error,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 301.45,
+          "end": 309.2,
+          "en": "so here invalid user maybe, set the code to 401 and throw that",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 309.25,
+          "end": 313.23,
+          "en": "but if we make it past that, we have a user object with which we can work.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 313.45,
+          "end": 319.41,
+          "en": "And now in the newly created post, I can set the creator equal to my extracted user,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 319.51,
+          "end": 321.64,
+          "en": "so to the user I got from the database.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 324.37,
+          "end": 332.26,
+          "en": "Once I created the post, I can now also use that user and access the posts of that user to push the created",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 332.26,
+          "end": 334.99,
+          "en": "post onto that list of posts,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 334.99,
+          "end": 338.88,
+          "en": "so to set up that connection. That is now it",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 338.96,
+          "end": 345.08,
+          "en": "and now we need to work on the frontend to also send a request to this endpoint so that we can see",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 345.11,
+          "end": 346.15999999999997,
+          "en": "that in action.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,251 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "12025870",
+      "title": "Restricting File Access",
+      "lectureOrder": 330,
+      "videoOrder": 294,
+      "sourceHash": "0d7fb39af4b71f6dc1215cb12c33a4123a97646f60eaffd55ca4f9f9cbd068fd",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.26,
+          "end": 5.45,
+          "en": "Now how can we improve this serving of the data?",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.53,
+          "end": 13.03,
+          "en": "Well first of all, right now this is only available to authenticated users because on my route here, I",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 13.03,
+          "end": 16.7,
+          "en": "have the isAuth middleware but every user could view that,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.81,
+          "end": 22.1,
+          "en": "I don't have to be the user who placed that order. However for that order,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 22.12,
+          "end": 24.56,
+          "en": "I of course know which user belongs to it,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 24.58,
+          "end": 31.81,
+          "en": "I have the user id here. So we can add an extra check in our middleware, in our controller action here",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.26,
+          "end": 38.09,
+          "en": "to see if for this order, the user is eligible of downloading it.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 38.09,
+          "end": 46.52,
+          "en": "Now how do we do that? Well we use the order mongoose model, find that order by that ID in the database",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 46.91,
+          "end": 52.6,
+          "en": "and then check if the order user ID is equal to the ID of the currently logged in user.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 52.94,
+          "end": 62.4,
+          "en": "So here I can check order and then find by ID and I pass in my order ID, I have then and catch here.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 62.44,
+          "end": 68.85,
+          "en": "Now as you know, in here we can simply next an error to use the default error handling function",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 69.01,
+          "end": 75.64,
+          "en": "and here we'll have our order element though that could be undefined if no order for this ID is found,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 75.64,
+          "end": 86.78999999999999,
+          "en": "so if no order is found, then I will also return next with new error maybe, no order found, whatever",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 86.81,
+          "end": 88.6,
+          "en": "you want, you can handle this differently.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 88.73,
+          "end": 94.07,
+          "en": "If we do have an order however, I want to check if the order is from that user who's logged in.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 94.07,
+          "end": 103.42,
+          "en": "So then I can check if order user and then keep in mind, in the user object we have user ID field, so",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 103.42,
+          "end": 114.57,
+          "en": "if that user ID toString, if that is equal to request user_id, so if the currently logged in",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 114.57,
+          "end": 120.47,
+          "en": "user toString, if that is equal I am allowed to access this, if it's not,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 120.51,
+          "end": 127.1,
+          "en": "so if I'm checking the opposite, if it's not equal then I will return a new error",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 128.23,
+          "end": 130.79,
+          "en": "unauthorized, something like this.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 133.7,
+          "end": 139.8,
+          "en": "And only if I make it past these two if checks, only in this case I want to read that file",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 142.39,
+          "end": 143.07,
+          "en": "and output it.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 145.94,
+          "end": 148.86,
+          "en": "So if I now save this and I access this,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 149.09,
+          "end": 152.11,
+          "en": "it works, if I change the three here to a two,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 152.41,
+          "end": 159.07999999999998,
+          "en": "I get my error because now it's an invalid url and if I copy that original url which was correct",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 159.29,
+          "end": 164.12,
+          "en": "and I do log out and I try to access this whilst I'm logged out,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 164.12,
+          "end": 170.92000000000002,
+          "en": "I have to log in and if I log in with a different user or let me quickly create that user",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 177.07999999999998,
+          "end": 181.53,
+          "en": "and I then log in and I now try to access this order,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 181.58,
+          "end": 182.72,
+          "en": "I also get an error,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 182.93,
+          "end": 184.57,
+          "en": "I have to be the correct user.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 184.58,
+          "end": 188.92,
+          "en": "Now of course you could show a different error message but that is always something you can tweak,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 188.93,
+          "end": 194.68,
+          "en": "I only want to show you how you can protect this and that you have this option of controlling that access.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 194.72,
+          "end": 197.13,
+          "en": "So here, this all works just fine.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
