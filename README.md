@@ -12,19 +12,21 @@ Firefox、Chrome、Edge 開發者載入包與 Safari 轉換來源包見 [GitHub 
 
 以下 13 門課程的講師皆為 **Maximilian Schwarzmüller**。
 
-- [React - The Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/)
-- [Flutter & Dart - The Complete Guide](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/)
-- [NodeJS - The Complete Guide](https://www.udemy.com/course/nodejs-the-complete-guide/)
-- [React Native - The Practical Guide](https://www.udemy.com/course/react-native-the-practical-guide/)
-- [CSS - The Complete Guide](https://www.udemy.com/course/css-the-complete-guide-incl-flexbox-grid-sass/)
-- [Svelte.js - The Complete Guide](https://www.udemy.com/course/sveltejs-the-complete-guide/)
-- [NativeScript + Angular](https://www.udemy.com/course/nativescript-angular-build-native-ios-android-web-apps/)
-- [Remix.js - The Practical Guide](https://www.udemy.com/course/remix-course/)
-- [Angular - The Complete Guide](https://www.udemy.com/course/the-complete-guide-to-angular-2/)
-- [Next.js & React - The Complete Guide](https://www.udemy.com/course/nextjs-react-the-complete-guide/)
-- [Vue - The Complete Guide (incl. Router & Composition API)](https://www.udemy.com/course/vuejs-2-the-complete-guide/)
-- [Ionic - Build iOS, Android & Web Apps with Ionic & Angular](https://www.udemy.com/course/ionic-2-the-practical-guide-to-building-ios-android-apps/)
-- [JavaScript - The Complete Guide (Beginner + Advanced)](https://www.udemy.com/course/javascript-the-complete-guide-2020-beginner-advanced/)
+- [React - The Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/) — 678 堂
+- [Flutter & Dart - The Complete Guide](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/) — 286 堂
+- [NodeJS - The Complete Guide](https://www.udemy.com/course/nodejs-the-complete-guide/) — 479 堂
+- [React Native - The Practical Guide](https://www.udemy.com/course/react-native-the-practical-guide/) — 275 堂
+- [CSS - The Complete Guide](https://www.udemy.com/course/css-the-complete-guide-incl-flexbox-grid-sass/) — 266 堂
+- [Svelte.js - The Complete Guide](https://www.udemy.com/course/sveltejs-the-complete-guide/) — 171 堂
+- [NativeScript + Angular](https://www.udemy.com/course/nativescript-angular-build-native-ios-android-web-apps/) — 217 堂
+- [Remix.js - The Practical Guide](https://www.udemy.com/course/remix-course/) — 106 堂
+- [Angular - The Complete Guide](https://www.udemy.com/course/the-complete-guide-to-angular-2/) — 701 堂
+- [Next.js & React - The Complete Guide](https://www.udemy.com/course/nextjs-react-the-complete-guide/) — 417 堂
+- [Vue - The Complete Guide (incl. Router & Composition API)](https://www.udemy.com/course/vuejs-2-the-complete-guide/) — 294 堂
+- [Ionic - Build iOS, Android & Web Apps with Ionic & Angular](https://www.udemy.com/course/ionic-2-the-practical-guide-to-building-ios-android-apps/) — 242 堂
+- [JavaScript - The Complete Guide (Beginner + Advanced)](https://www.udemy.com/course/javascript-the-complete-guide-2020-beginner-advanced/) — 540 堂
+
+13 門課合計 **4,672** 堂影片（不含文章與測驗）。
 
 在上述課程的 `learn/` 播放器頁面啟用。課程 ID 自動從 Udemy 取得；本堂及全課英文匯出、譯文匯入均使用目前課程 ID，譯文依課程分開儲存，並相容既有 React 譯文。新增支援不代表字幕已翻譯；新課程需先匯出英文，再交給 ChatGPT 翻譯與匯入。
 
