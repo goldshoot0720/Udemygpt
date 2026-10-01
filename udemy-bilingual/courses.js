@@ -12,7 +12,7 @@
     { slug: "sveltejs-the-complete-guide", title: "Svelte.js - The Complete Guide" },
     { slug: "nativescript-angular-build-native-ios-android-web-apps", title: "NativeScript + Angular: Build Native iOS, Android & Web Apps" },
     { slug: "remix-course", title: "Remix.js - The Practical Guide" }
-  ].map(Object.freeze));
+  ].map(course => Object.freeze({ ...course, instructor: "Maximilian Schwarzmüller" })));
   const ids = new Map();
   function forUrl(value) {
     try {

@@ -6,6 +6,8 @@
 
 ## 支援課程（2.1）
 
+以下 10 門課程的講師皆為 **Maximilian Schwarzmüller**。
+
 - [React - The Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/)
 - [Claude Code - The Practical Guide](https://www.udemy.com/course/claude-code-the-practical-guide/)
 - [Codex - The Practical Guide](https://www.udemy.com/course/codex-the-practical-guide/)
