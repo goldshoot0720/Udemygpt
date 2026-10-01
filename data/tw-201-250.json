@@ -10279,6 +10279,1077 @@
           "zh": "能夠在各方面最佳化你的應用程式。"
         }
       ]
+    },
+    {
+      "id": "40270524",
+      "title": "Avoiding Component Function Executions with memo()",
+      "sourceHash": "994214e87319743bc6cb758ece006befa4edce27a08f4a6b83544f4c6d33276a",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.51,
+          "end": 4.56,
+          "en": "So how can we optimize a React application",
+          "zh": "所以，我們如何用那些關於不同元件"
+        },
+        {
+          "id": 2,
+          "start": 4.56,
+          "end": 9.18,
+          "en": "with that knowledge of how different components are related",
+          "zh": "如何相關、如何被執行的知識，"
+        },
+        {
+          "id": 3,
+          "start": 9.18,
+          "end": 11.49,
+          "en": "and are being executed?",
+          "zh": "來最佳化一個 React 應用程式？"
+        },
+        {
+          "id": 4,
+          "start": 11.49,
+          "end": 15.3,
+          "en": "Well in this demo app here which I prepared for you,",
+          "zh": "那麼，在我為你準備的這裡這個示範應用程式中，"
+        },
+        {
+          "id": 5,
+          "start": 15.3,
+          "end": 18.36,
+          "en": "we have one problem, you could say,",
+          "zh": "可以說我們有一個問題，"
+        },
+        {
+          "id": 6,
+          "start": 18.36,
+          "end": 21,
+          "en": "one use case that could be optimized",
+          "zh": "有一個可以被最佳化的使用情境，"
+        },
+        {
+          "id": 7,
+          "start": 21,
+          "end": 23.94,
+          "en": "if you understand how components are executed",
+          "zh": "如果你理解元件如何被執行"
+        },
+        {
+          "id": 8,
+          "start": 23.94,
+          "end": 25.74,
+          "en": "and are related.",
+          "zh": "以及如何相關。"
+        },
+        {
+          "id": 9,
+          "start": 25.74,
+          "end": 28.08,
+          "en": "And for that, I'll open this console again",
+          "zh": "而為此，我會再次打開這個主控台，"
+        },
+        {
+          "id": 10,
+          "start": 28.08,
+          "end": 30.78,
+          "en": "where we see which components are rendered",
+          "zh": "我們在這裡看到哪些元件被渲染，"
+        },
+        {
+          "id": 11,
+          "start": 30.78,
+          "end": 32.16,
+          "en": "and how they're related.",
+          "zh": "以及它們如何相關。"
+        },
+        {
+          "id": 12,
+          "start": 32.16,
+          "end": 34.56,
+          "en": "And now I'll clear this",
+          "zh": "而現在我會清除這個，"
+        },
+        {
+          "id": 13,
+          "start": 34.56,
+          "end": 38.013,
+          "en": "and I'll enter a new number here in this input field.",
+          "zh": "並在這個輸入框中輸入一個新數字。"
+        },
+        {
+          "id": 14,
+          "start": 38.94,
+          "end": 41.49,
+          "en": "Clicking Set here won't do anything yet,",
+          "zh": "在這裡點擊 Set 還不會有任何作用，"
+        },
+        {
+          "id": 15,
+          "start": 41.49,
+          "end": 43.08,
+          "en": "but if I enter a new number,",
+          "zh": "但如果我輸入一個新數字，"
+        },
+        {
+          "id": 16,
+          "start": 43.08,
+          "end": 45.12,
+          "en": "if I type one character here,",
+          "zh": "如果我在這裡打一個字元，"
+        },
+        {
+          "id": 17,
+          "start": 45.12,
+          "end": 47.43,
+          "en": "you see that a bunch of component functions",
+          "zh": "你會看到一堆元件函式"
+        },
+        {
+          "id": 18,
+          "start": 47.43,
+          "end": 49.41,
+          "en": "were executed again.",
+          "zh": "再次被執行。"
+        },
+        {
+          "id": 19,
+          "start": 49.41,
+          "end": 53.04,
+          "en": "Basically all components that make up this app.",
+          "zh": "基本上是組成這個應用程式的所有元件。"
+        },
+        {
+          "id": 20,
+          "start": 53.04,
+          "end": 56.52,
+          "en": "And why is that happening here?",
+          "zh": "而為什麼會發生這種事？"
+        },
+        {
+          "id": 21,
+          "start": 56.52,
+          "end": 60,
+          "en": "Well, that's happening because this input field here",
+          "zh": "嗯，會這樣是因為這裡這個輸入框"
+        },
+        {
+          "id": 22,
+          "start": 60,
+          "end": 63.483,
+          "en": "lives directly in the app component.",
+          "zh": "直接存在於 App 元件中。"
+        },
+        {
+          "id": 23,
+          "start": 64.32,
+          "end": 66.333,
+          "en": "It's this input field here.",
+          "zh": "就是這裡這個輸入框。"
+        },
+        {
+          "id": 24,
+          "start": 67.35,
+          "end": 71.16,
+          "en": "And I have an on change handler on that input field.",
+          "zh": "而我在那個輸入框上有一個 onChange 處理函式。"
+        },
+        {
+          "id": 25,
+          "start": 71.16,
+          "end": 74.61,
+          "en": "And therefore on every keystroke I update some state.",
+          "zh": "因此每次按鍵我都會更新某個 state。"
+        },
+        {
+          "id": 26,
+          "start": 74.61,
+          "end": 77.73,
+          "en": "And of course, as you learned, when the state changes",
+          "zh": "而當然，如你所學到的，當 state 改變時，"
+        },
+        {
+          "id": 27,
+          "start": 77.73,
+          "end": 80.94,
+          "en": "this component function gets executed again.",
+          "zh": "這個元件函式就會再次被執行。"
+        },
+        {
+          "id": 28,
+          "start": 80.94,
+          "end": 83.94,
+          "en": "And as you now also learned over the last lectures",
+          "zh": "而如你過去幾堂課也學到的，"
+        },
+        {
+          "id": 29,
+          "start": 83.94,
+          "end": 84.84,
+          "en": "this then means",
+          "zh": "這接著表示"
+        },
+        {
+          "id": 30,
+          "start": 84.84,
+          "end": 88.77,
+          "en": "that all child component functions get executed again.",
+          "zh": "所有 child 元件函式都會再次被執行。"
+        },
+        {
+          "id": 31,
+          "start": 88.77,
+          "end": 91.17,
+          "en": "And that's why on every keystroke",
+          "zh": "而那就是為什麼每次按鍵時，"
+        },
+        {
+          "id": 32,
+          "start": 91.17,
+          "end": 94.203,
+          "en": "all those component functions get executed again.",
+          "zh": "所有那些元件函式都會再次被執行。"
+        },
+        {
+          "id": 33,
+          "start": 95.03999999999999,
+          "end": 98.19,
+          "en": "Now this does not necessarily have an impact",
+          "zh": "那麼，這不一定會影響"
+        },
+        {
+          "id": 34,
+          "start": 98.19,
+          "end": 102.81,
+          "en": "on the actual DOM that's rendered, so it's not that bad",
+          "zh": "實際被渲染的 DOM，所以它沒那麼糟，"
+        },
+        {
+          "id": 35,
+          "start": 102.81,
+          "end": 105.42,
+          "en": "as you will learn later in this section,",
+          "zh": "如你將在這個章節稍後學到的，"
+        },
+        {
+          "id": 36,
+          "start": 105.42,
+          "end": 107.7,
+          "en": "but of course it's still not optimal",
+          "zh": "但當然它仍然不是最佳做法，"
+        },
+        {
+          "id": 37,
+          "start": 107.7,
+          "end": 111.47999999999999,
+          "en": "because it is a bunch of code that's executed.",
+          "zh": "因為那是一堆被執行的程式碼。"
+        },
+        {
+          "id": 38,
+          "start": 111.47999999999999,
+          "end": 114.96000000000001,
+          "en": "And of course we can now understand why that is happening.",
+          "zh": "而我們現在當然可以理解為什麼會這樣。"
+        },
+        {
+          "id": 39,
+          "start": 114.96000000000001,
+          "end": 118.02000000000001,
+          "en": "But how can we fix the problem?",
+          "zh": "但我們要如何修正這個問題？"
+        },
+        {
+          "id": 40,
+          "start": 118.02000000000001,
+          "end": 119.94,
+          "en": "Well, to fix the problem",
+          "zh": "嗯，要修正這個問題，"
+        },
+        {
+          "id": 41,
+          "start": 119.94,
+          "end": 124.26,
+          "en": "we got two main possible solutions we can go for.",
+          "zh": "我們有兩個主要的可能解決方案可以採用。"
+        },
+        {
+          "id": 42,
+          "start": 124.26,
+          "end": 126.24,
+          "en": "And I'll show you the first solution",
+          "zh": "而我會以 Counter 元件為例，"
+        },
+        {
+          "id": 43,
+          "start": 126.24,
+          "end": 128.95,
+          "en": "here at the example of the counter component",
+          "zh": "在這裡向你展示第一個解決方案，"
+        },
+        {
+          "id": 44,
+          "start": 130.14,
+          "end": 133.38,
+          "en": "because React gives you a built-in function",
+          "zh": "因為 React 提供你一個內建函式，"
+        },
+        {
+          "id": 45,
+          "start": 133.38,
+          "end": 137.7,
+          "en": "that you can wrap around your component functions so to say,",
+          "zh": "可以說，你可以用它把元件函式包起來，"
+        },
+        {
+          "id": 46,
+          "start": 137.7,
+          "end": 142.7,
+          "en": "that will prevent unnecessary component function executions.",
+          "zh": "它會防止不必要的元件函式執行。"
+        },
+        {
+          "id": 47,
+          "start": 143.61,
+          "end": 147.27,
+          "en": "And that function is the memo function",
+          "zh": "而那個函式就是 memo 函式，"
+        },
+        {
+          "id": 48,
+          "start": 147.27,
+          "end": 149.913,
+          "en": "which must be imported from React.",
+          "zh": "它必須從 React 匯入。"
+        },
+        {
+          "id": 49,
+          "start": 151.74,
+          "end": 155.28,
+          "en": "Once you did import this function, you can wrap it",
+          "zh": "一旦你匯入了這個函式，你就可以把它"
+        },
+        {
+          "id": 50,
+          "start": 155.28,
+          "end": 158.67000000000002,
+          "en": "around your component function by simply executing it",
+          "zh": "包在你的元件函式外，只要執行它，"
+        },
+        {
+          "id": 51,
+          "start": 158.67000000000002,
+          "end": 162.27,
+          "en": "and passing your component function as a value",
+          "zh": "並把你的元件函式當作值"
+        },
+        {
+          "id": 52,
+          "start": 162.27,
+          "end": 164.253,
+          "en": "as an argument to memo.",
+          "zh": "作為引數傳給 memo。"
+        },
+        {
+          "id": 53,
+          "start": 165.75,
+          "end": 166.95,
+          "en": "Now here I'm getting a warning",
+          "zh": "現在我這裡收到一個警告，"
+        },
+        {
+          "id": 54,
+          "start": 166.95,
+          "end": 171.09,
+          "en": "that some development mode features won't work correctly",
+          "zh": "說如果我們這樣做的話，某些開發模式功能"
+        },
+        {
+          "id": 55,
+          "start": 171.09,
+          "end": 172.32,
+          "en": "if we do it like this.",
+          "zh": "不會正確運作。"
+        },
+        {
+          "id": 56,
+          "start": 172.32,
+          "end": 174.6,
+          "en": "Therefore, it is actually recommended",
+          "zh": "因此，其實建議你"
+        },
+        {
+          "id": 57,
+          "start": 174.6,
+          "end": 176.79,
+          "en": "that you first store the result",
+          "zh": "先把結果存到"
+        },
+        {
+          "id": 58,
+          "start": 176.79,
+          "end": 179.67000000000002,
+          "en": "in a separate variable or constant",
+          "zh": "一個獨立的變數或常數中，"
+        },
+        {
+          "id": 59,
+          "start": 179.67000000000002,
+          "end": 183.51,
+          "en": "which I'll give the same name as my component function name",
+          "zh": "我會給它和我的元件函式相同的名稱，"
+        },
+        {
+          "id": 60,
+          "start": 183.51,
+          "end": 188.223,
+          "en": "and that you then simply export this variable or constant.",
+          "zh": "然後你只要匯出這個變數或常數。"
+        },
+        {
+          "id": 61,
+          "start": 189.6,
+          "end": 191.25,
+          "en": "But that's just required",
+          "zh": "但那只是為了"
+        },
+        {
+          "id": 62,
+          "start": 191.25,
+          "end": 193.77,
+          "en": "to get the best developer experience.",
+          "zh": "獲得最佳的開發者體驗所必需的。"
+        },
+        {
+          "id": 63,
+          "start": 193.77,
+          "end": 195.96,
+          "en": "Memo works either way.",
+          "zh": "memo 兩種方式都能運作。"
+        },
+        {
+          "id": 64,
+          "start": 195.96,
+          "end": 200.43,
+          "en": "And what memo will do is that it will take a look",
+          "zh": "而 memo 會做的事，就是它會查看"
+        },
+        {
+          "id": 65,
+          "start": 200.43,
+          "end": 203.82,
+          "en": "at the props of your component function",
+          "zh": "你元件函式的 props，"
+        },
+        {
+          "id": 66,
+          "start": 203.82,
+          "end": 206.25,
+          "en": "and whenever the component function",
+          "zh": "而每當這個元件函式"
+        },
+        {
+          "id": 67,
+          "start": 206.25,
+          "end": 209.94,
+          "en": "would normally execute again for example,",
+          "zh": "例如通常會再次執行時，"
+        },
+        {
+          "id": 68,
+          "start": 209.94,
+          "end": 212.73,
+          "en": "because the app component function executes,",
+          "zh": "因為 App 元件函式執行了，"
+        },
+        {
+          "id": 69,
+          "start": 212.73,
+          "end": 216.54,
+          "en": "memo will take a look at the old prop value",
+          "zh": "memo 會查看舊的 prop 值"
+        },
+        {
+          "id": 70,
+          "start": 216.54,
+          "end": 220.8,
+          "en": "and at the new prop value that would be received now",
+          "zh": "以及現在會收到的新 prop 值，"
+        },
+        {
+          "id": 71,
+          "start": 220.8,
+          "end": 223.47,
+          "en": "if that component function would execute",
+          "zh": "如果那個元件函式要執行的話，"
+        },
+        {
+          "id": 72,
+          "start": 223.47,
+          "end": 227.91,
+          "en": "and if those prop values are exactly the same,",
+          "zh": "而如果那些 prop 值完全相同，"
+        },
+        {
+          "id": 73,
+          "start": 227.91,
+          "end": 231.75,
+          "en": "which for arrays and objects means that they really",
+          "zh": "而對陣列和物件來說，這表示它們真的"
+        },
+        {
+          "id": 74,
+          "start": 231.75,
+          "end": 236.4,
+          "en": "have to be exactly the same array or object in memory.",
+          "zh": "必須是記憶體中完全相同的陣列或物件。"
+        },
+        {
+          "id": 75,
+          "start": 236.4,
+          "end": 237.9,
+          "en": "But if they are the same",
+          "zh": "但如果它們相同，"
+        },
+        {
+          "id": 76,
+          "start": 237.9,
+          "end": 240.24,
+          "en": "this component function execution here",
+          "zh": "這裡這個元件函式執行"
+        },
+        {
+          "id": 77,
+          "start": 240.24,
+          "end": 243.72,
+          "en": "will be prevented by memo.",
+          "zh": "就會被 memo 阻止。"
+        },
+        {
+          "id": 78,
+          "start": 243.72,
+          "end": 246,
+          "en": "So that this component function,",
+          "zh": "這樣一來，這個元件函式，"
+        },
+        {
+          "id": 79,
+          "start": 246,
+          "end": 250.29,
+          "en": "this counter or component function would only be re executed",
+          "zh": "這個 Counter 元件函式就只會在"
+        },
+        {
+          "id": 80,
+          "start": 250.29,
+          "end": 252.18,
+          "en": "if initialCount changed",
+          "zh": "initialCount 改變時"
+        },
+        {
+          "id": 81,
+          "start": 252.18,
+          "end": 255.63,
+          "en": "or of course if its internal state changed",
+          "zh": "或當然，如果它的內部 state 改變時，才會被重新執行，"
+        },
+        {
+          "id": 82,
+          "start": 255.63,
+          "end": 257.94,
+          "en": "that's not affected by memo.",
+          "zh": "那不受 memo 影響。"
+        },
+        {
+          "id": 83,
+          "start": 257.94,
+          "end": 262.14,
+          "en": "Memo only prevents function executions that are triggered",
+          "zh": "memo 只會阻止由父元件觸發的"
+        },
+        {
+          "id": 84,
+          "start": 262.14,
+          "end": 264.723,
+          "en": "by the parent component, so the app component.",
+          "zh": "函式執行，也就是 App 元件。"
+        },
+        {
+          "id": 85,
+          "start": 265.8,
+          "end": 267.84,
+          "en": "And it makes sense that memo",
+          "zh": "而 memo 查看 props"
+        },
+        {
+          "id": 86,
+          "start": 267.84,
+          "end": 270.45,
+          "en": "takes a look at the props because of course",
+          "zh": "是合理的，因為當然，"
+        },
+        {
+          "id": 87,
+          "start": 270.45,
+          "end": 274.29,
+          "en": "if this initial count prop value in this case here",
+          "zh": "如果在這個例子中，這個 initialCount prop 值"
+        },
+        {
+          "id": 88,
+          "start": 274.29,
+          "end": 278.7,
+          "en": "did not change, there is no reason for the counter component",
+          "zh": "沒有改變，那就沒有理由因為父元件再次執行"
+        },
+        {
+          "id": 89,
+          "start": 278.7,
+          "end": 280.26,
+          "en": "to be executed again",
+          "zh": "就讓 Counter 元件"
+        },
+        {
+          "id": 90,
+          "start": 280.26,
+          "end": 283.563,
+          "en": "just because the parent component executed again.",
+          "zh": "再次被執行。"
+        },
+        {
+          "id": 91,
+          "start": 284.55,
+          "end": 287.22,
+          "en": "Of course, if that internal state changes",
+          "zh": "當然，如果那個內部 state 改變，"
+        },
+        {
+          "id": 92,
+          "start": 287.22,
+          "end": 290.82,
+          "en": "that should definitely trigger this component function.",
+          "zh": "那當然應該觸發這個元件函式。"
+        },
+        {
+          "id": 93,
+          "start": 290.82,
+          "end": 294.27,
+          "en": "And as mentioned, memo will not prevent this.",
+          "zh": "而如前面提到的，memo 不會阻止這點。"
+        },
+        {
+          "id": 94,
+          "start": 294.27,
+          "end": 297.81,
+          "en": "It does not care about internal changes.",
+          "zh": "它不在乎內部改變。"
+        },
+        {
+          "id": 95,
+          "start": 297.81,
+          "end": 301.56,
+          "en": "But external changes of course only makes sense",
+          "zh": "但外部改變當然只在這兩個 prop 值"
+        },
+        {
+          "id": 96,
+          "start": 301.56,
+          "end": 304.11,
+          "en": "for this component here to be executed",
+          "zh": "改變時，這個元件才"
+        },
+        {
+          "id": 97,
+          "start": 304.11,
+          "end": 306.27,
+          "en": "if the prop value changed.",
+          "zh": "有執行的意義。"
+        },
+        {
+          "id": 98,
+          "start": 306.27,
+          "end": 308.7,
+          "en": "Otherwise executing this function again",
+          "zh": "否則再次執行這個函式"
+        },
+        {
+          "id": 99,
+          "start": 308.7,
+          "end": 311.97,
+          "en": "will of course yield the same result as before",
+          "zh": "當然會產生和之前相同的結果，"
+        },
+        {
+          "id": 100,
+          "start": 311.97,
+          "end": 314.49,
+          "en": "and therefore is unnecessary.",
+          "zh": "因此是不必要的。"
+        },
+        {
+          "id": 101,
+          "start": 314.49,
+          "end": 318.48,
+          "en": "And therefore, of course, if this counter component function",
+          "zh": "因此，當然，如果這個 Counter 元件函式"
+        },
+        {
+          "id": 102,
+          "start": 318.48,
+          "end": 321.57,
+          "en": "is prevented from being executed again",
+          "zh": "被阻止再次執行，"
+        },
+        {
+          "id": 103,
+          "start": 321.57,
+          "end": 324.81,
+          "en": "these nested component functions in there",
+          "zh": "裡面這些嵌套的元件函式"
+        },
+        {
+          "id": 104,
+          "start": 324.81,
+          "end": 327.09,
+          "en": "also won't be executed again",
+          "zh": "也不會再次被執行，"
+        },
+        {
+          "id": 105,
+          "start": 327.09,
+          "end": 330.51,
+          "en": "because this code is not executed at all",
+          "zh": "因為這段程式碼根本不會被執行，"
+        },
+        {
+          "id": 106,
+          "start": 330.51,
+          "end": 333.18,
+          "en": "because this overall counter function code",
+          "zh": "因為這整個 Counter 函式的程式碼"
+        },
+        {
+          "id": 107,
+          "start": 333.18,
+          "end": 335.43,
+          "en": "is not being executed.",
+          "zh": "不會被執行。"
+        },
+        {
+          "id": 108,
+          "start": 335.43,
+          "end": 338.61,
+          "en": "And therefore as a result, if you do wrap memo",
+          "zh": "因此結果就是，如果你真的用 memo"
+        },
+        {
+          "id": 109,
+          "start": 338.61,
+          "end": 341.73,
+          "en": "around this counter function and you reload",
+          "zh": "把這個 Counter 函式包起來，然後重新載入，"
+        },
+        {
+          "id": 110,
+          "start": 341.73,
+          "end": 345.39,
+          "en": "and you then change this value, you see that now",
+          "zh": "然後改變這個值，你會看到現在"
+        },
+        {
+          "id": 111,
+          "start": 345.39,
+          "end": 349.08,
+          "en": "it's only the header component that's being called again,",
+          "zh": "只有 Header 元件再次被呼叫，"
+        },
+        {
+          "id": 112,
+          "start": 349.08,
+          "end": 353.34000000000003,
+          "en": "in addition to the app component, because all I did here",
+          "zh": "加上 App 元件，因為我在這裡做的"
+        },
+        {
+          "id": 113,
+          "start": 353.34000000000003,
+          "end": 356.07,
+          "en": "is that I changed the value entered here.",
+          "zh": "只是改變了這裡輸入的值。"
+        },
+        {
+          "id": 114,
+          "start": 356.07,
+          "end": 359.49,
+          "en": "I did not click set or anything like that.",
+          "zh": "我沒有點擊 Set 或任何類似的東西。"
+        },
+        {
+          "id": 115,
+          "start": 359.49,
+          "end": 362.43,
+          "en": "And therefore of course in the app component",
+          "zh": "因此，當然在 App 元件中，"
+        },
+        {
+          "id": 116,
+          "start": 362.43,
+          "end": 365.91,
+          "en": "the state was updated, but it was this enteredNumber state",
+          "zh": "state 被更新了，但那是這個 enteredNumber state，"
+        },
+        {
+          "id": 117,
+          "start": 365.91,
+          "end": 368.73,
+          "en": "which does not matter for the counter component",
+          "zh": "它對 Counter 元件不重要，"
+        },
+        {
+          "id": 118,
+          "start": 368.73,
+          "end": 372.09,
+          "en": "which does not change the initialCount and which therefore",
+          "zh": "它不會改變 initialCount，因此"
+        },
+        {
+          "id": 119,
+          "start": 372.09,
+          "end": 375.45,
+          "en": "shouldn't trigger this component function to execute.",
+          "zh": "不應該觸發這個元件函式執行。"
+        },
+        {
+          "id": 120,
+          "start": 375.45,
+          "end": 377.223,
+          "en": "And thanks to memo it won't.",
+          "zh": "而多虧了 memo，它不會。"
+        },
+        {
+          "id": 121,
+          "start": 378.06,
+          "end": 381.66,
+          "en": "So therefore of course you might be intrigued to wrap memo",
+          "zh": "因此，你當然可能會很想用 memo"
+        },
+        {
+          "id": 122,
+          "start": 381.66,
+          "end": 386.43,
+          "en": "around all your components because it can be useful, right?",
+          "zh": "把所有的元件都包起來，因為它很有用，對吧？"
+        },
+        {
+          "id": 123,
+          "start": 386.43,
+          "end": 389.31,
+          "en": "Yes it can, but you should not wrap it",
+          "zh": "是的，它很有用，但你不應該把它"
+        },
+        {
+          "id": 124,
+          "start": 389.31,
+          "end": 391.59,
+          "en": "around all your components.",
+          "zh": "包在所有的元件上。"
+        },
+        {
+          "id": 125,
+          "start": 391.59,
+          "end": 394.83,
+          "en": "Instead, it makes sense like in this example",
+          "zh": "相反地，像在這個例子中，合理做法是"
+        },
+        {
+          "id": 126,
+          "start": 394.83,
+          "end": 397.40999999999997,
+          "en": "to wrap it around a component",
+          "zh": "把它包在一個在元件樹中"
+        },
+        {
+          "id": 127,
+          "start": 397.40999999999997,
+          "end": 401.64,
+          "en": "that's as high up in the component tree as possible.",
+          "zh": "盡可能高處的元件上。"
+        },
+        {
+          "id": 128,
+          "start": 401.64,
+          "end": 404.97,
+          "en": "Like it's the case here for the counter component",
+          "zh": "就像這裡 Counter 元件的情況，"
+        },
+        {
+          "id": 129,
+          "start": 404.97,
+          "end": 407.79,
+          "en": "because if that component is then prevented",
+          "zh": "因為如果那個元件被阻止"
+        },
+        {
+          "id": 130,
+          "start": 407.79,
+          "end": 410.90999999999997,
+          "en": "from executing again, all the nested components",
+          "zh": "再次執行，所有嵌套的元件"
+        },
+        {
+          "id": 131,
+          "start": 410.90999999999997,
+          "end": 413.76,
+          "en": "also won't be executed again.",
+          "zh": "也不會再次被執行。"
+        },
+        {
+          "id": 132,
+          "start": 413.76,
+          "end": 417.24,
+          "en": "And if you would wrap memo around all your components",
+          "zh": "而如果你用 memo 把所有的元件都包起來，"
+        },
+        {
+          "id": 133,
+          "start": 417.24,
+          "end": 418.71,
+          "en": "that would simply mean",
+          "zh": "那只是表示"
+        },
+        {
+          "id": 134,
+          "start": 418.71,
+          "end": 421.56,
+          "en": "that React always has to check the props",
+          "zh": "React 永遠必須在執行元件函式前"
+        },
+        {
+          "id": 135,
+          "start": 421.56,
+          "end": 424.32,
+          "en": "before it executes the component function.",
+          "zh": "檢查 props。"
+        },
+        {
+          "id": 136,
+          "start": 424.32,
+          "end": 426.66,
+          "en": "And of course, checking the prop values",
+          "zh": "而當然，檢查 prop 值"
+        },
+        {
+          "id": 137,
+          "start": 426.66,
+          "end": 430.53,
+          "en": "for equality also costs some performance.",
+          "zh": "是否相等也會消耗一些效能。"
+        },
+        {
+          "id": 138,
+          "start": 430.53,
+          "end": 434.94,
+          "en": "And that's especially a problem if you wrap a function",
+          "zh": "而如果你包住一個幾乎總是收到"
+        },
+        {
+          "id": 139,
+          "start": 434.94,
+          "end": 438.51,
+          "en": "that almost always gets changed props.",
+          "zh": "變動 props 的函式，那問題特別大。"
+        },
+        {
+          "id": 140,
+          "start": 438.51,
+          "end": 442.68,
+          "en": "So where this comparison almost always yields the result",
+          "zh": "也就是這個比較幾乎總是得出"
+        },
+        {
+          "id": 141,
+          "start": 442.68,
+          "end": 445.32,
+          "en": "that the component function should be executed",
+          "zh": "元件函式應該被執行的結果，"
+        },
+        {
+          "id": 142,
+          "start": 445.32,
+          "end": 448.71,
+          "en": "because then you paid the performance price",
+          "zh": "因為那樣你就為了這個檢查"
+        },
+        {
+          "id": 143,
+          "start": 448.71,
+          "end": 452.79,
+          "en": "for this check just to get the same result as you would get",
+          "zh": "付了效能代價，卻只得到和沒有 memo 時"
+        },
+        {
+          "id": 144,
+          "start": 452.79,
+          "end": 456.75,
+          "en": "without memo that the component function is executed.",
+          "zh": "一樣的結果：元件函式被執行。"
+        },
+        {
+          "id": 145,
+          "start": 456.75,
+          "end": 458.79,
+          "en": "So you should use it with care.",
+          "zh": "所以你應該謹慎使用它。"
+        },
+        {
+          "id": 146,
+          "start": 458.79,
+          "end": 461.73,
+          "en": "And in simple apps like this one, to be honest,",
+          "zh": "而說實話，在像這樣簡單的應用程式中，"
+        },
+        {
+          "id": 147,
+          "start": 461.73,
+          "end": 463.89,
+          "en": "you don't need to use it at all",
+          "zh": "你根本不需要用它，"
+        },
+        {
+          "id": 148,
+          "start": 463.89,
+          "end": 468.57,
+          "en": "because it won't have any measurable performance impact.",
+          "zh": "因為它不會有任何可量測的效能影響。"
+        },
+        {
+          "id": 149,
+          "start": 468.57,
+          "end": 471.84000000000003,
+          "en": "But if you do wanna use it and if it can have an impact",
+          "zh": "但如果你真的想用它，而且它可能會有影響，"
+        },
+        {
+          "id": 150,
+          "start": 471.84000000000003,
+          "end": 475.08,
+          "en": "you should use it with care only on components",
+          "zh": "你應該謹慎地在那些你確實能防止重新渲染的"
+        },
+        {
+          "id": 151,
+          "start": 475.08,
+          "end": 478.38,
+          "en": "where you can actually prevent re-renders",
+          "zh": "元件上使用它，"
+        },
+        {
+          "id": 152,
+          "start": 478.38,
+          "end": 482.073,
+          "en": "and as high up in the component tree as possible.",
+          "zh": "並盡可能在元件樹中越高的位置越好。"
+        }
+      ]
     }
   ],
   "errors": []
