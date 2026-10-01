@@ -13,4 +13,4 @@
 
 ## 翻譯進度
 
-678 堂影片中已完成 **625 堂**（累計至第 625 堂，每 25 堂自動提交）；**剩餘 53 堂（第 626-678 堂）**，逐堂翻譯持續進行。進度以 [translation-progress.json](translation-progress.json) 為準。
+678 堂影片中已完成 **650 堂**（累計至第 650 堂，每 25 堂自動提交）；**剩餘 28 堂（第 651-678 堂）**，逐堂翻譯持續進行。進度以 [translation-progress.json](translation-progress.json) 為準。
