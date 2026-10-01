@@ -11,14 +11,14 @@
 | [CSS - The Complete Guide](1561458/README.md) | 1561458 | 266 | 0 | [查看譯文](1561458/translations/README.md) |
 | [Svelte.js - The Complete Guide](2360566/README.md) | 2360566 | 171 | 3 | [查看譯文](2360566/translations/README.md) |
 | [NativeScript + Angular: Build Native iOS, Android & Web Apps](2126948/README.md) | 2126948 | 217 | 0 | [查看譯文](2126948/translations/README.md) |
-| [Remix.js - The Practical Guide](4958062/README.md) | 4958062 | 106 | 0 | [查看譯文](4958062/translations/README.md) |
+| [Remix.js - The Practical Guide](4958062/README.md) | 4958062 | 106 | 10 | [查看譯文](4958062/translations/README.md) |
 | [Angular - The Complete Guide](756150/README.md) | 756150 | 701 | 0 | [查看譯文](756150/translations/README.md) |
 | [Next.js & React - The Complete Guide](3873464/README.md) | 3873464 | 417 | 0 | [查看譯文](3873464/translations/README.md) |
 | [Vue - The Complete Guide (incl. Router & Composition API)](995016/README.md) | 995016 | 294 | 0 | [查看譯文](995016/translations/README.md) |
 | [Ionic - Build iOS, Android & Web Apps with Ionic & Angular](1070124/README.md) | 1070124 | 242 | 0 | [查看譯文](1070124/translations/README.md) |
 | [JavaScript - The Complete Guide (Beginner + Advanced)](2508942/README.md) | 2508942 | 540 | 0 | [查看譯文](2508942/translations/README.md) |
 
-13 門課影片講座合計 4,672 堂（不含文章與測驗）。目前僅 React 進入逐堂翻譯，累計完成 500 堂後暫停；其餘課程英文來源已就緒，**堂數尚未翻譯**（Svelte 另完成 3 堂音訊補件譯文）。
+13 門課影片講座合計 4,672 堂（不含文章與測驗）。React 累計完成 500 堂後暫停；Remix 已驗證前 10 堂。其餘課程英文來源已就緒（Svelte 另完成 3 堂音訊補件譯文）。每門課先翻譯 10 堂，滿 10 堂再提交。
 
 每課分類：
 

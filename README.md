@@ -83,7 +83,9 @@ Firefox 完全關閉後暫用附加元件會移除；長期安裝需要 Mozilla 
 
 ## 其他課程（堂數少的優先，跳過 React）
 
-`course_queue.py` 處理 React 以外的 12 門課，依堂數由少到多排序：Remix 106 → Svelte 171 → NativeScript 217 → Ionic 242 → CSS 266 → React Native 275 → Flutter 286 → Vue 294 → Next.js 417 → NodeJS 479 → JavaScript 540 → Angular 701。這 12 門課合計 3,994 堂影片，目前**堂數尚未翻譯**（Svelte 另完成 3 堂音訊補件譯文）；各課堂數與進度一覽見 [課程字幕分類索引](data/courses/README.md)。
+`course_queue.py` 處理 React 以外的 12 門課，依堂數由少到多排序：Remix 106 → Svelte 171 → NativeScript 217 → Ionic 242 → CSS 266 → React Native 275 → Flutter 286 → Vue 294 → Next.js 417 → NodeJS 479 → JavaScript 540 → Angular 701。這 12 門課合計 3,994 堂影片。各課堂數與進度一覽見 [課程字幕分類索引](data/courses/README.md)。
+
+Remix 目前已驗證前 10 堂（672 段），譯文在 `data/courses/4958062/translations/tw-001-050.json`。每門課先翻譯 10 堂，滿 10 堂再提交。
 
 - `python3 course_queue.py order`：列出課程順序與完成堂數。
 - `python3 course_queue.py next`：取得最小未完成課程的下一堂（`--course ID` 限定課程）。
@@ -102,6 +104,6 @@ Firefox 完全關閉後暫用附加元件會移除；長期安裝需要 Mozilla 
 
 `data/courses/1362070/translation-progress.json` 保留每堂英文檔、翻譯檔、驗證與匯入狀態。`translation_queue.py next` 取得下一堂；`verify` 核對完整結果，`imported` 必須附上實際觀察到的匯入證據。每完成一堂通知一次，可中斷後續接。詳細步驟見 `ONLINE-WORKFLOW.md`。
 
-使用者指定每完成 50 堂自動提交備份至 [GitHub 儲存庫](https://github.com/goldshoot0720/Udemygpt)。目前累計完成 500 堂（第 451-500 堂已提交，`b3d5558`），**剩餘 178 堂尚未翻譯**；逐堂翻譯流程已暫停，待恢復後再續，全部完成後再整理最終成果。
+每門課先翻譯 10 堂，滿 10 堂再提交備份至 [GitHub 儲存庫](https://github.com/goldshoot0720/Udemygpt)。React 先前依 50 堂提交，累計完成 500 堂（第 451-500 堂已提交，`b3d5558`），剩餘 178 堂暫停。其他課程由堂數少的開始，Remix 前 10 堂已完成。
 
 參考：[Mozilla 暫時安裝](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)、[OpenCC JS](https://github.com/nk2028/opencc-js)、[ChatGPT 檔案處理](https://learn.chatgpt.com/docs/use-chatgpt)。
