@@ -4,6 +4,8 @@
 
 版本 2.0 不再下載或使用 Udemy 中文字幕，也不使用本機翻譯模型。尚未完成英文預譯的講座只顯示英文，左上角會標示「中文待翻譯」。
 
+13 門課的字幕已統一依課程分類，從 [課程字幕索引](data/courses/README.md) 按課程名稱查看。各課使用 `data/courses/課程ID/`，繁體中文譯文放在其中的 `translations/`，英文來源、翻譯佇列與進度也保存在同一課程資料夾。
+
 ## 支援課程（2.3）
 
 以下 13 門課程的講師皆為 **Maximilian Schwarzmüller**。
@@ -26,6 +28,14 @@
 
 更新後在 `about:debugging#/runtime/this-firefox` 重新載入此附加元件，再重新整理課程播放器頁面。
 
+## 課程影片分鐘數（2.4）
+
+點選播放器左上角「設定」後，面板才顯示目前講座、總影片分鐘數、已觀看分鐘數與未觀看分鐘數；關閉設定或按 Escape 即隱藏。讀取完整課程清單中的影片時長，只累加影片；文章及測驗不計入影片分鐘數。講座編號保留文章項目，例如 React 的 `23. Destructuring`。
+
+已觀看採「依序觀看估算」：目前講座之前的影片總長＋本堂播放位置；未觀看＝總影片分鐘數－已觀看。播放、暫停、前後跳轉及切換講座會自動更新，以原速影片長度計算，不受倍速或字幕時間校正影響。這不是 Udemy 完成勾選或實際觀看歷史；跳過前面的影片仍會算入依序進度。
+
+React 標示的 71 小時換算為約 4,260 分鐘；面板優先使用各堂影片的實際時長加總，所以可能與整數小時標示略有差異。時長缺漏時顯示待補及「—」，避免把不完整加總當成完整時長；可按「重新讀取時長」重試。
+
 ## 播放與縮放
 
 繁體中文在上，英文在下，支援關鍵字光暈＋淡入、電影描邊、簡潔閱讀。播放器左上角「中英 CC」可開關，「設定」可調整字體、字幕高度與時間校正。
@@ -40,7 +50,7 @@
 
 下載後執行 `node prepare_course_sources.cjs /完整路徑/Udemy-English-course-ID.json`，驗證英文、時間軸雜湊、影片覆蓋範圍與缺漏記錄，並在 `data/courses/ID/` 保存原文、逐堂英文檔及約 800 段的 ChatGPT 批次（不拆開單堂）。各課程獨立的翻譯進度會初始化為待翻譯；既有進度不會重設。`data/english-download-progress.json` 記錄 13 門課的下載與驗證狀態，和 React 既有翻譯進度分開。
 
-英文來源的逐課統計與缺漏處理方式見 [課程英文字幕來源進度](data/english-source-summary.md)。沒有英文字幕的影片先列為待補來源；若改由影片音訊轉錄，需校對英文與時間軸，並加入外部英文字幕匯入支援後才能同步播放。
+英文來源的逐課統計與缺漏處理方式見 [課程英文字幕來源進度](data/english-source-summary.md)。沒有英文字幕的影片先列為待補來源；若改由影片音訊轉錄，需校對英文與時間軸。擴充功能 2.4.1 可在設定中「匯入補充英文字幕」；只有 Udemy 未提供英文字幕時才使用轉錄來源。補充來源與 ChatGPT 譯文都驗證課程、段數及原文時間軸雜湊。Svelte 三堂已補齊 184 段英文與 ChatGPT 繁體中文、匯入並逐堂播放核對；專用進度見 [補充字幕進度](data/courses/2360566/repair/README.md)。
 
 1. 播放器設定按「匯出本堂英文」或「匯出全課英文」。全課匯出會讀取登入帳號可觀看的講座，完成後下載 JSON，失敗項目記錄在 errors。
 2. 將英文 JSON 與 `ChatGPT-翻譯指令.md` 的指令交給 ChatGPT 線上翻譯；大型檔案應分成小批次。
@@ -62,18 +72,36 @@ Firefox 完全關閉後暫用附加元件會移除；長期安裝需要 Mozilla 
 
 - `udemy-bilingual/`：Firefox 擴充功能原始碼。
 - `udemy-bilingual/courses.js`：支援課程清單、課程 ID 辨識與譯文儲存鍵。
-- `data/`：英文素材與已驗證譯文。
+- `data/courses/README.md`：按課程名稱查找英文來源、中文譯文與進度。
+- `data/courses/課程ID/`：各課完整英文來源、課程清單、逐堂英文、翻譯批次與獨立進度。
+- `data/courses/課程ID/translations/`：各課繁體中文譯文；React 以每 50 堂的 `tw-起始-結束.json` 保存，Svelte 補件中英字幕也集中在此。
+- `data/courses/課程ID/imports/`：原始字幕 JSON 與課程清單下載備份，保留原檔名，僅保存在本機。
+- `data/import-reports/`：原始匯出報告與搬移紀錄，`migration-2026-10-01.json` 記錄原路徑、新路徑及 SHA-256。
+- `data/courses/2360566/repair/media/`：Svelte 補字幕用的影片、音訊與參考畫面，分別放在 `videos/`、`audio/`、`frames/`，僅保留於本機。
 - `ChatGPT-翻譯指令.md`：逐段翻譯及台灣術語要求。
 - `tests/subtitle-core.test.cjs`：字幕時間邊界、重疊、倒退跳轉、語言選取及台灣術語驗證。
 
+## 其他課程（堂數少的優先，跳過 React）
+
+`course_queue.py` 處理 React 以外的 12 門課，依堂數由少到多排序：Remix 106 → Svelte 171 → NativeScript 217 → Ionic 242 → CSS 266 → React Native 275 → Flutter 286 → Vue 294 → Next.js 417 → NodeJS 479 → JavaScript 540 → Angular 701。這 12 門課合計 3,994 堂影片，目前**堂數尚未翻譯**（Svelte 另完成 3 堂音訊補件譯文）；各課堂數與進度一覽見 [課程字幕分類索引](data/courses/README.md)。
+
+- `python3 course_queue.py order`：列出課程順序與完成堂數。
+- `python3 course_queue.py next`：取得最小未完成課程的下一堂（`--course ID` 限定課程）。
+- `python3 course_queue.py verify --course ID --file ChatGPT結果.json`：可放單堂或整個 `chatgpt-batches` 批次結果；驗證後依 lectureOrder 併入 `translations/tw-起始-結束.json`，並更新該課 `translation-progress.json`。
+- `python3 course_queue.py imported --course ID --id 講座ID --evidence '實際匯入結果'`。
+
+## 中英雙語特效字幕檔（.ass）
+
+`python3 export_ass.py 課程ID` 把 `translations/` 中已完成的講座合併為中英雙語 `.ass`，輸出到 `data/courses/課程ID/subtitles-ass/`（不加入 Git）。繁體中文在上、英文在下，樣式對應擴充功能：`--effect glow`（預設，光暈底框＋淡入＋關鍵字高亮）、`cinema`（電影描邊）、`minimal`（簡潔閱讀）。另有 `--lecture 講座ID`、`--offset 秒數`、`--font 字型`。可用 VLC、PotPlayer、IINA 等播放器載入。
+
 ## 逐堂處理進度
 
-以下進度與 `translation_queue.py` 專用於原有 React 課程。新增課程的英文來源、逐堂佇列及翻譯批次分別保存在 `data/courses/課程ID/`；每課 `translation-progress.json` 初始化為待翻譯，下載英文不代表譯文已完成。缺少英文字幕的影片另列於 `data/missing-english-sources.json`，需補上英文來源後才能翻譯與匯入。
+`translation_queue.py` 專用於 React，讀寫 `data/courses/1362070/`。其他課程的英文來源、逐堂佇列及翻譯批次同樣保存在各自的 `data/courses/課程ID/`；每課 `translation-progress.json` 記錄自己的中文進度，下載英文不代表譯文已完成。補件來源另列於 `data/missing-english-sources.json`。
 
 已核對完整清單：727 堂講座包含 678 堂影片與 49 堂文字教材；文字教材沒有影片字幕。678 堂的 80,645 段原始英文字幕均已取得，逐堂交給 ChatGPT 線上翻譯。
 
-`data/translation-progress.json` 保留每堂英文檔、翻譯檔、驗證與匯入狀態。`translation_queue.py next` 取得下一堂；`verify` 核對完整結果，`imported` 必須附上實際觀察到的匯入證據。每完成一堂通知一次，可中斷後續接。詳細步驟見 `ONLINE-WORKFLOW.md`。
+`data/courses/1362070/translation-progress.json` 保留每堂英文檔、翻譯檔、驗證與匯入狀態。`translation_queue.py next` 取得下一堂；`verify` 核對完整結果，`imported` 必須附上實際觀察到的匯入證據。每完成一堂通知一次，可中斷後續接。詳細步驟見 `ONLINE-WORKFLOW.md`。
 
-使用者指定每完成 10 堂自動提交備份至 [GitHub 儲存庫](https://github.com/goldshoot0720/Udemygpt)，全部完成後再整理最終成果；目前仍在逐堂翻譯階段。
+使用者指定每完成 50 堂自動提交備份至 [GitHub 儲存庫](https://github.com/goldshoot0720/Udemygpt)。目前累計完成 500 堂（第 451-500 堂已提交，`b3d5558`），**剩餘 178 堂尚未翻譯**；逐堂翻譯流程已暫停，待恢復後再續，全部完成後再整理最終成果。
 
 參考：[Mozilla 暫時安裝](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)、[OpenCC JS](https://github.com/nk2028/opencc-js)、[ChatGPT 檔案處理](https://learn.chatgpt.com/docs/use-chatgpt)。
