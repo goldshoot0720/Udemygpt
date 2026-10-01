@@ -87,7 +87,7 @@ Firefox 完全關閉後暫用附加元件會移除；長期安裝需要 Mozilla 
 
 `course_queue.py` 處理 React 以外的 12 門課，依堂數由少到多排序：Remix 106 → Svelte 171 → NativeScript 217 → Ionic 242 → CSS 266 → React Native 275 → Flutter 286 → Vue 294 → Next.js 417 → NodeJS 479 → JavaScript 540 → Angular 701。這 12 門課合計 3,994 堂影片。各課堂數與進度一覽見 [課程字幕分類索引](data/courses/README.md)。
 
-Remix、Svelte、NativeScript 與 Ionic 各已驗證前 10 堂。Ionic 的 655 段在 `data/courses/1070124/translations/tw-001-050.json`。其餘課程依堂數由少到多，以 10 堂為單位輪流提交。
+Remix、Svelte、NativeScript、Ionic 與 CSS 各已驗證前 10 堂。CSS 的 314 段在 `data/courses/1561458/translations/tw-001-050.json`。其餘課程依堂數由少到多，以 10 堂為單位輪流提交。
 
 - `python3 course_queue.py order`：列出課程順序與完成堂數。
 - `python3 course_queue.py next`：取得最小未完成課程的下一堂（`--course ID` 限定課程）。
