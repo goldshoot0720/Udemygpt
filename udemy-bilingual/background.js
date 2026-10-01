@@ -1,7 +1,7 @@
 /* Only retrieve subtitle files from Udemy's caption hosts. No video downloads. */
 browser.runtime.onMessage.addListener(async (message, sender) => {
   if (!["caption-file", "page-zoom"].includes(message?.type)) return;
-  if (!sender.url?.startsWith("https://www.udemy.com/course/react-the-complete-guide-incl-redux/learn/")) {
+  if (!UdemyCourses.forUrl(sender.url)) {
     throw new Error("不支援的課程頁面");
   }
   if (message.type === "page-zoom") return browser.tabs.getZoom(sender.tab.id);
