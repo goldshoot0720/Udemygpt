@@ -6,10 +6,9 @@
 
 ## 支援課程（2.1）
 
-以下 13 門課程的講師皆為 **Maximilian Schwarzmüller**。
+以下 12 門課程的講師皆為 **Maximilian Schwarzmüller**。
 
 - [React - The Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/)
-- [Codex - The Practical Guide](https://www.udemy.com/course/codex-the-practical-guide/)
 - [Flutter & Dart - The Complete Guide](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/)
 - [NodeJS - The Complete Guide](https://www.udemy.com/course/nodejs-the-complete-guide/)
 - [React Native - The Practical Guide](https://www.udemy.com/course/react-native-the-practical-guide/)

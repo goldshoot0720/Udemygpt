@@ -3,7 +3,6 @@
   "use strict";
   const courses = Object.freeze([
     { slug: "react-the-complete-guide-incl-redux", title: "React - The Complete Guide", id: 1362070 },
-    { slug: "codex-the-practical-guide", title: "Codex - The Practical Guide" },
     { slug: "learn-flutter-dart-to-build-ios-android-apps", title: "Flutter & Dart - The Complete Guide" },
     { slug: "nodejs-the-complete-guide", title: "NodeJS - The Complete Guide" },
     { slug: "react-native-the-practical-guide", title: "React Native - The Practical Guide" },
