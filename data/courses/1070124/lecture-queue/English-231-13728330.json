@@ -1,0 +1,636 @@
+{
+  "version": 1,
+  "courseId": 1070124,
+  "courseSlug": "ionic-2-the-practical-guide-to-building-ios-android-apps",
+  "courseTitle": "Ionic - Build iOS, Android & Web Apps with Ionic & Angular",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "13728330",
+      "title": "Adding Autologout",
+      "lectureOrder": 275,
+      "videoOrder": 231,
+      "sourceHash": "1ea8e05a6bdd31b337f7c5c38a7f06a8e98d3448044a45bb524aa0ae163018cc",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.41,
+          "end": 9.09,
+          "en": "Well we have taken care about logging out manually and we have taken care about logging in automatically",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 9.25,
+          "end": 16.61,
+          "en": "but now I want to focus on also making sure that we are able to log the user out automatically when",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 16.61,
+          "end": 18.07,
+          "en": "the token expired.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 18.07,
+          "end": 23.36,
+          "en": "Now I will say that with Firebase, you're also getting that refreshToken that you could in theory use",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 23.65,
+          "end": 29.47,
+          "en": "to get a fresh valid main token, here in the official docs",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 29.47,
+          "end": 32.74,
+          "en": "you can learn how to exchange a refreshToken for an idToken,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.77,
+          "end": 37.63,
+          "en": "where to send the request to and you could send that request whenever you're interacting with the other",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 37.63,
+          "end": 45.8,
+          "en": "Firebase endpoints or set a timer that exchanges the refreshToken for an idToken every 10 minutes,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 45.8,
+          "end": 46.86,
+          "en": "anything like that.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 46.93,
+          "end": 53.57,
+          "en": "I'll not add this logic here but I at least want to log the user out when it token expires.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 53.58,
+          "end": 55.78,
+          "en": "Now how can we implement this?",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 55.83,
+          "end": 57.82,
+          "en": "We have autoLogin here,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 57.9,
+          "end": 63.61,
+          "en": "now I will also add an auto-logout method.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 63.68,
+          "end": 66.23,
+          "en": "It's a private method which I'll name auto-logout",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 66.28,
+          "end": 72.4,
+          "en": "and I expect to get a duration here which should be a number which is basically the timer I want to set.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 72.4,
+          "end": 78.43,
+          "en": "It's not always one hour because I also want to set this when we auto-logged in the user which of course",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 78.43,
+          "end": 82.45,
+          "en": "can be the case with a token that's only valid for 10 more minutes.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 82.45,
+          "end": 92.89,
+          "en": "So here, I get that duration and I can then use setTimeout to set a timer based on that duration",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 92.89,
+          "end": 97.93,
+          "en": "and in the function it executes after this duration, I will simply call this logout,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 97.93,
+          "end": 101.21000000000001,
+          "en": "so the same method I call when I manually logout.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 101.5,
+          "end": 108.59,
+          "en": "Now of course I want to make sure that I clear any timers whenever I set a new one, for this I'll add",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 108.59,
+          "end": 125.73,
+          "en": "a new property here, private active logout timer which is of type any and down there in auto-logout,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 127.44,
+          "end": 132.34,
+          "en": "I will store my timer in this active logout timer.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 132.51,
+          "end": 140.22,
+          "en": "Therefore if I set a new timer, I'll check if this active logout the timer is set and I'll then call",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 140.22,
+          "end": 147.42000000000002,
+          "en": "clear timeout for this active logout timer to remove the existing active logout timer because",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 147.42000000000002,
+          "end": 155.1,
+          "en": "I'm about to set a new one. I want to do the same here for logging out, so I'll copy that logic and",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 155.19,
+          "end": 160.18,
+          "en": "also add it here into logout to remove any existing logout timers",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 160.23,
+          "end": 169.76,
+          "en": "and then there is one extra thing we can do in services as well, we can actually implement onDestroy",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 169.76,
+          "end": 175.89,
+          "en": "here, imported from @angular/core, just as you can do it in components, you can also add onDestroy to",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 175.89,
+          "end": 181.43,
+          "en": "services and this will then simply give you a place where you can run cleanup logic for that service",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 181.73,
+          "end": 187.16,
+          "en": "and that in my case would be that I also want to clean up any existing timers whenever this service",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 187.16,
+          "end": 190.88,
+          "en": "gets destroyed to prevent memory leaks.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 190.88,
+          "end": 193.19,
+          "en": "So now we're cleaning up the timer,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 193.22,
+          "end": 197.99,
+          "en": "we got a method where we would set it theoretically but now of course, we need to call",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 198.14,
+          "end": 200.74,
+          "en": "and where would we do that?",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 200.75,
+          "end": 204.47,
+          "en": "Well I essentially want to call auto-logout whenever we login,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 204.5,
+          "end": 212.45,
+          "en": "so in login, in sign-up and in autoLogin, all these places where I do login, in all these places we",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 212.45,
+          "end": 217.71,
+          "en": "do log a user in, either by calling set user data here in login and sign-up",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 217.73,
+          "end": 225.35,
+          "en": "or by executing all the logic here in autoLogin. Therefore in all these places, I want to set a timer,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 228.43,
+          "end": 232.84,
+          "en": "for example here in autoLogin where I do emit my new user,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 233.02,
+          "end": 241.31,
+          "en": "I also want to call this auto-logout and I need to pass in a duration, so the remaining time until",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 241.31,
+          "end": 247.38,
+          "en": "the token expires and of course here I need the duration and not the timestamp.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 247.45,
+          "end": 252.02,
+          "en": "So let's go to the user model and why don't we calculate the remaining time here?",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 252.07,
+          "end": 261.02,
+          "en": "So token duration could be a getter we add in there and therefore here first of all, I check if we have",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 261.02,
+          "end": 264.6,
+          "en": "a token using this getter here",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 265.04,
+          "end": 271.07,
+          "en": "and if we don't have a token, so if this is null, then I return 0 here because then it is expired, right?",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 274.46,
+          "end": 280.45,
+          "en": "Otherwise, I will return new date to get a current timestamp,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 280.45,
+          "end": 291.75,
+          "en": "so right now in milliseconds with the help of get time minus this token expiration date which is a date",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 291.78,
+          "end": 292.65,
+          "en": "object,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 292.65,
+          "end": 297.72,
+          "en": "so that also with get time gives us this timestamp in milliseconds.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 297.72,
+          "end": 303.75,
+          "en": "So now we have the current time minus token expiration time and that of course is the wrong way of calculating",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 303.75,
+          "end": 304.47,
+          "en": "it,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 304.83,
+          "end": 310.56,
+          "en": "I want to get that token expiration time which should be in the future and deduct the current time, so",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 310.56,
+          "end": 314.02,
+          "en": "let's reverse it to this function",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 314.34,
+          "end": 320.16,
+          "en": "and now I'm returning the difference in milliseconds between the token expiration time and the current",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 320.16,
+          "end": 322.2,
+          "en": "time and that should be in the future,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 322.2,
+          "end": 324.77,
+          "en": "so this should be a positive number, if it's negative,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 324.78,
+          "end": 326.13,
+          "en": "we know it expired,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 326.13,
+          "end": 332.4,
+          "en": "if it is 0, we know it is expired and on token duration, we get this amount in milliseconds.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 332.4,
+          "end": 339.4,
+          "en": "So back in the auth service in auto-logout, I pass in user token duration, which is the amount of the",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 339.4,
+          "end": 343,
+          "en": "token or the validity of the token in milliseconds",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 343,
+          "end": 347.8,
+          "en": "and of course I don't just call this here in autoLogin but also in set user data which is the",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 347.8,
+          "end": 349.99,
+          "en": "method I'm calling in sign-up and login.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 350.35,
+          "end": 353.57,
+          "en": "So in set user data where I emit my new user,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 353.62,
+          "end": 363.66,
+          "en": "I also use that user data here which I get, this new user object I'm generating here, I'll actually not",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 363.66,
+          "end": 371.88,
+          "en": "do this on the fly but store it in a user constant like this, forward this user constant to the next",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 371.88,
+          "end": 374.55,
+          "en": "method and then also use it down there.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 374.55,
+          "end": 382.2,
+          "en": "So now we're setting the auto-logout timer to validate that it works, I'll temporarily go to my user",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 382.2,
+          "end": 391.05,
+          "en": "model and comment out that real calculation and just return 2000 which are two seconds.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 391.05,
+          "end": 397.63,
+          "en": "So now when we're testing this and we're automatically logged in, we should be logged out after two seconds,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 397.68,
+          "end": 404.25,
+          "en": "so let me login here and now let's wait for two seconds and we go back here.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 404.25,
+          "end": 405.86,
+          "en": "So that's looking good,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 406.78,
+          "end": 409.88,
+          "en": "so I'll quickly check on the application",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 409.9,
+          "end": 411.62,
+          "en": "tab here,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 411.76,
+          "end": 413.53,
+          "en": "data was also cleared,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 413.53,
+          "end": 418.44,
+          "en": "so now if I interact with the app, yes I'm redirected.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 418.45,
+          "end": 425.68,
+          "en": "Also if I create a new user, let's check this if I switch to sign-up, here I am,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 426.02,
+          "end": 432.78,
+          "en": "here I am and now last but not least, let's be quick here,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 433.08,
+          "end": 433.73,
+          "en": "need",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 433.77,
+          "end": 435.02,
+          "en": "to login here.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 435.08,
+          "end": 440.06,
+          "en": "Let's be quick and let's try if this also works after the autoLogin and for this, I'll reload",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 440.06,
+          "end": 441.53,
+          "en": "the page here and",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 441.53,
+          "end": 446.04,
+          "en": "now this should still redirect me. So this all works,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 446.06,
+          "end": 451.34,
+          "en": "now of course I'll not return 2000 but the real calculation and therefore, our token should",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 451.34,
+          "end": 458.86,
+          "en": "be valid a bit longer now and actually reflect the actual validity of the token.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 458.87,
+          "end": 467.59000000000003,
+          "en": "So now if I login here, I should be able to navigate around and interact with the app but eventually",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 467.89,
+          "end": 477.19,
+          "en": "once this token expires, which is still some time to go here for me, once this expires, then I should be",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 477.31,
+          "end": 478.06,
+          "en": "logged out.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

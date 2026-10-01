@@ -1,0 +1,363 @@
+{
+  "version": 1,
+  "courseId": 1070124,
+  "courseSlug": "ionic-2-the-practical-guide-to-building-ios-android-apps",
+  "courseTitle": "Ionic - Build iOS, Android & Web Apps with Ionic & Angular",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "13728300",
+      "title": "Using the ID Observable Correctly",
+      "lectureOrder": 267,
+      "videoOrder": 223,
+      "sourceHash": "b79fea9cbf368f9eeb24a6f85dee9cf70640d2d622946891d8841309331171e8",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.45,
+          "end": 7.97,
+          "en": "We got errors because I changed the user isAuthenticated and userId and therefore in places where we",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.97,
+          "end": 10.22,
+          "en": "used these fields, we now have problems,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.28,
+          "end": 16.13,
+          "en": "for example in the booking service. If we have a look at the booking service, there we have an error where",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.13,
+          "end": 18.63,
+          "en": "I extract the userId and that makes sense,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 18.65,
+          "end": 25.99,
+          "en": "the userId is no longer a string I can just pass here as an argument, instead in the auth service,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 26.03,
+          "end": 32.93,
+          "en": "I changed my userId to essentially return an observable and therefore, we need to change the way",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.93,
+          "end": 39.07,
+          "en": "we extract it here. When we need that userId, we need to reach out to the auth service which we already",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 39.11,
+          "end": 40.17,
+          "en": "do",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 40.28,
+          "end": 43.81,
+          "en": "but then on the userId here, we simply need to subscribe",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 44.39,
+          "end": 50.48,
+          "en": "and of course I don't want to set up an ongoing subscription but I want to get exactly the latest snapshot.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 50.48,
+          "end": 57.44,
+          "en": "So I'll add the pipe method here and then the take operator which you therefore need to import from rxjs",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 57.44,
+          "end": 60.94,
+          "en": "operators in case you're not doing that already",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 61.01,
+          "end": 64.9,
+          "en": "and then here, I want to take exactly one value and in here,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 64.91,
+          "end": 71.42,
+          "en": "I then get my userId which is that string and if we're not getting a userId,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 71.45,
+          "end": 76.2,
+          "en": "so if this is null for some reason, I want to return and not continue,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 76.34,
+          "end": 81.99,
+          "en": "otherwise I can now create my new booking here and there,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 82.01,
+          "end": 85.15,
+          "en": "we now have that userId field.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 85.3,
+          "end": 91.53999999999999,
+          "en": "The problem we now have is that I create that new booking in the subscribe method of my subscription",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 91.53999999999999,
+          "end": 97.45,
+          "en": "to userId and I then want to use that here in this HTTP request which is another observable chain.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 98.02000000000001,
+          "end": 104.02000000000001,
+          "en": "If I leave the code like this, this will not work because we already see it here, new booking is not available",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 104.02000000000001,
+          "end": 110.28999999999999,
+          "en": "there and even if we would define it as a variable that is available everywhere, even then, the order",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 110.28999999999999,
+          "end": 115.50999999999999,
+          "en": "of execution would be incorrect because this is an asynchronous task here and therefore this would",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 115.50999999999999,
+          "end": 118.4,
+          "en": "not be finished before this executes.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 118.45,
+          "end": 124.33,
+          "en": "So we actually have to move this into our observable chain",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 124.33,
+          "end": 132.49,
+          "en": "we have up there and hence, I will actually not subscribe here but use a switch map because that allows",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 132.49,
+          "end": 138.4,
+          "en": "me to convert one observable, my userId observable into a different one which will be this HTTP request",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 138.4,
+          "end": 140.17000000000002,
+          "en": "observable down there.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 140.17000000000002,
+          "end": 146.68,
+          "en": "So here in this switch map, I now get my userId just as before in the subscription and I will move",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 146.68,
+          "end": 158.36,
+          "en": "the entire code I had into there and now in there, I will return this observable where I send a post",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 158.36,
+          "end": 165.81,
+          "en": "request, I return this after creating the new booking and now we can add the operators we had on that",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 165.81,
+          "end": 175.97,
+          "en": "observable chain simply to that pipe method we had up there, like this. Now the one thing that is now problematic",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 175.97,
+          "end": 185.6,
+          "en": "is the new booking which now is available up there but not down here where I need to get the ID of that",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 185.6,
+          "end": 193.64,
+          "en": "booking or where I want to set it and for that, well we simply can define let new booking up there",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 193.76,
+          "end": 201.35,
+          "en": "as a variable which eventually will hold a booking and then I just don't create a constant",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 201.35,
+          "end": 205.62,
+          "en": "here but assign this to my booking, to my new booking.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 205.64,
+          "end": 210.86,
+          "en": "Now this might look very complicated but in the end what I did here is simply create a new observable",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 210.86,
+          "end": 218.09,
+          "en": "chain where I first of all get my userId, once to get the latest snapshot and then I return nothing",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 218.09,
+          "end": 223.43,
+          "en": "if we have no userId which actually would be invalid code because switch map always needs to have",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 223.43,
+          "end": 225.06,
+          "en": "an observable return.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 225.14,
+          "end": 233,
+          "en": "So indeed I will not return nothing here but actually throw a new error, no userId found, so that",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 233,
+          "end": 238.01,
+          "en": "we really have an error in the application and therefore make it into the error handler of that observable",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 238.01,
+          "end": 238.7,
+          "en": "chain",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 238.94,
+          "end": 245.9,
+          "en": "but we should have a userId by default and then I create a new booking. I use that in that HTTP request",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 245.9,
+          "end": 252.02,
+          "en": "which I then return in this switch map because switch map is an operator that gives us the result of",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 252.02,
+          "end": 258.14,
+          "en": "one observable and returns a new observable and then we have other operators that pick up on that returned",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 258.14,
+          "end": 266.51,
+          "en": "response by that observable and do the same we did before. Now we've fixed the booking file, in the discover",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 267.62,
+          "end": 276.2,
+          "en": "page we have another issue and there, I also have the issue of me using the userId which now is no",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 276.2,
+          "end": 278.95,
+          "en": "longer a string but an observable.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 278.99,
+          "end": 280.61,
+          "en": "Now let's also fix that.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

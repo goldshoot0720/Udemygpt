@@ -1,0 +1,601 @@
+{
+  "version": 1,
+  "courseId": 1070124,
+  "courseSlug": "ionic-2-the-practical-guide-to-building-ios-android-apps",
+  "courseTitle": "Ionic - Build iOS, Android & Web Apps with Ionic & Angular",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "13728136",
+      "title": "Loading Data in a Single Place",
+      "lectureOrder": 209,
+      "videoOrder": 175,
+      "sourceHash": "d36d569911da3093bc0b3ebfd73b9f44a5bd98d797ac01f0705bdd2d7acbd43b",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.16,
+          "end": 5.31,
+          "en": "Now what if I load a detail page?",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.31,
+          "end": 11.88,
+          "en": "Of course this works like this but if I reload the page here, it will break and it will break in an ugly",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 11.88,
+          "end": 12.75,
+          "en": "way.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.78,
+          "end": 15.65,
+          "en": "Similar thing can be observed if I'm editing a place,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.69,
+          "end": 18.98,
+          "en": "it works like this but if I reload on this page, doesn't work,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.44,
+          "end": 25.77,
+          "en": "so we should also add a method that fetches a single place. Fetching single places would be useful because",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 25.77,
+          "end": 31.71,
+          "en": "it allows pages like the edit offer page or the place detail page to work even if we load the page there,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 31.71,
+          "end": 37.28,
+          "en": "so if we load the app there and we haven't loaded other pages where we loaded all places before.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 37.29,
+          "end": 41.63,
+          "en": "Now obviously, we could just call fetchPlaces in these pages here as well",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 41.91,
+          "end": 46.14,
+          "en": "and you could argue that this might be good because it also ensures that places are there once you go",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 46.14,
+          "end": 47.13,
+          "en": "back to offers,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 47.16,
+          "end": 52.8,
+          "en": "however there we call fetchPlaces anyways so it's not really a big advantage and it might simply take",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 52.8,
+          "end": 59.31,
+          "en": "longer because if we fetch all places when reloading the edit offer page, then we load a lot of redundant",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 59.34,
+          "end": 61.33,
+          "en": "data which we don't actually need there,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 61.38,
+          "end": 62.91,
+          "en": "we just need that single place",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 62.91,
+          "end": 70.08,
+          "en": "we try to edit after all. Hence it makes sense to go to the places service again and there, we already",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 70.08,
+          "end": 76.68,
+          "en": "have a getPlace method. Now that is nice but what we want to do here in the end is we want to get a",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 76.68,
+          "end": 79.28,
+          "en": "place from the server. Now",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 79.47,
+          "end": 80.07,
+          "en": "here it is",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 80.07,
+          "end": 88.32,
+          "en": "ok if I replace my local place finder with the finder where I get this from a server or at least you",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 88.32,
+          "end": 93.45,
+          "en": "could say I want to get it from the server if we don't have the data locally. You could of course make",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 93.45,
+          "end": 95.68,
+          "en": "such a fine-grained differentiation,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 95.75999999999999,
+          "end": 99.9,
+          "en": "I will simply always fetch a single place from the server here.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 99.9,
+          "end": 107.31,
+          "en": "Therefore, I'll simply go ahead, use the HttpClient and use a get request and the URL for a single",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 107.31,
+          "end": 114.94,
+          "en": "place of course looks similar to the URL for updating a place, we need to encode the placeId into",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 114.94,
+          "end": 121.69,
+          "en": "the URL. So we'll fetch the URL from down there, from the update place method and use that up here, get",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 121.69,
+          "end": 123.94,
+          "en": "place like this,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 124.24,
+          "end": 129.46,
+          "en": "just that it's not named placeId here but the argument is just named ID so let's use that in the",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 129.46,
+          "end": 130.78,
+          "en": "URL instead.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 130.96,
+          "end": 133.78,
+          "en": "This gets the single place data,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 133.78,
+          "end": 137.44,
+          "en": "now we just need to make sure we're returning it in the right format.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 137.67000000000002,
+          "end": 142.66,
+          "en": "Now here let's see in which format we get back our response, so",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 142.76,
+          "end": 147.37,
+          "en": "let's add tap here and console log the response data",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 149.23,
+          "end": 153.73,
+          "en": "and then let's save this and run the app and let's see what we're getting back when we're trying to fetch",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 153.88,
+          "end": 161.16,
+          "en": "a place like that. I get an error because the page fails to load which is OK but I also see at the bottom",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 161.49,
+          "end": 166.74,
+          "en": "that what I got back is an object with all the place data except for the ID which is no problem because",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 166.74,
+          "end": 167.42000000000002,
+          "en": "I have the ID",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 167.42000000000002,
+          "end": 168.73,
+          "en": "here of course.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 168.81,
+          "end": 174.45,
+          "en": "So all we have to do here is we have to use map to construct the place object with the data we fetched",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 174.63,
+          "end": 176.85,
+          "en": "and that ID added to it.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 176.85,
+          "end": 180.87,
+          "en": "So we get our place data, our response data or whatever you want to call it",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 181.14,
+          "end": 189.7,
+          "en": "and in the end here, I want to return a new place because I know that I get back a place data object",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 189.73,
+          "end": 192.43,
+          "en": "here, so we can use that place data interface",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 192.43,
+          "end": 196.87,
+          "en": "we defined earlier here in the angled brackets because that's just the type of data we're getting back",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 196.87,
+          "end": 197.64,
+          "en": "here",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 197.98,
+          "end": 203.53,
+          "en": "and therefore here in the new place, the ID is the ID I got here is an argument, that doesn't change,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 204.79,
+          "end": 213.84,
+          "en": "then the title will be our place data title, we will also have the place data description and basically",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 213.84,
+          "end": 219.54,
+          "en": "have all the place data fields we are fetching from the server, also price.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 219.63,
+          "end": 223.65,
+          "en": "Now for the dates again, I want to wrap that, so place data,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 224.89,
+          "end": 228.61,
+          "en": "availableFrom is one thing and then also in new date,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 228.61,
+          "end": 235.93,
+          "en": "I have place data availableTo, like that. Last but not least,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 235.96,
+          "end": 238.4,
+          "en": "also get the userId.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 238.71,
+          "end": 241.05,
+          "en": "So this is now a new place which I'm returning",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 241.05,
+          "end": 242.22,
+          "en": "and if we save that,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 245.17,
+          "end": 246.12,
+          "en": "it should not reload",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 249.21,
+          "end": 257.28,
+          "en": "but we still get an error and that error is stemming from the fact that in our edit-offer.page.html",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 257.28,
+          "end": 264.02,
+          "en": "file, we're already trying to synchronize our fields here,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 264.06,
+          "end": 270.78,
+          "en": "our form controls to the form created in the edit-offer.page.ts file but there, we actually",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 270.78,
+          "end": 276.27,
+          "en": "only initialize the form once we got our place, which is super fast but which still takes a couple of",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 276.27,
+          "end": 282.75,
+          "en": "milliseconds. So the template with all the form controls that Angular tries to synchronize loads before",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 282.75,
+          "end": 284.55,
+          "en": "that place was fetched.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 284.94,
+          "end": 291.84000000000003,
+          "en": "Now to fix this and to make sure that this works, of course we can show a spinner here as well, so we",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 291.84000000000003,
+          "end": 294.53,
+          "en": "can add isLoading and set this to false here",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 295.85,
+          "end": 303.71,
+          "en": "and then here before we call get place, I set isLoading to true and then I set it back to false after",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 303.71,
+          "end": 305.84,
+          "en": "we initialized this form here,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 305.9,
+          "end": 313.4,
+          "en": "so there after this, I set isLoading back to false and now in the template, we can use isLoading just",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 313.4,
+          "end": 314.57,
+          "en": "as we used it before",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 314.78,
+          "end": 320.75,
+          "en": "and I would want to basically hide the entire form if we're loading, so only show it if we're not loading",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 321.2,
+          "end": 330.24,
+          "en": "and if we are loading, well then I'll just use a div here with an ion-spinner,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 330.57,
+          "end": 340.29,
+          "en": "color of primary and here, I want to check whether we're loading. Now this alone wouldn't do though,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 340.34000000000003,
+          "end": 349.13,
+          "en": "I'm also trying to access my form up here and I want to check if it's valid. Now form will not be initialized",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 349.26,
+          "end": 353.81,
+          "en": "when this page first loads because I only set a value to my form property here,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 353.82,
+          "end": 359.85,
+          "en": "once we got a place data, we can fix this by adding a question mark after form which means only access",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 359.85,
+          "end": 365.97,
+          "en": "the valid property if form is set and I also set the placeId here on the back button.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 365.97,
+          "end": 373.59,
+          "en": "Now the problem I have here is of course that this place also is only loaded after a certain amount of",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 373.59,
+          "end": 380.01,
+          "en": "time but actually the placeId is available earlier, so we can work around this by adding a placeId",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 380.13,
+          "end": 386.26,
+          "en": "property here and we set this placeId whenever we got an ID,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 386.31,
+          "end": 392.02,
+          "en": "so basically here before we start loading the place for that ID, we can already store the placeId",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 392.03,
+          "end": 400.07,
+          "en": "which is part of the URL and set this equal to param map get placeId, like this.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 400.35,
+          "end": 406.83,
+          "en": "And now with this new placeId property added, here where we need it, we can also use placeId instead",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 406.83,
+          "end": 408.75,
+          "en": "of place.id.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 408.75,
+          "end": 416.34000000000003,
+          "en": "And with that if we wait for this to reload, our page here loads correctly but we will actually have",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 416.4,
+          "end": 417.42,
+          "en": "new problems.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

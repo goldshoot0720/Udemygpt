@@ -1,0 +1,517 @@
+{
+  "version": 1,
+  "courseId": 1070124,
+  "courseSlug": "ionic-2-the-practical-guide-to-building-ios-android-apps",
+  "courseTitle": "Ionic - Build iOS, Android & Web Apps with Ionic & Angular",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "13728332",
+      "title": "Requiring the Auth Token on the Backend",
+      "lectureOrder": 276,
+      "videoOrder": 232,
+      "sourceHash": "c29cc6d2e2e1a4d7fa332cd10817bf01339a7824ba64848cbcc4732d42961569",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.26,
+          "end": 7.09,
+          "en": "So we implemented all that user authentication logic,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.09,
+          "end": 12.69,
+          "en": "the one thing we haven't done yet is we're not protecting our back-end, we're not really using that token",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 12.92,
+          "end": 16.75,
+          "en": "other than for finding out whether we're authenticated or not.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.75,
+          "end": 21,
+          "en": "In reality, you would have routes on your back-end that simply don't work",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 21.07,
+          "end": 24.6,
+          "en": "if you are not authenticated and we can simulate this here",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 24.6,
+          "end": 27.48,
+          "en": "too. Back on Firebase, on the database tab,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 27.49,
+          "end": 33.04,
+          "en": "if you go to rules, you can enforce that the user needs to be authenticated by setting auth not equal",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 33.04,
+          "end": 35.45,
+          "en": "to null here for both read and write,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 35.44,
+          "end": 41.44,
+          "en": "you're ensuring that only users where the authentication state and auth is an internal variable managed",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 41.44,
+          "end": 46.81,
+          "en": "by Firebase, so only where the authentication set is not null are allowed to read and write and this",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 46.81,
+          "end": 53.89,
+          "en": "will be set to true or to a valid value by Firebase automatically when you do pass a valid auth",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 53.89,
+          "end": 55.72,
+          "en": "token along with the request.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 55.81,
+          "end": 62.53,
+          "en": "So we'll have to use our token to also append it to requests that reach our back-end, the same for storing",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 62.53,
+          "end": 62.83,
+          "en": "data",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 62.84,
+          "end": 69.37,
+          "en": "if we upload an image. There on storage, we also have a rules tab and we can change the rules here to",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 69.37,
+          "end": 74.22,
+          "en": "make sure that users have to be authenticated. For this instead of saying this",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 74.26,
+          "end": 82.72,
+          "en": "if true, you should check whether request which is an object passed in or provided by a Firebase auth",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 82.96000000000001,
+          "end": 84.73,
+          "en": "is unequal to null,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 84.76,
+          "end": 93.07,
+          "en": "so same logic as in the database case in the end and now only users who added a token are allowed to",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 93.19,
+          "end": 95.25999999999999,
+          "en": "upload data. For that,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 95.25999999999999,
+          "end": 100.96000000000001,
+          "en": "we also now need to change our cloud function a little bit because that is the thing which in the end",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 100.96000000000001,
+          "end": 109.96000000000001,
+          "en": "interacts with our back-end and with the storage and there, we now need to add logic to extract that token.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 111.15,
+          "end": 120.08,
+          "en": "For this, we'll add a new import up there, fbAdmin which requires the Firebase admin package which already",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 120.08,
+          "end": 128.56,
+          "en": "was added to package.json before. Then here after storage where we define that storage constant, you",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 128.56,
+          "end": 135.31,
+          "en": "call fbAdmin, initialize app and pass an object to it where you have to set a credential",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 135.31,
+          "end": 136.81,
+          "en": "and now that's important,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 136.93,
+          "end": 144.66,
+          "en": "you need to create that credential or a credentials file in your project settings, here in your Firebase",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 144.66,
+          "end": 147.32,
+          "en": "web console under",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 147.32,
+          "end": 151.95,
+          "en": "service accounts Firebase admin SDK here,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 152.19,
+          "end": 158.04,
+          "en": "once this loaded, you leave NodeJS checked and you generate a new private key here",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 159.66,
+          "end": 166.4,
+          "en": "which gives you a downloadable file and you should download that and store that in your cloud functions",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 166.4,
+          "end": 173.49,
+          "en": "file and you can rename it to whatever you want, I'll name it ionic-app.json but you can name this file",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 173.49,
+          "end": 174.28,
+          "en": "whatever you want.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 175.48,
+          "end": 184.24,
+          "en": "Now back in your cloud function code here in the project, you set credential equal to fbAdmin credential",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 184.84,
+          "end": 190.46,
+          "en": "cert and then you require a pointer at this file,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 190.46,
+          "end": 196.91,
+          "en": "so in my case, a relative path pointing at ionic-app.json and this basically imports that",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 196.91,
+          "end": 200.72,
+          "en": "key for you and sets up that Firebase admin package.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 200.72,
+          "end": 202.57999999999998,
+          "en": "Now what do we need this package for?",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 202.7,
+          "end": 207.69,
+          "en": "We'll need it for using that token later and for authenticating ourselves. Now",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 207.71,
+          "end": 215.15,
+          "en": "first of all inside of our function code here though, after checking the request method, I'll check whether",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 215.15,
+          "end": 220.65,
+          "en": "a token was added and for this, we check if specific headers were set,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 220.73,
+          "end": 227.54,
+          "en": "if an authorization header exists or in this case if it does not exist because I want to block this function",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 227.54,
+          "end": 237.17000000000002,
+          "en": "from executing then or if it does exist, this authorization header but it does not start with bearer",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 237.23,
+          "end": 240.92,
+          "en": "which it should because we'll store the token on such a bearer",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 240.92,
+          "end": 247.43,
+          "en": "key. If either of these two things is true, then we know we'll have no token and therefore I'll return",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 247.44,
+          "end": 250.68,
+          "en": "a response with the status of 401,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 250.71,
+          "end": 257.04,
+          "en": "with some JSON data where I set an error of unauthorized and this is now all NodeJS code, of course",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 257.04,
+          "end": 262.02,
+          "en": "attached you also find that finished function where you only need to change your credential file name",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 262.26,
+          "end": 263.75,
+          "en": "and your project name.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 264.21,
+          "end": 270.24,
+          "en": "So we'll write it together here though, I'm checking whether such token was added to the request, if",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 270.24,
+          "end": 272.72,
+          "en": "it was added, I'll retrieve it here",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 273.79,
+          "end": 281.01,
+          "en": "by setting idToken equal to request headers authorization,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 281.2,
+          "end": 287.5,
+          "en": "splitting this on that bearer identifier and then taking the second value which will be the actual token,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 287.61,
+          "end": 291.54,
+          "en": "the first value would be that bearer identifier string here.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 292.06,
+          "end": 298.21,
+          "en": "With that token extracted, we can continue down to that finish handler",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 301.5,
+          "end": 302.15,
+          "en": "and there,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 302.55,
+          "end": 311.97,
+          "en": "I will now return a call to fbAdmin using that Firebase admin package auth, where I verify the token,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 311.97,
+          "end": 319.28,
+          "en": "the idToken we just extracted and if that is valid, then we actually would get the decoded token here",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 320.98,
+          "end": 324.56,
+          "en": "and now all the logic we had in there before",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 328.26,
+          "end": 331.95,
+          "en": "up to this point where we have the first then block goes into here",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 334.78,
+          "end": 336.94,
+          "en": "and we add our then block thereafter.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 336.94,
+          "end": 339.93,
+          "en": "So now we basically just start by verifying the token,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 339.94,
+          "end": 345.79,
+          "en": "then we get the token, we know yes we are authenticated and then we simply upload the image as before",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 346.03,
+          "end": 348,
+          "en": "and we proceed as before,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 348,
+          "end": 348.99,
+          "en": "that has not changed,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 349,
+          "end": 358.81,
+          "en": "so we simply added this extra check here and the rest of the function can stay the way it is. Now after",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 358.81,
+          "end": 360.97,
+          "en": "this change,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 361.03,
+          "end": 367.94,
+          "en": "you should run Firebase deploy again after saving this file to upload this new Firebase function",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 368.14,
+          "end": 375.31,
+          "en": "and now both the cloud function as well as our normal database require a token to be added to the requests",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 375.61,
+          "end": 377.84,
+          "en": "to successfully do their job and",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 377.96,
+          "end": 380.32,
+          "en": "that will be what we do in the next lectures.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,5047 @@
+{
+  "version": 1,
+  "courseId": 1070124,
+  "courseSlug": "ionic-2-the-practical-guide-to-building-ios-android-apps",
+  "courseTitle": "Ionic - Build iOS, Android & Web Apps with Ionic & Angular",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "13728136",
+      "title": "Loading Data in a Single Place",
+      "lectureOrder": 209,
+      "videoOrder": 175,
+      "sourceHash": "d36d569911da3093bc0b3ebfd73b9f44a5bd98d797ac01f0705bdd2d7acbd43b",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.16,
+          "end": 5.31,
+          "en": "Now what if I load a detail page?",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.31,
+          "end": 11.88,
+          "en": "Of course this works like this but if I reload the page here, it will break and it will break in an ugly",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 11.88,
+          "end": 12.75,
+          "en": "way.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.78,
+          "end": 15.65,
+          "en": "Similar thing can be observed if I'm editing a place,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.69,
+          "end": 18.98,
+          "en": "it works like this but if I reload on this page, doesn't work,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.44,
+          "end": 25.77,
+          "en": "so we should also add a method that fetches a single place. Fetching single places would be useful because",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 25.77,
+          "end": 31.71,
+          "en": "it allows pages like the edit offer page or the place detail page to work even if we load the page there,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 31.71,
+          "end": 37.28,
+          "en": "so if we load the app there and we haven't loaded other pages where we loaded all places before.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 37.29,
+          "end": 41.63,
+          "en": "Now obviously, we could just call fetchPlaces in these pages here as well",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 41.91,
+          "end": 46.14,
+          "en": "and you could argue that this might be good because it also ensures that places are there once you go",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 46.14,
+          "end": 47.13,
+          "en": "back to offers,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 47.16,
+          "end": 52.8,
+          "en": "however there we call fetchPlaces anyways so it's not really a big advantage and it might simply take",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 52.8,
+          "end": 59.31,
+          "en": "longer because if we fetch all places when reloading the edit offer page, then we load a lot of redundant",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 59.34,
+          "end": 61.33,
+          "en": "data which we don't actually need there,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 61.38,
+          "end": 62.91,
+          "en": "we just need that single place",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 62.91,
+          "end": 70.08,
+          "en": "we try to edit after all. Hence it makes sense to go to the places service again and there, we already",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 70.08,
+          "end": 76.68,
+          "en": "have a getPlace method. Now that is nice but what we want to do here in the end is we want to get a",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 76.68,
+          "end": 79.28,
+          "en": "place from the server. Now",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 79.47,
+          "end": 80.07,
+          "en": "here it is",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 80.07,
+          "end": 88.32,
+          "en": "ok if I replace my local place finder with the finder where I get this from a server or at least you",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 88.32,
+          "end": 93.45,
+          "en": "could say I want to get it from the server if we don't have the data locally. You could of course make",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 93.45,
+          "end": 95.68,
+          "en": "such a fine-grained differentiation,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 95.75999999999999,
+          "end": 99.9,
+          "en": "I will simply always fetch a single place from the server here.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 99.9,
+          "end": 107.31,
+          "en": "Therefore, I'll simply go ahead, use the HttpClient and use a get request and the URL for a single",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 107.31,
+          "end": 114.94,
+          "en": "place of course looks similar to the URL for updating a place, we need to encode the placeId into",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 114.94,
+          "end": 121.69,
+          "en": "the URL. So we'll fetch the URL from down there, from the update place method and use that up here, get",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 121.69,
+          "end": 123.94,
+          "en": "place like this,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 124.24,
+          "end": 129.46,
+          "en": "just that it's not named placeId here but the argument is just named ID so let's use that in the",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 129.46,
+          "end": 130.78,
+          "en": "URL instead.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 130.96,
+          "end": 133.78,
+          "en": "This gets the single place data,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 133.78,
+          "end": 137.44,
+          "en": "now we just need to make sure we're returning it in the right format.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 137.67000000000002,
+          "end": 142.66,
+          "en": "Now here let's see in which format we get back our response, so",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 142.76,
+          "end": 147.37,
+          "en": "let's add tap here and console log the response data",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 149.23,
+          "end": 153.73,
+          "en": "and then let's save this and run the app and let's see what we're getting back when we're trying to fetch",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 153.88,
+          "end": 161.16,
+          "en": "a place like that. I get an error because the page fails to load which is OK but I also see at the bottom",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 161.49,
+          "end": 166.74,
+          "en": "that what I got back is an object with all the place data except for the ID which is no problem because",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 166.74,
+          "end": 167.42000000000002,
+          "en": "I have the ID",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 167.42000000000002,
+          "end": 168.73,
+          "en": "here of course.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 168.81,
+          "end": 174.45,
+          "en": "So all we have to do here is we have to use map to construct the place object with the data we fetched",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 174.63,
+          "end": 176.85,
+          "en": "and that ID added to it.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 176.85,
+          "end": 180.87,
+          "en": "So we get our place data, our response data or whatever you want to call it",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 181.14,
+          "end": 189.7,
+          "en": "and in the end here, I want to return a new place because I know that I get back a place data object",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 189.73,
+          "end": 192.43,
+          "en": "here, so we can use that place data interface",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 192.43,
+          "end": 196.87,
+          "en": "we defined earlier here in the angled brackets because that's just the type of data we're getting back",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 196.87,
+          "end": 197.64,
+          "en": "here",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 197.98,
+          "end": 203.53,
+          "en": "and therefore here in the new place, the ID is the ID I got here is an argument, that doesn't change,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 204.79,
+          "end": 213.84,
+          "en": "then the title will be our place data title, we will also have the place data description and basically",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 213.84,
+          "end": 219.54,
+          "en": "have all the place data fields we are fetching from the server, also price.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 219.63,
+          "end": 223.65,
+          "en": "Now for the dates again, I want to wrap that, so place data,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 224.89,
+          "end": 228.61,
+          "en": "availableFrom is one thing and then also in new date,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 228.61,
+          "end": 235.93,
+          "en": "I have place data availableTo, like that. Last but not least,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 235.96,
+          "end": 238.4,
+          "en": "also get the userId.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 238.71,
+          "end": 241.05,
+          "en": "So this is now a new place which I'm returning",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 241.05,
+          "end": 242.22,
+          "en": "and if we save that,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 245.17,
+          "end": 246.12,
+          "en": "it should not reload",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 249.21,
+          "end": 257.28,
+          "en": "but we still get an error and that error is stemming from the fact that in our edit-offer.page.html",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 257.28,
+          "end": 264.02,
+          "en": "file, we're already trying to synchronize our fields here,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 264.06,
+          "end": 270.78,
+          "en": "our form controls to the form created in the edit-offer.page.ts file but there, we actually",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 270.78,
+          "end": 276.27,
+          "en": "only initialize the form once we got our place, which is super fast but which still takes a couple of",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 276.27,
+          "end": 282.75,
+          "en": "milliseconds. So the template with all the form controls that Angular tries to synchronize loads before",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 282.75,
+          "end": 284.55,
+          "en": "that place was fetched.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 284.94,
+          "end": 291.84000000000003,
+          "en": "Now to fix this and to make sure that this works, of course we can show a spinner here as well, so we",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 291.84000000000003,
+          "end": 294.53,
+          "en": "can add isLoading and set this to false here",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 295.85,
+          "end": 303.71,
+          "en": "and then here before we call get place, I set isLoading to true and then I set it back to false after",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 303.71,
+          "end": 305.84,
+          "en": "we initialized this form here,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 305.9,
+          "end": 313.4,
+          "en": "so there after this, I set isLoading back to false and now in the template, we can use isLoading just",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 313.4,
+          "end": 314.57,
+          "en": "as we used it before",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 314.78,
+          "end": 320.75,
+          "en": "and I would want to basically hide the entire form if we're loading, so only show it if we're not loading",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 321.2,
+          "end": 330.24,
+          "en": "and if we are loading, well then I'll just use a div here with an ion-spinner,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 330.57,
+          "end": 340.29,
+          "en": "color of primary and here, I want to check whether we're loading. Now this alone wouldn't do though,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 340.34000000000003,
+          "end": 349.13,
+          "en": "I'm also trying to access my form up here and I want to check if it's valid. Now form will not be initialized",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 349.26,
+          "end": 353.81,
+          "en": "when this page first loads because I only set a value to my form property here,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 353.82,
+          "end": 359.85,
+          "en": "once we got a place data, we can fix this by adding a question mark after form which means only access",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 359.85,
+          "end": 365.97,
+          "en": "the valid property if form is set and I also set the placeId here on the back button.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 365.97,
+          "end": 373.59,
+          "en": "Now the problem I have here is of course that this place also is only loaded after a certain amount of",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 373.59,
+          "end": 380.01,
+          "en": "time but actually the placeId is available earlier, so we can work around this by adding a placeId",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 380.13,
+          "end": 386.26,
+          "en": "property here and we set this placeId whenever we got an ID,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 386.31,
+          "end": 392.02,
+          "en": "so basically here before we start loading the place for that ID, we can already store the placeId",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 392.03,
+          "end": 400.07,
+          "en": "which is part of the URL and set this equal to param map get placeId, like this.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 400.35,
+          "end": 406.83,
+          "en": "And now with this new placeId property added, here where we need it, we can also use placeId instead",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 406.83,
+          "end": 408.75,
+          "en": "of place.id.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 408.75,
+          "end": 416.34000000000003,
+          "en": "And with that if we wait for this to reload, our page here loads correctly but we will actually have",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 416.4,
+          "end": 417.42,
+          "en": "new problems.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "13728138",
+      "title": "Updating Places Correctly",
+      "lectureOrder": 210,
+      "videoOrder": 176,
+      "sourceHash": "0ba124fa2f9a8d7e51de174b925f0dcbe3625ca07951e9bcc43565d04fad25f0",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.34,
+          "end": 4.53,
+          "en": "What if we now try to edit this?",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.53,
+          "end": 9.18,
+          "en": "If I remove the exclamation marks and I reloaded the app whilst I was on this page,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.24,
+          "end": 15.42,
+          "en": "so I have not visited offers and discover. If I now try to save this, I get an error",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 15.42,
+          "end": 22.8,
+          "en": "and the reason for that error simply is that on the places service, we have our update place method",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 23.22,
+          "end": 26.87,
+          "en": "and there, we get that data which we just entered on the form",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 26.88,
+          "end": 30.38,
+          "en": "but then we try to update a place in our array of places.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 30.45,
+          "end": 37.26,
+          "en": "Now obviously that might not exist though, we're fetching our array of places here but initially, that",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 37.26,
+          "end": 38.21,
+          "en": "is empty right,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 38.22,
+          "end": 43.62,
+          "en": "we initialize the behavior subject with an empty place and this only changes if fetchPlaces is called,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 43.62,
+          "end": 48.51,
+          "en": "so if we do fetch places from our back-end but we never did this here.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 48.51,
+          "end": 50.91,
+          "en": "So how can we work around this then?",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 51.78,
+          "end": 57.36,
+          "en": "Well in the end here in switch map where I try to get my places, we can add an if check and we can see",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 57.36,
+          "end": 65.94,
+          "en": "if not places or if places length is smaller or equal than zero, which means we don't have any places yet",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 66.09,
+          "end": 72.2,
+          "en": "and in this case the observable I want to return here is this fetchPlaces, to fetch my places with the",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 72.21000000000001,
+          "end": 81.69,
+          "en": "help of the fetchPlaces method. Remember the fetchPlaces method here in the end will go ahead and fetch",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 81.72,
+          "end": 87.72,
+          "en": "all places and it will then also update our places in the subscription but more important than that,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 88.05,
+          "end": 93.87,
+          "en": "it will also give us the places in the subscribe method. We haven't used that thus far because we only",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 93.87,
+          "end": 95.85,
+          "en": "needed the update and the subscription,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 95.85,
+          "end": 101.19,
+          "en": "now down here we're not interested in the subscription update because we don't set up an ongoing subscription,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 101.25,
+          "end": 104.64,
+          "en": "we only take one snapshot and that would be the empty list here",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 104.67,
+          "end": 110.78999999999999,
+          "en": "if there are no places initially but the good thing is fetchPlaces still returns us this updated array",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 110.78999999999999,
+          "end": 117.33,
+          "en": "of places, so we can use that here too and the subscription will be changed or the global list of places",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 117.33,
+          "end": 121.56,
+          "en": "in the behavior subject will be changed along the way in the background as well",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 121.56,
+          "end": 124.2,
+          "en": "by the logic we have in fetchPlaces.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 124.35,
+          "end": 127.04,
+          "en": "So here, I returned this fetchPlaces",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 127.05,
+          "end": 129.12,
+          "en": "if we have no places yet,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 129.12,
+          "end": 133.77,
+          "en": "otherwise so in the else case, I just return places",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 133.77,
+          "end": 138.55,
+          "en": "but this would now be invalid because you actually need to return an observable here and for this,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 138.55,
+          "end": 146.63,
+          "en": "rxjs has the nice auth observable creation operator which you import up there from rxjs,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 146.64,
+          "end": 150.41,
+          "en": "so not from rxjs/operators but just from rxjs",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 150.69,
+          "end": 157.32,
+          "en": "and what auth does is it takes any value, like an array or a number, doesn't matter and it wraps it into",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 157.32,
+          "end": 163.65,
+          "en": "a new observable that will immediately emit a value and this is only required here so that in both cases,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 163.71,
+          "end": 169.59,
+          "en": "we definitely return an observable because in switch map, you need to return one. And now you can take all",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 169.59,
+          "end": 170.55,
+          "en": "that logic here",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 173.49,
+          "end": 177.92000000000002,
+          "en": "and cut that and add another switch map",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 180.99,
+          "end": 185.24,
+          "en": "operator here where you now get your places list again",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 185.25,
+          "end": 189.55,
+          "en": "and now here you can add all the logic you had in the old switch map operator.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 189.57,
+          "end": 197.01,
+          "en": "The difference here simply is that now places is guaranteed to be an array here because either we had",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 197.01,
+          "end": 202.17000000000002,
+          "en": "one right from the start, then this of course was a bit of a redundant step but it also doesn't hurt",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 202.68,
+          "end": 204.11,
+          "en": "or we had no places,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 204.12,
+          "end": 210.18,
+          "en": "well then this was a super important step because then we fetched places and now with that, we make sure",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 210.18,
+          "end": 215.85,
+          "en": "that when we update our places, we should always have a list of places which we can update.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 215.88,
+          "end": 221.3,
+          "en": "So if I now added this and removed the exclamation marks and I save this, now this looks way better",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 221.43,
+          "end": 227.37,
+          "en": "even though I never visited any other page before but our updating logic now works because we ensure",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 227.37,
+          "end": 229.67000000000002,
+          "en": "that we always have a list of places to work with.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "13728140",
+      "title": "Error Handling",
+      "lectureOrder": 211,
+      "videoOrder": 177,
+      "sourceHash": "2270153c906cf24d4eb4b5d03eaacdfe6fb9471a0a5c0f56fa76e1a3fc25ab4a",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.2,
+          "end": 5.14,
+          "en": "There are also other ways in which we could mess this up.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.14,
+          "end": 11.14,
+          "en": "Let's say we're manually changing the URL or we got a invalid link in our app or anything like that",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 11.34,
+          "end": 16.3,
+          "en": "and hence we're trying to fetch a place which doesn't exist. Right now,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.3,
+          "end": 18.37,
+          "en": "this is the user experience we're offering,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 18.37,
+          "end": 20.29,
+          "en": "not really that great, is it,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 20.29,
+          "end": 20.5,
+          "en": "right,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 20.5,
+          "end": 22.04,
+          "en": "we get an error here,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 22.09,
+          "end": 24.62,
+          "en": "this is not really looking that good.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 24.7,
+          "end": 26.73,
+          "en": "Well, certainly not the user experience",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 26.74,
+          "end": 27.94,
+          "en": "we want to offer,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 27.94,
+          "end": 35.53,
+          "en": "we also want to handle that case. So here is a working case with an ID and that is the broken one,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 35.53,
+          "end": 39.35,
+          "en": "so we want to catch errors like this and show a message to the user,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 39.49,
+          "end": 47.12,
+          "en": "so let's go to the edit offer page and first of all for the spinner, that should be centered",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 47.13,
+          "end": 48.53,
+          "en": "but that's a minor thing,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 48.58,
+          "end": 51.81,
+          "en": "the more important thing is that I want to handle my error here.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 51.84,
+          "end": 56.13,
+          "en": "Now the good thing is when you are subscribing as we are doing it here when we're fetching a single",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 56.13,
+          "end": 57.24,
+          "en": "place,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 57.36,
+          "end": 62.75,
+          "en": "we thus far only cared about the function we passed subscribe as our first argument,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 62.82,
+          "end": 69.27,
+          "en": "I'm saying first argument because it turns out that the subscribe method takes more than one argument.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 69.53999999999999,
+          "end": 72.03999999999999,
+          "en": "You can pass a second function in there too",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 72.18,
+          "end": 77.28,
+          "en": "and this will be the function that is triggered when an error occurs and that is of course a function",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 77.28,
+          "end": 82.9,
+          "en": "here that allows us to handle that error and save the day, provide a better user experience.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 83.01,
+          "end": 90.57,
+          "en": "For example here, we could show an alert to the user and ask the user if he wants to go back to a different",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 90.57,
+          "end": 93.53,
+          "en": "part of the app that should work or anything like that",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 93.63,
+          "end": 95.68,
+          "en": "and that is exactly what I will do here.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 95.72999999999999,
+          "end": 104.22,
+          "en": "I will inject the alert controller provided by Ionic, so the alert controller which is imported from",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 104.64,
+          "end": 114.66,
+          "en": "@ionic/angular and the alert controller can now be used here in that error function to create a new",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 114.66,
+          "end": 115.14,
+          "en": "alert",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 115.28999999999999,
+          "end": 125.93,
+          "en": "obviously, where I set the header to an error occurred and then a message where I maybe say place could",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 126.02,
+          "end": 128.4,
+          "en": "not be fetched,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 128.4,
+          "end": 131.88,
+          "en": "please try again later",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 133.67,
+          "end": 140.81,
+          "en": "and then here, I will simply add one button and that will be the okay button here,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 144.1,
+          "end": 150.76,
+          "en": "to be precise, I'll add an object here so that I can now set the text but also define a handler, so that",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 150.79,
+          "end": 153.1,
+          "en": "I can define a function that should run when this OK",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 153.1,
+          "end": 159.68,
+          "en": "button is pressed and here I'll use my router to navigate the user to /places/tabs/offer",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 159.68,
+          "end": 166.98,
+          "en": "let's say, so to navigate the user away.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 167.44,
+          "end": 174.52,
+          "en": "Now just as before, this gives us a promise where we get this alert element and I can then simply call",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 174.57999999999998,
+          "end": 177.99,
+          "en": "alert el present to show this",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 178.27,
+          "end": 181.54,
+          "en": "and now we should have a way better user experience.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 181.54,
+          "end": 188.38,
+          "en": "Now when this reloads, it breaks and we get this alert and if I click OK, I'm navigated away, hopefully",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 188.38,
+          "end": 193.95,
+          "en": "to a place that now works and if I now go back to editing here, this would work.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 193.96,
+          "end": 197.17000000000002,
+          "en": "So this is now a way of handling that error",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 197.17000000000002,
+          "end": 202.21,
+          "en": "and this is something you of course could consider for all the places we're making HTTP requests in to",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 202.21,
+          "end": 204.91,
+          "en": "ensure that you have the best user experience possible.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "13728142",
+      "title": "Fetching Single Places",
+      "lectureOrder": 212,
+      "videoOrder": 178,
+      "sourceHash": "8345bb1aa69c2dd2c952257fdd202ebe33ec82b3dbe24ab55488da10fdb9053c",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.09,
+          "end": 3.92,
+          "en": "We got some other places in the application",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.92,
+          "end": 4.77,
+          "en": "we want to work on,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 4.79,
+          "end": 10.49,
+          "en": "for example if I tap a place here to view that detail page for that offer,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.76,
+          "end": 18.38,
+          "en": "not only is it a bit of a boring page as I recognize here but that could be okay here but we also get",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 18.38,
+          "end": 19.5,
+          "en": "an error here",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.61,
+          "end": 23.37,
+          "en": "if I tap that page, cannot read property ID of undefined.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 23.39,
+          "end": 24.71,
+          "en": "So we want to fix that,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 24.76,
+          "end": 27.9,
+          "en": "it is the same on the discover here, on the discover area,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 27.92,
+          "end": 34.58,
+          "en": "if I click a place here, I get that same error or not that same but a similar error related to that.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 34.67,
+          "end": 40.93,
+          "en": "So we certainly want to make sure that we fix these places and let's do that right now.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 40.97,
+          "end": 45.56,
+          "en": "So the first place here is the offer bookings page.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 46.37,
+          "end": 54.09,
+          "en": "However I don't really need that page here so I will simply get rid of that and then in place routing module of course,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 54.1,
+          "end": 58.22,
+          "en": "make sure that we get rid of it here as well,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 59.15,
+          "end": 65.85,
+          "en": "we simply don't support this anymore, in the offers-page.html file I therefore want to make",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 65.85,
+          "end": 69.44,
+          "en": "sure that when we click an offer item here, we're not going anywhere,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 69.45,
+          "end": 74.52,
+          "en": "so I still display my offers, we can still slide them but we just can't click them anymore. Of course that is",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 74.52,
+          "end": 76.32,
+          "en": "not the fix I want to use",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 76.32,
+          "end": 82.86,
+          "en": "on the discover area where we have a place detail page that makes more sense. Here under place detail,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 83.46000000000001,
+          "end": 86.56,
+          "en": "we're getting errors because in the place-detail.ts file,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 86.67,
+          "end": 92.99000000000001,
+          "en": "I call get place and there, I initialize the place which I then use in my template but just as before,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 93.06,
+          "end": 97.97999999999999,
+          "en": "get place now reaches out to a server and therefore this takes a bit longer to complete and hence",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 97.97999999999999,
+          "end": 99.47,
+          "en": "place is not set",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 99.47,
+          "end": 102.58,
+          "en": "initially. Of course the solution is simple,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 102.81,
+          "end": 110.00999999999999,
+          "en": "again we can add an isLoading property and set this to false here and whenever we start fetching our place,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 110.1,
+          "end": 119.32,
+          "en": "we set isLoading to true and once we're done fetching it, here we set this isLoading",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 119.67,
+          "end": 125.53,
+          "en": "to false and now with that, we can add a spinner in the template again.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 125.53,
+          "end": 134.56,
+          "en": "So here I got my grid which displays all the place data and I only want to show that if we're not loading,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 135.04,
+          "end": 141.91,
+          "en": "if we are loading, then I will add a div here with text center and in that div, I will add that ion-spinner",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 141.91,
+          "end": 146.89,
+          "en": "with a color of primary and just as before here",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 146.89,
+          "end": 152.59,
+          "en": "I will add ngIf isLoading. I'll not check for whether we did fetch a place or not,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 152.59,
+          "end": 155.61,
+          "en": "instead I rather add error handling that throws an error",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 155.71,
+          "end": 162.49,
+          "en": "if we found no place because you could argue that for the discover list page here, it makes sense to",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 162.49,
+          "end": 168.05,
+          "en": "show a message like no bookable places found if there are no places, for a single place, you could of",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 168.05,
+          "end": 169.99,
+          "en": "course also show an on-screen message",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 169.99,
+          "end": 175.84,
+          "en": "but if you are on that page that has no other purpose, well then you can also just throw an error or",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 175.84,
+          "end": 178.18,
+          "en": "show an alert if no data was found,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 178.18,
+          "end": 180.04,
+          "en": "that is my logic here.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 180.07,
+          "end": 181.72,
+          "en": "Nonetheless, a spinner should be shown,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 181.72,
+          "end": 184.15,
+          "en": "so isLoading certainly makes sense,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 184.21,
+          "end": 189.08,
+          "en": "we should be aware that we also use some place data in a title here though and there",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 189.1,
+          "end": 195.79,
+          "en": "I want to check whether where isLoading, we're loading and if we are loading, then I'll say loading here",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 195.79,
+          "end": 199.68,
+          "en": "as a text and only if we're not loading, I'll try to output the place.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 199.87,
+          "end": 205.65,
+          "en": "So now if we save this and this page reloads here, it does so without an error",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 206.22,
+          "end": 210.71,
+          "en": "and if I go there from this page, we got the same behavior,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 210.72,
+          "end": 213.81,
+          "en": "we also saw the spinner here for a short time.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 214.06,
+          "end": 216.37,
+          "en": "So this is now a better user experience,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 216.37,
+          "end": 219.11,
+          "en": "let's now add the error handling I was talking about",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 219.22,
+          "end": 224.53,
+          "en": "and for that, we add this second method here where we get the error,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 224.53,
+          "end": 230.86,
+          "en": "the second function here to subscribe where we get this error object, which would hold data like an error",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 230.86,
+          "end": 232.46,
+          "en": "message sent by the server,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 232.48,
+          "end": 238.15,
+          "en": "so this can also be useful depending on your app and your server you're interacting with.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 238.15,
+          "end": 244.97,
+          "en": "Here, I will again use the same approach as before, I will inject the alert controller here,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 245.11,
+          "end": 247.9,
+          "en": "lot of controllers getting injected in this page,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 247.9,
+          "end": 257.02,
+          "en": "so inject the alert controller from @ionic/angular and then simply create it here with a header of an",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 257.11,
+          "end": 268.73,
+          "en": "error occurred and then a message where I say could not load place or any message that you want to",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 268.73,
+          "end": 272.54,
+          "en": "show, could be based on the error message encoded in the error object",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 272.69,
+          "end": 278.75,
+          "en": "if your back-end is throwing helpful messages there and then, I'll add my buttons where I have my button",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 278.75,
+          "end": 287.63,
+          "en": "object with a text of OK and a handler function which is this anonymous arrow function here and in",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 287.63,
+          "end": 289.12,
+          "en": "this function,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 289.28,
+          "end": 292.28,
+          "en": "I want to use my router which I need to inject,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 292.28,
+          "end": 293.39,
+          "en": "we don't have that yet,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 293.9,
+          "end": 302.25,
+          "en": "so the Angular router which needs to be imported from @angular/router, this is injected here and now",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 302.25,
+          "end": 313.4,
+          "en": "I can use my router to navigate back to /places/tabs/discover,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 313.46,
+          "end": 318.98,
+          "en": "so basically to this route here.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 319,
+          "end": 326.8,
+          "en": "So now we just need to call then here where we get the alert element and then we can call alert el present",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 326.8,
+          "end": 328.09,
+          "en": "here to show it",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 328.09,
+          "end": 334.51,
+          "en": "and now if we save all of that and we go back to that page here and we added it such that we try to fetch",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 334.51,
+          "end": 340.21,
+          "en": "a place but that doesn't exist by editing the URL, we get that alert, can press",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 340.21,
+          "end": 342.05,
+          "en": "OK and here we are.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 342.07,
+          "end": 348.88,
+          "en": "So this now also works and now we should have the most important pieces of this app in a state that",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 349,
+          "end": 353.17,
+          "en": "works and that ensures that we can interact with it.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 353.23,
+          "end": 359.08,
+          "en": "Now let's of course focus on the bookings, that when we make a booking, we save that on the server too",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 359.14,
+          "end": 364.3,
+          "en": "and that we can also see our list of bookings here and definitely try implementing this on your own",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 364.3,
+          "end": 365.07,
+          "en": "first,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 365.2,
+          "end": 368.91,
+          "en": "you will basically use the same building blocks you learned about throughout this module,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 368.92,
+          "end": 374.74,
+          "en": "so this is a great challenge and a great exercise and you can then compare your solution to mine over",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 374.74,
+          "end": 375.67,
+          "en": "the next lectures.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "13728146",
+      "title": "Adding a Booking",
+      "lectureOrder": 213,
+      "videoOrder": 179,
+      "sourceHash": "5f36c758fbde19dfd6f60785b5e3dfc7d9f2790eca5169628628e789005fb8c1",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.22,
+          "end": 4.07,
+          "en": "So did you succeed?",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.08,
+          "end": 7.05,
+          "en": "Let's implement this step-by-step together now and",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.32,
+          "end": 10.6,
+          "en": "we'll have to work in the bookings service for that and",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.62,
+          "end": 15.24,
+          "en": "there, we'll have our add booking and we have our canceled booking methods.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.25,
+          "end": 17.72,
+          "en": "Now let's start with adding a booking.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 17.75,
+          "end": 24.3,
+          "en": "Now I will inject the Angular HttpClient here and I'll store it in a property named HTTP and",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 24.3,
+          "end": 34.48,
+          "en": "the HttpClient is imported from, not this imported added form here but from",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 34.48,
+          "end": 36.52,
+          "en": "@angular/common/http,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 36.52,
+          "end": 43,
+          "en": "so from this path here, we import the HttpClient and now there, we're creating this new booking",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 43,
+          "end": 44.09,
+          "en": "which is okay",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 44.32,
+          "end": 47.83,
+          "en": "and then I will do the same thing I did in the places service,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 47.83,
+          "end": 54.88,
+          "en": "I'll use the HttpClient to send a post request and we can use the URL from the place service",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 54.91,
+          "end": 63.98,
+          "en": "as a starting point, not as the full URL but as a starting point here when we're adding a single place,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 64.82,
+          "end": 69.02,
+          "en": "I will copy it and then go into my booking service and use it there",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 69.02,
+          "end": 74.75,
+          "en": "but of course I don't want to store my bookings under the offered places node but instead under bookings,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 74.84,
+          "end": 77.43,
+          "en": "bookings.json.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 77.6,
+          "end": 82.64,
+          "en": "Now the second argument here is the data we do want to store and that of course is my new booking",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 82.64,
+          "end": 85.84,
+          "en": "but without the ID I autogenerated here,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 85.85,
+          "end": 92.42,
+          "en": "instead I want to use the ID Firebase gives me, so just as with the place, I will copy my new booking",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 92.72,
+          "end": 100.24000000000001,
+          "en": "and overwrite the ID with a null value so that Firebase will not store it. This sends the post request",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 100.27000000000001,
+          "end": 105.5,
+          "en": "to add a booking, we can now add the pipe method and there, the tap",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 105.50999999999999,
+          "end": 112.59,
+          "en": "operator and here I want to add this to my list of bookings I already have.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 113.50999999999999,
+          "end": 119.81,
+          "en": "So first of all, we need to get all these bookings which we can do with switch map operator as you learned,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 120.11,
+          "end": 132.24,
+          "en": "switch map imported from rxjs/operators and switch map allows us to get our response data here which",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 132.24,
+          "end": 135.1,
+          "en": "includes that generated ID which I want to store,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 135.18,
+          "end": 142.81,
+          "en": "so I'll add my generated ID property up there which will be a string, then in here, I will set generated",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 142.82,
+          "end": 148.68,
+          "en": "ID equal to res data.name because we know and that is also something we can add here, with",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 148.68,
+          "end": 154.98,
+          "en": "the angled brackets after post, that the data we get back here will have that same structure it has for",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 154.98,
+          "end": 160.82999999999998,
+          "en": "adding a place, so an object with a name field which holds a string which is that ID generated by Firebase.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 161.67000000000002,
+          "end": 167.34,
+          "en": "So now I'm storing that ID in generated ID, other than that in switch map here, I'm returning",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 167.34,
+          "end": 177.75,
+          "en": "this bookings, so my list of bookings and now by the way just as in places, of course we could have loaded",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 178.26,
+          "end": 185.64,
+          "en": "our app on the addPlace or on the booking event place and then we would fetch our list of bookings",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 185.64,
+          "end": 189.77,
+          "en": "here which initially is empty and the same for the places, initially that is empty, right?",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 192.1,
+          "end": 198.31,
+          "en": "Now we would then add our newly added place or booking to an empty list of places or of bookings",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 198.31,
+          "end": 204.91,
+          "en": "but this is not a huge issue because whenever we go back to the bookings or the places page, we do call",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 204.91,
+          "end": 210.67000000000002,
+          "en": "fetchPlaces or later also fetchBookings here and therefore, we will get the latest snapshot from",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 210.67000000000002,
+          "end": 215.77,
+          "en": "the server there anyways. So it doesn't matter here and we won't get an error because whilst we add it to",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 215.77,
+          "end": 217.66,
+          "en": "an empty list, it still is a list,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 217.75,
+          "end": 219.51,
+          "en": "so that should all work.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 219.61,
+          "end": 226.14,
+          "en": "So we can now just go to tap where we get our bookings and then in here, we can use the same logic we",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 226.15,
+          "end": 231.94,
+          "en": "used before to concatenate our new booking here to that list of bookings,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 231.94,
+          "end": 238.24,
+          "en": "so let me remove all of that. New booking is available here because we created it outside of our observable",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 238.24,
+          "end": 238.68,
+          "en": "chain,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 238.72,
+          "end": 246.33,
+          "en": "so outside of a function in our observable chain and with that, we actually have almost everything we",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 246.33,
+          "end": 246.98,
+          "en": "need.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 246.99,
+          "end": 252.99,
+          "en": "One thing I need to do though is on the new booking, I'll overwrite the ID with my generated ID which",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 252.99,
+          "end": 261.14,
+          "en": "I do fetch here of course and now with that, we're done and we can hopefully add a booking that also is stored",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 261.2,
+          "end": 262.64,
+          "en": "on the server.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 262.64,
+          "end": 267.07,
+          "en": "So let's give this a try and let's wait for this application to reload,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 267.14,
+          "end": 272.72,
+          "en": "let's visit this and we can't book this because we're in the wrong user. To fix that, let's quickly go",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 272.72,
+          "end": 280.43,
+          "en": "to the auth service and let's change our userId again, ABC, so that we're not the user who created",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 280.43,
+          "end": 281.15,
+          "en": "this",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 281.22,
+          "end": 292.26,
+          "en": "and now if this reloads, click book here, a random date and enter your data here, click book and I'm getting",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 292.26,
+          "end": 295.99,
+          "en": "an error, cannot read property subscribe of undefined.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 296.25,
+          "end": 302.26,
+          "en": "Yes because in the bookings service, I probably forgot to return this observable chain,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 302.28,
+          "end": 303.75,
+          "en": "yes I did.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 303.81,
+          "end": 309.11,
+          "en": "So make sure to add return in front of this new observable chain and then save that and let's try again.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 311.08,
+          "end": 313.18,
+          "en": "So we're starting here,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 313.43,
+          "end": 318.69,
+          "en": "random date, enter your data and click book,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 318.69,
+          "end": 324.75,
+          "en": "now there is no error and it's a booking but this takes very long.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 324.75,
+          "end": 330.39,
+          "en": "Let's have a look at Firebase and there, we actually see bookings and that is the booking I just made,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 330.54,
+          "end": 336.21,
+          "en": "so this is basically doing the booking I just started.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 336.21,
+          "end": 337.68,
+          "en": "So it almost works",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 337.68,
+          "end": 340.62,
+          "en": "but this spinner never disappears.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 340.62,
+          "end": 343.15,
+          "en": "So we're not entirely there,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 343.23,
+          "end": 345.24,
+          "en": "let's have a look at our place",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 345.24,
+          "end": 355.51,
+          "en": "detail page which is where we do in the end call this method, here in onBookPlace in the end, we call",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 355.57,
+          "end": 360.76,
+          "en": "add booking here and we subscribe and we do dismiss the loading element here",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 360.98,
+          "end": 367.1,
+          "en": "and the reason for that is that I introduced a bug here. When I fetched my current bookings, this bookings",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 367.1,
+          "end": 368.28,
+          "en": "list,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 368.51,
+          "end": 375.44,
+          "en": "of course I only want to take one here, that is important, otherwise just as we did it before,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 375.44,
+          "end": 380.29,
+          "en": "otherwise I set up an ongoing subscription which I don't want here.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 380.33,
+          "end": 391.84,
+          "en": "So add take one here after this switch map and now let's wait for this to reload and let's test this here",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 393.94,
+          "end": 396.25,
+          "en": "and now this disappears as it should.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 396.25,
+          "end": 400.03,
+          "en": "Now of course, we also now see the bookings here on the bookings page,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 400.09000000000003,
+          "end": 402.88,
+          "en": "however not if we reload the app on this page.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 402.88,
+          "end": 404.53,
+          "en": "So this is something we should also tackle.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "13728150",
+      "title": "Fetching Bookings By User",
+      "lectureOrder": 214,
+      "videoOrder": 180,
+      "sourceHash": "d926ca9b3e0c9460ad96366c40c900db90bd233d1eb26a4ee0de0a0799a8b126",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.3,
+          "end": 6.78,
+          "en": "To show bookings on the bookings page when we reload there, we need to add a new method,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.85,
+          "end": 10.89,
+          "en": "you can add this anywhere of course and I'll name this fetchBookings",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 11.18,
+          "end": 17.36,
+          "en": "and in here, I want to obviously the fetch my list of bookings and I want to fetch the bookings for that",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 17.36,
+          "end": 20.06,
+          "en": "user who made them of course and not all bookings,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 20.06,
+          "end": 22.61,
+          "en": "we should only see our bookings here.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.7,
+          "end": 29.56,
+          "en": "So first of all, I will use the HttpClient to make a get request and that get request will of",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 29.56,
+          "end": 34.03,
+          "en": "course be sent to the same path we used for adding a single booking,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 34.08,
+          "end": 36.82,
+          "en": "so let's copy that and let's add it here.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 37.72,
+          "end": 42.29,
+          "en": "But now with Firebase and of course that differs from back-end to back-end",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 42.36,
+          "end": 44.58,
+          "en": "and this is just the Firebase approach here,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 44.68,
+          "end": 49.98,
+          "en": "you can now add some query parameters there to narrow down which kind of data you want to fetch,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 49.99,
+          "end": 56.59,
+          "en": "so that you don't want to fetch all the data but just for a specific user as in our case. For this, I'll",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 56.59,
+          "end": 62.2,
+          "en": "change this to use a string literal notation with the back ticks so that I can inject dynamic value here",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 62.55,
+          "end": 66.57,
+          "en": "and then I add a question mark here to add query parameters",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 66.76,
+          "end": 69.34,
+          "en": "and the first one should be orderBy, written like this",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 69.4,
+          "end": 73.69,
+          "en": "and this is a Firebase feature, really important, this does not work on any API,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 73.72,
+          "end": 77,
+          "en": "this works on this REST API here.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 77.15,
+          "end": 82.62,
+          "en": "Now here, we orderBy userId, put it in double quotes like this,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 82.76,
+          "end": 86.78,
+          "en": "this tells Firebase that it should order the results by userId,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 86.81,
+          "end": 92.13,
+          "en": "that is not that helpful to us but we can combine this with the equal to operator,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 92.15,
+          "end": 95.53999999999999,
+          "en": "so an ampersand and then equal to",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 95.72,
+          "end": 101.74000000000001,
+          "en": "and this means basically fetch me the data where userId is equal to a value defined by us",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 101.75,
+          "end": 108.92,
+          "en": "and now this value here should be put between double quotes and it is now injected dynamically with",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 108.92,
+          "end": 115.91,
+          "en": "this dollar sign opening and closing curly brace syntax and of course here, I want to use my userId,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 116.39,
+          "end": 124.01,
+          "en": "so I can use this auth service userId here and now I'm fetching only the orders for my user, for the",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 124.01,
+          "end": 132.91,
+          "en": "currently logged in user, only the bookings of that user. For this to work, you need to make one adjustment",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 133.03,
+          "end": 141.27,
+          "en": "on Firebase side, here in your database under rules, you need to add something, so I'll add a comma and then",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 141.36,
+          "end": 143.78,
+          "en": "add bookings,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 143.86,
+          "end": 146.39,
+          "en": "so the name of that node you created,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 146.41,
+          "end": 152.5,
+          "en": "so basically whatever you entered here in front of JSON for storing a bookings under a certain path.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 152.5,
+          "end": 159.28,
+          "en": "So bookings: and then opening and closing curly brace and in there, double quotes .indexOn",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 159.4,
+          "end": 165.93,
+          "en": "written like this, colon and then an array with all the values you want to make searchable basically",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 165.94,
+          "end": 171.31,
+          "en": "and in my case, that's just the userId. Publish this thereafter",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 171.38,
+          "end": 178.26,
+          "en": "and this sets up some settings for Firebase behind the scenes to allow you to search the bookings by",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 178.29,
+          "end": 178.98,
+          "en": "userId,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 178.98,
+          "end": 184.38,
+          "en": "otherwise you would get an error but now you will be able to look into your bookings and search by that",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 184.38,
+          "end": 190.29,
+          "en": "userId that is stored there. Let me remove that extra booking here.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 190.83,
+          "end": 195.96,
+          "en": "So now we're fetching bookings by userId which is of course nice,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 196.29,
+          "end": 201.63,
+          "en": "we now just need to make sure that we transform them appropriately because you might remember, from fetching",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 201.63,
+          "end": 207.12,
+          "en": "all the places, that Firebase gives us an object where we have keys which are our unique IDs which can",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 207.12,
+          "end": 209.19,
+          "en": "hold the actual data,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 209.19,
+          "end": 221.27,
+          "en": "so here I want to map my booking data into an array with which I can work. For that, I'll create a new",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 221.42000000000002,
+          "end": 224.66,
+          "en": "bookings array here and then a for/in loop,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 224.66,
+          "end": 235.8,
+          "en": "so for key in booking data, add this if check where you check if booking data has a property of that",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 235.8,
+          "end": 239.82,
+          "en": "key so that this reworks and does not fail and",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 239.82,
+          "end": 243.12,
+          "en": "we're not extracting data from any prototypes or something like that.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 243.9,
+          "end": 245.43,
+          "en": "And now in this if check,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 245.43,
+          "end": 253.8,
+          "en": "we simply push data into our bookings array here and that should be a new booking obviously, where the",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 253.8,
+          "end": 259,
+          "en": "ID is our key for the same reasoning as before when we did this for the places,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 259.02,
+          "end": 262.34,
+          "en": "so make sure to watch that lecture again if this is unclear.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 262.53,
+          "end": 266.86,
+          "en": "So I'm creating a new booking with my ID which is that key,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 267.21,
+          "end": 276.82,
+          "en": "then with the placeId which I get from my booking data for that given key. There I will have a place",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 276.82,
+          "end": 277.24,
+          "en": "ID",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 277.69,
+          "end": 286.49,
+          "en": "and now just to speed this up, again I will define an interface, so I will copy the structure of the data",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 286.52,
+          "end": 293.28,
+          "en": "as it's stored on Firebase and then define a helper interface up here which which I'll name booking",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 293.28,
+          "end": 294.93,
+          "en": "data but the name is up to you",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 294.93,
+          "end": 297.54,
+          "en": "and there, I define how my booking data looks like,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 297.54,
+          "end": 303.42,
+          "en": "so in the end I'll have bookedFrom which is a string, bookedTo which is a string, the first name which",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 303.42,
+          "end": 304.44,
+          "en": "is a string,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 304.5,
+          "end": 306.91,
+          "en": "the guest number which is a number,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 307.11,
+          "end": 316.35,
+          "en": "the last name which is a string, the placeId here which is a string, the place image which is a string,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 316.68,
+          "end": 323.53,
+          "en": "the place title which is a string and the userId which is a string. Now booking data is therefore",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 323.57,
+          "end": 324.26,
+          "en": "the data format",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 324.27,
+          "end": 330.87,
+          "en": "I get back and thanks to Angular's HttpClient, we could add angle brackets here after get and basically",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 330.87,
+          "end": 339.03,
+          "en": "tell Angular and the HttpClient or we tell Typescript that the data we get back will have this dynamic",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 339.06,
+          "end": 345.33,
+          "en": "key which was this square brackets notation to indicate that we can have multiple keys with names we",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 345.33,
+          "end": 350.58,
+          "en": "don't know and that the value for each key will be in the format of our booking data and now we get",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 350.58,
+          "end": 357,
+          "en": "better autocompletion down there because now we can go through our booking data and here, I need to",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 357,
+          "end": 365.61,
+          "en": "add the userId and I just noticed before I continue, of course this should be in a map operator,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 365.85,
+          "end": 369.43,
+          "en": "so this entire function here,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 369.48,
+          "end": 371.07,
+          "en": "this should be inside of the map",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 371.1,
+          "end": 380.17,
+          "en": "operator and map needs to be imported from rxjs/operators, then we get better autocompletion,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 380.19,
+          "end": 381.44,
+          "en": "so now this is looking good.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 381.9,
+          "end": 382.86,
+          "en": "So let's continue",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 382.86,
+          "end": 386.25,
+          "en": "now, we extracted the userId, we also need the place title,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 386.25,
+          "end": 391.8,
+          "en": "so we have booking data for the given key with a place title,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 391.8,
+          "end": 397.97,
+          "en": "then we need the place image, so booking data for the given key with the place image",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 397.98,
+          "end": 400.13,
+          "en": "and then we have the first name,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 400.2,
+          "end": 408.99,
+          "en": "so again booking data key first name, last name of course booking data key last name, the guest number,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 409.38,
+          "end": 414.47,
+          "en": "booking data key guest number, bookedFrom is a date,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 414.47,
+          "end": 418.15999999999997,
+          "en": "so I will use the date constructor here to turn it into a date object",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 422.62,
+          "end": 424.34,
+          "en": "and bookedTo,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 424.45,
+          "end": 425.47,
+          "en": "same thing,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 425.47,
+          "end": 433.13,
+          "en": "I will use the date constructor to use my booking data key and then bookedTo.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 433.21,
+          "end": 436.38,
+          "en": "And now I'm creating a new booking and pushing this on the bookings array,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 436.45,
+          "end": 440.52,
+          "en": "all of that happening in the map operator in this observable chain.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 440.53,
+          "end": 443.48,
+          "en": "Now we just need to return this in the end here,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 443.56,
+          "end": 444.57,
+          "en": "so after this loop,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 444.58,
+          "end": 450.73,
+          "en": "let's return the bookings array so that our observable chain here in the end yields an array of bookings",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 451.06,
+          "end": 457.84000000000003,
+          "en": "and whenever we call fetchBookings and I return this here of course, we will get back this bookings",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 457.84000000000003,
+          "end": 461.56,
+          "en": "array as an argument in the function we pass to subscribe.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 461.56,
+          "end": 464.78,
+          "en": "Of course, I don't just want to get this data in my subscription though,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 464.95,
+          "end": 468.63,
+          "en": "instead here in this observable chain, I will add the tap",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 468.64,
+          "end": 474.34000000000003,
+          "en": "operator where I get my bookings and then I can call this _operators which is this behavior",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 474.34000000000003,
+          "end": 481.03,
+          "en": "subject next bookings and emit the bookings I just fetched as a new list of bookings for this",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 481.03,
+          "end": 482.57,
+          "en": "app.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 482.58,
+          "end": 488.11,
+          "en": "And now with all of that out of the way, we can go to the bookings page where we need that",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 488.2,
+          "end": 492.36,
+          "en": "and here, I do set up my subscription to that list of bookings which is great,",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 492.52,
+          "end": 500.47,
+          "en": "just as before with ionViewWillEnter when this page becomes visible, then I will use this booking",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 500.47,
+          "end": 507.25,
+          "en": "service and I will then fetch the bookings here, like this and we need to call subscribe here so that",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 507.25,
+          "end": 508.7,
+          "en": "something happens.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 508.72,
+          "end": 511.87,
+          "en": "Now just as before, we can show a nice loading spinner,",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 511.87,
+          "end": 515.43,
+          "en": "so isLoading is added here as a property",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 515.69,
+          "end": 520.6,
+          "en": "and whenever we fetch it here, I'll set isLoading to true",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 520.6,
+          "end": 525.58,
+          "en": "and in that function I pass to subscribe where we would also get that bookings array but where I",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 525.58,
+          "end": 531.76,
+          "en": "don't need it thanks to the subscription, I will simply set isLoading back to false.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 531.76,
+          "end": 534.99,
+          "en": "And now back in the bookings.page.html file,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 535.06,
+          "end": 538.16,
+          "en": "well there we can now take advantage of this.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 538.24,
+          "end": 540.96,
+          "en": "We already output a message if we have no bookings,",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 541.27,
+          "end": 546.82,
+          "en": "well I only want to show this if we're not loading because otherwise if we are loading, it is of course",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 546.82,
+          "end": 554.65,
+          "en": "a valid state that we temporarily have no data but if we're not loading and one of these conditions",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 554.65,
+          "end": 563.19,
+          "en": "is met, then I certainly want to show that text. If we are not loading and these other conditions",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 563.19,
+          "end": 573.35,
+          "en": "are met, then I certainly want to display my my list, should be two anmpersands and of course, I will also add",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 573.35,
+          "end": 583.3,
+          "en": "a new column at the top though, the same size and offset here, also with text center and in there, I will",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 583.3,
+          "end": 587.62,
+          "en": "show my ion-spinner for the case that we are loading.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 587.62,
+          "end": 593.44,
+          "en": "So here, color is primary and I will add ngIf isLoading here,",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 593.56,
+          "end": 599.77,
+          "en": "so that spinner should be visible if we are loading bookings. So back in the app here on the bookings page,",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 601.07,
+          "end": 602,
+          "en": "we now see the spinner",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 602,
+          "end": 605.54,
+          "en": "and then we see our booking here. Let's now make sure we can delete that.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "13728152",
+      "title": "Deleting Bookings",
+      "lectureOrder": 215,
+      "videoOrder": 181,
+      "sourceHash": "493b7a7da5435427d0fef7fcc3c1ac43c464b7b24d692c3a33f91ecbf932c705",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.19,
+          "end": 7.64,
+          "en": "Before I delete that, let's actually check whether we can see this if we are a different user",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.78,
+          "end": 13.82,
+          "en": "and for that, let's go to the auth service and change our userId to xyz again",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 14.13,
+          "end": 18.91,
+          "en": "and the app should now reload and we shouldn't see that booking here hopefully.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 18.93,
+          "end": 23.91,
+          "en": "Yes, that looks good because it's not a booking by that user and therefore we should not be able to see",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 23.91,
+          "end": 25.73,
+          "en": "it or interact with it,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 25.74,
+          "end": 30.08,
+          "en": "so let me change this back so that we can see it because now I am the user who created it,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32,
+          "end": 32.77,
+          "en": "there it is,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 32.81,
+          "end": 33.66,
+          "en": "great.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 33.68,
+          "end": 39.41,
+          "en": "Now of course, you can also tweak what you see here on the bookings page,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 39.41,
+          "end": 44.26,
+          "en": "right now we have a relatively boring item with our ion-label here,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 44.3,
+          "end": 51.8,
+          "en": "of course we could add an ion-avatar here in our start slot of the item and then use ion-img where",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 51.8,
+          "end": 57.73,
+          "en": "we bind the source here to the booking place",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 58.13,
+          "end": 64.48,
+          "en": "image, that is something you could also do but that of course is totally not related to deleting the booking,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 64.48,
+          "end": 65.1,
+          "en": "still",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 65.14,
+          "end": 66.46,
+          "en": "it is something I want to do here,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 66.49,
+          "end": 71.83,
+          "en": "looks a bit nicer. And now let's make sure that when I swipe this and I tap this, we actually don't just",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 71.83,
+          "end": 77.08,
+          "en": "cancel the booking here which has no effect on the server as you see when I reload but that we do cancel",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 77.08,
+          "end": 82.28,
+          "en": "it on the server as well. For that back in the booking service,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 82.38,
+          "end": 87.51,
+          "en": "we have our canceled booking method here and the goal here now is to really delete the booking on the",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 87.51,
+          "end": 96.75999999999999,
+          "en": "server and deleting is something we haven't done thus far on Firebase. So here, I want to send an HTTP request",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 97.27000000000001,
+          "end": 101.77000000000001,
+          "en": "and I'll set a delete request now and I want to target a specific booking.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 101.83,
+          "end": 104.5,
+          "en": "So of course our URL generally",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 104.53,
+          "end": 110.92,
+          "en": "is this URL but I will already use back ticks here so that I can dynamically inject data into this",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 110.92,
+          "end": 117.1,
+          "en": "string because I will not set the request this URL but instead, I'll add a new segment which should",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 117.1,
+          "end": 123.64,
+          "en": "of course be the booking ID of the specific booking I want to get rid of. This now is the URL the",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 123.64,
+          "end": 129.95,
+          "en": "delete request should be sent to, so that this data under this URL is deleted.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 130.03,
+          "end": 135.42,
+          "en": "Now here, I will return this so that we can wait for this to complete",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 135.52,
+          "end": 143.06,
+          "en": "but of course I also want to update my bookings to basically mark that this has been deleted. Hence I'll",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 143.53,
+          "end": 150.31,
+          "en": "pipe some operators in there and the first one is the switch map operator to do nothing with the response",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 150.31,
+          "end": 152.73,
+          "en": "of this delete request because I don't really care",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 152.82999999999998,
+          "end": 160.48,
+          "en": "but to then return my bookings, so this bookings getter which gives me my current list of bookings locally,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 160.51,
+          "end": 162.63,
+          "en": "not on the server but locally.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 162.64,
+          "end": 167.8,
+          "en": "Now here we can't be in a scenario where this is an empty array and we try to remove an element from",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 167.8,
+          "end": 172.02,
+          "en": "it that's not in there because we interact with our bookings here from inside the list,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 172.03,
+          "end": 176.94,
+          "en": "so if we got the list, we can delete them and we can't delete an item without having the list.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 176.95,
+          "end": 180.37,
+          "en": "So here, this should be safe and should always give us a list",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 180.37,
+          "end": 187.93,
+          "en": "and therefore in my next operator here which is the tab operator, I will get my bookings list and I will",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 187.93,
+          "end": 194.44,
+          "en": "do the same as I did before, I will emit a new list of bookings where I filter out the one which I want",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 194.44,
+          "end": 195.1,
+          "en": "to delete",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 195.37,
+          "end": 200.07999999999998,
+          "en": "and now this will update the bookings not just on a server which is what we do with the delete request",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 200.29,
+          "end": 207.76,
+          "en": "but also locally, which of course is also required. So now with that, it should actually already work.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 207.79,
+          "end": 214.47,
+          "en": "If I save this and we wait for this to reload, we should be able to swipe this and click the trash bin",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 215.43,
+          "end": 220.38,
+          "en": "and it's canceling and now here, we got a problem though",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 220.44,
+          "end": 222,
+          "en": "and do you know what it is?",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 223.64,
+          "end": 228.86,
+          "en": "It's a maximum call stack size exceeded error which means we probably created some infinite loop and",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 228.86,
+          "end": 231.13,
+          "en": "I did. I return my bookings here",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 231.14,
+          "end": 232.49,
+          "en": "and what is bookings?",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 232.49,
+          "end": 235.19,
+          "en": "It of course is my behavior subject in the end.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 235.19,
+          "end": 243.89,
+          "en": "So I subscribe to my subject and then I essentially emit a new event, here with next and that of",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 243.89,
+          "end": 247.79,
+          "en": "course triggers my subject and therefore I created an infinite loop.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 247.79,
+          "end": 253.89,
+          "en": "The trick of course is to take one as we always should do here, to just take one snapshot",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 254.15,
+          "end": 255.88,
+          "en": "and now with that, it should reload here,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 259.4,
+          "end": 264.65,
+          "en": "and of course I have no booking now because it was deleted before I entered this infinite loop.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 264.65,
+          "end": 266.21,
+          "en": "So let's quickly add a booking here,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 271.01,
+          "end": 275.85,
+          "en": "let's maybe add two bookings so that we can really be sure that we delete the right one,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 275.87,
+          "end": 282.83,
+          "en": "Maximilian Schwarzmuller with one guest,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 283.18,
+          "end": 284.82,
+          "en": "so I'm traveling alone",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 285.02,
+          "end": 287.89,
+          "en": "and now let's go to bookings and we should see two bookings there",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 287.89,
+          "end": 292.08,
+          "en": "and now let's delete the one with one guest and this looks good.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 292.3,
+          "end": 297.07,
+          "en": "And now if I reload this page, we should also still only see the one which we didn't delete and on",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 297.08,
+          "end": 299.46,
+          "en": "Firebase as well of course",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 299.53,
+          "end": 301.9,
+          "en": "and now if I delete that as well,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 301.9,
+          "end": 304.48,
+          "en": "well then we have no bookings obviously.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 304.57,
+          "end": 309.22,
+          "en": "So this is how we can delete the bookings and this also works quite nice.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "13728154",
+      "title": "Wrap Up",
+      "lectureOrder": 216,
+      "videoOrder": 182,
+      "sourceHash": "1350d6d0d020b73036ad334190d8c0aba01d4ed18b687b2ed7bc03fc2dcbe053",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.07,
+          "end": 8.34,
+          "en": "In this module, we sent a lot of HTTP requests and we worked a lot with observables. I hope this also",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.34,
+          "end": 9.48,
+          "en": "shows",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.66,
+          "end": 16.65,
+          "en": "the power of observables and how they help us orchestrate steps and ensure that they run in the right order",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.65,
+          "end": 22.92,
+          "en": "and with that, we're now able to send requests related to places, to adding places, fetching places, editing",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 22.92,
+          "end": 26.7,
+          "en": "places but also of course related to our bookings.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 26.7,
+          "end": 32.15,
+          "en": "You also learned how to show spinners and use the different lifecycle hooks correctly,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.28,
+          "end": 39.33,
+          "en": "how to handle errors like in a scenario where we try to edit or view something where we have no data",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 39.36,
+          "end": 45.62,
+          "en": "on and with all that, you got a toolbox of features that should help you build the app",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 45.63,
+          "end": 51.48,
+          "en": "you're trying to get out into the stores because chances are high that this app will also require HTTP",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 51.57,
+          "end": 54.38,
+          "en": "and here, we learned a lot about that.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "13728158",
+      "title": "Module Introduction",
+      "lectureOrder": 218,
+      "videoOrder": 183,
+      "sourceHash": "63bf920ad887bf84c8ddcdec52e9730fecabcc5c5b598b0975fb843880331f14",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.21,
+          "end": 5.97,
+          "en": "We're able to communicate with a server, that is great.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.99,
+          "end": 9.76,
+          "en": "Let's now come back to some core features our application needs",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.77,
+          "end": 13.4,
+          "en": "besides being able to store and persist our data",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.67,
+          "end": 21.74,
+          "en": "and for that since we're managing places people can book, maps comes to mind, specifically Google Maps.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 22.12,
+          "end": 29.3,
+          "en": "We'll add Google Maps to our application here, to make sure that users can pick a place or pick the place",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 29.3,
+          "end": 31,
+          "en": "on the map where their location is",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 31.01,
+          "end": 38.45,
+          "en": "when you add a new location, when you add a new offer. We'll also use an API provided by Google that translates",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 38.45,
+          "end": 45.17,
+          "en": "coordinates into a real address that we can display to humans and we'll use the Google Maps static image",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 45.29,
+          "end": 52.88,
+          "en": "API or static maps API to display a preview of the location on our screens.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 53.39,
+          "end": 54.45,
+          "en": "So that's what we'll do,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 54.45,
+          "end": 60.23,
+          "en": "we'll first of all focus on setting up the Google Maps API or actually APIs that",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 60.23,
+          "end": 66.53,
+          "en": "we will use in this course and as a second step, we will then make sure that we actually add all these",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 66.53,
+          "end": 68.51,
+          "en": "things to the application.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 68.51,
+          "end": 75.44,
+          "en": "Now obviously, this is an example or we're using some service here that is specific to our app but",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 75.44,
+          "end": 81.14,
+          "en": "I thought including Google Maps would be pretty interesting since chances are high that in any app you're",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 81.14,
+          "end": 85.03999999999999,
+          "en": "building, you will need Google Maps or you will use Google Maps.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 85.03999999999999,
+          "end": 87.23,
+          "en": "So let's get started and let's use it in this app.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "13728160",
+      "title": "API Setup",
+      "lectureOrder": 219,
+      "videoOrder": 184,
+      "sourceHash": "0c20d9150ae9fee5bca08b3f29bc6e9425b49f7f092901da79c67a6f49e4d005",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.19,
+          "end": 8.1,
+          "en": "The first thing we want to do is we want to set up our Google Maps API keys because we need a key to",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.1,
+          "end": 10.05,
+          "en": "be able to work with that API,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.05,
+          "end": 16.14,
+          "en": "it is not a public API that we can use without a key. For that, you can search for Google Maps API and",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.14,
+          "end": 21.71,
+          "en": "you'll find a couple of results and you can go to that maps Javascript API.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 21.84,
+          "end": 28.95,
+          "en": "Now on that page here, you can learn basically everything about using the Google Maps Javascript SDK",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 28.98,
+          "end": 35.34,
+          "en": "and API and the SDK is basically the toolset that allows you to write code that displays and manages",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 35.34,
+          "end": 41.73,
+          "en": "the map in your application and the API is what works behind the scenes and to which your Google",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 41.73,
+          "end": 44.67,
+          "en": "Maps Javascript SDK connects automatically,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 44.67,
+          "end": 47.83,
+          "en": "that is why I use these terms interchangeably.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 47.88,
+          "end": 53.21,
+          "en": "So what we'll need to do to use the Javascript SDK is we need to set up an API key.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 53.22,
+          "end": 57.75,
+          "en": "Now let me also emphasize that we'll of course not use everything you find here,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 57.75,
+          "end": 63.69,
+          "en": "we'll actually only use a subset of the features you could use with Google Maps and therefore definitely",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 63.69,
+          "end": 69.57,
+          "en": "check out these docs here if you want to build an application that relies way more on Google maps than",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 69.57,
+          "end": 71.02,
+          "en": "ours does.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 71.03999999999999,
+          "end": 74.78,
+          "en": "So our first step is to get an API key here on the left side",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 75.03,
+          "end": 79.03999999999999,
+          "en": "and for that, here you can see it, you must enable billing.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 79.03999999999999,
+          "end": 85.78999999999999,
+          "en": "Now that is a thing, you need a Google account and you need to enable billing in that account.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 85.8,
+          "end": 89.7,
+          "en": "Now what does this mean, is this API not for free,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 89.7,
+          "end": 91.96000000000001,
+          "en": "can you not use it for free?",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 91.98,
+          "end": 96.69,
+          "en": "Well if you go to that maps Javascript API usage and billing page, you can learn more about that",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 97.11,
+          "end": 98.25999999999999,
+          "en": "and you'll learn that",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 98.34,
+          "end": 105.15,
+          "en": "you basically are built but there is a free quota and that free quota is pretty generous.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 105.15,
+          "end": 108.77000000000001,
+          "en": "So you actually can use the API for free,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 108.78,
+          "end": 115.97999999999999,
+          "en": "for example you get $200 credit every month and that suffices for a lot of requests,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 116.00999999999999,
+          "end": 123.69,
+          "en": "you can see what a request costs down there but it is worth noting that it is generally not for free,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 123.69,
+          "end": 124.88,
+          "en": "you need a Google map.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 124.95,
+          "end": 127.12,
+          "en": "You need a Google account, you need a credit card",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 127.23,
+          "end": 131.94,
+          "en": "and if you don't have that, you unfortunately can't use Google Maps API anymore,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 131.94,
+          "end": 135.08,
+          "en": "you can of course look for alternatives like map box",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 135.18,
+          "end": 136.3,
+          "en": "in this case.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 136.62,
+          "end": 138.9,
+          "en": "So that is the billing part, with that",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 138.9,
+          "end": 143.45,
+          "en": "let's go back here and assuming you have a Google account and you set up billing there,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 143.61,
+          "end": 148.34,
+          "en": "you can get an API key by clicking on get started here under the",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 148.35,
+          "end": 150.93,
+          "en": "get an API key section.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 150.93,
+          "end": 158.52,
+          "en": "This takes us to this page and there you can choose the maps box here and you see which APIs will",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 158.52,
+          "end": 162.15,
+          "en": "now be unlocked and that is the maps Javascript API which we need,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 162.24,
+          "end": 169.56,
+          "en": "it is also the maps static API which we will use as well and we will actually also need the places",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 169.98,
+          "end": 176.12,
+          "en": "box here because we will use that geocoding API as well for converting coordinates into an address,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 176.46,
+          "end": 183,
+          "en": "so make sure to pick these two sections here and continue. Thereafter, you want to choose a project and you",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 183,
+          "end": 189.42,
+          "en": "can actually select your Firebase project here as I did and you have to agree to these terms and now",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 189.42,
+          "end": 191.88,
+          "en": "these APIs will be enabled for you.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 191.88,
+          "end": 197.86,
+          "en": "This now takes you to the developer console where you are prompted for a couple of things",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 198.45,
+          "end": 199.8,
+          "en": "and you're done. Now",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 199.8,
+          "end": 206.4,
+          "en": "this is the API key which you'll have to use when you actually import the Javascript SDK into your project",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 206.91,
+          "end": 209.7,
+          "en": "and that is the part where we will continue in the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "13728162",
+      "title": "Adding a LocationPicker Component",
+      "lectureOrder": 221,
+      "videoOrder": 185,
+      "sourceHash": "c665731e67d952ea2ed8b0a5527d85cbc109a2c723e6b405e33a28e07117fcda",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.15,
+          "end": 4.1,
+          "en": "So we enabled the Google Maps APIs,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.16,
+          "end": 7.61,
+          "en": "let's now add maps to our project.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.64,
+          "end": 13.91,
+          "en": "Now we could grab that import for the Javascript SDK and in our project, we could add that to the",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.92,
+          "end": 14.66,
+          "en": "index.html file",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 14.72,
+          "end": 20.76,
+          "en": "but that would always load the entire Google Maps Javascript SDK even if we're not using it yet",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 20.88,
+          "end": 23.74,
+          "en": "and therefore this is actually not the approach I will use,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 23.81,
+          "end": 27.49,
+          "en": "instead we'll dynamically import this when we need it.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 27.5,
+          "end": 35.3,
+          "en": "So for that, let's go back to our code and there let's plan which kind of components we now need or what",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 35.3,
+          "end": 36.59,
+          "en": "we want to add.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 36.59,
+          "end": 39.26,
+          "en": "Now my goal is that when we create a new offer,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 39.29,
+          "end": 45.78,
+          "en": "so on this new offer page, in the existing form which we already have below our date inputs,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 45.95,
+          "end": 53.18,
+          "en": "I actually want to add a new input, a custom input which allows the user to click on a button let's",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 53.18,
+          "end": 53.83,
+          "en": "say",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 53.99,
+          "end": 56.68,
+          "en": "and later on a preview of the location",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 56.9,
+          "end": 62.96,
+          "en": "and that should open up a modal which presents a map where we can pick a location and later in the next",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 62.96,
+          "end": 68.78,
+          "en": "section where we tap into native device features, we will actually also add an option to autolocate",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 68.81,
+          "end": 69.71000000000001,
+          "en": "the user.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 69.83,
+          "end": 77.12,
+          "en": "So I want to be able to pick a location on a map and therefore, we'll have to add our own form control",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 77.12,
+          "end": 81.77,
+          "en": "so to say, our own component that allows us to do just that",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 82.13,
+          "end": 83.76,
+          "en": "and hence I will add this.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 83.78,
+          "end": 91.58,
+          "en": "So here in my Ionic project, I'll use ionic generate component and generate a new component which we",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 91.58,
+          "end": 98.84,
+          "en": "can use as that form control that allows us to pick a map and I want to store that in let's say the",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 98.84,
+          "end": 103.34,
+          "en": "shared folder and there under pickers and of course, the path is totally up to you",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 103.55,
+          "end": 106.08,
+          "en": "and I'll name this location-picker",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 106.28,
+          "end": 110.93,
+          "en": "and again you can name this however you want and store this wherever you want but in the end, that kind",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 110.93,
+          "end": 116,
+          "en": "of describes what it is and I store it in a shared folder because we could use that application wide in",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 116,
+          "end": 119.27000000000001,
+          "en": "any form where we need a picker for a map.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 119.27000000000001,
+          "end": 125.63,
+          "en": "Now that location picker is in the end the component that should present a button and a preview of the",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 125.63,
+          "end": 130.99,
+          "en": "map snippet we picked later that allows the user to tap and then open up a modal.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 131,
+          "end": 137.05,
+          "en": "Now for the modal that should open up, I'll generate another component and let's say we do that just under",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 137.05,
+          "end": 143.24,
+          "en": "shared here, the map-modal component, that will be the component that holds the actual map and that",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 143.24,
+          "end": 149.9,
+          "en": "opens in a modal and that will be the place where we then also import Google Maps API or that Google",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 149.9,
+          "end": 152.49,
+          "en": "Maps Javascript SDK later.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 152.51,
+          "end": 159.47,
+          "en": "So with these two components added here in the shared folder, let's continue and let's actually start",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 159.47,
+          "end": 165.11,
+          "en": "by ensuring that we open that modal as fast as possible before we then focus on adding the logic for the",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 165.11,
+          "end": 168.02,
+          "en": "user to click there and select the location.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 168.02,
+          "end": 176.98,
+          "en": "So on the location picker here, I'll start really simple by adding a div that should wrap basically",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 177.01,
+          "end": 186.64,
+          "en": "my entire picker logic and in the div here, I want to have an ion-button where I say select location",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 188.49,
+          "end": 198.48,
+          "en": "and that button will receive a color of primary let's say and yes, that doesn't sound too bad.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 198.64,
+          "end": 208.3,
+          "en": "Now when this button gets clicked, I'll fire or I'll trigger the onPickLocation method here and inside",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 208.3,
+          "end": 213.77,
+          "en": "of the button, I actually also want to show an icon let's say, so let's also add an ion-icon here with",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 213.77,
+          "end": 222.67000000000002,
+          "en": "a name of map and the slot should be start so that this is nicely positioned in the button and let's",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 223.32999999999998,
+          "end": 228.43,
+          "en": "wrap the text in an ion-label,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 228.43,
+          "end": 234.52,
+          "en": "not necessarily required but let's still do that to make sure that all the styling works out correctly.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 235.39,
+          "end": 239.21,
+          "en": "So now we added this button with the icon and the label in there,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 239.29,
+          "end": 247.19,
+          "en": "now with that added, we can add the onPickLocation method here to the location picker component and",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 247.21,
+          "end": 252.76,
+          "en": "that should be the method that actually opens up that modal that displays the map thereafter.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 252.76,
+          "end": 258.82,
+          "en": "Now if you want to load a modal or display a modal, you know what that means, we have to inject the modal",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 258.82,
+          "end": 263.37,
+          "en": "controller, modal controller which we import from @ionic/angular,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 263.44,
+          "end": 266.4,
+          "en": "that is what we did before in this application as well",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 266.59,
+          "end": 272.71,
+          "en": "and now here, I will use the modal controller and call create to create a new modal.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 272.71,
+          "end": 279.1,
+          "en": "Here we now need to specify a component that should be loaded and that should be my map modal component",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 279.1,
+          "end": 280.35,
+          "en": "so let's add it here.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 280.39,
+          "end": 285.01,
+          "en": "Now before we continue, of course you need to make sure that you added the import but besides that,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 285.04,
+          "end": 291.04,
+          "en": "we need to make sure that the map modal component is added as an entry component to a module",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 291.04,
+          "end": 297.61,
+          "en": "and speaking of modules, the CLI automatically added the map modal component and the location picker component",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 298.03,
+          "end": 300.31,
+          "en": "to the declarations of the app module.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 300.31,
+          "end": 305.5,
+          "en": "Now that is actually not the place where I want this because I'll not be using the location picker in my",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 305.83,
+          "end": 310.54,
+          "en": "app component which is the only other component declared here and therefore which is the only component",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 310.54,
+          "end": 317.89,
+          "en": "where I could use that, instead I'll remove the declarations from the app module and I'll add a new",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 318.1,
+          "end": 322.45,
+          "en": "shared module here in my shared folder.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 322.45,
+          "end": 328.78,
+          "en": "Now the idea behind the shared modules simply is that I can thereafter import that share module into",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 328.87,
+          "end": 335.14,
+          "en": "any component or any other module that wants to use the location picker or the map modal and that gives",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 335.14,
+          "end": 336.96,
+          "en": "us more flexibility.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 337,
+          "end": 346.42,
+          "en": "So here, I'll export a class, shared module and we should add @NgModule here and in there, we can",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 346.42,
+          "end": 354.82,
+          "en": "now add declarations and I want to add my location picker component and the modal, the map modal component",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 354.82,
+          "end": 355.53,
+          "en": "here",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 355.81,
+          "end": 358.78,
+          "en": "and of course add the imports as well",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 358.78,
+          "end": 362.54,
+          "en": "and now I also want to export that,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 362.56,
+          "end": 368.92,
+          "en": "so the location picker component and the map modal component so that we can use them in any component",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 368.92,
+          "end": 374.86,
+          "en": "or in any modules components that imports that shared module.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 374.86,
+          "end": 381.36,
+          "en": "I also will add entry components here and add the map modal component there and we'll also add an imports",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 381.36,
+          "end": 386.86,
+          "en": "array because I want to be able to use things like ngIf in these components and therefore we need",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 386.86,
+          "end": 395.40999999999997,
+          "en": "to import the common module here from @angular/common. So with all that added, we got the shared module",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 395.40999999999997,
+          "end": 400.84000000000003,
+          "en": "set up and we can now import the shared module in all the other modules where we plan on using the location",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 400.84000000000003,
+          "end": 406.05,
+          "en": "picker or the map modal. With that back to the location picker component,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 406.15,
+          "end": 409,
+          "en": "let's continue working on showing that map modal.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "13728166",
+      "title": "Opening the Map Modal",
+      "lectureOrder": 222,
+      "videoOrder": 186,
+      "sourceHash": "deea30e46800827dd694b221f3dd7302e3cef91783d76ebfc3bdbd13939651a0",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.54,
+          "end": 3.89,
+          "en": "To show that map modal,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.92,
+          "end": 7.27,
+          "en": "we already made our first step,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.31,
+          "end": 12.78,
+          "en": "we can now call then and get our modal element here which we can of course present,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.86,
+          "end": 20.21,
+          "en": "so modal el present like this and this will open our map modal component in a new modal.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 20.66,
+          "end": 22.81,
+          "en": "With that, let's go to the map modal component and",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.87,
+          "end": 27.68,
+          "en": "let's make sure we get something onto the screen there. In the map modal component,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 27.74,
+          "end": 33.5,
+          "en": "I will add an ion-header, I didn't add that to the location picker because that will be a component I",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 33.5,
+          "end": 40.01,
+          "en": "use inside of other components, the map modal component on the other hand should render like a single",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 40.01,
+          "end": 47.48,
+          "en": "page even though it's enclosed in a modal. I want to have a toolbar in there and I'll add a title and",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 47.48,
+          "end": 55.95,
+          "en": "there, I will say pick location and I'll add some buttons here with ion-buttons like this and you see",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 55.95,
+          "end": 58.05,
+          "en": "I'm getting a bunch of errors here.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 58.05,
+          "end": 65.07,
+          "en": "The reason is that in the shared module where I declared the map modal, I'm not importing the Ionic",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 65.07,
+          "end": 68.61,
+          "en": "module which actually unlocks all these Ionic components,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 68.61,
+          "end": 75.81,
+          "en": "so make sure to add the Ionic module import from @ionic/angular to the shared module",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 75.81,
+          "end": 82.11,
+          "en": "and with that added, you'll see that all these errors will magically go away since that unlocks all these",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 82.28999999999999,
+          "end": 84.05,
+          "en": "Ionic components.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 84.06,
+          "end": 90.06,
+          "en": "So now back to the buttons, in the toolbar, I'll add ion-buttons with a slot of primary to add them",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 90.06,
+          "end": 98.00999999999999,
+          "en": "on the right side typically and then, I'll add a button here which will actually say cancel so that when",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 98.00999999999999,
+          "end": 104.07,
+          "en": "we open that modal to pick a location, we can tap on the map to pick a location or we click the cancel",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 104.07,
+          "end": 105.38,
+          "en": "button to get out of there",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 105.5,
+          "end": 109.61,
+          "en": "and of course for that, I'll add a click listener here and call onCancel.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 109.71000000000001,
+          "end": 115.68,
+          "en": "Now after that, I'll add my ion-content here and inside of the ion-content, I'll add a simple div",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 115.97999999999999,
+          "end": 118.94,
+          "en": "which I will actually use to render my map",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 119.07,
+          "end": 126.24,
+          "en": "and for that, I'll give that a class of map and also a local reference of map by which I can later select it",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 126.24,
+          "end": 130.56,
+          "en": "in my Typescript code to interact with that div and render the map there.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 130.68,
+          "end": 136.53,
+          "en": "So let me go back to the map modal component then and first of all, I'll add the onCancel handler here",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 136.56,
+          "end": 143.4,
+          "en": "which is triggered when we click the cancel button in our toolbar and there, I want to close the modal.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 143.49,
+          "end": 149.54,
+          "en": "Now to close that, I need to inject the modal controller here as well,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 149.67000000000002,
+          "end": 150.95,
+          "en": "so let's do just that,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 150.96,
+          "end": 157.05,
+          "en": "let's add the modal controller, import it from @ionic/angular to the map modal component and in onCancel,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 157.06,
+          "end": 161.7,
+          "en": "we can then use this to call dismiss and dismiss this modal here.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 161.7,
+          "end": 166.97,
+          "en": "With that, we got everything to open the modal and dismiss it but we're not displaying a map.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 166.98,
+          "end": 168.84,
+          "en": "Let's preview this nonetheless",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 168.84,
+          "end": 174.96,
+          "en": "and to preview this, we just need to make sure we include the location picker component here with the",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 175.23,
+          "end": 178.72,
+          "en": "app location picker selector in our form,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 178.73,
+          "end": 182.55,
+          "en": "so in the new offer page here and for that",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 182.55,
+          "end": 185.87,
+          "en": "in the new offer module, I will import that shared module,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 185.88,
+          "end": 188.22,
+          "en": "that's the idea of having the shared module,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 188.28,
+          "end": 194.46,
+          "en": "so that now I can use the picker and also the modal if I want to in this component and make sure you have",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 194.46,
+          "end": 202.57,
+          "en": "the right path here which should be a relative path. Now in the new offer page here, I'll add a new",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 202.75,
+          "end": 210.07,
+          "en": "row and a new column of course and that column will receive the same size classes as my other",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 210.07,
+          "end": 212.8,
+          "en": "columns to be in line with them,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 213.32999999999998,
+          "end": 219.97,
+          "en": "so let me add that there and then inside of this ion-column, we can add the app location picker, just",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 219.97,
+          "end": 225.26,
+          "en": "like that. With that, we should be able to see that button, so",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 225.39,
+          "end": 232.47,
+          "en": "let's go back to our application here and let's create a new offer and here's our button and if I tap it, indeed",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 232.59,
+          "end": 237.03,
+          "en": "that modal opens but of course there is no map in there, so time to finally render that.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

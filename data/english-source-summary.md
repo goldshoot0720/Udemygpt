@@ -15,7 +15,7 @@
 | Angular - The Complete Guide | 已完整驗證 | 701／701 | 63,653 | 86 |
 | Next.js & React - The Complete Guide | 已完整驗證 | 417／417 | 46,195 | 64 |
 | Vue - The Complete Guide (incl. Router & Composition API) | 已完整驗證 | 294／294 | 33,933 | 48 |
-| Ionic - Build iOS, Android & Web Apps with Ionic & Angular | 待下載 | 待取得 | 0 | 待準備 |
+| Ionic - Build iOS, Android & Web Apps with Ionic & Angular | 已完整驗證 | 242／242 | 13,917 | 19 |
 | JavaScript - The Complete Guide (Beginner + Advanced) | 待下載 | 待取得 | 0 | 待準備 |
 
 ## 缺少英文字幕的影片

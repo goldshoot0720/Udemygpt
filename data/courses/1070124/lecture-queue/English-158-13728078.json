@@ -1,0 +1,769 @@
+{
+  "version": 1,
+  "courseId": 1070124,
+  "courseSlug": "ionic-2-the-practical-guide-to-building-ios-android-apps",
+  "courseTitle": "Ionic - Build iOS, Android & Web Apps with Ionic & Angular",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "13728078",
+      "title": "Using RxJS Subjects for State Management",
+      "lectureOrder": 190,
+      "videoOrder": 158,
+      "sourceHash": "bfa0ee5fe6e2e8bd9b8ecc00d44cce9b2a69f8265f5fad72db8626f554c04df0",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.28,
+          "end": 7.56,
+          "en": "The problem we're facing currently in the app is that we're not always seeing our latest place and that",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.56,
+          "end": 12.6,
+          "en": "has something to do with a behavior by Ionic pages which I covered earlier in the course.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 12.6,
+          "end": 19.05,
+          "en": "They are cached and therefore, if I reload the app whilst I'm on a new app offer page, the other pages",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 19.05,
+          "end": 25.5,
+          "en": "haven't been visited yet and therefore they're not cached and hence if I add a new place here, we don't",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 25.5,
+          "end": 32.43,
+          "en": "have that problem we have otherwise because now if I submit this, we actually reach these other pages for",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 32.43,
+          "end": 39.54,
+          "en": "the first time and therefore for our offers page and also for the discover page, ngOnInit will",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 39.54,
+          "end": 41.23,
+          "en": "run when we visit them.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 41.28,
+          "end": 48.3,
+          "en": "If we however reload the app whilst we're on this page here, on the discover page and then we go to offers",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 48.3,
+          "end": 50.1,
+          "en": "and then we add a new place,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 50.1,
+          "end": 56.16,
+          "en": "then we have visited both discover and offers and they're both in the cache because we never pop them",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 56.16,
+          "end": 57.87,
+          "en": "off of our page stack,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 57.87,
+          "end": 63.9,
+          "en": "we only added new pages on top and hence when we add a new place here and we come back, we don't see",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 63.9,
+          "end": 69.42,
+          "en": "our place here or here because we're still using the old cached version and therefore ngOnInit",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 69.42,
+          "end": 74.28999999999999,
+          "en": "never runs again and check the routing module in this course if that doesn't tell you anything,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 74.31,
+          "end": 83.28999999999999,
+          "en": "I did cover it there. So we'll have to make sure we fetch our data differently or we handle our updating",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 83.28999999999999,
+          "end": 84.87,
+          "en": "mechanism differently",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 84.87,
+          "end": 89.88,
+          "en": "and in the routing module I just mentioned, I showed you that you can use",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 89.99,
+          "end": 97.87,
+          "en": "ionViewDidEnter and WillEnter to basically control when you fetch data. Here",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 97.99000000000001,
+          "end": 100.41,
+          "en": "I want to use a different approach, an approach",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 100.42,
+          "end": 104.49000000000001,
+          "en": "I would actually recommend over the ionViewDidEnter approach,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 104.65,
+          "end": 107.18,
+          "en": "you can use subjects.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 107.2,
+          "end": 111.55,
+          "en": "Now what's the subject? A subject is an object construct",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 111.55,
+          "end": 118.02000000000001,
+          "en": "you can import from rxjs. Rxjs is a dependency of Angular, you'll find it in your package.json",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 118.03,
+          "end": 124.84,
+          "en": "file, we are using the rxjs package here and this is a package which is all about observables",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 124.87,
+          "end": 131.19,
+          "en": "which in turn is a Javascript construct that is about passing data around in streams of data",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 131.2,
+          "end": 138.07,
+          "en": "you could say. Now attached, you'll find a link to a series I made on YouTube where I explained more",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 138.07,
+          "end": 145.18,
+          "en": "about that. Here we'll use it and one construct rxjs gives us is the so-called subject.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 145.18,
+          "end": 150.85,
+          "en": "Now this is simply an event emitter where in one place we can emit an event and in another place, we",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 150.85,
+          "end": 154.62,
+          "en": "can subscribe to it and then do something when an event occurs",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 154.88,
+          "end": 160.21,
+          "en": "and this allows us to emit events, let's say here in the places service and in the different pages",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 160.21,
+          "end": 165.79,
+          "en": "we have, in ngOnInit, we can set up a subscription and therefore ngOnInit doesn't need to run",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 165.79,
+          "end": 168.93,
+          "en": "again because we only want to have one subscription at a time",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 169.09,
+          "end": 175.63,
+          "en": "but that subscription will keep ongoing even if the page is not visible or if it has been cached and",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 175.63,
+          "end": 180.23,
+          "en": "therefore whenever something changes regarding that subscription and we emit a new place",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 180.25,
+          "end": 183.16,
+          "en": "so to say, we'll get it automatically here.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 183.31,
+          "end": 184.15,
+          "en": "Now that's the theory,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 184.15,
+          "end": 185.37,
+          "en": "let's see it in practice.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 185.92,
+          "end": 194.11,
+          "en": "So for the places service, I will actually replace my places array here or this places object and not",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 194.11,
+          "end": 198.92000000000002,
+          "en": "just store an array in there but instead, a new behavior subject.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 199.09,
+          "end": 204,
+          "en": "Now behavior subject is a construct imported from that rxjs package",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 204.01,
+          "end": 209.77,
+          "en": "I just mentioned. It's a special kind of subject that is exactly that event emitter that I described",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 210.1,
+          "end": 217.63,
+          "en": "but that when we subscribe to it, always gives us the latest previously emitted value, so that we basically",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 217.63,
+          "end": 219.97,
+          "en": "get the most recent data point",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 220.06,
+          "end": 225.4,
+          "en": "even if we set up a new subscription instead of just future events because if we're listening to our",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 225.4,
+          "end": 232.94,
+          "en": "places, we immediately want to have a current list and not just future updates. Behavior subject is",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 232.94,
+          "end": 234.93,
+          "en": "created here with a constructor function,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 234.98,
+          "end": 239.81,
+          "en": "it's a so-called generic type which simply means that in Typescript, we can add these angled brackets",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 239.81,
+          "end": 245.83,
+          "en": "here to describe which kind of data it will eventually give us and that will be that array of places.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 245.87,
+          "end": 251.81,
+          "en": "So you add this type annotation in these angled brackets and you therefore remove it here because the",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 251.81,
+          "end": 258.71,
+          "en": "type of places now is behavior subject which will eventually give us an array of places. And that array",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 258.71,
+          "end": 260.81,
+          "en": "of starting places we had here,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 260.84,
+          "end": 267.95,
+          "en": "well you can just cut that and add as an argument to the behavior subject constructor here. With that,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 267.95,
+          "end": 274.56,
+          "en": "we're creating a new behavior subject that will start with our default list of places. Now when we add",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 274.56,
+          "end": 281.47,
+          "en": "a new place, here we don't push it to the places array because places is no longer an array,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 281.5,
+          "end": 289.55,
+          "en": "instead that is our behavior subject and there, we instead call next and next emits a new event. That",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 289.55,
+          "end": 292.15,
+          "en": "new event will basically be our new data",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 292.19,
+          "end": 298.43,
+          "en": "and of course that should be our old array of places with that new place added to it",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 298.67,
+          "end": 302.57,
+          "en": "and for that, we first of all need to get our current array of places",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 302.57,
+          "end": 308,
+          "en": "and for this, we can change our getter here because we are not returning a copy of this places",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 308.03,
+          "end": 310.46,
+          "en": "because this places is a subject now,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 310.73,
+          "end": 315.96,
+          "en": "instead here we return this places as observable and",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 315.97,
+          "end": 322.04,
+          "en": "this simply gives us a subscribable object, so that from outside we can subscribe to places,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 322.04,
+          "end": 327.44,
+          "en": "this will however not allow us to emit new events, so new events can only be emitted here by directly",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 327.44,
+          "end": 332.6,
+          "en": "accessing the subject, not by accessing the observable we're returning here.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 332.6,
+          "end": 335.89,
+          "en": "So this is really just the subscription-only part of the subject",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 335.9,
+          "end": 339.45,
+          "en": "you could say. Now we can get our places here therefore,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 339.45,
+          "end": 344.9,
+          "en": "so this places without the underscore gives us that subscribable part, though we could also use",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 344.93,
+          "end": 353.65999999999997,
+          "en": "underscore, _places has both the emittable part with next and subscribable part with subscribe",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 354.17,
+          "end": 360.26,
+          "en": "but we can also use the non-underscore version which is just that subscribable part. So subscribe works",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 360.26,
+          "end": 360.71,
+          "en": "here,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 360.71,
+          "end": 362.51,
+          "en": "next would not work here.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 362.75,
+          "end": 368.75,
+          "en": "Now enough of the talking, I can subscribe here and in that subscribe function, I pass another function",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 368.75,
+          "end": 374.9,
+          "en": "as an argument which will execute whenever we set up the subscription because it's a behavior subject",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 374.9,
+          "end": 380.33,
+          "en": "and we therefore get the latest value and whenever a new value is emitted.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 380.42,
+          "end": 384.2,
+          "en": "Now of course, I don't want to get all future updates,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 384.29,
+          "end": 390.23,
+          "en": "I only want to get the current array of places in here and for this, we can use yet another rxjs",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 390.27,
+          "end": 397.76,
+          "en": "concept which are operators. Operators allow us to perform certain operations on our observables and",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 397.76,
+          "end": 404.81,
+          "en": "the subject is just an observable. We add such operators by calling the pipe method which exists on every",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 404.81,
+          "end": 407.54,
+          "en": "observable and therefore also on the subject",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 407.54,
+          "end": 414.92,
+          "en": "and here we can add as many operators as we want and I will add the take operator here which we need",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 414.92,
+          "end": 423.53,
+          "en": "to import, up here we import take from rxjs/operators. So you add this import at the",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 423.53,
+          "end": 424.43,
+          "en": "top,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 424.43,
+          "end": 427.32,
+          "en": "so it's also coming from that rxjs package",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 427.52,
+          "end": 431.51,
+          "en": "and then here, we can call take one",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 431.58,
+          "end": 432.72,
+          "en": "and what this means,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 432.72,
+          "end": 438.66,
+          "en": "I know it looks strange initially but what this means is please have a look at my places subject which",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 438.66,
+          "end": 446.16,
+          "en": "is this thing up there which in the end holds or wraps our array of places and please subscribe to it",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 446.88,
+          "end": 452.04,
+          "en": "but only take one object and then automatically cancel the description",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 452.04,
+          "end": 458.07,
+          "en": "so that I only get the current latest list of places and I don't listen to future places.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 458.07,
+          "end": 463.68,
+          "en": "Therefore here in this function I pass to subscribe, we get that places array and places here is now",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 463.68,
+          "end": 468.93,
+          "en": "not my places property but a local variable or an argument that I can use inside of this function",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 468.93,
+          "end": 470.51,
+          "en": "passed to subscribe",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 470.85,
+          "end": 473.40999999999997,
+          "en": "and in there, I can therefore now call",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 473.42,
+          "end": 481.53,
+          "en": "this places next and basically emit places which is now just an array of places where I can call concat",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 481.56,
+          "end": 485.71,
+          "en": "to add a new place on it and that would be my new place.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 485.76,
+          "end": 492,
+          "en": "Now concat is a default Javascript array method which takes the old array on which we call it, adds",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 492,
+          "end": 496.41,
+          "en": "a new place and returns a new array and that new array is what we then emit",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 496.47,
+          "end": 502.56,
+          "en": "with the help of next. I know that this whole observable stuff can be really intimidating and therefore",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 502.56,
+          "end": 504.81,
+          "en": "definitely check out that attached",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 505.05,
+          "end": 510.33,
+          "en": "series I mentioned if you want to learn more about that, it does in the end allow us to write very elegant",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 510.33,
+          "end": 516.22,
+          "en": "code that ensures that our application stays in sync and is updated correctly everywhere.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 516.24,
+          "end": 521.34,
+          "en": "Now of course, we're not done yet though, I'm emitting a new event where I take my old places into account",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 521.64,
+          "end": 523.17,
+          "en": "and we've got a couple of errors here,",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 523.17,
+          "end": 530.01,
+          "en": "for example when I find a specific place and I also of course need to subscribe to that in the parts",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 530.01,
+          "end": 531,
+          "en": "of my application,",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 531.09,
+          "end": 536.82,
+          "en": "so in the components and pages that need our place array and we'll finish all that up in the next",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 536.82,
+          "end": 537.21,
+          "en": "lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
