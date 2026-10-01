@@ -50,7 +50,7 @@ def main():
         source, translated = load(item["sourceFile"]), load(args.file)
         if verify(source, translated) != {args.id}:
             raise ValueError("Result must contain exactly the requested lecture")
-        target = ROOT / f"data/ChatGPT-{args.id}.zh-TW.json"
+        target = ROOT / f"data/tw-{int(item['lectureOrder']):03d}.json"
         target.write_text(json.dumps(translated, ensure_ascii=False, indent=2), encoding="utf-8")
         item.update(status="verified", translationFile=str(target), verifiedCues=len(translated["lectures"][0]["cues"]))
     elif args.action == "imported":
