@@ -1,0 +1,1871 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "39499488",
+      "title": "Optimistic Updating",
+      "sourceHash": "3b1457ce47502c24c6278cccc4e3fb99a6e09dc346ac3858e9acd69c5cb78bc1",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.33,
+          "end": 2.52,
+          "en": "So as I showed you in the last lecture,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 2.52,
+          "end": 4.23,
+          "en": "our current updating approach",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 4.23,
+          "end": 7.14,
+          "en": "has the problem that whilst it works,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.14,
+          "end": 9.6,
+          "en": "we're not reflecting the updated state",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 9.6,
+          "end": 11.22,
+          "en": "on the page we're coming from",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 11.22,
+          "end": 12.903,
+          "en": "unless we reload it.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 13.98,
+          "end": 16.17,
+          "en": "Now, earlier in this course",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 16.17,
+          "end": 18.99,
+          "en": "you learned that one way of making this work",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 18.99,
+          "end": 20.43,
+          "en": "and of fixing this",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 20.43,
+          "end": 25.43,
+          "en": "would be to call query client invalidate queries here",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 25.44,
+          "end": 29.16,
+          "en": "and invalidate all the queries that need that data.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 29.16,
+          "end": 31.68,
+          "en": "And that would work here as well.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 31.68,
+          "end": 33.96,
+          "en": "But in that case, you should also wait",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 33.96,
+          "end": 35.4,
+          "en": "with navigating away",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 35.4,
+          "end": 37.53,
+          "en": "until this mutation is done",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 37.53,
+          "end": 39.66,
+          "en": "and you should show a loading spinner",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 39.66,
+          "end": 40.92,
+          "en": "on this added page",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 40.92,
+          "end": 43.983,
+          "en": "whilst you are waiting for the mutation to succeed.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 44.91,
+          "end": 47.64,
+          "en": "And that's not how I want to build this here.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 47.64,
+          "end": 49.98,
+          "en": "Instead here I want to do something",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 49.98,
+          "end": 53.07,
+          "en": "which is called optimistic updating.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 53.07,
+          "end": 54.93,
+          "en": "If I confirm and update here,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 54.93,
+          "end": 57.15,
+          "en": "by pressing this update button,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 57.15,
+          "end": 61.29,
+          "en": "I want to update this UI here instantly",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 61.29,
+          "end": 65.52,
+          "en": "without waiting for the response of my backend.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 65.52,
+          "end": 69.09,
+          "en": "And if my backend then turns out to fail,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 69.09,
+          "end": 71.91,
+          "en": "if the update fails for whatever reason,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 71.91,
+          "end": 73.8,
+          "en": "I simply want to roll back",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 73.8,
+          "end": 76.203,
+          "en": "the optimistic update I performed.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 77.22,
+          "end": 80.43,
+          "en": "And this is a pattern or an approach",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 80.43,
+          "end": 85.43,
+          "en": "that's relatively easy to implement with React Query.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 85.44,
+          "end": 88.32,
+          "en": "And it all starts by adding a new property",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 88.32,
+          "end": 92.25,
+          "en": "to this use mutation configuration object.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 92.25,
+          "end": 95.43,
+          "en": "And that's the on mutate property,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 95.43,
+          "end": 98.283,
+          "en": "which wants a function as a value.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 99.45,
+          "end": 102.15,
+          "en": "On mutate, so this function here,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 102.15,
+          "end": 106.05,
+          "en": "will be executed right when you call mutate.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 106.05,
+          "end": 108.66,
+          "en": "So before this process is done,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 108.66,
+          "end": 111.84,
+          "en": "before you got back a response.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 111.84,
+          "end": 114.15,
+          "en": "And it's here in on mutate",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 114.15,
+          "end": 117.094,
+          "en": "where I essentially wanna update the data",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 117.094,
+          "end": 120.84,
+          "en": "that's cached by React Query",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 120.84,
+          "end": 123.78,
+          "en": "where I wanna update this detail data",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 123.78,
+          "end": 126.633,
+          "en": "that's stored behind the scenes, so to say.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 128.01,
+          "end": 133.01,
+          "en": "And this can be done by importing query client from http.js,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 135.93,
+          "end": 139.14,
+          "en": "because as you already saw before in this section",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 139.14,
+          "end": 141.24,
+          "en": "through this query client",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 141.24,
+          "end": 145.23,
+          "en": "you can essentially interact with React Query",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 145.23,
+          "end": 148.53,
+          "en": "and tell it to invalidate queries",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 148.53,
+          "end": 150.63,
+          "en": "or as you will see now,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 150.63,
+          "end": 154.11,
+          "en": "to change the cached data.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 154.11,
+          "end": 158.49,
+          "en": "And therefore, here in this on mutate function",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 158.49,
+          "end": 162.15,
+          "en": "we should start by getting the currently stored data",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 162.15,
+          "end": 166.47,
+          "en": "so that we can then manipulate and edit it.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 166.47,
+          "end": 170.19,
+          "en": "And therefore, here in this on mutate function,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 170.19,
+          "end": 172.59,
+          "en": "we can use query client",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 172.59,
+          "end": 175.38,
+          "en": "and then call set query data",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 175.38,
+          "end": 179.73,
+          "en": "to manipulate that already stored data",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 179.73,
+          "end": 182.073,
+          "en": "without waiting for a response.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 182.91,
+          "end": 186.21,
+          "en": "Normally it's manipulated by React Query",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 186.21,
+          "end": 189.72,
+          "en": "whenever you got a new response that's being cached.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 189.72,
+          "end": 191.58,
+          "en": "But you can also manipulate",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 191.58,
+          "end": 193.65,
+          "en": "that stored data yourself",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 193.65,
+          "end": 195.96,
+          "en": "by calling set query data.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 195.96,
+          "end": 197.733,
+          "en": "And that's what we're doing here.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 198.9,
+          "end": 203.07,
+          "en": "Now, set query data then needs two arguments.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 203.07,
+          "end": 205.56,
+          "en": "And the first argument is the key",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 205.56,
+          "end": 207.963,
+          "en": "of the query that you do want to edit.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 209.04,
+          "end": 212.7,
+          "en": "In this case it's events params ID",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 212.7,
+          "end": 217.19,
+          "en": "because it was a specific event that I edited it.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 217.19,
+          "end": 218.97,
+          "en": "It is therefore the data",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 218.97,
+          "end": 222.27,
+          "en": "that's stored for that event by React Query",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 222.27,
+          "end": 224.01,
+          "en": "which I wanna manipulate here",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 224.01,
+          "end": 226.143,
+          "en": "without waiting for the response.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 227.91,
+          "end": 232.8,
+          "en": "The second argument then is the new data you wanna store",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 232.8,
+          "end": 234.9,
+          "en": "under that query key.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 234.9,
+          "end": 237.18,
+          "en": "And here in this scenario,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 237.18,
+          "end": 238.71,
+          "en": "in this component,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 238.71,
+          "end": 241.86,
+          "en": "that would simply be that data",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 241.86,
+          "end": 244.17,
+          "en": "which I also sent to my backend,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 244.17,
+          "end": 246.303,
+          "en": "this updated event data.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 247.83,
+          "end": 251.04,
+          "en": "Now thankfully getting this here in on mutate",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 251.04,
+          "end": 252.66,
+          "en": "is pretty simple",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 252.66,
+          "end": 257.66,
+          "en": "because React Query actually passes this data,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 258.21,
+          "end": 260.85,
+          "en": "which you passed to mutate,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 260.85,
+          "end": 263.55,
+          "en": "as a value to on mutate.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 263.55,
+          "end": 266.19,
+          "en": "So you automatically get that data",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 266.19,
+          "end": 270.093,
+          "en": "which you did submit to the backend as input here.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 271.38,
+          "end": 273.42,
+          "en": "Now that data, which I did submit,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 273.42,
+          "end": 275.25,
+          "en": "had an ID property",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 275.25,
+          "end": 277.113,
+          "en": "and then the updated event.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 278.04,
+          "end": 280.8,
+          "en": "And it's this updated event I'm interested here,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 280.8,
+          "end": 283.14,
+          "en": "so therefore, my new event,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 283.14,
+          "end": 285.12,
+          "en": "which I also sent to the backend,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 285.12,
+          "end": 290.12,
+          "en": "is data.event accessing this property here.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 292.68,
+          "end": 296.823,
+          "en": "So that's the new data I wanna set for this query key.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 298.29,
+          "end": 299.97,
+          "en": "So this will manipulate",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 299.97,
+          "end": 301.44,
+          "en": "the data behind the scenes",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 301.44,
+          "end": 304.38,
+          "en": "without waiting for a response.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 304.38,
+          "end": 308.46,
+          "en": "But that's not all I want to do here in on mutate.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 308.46,
+          "end": 311.1,
+          "en": "Another thing you should typically do",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 311.1,
+          "end": 313.62,
+          "en": "when performing optimistic updating,",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 313.62,
+          "end": 315.27,
+          "en": "like we are doing it here,",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 315.27,
+          "end": 318,
+          "en": "is that you should also use to query client",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 318,
+          "end": 323,
+          "en": "to cancel all active queries for a specific key",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 323.43,
+          "end": 326.28,
+          "en": "by passing an object to cancel queries,",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 326.28,
+          "end": 328.32,
+          "en": "and then setting a query key",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 328.32,
+          "end": 330.78,
+          "en": "for which you want to cancel queries.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 330.78,
+          "end": 333.87,
+          "en": "And in my case, it's that same query key.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 333.87,
+          "end": 335.37,
+          "en": "With this line of code",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 335.37,
+          "end": 336.65999999999997,
+          "en": "we're making sure",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 336.65999999999997,
+          "end": 340.65,
+          "en": "that if we had any outgoing queries for that key,",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 340.65,
+          "end": 343.71,
+          "en": "those queries would be canceled",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 343.71,
+          "end": 346.74,
+          "en": "and we would not have clashing response data",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 346.74,
+          "end": 348,
+          "en": "from those queries",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 348,
+          "end": 350.95,
+          "en": "and our optimistically updated query data",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 352.92,
+          "end": 356.4,
+          "en": "because if those ongoing queries finished",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 356.4,
+          "end": 358.89,
+          "en": "before the updating request was done,",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 358.89,
+          "end": 361.35,
+          "en": "we would've fetched old data again",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 361.35,
+          "end": 362.853,
+          "en": "and we don't wanna do that.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 364.23,
+          "end": 366.27,
+          "en": "Now this actually returns a promise",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 366.27,
+          "end": 367.65,
+          "en": "which we want to await.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 367.65,
+          "end": 369.57,
+          "en": "And in order to use await here",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 369.57,
+          "end": 372.873,
+          "en": "we should add async here in front of this function.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 374.34,
+          "end": 377.16,
+          "en": "So with that, we're canceling ongoing queries",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 377.16,
+          "end": 378.54,
+          "en": "for this data",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 378.54,
+          "end": 380.373,
+          "en": "and we're setting our own data.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 381.27,
+          "end": 382.103,
+          "en": "By the way,",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 382.103,
+          "end": 384.6,
+          "en": "cancel queries will not cancel the mutation",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 384.6,
+          "end": 387.06,
+          "en": "it will really only cancel queries",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 387.06,
+          "end": 388.83299999999997,
+          "en": "triggered with use query.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 390.72,
+          "end": 392.37,
+          "en": "And with that, if you do that,",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 392.37,
+          "end": 394.32,
+          "en": "if you save this",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 394.32,
+          "end": 395.73,
+          "en": "and you edit this",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 395.73,
+          "end": 398.82,
+          "en": "and I remove those exclamation marks",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 398.82,
+          "end": 400.05,
+          "en": "and I click update,",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 400.05,
+          "end": 402.93,
+          "en": "you see they're gone here immediately",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 402.93,
+          "end": 407.52,
+          "en": "because we edited that query data behind the scenes",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 407.52,
+          "end": 411.03,
+          "en": "and that therefore was reflected automatically",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 411.03,
+          "end": 413.463,
+          "en": "by React Query in the UI.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 414.81,
+          "end": 417.06,
+          "en": "But that's not all we should do",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 417.06,
+          "end": 420.18,
+          "en": "when performing optimistic updating",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 420.18,
+          "end": 421.35,
+          "en": "because of course",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 421.35,
+          "end": 425.07,
+          "en": "the updating process on the backend could fail.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 425.07,
+          "end": 429.243,
+          "en": "And in that case, we would now have outdated data here.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 430.11,
+          "end": 433.59,
+          "en": "For example, if I delete the entire title,",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 433.59,
+          "end": 435.03,
+          "en": "now it's updated here,",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 435.03,
+          "end": 437.82,
+          "en": "but if I reload it's actually back",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 437.82,
+          "end": 440.73,
+          "en": "because my backend code blocks this,",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 440.73,
+          "end": 444.543,
+          "en": "my backend code does require an input for every field.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 445.53,
+          "end": 446.91,
+          "en": "So we wanna make sure",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 446.91,
+          "end": 450.36,
+          "en": "that we roll back our optimistic update",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 450.36,
+          "end": 453.24,
+          "en": "if it does fail on the backend.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 453.24,
+          "end": 455.313,
+          "en": "And currently that's not happening.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 456.45,
+          "end": 459.42,
+          "en": "So to make sure that we can roll back,",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 459.42,
+          "end": 462.24,
+          "en": "we also need to get the old data",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 462.24,
+          "end": 464.85,
+          "en": "and store that old data somewhere",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 464.85,
+          "end": 469.08,
+          "en": "so that we can roll back to that old data.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 469.08,
+          "end": 472.233,
+          "en": "And we should do that before we update the data.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 473.34000000000003,
+          "end": 477.24,
+          "en": "Now, query client also has a solution for that.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 477.24,
+          "end": 480.48,
+          "en": "It also has a get query data method",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 480.48,
+          "end": 484.23,
+          "en": "which gives us the currently stored query data,",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 484.23,
+          "end": 486.06,
+          "en": "which we of course want to execute",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 486.06,
+          "end": 488.163,
+          "en": "before we set it to some new data.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 489.27,
+          "end": 493.71,
+          "en": "Now get query data simply wants the key of the query",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 493.71,
+          "end": 496.14,
+          "en": "for which we want to get the data.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 496.14,
+          "end": 499.74,
+          "en": "And with that here I get my previous event.",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 499.74,
+          "end": 502.11,
+          "en": "So the old event data.",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 502.11,
+          "end": 504.663,
+          "en": "That's what I get with get query data.",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 506.04,
+          "end": 508.56,
+          "en": "And now we wanna roll back to that event",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 508.56,
+          "end": 511.173,
+          "en": "if our update mutation failed.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 512.7,
+          "end": 513.69,
+          "en": "Now to do that,",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 513.69,
+          "end": 515.52,
+          "en": "we can add another property",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 515.52,
+          "end": 519.06,
+          "en": "to this use mutation configuration object",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 519.06,
+          "end": 521.67,
+          "en": "and that's the on error property,",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 521.67,
+          "end": 523.32,
+          "en": "which also wants a function",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 523.32,
+          "end": 524.82,
+          "en": "which will be executed",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 524.82,
+          "end": 527.34,
+          "en": "if this update mutation errors,",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 527.34,
+          "end": 528.693,
+          "en": "so if it fails.",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 530.58,
+          "end": 534.51,
+          "en": "Now on error conveniently receives a couple of inputs",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 534.51,
+          "end": 538.32,
+          "en": "that are passed in automatically by React Query.",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 538.32,
+          "end": 540.54,
+          "en": "It receives the error object",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 540.54,
+          "end": 542.04,
+          "en": "with which it failed,",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 542.04,
+          "end": 545.91,
+          "en": "the data which was submitted to the mutation,",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 545.91,
+          "end": 547.8,
+          "en": "and a context object",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 547.8,
+          "end": 549.16,
+          "en": "which will become important",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 550.59,
+          "end": 552.81,
+          "en": "because it's this context object",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 552.81,
+          "end": 556.083,
+          "en": "which can contain this previous event.",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 557.16,
+          "end": 559.77,
+          "en": "Now, in order for this previous event",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 559.77,
+          "end": 561.75,
+          "en": "to be part of this context,",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 561.75,
+          "end": 564.9,
+          "en": "we should return an object here",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 564.9,
+          "end": 567.69,
+          "en": "in this on mutate function",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 567.69,
+          "end": 569.88,
+          "en": "because it's actually this object",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 569.88,
+          "end": 572.103,
+          "en": "that will be this context here.",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 573.15,
+          "end": 577.633,
+          "en": "So in here, we can then add a previous event key",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 578.73,
+          "end": 581.49,
+          "en": "and store this previous event under this key",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 581.49,
+          "end": 583.443,
+          "en": "and hence use this shortcut.",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 584.46,
+          "end": 588.33,
+          "en": "And now context will be this object, essentially,",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 588.33,
+          "end": 591.3,
+          "en": "and will contain this key most importantly,",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 591.3,
+          "end": 594.87,
+          "en": "which we can therefore use to access this previous event",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 594.87,
+          "end": 597.45,
+          "en": "inside of this on error function,",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 597.45,
+          "end": 599.013,
+          "en": "so if we have an error.",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 600,
+          "end": 602.22,
+          "en": "And then here in on error",
+          "zh": ""
+        },
+        {
+          "id": 204,
+          "start": 602.22,
+          "end": 607.22,
+          "en": "we can call query client set query data, again,",
+          "zh": ""
+        },
+        {
+          "id": 205,
+          "start": 607.47,
+          "end": 610.59,
+          "en": "to again manually update the stored data",
+          "zh": ""
+        },
+        {
+          "id": 206,
+          "start": 610.59,
+          "end": 612.873,
+          "en": "for this query with this key.",
+          "zh": ""
+        },
+        {
+          "id": 207,
+          "start": 613.92,
+          "end": 616.38,
+          "en": "But now we're of course setting it back",
+          "zh": ""
+        },
+        {
+          "id": 208,
+          "start": 616.38,
+          "end": 617.64,
+          "en": "to that old event",
+          "zh": ""
+        },
+        {
+          "id": 209,
+          "start": 617.64,
+          "end": 619.35,
+          "en": "which was previously stored",
+          "zh": ""
+        },
+        {
+          "id": 210,
+          "start": 619.35,
+          "end": 622.233,
+          "en": "with context.previous event.",
+          "zh": ""
+        },
+        {
+          "id": 211,
+          "start": 624.54,
+          "end": 629.07,
+          "en": "And with that, we're rolling back this optimistic update",
+          "zh": ""
+        },
+        {
+          "id": 212,
+          "start": 629.07,
+          "end": 630.963,
+          "en": "if the mutation fails.",
+          "zh": ""
+        },
+        {
+          "id": 213,
+          "start": 631.95,
+          "end": 633.96,
+          "en": "So if we now save this,",
+          "zh": ""
+        },
+        {
+          "id": 214,
+          "start": 633.96,
+          "end": 635.49,
+          "en": "and I reload",
+          "zh": ""
+        },
+        {
+          "id": 215,
+          "start": 635.49,
+          "end": 636.84,
+          "en": "and I edit this",
+          "zh": ""
+        },
+        {
+          "id": 216,
+          "start": 636.84,
+          "end": 641.37,
+          "en": "and I try to update this by removing the title,",
+          "zh": ""
+        },
+        {
+          "id": 217,
+          "start": 641.37,
+          "end": 644.28,
+          "en": "you see this did not work.",
+          "zh": ""
+        },
+        {
+          "id": 218,
+          "start": 644.28,
+          "end": 648.48,
+          "en": "It very briefly went to a state without a title",
+          "zh": ""
+        },
+        {
+          "id": 219,
+          "start": 648.48,
+          "end": 651.45,
+          "en": "but it's almost impossible to see because it's so fast.",
+          "zh": ""
+        },
+        {
+          "id": 220,
+          "start": 651.45,
+          "end": 654.72,
+          "en": "But then it reinserts the title.",
+          "zh": ""
+        },
+        {
+          "id": 221,
+          "start": 654.72,
+          "end": 658.47,
+          "en": "It's a bit easier to see if you, again, throttle this.",
+          "zh": ""
+        },
+        {
+          "id": 222,
+          "start": 658.47,
+          "end": 660.123,
+          "en": "Now, if I delete this,",
+          "zh": ""
+        },
+        {
+          "id": 223,
+          "start": 661.53,
+          "end": 663.66,
+          "en": "you see the title is gone",
+          "zh": ""
+        },
+        {
+          "id": 224,
+          "start": 663.66,
+          "end": 666.57,
+          "en": "but then it's rolled back, it's re-added",
+          "zh": ""
+        },
+        {
+          "id": 225,
+          "start": 666.57,
+          "end": 669.813,
+          "en": "because we have the rollback process in place.",
+          "zh": ""
+        },
+        {
+          "id": 226,
+          "start": 671.1,
+          "end": 674.19,
+          "en": "Now, in addition is one other last thing",
+          "zh": ""
+        },
+        {
+          "id": 227,
+          "start": 674.19,
+          "end": 675.54,
+          "en": "which you should also do",
+          "zh": ""
+        },
+        {
+          "id": 228,
+          "start": 675.54,
+          "end": 678.03,
+          "en": "when performing optimistic updating.",
+          "zh": ""
+        },
+        {
+          "id": 229,
+          "start": 678.03,
+          "end": 681.12,
+          "en": "And that's another property that should be added",
+          "zh": ""
+        },
+        {
+          "id": 230,
+          "start": 681.12,
+          "end": 684.81,
+          "en": "to this use mutation configuration object,",
+          "zh": ""
+        },
+        {
+          "id": 231,
+          "start": 684.81,
+          "end": 687,
+          "en": "the unsettled property,",
+          "zh": ""
+        },
+        {
+          "id": 232,
+          "start": 687,
+          "end": 690.213,
+          "en": "which also wants a function as a value.",
+          "zh": ""
+        },
+        {
+          "id": 233,
+          "start": 691.41,
+          "end": 694.14,
+          "en": "Now unsettled will simply be called",
+          "zh": ""
+        },
+        {
+          "id": 234,
+          "start": 694.14,
+          "end": 696.48,
+          "en": "whenever this mutation is done,",
+          "zh": ""
+        },
+        {
+          "id": 235,
+          "start": 696.48,
+          "end": 699.303,
+          "en": "no matter if it failed or succeeded.",
+          "zh": ""
+        },
+        {
+          "id": 236,
+          "start": 700.47,
+          "end": 701.91,
+          "en": "And in that case,",
+          "zh": ""
+        },
+        {
+          "id": 237,
+          "start": 701.91,
+          "end": 705.36,
+          "en": "just to be sure that you really got the same data",
+          "zh": ""
+        },
+        {
+          "id": 238,
+          "start": 705.36,
+          "end": 708.54,
+          "en": "in your front end as you have on your backend.",
+          "zh": ""
+        },
+        {
+          "id": 239,
+          "start": 708.54,
+          "end": 711.81,
+          "en": "You should also, again use query client",
+          "zh": ""
+        },
+        {
+          "id": 240,
+          "start": 711.81,
+          "end": 714.633,
+          "en": "to invalidate your queries.",
+          "zh": ""
+        },
+        {
+          "id": 241,
+          "start": 715.71,
+          "end": 717.33,
+          "en": "Of course, not all of them,",
+          "zh": ""
+        },
+        {
+          "id": 242,
+          "start": 717.33,
+          "end": 721.02,
+          "en": "but in this case simply all the events queries",
+          "zh": ""
+        },
+        {
+          "id": 243,
+          "start": 721.02,
+          "end": 723.24,
+          "en": "or maybe all the events queries",
+          "zh": ""
+        },
+        {
+          "id": 244,
+          "start": 723.24,
+          "end": 726.15,
+          "en": "that use this specific parameter,",
+          "zh": ""
+        },
+        {
+          "id": 245,
+          "start": 726.15,
+          "end": 728.31,
+          "en": "this specific ID.",
+          "zh": ""
+        },
+        {
+          "id": 246,
+          "start": 728.31,
+          "end": 732.54,
+          "en": "So all the event queries for this specific ID.",
+          "zh": ""
+        },
+        {
+          "id": 247,
+          "start": 732.54,
+          "end": 736.65,
+          "en": "And with this line and this property added here",
+          "zh": ""
+        },
+        {
+          "id": 248,
+          "start": 736.65,
+          "end": 738.15,
+          "en": "you simply make sure",
+          "zh": ""
+        },
+        {
+          "id": 249,
+          "start": 738.15,
+          "end": 740.67,
+          "en": "that whenever this mutation finished,",
+          "zh": ""
+        },
+        {
+          "id": 250,
+          "start": 740.67,
+          "end": 743.91,
+          "en": "even though you did perform this optimistic updating",
+          "zh": ""
+        },
+        {
+          "id": 251,
+          "start": 743.91,
+          "end": 747.09,
+          "en": "and you rolled back if things went wrong,",
+          "zh": ""
+        },
+        {
+          "id": 252,
+          "start": 747.09,
+          "end": 749.31,
+          "en": "you still make sure that you fetched",
+          "zh": ""
+        },
+        {
+          "id": 253,
+          "start": 749.31,
+          "end": 751.26,
+          "en": "the latest data from the backend",
+          "zh": ""
+        },
+        {
+          "id": 254,
+          "start": 751.26,
+          "end": 754.56,
+          "en": "so that if the backend did something different",
+          "zh": ""
+        },
+        {
+          "id": 255,
+          "start": 754.56,
+          "end": 757.02,
+          "en": "and the data would be out of sync",
+          "zh": ""
+        },
+        {
+          "id": 256,
+          "start": 757.02,
+          "end": 759.51,
+          "en": "between backend and front end right now",
+          "zh": ""
+        },
+        {
+          "id": 257,
+          "start": 759.51,
+          "end": 763.62,
+          "en": "it gets back into sync by forcing React Query",
+          "zh": ""
+        },
+        {
+          "id": 258,
+          "start": 763.62,
+          "end": 766.053,
+          "en": "to refetch the data behind the scenes.",
+          "zh": ""
+        },
+        {
+          "id": 259,
+          "start": 767.04,
+          "end": 769.26,
+          "en": "And with that, you got a good working",
+          "zh": ""
+        },
+        {
+          "id": 260,
+          "start": 769.26,
+          "end": 772.08,
+          "en": "optimistic updating strategy in place",
+          "zh": ""
+        },
+        {
+          "id": 261,
+          "start": 772.08,
+          "end": 773.52,
+          "en": "and you can now provide",
+          "zh": ""
+        },
+        {
+          "id": 262,
+          "start": 773.52,
+          "end": 776.46,
+          "en": "this nice user experience to your users",
+          "zh": ""
+        },
+        {
+          "id": 263,
+          "start": 776.46,
+          "end": 779.67,
+          "en": "where they don't have to stare at some loading spinner,",
+          "zh": ""
+        },
+        {
+          "id": 264,
+          "start": 779.67,
+          "end": 781.77,
+          "en": "but instead any changes they make",
+          "zh": ""
+        },
+        {
+          "id": 265,
+          "start": 781.77,
+          "end": 784.713,
+          "en": "are instantly reflected on your page.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

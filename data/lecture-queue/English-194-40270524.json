@@ -1,0 +1,1080 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "40270524",
+      "title": "Avoiding Component Function Executions with memo()",
+      "sourceHash": "994214e87319743bc6cb758ece006befa4edce27a08f4a6b83544f4c6d33276a",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.51,
+          "end": 4.56,
+          "en": "So how can we optimize a React application",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.56,
+          "end": 9.18,
+          "en": "with that knowledge of how different components are related",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.18,
+          "end": 11.49,
+          "en": "and are being executed?",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.49,
+          "end": 15.3,
+          "en": "Well in this demo app here which I prepared for you,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.3,
+          "end": 18.36,
+          "en": "we have one problem, you could say,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 18.36,
+          "end": 21,
+          "en": "one use case that could be optimized",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 21,
+          "end": 23.94,
+          "en": "if you understand how components are executed",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 23.94,
+          "end": 25.74,
+          "en": "and are related.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 25.74,
+          "end": 28.08,
+          "en": "And for that, I'll open this console again",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 28.08,
+          "end": 30.78,
+          "en": "where we see which components are rendered",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 30.78,
+          "end": 32.16,
+          "en": "and how they're related.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 32.16,
+          "end": 34.56,
+          "en": "And now I'll clear this",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 34.56,
+          "end": 38.013,
+          "en": "and I'll enter a new number here in this input field.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 38.94,
+          "end": 41.49,
+          "en": "Clicking Set here won't do anything yet,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 41.49,
+          "end": 43.08,
+          "en": "but if I enter a new number,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 43.08,
+          "end": 45.12,
+          "en": "if I type one character here,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 45.12,
+          "end": 47.43,
+          "en": "you see that a bunch of component functions",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 47.43,
+          "end": 49.41,
+          "en": "were executed again.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 49.41,
+          "end": 53.04,
+          "en": "Basically all components that make up this app.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 53.04,
+          "end": 56.52,
+          "en": "And why is that happening here?",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 56.52,
+          "end": 60,
+          "en": "Well, that's happening because this input field here",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 60,
+          "end": 63.483,
+          "en": "lives directly in the app component.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 64.32,
+          "end": 66.333,
+          "en": "It's this input field here.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 67.35,
+          "end": 71.16,
+          "en": "And I have an on change handler on that input field.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 71.16,
+          "end": 74.61,
+          "en": "And therefore on every keystroke I update some state.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 74.61,
+          "end": 77.73,
+          "en": "And of course, as you learned, when the state changes",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 77.73,
+          "end": 80.94,
+          "en": "this component function gets executed again.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 80.94,
+          "end": 83.94,
+          "en": "And as you now also learned over the last lectures",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 83.94,
+          "end": 84.84,
+          "en": "this then means",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 84.84,
+          "end": 88.77,
+          "en": "that all child component functions get executed again.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 88.77,
+          "end": 91.17,
+          "en": "And that's why on every keystroke",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 91.17,
+          "end": 94.203,
+          "en": "all those component functions get executed again.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 95.03999999999999,
+          "end": 98.19,
+          "en": "Now this does not necessarily have an impact",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 98.19,
+          "end": 102.81,
+          "en": "on the actual DOM that's rendered, so it's not that bad",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 102.81,
+          "end": 105.42,
+          "en": "as you will learn later in this section,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 105.42,
+          "end": 107.7,
+          "en": "but of course it's still not optimal",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 107.7,
+          "end": 111.47999999999999,
+          "en": "because it is a bunch of code that's executed.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 111.47999999999999,
+          "end": 114.96000000000001,
+          "en": "And of course we can now understand why that is happening.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 114.96000000000001,
+          "end": 118.02000000000001,
+          "en": "But how can we fix the problem?",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 118.02000000000001,
+          "end": 119.94,
+          "en": "Well, to fix the problem",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 119.94,
+          "end": 124.26,
+          "en": "we got two main possible solutions we can go for.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 124.26,
+          "end": 126.24,
+          "en": "And I'll show you the first solution",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 126.24,
+          "end": 128.95,
+          "en": "here at the example of the counter component",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 130.14,
+          "end": 133.38,
+          "en": "because React gives you a built-in function",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 133.38,
+          "end": 137.7,
+          "en": "that you can wrap around your component functions so to say,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 137.7,
+          "end": 142.7,
+          "en": "that will prevent unnecessary component function executions.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 143.61,
+          "end": 147.27,
+          "en": "And that function is the memo function",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 147.27,
+          "end": 149.913,
+          "en": "which must be imported from React.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 151.74,
+          "end": 155.28,
+          "en": "Once you did import this function, you can wrap it",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 155.28,
+          "end": 158.67000000000002,
+          "en": "around your component function by simply executing it",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 158.67000000000002,
+          "end": 162.27,
+          "en": "and passing your component function as a value",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 162.27,
+          "end": 164.253,
+          "en": "as an argument to memo.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 165.75,
+          "end": 166.95,
+          "en": "Now here I'm getting a warning",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 166.95,
+          "end": 171.09,
+          "en": "that some development mode features won't work correctly",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 171.09,
+          "end": 172.32,
+          "en": "if we do it like this.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 172.32,
+          "end": 174.6,
+          "en": "Therefore, it is actually recommended",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 174.6,
+          "end": 176.79,
+          "en": "that you first store the result",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 176.79,
+          "end": 179.67000000000002,
+          "en": "in a separate variable or constant",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 179.67000000000002,
+          "end": 183.51,
+          "en": "which I'll give the same name as my component function name",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 183.51,
+          "end": 188.223,
+          "en": "and that you then simply export this variable or constant.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 189.6,
+          "end": 191.25,
+          "en": "But that's just required",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 191.25,
+          "end": 193.77,
+          "en": "to get the best developer experience.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 193.77,
+          "end": 195.96,
+          "en": "Memo works either way.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 195.96,
+          "end": 200.43,
+          "en": "And what memo will do is that it will take a look",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 200.43,
+          "end": 203.82,
+          "en": "at the props of your component function",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 203.82,
+          "end": 206.25,
+          "en": "and whenever the component function",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 206.25,
+          "end": 209.94,
+          "en": "would normally execute again for example,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 209.94,
+          "end": 212.73,
+          "en": "because the app component function executes,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 212.73,
+          "end": 216.54,
+          "en": "memo will take a look at the old prop value",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 216.54,
+          "end": 220.8,
+          "en": "and at the new prop value that would be received now",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 220.8,
+          "end": 223.47,
+          "en": "if that component function would execute",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 223.47,
+          "end": 227.91,
+          "en": "and if those prop values are exactly the same,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 227.91,
+          "end": 231.75,
+          "en": "which for arrays and objects means that they really",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 231.75,
+          "end": 236.4,
+          "en": "have to be exactly the same array or object in memory.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 236.4,
+          "end": 237.9,
+          "en": "But if they are the same",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 237.9,
+          "end": 240.24,
+          "en": "this component function execution here",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 240.24,
+          "end": 243.72,
+          "en": "will be prevented by memo.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 243.72,
+          "end": 246,
+          "en": "So that this component function,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 246,
+          "end": 250.29,
+          "en": "this counter or component function would only be re executed",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 250.29,
+          "end": 252.18,
+          "en": "if initialCount changed",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 252.18,
+          "end": 255.63,
+          "en": "or of course if its internal state changed",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 255.63,
+          "end": 257.94,
+          "en": "that's not affected by memo.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 257.94,
+          "end": 262.14,
+          "en": "Memo only prevents function executions that are triggered",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 262.14,
+          "end": 264.723,
+          "en": "by the parent component, so the app component.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 265.8,
+          "end": 267.84,
+          "en": "And it makes sense that memo",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 267.84,
+          "end": 270.45,
+          "en": "takes a look at the props because of course",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 270.45,
+          "end": 274.29,
+          "en": "if this initial count prop value in this case here",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 274.29,
+          "end": 278.7,
+          "en": "did not change, there is no reason for the counter component",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 278.7,
+          "end": 280.26,
+          "en": "to be executed again",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 280.26,
+          "end": 283.563,
+          "en": "just because the parent component executed again.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 284.55,
+          "end": 287.22,
+          "en": "Of course, if that internal state changes",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 287.22,
+          "end": 290.82,
+          "en": "that should definitely trigger this component function.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 290.82,
+          "end": 294.27,
+          "en": "And as mentioned, memo will not prevent this.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 294.27,
+          "end": 297.81,
+          "en": "It does not care about internal changes.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 297.81,
+          "end": 301.56,
+          "en": "But external changes of course only makes sense",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 301.56,
+          "end": 304.11,
+          "en": "for this component here to be executed",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 304.11,
+          "end": 306.27,
+          "en": "if the prop value changed.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 306.27,
+          "end": 308.7,
+          "en": "Otherwise executing this function again",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 308.7,
+          "end": 311.97,
+          "en": "will of course yield the same result as before",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 311.97,
+          "end": 314.49,
+          "en": "and therefore is unnecessary.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 314.49,
+          "end": 318.48,
+          "en": "And therefore, of course, if this counter component function",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 318.48,
+          "end": 321.57,
+          "en": "is prevented from being executed again",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 321.57,
+          "end": 324.81,
+          "en": "these nested component functions in there",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 324.81,
+          "end": 327.09,
+          "en": "also won't be executed again",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 327.09,
+          "end": 330.51,
+          "en": "because this code is not executed at all",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 330.51,
+          "end": 333.18,
+          "en": "because this overall counter function code",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 333.18,
+          "end": 335.43,
+          "en": "is not being executed.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 335.43,
+          "end": 338.61,
+          "en": "And therefore as a result, if you do wrap memo",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 338.61,
+          "end": 341.73,
+          "en": "around this counter function and you reload",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 341.73,
+          "end": 345.39,
+          "en": "and you then change this value, you see that now",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 345.39,
+          "end": 349.08,
+          "en": "it's only the header component that's being called again,",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 349.08,
+          "end": 353.34000000000003,
+          "en": "in addition to the app component, because all I did here",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 353.34000000000003,
+          "end": 356.07,
+          "en": "is that I changed the value entered here.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 356.07,
+          "end": 359.49,
+          "en": "I did not click set or anything like that.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 359.49,
+          "end": 362.43,
+          "en": "And therefore of course in the app component",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 362.43,
+          "end": 365.91,
+          "en": "the state was updated, but it was this enteredNumber state",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 365.91,
+          "end": 368.73,
+          "en": "which does not matter for the counter component",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 368.73,
+          "end": 372.09,
+          "en": "which does not change the initialCount and which therefore",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 372.09,
+          "end": 375.45,
+          "en": "shouldn't trigger this component function to execute.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 375.45,
+          "end": 377.223,
+          "en": "And thanks to memo it won't.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 378.06,
+          "end": 381.66,
+          "en": "So therefore of course you might be intrigued to wrap memo",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 381.66,
+          "end": 386.43,
+          "en": "around all your components because it can be useful, right?",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 386.43,
+          "end": 389.31,
+          "en": "Yes it can, but you should not wrap it",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 389.31,
+          "end": 391.59,
+          "en": "around all your components.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 391.59,
+          "end": 394.83,
+          "en": "Instead, it makes sense like in this example",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 394.83,
+          "end": 397.40999999999997,
+          "en": "to wrap it around a component",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 397.40999999999997,
+          "end": 401.64,
+          "en": "that's as high up in the component tree as possible.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 401.64,
+          "end": 404.97,
+          "en": "Like it's the case here for the counter component",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 404.97,
+          "end": 407.79,
+          "en": "because if that component is then prevented",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 407.79,
+          "end": 410.90999999999997,
+          "en": "from executing again, all the nested components",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 410.90999999999997,
+          "end": 413.76,
+          "en": "also won't be executed again.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 413.76,
+          "end": 417.24,
+          "en": "And if you would wrap memo around all your components",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 417.24,
+          "end": 418.71,
+          "en": "that would simply mean",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 418.71,
+          "end": 421.56,
+          "en": "that React always has to check the props",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 421.56,
+          "end": 424.32,
+          "en": "before it executes the component function.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 424.32,
+          "end": 426.66,
+          "en": "And of course, checking the prop values",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 426.66,
+          "end": 430.53,
+          "en": "for equality also costs some performance.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 430.53,
+          "end": 434.94,
+          "en": "And that's especially a problem if you wrap a function",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 434.94,
+          "end": 438.51,
+          "en": "that almost always gets changed props.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 438.51,
+          "end": 442.68,
+          "en": "So where this comparison almost always yields the result",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 442.68,
+          "end": 445.32,
+          "en": "that the component function should be executed",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 445.32,
+          "end": 448.71,
+          "en": "because then you paid the performance price",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 448.71,
+          "end": 452.79,
+          "en": "for this check just to get the same result as you would get",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 452.79,
+          "end": 456.75,
+          "en": "without memo that the component function is executed.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 456.75,
+          "end": 458.79,
+          "en": "So you should use it with care.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 458.79,
+          "end": 461.73,
+          "en": "And in simple apps like this one, to be honest,",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 461.73,
+          "end": 463.89,
+          "en": "you don't need to use it at all",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 463.89,
+          "end": 468.57,
+          "en": "because it won't have any measurable performance impact.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 468.57,
+          "end": 471.84000000000003,
+          "en": "But if you do wanna use it and if it can have an impact",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 471.84000000000003,
+          "end": 475.08,
+          "en": "you should use it with care only on components",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 475.08,
+          "end": 478.38,
+          "en": "where you can actually prevent re-renders",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 478.38,
+          "end": 482.073,
+          "en": "and as high up in the component tree as possible.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,1535 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "8231766",
+      "title": "Moving Logic To Components That Actually Need It (\"Moving State Down\")",
+      "sourceHash": "3454b93e62f361d801308844631c1afc0ac30d9d7f975c32a017416692db0c89",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.57,
+          "end": 2.04,
+          "en": "So now that we added",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 2.04,
+          "end": 4.23,
+          "en": "this new Question component,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 4.23,
+          "end": 7.98,
+          "en": "we fixed this problem with our key,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.98,
+          "end": 11.49,
+          "en": "but we also kind of added a new problem,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.49,
+          "end": 14.55,
+          "en": "because now we have to pass a lot of props",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.55,
+          "end": 17.07,
+          "en": "that are managed in the Quiz component",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 17.07,
+          "end": 20.01,
+          "en": "to the Question component just to make sure",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 20.01,
+          "end": 21.573,
+          "en": "that it works correctly.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 22.53,
+          "end": 25.53,
+          "en": "And this is something we can improve here,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 25.53,
+          "end": 29.79,
+          "en": "and at the same time, we'll improve this Quiz component,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 29.79,
+          "end": 32.31,
+          "en": "because, for example, all that logic",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 32.31,
+          "end": 35.28,
+          "en": "where we manage the answerState,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 35.28,
+          "end": 40.23,
+          "en": "why does this need to happen here in the Quiz component?",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 40.23,
+          "end": 42.18,
+          "en": "Well the answer is, it doesn't.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 42.18,
+          "end": 45.09,
+          "en": "That is a great example for a state",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 45.09,
+          "end": 47.883,
+          "en": "that does not need to be lifted up.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 48.78,
+          "end": 51.57,
+          "en": "Because we can simply go to the Question component",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 51.57,
+          "end": 55.74,
+          "en": "and then there, add a new state with the useState hook",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 55.74,
+          "end": 57.78,
+          "en": "that must be imported, of course,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 57.78,
+          "end": 61.293,
+          "en": "that will belong only to this Question component.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 62.73,
+          "end": 66.78,
+          "en": "And this could be a state where we wanna store an object,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 66.78,
+          "end": 69.53999999999999,
+          "en": "where we have the selectedAnswer, let's say,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 69.53999999999999,
+          "end": 71.88,
+          "en": "which initially is an empty string,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 71.88,
+          "end": 75.393,
+          "en": "and then let's say, isCorrect property,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 76.41,
+          "end": 77.97,
+          "en": "which initially is null,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 77.97,
+          "end": 80.673,
+          "en": "but which could then be true or false.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 83.03999999999999,
+          "end": 85.74,
+          "en": "This is some state we could manage here",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 85.74,
+          "end": 89.01,
+          "en": "and I'll name it answer",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 89.01,
+          "end": 91.953,
+          "en": "and have my setAnswer state updating function.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 93.50999999999999,
+          "end": 97.62,
+          "en": "And the idea now simply is to have a function,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 97.62,
+          "end": 102.39,
+          "en": "handleSelectAnswer, that should be triggered",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 102.39,
+          "end": 104.91,
+          "en": "whenever an answer is selected here.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 104.91,
+          "end": 108.333,
+          "en": "So therefore I'll point at handleSelectAnswer down there,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 110.31,
+          "end": 113.78999999999999,
+          "en": "and I then expect to get my answer text here.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 113.78999999999999,
+          "end": 117.50999999999999,
+          "en": "We can then call setAnswer and set this object",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 117.50999999999999,
+          "end": 120.828,
+          "en": "to a new object where selectedAnswer",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 120.828,
+          "end": 124.14,
+          "en": "is equal to the answer we received here",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 124.14,
+          "end": 127.71,
+          "en": "and isCorrect now must be derived.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 127.71,
+          "end": 131.16,
+          "en": "But it should only be derived after this one second",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 131.16,
+          "end": 134.343,
+          "en": "which we actually spend here in the Quiz component.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 135.63,
+          "end": 138.3,
+          "en": "So for the moment, I'll still set it to null here,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 138.3,
+          "end": 140.97,
+          "en": "which basically should say that we don't know yet",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 140.97,
+          "end": 142.833,
+          "en": "whether it's correct or wrong.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 143.7,
+          "end": 147.57999999999998,
+          "en": "So therefore here, I then wanna set a timer with setTimeout",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 148.44,
+          "end": 153.44,
+          "en": "where after one second we do set isCorrect to true or false.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 155.25,
+          "end": 158.37,
+          "en": "So where I call setAnswer again",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 158.37,
+          "end": 162.57,
+          "en": "and where I now set isCorrect equal to,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 162.57,
+          "end": 164.4,
+          "en": "and then I wanna set this to true",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 164.4,
+          "end": 168.24,
+          "en": "if this is the right answer or false if it's not.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 168.24,
+          "end": 170.88,
+          "en": "But for that, we, of course, need to know",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 170.88,
+          "end": 172.773,
+          "en": "what the right answer is.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 174.03,
+          "end": 176.4,
+          "en": "Now the great thing about this project",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 176.4,
+          "end": 179.7,
+          "en": "is that we have all questions and answers",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 179.7,
+          "end": 182.43,
+          "en": "in this questions.js file.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 182.43,
+          "end": 186.84,
+          "en": "So we can simply import this file into Question.jsx",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 186.84,
+          "end": 189.06,
+          "en": "to take a look at the current question",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 189.06,
+          "end": 190.743,
+          "en": "and get the right answer.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 191.79,
+          "end": 196.65,
+          "en": "So here in this file we can also import QUESTIONS from",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 196.65,
+          "end": 200.343,
+          "en": "and then going up one level, questions.js.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 202.32,
+          "end": 206.343,
+          "en": "So that now, we can take a look at those questions here.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 208.29,
+          "end": 212.25,
+          "en": "And the great thing is that we also, of course, can find out",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 212.25,
+          "end": 216.39,
+          "en": "what the index of the currently active question is",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 216.39,
+          "end": 219.84,
+          "en": "because in the Quiz component, we're setting this index",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 219.84,
+          "end": 224.34,
+          "en": "as a value on key on this Question component.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 224.34,
+          "end": 226.95,
+          "en": "And we can, of course, try using that key",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 226.95,
+          "end": 230.37,
+          "en": "on our own component for our own purposes as well.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 230.37,
+          "end": 234.75,
+          "en": "So in our Question component, we can therefore destructure",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 234.75,
+          "end": 238.2,
+          "en": "this key prop and also use it here.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 238.2,
+          "end": 240.09,
+          "en": "So now with that here in this Timeout,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 240.09,
+          "end": 244.08,
+          "en": "we can access QUESTIONS for the key,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 244.08,
+          "end": 247.5,
+          "en": "so for this activeQuestionIndex to take a look",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 247.5,
+          "end": 250.26,
+          "en": "at a specific question.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 250.26,
+          "end": 252.96,
+          "en": "And then we take a look at the first answer there,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 252.96,
+          "end": 255.24,
+          "en": "which we know is the correct answer",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 255.24,
+          "end": 258.06,
+          "en": "for the selected question.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 258.06,
+          "end": 261.06,
+          "en": "And we compare that to our answer here.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 261.06,
+          "end": 263.01,
+          "en": "And if that here yields true,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 263.01,
+          "end": 265.62,
+          "en": "we know that the correct answer was picked,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 265.62,
+          "end": 267.723,
+          "en": "otherwise it's the wrong answer.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 269.76,
+          "end": 272.88,
+          "en": "And with that, we can now use our own answerState",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 272.88,
+          "end": 274.68,
+          "en": "to update the UI.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 274.68,
+          "end": 276.96,
+          "en": "So the value for answerState here",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 276.96,
+          "end": 279.123,
+          "en": "should now be correct or wrong.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 280.02,
+          "end": 283.29,
+          "en": "So we can add a little helper variable here,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 283.29,
+          "end": 286.05,
+          "en": "which I'll name answerState,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 286.05,
+          "end": 290.133,
+          "en": "which initially is simply an empty string,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 291.42,
+          "end": 296.42,
+          "en": "just as my old answerState here was in the Quiz component.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 299.55,
+          "end": 304.55,
+          "en": "But if in our answerState here in the Question component,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 304.95,
+          "end": 308.79,
+          "en": "if there we got a selectedAnswer,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 308.79,
+          "end": 313.48,
+          "en": "I wanna set answerState depending on answer.isCorrect.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 314.67,
+          "end": 317.79,
+          "en": "And if that's true, I wanna set it to correct,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 317.79,
+          "end": 319.713,
+          "en": "otherwise I'll set it to wrong.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 320.88,
+          "end": 322.98,
+          "en": "And then it's this answerState",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 322.98,
+          "end": 325.08299999999997,
+          "en": "that will be passed to answers.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 327,
+          "end": 330.36,
+          "en": "Now of course, that's now clashing with my answerState prop,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 330.36,
+          "end": 333.36,
+          "en": "but this prop can and should now be removed",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 333.36,
+          "end": 335.013,
+          "en": "because we don't need it anymore.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 337.38,
+          "end": 340.65,
+          "en": "Now onSelectAnswer will not be removed though",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 340.65,
+          "end": 344.76,
+          "en": "because we will still need to pass the selectedAnswer",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 344.76,
+          "end": 346.71,
+          "en": "to the Quiz component,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 346.71,
+          "end": 348.99,
+          "en": "because, of course, in the Quiz component,",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 348.99,
+          "end": 352.71,
+          "en": "we still wanna store all the selected userAnswers",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 352.71,
+          "end": 356.64300000000003,
+          "en": "so that we can also find out when the quiz is over.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 358.35,
+          "end": 360.97,
+          "en": "Therefore, I'll call onSelectAnswer",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 362.79,
+          "end": 366.99,
+          "en": "here once this Timeout expired and once we show the user",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 366.99,
+          "end": 369.813,
+          "en": "whether the picked answer is correct or not.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 370.89,
+          "end": 374.76,
+          "en": "To be precise, here, I then wanna set another timer again",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 374.76,
+          "end": 377.463,
+          "en": "so that we don't instantly move away,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 378.66,
+          "end": 382.06,
+          "en": "where after two seconds, we call onSelectAnswer",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 382.98,
+          "end": 386.94,
+          "en": "and pass the selectedAnswer to this function,",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 386.94,
+          "end": 390.06,
+          "en": "and that will then trigger the connected function",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 390.06,
+          "end": 391.683,
+          "en": "in the Quiz component.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 392.76,
+          "end": 395.76,
+          "en": "Now with that, we can still get rid of some props",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 395.76,
+          "end": 398.58,
+          "en": "here in this Question component though.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 398.58,
+          "end": 402.24,
+          "en": "For example, answers and questionText,",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 402.24,
+          "end": 405.54,
+          "en": "because we are importing the raw data now",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 405.54,
+          "end": 409.01,
+          "en": "and we know that the key is the activeQuestionIndex.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 410.22,
+          "end": 414.21,
+          "en": "Therefore, we can get rid of those props here",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 414.21,
+          "end": 419.21,
+          "en": "and instead, here, simply use questions for the key",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 419.25,
+          "end": 421.95,
+          "en": "and then text, because the key, as mentioned,",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 421.95,
+          "end": 424.77,
+          "en": "is the activeQuestionIndex.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 424.77,
+          "end": 428.403,
+          "en": "And for the answer, it's QUESTIONS[key].answers.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 431.43,
+          "end": 436.113,
+          "en": "So with that, we got two props less that we have to accept.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 437.82,
+          "end": 441.21,
+          "en": "The selectedAnswer is also not needed anymore",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 441.21,
+          "end": 443.79,
+          "en": "because we're now storing this here in our state",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 443.79,
+          "end": 445.983,
+          "en": "that belongs to this Question component.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 447.48,
+          "end": 450.54,
+          "en": "We now just have to update the selectedAnswer down there",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 450.54,
+          "end": 453.783,
+          "en": "and set this equal to answer.selectedAnswer,",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 454.74,
+          "end": 457.92,
+          "en": "which is that selectedAnswer we are now managing",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 457.92,
+          "end": 460.443,
+          "en": "in our own state here in this component.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 462.3,
+          "end": 464.94,
+          "en": "And with that, this question component",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 464.94,
+          "end": 469.77,
+          "en": "now contains more logic and needs less props.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 469.77,
+          "end": 472.2,
+          "en": "Therefore, in the Quiz component,",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 472.2,
+          "end": 476.7,
+          "en": "we can and should now remove all those redundant props.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 476.7,
+          "end": 480.3,
+          "en": "To be precise, selectedAnswer, answerState,",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 480.3,
+          "end": 482.137,
+          "en": "answers and questionText,",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 484.2,
+          "end": 488.22,
+          "en": "and get rid of all the logic that we don't need anymore.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 488.22,
+          "end": 492.67,
+          "en": "Specifically, we don't need this answerState anymore,",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 494.16,
+          "end": 498,
+          "en": "and we can, again, derive the activeQuestionIndex",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 498,
+          "end": 500.82,
+          "en": "just based on the userAnswers.length",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 500.82,
+          "end": 503.55,
+          "en": "because this will now only be updated",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 503.55,
+          "end": 506.28,
+          "en": "from inside the Question component",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 506.28,
+          "end": 509.94,
+          "en": "once we did log in an answer and show the user",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 509.94,
+          "end": 513.633,
+          "en": "for two seconds whether that answer was correct or not.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 514.65,
+          "end": 518.85,
+          "en": "And we don't have to update the answerState here anymore",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 518.85,
+          "end": 521.07,
+          "en": "and we should remove those timers",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 521.07,
+          "end": 522.663,
+          "en": "here in the Quiz component.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 524.46,
+          "end": 526.35,
+          "en": "Therefore, useCallback here",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 526.35,
+          "end": 530.3,
+          "en": "also no longer needs the activeQuestionIndex.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 531.72,
+          "end": 534.27,
+          "en": "And with that, the Quiz component function",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 534.27,
+          "end": 536.61,
+          "en": "got leaner again, which is great,",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 536.61,
+          "end": 539.583,
+          "en": "and the Question component got more powerful.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 540.63,
+          "end": 542.46,
+          "en": "Now if we save all that,",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 542.46,
+          "end": 545.583,
+          "en": "we'll see that we're now facing an error though.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 546.6,
+          "end": 549.75,
+          "en": "And the error is, if we open the DevTools,",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 549.75,
+          "end": 552.9,
+          "en": "that we are using the key prop.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 552.9,
+          "end": 556.5,
+          "en": "This is a prop that's exclusively used by React",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 556.5,
+          "end": 558.423,
+          "en": "and must not be used by us.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 559.68,
+          "end": 562.62,
+          "en": "Therefore, we should pick our own prop,",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 562.62,
+          "end": 567.62,
+          "en": "for example, questionIndex or just index,",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 567.78,
+          "end": 569.133,
+          "en": "any name of your choice.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 570.48,
+          "end": 575.01,
+          "en": "And we should use this prop instead of key in all the places",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 575.01,
+          "end": 578.283,
+          "en": "where I did use key in the Question component.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 579.84,
+          "end": 581.79,
+          "en": "And in the Quiz component,",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 581.79,
+          "end": 585.57,
+          "en": "we should now also set this index prop here",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 585.57,
+          "end": 589.35,
+          "en": "even though it contains the same value as the key prop.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 589.35,
+          "end": 594.3,
+          "en": "But since this is a prop exclusively reserved for React,",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 594.3,
+          "end": 596.523,
+          "en": "we must use our own prop here.",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 598.41,
+          "end": 602.28,
+          "en": "But with that, if we reload, we see our questionnaire,",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 602.28,
+          "end": 605.67,
+          "en": "we can log in questions, and of course,",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 605.67,
+          "end": 609.78,
+          "en": "we also see that now I instantly get the feedback",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 609.78,
+          "end": 613.2,
+          "en": "that tells me whether the question is right or wrong.",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 613.2,
+          "end": 616.32,
+          "en": "And we also seem to move through questions",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 616.32,
+          "end": 618.06,
+          "en": "pretty quickly now.",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 618.06,
+          "end": 621.18,
+          "en": "Now to make sure that we don't instantly mark an answer",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 621.18,
+          "end": 624.69,
+          "en": "as right or wrong, we should actually go here",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 624.69,
+          "end": 628.35,
+          "en": "to the answerState in our Question component",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 628.35,
+          "end": 631.8,
+          "en": "and not always set it to just correct or wrong,",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 631.8,
+          "end": 636.09,
+          "en": "but instead here I wanna check whether answer.selectedAnswer",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 636.09,
+          "end": 641.09,
+          "en": "is truthy and answer.isCorrect is not equal to null,",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 642.54,
+          "end": 645.03,
+          "en": "because if isCorrect is null,",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 645.03,
+          "end": 648.48,
+          "en": "that means that we might have a selectedAnswer,",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 648.48,
+          "end": 652.65,
+          "en": "but we don't wanna show the result yet,",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 652.65,
+          "end": 655.89,
+          "en": "because we deliberately set isCorrect to null here",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 655.89,
+          "end": 658.083,
+          "en": "when we log in an answer.",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 659.19,
+          "end": 663.54,
+          "en": "Now to make sure that we mark the selectedAnswer",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 663.54,
+          "end": 666.36,
+          "en": "as selected, we also should make sure",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 666.36,
+          "end": 669.45,
+          "en": "that if this condition here is not met,",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 669.45,
+          "end": 671.883,
+          "en": "but if we have a selectedAnswer,",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 673.17,
+          "end": 677.313,
+          "en": "we set the answerState equal to answered,",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 678.84,
+          "end": 682.05,
+          "en": "which is then the condition we're checking for",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 682.05,
+          "end": 687.05,
+          "en": "here in the Answers.jsx file to mark an answer as selected.",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 691.2,
+          "end": 693,
+          "en": "Now we can stick in that file",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 693,
+          "end": 695.64,
+          "en": "to make sure that we then can't move",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 695.64,
+          "end": 699.42,
+          "en": "through all those questions too quickly,",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 699.42,
+          "end": 701.79,
+          "en": "because here I actually wanna make sure",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 701.79,
+          "end": 704.7,
+          "en": "that we can't click those answer buttons",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 704.7,
+          "end": 707.79,
+          "en": "if we have a selectedAnswer,",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 707.79,
+          "end": 711.09,
+          "en": "so that we can't switch the answer thereafter.",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 711.09,
+          "end": 714.57,
+          "en": "And therefore I'll set the disabled prop here",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 714.57,
+          "end": 717.3,
+          "en": "and set that based on whether answerState",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 717.3,
+          "end": 718.23,
+          "en": "is an empty string,",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 718.23,
+          "end": 720.75,
+          "en": "which means we don't have an answer selected yet",
+          "zh": ""
+        },
+        {
+          "id": 204,
+          "start": 720.75,
+          "end": 722.64,
+          "en": "or anything else.",
+          "zh": ""
+        },
+        {
+          "id": 205,
+          "start": 722.64,
+          "end": 725.73,
+          "en": "It should be disabled if answerState",
+          "zh": ""
+        },
+        {
+          "id": 206,
+          "start": 725.73,
+          "end": 727.743,
+          "en": "is not equal to an empty string.",
+          "zh": ""
+        },
+        {
+          "id": 207,
+          "start": 729.63,
+          "end": 732.96,
+          "en": "Because if it is an empty string, it should be enabled.",
+          "zh": ""
+        },
+        {
+          "id": 208,
+          "start": 732.96,
+          "end": 736.29,
+          "en": "It should not be disabled because we have no answer yet.",
+          "zh": ""
+        },
+        {
+          "id": 209,
+          "start": 736.29,
+          "end": 738.78,
+          "en": "But if it is not equal to an empty string,",
+          "zh": ""
+        },
+        {
+          "id": 210,
+          "start": 738.78,
+          "end": 740.7,
+          "en": "we know that it should be disabled",
+          "zh": ""
+        },
+        {
+          "id": 211,
+          "start": 740.7,
+          "end": 743.67,
+          "en": "because we either have a correct or wrong answer",
+          "zh": ""
+        },
+        {
+          "id": 212,
+          "start": 743.67,
+          "end": 746.973,
+          "en": "or we don't know yet, but we did select an answer.",
+          "zh": ""
+        },
+        {
+          "id": 213,
+          "start": 748.83,
+          "end": 751.05,
+          "en": "And with that, if we save that and reload,",
+          "zh": ""
+        },
+        {
+          "id": 214,
+          "start": 751.05,
+          "end": 754.23,
+          "en": "now I can select an answer, it gets highlighted as such,",
+          "zh": ""
+        },
+        {
+          "id": 215,
+          "start": 754.23,
+          "end": 758.1,
+          "en": "the other answers get grayed out, and as you can tell,",
+          "zh": ""
+        },
+        {
+          "id": 216,
+          "start": 758.1,
+          "end": 760.62,
+          "en": "it then gets marked as right or wrong,",
+          "zh": ""
+        },
+        {
+          "id": 217,
+          "start": 760.62,
+          "end": 763.503,
+          "en": "and we move on to the next question thereafter.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

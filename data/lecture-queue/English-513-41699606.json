@@ -1,0 +1,1409 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "41699606",
+      "title": "Managing Multi-Component State with the Context API",
+      "sourceHash": "c9218ea8f71dcef6e21bf4bb712e1ab20d730a83c8f139adb2f5064af6af6be3",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.1,
+          "end": 4.5,
+          "en": "So let's make sure that, by default,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.5,
+          "end": 7.2,
+          "en": "those items here are not open.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.2,
+          "end": 9.45,
+          "en": "And instead we can open them by clicking on them,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.45,
+          "end": 12.993,
+          "en": "making sure though that only one item is open at most.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 13.86,
+          "end": 17.13,
+          "en": "Now since we're working with multiple components here,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 17.13,
+          "end": 19.86,
+          "en": "to make sure that every component on its own",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 19.86,
+          "end": 23.31,
+          "en": "is highly configurable in a very easy way.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 23.31,
+          "end": 27.6,
+          "en": "Since we're doing that, we can't add the logic directly",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 27.6,
+          "end": 30.63,
+          "en": "inside the Accordion component, for example,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 30.63,
+          "end": 34.56,
+          "en": "because there we can't easily interact with the children",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 34.56,
+          "end": 37.05,
+          "en": "because the children can be anything.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 37.05,
+          "end": 39.6,
+          "en": "We're not rendering them inside of this component,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 39.6,
+          "end": 41.4,
+          "en": "we're just forwarding them.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 41.4,
+          "end": 44.01,
+          "en": "We're forwarding the content that's passed",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 44.01,
+          "end": 45.63,
+          "en": "between the Accordion tags,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 45.63,
+          "end": 48.363,
+          "en": "between those </ul> tags in the end,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 49.47,
+          "end": 52.71,
+          "en": "nonetheless, we can add the core logic",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 52.71,
+          "end": 56.88,
+          "en": "for controlling which item is open to that component.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 56.88,
+          "end": 61.14,
+          "en": "We can do that with help of React's context feature",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 61.14,
+          "end": 63.96,
+          "en": "with its context API.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 63.96,
+          "end": 68.96000000000001,
+          "en": "So we can import { createContext } from 'react';",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 69.24,
+          "end": 71.46000000000001,
+          "en": "and call createContext here,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 71.46000000000001,
+          "end": 74.91,
+          "en": "and then create an AccordionContext.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 74.91,
+          "end": 79.02,
+          "en": "And I'm deliberately doing that here in that same file",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 79.02,
+          "end": 82.35,
+          "en": "where I created the Accordion component,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 82.35,
+          "end": 85.203,
+          "en": "because now I'm not trying to build some context",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 85.203,
+          "end": 88.47,
+          "en": "that should be usable in all kinds of places",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 88.47,
+          "end": 91.77,
+          "en": "of the entire app, but instead I'm building a context",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 91.77,
+          "end": 95.25,
+          "en": "that's directly tied to this component",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 95.25,
+          "end": 99.96000000000001,
+          "en": "and all other related Accordion components as you'll see,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 99.96000000000001,
+          "end": 101.22,
+          "en": "because now here,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 101.22,
+          "end": 104.34,
+          "en": "instead of directly returning the on unordered list,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 104.34,
+          "end": 108.13,
+          "en": "we can return the AccordionContext.Provider",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 110.52000000000001,
+          "end": 112.953,
+          "en": "wrapped around the unordered list like this,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 113.94,
+          "end": 115.35,
+          "en": "and set the value,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 115.35,
+          "end": 117.963,
+          "en": "just as you learned it earlier in the course.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 119.28,
+          "end": 122.28,
+          "en": "Now the value that should be set will be managed",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 122.28,
+          "end": 124.08,
+          "en": "by this Accordion component.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 124.08,
+          "end": 126.81,
+          "en": "So this component now basically also acts",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 126.81,
+          "end": 129.153,
+          "en": "as the provider for this context.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 130.35,
+          "end": 132.48,
+          "en": "Now, the value I wanna set here",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 132.48,
+          "end": 136.44,
+          "en": "for my context should be an object, let's say,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 136.44,
+          "end": 139.56,
+          "en": "which in the end contains the id of the item",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 139.56,
+          "end": 141.24,
+          "en": "that should currently be open.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 141.24,
+          "end": 142.67000000000002,
+          "en": "So the openItemId,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 143.85,
+          "end": 146.31,
+          "en": "because again, it should only be one item",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 146.31,
+          "end": 147.96,
+          "en": "that's open at the same time,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 147.96,
+          "end": 150.15,
+          "en": "so we can manage it like this.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 150.15,
+          "end": 152.19,
+          "en": "We wanna store the id of the item",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 152.19,
+          "end": 153.78300000000002,
+          "en": "that should currently be open.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 154.95,
+          "end": 156.66,
+          "en": "Now, initially this can be null",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 156.66,
+          "end": 159.72,
+          "en": "because initially no item should be open.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 159.72,
+          "end": 163.02,
+          "en": "And then I also want to add two functions here",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 163.02,
+          "end": 165.06,
+          "en": "inside of that Accordion component.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 165.06,
+          "end": 167.49,
+          "en": "One function that could be called openItem,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 167.49,
+          "end": 171.513,
+          "en": "for, well, setting a new openItemId in the end,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 172.53,
+          "end": 175.92000000000002,
+          "en": "and one function that can be called closeItem,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 175.92000000000002,
+          "end": 179.013,
+          "en": "which will set the openItemId back to null.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 180.343,
+          "end": 184.05,
+          "en": "Therefore, the openItemId should be dynamic,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 184.05,
+          "end": 188.34,
+          "en": "and hence we can use the useState hook from React",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 188.34,
+          "end": 193.34,
+          "en": "and import that to manage the openItemId here",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 193.98,
+          "end": 195.39,
+          "en": "with that state.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 195.39,
+          "end": 197.16,
+          "en": "So the openItemId",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 197.16,
+          "end": 201.093,
+          "en": "and a set openItemId state updating function.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 202.8,
+          "end": 205.82999999999998,
+          "en": "Now, initially we have no open id here,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 205.82999999999998,
+          "end": 207.51,
+          "en": "but the openItem function here should receive the id",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 209.845,
+          "end": 213.81,
+          "en": "of the item, which should now be opened as a parameter,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 213.81,
+          "end": 216.01,
+          "en": "and therefore here we can call setOpenItemId",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 217.05,
+          "end": 220.743,
+          "en": "and pass that id to that state updating function.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 221.73,
+          "end": 224.48,
+          "en": "And here in closeItem, we can call setOpenItemId(null).",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 227.97,
+          "end": 230.79,
+          "en": "Now down here for the context value,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 230.79,
+          "end": 235.79,
+          "en": "we can store the openItemId state here as a value",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 236.88,
+          "end": 241.533,
+          "en": "for that openItemId key in the context value object.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 242.64,
+          "end": 244.59,
+          "en": "And in addition, we can,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 244.59,
+          "end": 247.713,
+          "en": "and should add a pointer to the openItem function.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 249.78,
+          "end": 251.46,
+          "en": "We could do it like this,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 251.46,
+          "end": 253.65,
+          "en": "or since we have the same name on both sides,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 253.65,
+          "end": 255.48,
+          "en": "use that shortcut.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 255.48,
+          "end": 258.43,
+          "en": "We can also do that for the openItemId by the way",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 259.86,
+          "end": 262.323,
+          "en": "and also add the closeItem function.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 263.16,
+          "end": 266.61,
+          "en": "And that's now the context value that should be distributed",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 266.61,
+          "end": 268.953,
+          "en": "to all interested components,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 270.06,
+          "end": 274.14300000000003,
+          "en": "but which components are interested here.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 275.01,
+          "end": 278.73,
+          "en": "Now the components interested in that context value",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 278.73,
+          "end": 282.75,
+          "en": "of course, are the other Accordion components that are meant",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 282.75,
+          "end": 286.74,
+          "en": "to work together with that wrapping Accordion component,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 286.74,
+          "end": 290.01,
+          "en": "so in this case the AccordionItem component,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 290.01,
+          "end": 293.613,
+          "en": "since that is the only other Accordion component we have.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 294.57,
+          "end": 299.57,
+          "en": "In here, we now wanna rate that Accordion context,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 301.26,
+          "end": 304.14,
+          "en": "and to simplify this process",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 304.14,
+          "end": 307.02,
+          "en": "and also make it a bit more secure,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 307.02,
+          "end": 309.84,
+          "en": "I'll actually start by adding a custom hook",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 309.84,
+          "end": 312.06,
+          "en": "to the Accordion component file.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 312.06,
+          "end": 314.01,
+          "en": "I'll export another function here,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 314.01,
+          "end": 315.81,
+          "en": "which is called useAccordionContext.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 317.58,
+          "end": 319.653,
+          "en": "So that will be a custom hook here.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 320.73,
+          "end": 323.52,
+          "en": "And the idea behind that custom hook",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 323.52,
+          "end": 327.94,
+          "en": "is to use the built-in useContext hook in here",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 328.86,
+          "end": 331.05,
+          "en": "and read that AccordionContext",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 331.05,
+          "end": 333.48,
+          "en": "and get hold of that context.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 333.48,
+          "end": 337.95,
+          "en": "But of course here, since I'm exporting it, it is possible,",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 337.95,
+          "end": 341.13,
+          "en": "that in theory, this hook here could be used",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 341.13,
+          "end": 342.54,
+          "en": "in some other component",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 342.54,
+          "end": 345.003,
+          "en": "that's not wrapped by the Accordion component,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 346.02,
+          "end": 348.12,
+          "en": "and that therefore doesn't have access",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 348.12,
+          "end": 349.68,
+          "en": "to the AccordionContext",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 349.68,
+          "end": 351.63,
+          "en": "because it therefore wouldn't be wrapped",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 351.63,
+          "end": 353.973,
+          "en": "by the provider of that context.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 355.47,
+          "end": 357.87,
+          "en": "That's why inside this custom hook,",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 357.87,
+          "end": 360.33,
+          "en": "I'm checking if not context.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 360.33,
+          "end": 363.57,
+          "en": "So if this is undefined, if we weren't able to connect",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 363.57,
+          "end": 367.98,
+          "en": "to that context because the wrapping provider is missing,",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 367.98,
+          "end": 370.03,
+          "en": "and in that case we could throw an error,",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 371.37,
+          "end": 373.89,
+          "en": "so that if we or some other developer",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 373.89,
+          "end": 376.14,
+          "en": "who might also be working on that code",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 376.14,
+          "end": 378.3,
+          "en": "uses this hook in the wrong place,",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 378.3,
+          "end": 380.88,
+          "en": "we throw an error telling the developer",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 380.88,
+          "end": 383.61,
+          "en": "that this Accordion component must be used",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 383.61,
+          "end": 386.94,
+          "en": "as an extra wrapper around whichever component",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 386.94,
+          "end": 388.89,
+          "en": "wants to use this hook.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 388.89,
+          "end": 390.633,
+          "en": "That's an extra safety measure.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 392.13,
+          "end": 394.89,
+          "en": "So here we could then output an error message of,",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 394.89,
+          "end": 397.59000000000003,
+          "en": "'Accordion-related components",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 397.59000000000003,
+          "end": 402.59000000000003,
+          "en": "must be wrapped by <Accordion>', something like this.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 403.62,
+          "end": 405.33,
+          "en": "Now, after this check",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 405.33,
+          "end": 407.1,
+          "en": "and this error being thrown,",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 407.1,
+          "end": 409.26,
+          "en": "we can then return that context.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 409.26,
+          "end": 411.603,
+          "en": "And here we know that it will exist.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 412.59000000000003,
+          "end": 414.84000000000003,
+          "en": "Therefore, now in AccordionItem,",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 414.84000000000003,
+          "end": 417.9,
+          "en": "we can now use this useAccordionContext hook",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 417.9,
+          "end": 422.9,
+          "en": "we just added, importing it from the Accordion.jsx file.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 423.63,
+          "end": 426.39,
+          "en": "And then here we can use the structuring",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 426.39,
+          "end": 430.2,
+          "en": "to pull out the parts that are interesting to us.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 430.2,
+          "end": 433.053,
+          "en": "And in that case, that is the openItemId,",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 433.98,
+          "end": 437.79,
+          "en": "the openItem function,",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 437.79,
+          "end": 440.43,
+          "en": "and the closeItem function,",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 440.43,
+          "end": 443.823,
+          "en": "so all three values that make up this context.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 445.17,
+          "end": 447.78,
+          "en": "Well, and with that we can try to find out",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 447.78,
+          "end": 451.29,
+          "en": "whether it's this item, so the concrete instance",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 451.29,
+          "end": 454.11,
+          "en": "that's using this component function here",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 454.11,
+          "end": 456.033,
+          "en": "that is currently open.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 457.11,
+          "end": 462.11,
+          "en": "For that, we can expect to get an id on the AccordionItem",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 462.564,
+          "end": 465.81,
+          "en": "and we can then use some derived state here",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 465.81,
+          "end": 469.9,
+          "en": "to find out whether this concrete item instance is open",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 470.88,
+          "end": 473.01,
+          "en": "by checking whether the openItemId",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 473.01,
+          "end": 474.96,
+          "en": "which we're getting from our context,",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 474.96,
+          "end": 477.51,
+          "en": "which manages all items together,",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 477.51,
+          "end": 480.993,
+          "en": "is equal to the id we received via props.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 482.19,
+          "end": 483.63,
+          "en": "And if that is the case,",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 483.63,
+          "end": 487.8,
+          "en": "we might want to add an extra CSS class to this div here,",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 487.8,
+          "end": 490.8,
+          "en": "which outputs the actual content of that item,",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 490.8,
+          "end": 494.133,
+          "en": "because it's that content that should normally be hidden.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 495.33,
+          "end": 499.14,
+          "en": "So here we can add a className",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 499.14,
+          "end": 504.14,
+          "en": "and check if isOpen is truthy,",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 504.3,
+          "end": 507.03,
+          "en": "and if that's the case, add the open class,",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 507.03,
+          "end": 509.22,
+          "en": "which is another class I prepared",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 509.22,
+          "end": 511.41,
+          "en": "as part of the starting project,",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 511.41,
+          "end": 514.92,
+          "en": "otherwise we can add an empty string or undefined here,",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 514.92,
+          "end": 518.883,
+          "en": "so that no clause is added if this item is not open.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 520.29,
+          "end": 521.76,
+          "en": "So that's the first step.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 521.76,
+          "end": 525.45,
+          "en": "Of course, we also must make sure that we do open",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 525.45,
+          "end": 527.19,
+          "en": "or close the modal,",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 527.19,
+          "end": 528.72,
+          "en": "and that can be achieved",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 528.72,
+          "end": 532.14,
+          "en": "by adding a new function here in AccordionItem,",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 532.14,
+          "end": 533.973,
+          "en": "which we could call handleClick.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 535.86,
+          "end": 538.83,
+          "en": "And I wanna connect this function here",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 538.83,
+          "end": 542.013,
+          "en": "through the onClick prop to my title here,",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 543.3,
+          "end": 547.59,
+          "en": "so that clicking the title opens or closes the accordion,",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 547.59,
+          "end": 549.363,
+          "en": "so this specific item.",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 550.23,
+          "end": 553.65,
+          "en": "For that we can check if isOpen is true,",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 553.65,
+          "end": 557.73,
+          "en": "and if that's the case, we want to call closeItem",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 557.73,
+          "end": 562.68,
+          "en": "because if it's open, we want to call it else,",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 562.68,
+          "end": 564.783,
+          "en": "I want to call openItem.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 565.62,
+          "end": 569.733,
+          "en": "And to openItem, I of course wanna pass my id.",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 570.6,
+          "end": 575.2,
+          "en": "Now with all that, we can go back to the app component",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 576.6,
+          "end": 578.49,
+          "en": "and there we should now set",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 578.49,
+          "end": 581.49,
+          "en": "that id prop on every AccordionItem.",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 581.49,
+          "end": 585.123,
+          "en": "And we should give every AccordionItem a unique id,",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 586.38,
+          "end": 590.34,
+          "en": "like for example, experience, for that first item",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 590.34,
+          "end": 592.74,
+          "en": "where we talk about some experience.",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 592.74,
+          "end": 597.69,
+          "en": "And then for the second item, maybe local-guides.",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 597.69,
+          "end": 599.853,
+          "en": "The ids of course are up to you.",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 600.96,
+          "end": 603.9,
+          "en": "With that, we now just also have to make sure",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 603.9,
+          "end": 607.803,
+          "en": "that by default the content in here is not visible.",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 608.91,
+          "end": 611.16,
+          "en": "And this can be achieved",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 611.16,
+          "end": 614.49,
+          "en": "by adding another CSS class to this div.",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 614.49,
+          "end": 618.963,
+          "en": "And that would be the accordion-item-content class,",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 620.31,
+          "end": 623.55,
+          "en": "which should also be added instead of undefined",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 623.55,
+          "end": 625.833,
+          "en": "if the item is not open.",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 626.79,
+          "end": 628.89,
+          "en": "So it's either that class here",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 628.89,
+          "end": 631.893,
+          "en": "and open being added, or just that class.",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 633.54,
+          "end": 635.52,
+          "en": "With that, if we save that,",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 635.52,
+          "end": 637.65,
+          "en": "we see that both items are closed,",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 637.65,
+          "end": 640.143,
+          "en": "and if we now click on one item, it opens.",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 641.07,
+          "end": 643.35,
+          "en": "If we click on the other item, on the other hand,",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 643.35,
+          "end": 644.94,
+          "en": "that item opens,",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 644.94,
+          "end": 648.21,
+          "en": "and we can use that approach to open",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 648.21,
+          "end": 652.11,
+          "en": "and close items whilst also making sure that at most,",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 652.11,
+          "end": 655.503,
+          "en": "one of the two items is open at the same time.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

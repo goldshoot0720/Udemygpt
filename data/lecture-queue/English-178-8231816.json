@@ -1,0 +1,485 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "8231816",
+      "title": "Optimizing State Updates",
+      "sourceHash": "10ad635e3fcaae062766900cfbe28d54196e04b39ad095f007feb190a344d4d7",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.75,
+          "end": 4.002,
+          "en": "Now, in the last lecture, I explained why we need",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.002,
+          "end": 7.47,
+          "en": "useEffect to use setInterval correctly",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.47,
+          "end": 11.19,
+          "en": "and I also mentioned that we want to clear the interval,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.19,
+          "end": 15.48,
+          "en": "not really to avoid some strange behaviors or bugs",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.48,
+          "end": 18.72,
+          "en": "but to make sure that we don't impact",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 18.72,
+          "end": 21.54,
+          "en": "the performance of this application.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 21.54,
+          "end": 23.82,
+          "en": "And speaking of performance,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 23.82,
+          "end": 27,
+          "en": "there is something that could be optimized here",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 27,
+          "end": 30.36,
+          "en": "in this application because at the moment,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 30.36,
+          "end": 32.67,
+          "en": "I am managing this interval",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 32.67,
+          "end": 35.37,
+          "en": "in my delete confirmation component.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 35.37,
+          "end": 37.95,
+          "en": "And in this interval, we're updating the state",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 37.95,
+          "end": 41.88,
+          "en": "every 10 milliseconds which means that this component runs",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 41.88,
+          "end": 45.27,
+          "en": "every 10 milliseconds which also means",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 45.27,
+          "end": 48.27,
+          "en": "that every 10 milliseconds, React",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 48.27,
+          "end": 52.83,
+          "en": "has to compare the unconfirmed value here to figure out",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 52.83,
+          "end": 56.07,
+          "en": "whether this effect function should run again.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 56.07,
+          "end": 61.07,
+          "en": "And React has to reevaluate this entire JSX code",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 61.35,
+          "end": 65.61,
+          "en": "and this works and also doesn't really slow down",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 65.61,
+          "end": 69.453,
+          "en": "the app here on a modern computer but it's not optimal.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 70.35,
+          "end": 74.78999999999999,
+          "en": "It would be better to outsource this progress indicator",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 74.78999999999999,
+          "end": 76.83,
+          "en": "and this related state logic",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 76.83,
+          "end": 80.1,
+          "en": "and useEffect hook into a separate component",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 80.1,
+          "end": 83.76,
+          "en": "so that it's then just this one single component",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 83.76,
+          "end": 86.373,
+          "en": "that should be re-executed all the time.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 87.42,
+          "end": 90.39,
+          "en": "And therefore here I'll add a new component,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 90.39,
+          "end": 94.97999999999999,
+          "en": "ProgressBar could be a name that we want to use",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 94.97999999999999,
+          "end": 97.74000000000001,
+          "en": "and of course, export it here.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 97.74000000000001,
+          "end": 100.05,
+          "en": "And then in here in this component,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 100.05,
+          "end": 102.12299999999999,
+          "en": "I wanna manage this state.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 102.99000000000001,
+          "end": 105.273,
+          "en": "So I'll copy that and move it in here.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 106.25999999999999,
+          "end": 109.22999999999999,
+          "en": "And we, of course, want to have this useEffect hook",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 109.22999999999999,
+          "end": 113.52000000000001,
+          "en": "so I'll also copy that, or actually we can cut it",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 113.52000000000001,
+          "end": 117.47999999999999,
+          "en": "and also remove this state now from the lead confirmation",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 117.47999999999999,
+          "end": 119.463,
+          "en": "and add it here to progress bar.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 120.39,
+          "end": 124.35,
+          "en": "And, of course, then return this progress element",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 124.35,
+          "end": 127.5,
+          "en": "and remove that from the lead confirmation",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 127.5,
+          "end": 129.033,
+          "en": "and instead return it here.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 131.79,
+          "end": 135.58,
+          "en": "Now with that, we, of course, also must import useState",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 136.812,
+          "end": 139.14,
+          "en": "and useEffect from React",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 139.14,
+          "end": 141.93,
+          "en": "because we're using these things here",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 141.93,
+          "end": 144.66,
+          "en": "and I need that timer.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 144.66,
+          "end": 146.94,
+          "en": "And we could, again, define it as a constant",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 146.94,
+          "end": 149.343,
+          "en": "or simply accept it as a prop here.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 150.36,
+          "end": 153.363,
+          "en": "So use it here and here.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 155.22,
+          "end": 158.92000000000002,
+          "en": "And now we can use this progress bar component here",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 159.81,
+          "end": 162.213,
+          "en": "in this delete confirmation component.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 163.56,
+          "end": 166.2,
+          "en": "For that, we, of course, must import it",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 166.2,
+          "end": 168.25,
+          "en": "from progress bar JSX",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 169.14,
+          "end": 172.203,
+          "en": "and we can get rid of the useState import here now.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 173.07,
+          "end": 176.4,
+          "en": "And now with that, it's not the entire delete confirmation",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 176.4,
+          "end": 180.57,
+          "en": "component that will be re-executed every 10 milliseconds,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 180.57,
+          "end": 184.08,
+          "en": "but it's, instead, inside of the progress bar component",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 184.08,
+          "end": 187.14,
+          "en": "that this computation will take place.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 187.14,
+          "end": 190.17,
+          "en": "And this is an optimization you might wanna consider",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 190.17,
+          "end": 193.32,
+          "en": "to avoid unnecessary computations.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 193.32,
+          "end": 195.3,
+          "en": "Of course, we now just have to make sure",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 195.3,
+          "end": 198.96,
+          "en": "that we also do pass a value for this timer prop.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 198.96,
+          "end": 201,
+          "en": "So here in delete confirmation,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 201,
+          "end": 204.45,
+          "en": "we should now set timer equal to timer.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 204.45,
+          "end": 207.72,
+          "en": "And if we now save that and go back",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 207.72,
+          "end": 212.16,
+          "en": "and reload this app here, we should be able to add places.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 212.16,
+          "end": 214.56,
+          "en": "And when we click on a place, it will be deleted.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 214.56,
+          "end": 216.09,
+          "en": "We see the timer.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 216.09,
+          "end": 217.82999999999998,
+          "en": "And if we delete another place,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 217.82999999999998,
+          "end": 220.14,
+          "en": "a new timer starts in a new modal.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 220.14,
+          "end": 222.513,
+          "en": "And that all works as it should now.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

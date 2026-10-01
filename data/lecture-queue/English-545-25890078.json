@@ -1,0 +1,1262 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "25890078",
+      "title": "Working With Mocks",
+      "sourceHash": "d64db8903f7420b72515e0e10942a8528a230d8a5f462a033398c1814ff5afc1",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.17,
+          "end": 4.21,
+          "en": "With help of defined queries,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.21,
+          "end": 7.32,
+          "en": "we are able to wait for our data to be rendered.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.32,
+          "end": 9.81,
+          "en": "So this generally works,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.81,
+          "end": 14.78,
+          "en": "but this is still not ideal here, this test.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 14.78,
+          "end": 17.12,
+          "en": "Why is it not ideal?",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 17.12,
+          "end": 20.32,
+          "en": "Because we are sending a Http request here.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 20.32,
+          "end": 21.25,
+          "en": "And in this case",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 21.25,
+          "end": 24.123,
+          "en": "we are fetching some data from some API.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 25.38,
+          "end": 27.96,
+          "en": "However, when we run our tests",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 27.96,
+          "end": 30.86,
+          "en": "which we typically do a lot during development,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 30.86,
+          "end": 31.693,
+          "en": "we",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 31.693,
+          "end": 34.14,
+          "en": "generally don't wanna send",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 34.14,
+          "end": 38.09,
+          "en": "Http requests to our servers.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 38.09,
+          "end": 39.82,
+          "en": "We don't wanna send requests",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 39.82,
+          "end": 43.81,
+          "en": "because A, that will cause a lot of network traffic,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 43.81,
+          "end": 47.38,
+          "en": "it will hammer our servers with requests.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 47.38,
+          "end": 49.41,
+          "en": "Especially if you have a lot of tests",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 49.41,
+          "end": 51.63,
+          "en": "with a lot of requests.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 51.63,
+          "end": 54.53,
+          "en": "And B, if you are not fetching data",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 54.53,
+          "end": 56.29,
+          "en": "but you have some Component",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 56.29,
+          "end": 59.54,
+          "en": "that sends a post request to a server,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 59.54,
+          "end": 64.04,
+          "en": "your tests might start inserting data into a database",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 64.04,
+          "end": 67.63,
+          "en": "or they might start changing things on the server",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 67.63,
+          "end": 70.15,
+          "en": "because of course you also wanna test Components",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 70.15,
+          "end": 74.43,
+          "en": "and scenarios where such kind of requests are being sent.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 74.43,
+          "end": 76.48,
+          "en": "And that's definitely not something",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 76.48,
+          "end": 78.27,
+          "en": "you wanna do during testing.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 78.27,
+          "end": 81.47,
+          "en": "You don't wanna send requests",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 81.47,
+          "end": 84.423,
+          "en": "to servers that start changing things there.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 85.5,
+          "end": 88.12,
+          "en": "So therefore what we generally wanna do",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 88.12,
+          "end": 90.13,
+          "en": "when we write tests is,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 90.13,
+          "end": 94.43,
+          "en": "we either don't even wanna send a real request",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 94.43,
+          "end": 97.71000000000001,
+          "en": "or we wanna send it to some fake server,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 97.71000000000001,
+          "end": 99.203,
+          "en": "some testing server.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 100.14,
+          "end": 102.65,
+          "en": "Both are viable approaches",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 102.65,
+          "end": 104.78,
+          "en": "and I'll go for the approach here",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 104.78,
+          "end": 107.803,
+          "en": "where we don't even send the request in the first place.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 108.91,
+          "end": 111.84,
+          "en": "Because there's one super important thing to note,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 111.84,
+          "end": 113.63,
+          "en": "when you write a test",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 113.63,
+          "end": 117.47999999999999,
+          "en": "you don't wanna test code, which you haven't written.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 117.47999999999999,
+          "end": 119.86,
+          "en": "So in this case, I don't wanna test",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 119.86,
+          "end": 122.32,
+          "en": "whether this fetch function works correctly",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 122.32,
+          "end": 124.06,
+          "en": "and sends a request.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 124.06,
+          "end": 126.4,
+          "en": "The fetch function was not written by me,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 126.4,
+          "end": 128.07,
+          "en": "it's built into the browser.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 128.07,
+          "end": 131.25,
+          "en": "I rely on the browser vendors",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 131.25,
+          "end": 133.593,
+          "en": "to have written that function correctly.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 134.47,
+          "end": 138.07999999999998,
+          "en": "So therefore I don't wanna test whether fetch",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 138.07999999999998,
+          "end": 142.14,
+          "en": "successfully sends a request technically behind the scenes.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 142.14,
+          "end": 145.94,
+          "en": "I instead wanna test if my Component behaves correctly",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 145.94,
+          "end": 149.93,
+          "en": "depending on the different outcomes of sending a request.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 149.93,
+          "end": 153.11,
+          "en": "So I wanna check if my Component behaves correctly",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 153.11,
+          "end": 155.56,
+          "en": "once I got the response data.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 155.56,
+          "end": 156.95,
+          "en": "I maybe also and wanna check",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 156.95,
+          "end": 158.67000000000002,
+          "en": "if my Component behaves correctly,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 158.67000000000002,
+          "end": 160.22,
+          "en": "if they got an error.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 160.22,
+          "end": 161.71,
+          "en": "But I don't wanna check",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 161.71,
+          "end": 165.88,
+          "en": "whether technically sending this request succeeds.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 165.88,
+          "end": 169.89,
+          "en": "And therefore we wanna replace this fetch function",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 169.89,
+          "end": 171.7,
+          "en": "which is built into the browser",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 171.7,
+          "end": 174.7,
+          "en": "with a so called mock function.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 174.7,
+          "end": 178.6,
+          "en": "With a dummy function that overrides the build in function.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 178.6,
+          "end": 181.37,
+          "en": "A dummy that does what we want",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 181.37,
+          "end": 184.66,
+          "en": "and that does not send a real request.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 184.66,
+          "end": 187.84,
+          "en": "So did when our Component executes during testing",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 187.84,
+          "end": 189.84,
+          "en": "we use that dummy function,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 189.84,
+          "end": 194.84,
+          "en": "that mock, instead of that real built in function.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 194.85,
+          "end": 196.373,
+          "en": "That's what I wanna do here.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 197.4,
+          "end": 202.4,
+          "en": "Now, how can we replace fetch with a dummy function?",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 202.46,
+          "end": 204.45,
+          "en": "This is such a common scenario",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 204.45,
+          "end": 205.88,
+          "en": "not just for fetch,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 205.88,
+          "end": 207.6,
+          "en": "but also for something like",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 207.6,
+          "end": 209.95,
+          "en": "working with local storage, for example.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 209.95,
+          "end": 213.81,
+          "en": "Where you also don't wanna trigger changes",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 213.81,
+          "end": 215.32999999999998,
+          "en": "in the actual storage.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 215.32999999999998,
+          "end": 218.11,
+          "en": "This is such a common scenario that Jest,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 218.11,
+          "end": 220.85,
+          "en": "this testing tool which we're using under the hood",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 220.85,
+          "end": 225.44,
+          "en": "has built in support for mocking such functions.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 225.44,
+          "end": 227.78,
+          "en": "And it's therefore fairly easy to do.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 227.78,
+          "end": 230.71,
+          "en": "When we arrange our test here",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 230.71,
+          "end": 233.51,
+          "en": "in our Async.test.js file,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 233.51,
+          "end": 235.21,
+          "en": "here I now wanna override",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 235.21,
+          "end": 238.07,
+          "en": "the built in fetch function with my own one.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 238.07,
+          "end": 240.83,
+          "en": "And for this, I can reach out to the window object",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 240.83,
+          "end": 242.88,
+          "en": "which will be available here.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 242.88,
+          "end": 246.55,
+          "en": "And then there is this fetch method.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 246.55,
+          "end": 248.66,
+          "en": "If I call fetch like this in my Component",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 248.66,
+          "end": 252.53,
+          "en": "I am just using that window fetch method.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 252.53,
+          "end": 255.36,
+          "en": "So therefore now we can set window fetch",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 255.36,
+          "end": 259.08,
+          "en": "equal to a new function defined by us.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 259.08,
+          "end": 261.26,
+          "en": "And here we can use Jest,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 261.26,
+          "end": 264.64,
+          "en": "this object is globally available in our testing code,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 264.64,
+          "end": 267.33,
+          "en": "it is made available by this tool named Jest,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 267.33,
+          "end": 269.51,
+          "en": "which runs our tests.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 269.51,
+          "end": 273.5,
+          "en": "And Jest, this object has a couple of utility methods.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 273.5,
+          "end": 276.64,
+          "en": "It has the FN method for example.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 276.64,
+          "end": 278.63,
+          "en": "And what FN does is",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 278.63,
+          "end": 280.993,
+          "en": "it creates a mock function as you see here.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 282.17,
+          "end": 284.97,
+          "en": "So it creates a dummy function for you.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 284.97,
+          "end": 287.54,
+          "en": "The difference to just creating a function on your own",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 287.54,
+          "end": 289.03,
+          "en": "is that this mock function",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 289.03,
+          "end": 293.51,
+          "en": "then has some additional features which you can use.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 293.51,
+          "end": 296.45,
+          "en": "And you'll see those features in action in a second.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 296.45,
+          "end": 299.11,
+          "en": "So now I did actually override",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 299.11,
+          "end": 300.93,
+          "en": "this built in fetch function",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 300.93,
+          "end": 302.53,
+          "en": "with my own dummy function.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 302.53,
+          "end": 304.373,
+          "en": "Only of course, in my testing code.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 305.58,
+          "end": 309.16,
+          "en": "Now, since this is created with Jest FN,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 309.16,
+          "end": 313.31,
+          "en": "we can again use this mock function which we have now",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 313.31,
+          "end": 315.67,
+          "en": "and call special methods there.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 315.67,
+          "end": 319.14,
+          "en": "Here even though I'm not getting all the completion for that",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 319.14,
+          "end": 323.203,
+          "en": "we can call mock resolved value once.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 324.6,
+          "end": 325.64,
+          "en": "What this does is",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 325.64,
+          "end": 327.86,
+          "en": "it allows us to set a value,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 327.86,
+          "end": 330.21,
+          "en": "this fetch function should resolve",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 330.21,
+          "end": 331.683,
+          "en": "to when it's being called.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 332.58,
+          "end": 334.67,
+          "en": "And it should resolve to something",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 334.67,
+          "end": 337.8,
+          "en": "that is then used here by our code.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 337.8,
+          "end": 339.94,
+          "en": "So when this fetch function is called here,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 339.94,
+          "end": 344.21,
+          "en": "it showed in our case, resolve to an object",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 344.21,
+          "end": 346.23,
+          "en": "that has adjacent method.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 346.23,
+          "end": 349.42,
+          "en": "Because here we are working with that resolved value.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 349.42,
+          "end": 352.1,
+          "en": "In this then block we work with the resolve value",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 352.1,
+          "end": 353.81,
+          "en": "of this function called here",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 353.81,
+          "end": 356.54,
+          "en": "of that promise return, but it function call.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 356.54,
+          "end": 360.83,
+          "en": "And then I'm calling JSON on that resolved value.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 360.83,
+          "end": 362.4,
+          "en": "So this is the resolved value",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 362.4,
+          "end": 363.97,
+          "en": "we now wanna set here",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 363.97,
+          "end": 366.99,
+          "en": "and therefore I'll set this to an object here.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 366.99,
+          "end": 369.75,
+          "en": "The object resolved by the promise,",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 369.75,
+          "end": 371.57,
+          "en": "which will automatically be returned",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 371.57,
+          "end": 375.22,
+          "en": "when you call mock resolved value once here.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 375.22,
+          "end": 377.57,
+          "en": "And then here, I wanna make it clear",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 377.57,
+          "end": 379.793,
+          "en": "that we have a JSON property.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 381.31,
+          "end": 384.81,
+          "en": "Here this one, which actually holds a function as a value,",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 384.81,
+          "end": 387.47,
+          "en": "so that calling it as a function",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 387.47,
+          "end": 390.193,
+          "en": "as we do it into Component works.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 391.15,
+          "end": 394.33,
+          "en": "And that will be a Async function actually",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 394.33,
+          "end": 398.09000000000003,
+          "en": "because JSON returns a new promise",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 398.09000000000003,
+          "end": 400.52,
+          "en": "that's the case for the built in fetch function",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 400.52,
+          "end": 402.04,
+          "en": "and that therefore should be the case",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 402.04,
+          "end": 404.473,
+          "en": "for our mocked fetch function.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 405.52,
+          "end": 409.2,
+          "en": "And then here it's up to us which value we wanna simulate",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 409.2,
+          "end": 410.92,
+          "en": "that should be returned.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 410.92,
+          "end": 412.38,
+          "en": "And here in my case,",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 412.38,
+          "end": 415.45,
+          "en": "I actually wanna return an array when JSON is called",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 415.45,
+          "end": 418.02,
+          "en": "and this promise here resolves.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 418.02,
+          "end": 420.26,
+          "en": "Because data here in this case",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 420.26,
+          "end": 423.65,
+          "en": "is in array for this API end point for this Component.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 423.65,
+          "end": 426.37,
+          "en": "And that stand as array full of posts.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 426.37,
+          "end": 429.313,
+          "en": "And every post should have an ID and a title.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 430.27,
+          "end": 433.08,
+          "en": "And therefore to simulate the success case here",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 433.08,
+          "end": 436.07,
+          "en": "I wanna return an array with at least one post",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 436.07,
+          "end": 438.34,
+          "en": "with an ID of P1, let's say",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 438.34,
+          "end": 439.49,
+          "en": "and",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 439.49,
+          "end": 442.033,
+          "en": "a title of first post.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 444.39,
+          "end": 446.03,
+          "en": "And now with that code,",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 446.03,
+          "end": 448.97,
+          "en": "we are overriding the built in fetch function",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 448.97,
+          "end": 451.06,
+          "en": "with our dummy fetch function",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 451.06,
+          "end": 456.06,
+          "en": "where we set the actual value this promise should return,",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 456.1,
+          "end": 458.08299999999997,
+          "en": "with help of these Jest features.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 459.63,
+          "end": 462.55,
+          "en": "And if I now saved it all",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 462.55,
+          "end": 465.883,
+          "en": "my tests rerun and they still pass.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 466.75,
+          "end": 470.97,
+          "en": "But now we are simulating this success case here.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 470.97,
+          "end": 473.38,
+          "en": "We are simulating this success case",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 473.38,
+          "end": 475.03,
+          "en": "and we're not actually sending",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 475.03,
+          "end": 477.57,
+          "en": "a request to the API.",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 477.57,
+          "end": 480.28,
+          "en": "And therefore we're not hammering that API,",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 480.28,
+          "end": 483.12,
+          "en": "we're not sending unnecessary requests.",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 483.12,
+          "end": 486.65,
+          "en": "We are reducing the amount of network traffic,",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 486.65,
+          "end": 490.89,
+          "en": "we also avoid potential problems if the server is down",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 490.89,
+          "end": 493.46,
+          "en": "and our tests would fail for that reason.",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 493.46,
+          "end": 495.57,
+          "en": "Which of course is not something we want",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 495.57,
+          "end": 498.13,
+          "en": "and we can control different outcomes",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 498.13,
+          "end": 502.23,
+          "en": "for this fetch function to test different scenarios",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 502.23,
+          "end": 504.21,
+          "en": "with our tests here.",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 504.21,
+          "end": 507.03,
+          "en": "And that's why in such cases using a mock",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 507.03,
+          "end": 508.933,
+          "en": "is not a bad idea.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

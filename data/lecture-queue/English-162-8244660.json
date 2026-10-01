@@ -1,0 +1,1213 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "8244660",
+      "title": "Introducing the useReducer Hook",
+      "sourceHash": "3baad209f9efc1b7b264f56207da978294e154ad1895545a9791652b561ce6ef",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.84,
+          "end": 5.01,
+          "en": "So when building more complex React apps,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.01,
+          "end": 9.668,
+          "en": "context can be a crucial feature since it can help",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.668,
+          "end": 14.403,
+          "en": "with sharing state across multiple components.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 15.51,
+          "end": 18.393,
+          "en": "But what about the state management itself?",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 19.26,
+          "end": 22.14,
+          "en": "In this context, which we have here",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.14,
+          "end": 25.77,
+          "en": "we're managing this shoppingCart state.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 25.77,
+          "end": 27.33,
+          "en": "And as you can tell",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 27.33,
+          "end": 32.33,
+          "en": "these state updating functions are rather complex.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 32.91,
+          "end": 35.37,
+          "en": "You could say they contain a bit more logic,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 35.37,
+          "end": 38.04,
+          "en": "at least a couple of lines of code.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 38.04,
+          "end": 40.92,
+          "en": "And that's of course not uncommon.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 40.92,
+          "end": 44.19,
+          "en": "But it also means that this component function,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 44.19,
+          "end": 47.58,
+          "en": "this CartContextProvider component function",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 47.58,
+          "end": 49.68,
+          "en": "can get a bit hard to read.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 49.68,
+          "end": 52.2,
+          "en": "And even more importantly,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 52.2,
+          "end": 56.1,
+          "en": "as you can see I'm always using this function form",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 56.1,
+          "end": 58.71,
+          "en": "of these state updating functions.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 58.71,
+          "end": 61.23,
+          "en": "I'm always passing a function to them",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 61.23,
+          "end": 64.44,
+          "en": "because basically almost always",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 64.44,
+          "end": 67.95,
+          "en": "if you are managing more complex state,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 67.95,
+          "end": 71.58,
+          "en": "an object or an array or anything like that",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 71.58,
+          "end": 73.98,
+          "en": "you will need to update your state",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 73.98,
+          "end": 77.01,
+          "en": "based on the previous state snapshot.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 77.01,
+          "end": 80.553,
+          "en": "So this is a pattern you'll use all the time.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 81.75,
+          "end": 84.27,
+          "en": "And therefore it's also kind of annoying",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 84.27,
+          "end": 87.99,
+          "en": "to repeat this pattern all the time.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 87.99,
+          "end": 90,
+          "en": "And that's why in React,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 90,
+          "end": 95,
+          "en": "instead of managing state with useState and code like this,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 95.58,
+          "end": 98.304,
+          "en": "you could use another state management hook",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 98.304,
+          "end": 102.62,
+          "en": "provided by React, a hook called useReducer.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 105.93,
+          "end": 108.81,
+          "en": "Now what's a reducer though?",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 108.81,
+          "end": 113.81,
+          "en": "A reducer in React apps and JavaScript programming",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 114.18,
+          "end": 117.53999999999999,
+          "en": "in general is typically a function",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 117.53999999999999,
+          "end": 122.54,
+          "en": "that reduces one or more complex values to a simpler one.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 124.11,
+          "end": 128.1,
+          "en": "So for example, that reduces an array of numbers",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 128.1,
+          "end": 131.64,
+          "en": "to a single number by adding up those numbers.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 131.64,
+          "end": 134.64,
+          "en": "And it's that reducer function which you define",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 134.64,
+          "end": 137.133,
+          "en": "that could perform these additions.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 138.54,
+          "end": 142.89,
+          "en": "And indeed, in this demo project, which I prepared for you",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 142.89,
+          "end": 146.07,
+          "en": "you can already see a reducer function in action",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 146.07,
+          "end": 147.963,
+          "en": "in the Cart.jsx file.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 149.04,
+          "end": 152.57999999999998,
+          "en": "Here I'm using the built-in reduce method",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 152.57999999999998,
+          "end": 156.03,
+          "en": "that can be used on any array in JavaScript,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 156.03,
+          "end": 158.94,
+          "en": "and that's totally independent of React",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 158.94,
+          "end": 162.81,
+          "en": "and this useReducer hook, that's really important.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 162.81,
+          "end": 166.5,
+          "en": "This method also works outside of React projects.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 166.5,
+          "end": 170.4,
+          "en": "I'm using this method to define my reducer function",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 170.4,
+          "end": 175.17000000000002,
+          "en": "that will be executed on all items in this items array.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 175.17000000000002,
+          "end": 179.61,
+          "en": "And here I'm then basically just updating my cart total",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 179.61,
+          "end": 181.77,
+          "en": "based on some starting value",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 181.77,
+          "end": 185.52,
+          "en": "by adding the price of every item times the quantity",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 185.52,
+          "end": 188.58,
+          "en": "of that item in the cart to it.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 188.58,
+          "end": 191.73,
+          "en": "That's what I'm doing here in this function.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 191.73,
+          "end": 195,
+          "en": "And this therefore is such a reducer function",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 195,
+          "end": 199.41,
+          "en": "because it's reducing an array of items to a single number,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 199.41,
+          "end": 202.653,
+          "en": "the total price of all those items in this case.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 203.91,
+          "end": 207.57,
+          "en": "And now the idea behind this useReducer hook",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 207.57,
+          "end": 212.57,
+          "en": "is to use that same concept of reducing one or more values",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 213.48,
+          "end": 218.433,
+          "en": "to a typically simpler value for state management purposes.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 220.44,
+          "end": 223.803,
+          "en": "So how do we use use reducer for state management?",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 224.64,
+          "end": 226.5,
+          "en": "Well, in a React component,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 226.5,
+          "end": 230.07,
+          "en": "in this case in the CartContextProvider component,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 230.07,
+          "end": 233.13,
+          "en": "you execute the useReducer hook",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 233.13,
+          "end": 237.063,
+          "en": "just as you would execute any other React hook function.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 238.71,
+          "end": 242.305,
+          "en": "Now the useReducer hook will then give you an array",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 242.305,
+          "end": 245.43,
+          "en": "with exactly two elements,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 245.43,
+          "end": 248.91,
+          "en": "just as useState always gives you an array",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 248.91,
+          "end": 250.653,
+          "en": "with two elements.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 251.82,
+          "end": 255.75,
+          "en": "And here in useReducer, just as with useState,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 255.75,
+          "end": 259.92,
+          "en": "the first element you'll get back will be your state",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 259.92,
+          "end": 262.8,
+          "en": "that's managed by useReducer.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 262.8,
+          "end": 265.92,
+          "en": "And of course we could also name this shoppingCartState",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 265.92,
+          "end": 267.153,
+          "en": "or anything like this.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 268.41,
+          "end": 272.15999999999997,
+          "en": "But the second value that will be part of this array,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 272.15999999999997,
+          "end": 274.23,
+          "en": "which you get back from useReducer",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 274.23,
+          "end": 277.14,
+          "en": "will now not be a state updating function",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 277.14,
+          "end": 278.673,
+          "en": "as you know it from useState,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 279.75,
+          "end": 282.7,
+          "en": "but instead a dispatch function",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 283.65,
+          "end": 288.15,
+          "en": "which allows you to dispatch so-called actions",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 288.15,
+          "end": 289.65,
+          "en": "that will then be handled",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 289.65,
+          "end": 292.623,
+          "en": "by a two be defined reducer function.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 293.67,
+          "end": 296.07,
+          "en": "So here, I'll name it shoppingCartDispatch",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 296.07,
+          "end": 300.03,
+          "en": "to make it very clear that it belongs to this state.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 300.03,
+          "end": 303.753,
+          "en": "But you could also just name it dispatch to type a bit less.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 305.07,
+          "end": 307.17,
+          "en": "But here I'll go for shoppingCartDispatch.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 309.09,
+          "end": 312.51,
+          "en": "So now we've got the state and such a dispatch function,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 312.51,
+          "end": 314.16,
+          "en": "but as I just mentioned,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 314.16,
+          "end": 317.31,
+          "en": "we now also need a reducer function",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 317.31,
+          "end": 321.33,
+          "en": "that will actually get triggered by dispatching values",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 321.33,
+          "end": 324.48,
+          "en": "and that will then produce a new state",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 324.48,
+          "end": 327.12,
+          "en": "because that's the idea behind this hook",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 327.12,
+          "end": 329.973,
+          "en": "and the reducer function we have yet to add.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 331.14,
+          "end": 334.98,
+          "en": "So therefore here outside of this component function",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 334.98,
+          "end": 336.72,
+          "en": "I'll add a new function,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 336.72,
+          "end": 338.52,
+          "en": "which I'll name shoppingCartReducer.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 341.37,
+          "end": 345.18,
+          "en": "And I'm defining this outside of this component function",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 345.18,
+          "end": 348.552,
+          "en": "because this function should not be recreated",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 348.552,
+          "end": 351.96,
+          "en": "whenever the component function executes",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 351.96,
+          "end": 354.99,
+          "en": "because it also won't need direct access",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 354.99,
+          "end": 359.613,
+          "en": "to any value defined or updated in the component function.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 360.45,
+          "end": 364.5,
+          "en": "It won't need access to props or anything like that.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 364.5,
+          "end": 368.193,
+          "en": "Hence I'm defining it outside of this component function.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 369.12,
+          "end": 374.12,
+          "en": "And this reducer function should now accept two parameters,",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 375.27,
+          "end": 379.593,
+          "en": "a state parameter and an action parameter.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 381.03,
+          "end": 384.54,
+          "en": "And you should accept these two parameters here",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 384.54,
+          "end": 388.95,
+          "en": "because this reducer function ultimately will be called",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 388.95,
+          "end": 393.36,
+          "en": "by React after you dispatched a so-called action,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 393.36,
+          "end": 396.39300000000003,
+          "en": "which will also show you in a couple of minutes of course.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 397.40999999999997,
+          "end": 400.38,
+          "en": "And the action you will then dispatch",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 400.38,
+          "end": 402.51,
+          "en": "with this dispatch function",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 402.51,
+          "end": 405.72,
+          "en": "will indeed be the action you'll receive",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 405.72,
+          "end": 407.31,
+          "en": "on that second parameter.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 407.31,
+          "end": 409.623,
+          "en": "But again, you'll see that in action soon.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 410.67,
+          "end": 413.97,
+          "en": "Now the state you'll get here , on the other hand",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 413.97,
+          "end": 418.26,
+          "en": "will be the guaranteed latest state snapshot",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 418.26,
+          "end": 421.34,
+          "en": "of that state that is managed by useReducer.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 422.85,
+          "end": 426.93,
+          "en": "So just as you get that guaranteed latest state snapshot",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 426.93,
+          "end": 430.2,
+          "en": "when using that function form here",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 430.2,
+          "end": 431.7,
+          "en": "for updating the state,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 431.7,
+          "end": 435.36,
+          "en": "React, which we'll call this reducer function for you",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 435.36,
+          "end": 438.75,
+          "en": "will make sure that you'll get the latest state here",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 438.75,
+          "end": 440.373,
+          "en": "as this first argument.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 442.35,
+          "end": 445.71,
+          "en": "Now inside of that shoppingCartReducer function,",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 445.71,
+          "end": 448.683,
+          "en": "you should then return the updated state.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 449.52,
+          "end": 452.82,
+          "en": "And for the moment, I'll just return the unchanged state",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 452.82,
+          "end": 454.77,
+          "en": "by just returning state like this,",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 454.77,
+          "end": 457.14300000000003,
+          "en": "though that will of course soon change.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 458.76,
+          "end": 461.22,
+          "en": "But now with that, we have a basic,",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 461.22,
+          "end": 465.45,
+          "en": "not too helpful at the moment reducer function.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 465.45,
+          "end": 470.28,
+          "en": "As a next step, we have to connect this reducer function",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 470.28,
+          "end": 472.263,
+          "en": "to the useReducer hook.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 473.46,
+          "end": 476.73,
+          "en": "And to achieve this, you pass a pointer",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 476.73,
+          "end": 481.73,
+          "en": "at that reducer function as a first argument to useReducer.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 484.11,
+          "end": 488.07,
+          "en": "Now this reducer function is registered for React",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 488.07,
+          "end": 490.923,
+          "en": "and will be executed whenever you dispatch.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 493.05,
+          "end": 496.86,
+          "en": "Now, often you also might want to pass a second value",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 496.86,
+          "end": 500.49,
+          "en": "to useReducer because that second value allows you",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 500.49,
+          "end": 504.3,
+          "en": "to set an initial value for this state,",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 504.3,
+          "end": 507.963,
+          "en": "which will be used if the state has never been updated yet.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 508.83,
+          "end": 512.07,
+          "en": "So basically the equivalent to what we're doing here",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 512.07,
+          "end": 513.483,
+          "en": "when we're calling useState.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 515.04,
+          "end": 517.971,
+          "en": "This initial state I'm setting here can now be copied",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 517.971,
+          "end": 521.49,
+          "en": "and can also be set as an initial state here",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 521.49,
+          "end": 523.233,
+          "en": "for this reducer.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 524.37,
+          "end": 527.79,
+          "en": "So that we have the initial state and the reducer function",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 527.79,
+          "end": 529.94,
+          "en": "as arguments to useReducer.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 532.587,
+          "end": 535.8,
+          "en": "With that, this initial state will be received here",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 535.8,
+          "end": 538.26,
+          "en": "and will be returned as state.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 538.26,
+          "end": 542.49,
+          "en": "Now we can therefore use this shoppingCartState value here,",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 542.49,
+          "end": 545.79,
+          "en": "this first element returned by useReducer",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 545.79,
+          "end": 549.483,
+          "en": "instead of the shoppingCardState we got from using useState.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 551.01,
+          "end": 554.64,
+          "en": "So we can use this shoppingCartState down there",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 554.64,
+          "end": 557.85,
+          "en": "where we are creating the context value",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 557.85,
+          "end": 560.073,
+          "en": "to access the items on that state.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 561.57,
+          "end": 563.79,
+          "en": "Now at the moment, this of course means",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 563.79,
+          "end": 566.79,
+          "en": "that we'll always have an empty array of items",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 566.79,
+          "end": 570.66,
+          "en": "since that's my initial state here for my reducer.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 570.66,
+          "end": 574.143,
+          "en": "And I am not having any logic here that would change it.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 575.25,
+          "end": 577.41,
+          "en": "But for the moment, that's good enough.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 577.41,
+          "end": 579.63,
+          "en": "And if you save all your files",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 579.63,
+          "end": 581.64,
+          "en": "and you reload your application,",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 581.64,
+          "end": 584.25,
+          "en": "you therefore don't get any error.",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 584.25,
+          "end": 586.83,
+          "en": "And we see that we got no items in cart here,",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 586.83,
+          "end": 587.973,
+          "en": "which makes sense.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 589.32,
+          "end": 591.03,
+          "en": "Now, if I change my state here,",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 591.03,
+          "end": 593.52,
+          "en": "the cart doesn't update any longer of course",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 593.52,
+          "end": 595.38,
+          "en": "because now I'm getting my value",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 595.38,
+          "end": 598.41,
+          "en": "from that newly added reducer based state.",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 598.41,
+          "end": 601.29,
+          "en": "And of course there we at the moment got no logic",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 601.29,
+          "end": 603.27,
+          "en": "for updating that value,",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 603.27,
+          "end": 604.773,
+          "en": "but that will change next.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

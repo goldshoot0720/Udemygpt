@@ -1,0 +1,954 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "25600362",
+      "title": "Using useEffect with Redux",
+      "sourceHash": "8bf0ef6a9b3e002948b8886c4903456687f166c3b63204bfc7192aae8bd0b7c7",
+      "cues": [
+        {
+          "id": 1,
+          "start": 1.303,
+          "end": 3.4,
+          "en": "Now one possible,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.4,
+          "end": 6.62,
+          "en": "better solution is actually totally obvious",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.62,
+          "end": 8.2,
+          "en": "once you see it.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.2,
+          "end": 10.86,
+          "en": "Instead of using this approach,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.86,
+          "end": 13.56,
+          "en": "which I implemented in the last lecture",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 13.56,
+          "end": 15.4,
+          "en": "and which I'll therefore now get rid of,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 15.4,
+          "end": 17.62,
+          "en": "instead of doing that,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 17.62,
+          "end": 21.15,
+          "en": "and hence I can get rid of this cart selector",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 21.15,
+          "end": 23.45,
+          "en": "and of the useSelector import.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 23.45,
+          "end": 24.87,
+          "en": "Instead of doing that",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 24.87,
+          "end": 28.9,
+          "en": "we wanna stick to the approach from before.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 28.9,
+          "end": 32.06,
+          "en": "We wanna dispatch the addItemToCart action",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 32.06,
+          "end": 36.53,
+          "en": "and do all this heavy work inside of the Reducer function.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 36.53,
+          "end": 41.53,
+          "en": "But if we now wanna sync our new state to the server",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 42.15,
+          "end": 44.01,
+          "en": "so if we wanna update the server",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 44.01,
+          "end": 45.36,
+          "en": "with that new state",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 45.36,
+          "end": 47.35,
+          "en": "which we derived on the front end",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 47.35,
+          "end": 49.56,
+          "en": "we can simply switch the order.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 49.56,
+          "end": 52.37,
+          "en": "We can first do the work on the front end",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 52.37,
+          "end": 54.97,
+          "en": "and let Redux update its store.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 54.97,
+          "end": 57.33,
+          "en": "And then in a second step thereafter",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 57.33,
+          "end": 59.73,
+          "en": "we send the request to the server",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 59.73,
+          "end": 61.44,
+          "en": "but we don't necessarily need",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 61.44,
+          "end": 64.34,
+          "en": "to do that here inside of the Reducer function",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 64.34,
+          "end": 67.13,
+          "en": "where we wouldn't be allowed to do it.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 67.13,
+          "end": 68.74,
+          "en": "Instead, we can, for example",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 68.74,
+          "end": 71.74,
+          "en": "do it in the ProductItem.js file",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 71.74,
+          "end": 73.64,
+          "en": "or in a totally different file.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 73.64,
+          "end": 75.93,
+          "en": "Let's say in App.js",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 76.9,
+          "end": 79.01,
+          "en": "as our root component.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 79.01,
+          "end": 81.13,
+          "en": "There we can simply get hold",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 81.13,
+          "end": 83.66,
+          "en": "of our overall cart",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 83.66,
+          "end": 86.08,
+          "en": "by basically using useSelector",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 86.08,
+          "end": 89.21000000000001,
+          "en": "and listening to changes to our cart state.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 89.21000000000001,
+          "end": 92.08,
+          "en": "And whenever our cart state does change",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 92.08,
+          "end": 94.57,
+          "en": "we can send the Http request.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 94.57,
+          "end": 96.12,
+          "en": "So that's what I'll do here.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 96.12,
+          "end": 97.50999999999999,
+          "en": "I'll use useSelector,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 97.50999999999999,
+          "end": 99.36,
+          "en": "which we're already importing",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 99.36,
+          "end": 101.97999999999999,
+          "en": "to get hold of my overall cart",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 103.78,
+          "end": 106.363,
+          "en": "and then I'll store it in that constant like this.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 107.25999999999999,
+          "end": 109.14,
+          "en": "And now we can use useEffect",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 110.09,
+          "end": 112.03999999999999,
+          "en": "which we import from React",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 112.03999999999999,
+          "end": 115.93,
+          "en": "to watch for changes in our cart state,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 115.93,
+          "end": 116.763,
+          "en": "because you learned",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 116.763,
+          "end": 119.63,
+          "en": "that useEffect allows you to run side effects.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 119.63,
+          "end": 121.9,
+          "en": "So it sounds like a good choice here,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 121.9,
+          "end": 123.85,
+          "en": "and it allows you to run an effect",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 123.85,
+          "end": 127.81,
+          "en": "whenever some dependency changes.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 127.81,
+          "end": 132.74,
+          "en": "So we import useEffect from React",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 132.74,
+          "end": 134.74,
+          "en": "and we can then call useEffect here",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 134.74,
+          "end": 137.06,
+          "en": "in the app component, for example",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 137.06,
+          "end": 139.56,
+          "en": "and we could be doing this in any component.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 139.56,
+          "end": 141.9,
+          "en": "I'm just picking my route component here",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 141.9,
+          "end": 144.7,
+          "en": "but that's not a must to do.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 144.7,
+          "end": 149.03,
+          "en": "So here we then define our Effect function",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 149.03,
+          "end": 150.973,
+          "en": "and our array of dependencies.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 152.41,
+          "end": 154.55,
+          "en": "Now, inside of the Effect function,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 154.55,
+          "end": 159.07,
+          "en": "I wanna send a Http request with the Fetch API, let's say",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 159.07,
+          "end": 161.09,
+          "en": "and I wanna send it to Firebase.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 161.09,
+          "end": 164.28300000000002,
+          "en": "So we grab that URL from Firebase,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 165.2,
+          "end": 166.22,
+          "en": "add that here",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 166.22,
+          "end": 170.09,
+          "en": "and maybe target a cart.json node.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 170.09,
+          "end": 172.71,
+          "en": "The .json is Firebase specific.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 172.71,
+          "end": 175.53,
+          "en": "This will create a new cart Node in the database",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 175.53,
+          "end": 177.59,
+          "en": "and then store the data there.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 177.59,
+          "end": 179.76,
+          "en": "And we wanna send a POST request",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 179.76,
+          "end": 183.69,
+          "en": "because that will tell Firebase to store new data",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 184.57,
+          "end": 185.74,
+          "en": "or to be precise,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 185.74,
+          "end": 190.74,
+          "en": "actually here, I wanna send a PUT request.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 190.86,
+          "end": 193.2,
+          "en": "That's also allowed by a Firebase.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 193.2,
+          "end": 194.89,
+          "en": "And if we send a PUT request",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 194.89,
+          "end": 198.07,
+          "en": "we also do store data on Firebase.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 198.07,
+          "end": 200.14,
+          "en": "But the difference to POST is",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 200.14,
+          "end": 201.9,
+          "en": "that the new data will not be added",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 201.9,
+          "end": 204.2,
+          "en": "in a list of data so to say,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 204.2,
+          "end": 206.93,
+          "en": "but that it will override existing data.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 206.93,
+          "end": 208.63,
+          "en": "So when sending a PUT request,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 208.63,
+          "end": 210.87,
+          "en": "will override the existing cart",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 210.87,
+          "end": 212.6,
+          "en": "with the incoming data",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 212.6,
+          "end": 215,
+          "en": "and that's exactly what we want here.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 215,
+          "end": 216.93,
+          "en": "So we can send a PUT request",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 216.93,
+          "end": 221.49,
+          "en": "and then set our request body to JSON.stringify",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 222.5,
+          "end": 225.15,
+          "en": "And now here, I wanna send my cart.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 225.15,
+          "end": 227.43,
+          "en": "So this cart, which I get from Redux,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 227.43,
+          "end": 229.82,
+          "en": "I convert this to JSON data",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 229.82,
+          "end": 232.6,
+          "en": "and send it as part of the request.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 232.6,
+          "end": 234.43,
+          "en": "Now, since we're using cart in here",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 234.43,
+          "end": 237.89,
+          "en": "we should add it as a dependency to useEffect",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 237.89,
+          "end": 241.82,
+          "en": "so that this Effect function re-executes",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 241.82,
+          "end": 243.91,
+          "en": "whenever our cart changes,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 243.91,
+          "end": 245.62,
+          "en": "which is exactly what we want.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 245.62,
+          "end": 246.94,
+          "en": "Now, the great thing is",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 246.94,
+          "end": 250.57,
+          "en": "that useSelector sets up a subscription to Redux.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 250.57,
+          "end": 253.41,
+          "en": "So whenever our Redux store does change",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 253.41,
+          "end": 256.4,
+          "en": "this component function will be re-executed",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 256.4,
+          "end": 258.32,
+          "en": "and we will get to the latest state.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 258.32,
+          "end": 260.8,
+          "en": "So in this case, the latest cart.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 260.8,
+          "end": 264.12,
+          "en": "So that means that effect will also be re-evaluated",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 264.12,
+          "end": 267.43,
+          "en": "and it will re-execute if our carts did change",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 267.43,
+          "end": 269.71,
+          "en": "and that is exactly what we need.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 269.71,
+          "end": 272.31,
+          "en": "So with this simple addition here",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 272.31,
+          "end": 277.31,
+          "en": "we will send this Http request whenever our cart changes",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 277.55,
+          "end": 281.72,
+          "en": "and we can keep our logic for updating the cart",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 281.72,
+          "end": 283.32,
+          "en": "inside of the reducer,",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 283.32,
+          "end": 285.88,
+          "en": "because we simply switched the order.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 285.88,
+          "end": 289.57,
+          "en": "We first update our Redux store",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 289.57,
+          "end": 291.11,
+          "en": "and we're done with that.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 291.11,
+          "end": 295.34000000000003,
+          "en": "And then we select the updated store to send the request",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 295.34000000000003,
+          "end": 299.07,
+          "en": "and that allows us to keep lean components",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 299.07,
+          "end": 302.26,
+          "en": "create a fat Reducer with all the logic",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 302.26,
+          "end": 304.69,
+          "en": "and then perform any side effects",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 304.69,
+          "end": 308.72,
+          "en": "that might depend on our Redux state.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 308.72,
+          "end": 310.5,
+          "en": "So if you save this",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 310.5,
+          "end": 311.95,
+          "en": "and we go back here,",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 311.95,
+          "end": 313.7,
+          "en": "if I reload",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 313.7,
+          "end": 315.43,
+          "en": "if I open up the network tab",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 315.43,
+          "end": 318.28,
+          "en": "so that we can see Http requests,",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 318.28,
+          "end": 319.9,
+          "en": "if I add something to my cart,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 319.9,
+          "end": 322.67,
+          "en": "you see a Http request is sent",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 322.67,
+          "end": 325.31,
+          "en": "and that happens whenever I update my cart.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 325.31,
+          "end": 326.75,
+          "en": "And if we go to Firebase,",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 326.75,
+          "end": 328.597,
+          "en": "we therefore see the cart's there.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 328.597,
+          "end": 332.683,
+          "en": "And we see that here we have the correct cart reflected.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 333.75,
+          "end": 336.49,
+          "en": "If I add my other item to the cart",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 336.49,
+          "end": 338.35,
+          "en": "and never request the send",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 338.35,
+          "end": 340.78,
+          "en": "and the cart was updated again.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 340.78,
+          "end": 343.01,
+          "en": "So that is a very, very nice",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 343.01,
+          "end": 344.92,
+          "en": "and that's a very good way",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 344.92,
+          "end": 349.56,
+          "en": "of having our side effect logic in a component",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 349.56,
+          "end": 353.05,
+          "en": "and keeping all our data transformation logic",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 353.05,
+          "end": 355.12,
+          "en": "inside of a Reducer,",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 355.12,
+          "end": 357.35,
+          "en": "which is where we typically wanna have it",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 357.35,
+          "end": 358.813,
+          "en": "when working with Redux.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

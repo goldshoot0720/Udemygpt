@@ -1,0 +1,912 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "39836976",
+      "title": "Using Optimistic Updating",
+      "sourceHash": "454ba3995ef2607563972ae9c1c4852715e63ddc0f4f39647d0ff761eb39cfbd",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.48,
+          "end": 1.89,
+          "en": "So we're now also able",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 1.89,
+          "end": 6.243,
+          "en": "to send non-GET requests that may carry some data.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.26,
+          "end": 9.39,
+          "en": "But of course if we take a closer look",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.39,
+          "end": 11.85,
+          "en": "at how we're sending that request here",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.85,
+          "end": 15.69,
+          "en": "there are a couple of noteworthy things here.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.69,
+          "end": 19.14,
+          "en": "For one, I'm for example not managing a loading state here.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 19.14,
+          "end": 22.02,
+          "en": "And I did mention before that it's quite common",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 22.02,
+          "end": 24.42,
+          "en": "to have these three pieces of state",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 24.42,
+          "end": 27.48,
+          "en": "when sending HTTP requests.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 27.48,
+          "end": 29.88,
+          "en": "And that is absolutely true,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 29.88,
+          "end": 32.37,
+          "en": "but here in this App component,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 32.37,
+          "end": 35.22,
+          "en": "instead of managing some loading state",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 35.22,
+          "end": 39.6,
+          "en": "and showing some loading text or loading spinner to the user",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 39.6,
+          "end": 43.83,
+          "en": "I'm doing something which is called optimistic updating.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 43.83,
+          "end": 47.987,
+          "en": "I'm updating my local state before I'm sending this request",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 47.987,
+          "end": 51.51,
+          "en": "and before I'm waiting for the response.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 51.51,
+          "end": 53.97,
+          "en": "So when I pick a place here, as you can tell",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 53.97,
+          "end": 56.683,
+          "en": "the UI updates instantly and the request",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 56.683,
+          "end": 61.44,
+          "en": "is basically sent at the same time behind the scenes.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 61.44,
+          "end": 65.49,
+          "en": "Now of course, sending that request could fail though.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 65.49,
+          "end": 68.22,
+          "en": "Therefore, here when catching this error",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 68.22,
+          "end": 73.22,
+          "en": "what I want to do is I want to set my userPlaces again",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 75.21000000000001,
+          "end": 79.5,
+          "en": "and I wanna reset them to the state they were before.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 79.5,
+          "end": 84.1,
+          "en": "So in the end here, simply to the old userPlaces state",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 85.56,
+          "end": 88.65,
+          "en": "and I'm not using this function form for updating here",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 88.65,
+          "end": 91.74,
+          "en": "because here I don't wanna have that state",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 91.74,
+          "end": 93.60300000000001,
+          "en": "that includes the new place.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 94.56,
+          "end": 99.06,
+          "en": "But instead I wanna simply use the old userPlaces state",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 99.06,
+          "end": 102.84,
+          "en": "that will not include that newly selected place",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 102.84,
+          "end": 105.33,
+          "en": "so that if something goes wrong,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 105.33,
+          "end": 110.33,
+          "en": "we roll back that change and we update the UI again.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 110.49000000000001,
+          "end": 112.95,
+          "en": "And often optimistic updating",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 112.95,
+          "end": 115.56,
+          "en": "can provide a better user experience",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 115.56,
+          "end": 119.46000000000001,
+          "en": "than showing a loading spinner or some loading text.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 119.46000000000001,
+          "end": 122.16,
+          "en": "Though it of course depends on your preferences",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 122.16,
+          "end": 125.25,
+          "en": "and on the exact situation you are facing.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 125.25,
+          "end": 129.48,
+          "en": "It's not always possible and especially when fetching data",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 129.48,
+          "end": 131.73,
+          "en": "you of course simply have to wait for it",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 131.73,
+          "end": 133.74,
+          "en": "until you can use it.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 133.74,
+          "end": 137.04,
+          "en": "But when performing updates as we're doing it here",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 137.04,
+          "end": 140.223,
+          "en": "optimistic updating can be a good alternative.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 141.48,
+          "end": 146.28,
+          "en": "Alternatively, we could of course also move this code here",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 146.28,
+          "end": 148.47,
+          "en": "where we update our places",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 148.47,
+          "end": 151.07999999999998,
+          "en": "in front of this state update here.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 151.07999999999998,
+          "end": 153.87,
+          "en": "And now this state update would wait",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 153.87,
+          "end": 156.48,
+          "en": "until this request is done.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 156.48,
+          "end": 157.77,
+          "en": "But if we're doing that,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 157.77,
+          "end": 159.84,
+          "en": "we should be showing some loading text",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 159.84,
+          "end": 162.12,
+          "en": "or loading spinner because otherwise",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 162.12,
+          "end": 165.69299999999998,
+          "en": "it might seem to the user as if the application is stuck.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 166.8,
+          "end": 168.72,
+          "en": "So I'm not doing that here.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 168.72,
+          "end": 170.82,
+          "en": "I'm going to comment out this code,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 170.82,
+          "end": 173.28,
+          "en": "but that would be an alternative way.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 173.28,
+          "end": 177.32999999999998,
+          "en": "And again, it simply is up to you which approach you prefer.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 177.32999999999998,
+          "end": 180.183,
+          "en": "Here I'm sticking to this optimistic updating.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 181.29,
+          "end": 184.32,
+          "en": "Nonetheless, if we are facing an error here",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 184.32,
+          "end": 187.62,
+          "en": "we still might want to inform the user about it",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 187.62,
+          "end": 191.04,
+          "en": "because of course rolling back the change is nice",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 191.04,
+          "end": 194.1,
+          "en": "but it still looks rather strange to the user",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 194.1,
+          "end": 197.79,
+          "en": "if a change made by them suddenly disappears",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 197.79,
+          "end": 199.773,
+          "en": "without any explanation.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 201.66,
+          "end": 205.53,
+          "en": "So we still might want to manage some extra state",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 205.53,
+          "end": 207.72,
+          "en": "in this component here,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 207.72,
+          "end": 212.72,
+          "en": "an extra errorUpdatingPlaces state, for example",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 213.12,
+          "end": 218.12,
+          "en": "with a setErrorUpdatingPlaces state updating function,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 219.39,
+          "end": 221.883,
+          "en": "which initially holds no value,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 222.72,
+          "end": 227.72,
+          "en": "which we do update if updating our places goes wrong.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 227.73,
+          "end": 229.8,
+          "en": "So here in this catch block,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 229.8,
+          "end": 232.29,
+          "en": "besides rolling back the change",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 232.29,
+          "end": 234.94,
+          "en": "I now all the wanna call setErrorUpdatingPlaces",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 237.06,
+          "end": 239.82,
+          "en": "and then set my state to an object",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 239.82,
+          "end": 242.64,
+          "en": "where we have a message property,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 242.64,
+          "end": 246,
+          "en": "which is equal to error message if this is available",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 246,
+          "end": 251,
+          "en": "or as a fallback failed to update places, for example.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 254.28,
+          "end": 259.08,
+          "en": "And now we can use this errorUpdatingPlaces state here",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 259.08,
+          "end": 261.753,
+          "en": "to show an error message on the screen.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 262.62,
+          "end": 266.52,
+          "en": "And of course, as always, there are lots of different ways",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 266.52,
+          "end": 268.56,
+          "en": "of showing such an error message.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 268.56,
+          "end": 270.15,
+          "en": "It is up to you in the end,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 270.15,
+          "end": 272.403,
+          "en": "but here I'll simply show a modal.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 273.24,
+          "end": 278.24,
+          "en": "So I will add a modal here using that Modal component",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 278.82,
+          "end": 283.08,
+          "en": "and set this to open if errorUpdatingPlaces is truthy.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 283.08,
+          "end": 284.553,
+          "en": "So if we have an error.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 286.35,
+          "end": 291.35,
+          "en": "In that case, I will show my Error component,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 293.19,
+          "end": 295.36,
+          "en": "which I shared with you earlier",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 296.43,
+          "end": 300.483,
+          "en": "and which therefore of course also should be imported.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 305.61,
+          "end": 310.53,
+          "en": "And there I'll set the title to an error occurred",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 310.53,
+          "end": 315.033,
+          "en": "and the message is equal to errorUpdatingPlaces.message.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 317.91,
+          "end": 319.53,
+          "en": "Now of course, this modal here",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 319.53,
+          "end": 322.56,
+          "en": "should then actually also be closable",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 322.56,
+          "end": 325.11,
+          "en": "and clear the error message",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 325.11,
+          "end": 328.95,
+          "en": "and therefore I'll add another function here.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 328.95,
+          "end": 333.89,
+          "en": "Let's say maybe right here, which I'll name handleError",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 335.28,
+          "end": 339,
+          "en": "where I'll simply call setErrorUpdatingPlaces",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 339,
+          "end": 342.61,
+          "en": "and set this back to null so that we clear the error",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 343.68,
+          "end": 346.35,
+          "en": "and then we can use handleError here",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 346.35,
+          "end": 349.233,
+          "en": "as a value for the onConfirm prop,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 350.19,
+          "end": 353.22,
+          "en": "which allows us to close the modal therefore,",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 353.22,
+          "end": 354.573,
+          "en": "since we clear the error,",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 355.53,
+          "end": 358.83,
+          "en": "and also on the onClose prop on the modal",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 358.83,
+          "end": 361.8,
+          "en": "to clear the error if the modal is closed",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 361.8,
+          "end": 364.413,
+          "en": "by pressing the escape key for example.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 365.37,
+          "end": 368.58,
+          "en": "I also wanna make sure that this error component here,",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 368.58,
+          "end": 370.05,
+          "en": "which is wrapped by Modal,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 370.05,
+          "end": 374.46,
+          "en": "is only rendered if errorUpdatingPlaces is truthy",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 374.46,
+          "end": 378.183,
+          "en": "because otherwise trying to access message here will fail.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 379.05,
+          "end": 382.44,
+          "en": "Even though it will only be visible if the modal is visible,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 382.44,
+          "end": 385.5,
+          "en": "it will actually be part of the DOM right away",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 385.5,
+          "end": 386.94,
+          "en": "because the modal component",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 386.94,
+          "end": 389.43,
+          "en": "is always part of the DOM as well.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 389.43,
+          "end": 393.06,
+          "en": "It's just not always open, but it's always there.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 393.06,
+          "end": 395.22,
+          "en": "And therefore we would always be trying",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 395.22,
+          "end": 398.49,
+          "en": "to access errorUpdatingPlaces.message.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 398.49,
+          "end": 402.27,
+          "en": "This will fail though if we have no error and that's why",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 402.27,
+          "end": 405.513,
+          "en": "I'm actually rendering this error here conditionally.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 406.68,
+          "end": 410.13,
+          "en": "And with that, if we save that and reload",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 410.13,
+          "end": 413.28,
+          "en": "I'm fetching my places, I can edit them.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 413.28,
+          "end": 415.71,
+          "en": "But if we now force an error,",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 415.71,
+          "end": 419.55,
+          "en": "for example by again using an invalid URL,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 419.55,
+          "end": 424.55,
+          "en": "by adding multiple S's here at the end, and I save this.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 425.61,
+          "end": 430.61,
+          "en": "if I now click on an item here like this,",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 430.8,
+          "end": 434.43,
+          "en": "you see I get this error modal and I can dismiss it.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 434.43,
+          "end": 437.34,
+          "en": "But of course now we would have to fix the error",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 437.34,
+          "end": 439.53,
+          "en": "before we can continue.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 439.53,
+          "end": 441.6,
+          "en": "And that is what I'll do here",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 441.6,
+          "end": 443.853,
+          "en": "by getting rid of all those S's.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 444.9,
+          "end": 447.96,
+          "en": "But that's how we can perform optimistic updating",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 447.96,
+          "end": 451.323,
+          "en": "and how we can and should still handle errors.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

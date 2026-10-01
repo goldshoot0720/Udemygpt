@@ -1,0 +1,1416 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "8268530",
+      "title": "Adding Question Timers",
+      "sourceHash": "adb4588de22831e5d09ed6c7014ae71105086fc2646729006d19e04b26250119",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.48,
+          "end": 2.94,
+          "en": "So now that this quiz is slowly,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 2.94,
+          "end": 5.13,
+          "en": "but steadily taking shape,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.13,
+          "end": 8.37,
+          "en": "before we'll work on this game over screen",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.37,
+          "end": 11.16,
+          "en": "where I of course also wanna tell the user",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.16,
+          "end": 14.76,
+          "en": "how many questions were answered correctly and so on.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.76,
+          "end": 19.76,
+          "en": "Before we do that, I wanna add an extra feature to this quiz",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 19.98,
+          "end": 23.46,
+          "en": "because I wanna make sure that for every question,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 23.46,
+          "end": 27.21,
+          "en": "you have a limited amount of time to answer it.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 27.21,
+          "end": 31.89,
+          "en": "Let's say 15 seconds or something like this.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 31.89,
+          "end": 34.8,
+          "en": "And I wanna have a little progress bar",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 34.8,
+          "end": 39.54,
+          "en": "that's slowly depleting as this timer expires.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 39.54,
+          "end": 41.64,
+          "en": "And if the timer did expire,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 41.64,
+          "end": 44.22,
+          "en": "the next question should be presented",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 44.22,
+          "end": 47.22,
+          "en": "and this question should be skipped.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 47.22,
+          "end": 50.1,
+          "en": "So if the user does not answer in time,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 50.1,
+          "end": 52.503,
+          "en": "no answer will be registered.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 53.97,
+          "end": 57.903,
+          "en": "And to implement this, we will now use useEffect.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 58.86,
+          "end": 60.51,
+          "en": "But of course, as you can tell,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 60.51,
+          "end": 63.87,
+          "en": "this quiz component is already growing",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 63.87,
+          "end": 66.12,
+          "en": "in complexity and size,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 66.12,
+          "end": 69.42,
+          "en": "and therefore I'll outsource this timer",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 69.42,
+          "end": 72.21000000000001,
+          "en": "into a brand new component.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 72.21000000000001,
+          "end": 75.39,
+          "en": "I'll add a question timer component file",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 75.39,
+          "end": 77.67,
+          "en": "called QuestionTimer.jsx.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 77.67,
+          "end": 79.83,
+          "en": "And in that file,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 79.83,
+          "end": 84.39,
+          "en": "I wanna export a new component function QuestionTimer.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 86.52,
+          "end": 89.78999999999999,
+          "en": "And here the goal in this file then",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 89.78999999999999,
+          "end": 93.72,
+          "en": "is to display this progress bar,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 93.72,
+          "end": 96.87,
+          "en": "so the default progress element.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 96.87,
+          "end": 99.18,
+          "en": "But of course, this component",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 99.18,
+          "end": 102.81,
+          "en": "will not just be about displaying this progress bar,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 102.81,
+          "end": 106.86,
+          "en": "it will also be about managing this progress bar.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 106.86,
+          "end": 108.12,
+          "en": "Now, I will actually start",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 108.12,
+          "end": 110.97,
+          "en": "by giving this an id, question time,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 110.97,
+          "end": 113.553,
+          "en": "which is there for styling purposes.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 114.78,
+          "end": 116.75999999999999,
+          "en": "But then to add some logic,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 116.75999999999999,
+          "end": 121.76,
+          "en": "we also wanna set a timer that expires after sometime,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 122.13,
+          "end": 126.15,
+          "en": "and we can do that with the built-in setTimeout function",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 126.15,
+          "end": 128.4,
+          "en": "as you learned before.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 128.4,
+          "end": 129.75,
+          "en": "We then just have to define",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 129.75,
+          "end": 132.57,
+          "en": "after how much time this should expire.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 132.57,
+          "end": 136.05,
+          "en": "And here, I think it would be great if this question timer",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 136.05,
+          "end": 139.02,
+          "en": "would be a configurable component,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 139.02,
+          "end": 143.79,
+          "en": "so that the exact time is not hard coded in this component,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 143.79,
+          "end": 146.13,
+          "en": "but can be defined in the component",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 146.13,
+          "end": 149.733,
+          "en": "where this question timer component is being used.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 150.6,
+          "end": 153.81,
+          "en": "Hence, I'll destructure my props object here",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 153.81,
+          "end": 156.84,
+          "en": "and I expect to get a timeout prop here",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 156.84,
+          "end": 160.173,
+          "en": "which is the timeout that should be set on this timer.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 161.52,
+          "end": 163.26,
+          "en": "So that could then, for example,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 163.26,
+          "end": 167.253,
+          "en": "be 15,000 milliseconds, so 15 seconds.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 168.21,
+          "end": 170.91,
+          "en": "Then once the timer expired,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 170.91,
+          "end": 175.07999999999998,
+          "en": "I wanna let the parent component know about that.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 175.07999999999998,
+          "end": 179.16,
+          "en": "So that if we use question timer in the quiz component,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 179.16,
+          "end": 181.5,
+          "en": "we actually are notified",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 181.5,
+          "end": 184.92,
+          "en": "that we should move on to the next question,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 184.92,
+          "end": 186.99,
+          "en": "because it's this quiz component",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 186.99,
+          "end": 190.74,
+          "en": "where I'm managing the active question.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 190.74,
+          "end": 195.09,
+          "en": "Therefore, question timer also should receive another prop",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 195.09,
+          "end": 197.64,
+          "en": "that should be a function that should be called",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 197.64,
+          "end": 201.18,
+          "en": "from inside this timer once it expired,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 201.18,
+          "end": 205.14,
+          "en": "and that could be onTimeout, for example.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 205.14,
+          "end": 209.667,
+          "en": "So that in here, in this timer, I call onTimeout.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 210.66,
+          "end": 214.77,
+          "en": "And we can actually shorten this code and just set onTimeout",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 214.77,
+          "end": 217.74,
+          "en": "as the function that should be called by the browser",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 217.74,
+          "end": 219.543,
+          "en": "once this timeout expired.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 221.1,
+          "end": 224.88,
+          "en": "Now, I'm not using useEffect here at this point",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 224.88,
+          "end": 227.57999999999998,
+          "en": "because even though this is a side effect,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 227.57999999999998,
+          "end": 229.8,
+          "en": "it's at the moment not an effect",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 229.8,
+          "end": 232.65,
+          "en": "that would require the usage of useEffect,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 232.65,
+          "end": 236.55,
+          "en": "because I'm not facing the danger of an infinite loop here,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 236.55,
+          "end": 240.03,
+          "en": "because I'm not updating any component state here,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 240.03,
+          "end": 243.57,
+          "en": "and I'm also not trying to interact with an element",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 243.57,
+          "end": 245.94,
+          "en": "that wouldn't be available yet.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 245.94,
+          "end": 249.933,
+          "en": "So this code at the moment is fine as it is,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 251.82,
+          "end": 254.73,
+          "en": "but of course that's not all I wanna do here.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 254.73,
+          "end": 257.46,
+          "en": "Instead, I also wanna make sure",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 257.46,
+          "end": 260.64,
+          "en": "that I update this progress bar,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 260.64,
+          "end": 263.25,
+          "en": "and therefore we also need an interval",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 263.25,
+          "end": 267.18,
+          "en": "that executes some code every couple of milliseconds",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 267.18,
+          "end": 269.673,
+          "en": "so that we can update this timer.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 270.69,
+          "end": 272.58,
+          "en": "Therefore, we of course also need",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 272.58,
+          "end": 276.09000000000003,
+          "en": "some state in this component so that this progress bar",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 276.09000000000003,
+          "end": 279,
+          "en": "is rerendered every couple of milliseconds",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 279,
+          "end": 280.743,
+          "en": "whenever that state changes.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 281.88,
+          "end": 286.78,
+          "en": "So I'll import useState from React here",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 287.7,
+          "end": 291.27,
+          "en": "and then the state that is registered here",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 291.27,
+          "end": 294.75,
+          "en": "is in the end the remaining time,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 294.75,
+          "end": 296.65,
+          "en": "so remainingTime and setRemainingTime.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 300.54,
+          "end": 304.86,
+          "en": "The initial value for the state should be this timeout value",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 304.86,
+          "end": 308.61,
+          "en": "because that is the remaining time of this timer",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 308.61,
+          "end": 310.533,
+          "en": "when this component is rendered.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 312.54,
+          "end": 316.41,
+          "en": "But then I wanna update this every 10 milliseconds",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 316.41,
+          "end": 318.06,
+          "en": "or something like this.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 318.06,
+          "end": 322.443,
+          "en": "And therefore we of course need set interval as you learned,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 323.43,
+          "end": 325.14,
+          "en": "because here we can define",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 325.14,
+          "end": 329.58,
+          "en": "that every 10 or 100 or whatever milliseconds,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 329.58,
+          "end": 332.19,
+          "en": "this function here should execute.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 332.19,
+          "end": 335.88,
+          "en": "And in this function, I wanna update my remaining time",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 335.88,
+          "end": 338.85,
+          "en": "by deducting 100 milliseconds",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 338.85,
+          "end": 342.33299999999997,
+          "en": "or whichever frequency you chose here from it.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 343.771,
+          "end": 347.55,
+          "en": "So here we need the function form since we update the state",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 347.55,
+          "end": 351.123,
+          "en": "based on the previously stored state value.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 351.99,
+          "end": 355.5,
+          "en": "And the new value is standard previously remaining time",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 355.5,
+          "end": 359.223,
+          "en": "minus 100, so minus my frequency here.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 361.74,
+          "end": 365.76,
+          "en": "And this would now of course create an infinite loop,",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 365.76,
+          "end": 367.8,
+          "en": "because we're updating the state here.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 367.8,
+          "end": 371.31,
+          "en": "This would re-execute this component function.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 371.31,
+          "end": 373.23,
+          "en": "We would create a new interval",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 373.23,
+          "end": 375.66,
+          "en": "where we would also update the state again",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 375.66,
+          "end": 379.14,
+          "en": "and we would quickly have multiple intervals up and running",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 379.14,
+          "end": 383.01,
+          "en": "which all would call this component function.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 383.01,
+          "end": 385.86,
+          "en": "And that's of course definitely not what we want",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 385.86,
+          "end": 389.47,
+          "en": "and that's therefore a use case for useEffect",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 390.96,
+          "end": 395.17,
+          "en": "because now we can wrap this code with useEffect here",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 396.6,
+          "end": 399.48,
+          "en": "by passing this effect function to useEffect",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 399.48,
+          "end": 402.39300000000003,
+          "en": "and this dependencies array about which you learned.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 404.88,
+          "end": 408.12,
+          "en": "And then we should move this set interval code",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 408.12,
+          "end": 411.24,
+          "en": "into useEffect to make sure",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 411.24,
+          "end": 414.18,
+          "en": "that this is not re executed all the time,",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 414.18,
+          "end": 417.663,
+          "en": "but instead only when those dependencies change.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 418.62,
+          "end": 421.92,
+          "en": "And in here, we don't have any dependencies",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 421.92,
+          "end": 423.99,
+          "en": "that would need to be added here,",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 423.99,
+          "end": 426.57,
+          "en": "because you basically only need",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 426.57,
+          "end": 429.24,
+          "en": "to add props and state values,",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 429.24,
+          "end": 432.963,
+          "en": "and we're using neither of those in this effect function.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 435.03,
+          "end": 437.4,
+          "en": "But we should now of course also wrap",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 437.4,
+          "end": 439.92,
+          "en": "this timeout code with useEffect,",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 439.92,
+          "end": 443.64,
+          "en": "because otherwise when we update the remaining time,",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 443.64,
+          "end": 446.58,
+          "en": "which we will do every 100 milliseconds,",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 446.58,
+          "end": 448.95,
+          "en": "this component function executes again",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 448.95,
+          "end": 452.19,
+          "en": "and this timer would be recreated,",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 452.19,
+          "end": 454.02,
+          "en": "and we therefore would quickly",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 454.02,
+          "end": 456.423,
+          "en": "have multiple timers up and running.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 457.86,
+          "end": 461.5,
+          "en": "Therefore, we should add another useEffect call here",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 463.05,
+          "end": 466.83299999999997,
+          "en": "and move this code into this useEffect function.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 468.06,
+          "end": 471.45,
+          "en": "And here we now do need to add a dependency,",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 471.45,
+          "end": 474.09000000000003,
+          "en": "because we actually have two dependencies",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 474.09000000000003,
+          "end": 476.403,
+          "en": "that are used in this effect function.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 477.27,
+          "end": 479.82,
+          "en": "Because we're using two props in there,",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 479.82,
+          "end": 483.18,
+          "en": "the timeout prop and the onTimeout prop,",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 483.18,
+          "end": 485.733,
+          "en": "which is a function, but still a prop.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 487.68,
+          "end": 492.33,
+          "en": "So here we should add timeout and onTimeout as dependencies",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 492.33,
+          "end": 497.28,
+          "en": "to make sure that this effect function gets re-executed",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 497.28,
+          "end": 499.89300000000003,
+          "en": "if one of those dependencies changes.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 500.97,
+          "end": 503.49,
+          "en": "And that of course makes sense",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 503.49,
+          "end": 506.91,
+          "en": "because of the parent component should decide",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 506.91,
+          "end": 511.23,
+          "en": "that the question timer timeout should change,",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 511.23,
+          "end": 515.523,
+          "en": "we, of course, also wanna reset the timer and set it again.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 517.32,
+          "end": 519.93,
+          "en": "And with all that, we're not done yet.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 519.93,
+          "end": 522,
+          "en": "We will tweak the code later,",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 522,
+          "end": 524.79,
+          "en": "but we get a good starting state.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 524.79,
+          "end": 527.67,
+          "en": "And we can now use this remaining time here",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 527.67,
+          "end": 529.743,
+          "en": "to update this progress bar.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 530.94,
+          "end": 535.41,
+          "en": "There we wanna set the max value to this timeout duration",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 535.41,
+          "end": 537.693,
+          "en": "we're getting through the timeout prop,",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 538.71,
+          "end": 542.133,
+          "en": "and the current value then should be the remaining time.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 543.84,
+          "end": 545.01,
+          "en": "Because keep in mind,",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 545.01,
+          "end": 549.03,
+          "en": "this remaining time initially is this timeout value,",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 549.03,
+          "end": 552.813,
+          "en": "but it's then getting less and less as this time expires.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 554.22,
+          "end": 557.49,
+          "en": "With that, we can go back to the quiz component",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 557.49,
+          "end": 561.36,
+          "en": "and there import this question timer component",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 561.36,
+          "end": 565.48,
+          "en": "we just worked on from question timer JSX",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 567.18,
+          "end": 569.82,
+          "en": "and use that component here.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 569.82,
+          "end": 574.82,
+          "en": "And I wanna display it right above my question text here",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 576.84,
+          "end": 579.06,
+          "en": "inside of that question div.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 579.06,
+          "end": 582.72,
+          "en": "That's where I wanna output the question timer.",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 582.72,
+          "end": 585.93,
+          "en": "And now we of course must set both the timeout",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 585.93,
+          "end": 588.573,
+          "en": "and the onTimeout props.",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 590.19,
+          "end": 594.3,
+          "en": "Now, timeout should be the duration of the timer",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 594.3,
+          "end": 595.89,
+          "en": "in milliseconds.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 595.89,
+          "end": 599.25,
+          "en": "And to get a ten second timer, for example,",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 599.25,
+          "end": 601.92,
+          "en": "we should therefore enter 10,000 here,",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 601.92,
+          "end": 604.743,
+          "en": "because that's 10 seconds in milliseconds.",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 606.24,
+          "end": 609.57,
+          "en": "And on timeout, of course, should be a function",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 609.57,
+          "end": 613.41,
+          "en": "that should be executed once the timer expired.",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 613.41,
+          "end": 617.52,
+          "en": "And here we could execute handleSelectAnswer,",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 617.52,
+          "end": 620.163,
+          "en": "but pass null as a value.",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 621.21,
+          "end": 624.21,
+          "en": "So that we add a new entry",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 624.21,
+          "end": 627.873,
+          "en": "to this user answers array in this function,",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 628.71,
+          "end": 631.8,
+          "en": "but the value we add is null,",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 631.8,
+          "end": 634.47,
+          "en": "so that it's not actually an answer",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 634.47,
+          "end": 636.57,
+          "en": "from the available answers,",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 636.57,
+          "end": 640.2,
+          "en": "but instead a placeholder that basically tells us",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 640.2,
+          "end": 643.713,
+          "en": "that no answer was chosen for this question.",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 645.36,
+          "end": 648.72,
+          "en": "And with that, if we save that and reload,",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 648.72,
+          "end": 652.02,
+          "en": "we see this timer here expiring",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 652.02,
+          "end": 655.623,
+          "en": "and as it expires, nothing happens.",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 658.41,
+          "end": 662.52,
+          "en": "Or actually something happens after a while,",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 662.52,
+          "end": 665.583,
+          "en": "but not instantly as it expired.",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 666.45,
+          "end": 669.06,
+          "en": "Instead, as you see, if you reload,",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 669.06,
+          "end": 673.29,
+          "en": "this timer expires and then we have to wait",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 673.29,
+          "end": 675.87,
+          "en": "until at some point of time",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 675.87,
+          "end": 678.783,
+          "en": "we do move on to the next question.",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 679.71,
+          "end": 682.95,
+          "en": "And here we then of course have no timer as you see,",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 682.95,
+          "end": 686.22,
+          "en": "instead it stays empty instead of resetting.",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 686.22,
+          "end": 688.41,
+          "en": "And then at some point it still expires",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 688.41,
+          "end": 691.89,
+          "en": "because it still seems to be going on behind the scenes,",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 691.89,
+          "end": 695.01,
+          "en": "which is all the rather strange since it expired.",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 695.01,
+          "end": 698.973,
+          "en": "So it looks like we need to fix a couple of things here.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

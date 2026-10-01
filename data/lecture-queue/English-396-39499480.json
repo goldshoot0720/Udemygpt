@@ -1,0 +1,345 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "39499480",
+      "title": "Disabling Automatic Refetching After Invalidations",
+      "sourceHash": "ca6c06b7cf8bd9dab13653f46484f7c1c8c1e1133638d503617744b530b11631",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.48,
+          "end": 2.73,
+          "en": "So I did implement this data fetching",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 2.73,
+          "end": 6.63,
+          "en": "and deletion logic, but as mentioned in the last lecture,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.63,
+          "end": 10.02,
+          "en": "if I delete an event and we're navigated back,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.02,
+          "end": 12.933,
+          "en": "I also get such a 404 request here.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 14.1,
+          "end": 16.16,
+          "en": "Now, if we take a closer look at this request,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 16.16,
+          "end": 18.69,
+          "en": "we see that it actually was",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.69,
+          "end": 22.48,
+          "en": "for one specific event with a specific ID.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 22.48,
+          "end": 25.8,
+          "en": "Now, why was this request even sent here",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 25.8,
+          "end": 28.44,
+          "en": "If we actually navigated back to this page",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 28.44,
+          "end": 32.433,
+          "en": "that shows all events, not just one single specific event?",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 33.9,
+          "end": 38.01,
+          "en": "Well, because for deleting an event, we were on that",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 38.01,
+          "end": 43.01,
+          "en": "details page here and when then after deleting an event,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 44.16,
+          "end": 47.52,
+          "en": "we invalidated all event related queries.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 47.52,
+          "end": 50.43,
+          "en": "We still were on that page.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 50.43,
+          "end": 52.26,
+          "en": "And therefore, technically,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 52.26,
+          "end": 54.9,
+          "en": "since we invalidated all queries.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 54.9,
+          "end": 58.89,
+          "en": "React Query went ahead and immediately triggered",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 58.89,
+          "end": 62.613,
+          "en": "a refetch for this details query here.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 63.72,
+          "end": 67.68,
+          "en": "Now, to avoid this behavior, we should go back",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 67.68,
+          "end": 71.55,
+          "en": "to invalidate queries and add a second property",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 71.55,
+          "end": 75.153,
+          "en": "to this configuration object for invalidate queries.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 76.02,
+          "end": 79.95,
+          "en": "Here, you can set the re fetch type to none,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 79.95,
+          "end": 83.27,
+          "en": "which makes sure that when you call invalidate queries,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 83.27,
+          "end": 87,
+          "en": "these existing queries will not automatically",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 87,
+          "end": 89.7,
+          "en": "be triggered again immediately.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 89.7,
+          "end": 92.37,
+          "en": "Instead, they will just be invalidated",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 92.37,
+          "end": 96.72,
+          "en": "and the next time they are required, they will run again.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 96.72,
+          "end": 99.57,
+          "en": "But they will not be re-triggered immediately",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 99.57,
+          "end": 103.25999999999999,
+          "en": "which otherwise would be the default behavior.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 103.25999999999999,
+          "end": 105.739,
+          "en": "And here, that's what I want because this makes sure",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 105.739,
+          "end": 109.77000000000001,
+          "en": "that this event details query of this page",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 109.77000000000001,
+          "end": 113.61,
+          "en": "on which I'm currently at is not triggered again.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 113.61,
+          "end": 117.116,
+          "en": "But if we then go back to this all events page here,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 117.116,
+          "end": 120.42,
+          "en": "the queries on this page will be triggered again",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 120.42,
+          "end": 122.73,
+          "en": "because this component re-rendered, again,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 122.73,
+          "end": 125.853,
+          "en": "this entire page component and all the nested components,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 126.87,
+          "end": 128.73,
+          "en": "but the query on the page",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 128.73,
+          "end": 132.21,
+          "en": "on which we triggered the deletion, where this component",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 132.21,
+          "end": 135.75,
+          "en": "for this page was not re rendered, will not be triggered",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 135.75,
+          "end": 138.453,
+          "en": "just because we called invalidate queries.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 139.47,
+          "end": 141.66,
+          "en": "So that's the behavior I want here.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 141.66,
+          "end": 144.27,
+          "en": "And with that, if we make that change",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 144.27,
+          "end": 148.92000000000002,
+          "en": "and we save that and we reload and open the developer tools",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 148.92000000000002,
+          "end": 152.13,
+          "en": "if I click delete, we see that request,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 152.13,
+          "end": 154.5,
+          "en": "we are navigated back to the starting page",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 154.5,
+          "end": 157.77,
+          "en": "and we see no failing request anymore.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 157.77,
+          "end": 160.863,
+          "en": "And that's therefore the behavior we now want to have.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

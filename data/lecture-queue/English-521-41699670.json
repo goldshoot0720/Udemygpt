@@ -1,0 +1,905 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "41699670",
+      "title": "Working with Debouncing",
+      "sourceHash": "a60712e5de7efe415817656496359557c8188c5bd4656ebcc0a2fcba47882916",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.22,
+          "end": 3.81,
+          "en": "So now that we learned",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.81,
+          "end": 5.91,
+          "en": "about Compound Components",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.91,
+          "end": 8.7,
+          "en": "and that we learned about render props,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.7,
+          "end": 13.68,
+          "en": "let's explore another pattern which you'll sometimes need",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 13.68,
+          "end": 15.93,
+          "en": "actually, not just in React apps,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.93,
+          "end": 19.08,
+          "en": "but possibly in front-end applications",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 19.08,
+          "end": 21.57,
+          "en": "in general, debouncing.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 21.57,
+          "end": 22.95,
+          "en": "And what is that?",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 22.95,
+          "end": 24.753,
+          "en": "What is debouncing?",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 25.92,
+          "end": 28.8,
+          "en": "Well, here in that SearchableList component,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 28.8,
+          "end": 32.55,
+          "en": "we are searching those items",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 32.55,
+          "end": 35.43,
+          "en": "in the end upon every keystroke",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 35.43,
+          "end": 39.63,
+          "en": "because whenever we type something into the input field,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 39.63,
+          "end": 44.1,
+          "en": "so on every keystroke, this function here gets triggered",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 44.1,
+          "end": 47.25,
+          "en": "and this searchTerm state gets updated,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 47.25,
+          "end": 50.85,
+          "en": "which in turn leads to this component being rendered again,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 50.85,
+          "end": 55.44,
+          "en": "which leads to new search results being produced.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 55.44,
+          "end": 59.55,
+          "en": "Now for this demo app where we're only dealing",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 59.55,
+          "end": 63.36,
+          "en": "with very simple local dummy data,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 63.36,
+          "end": 65.493,
+          "en": "that's not really a big problem,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 66.39,
+          "end": 70.86,
+          "en": "but it could become problematic if with every update,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 70.86,
+          "end": 75.66,
+          "en": "we, for example, needed to send a new HTTP request,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 75.66,
+          "end": 79.68,
+          "en": "or if this filtering logic here would be more complex",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 79.68,
+          "end": 81.483,
+          "en": "and more performance intensive.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 82.41,
+          "end": 87.41,
+          "en": "In such scenarios, executing this entire component function",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 87.9,
+          "end": 90.84,
+          "en": "and producing a new derived state",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 90.84,
+          "end": 92.88,
+          "en": "on every keystroke in the end,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 92.88,
+          "end": 95.85,
+          "en": "can quickly become inefficient.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 95.85,
+          "end": 98.97,
+          "en": "And debouncing simply is a technique",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 98.97,
+          "end": 102.6,
+          "en": "where we don't update the state on every keystroke,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 102.6,
+          "end": 107.13,
+          "en": "but where we instead define some timing threshold",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 107.13,
+          "end": 111.72,
+          "en": "where we only update the state if the user stopped typing",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 111.72,
+          "end": 114.663,
+          "en": "for a couple of milliseconds, for example.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 115.95,
+          "end": 118.74000000000001,
+          "en": "So that if the user types an entire word,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 118.74000000000001,
+          "end": 122.04,
+          "en": "we're not updating the search results for every character,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 122.04,
+          "end": 125.91,
+          "en": "but only once the word is done, for example.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 125.91,
+          "end": 128.1,
+          "en": "That's what debouncing is,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 128.1,
+          "end": 130.683,
+          "en": "and that's what we'll implement next.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 131.97,
+          "end": 134.91,
+          "en": "So to implement debouncing here",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 134.91,
+          "end": 137.43,
+          "en": "in that SearchableList component,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 137.43,
+          "end": 139.75,
+          "en": "we should start here in handleChange",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 141.42000000000002,
+          "end": 145.62,
+          "en": "because I now don't always wanna update my state.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 145.62,
+          "end": 148.11,
+          "en": "Instead, I only wanna update the state",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 148.11,
+          "end": 152.163,
+          "en": "if the user stopped typing for a certain period of time.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 153.18,
+          "end": 154.71,
+          "en": "Therefore, we can achieve this",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 154.71,
+          "end": 158.19,
+          "en": "by using the built-in setTimeout function here.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 158.19,
+          "end": 162.45,
+          "en": "And then by defining any threshold of our choice,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 162.45,
+          "end": 165.36,
+          "en": "for example, 500 milliseconds.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 165.36,
+          "end": 168.57,
+          "en": "You could of course also use a higher value.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 168.57,
+          "end": 172.17000000000002,
+          "en": "And then I'll move this state updating function",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 172.17000000000002,
+          "end": 175.47,
+          "en": "into this callback function of setTimeout.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 175.47,
+          "end": 179.853,
+          "en": "so that the state update is delayed by 500 milliseconds.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 180.75,
+          "end": 182.67,
+          "en": "Now that's of course not all",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 182.67,
+          "end": 185.01,
+          "en": "because this would still update the state",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 185.01,
+          "end": 189.63,
+          "en": "on every keystroke, just delayed by 500 milliseconds,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 189.63,
+          "end": 191.403,
+          "en": "which isn't too useful.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 192.48,
+          "end": 197.48,
+          "en": "Instead, we can now also add a ref here to this component",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 197.73,
+          "end": 200.46,
+          "en": "with the built-in useRef hook,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 200.46,
+          "end": 202.06,
+          "en": "and we could name it lastChange.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 203.88,
+          "end": 208.88,
+          "en": "Now with that added, I want to store the timer identifier",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 209.49,
+          "end": 213.9,
+          "en": "that's returned by setTimeout in lastChange.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 213.9,
+          "end": 217.26,
+          "en": "So in that ref, by accessing the current prop",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 217.26,
+          "end": 219.1,
+          "en": "on that ref object",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 220.07999999999998,
+          "end": 224.403,
+          "en": "so that I store the timer ID in my ref.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 225.84,
+          "end": 230.1,
+          "en": "And now we can go to the start of handleChange.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 230.1,
+          "end": 233.46,
+          "en": "So before we execute this timeout code",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 233.46,
+          "end": 238.46,
+          "en": "and check if lastChange.current is a truthy value,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 238.82999999999998,
+          "end": 240.87,
+          "en": "which it for example will be",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 240.87,
+          "end": 243.693,
+          "en": "if we did store a timer inside of it.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 244.74,
+          "end": 249.69,
+          "en": "In that case, I want to clear the currently running timer",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 249.69,
+          "end": 252.363,
+          "en": "with the built-in clearTimeout function.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 253.44,
+          "end": 257.76,
+          "en": "So I pass lastChange.current to clearTimeout.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 257.76,
+          "end": 261,
+          "en": "Now, why am I doing that here?",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 261,
+          "end": 263.28,
+          "en": "Well, because with that code,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 263.28,
+          "end": 266.16,
+          "en": "with all that code here added with that if statement,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 266.16,
+          "end": 270.21,
+          "en": "I am making sure that if we have a currently ongoing timer,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 270.21,
+          "end": 273.72,
+          "en": "I clear it, and then we start a new one.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 273.72,
+          "end": 275.64,
+          "en": "So that last state update,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 275.64,
+          "end": 279.27,
+          "en": "which was part of that timer that started in the past",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 279.27,
+          "end": 282,
+          "en": "was now basically canceled.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 282,
+          "end": 285.45,
+          "en": "And instead a new timer with the new state update",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 285.45,
+          "end": 289.863,
+          "en": "for the new keystroke, for example, is scheduled instead.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 290.88,
+          "end": 294.03,
+          "en": "But that timer will also be canceled",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 294.03,
+          "end": 295.83,
+          "en": "if the user types again",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 295.83,
+          "end": 299.7,
+          "en": "and this handleChange function executes again,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 299.7,
+          "end": 302.07,
+          "en": "and that therefore we'll make sure",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 302.07,
+          "end": 305.34,
+          "en": "that we don't perform all these state updates,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 305.34,
+          "end": 309.03,
+          "en": "but instead only the latest state update,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 309.03,
+          "end": 313.563,
+          "en": "at least if we keep on typing before that timer expired.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 314.79,
+          "end": 316.32,
+          "en": "Now we're not done though.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 316.32,
+          "end": 319.77,
+          "en": "Instead inside of that setTimeout callback,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 319.77,
+          "end": 323.46,
+          "en": "we should also set lastChange.current to null",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 323.46,
+          "end": 326.59,
+          "en": "to clear the stored timer identifier",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 327.69,
+          "end": 330.15,
+          "en": "so that if the timer does expire,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 330.15,
+          "end": 332.97,
+          "en": "the timer ID is removed from the ref",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 332.97,
+          "end": 335.79,
+          "en": "and this check here, this if statement,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 335.79,
+          "end": 338.883,
+          "en": "won't become active for the next keystroke.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 340.14,
+          "end": 343.11,
+          "en": "Otherwise, if we don't add this line here,",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 343.11,
+          "end": 347.19,
+          "en": "the timer id in the ref will never be removed",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 347.19,
+          "end": 348.87,
+          "en": "even if the timer did expire,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 348.87,
+          "end": 351.42,
+          "en": "because the ref is not linked to the timer,",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 351.42,
+          "end": 353.67,
+          "en": "it just contains the timer id.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 353.67,
+          "end": 356.52,
+          "en": "But we have to manually remove that ID",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 356.52,
+          "end": 358.503,
+          "en": "if the timer did expire.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 359.7,
+          "end": 363.75,
+          "en": "And that's indeed all, that's how we can add debouncing",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 363.75,
+          "end": 365.88,
+          "en": "so that not every event,",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 365.88,
+          "end": 369.39,
+          "en": "not every keystroke will lead to a state update,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 369.39,
+          "end": 371.85,
+          "en": "but instead only keystrokes that happened",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 371.85,
+          "end": 373.803,
+          "en": "outside of this threshold.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 375,
+          "end": 377.79,
+          "en": "And therefore back here in the application,",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 377.79,
+          "end": 379.26,
+          "en": "you can see that as I type,",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 379.26,
+          "end": 382.41,
+          "en": "as long as I keep on typing, nothing happens.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 382.41,
+          "end": 385.353,
+          "en": "But once I stop typing, the filter is applied.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 386.94,
+          "end": 388.65,
+          "en": "So if I type african,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 388.65,
+          "end": 392.01,
+          "en": "it only starts filtering after I then waited",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 392.01,
+          "end": 393.93,
+          "en": "for a 500 milliseconds,",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 393.93,
+          "end": 397.17,
+          "en": "which means I can of course also keep on typing",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 397.17,
+          "end": 399.603,
+          "en": "and not get updates for every keystroke.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 400.68,
+          "end": 403.23,
+          "en": "And as mentioned, that can be more efficient",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 403.23,
+          "end": 405.78,
+          "en": "than performing the update for every keystroke,",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 405.78,
+          "end": 408.39,
+          "en": "especially if this filtering logic here",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 408.39,
+          "end": 413.25,
+          "en": "would be more complex or if the filtered results",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 413.25,
+          "end": 417.813,
+          "en": "would trigger an extra HTTP request or something like this.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 418.83,
+          "end": 421.5,
+          "en": "So it's not really needed for this demo app,",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 421.5,
+          "end": 423.36,
+          "en": "but knowing about this pattern",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 423.36,
+          "end": 426.96,
+          "en": "and knowing about this concept of debouncing in general,",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 426.96,
+          "end": 428.583,
+          "en": "is definitely important.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

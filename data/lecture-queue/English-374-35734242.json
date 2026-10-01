@@ -1,0 +1,870 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "35734242",
+      "title": "Adding Automatic Logout",
+      "sourceHash": "85dd77700cd34ca62ef49dcf99ca50c84b2e9893534c7ae769abbb622668d2c9",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.04,
+          "end": 3.54,
+          "en": "Now we're almost done",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.54,
+          "end": 5.34,
+          "en": "with adding authentication.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.34,
+          "end": 8.1,
+          "en": "I mean, it does work as it should after all.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.1,
+          "end": 10.533,
+          "en": "But one last piece is missing here.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.4,
+          "end": 14.67,
+          "en": "At the moment we always stay logged in",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.67,
+          "end": 16.92,
+          "en": "if we got that token once.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 16.92,
+          "end": 18.9,
+          "en": "So as soon as we got the token, we save it,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 18.9,
+          "end": 22.38,
+          "en": "and from that point on, we stay logged in.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 22.38,
+          "end": 25.35,
+          "en": "Now, that's nice but unrealistic.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 25.35,
+          "end": 27.99,
+          "en": "Indeed, the backend creates a token",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 27.99,
+          "end": 31.44,
+          "en": "that will actually expire after one hour.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 31.44,
+          "end": 33.63,
+          "en": "Now, that could be configured differently,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 33.63,
+          "end": 35.31,
+          "en": "but for security reasons,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 35.31,
+          "end": 37.893,
+          "en": "it's a relatively short lived token.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 38.82,
+          "end": 40.44,
+          "en": "Now, you could definitely create",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 40.44,
+          "end": 43.23,
+          "en": "more advanced authentication flows and setups",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 43.23,
+          "end": 44.88,
+          "en": "but here it is quite simple.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 44.88,
+          "end": 47.88,
+          "en": "And this token expires after one hour.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 47.88,
+          "end": 51.69,
+          "en": "Therefore, I also wanna log the user out after one hour",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 51.69,
+          "end": 54.45,
+          "en": "because the token is invalid thereafter.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 54.45,
+          "end": 56.46,
+          "en": "And I don't just wanna log the user out,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 56.46,
+          "end": 58.44,
+          "en": "I also wanna clear the token",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 58.44,
+          "end": 60.66,
+          "en": "and I wanna remove it from local storage",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 60.66,
+          "end": 61.98,
+          "en": "so after that one hour,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 61.98,
+          "end": 64.53,
+          "en": "the token should be removed from local storage",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 64.53,
+          "end": 66.57300000000001,
+          "en": "and the UI should update accordingly.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 67.68,
+          "end": 69,
+          "en": "Now, to enforce that,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 69,
+          "end": 71.01,
+          "en": "we again got various options,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 71.01,
+          "end": 73.11,
+          "en": "and you can get creative here.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 73.11,
+          "end": 77.58,
+          "en": "One option would be to go to the root layout.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 77.58,
+          "end": 79.593,
+          "en": "So to this Root.js file.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 80.43,
+          "end": 85.43,
+          "en": "And in that file we could use the good old user fact hook",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 85.635,
+          "end": 88.14,
+          "en": "which is not a React navigation feature",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 88.14,
+          "end": 90.96000000000001,
+          "en": "but which we can of course still use here.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 90.96000000000001,
+          "end": 93.733,
+          "en": "And then here, this useEffect hook could be used",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 93.733,
+          "end": 97.74000000000001,
+          "en": "to set a timer whenever the root layout is rendered",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 97.74000000000001,
+          "end": 100.25999999999999,
+          "en": "which happens when the application starts",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 100.25999999999999,
+          "end": 102.87,
+          "en": "because that is the very first component",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 102.87,
+          "end": 105.99000000000001,
+          "en": "we definitely load for all our routes.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 105.99000000000001,
+          "end": 107.25,
+          "en": "If you have a different setup",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 107.25,
+          "end": 110.1,
+          "en": "where you have multiple sibling root layouts,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 110.1,
+          "end": 111.78,
+          "en": "this approach would not work.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 111.78,
+          "end": 114.47999999999999,
+          "en": "But here, this is the one root component",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 114.47999999999999,
+          "end": 118.32,
+          "en": "which definitely includes all other root components.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 118.32,
+          "end": 120.84,
+          "en": "So therefore we can go to this root layout",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 120.84,
+          "end": 124.23,
+          "en": "and then set up our effect function here.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 124.23,
+          "end": 127.14,
+          "en": "And my idea behind this effect function",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 127.14,
+          "end": 130.56,
+          "en": "is that I wanna get my token here.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 130.56,
+          "end": 132.18,
+          "en": "And since I'm in the root layout,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 132.18,
+          "end": 133.68,
+          "en": "and I'm getting the token here",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 133.68,
+          "end": 135.39,
+          "en": "with help of the token loader,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 135.39,
+          "end": 138.84,
+          "en": "I can simply use useLoaderData here.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 138.84,
+          "end": 141.07,
+          "en": "I don't even need to use useRouteLoaderData",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 142.56,
+          "end": 144.39,
+          "en": "and use the idea of the route,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 144.39,
+          "end": 147.54,
+          "en": "because here I already am in that very component",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 147.54,
+          "end": 150.06,
+          "en": "that's rendered for the root route.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 150.06,
+          "end": 152.34,
+          "en": "And then here I got that token.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 152.34,
+          "end": 154.74,
+          "en": "And that token can now be set as a dependency",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 154.74,
+          "end": 155.82,
+          "en": "for a useEffect",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 155.82,
+          "end": 157.56,
+          "en": "so that this effect function runs",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 157.56,
+          "end": 159.84,
+          "en": "whenever the token changes.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 159.84,
+          "end": 161.22,
+          "en": "And here I simply wanna check",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 161.22,
+          "end": 162.96,
+          "en": "if we maybe don't have a token.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 162.96,
+          "end": 165.06,
+          "en": "If that's the case, I just wanna return",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 165.06,
+          "end": 166.68,
+          "en": "because there's nothing to do then.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 166.68,
+          "end": 168.87,
+          "en": "If we don't have a token anymore,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 168.87,
+          "end": 170.85,
+          "en": "if this effect function was executed",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 170.85,
+          "end": 173.31,
+          "en": "because the token was removed, for example",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 173.31,
+          "end": 176.13,
+          "en": "then we don't have anything to do.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 176.13,
+          "end": 177.72,
+          "en": "But if we do have a token,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 177.72,
+          "end": 180.03,
+          "en": "I wanna set a timer.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 180.03,
+          "end": 183.48,
+          "en": "I wanna set a timer that expires after one hour",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 183.48,
+          "end": 186.72,
+          "en": "and that then triggers that logout action.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 186.72,
+          "end": 188.76,
+          "en": "So that basically sends a request",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 188.76,
+          "end": 191.073,
+          "en": "to that logout route we added earlier.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 192.18,
+          "end": 194.49,
+          "en": "For that, we can use a navbar hook",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 194.49,
+          "end": 196.29,
+          "en": "provided by React Router.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 196.29,
+          "end": 198.21,
+          "en": "That's the use submit hook",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 198.21,
+          "end": 200.163,
+          "en": "which gives us a submit function.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 201.48,
+          "end": 202.86,
+          "en": "And we learned about this hook",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 202.86,
+          "end": 204.72,
+          "en": "in the routing section, of course",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 204.72,
+          "end": 208.44,
+          "en": "which we can use to programmatically submit a form.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 208.44,
+          "end": 212.37,
+          "en": "And here I wanna basically submit that logout form",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 212.37,
+          "end": 215.13,
+          "en": "which I have in my main navigation file.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 215.13,
+          "end": 217.05,
+          "en": "I wanna send that logout request.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 217.05,
+          "end": 218.2,
+          "en": "That's what I wanna do.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 219.12,
+          "end": 221.52,
+          "en": "We can do this with help of this submit function",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 221.52,
+          "end": 223.44,
+          "en": "which we also set as a dependency here",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 223.44,
+          "end": 224.79,
+          "en": "on this effect function",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 224.79,
+          "end": 226.95,
+          "en": "because we're going to use it in the effect.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 226.95,
+          "end": 229.983,
+          "en": "And once that timer expired, I will call submit.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 231.06,
+          "end": 234.72,
+          "en": "I won't pass any data because there is no data to submit.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 234.72,
+          "end": 237.99,
+          "en": "But I will target this /Logout action",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 237.99,
+          "end": 239.37,
+          "en": "this logout route,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 239.37,
+          "end": 241.68,
+          "en": "the action that belongs to that route,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 241.68,
+          "end": 243.693,
+          "en": "set the method to post.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 245.01,
+          "end": 247.56,
+          "en": "And that will therefore trigger that logout route,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 247.56,
+          "end": 250.14,
+          "en": "and well, start that logout process",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 250.14,
+          "end": 252.69,
+          "en": "where we clear the token.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 252.69,
+          "end": 257.16,
+          "en": "Now here I will set the timeout to one hour",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 257.16,
+          "end": 259.26,
+          "en": "by multiplying one with 60,",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 259.26,
+          "end": 262.11,
+          "en": "so 60 minutes, then 60 seconds",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 262.11,
+          "end": 263.7,
+          "en": "and then 1000 milliseconds",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 263.7,
+          "end": 267.15,
+          "en": "because set timeout expects to get the duration",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 267.15,
+          "end": 268.89,
+          "en": "in milliseconds here.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 268.89,
+          "end": 271.11,
+          "en": "So that's one hour in milliseconds,",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 271.11,
+          "end": 272.40999999999997,
+          "en": "what I'm calculating here.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 273.36,
+          "end": 275.22,
+          "en": "And with that we get this effect function,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 275.22,
+          "end": 278.04,
+          "en": "which executes whenever the root layout component",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 278.04,
+          "end": 280.38,
+          "en": "is rendered or when the token",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 280.38,
+          "end": 282.24,
+          "en": "or the submit function changes.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 282.24,
+          "end": 284.52,
+          "en": "The submit function won't change though",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 284.52,
+          "end": 286.23,
+          "en": "but the token might change.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 286.23,
+          "end": 289.40999999999997,
+          "en": "And if we have a token, then we start that timer",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 289.40999999999997,
+          "end": 291.9,
+          "en": "which clears the token after one hour.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 291.9,
+          "end": 293.373,
+          "en": "that's what we're doing here.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 294.39,
+          "end": 295.223,
+          "en": "We can, by the way",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 295.223,
+          "end": 297.51,
+          "en": "also remove the use navigation import here",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 297.51,
+          "end": 298.90999999999997,
+          "en": "which we don't need anymore.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 300.09,
+          "end": 302.85,
+          "en": "So now we would clear the token after one hour.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 302.85,
+          "end": 306.42,
+          "en": "But this solution still isn't perfect yet.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 306.42,
+          "end": 308.193,
+          "en": "It still has a flaw.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

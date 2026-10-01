@@ -1,0 +1,3390 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "8244694",
+      "title": "Adding a Custom HTTP Hook & Avoiding Common Errors",
+      "sourceHash": "ef94f502bab1da2226f796f04f07fabfd2c5d596925fb33a35d4314eaa2f30f4",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.48,
+          "end": 3.18,
+          "en": "So let's improve this user experience",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.18,
+          "end": 5.52,
+          "en": "of sending a request.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.52,
+          "end": 8.91,
+          "en": "And to do that I'll actually build a custom hook",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.91,
+          "end": 11.13,
+          "en": "because we have two components,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.13,
+          "end": 13.89,
+          "en": "the Checkout component and the Meals component,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 13.89,
+          "end": 16.41,
+          "en": "that both need to send requests,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 16.41,
+          "end": 18.87,
+          "en": "even though those requests are sent",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 18.87,
+          "end": 22.44,
+          "en": "at different points of time, but they both do it.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 22.44,
+          "end": 26.85,
+          "en": "And they then also, both in the end need to deal",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 26.85,
+          "end": 30.12,
+          "en": "with different request states:",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 30.12,
+          "end": 32.88,
+          "en": "failing requests, loading requests",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 32.88,
+          "end": 35.043,
+          "en": "and requests that succeeded.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 36,
+          "end": 38.85,
+          "en": "So we have that same logic which we in the end need",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 38.85,
+          "end": 42.66,
+          "en": "in two different components to update the UI.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 42.66,
+          "end": 44.82,
+          "en": "And since it's some stateful logic",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 44.82,
+          "end": 48,
+          "en": "that should impact the UI and where changes",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 48,
+          "end": 51.24,
+          "en": "should impact the UI, we need a custom hook,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 51.24,
+          "end": 54.3,
+          "en": "because just creating a custom standard function",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 54.3,
+          "end": 55.533,
+          "en": "won't do the trick.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 56.46,
+          "end": 59.04,
+          "en": "So in the source folder I'll add a hooks folder.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 59.04,
+          "end": 62.31,
+          "en": "And I'll name it, useHttp.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 62.31,
+          "end": 66.27,
+          "en": "This is the file name and in there I'll also export",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 66.27,
+          "end": 69.09,
+          "en": "a function called useHttp,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 69.09,
+          "end": 71.13,
+          "en": "and as you learned in this course,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 71.13,
+          "end": 74.01,
+          "en": "custom hooks must start with 'use'",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 74.01,
+          "end": 77.37,
+          "en": "to signal to React that the special rules",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 77.37,
+          "end": 79.89,
+          "en": "of hooks should apply here.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 79.89,
+          "end": 82.83,
+          "en": "Now, it's now in this custom hook function",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 82.83,
+          "end": 85.98,
+          "en": "where I wanna send an http request.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 85.98,
+          "end": 89.1,
+          "en": "Though it's of course worth noting that as mentioned,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 89.1,
+          "end": 91.44,
+          "en": "the request should not always be sent",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 91.44,
+          "end": 93.3,
+          "en": "right when the component to which",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 93.3,
+          "end": 95.82,
+          "en": "this hook belongs gets rendered.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 95.82,
+          "end": 98.1,
+          "en": "That is the case for the Meals component,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 98.1,
+          "end": 99.93,
+          "en": "but not for the Checkout component.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 99.93,
+          "end": 103.38,
+          "en": "There the request should be sent on demand,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 103.38,
+          "end": 106.65299999999999,
+          "en": "so to say, when the handleSubmit function runs.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 107.61,
+          "end": 110.07,
+          "en": "Therefore, as a first step,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 110.07,
+          "end": 112.47,
+          "en": "I'll actually add another function here",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 112.47,
+          "end": 116.43,
+          "en": "in this useHttp.js file, which I'll just name",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 116.43,
+          "end": 118.053,
+          "en": "sendHttpRequest.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 119.24000000000001,
+          "end": 121.77,
+          "en": "A request a little helper utility function",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 121.77,
+          "end": 126.69,
+          "en": "that wraps this general http request sending logic.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 126.69,
+          "end": 131.64,
+          "en": "It should be an async function and it should accept a URL.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 131.64,
+          "end": 136.64,
+          "en": "and a configuration object, just as fetch does.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 136.8,
+          "end": 140.91,
+          "en": "And then in here the idea is to wrap fetch",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 140.91,
+          "end": 144.84,
+          "en": "and pass the URL to fetch and the config object.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 144.84,
+          "end": 146.373,
+          "en": "So, simple like this.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 147.21,
+          "end": 149.37,
+          "en": "And then we'll eventually get the response",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 149.37,
+          "end": 151.893,
+          "en": "by awaiting this call to fetch.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 153.63,
+          "end": 156.21,
+          "en": "Now, this might fail, so the response",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 156.21,
+          "end": 159.63,
+          "en": "might not be okay if something went wrong on the backend,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 159.63,
+          "end": 163.38,
+          "en": "and in that case I wanna throw a new error",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 163.38,
+          "end": 166.26,
+          "en": "using that built-in error constructor function",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 166.26,
+          "end": 168.063,
+          "en": "that's provided by the browser.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 169.2,
+          "end": 171.45,
+          "en": "Now, here the error should get a message",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 171.45,
+          "end": 173.88,
+          "en": "and we could hardcode a message",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 173.88,
+          "end": 178.623,
+          "en": "like \"Something went wrong, failed to send request\".",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 179.82,
+          "end": 181.323,
+          "en": "But that's pretty generic.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 182.16,
+          "end": 186.27,
+          "en": "To be more specific, I'll actually do something else",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 186.27,
+          "end": 189.96,
+          "en": "before I check if the response was okay.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 189.96,
+          "end": 192.39,
+          "en": "I'll take a look at the response data,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 192.39,
+          "end": 195.63,
+          "en": "because even if the response has an error code,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 195.63,
+          "end": 198.42000000000002,
+          "en": "it will still carry some data.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 198.42000000000002,
+          "end": 200.31,
+          "en": "Because on my backend here,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 200.31,
+          "end": 202.53,
+          "en": "if we take a look at that code here,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 202.53,
+          "end": 205.59,
+          "en": "if I am returning an error response,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 205.59,
+          "end": 209.94,
+          "en": "like here if some data was missing in the orders route,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 209.94,
+          "end": 212.52,
+          "en": "I still return a response that carries",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 212.52,
+          "end": 214.86,
+          "en": "a response data object.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 214.86,
+          "end": 217.5,
+          "en": "In this case, an object with a message property",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 217.5,
+          "end": 220.41,
+          "en": "that has a more specific error message.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 220.41,
+          "end": 223.053,
+          "en": "Also here, if incorrect data was entered.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 224.4,
+          "end": 227.52,
+          "en": "So, therefore, I'll extract that data",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 227.52,
+          "end": 231.6,
+          "en": "by calling await response.json like this",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 231.6,
+          "end": 234.21,
+          "en": "and now here when throwing that error,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 234.21,
+          "end": 236.37,
+          "en": "we can take a look at the response data",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 236.37,
+          "end": 239.25,
+          "en": "and see if this has a message property.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 239.25,
+          "end": 241.32,
+          "en": "And if that's the case, use that,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 241.32,
+          "end": 244.02,
+          "en": "and otherwise as a fallback,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 244.02,
+          "end": 246.063,
+          "en": "use the more generic error message.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 247.62,
+          "end": 249.6,
+          "en": "And if we make it past this if check,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 249.6,
+          "end": 252.9,
+          "en": "we know that everything's fine and I'll just return",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 252.9,
+          "end": 256.413,
+          "en": "the response data here in my helper function.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 257.82,
+          "end": 260.1,
+          "en": "But with that, we can now go back to the hook,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 260.1,
+          "end": 263.55,
+          "en": "because there I wanna use this helper function.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 263.55,
+          "end": 267.12,
+          "en": "Because it's in here, in useHttp,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 267.12,
+          "end": 269.76,
+          "en": "where I'll add another function nested",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 269.76,
+          "end": 273.283,
+          "en": "in this custom hook function, which I'll call sendRequest.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 274.47,
+          "end": 276.87,
+          "en": "So almost like my helper function up here,",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 276.87,
+          "end": 279.39,
+          "en": "but this helper function here is for",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 279.39,
+          "end": 282.51,
+          "en": "in general dealing with sending requests.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 282.51,
+          "end": 285.24,
+          "en": "This function down here in my hook will now be",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 285.24,
+          "end": 289.173,
+          "en": "about updating some state based on the request status.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 290.46,
+          "end": 294.45,
+          "en": "So I'll name it sendRequest, and in this function body",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 294.45,
+          "end": 295.9,
+          "en": "I wanna call sendHttpRequest,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 297.75,
+          "end": 301.17,
+          "en": "so that other helper function we defined up here.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 301.17,
+          "end": 304.263,
+          "en": "That's being used in sendRequest in a custom hook now.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 305.67,
+          "end": 308.67,
+          "en": "Now, sendRequest can also be an async function here.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 308.67,
+          "end": 311.07,
+          "en": "This is absolutely possible in custom hooks,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 311.07,
+          "end": 313.14,
+          "en": "no problem with that.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 313.14,
+          "end": 317.04,
+          "en": "And now here we'll of course get back our response data,",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 317.04,
+          "end": 320.13,
+          "en": "because that's what my custom utility helper function",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 320.13,
+          "end": 321.693,
+          "en": "in the end returns up here.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 323.13,
+          "end": 326.43,
+          "en": "But we now also should wrap this with try catch,",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 326.43,
+          "end": 328.983,
+          "en": "because of course this might fail here.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 330.42,
+          "end": 333.87,
+          "en": "Because in sendHttpRequest, we are, for example,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 333.87,
+          "end": 337.413,
+          "en": "throwing an error if we got an error response code.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 338.25,
+          "end": 340.62,
+          "en": "And we would, for example, also get an error",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 340.62,
+          "end": 343.74,
+          "en": "if sending the request fails in the first place",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 343.74,
+          "end": 345.78,
+          "en": "because we have no internet connection",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 345.78,
+          "end": 346.953,
+          "en": "or something like this.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 348.75,
+          "end": 351.18,
+          "en": "So we definitely wanna try this",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 351.18,
+          "end": 354.24,
+          "en": "and catch errors that might occur.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 354.24,
+          "end": 356.79,
+          "en": "And we now of course also have to manage some state",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 356.79,
+          "end": 361.77,
+          "en": "to reflect those different request states in the UI,",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 361.77,
+          "end": 364.29,
+          "en": "because the idea with this custom hook in the end,",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 364.29,
+          "end": 366.843,
+          "en": "of course, will be to use it in a component.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 367.92,
+          "end": 371.88,
+          "en": "So here I'll use the useState hook and import that",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 371.88,
+          "end": 375.66,
+          "en": "from React, of course, so that in here we can,",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 375.66,
+          "end": 379.5,
+          "en": "for example, manage the error state.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 379.5,
+          "end": 383.58299999999997,
+          "en": "So I'll name it error and setError here like this.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 384.78,
+          "end": 386.673,
+          "en": "And initially this is undefined.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 387.78,
+          "end": 391.77,
+          "en": "But here in my catch block I want to call setError",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 391.77,
+          "end": 396.33299999999997,
+          "en": "and set it equal to error.message like this.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 397.38,
+          "end": 400.59000000000003,
+          "en": "And in case we somehow still get some error",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 400.59000000000003,
+          "end": 402.3,
+          "en": "that doesn't have a message,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 402.3,
+          "end": 405.36,
+          "en": "I'll also set up a fallback error message here,",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 405.36,
+          "end": 408.12,
+          "en": "which could be \"Something went wrong\",",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 408.12,
+          "end": 411.51,
+          "en": "but this should really never show up on the screen, I guess.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 411.51,
+          "end": 414.84000000000003,
+          "en": "But nonetheless, we can add it here just to be safe.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 414.84000000000003,
+          "end": 417.33,
+          "en": "Now, of course, besides the error state,",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 417.33,
+          "end": 420.54,
+          "en": "we also want to have some states for the success case",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 420.54,
+          "end": 422.49,
+          "en": "and for the loading state,",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 422.49,
+          "end": 424.683,
+          "en": "so when we're waiting for a response.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 425.7,
+          "end": 430.7,
+          "en": "So I'll call useState once again and here I'll manage",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 431.07,
+          "end": 434.55,
+          "en": "that loading state with a isLoading state",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 434.55,
+          "end": 437.64,
+          "en": "and a setIsLoading state updating function.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 437.64,
+          "end": 439.53,
+          "en": "And initially this will be false,",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 439.53,
+          "end": 441.83,
+          "en": "because initially let's say we're not loading.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 442.68,
+          "end": 446.55,
+          "en": "But here in sendRequest we of course wanna call",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 446.55,
+          "end": 449.25,
+          "en": "setIsLoading right away and set it to true",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 449.25,
+          "end": 451.383,
+          "en": "because we're about to send a request.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 452.94,
+          "end": 457.11,
+          "en": "And I wanna set it to false after this try catch block,",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 457.11,
+          "end": 460.5,
+          "en": "because no matter if we had an error or not,",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 460.5,
+          "end": 462.633,
+          "en": "we're definitely not loading anymore.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 464.15999999999997,
+          "end": 467.82,
+          "en": "Well, and then of course we also have the main case,",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 467.82,
+          "end": 472.82,
+          "en": "so to say, where we get back some data from the backend,",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 472.89,
+          "end": 475.65,
+          "en": "which we also wanna manage as some state,",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 475.65,
+          "end": 479.523,
+          "en": "because in the end that's our success case, you could say.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 481.59,
+          "end": 485.76,
+          "en": "So here in the try block after we got the data,",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 485.76,
+          "end": 489.87,
+          "en": "I wanna set it here, I wanna set my data state.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 489.87,
+          "end": 492.93,
+          "en": "And the idea behind this custom hook is now",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 492.93,
+          "end": 496.8,
+          "en": "that we can, of course, now return an object here",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 496.8,
+          "end": 501.69,
+          "en": "where we expose the data, the isLoading state,",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 501.69,
+          "end": 505.05,
+          "en": "and the error state to whichever component",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 505.05,
+          "end": 506.463,
+          "en": "is using this custom hook.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 507.54,
+          "end": 510.3,
+          "en": "So that whichever component uses this hook",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 510.3,
+          "end": 513.21,
+          "en": "can use this data, this isLoading state",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 513.21,
+          "end": 517.95,
+          "en": "and this error state and benefit from those state changes",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 517.95,
+          "end": 520.083,
+          "en": "that are triggered in this function.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 521.19,
+          "end": 523.35,
+          "en": "But speaking of this function,",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 523.35,
+          "end": 528.03,
+          "en": "this function at the moment of course is never executed.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 528.03,
+          "end": 531.003,
+          "en": "It's just sitting here but we're never calling it.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 532.05,
+          "end": 535.14,
+          "en": "And the reason for that is that it in the end needs",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 535.14,
+          "end": 537.153,
+          "en": "to be called in different places.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 538.02,
+          "end": 540.6,
+          "en": "In the checkout component, as mentioned before,",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 540.6,
+          "end": 542.34,
+          "en": "it should be called here instead",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 542.34,
+          "end": 544.683,
+          "en": "of this fetch call in handleSubmit.",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 545.76,
+          "end": 547.86,
+          "en": "On the other hand in the Meals component,",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 547.86,
+          "end": 549.843,
+          "en": "it should be called in useEffect.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 551.19,
+          "end": 554.13,
+          "en": "Now, of course a simple solution would be",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 554.13,
+          "end": 558.12,
+          "en": "to simply also expose sendRequest like this.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 558.12,
+          "end": 560.97,
+          "en": "And now every component that uses this hook",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 560.97,
+          "end": 565.23,
+          "en": "could call sendRequest wherever it wants to call it.",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 565.23,
+          "end": 568.233,
+          "en": "And this wouldn't be a bad solution, to be honest.",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 569.16,
+          "end": 572.55,
+          "en": "But we can make this custom hook a bit more convenient",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 572.55,
+          "end": 575.103,
+          "en": "by also calling useEffect in here.",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 576.18,
+          "end": 578.22,
+          "en": "So, therefore, of course you also must import",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 578.22,
+          "end": 579.42,
+          "en": "this hook from useState.",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 581.58,
+          "end": 586.58,
+          "en": "And now here we wanna call sendRequest for you, so to say,",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 587.4,
+          "end": 591.663,
+          "en": "so that in here we call sendRequest like this.",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 593.22,
+          "end": 596.94,
+          "en": "Now sendRequest is a dependency of this effect function",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 596.94,
+          "end": 600.42,
+          "en": "because it's defined outside of the request function",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 600.42,
+          "end": 602.97,
+          "en": "and, therefore, it should be added here.",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 602.97,
+          "end": 606.12,
+          "en": "And, therefore, to make sure that we don't end up",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 606.12,
+          "end": 609.24,
+          "en": "in some infinite loop because we're updating some state",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 609.24,
+          "end": 612.15,
+          "en": "in this function which will cause the component",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 612.15,
+          "end": 615,
+          "en": "that uses this hook to execute again,",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 615,
+          "end": 617.82,
+          "en": "which would cause this effect function to run again,",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 617.82,
+          "end": 620.73,
+          "en": "because sendRequest will change every time",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 620.73,
+          "end": 622.92,
+          "en": "the surrounding component executes again,",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 622.92,
+          "end": 626.01,
+          "en": "because a new function object will be created.",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 626.01,
+          "end": 629.01,
+          "en": "To make sure that we don't enter this infinite loop,",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 629.01,
+          "end": 633,
+          "en": "we should wrap this function with useCallback,",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 633,
+          "end": 636.123,
+          "en": "as you also learned before in other course sections.",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 637.29,
+          "end": 639.33,
+          "en": "We should wrap it with useCallback",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 639.33,
+          "end": 642.09,
+          "en": "and add our dependencies array here",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 642.09,
+          "end": 644.97,
+          "en": "and we get back a send request function here",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 644.97,
+          "end": 648.96,
+          "en": "from useCallback, which will now only be recreated",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 648.96,
+          "end": 650.793,
+          "en": "when its dependencies change.",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 651.93,
+          "end": 654.3,
+          "en": "Now, at the moment I have no dependencies here,",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 654.3,
+          "end": 656.97,
+          "en": "but that's not entirely correct,",
+          "zh": ""
+        },
+        {
+          "id": 204,
+          "start": 656.97,
+          "end": 660.09,
+          "en": "because inside of this sendRequest function,",
+          "zh": ""
+        },
+        {
+          "id": 205,
+          "start": 660.09,
+          "end": 663.7,
+          "en": "we actually need to pass some data to sendHttpRequest",
+          "zh": ""
+        },
+        {
+          "id": 206,
+          "start": 665.25,
+          "end": 667.47,
+          "en": "to configure it correctly,",
+          "zh": ""
+        },
+        {
+          "id": 207,
+          "start": 667.47,
+          "end": 671.88,
+          "en": "because sendHttpRequest at least needs a URL,",
+          "zh": ""
+        },
+        {
+          "id": 208,
+          "start": 671.88,
+          "end": 674.373,
+          "en": "potentially also a config object.",
+          "zh": ""
+        },
+        {
+          "id": 209,
+          "start": 676.02,
+          "end": 680.88,
+          "en": "Therefore, our custom hook should get that URL",
+          "zh": ""
+        },
+        {
+          "id": 210,
+          "start": 680.88,
+          "end": 684.54,
+          "en": "and that config object, or maybe in general,",
+          "zh": ""
+        },
+        {
+          "id": 211,
+          "start": 684.54,
+          "end": 688.44,
+          "en": "a requestConfig object that should include both.",
+          "zh": ""
+        },
+        {
+          "id": 212,
+          "start": 688.44,
+          "end": 690.33,
+          "en": "That's, of course, up to you.",
+          "zh": ""
+        },
+        {
+          "id": 213,
+          "start": 690.33,
+          "end": 693.42,
+          "en": "Here I'll instead go for two parameters",
+          "zh": ""
+        },
+        {
+          "id": 214,
+          "start": 693.42,
+          "end": 696.573,
+          "en": "and we can now forward URL and config to sendHttpRequest.",
+          "zh": ""
+        },
+        {
+          "id": 215,
+          "start": 700.5,
+          "end": 704.16,
+          "en": "And we, therefore, also have to add both as dependencies",
+          "zh": ""
+        },
+        {
+          "id": 216,
+          "start": 704.16,
+          "end": 707.64,
+          "en": "to useCallback because if one of these two would change,",
+          "zh": ""
+        },
+        {
+          "id": 217,
+          "start": 707.64,
+          "end": 710.46,
+          "en": "we would need to create a new function object",
+          "zh": ""
+        },
+        {
+          "id": 218,
+          "start": 710.46,
+          "end": 712.74,
+          "en": "because the code in there would change.",
+          "zh": ""
+        },
+        {
+          "id": 219,
+          "start": 712.74,
+          "end": 715.65,
+          "en": "After all, sendHttpRequest would be called",
+          "zh": ""
+        },
+        {
+          "id": 220,
+          "start": 715.65,
+          "end": 717.48,
+          "en": "with different data.",
+          "zh": ""
+        },
+        {
+          "id": 221,
+          "start": 717.48,
+          "end": 720.93,
+          "en": "But with that we can now use sendRequest here",
+          "zh": ""
+        },
+        {
+          "id": 222,
+          "start": 720.93,
+          "end": 725.25,
+          "en": "in useEffect and, therefore, send this request",
+          "zh": ""
+        },
+        {
+          "id": 223,
+          "start": 725.25,
+          "end": 728.493,
+          "en": "whenever the component that uses this hook here loads.",
+          "zh": ""
+        },
+        {
+          "id": 224,
+          "start": 730.14,
+          "end": 733.17,
+          "en": "And whilst that is what we want for the Meals component,",
+          "zh": ""
+        },
+        {
+          "id": 225,
+          "start": 733.17,
+          "end": 737.19,
+          "en": "it's of course not what we want for the Checkout component.",
+          "zh": ""
+        },
+        {
+          "id": 226,
+          "start": 737.19,
+          "end": 742.19,
+          "en": "Therefore, here in this effect function in the custom hook",
+          "zh": ""
+        },
+        {
+          "id": 227,
+          "start": 742.68,
+          "end": 745.86,
+          "en": "we also should add some check that makes sure",
+          "zh": ""
+        },
+        {
+          "id": 228,
+          "start": 745.86,
+          "end": 749.103,
+          "en": "that send request is not always getting sent.",
+          "zh": ""
+        },
+        {
+          "id": 229,
+          "start": 749.94,
+          "end": 752.4,
+          "en": "And one check we could add here",
+          "zh": ""
+        },
+        {
+          "id": 230,
+          "start": 752.4,
+          "end": 755.13,
+          "en": "is that we take a look at this config object",
+          "zh": ""
+        },
+        {
+          "id": 231,
+          "start": 755.13,
+          "end": 758.04,
+          "en": "which we're getting as an input to our custom hook,",
+          "zh": ""
+        },
+        {
+          "id": 232,
+          "start": 758.04,
+          "end": 762.42,
+          "en": "and there we take a look at the request method.",
+          "zh": ""
+        },
+        {
+          "id": 233,
+          "start": 762.42,
+          "end": 766.02,
+          "en": "And if it's 'GET' or if no config object",
+          "zh": ""
+        },
+        {
+          "id": 234,
+          "start": 766.02,
+          "end": 768.57,
+          "en": "was provided in the first place,",
+          "zh": ""
+        },
+        {
+          "id": 235,
+          "start": 768.57,
+          "end": 771.06,
+          "en": "we wanna send the request right away.",
+          "zh": ""
+        },
+        {
+          "id": 236,
+          "start": 771.06,
+          "end": 773.91,
+          "en": "Because here in this app, every 'GET' request",
+          "zh": ""
+        },
+        {
+          "id": 237,
+          "start": 773.91,
+          "end": 775.8,
+          "en": "should be sent when the component",
+          "zh": ""
+        },
+        {
+          "id": 238,
+          "start": 775.8,
+          "end": 778.323,
+          "en": "to which the hook here belongs gets rendered.",
+          "zh": ""
+        },
+        {
+          "id": 239,
+          "start": 779.37,
+          "end": 781.38,
+          "en": "If the request method is something else,",
+          "zh": ""
+        },
+        {
+          "id": 240,
+          "start": 781.38,
+          "end": 783.273,
+          "en": "I don't wanna send this request.",
+          "zh": ""
+        },
+        {
+          "id": 241,
+          "start": 784.11,
+          "end": 786.99,
+          "en": "So here we can check if config is truthy,",
+          "zh": ""
+        },
+        {
+          "id": 242,
+          "start": 786.99,
+          "end": 789.39,
+          "en": "so if it is set at all.",
+          "zh": ""
+        },
+        {
+          "id": 243,
+          "start": 789.39,
+          "end": 793.493,
+          "en": "And if it is set, if the method is equal to 'GET'.",
+          "zh": ""
+        },
+        {
+          "id": 244,
+          "start": 794.79,
+          "end": 798.63,
+          "en": "In that case, we wanna execute sendRequest,",
+          "zh": ""
+        },
+        {
+          "id": 245,
+          "start": 798.63,
+          "end": 801.273,
+          "en": "otherwise we won't do anything.",
+          "zh": ""
+        },
+        {
+          "id": 246,
+          "start": 803.04,
+          "end": 805.38,
+          "en": "Now, of course, config also must be added",
+          "zh": ""
+        },
+        {
+          "id": 247,
+          "start": 805.38,
+          "end": 808.74,
+          "en": "as a dependency here because I'm using it here.",
+          "zh": ""
+        },
+        {
+          "id": 248,
+          "start": 808.74,
+          "end": 811.26,
+          "en": "But with that we should now be making sure",
+          "zh": ""
+        },
+        {
+          "id": 249,
+          "start": 811.26,
+          "end": 813.72,
+          "en": "that this request is only sent",
+          "zh": ""
+        },
+        {
+          "id": 250,
+          "start": 813.72,
+          "end": 815.883,
+          "en": "if we have some kind of 'GET' request.",
+          "zh": ""
+        },
+        {
+          "id": 251,
+          "start": 818.1,
+          "end": 823.1,
+          "en": "And for those other requests I wanna expose sendRequest here",
+          "zh": ""
+        },
+        {
+          "id": 252,
+          "start": 823.41,
+          "end": 826.23,
+          "en": "by putting it into this object that's returned",
+          "zh": ""
+        },
+        {
+          "id": 253,
+          "start": 826.23,
+          "end": 829.38,
+          "en": "by the custom hook, so that other components",
+          "zh": ""
+        },
+        {
+          "id": 254,
+          "start": 829.38,
+          "end": 833.13,
+          "en": "that use this custom hook can also get direct access",
+          "zh": ""
+        },
+        {
+          "id": 255,
+          "start": 833.13,
+          "end": 835.86,
+          "en": "to this sendRequest function and can execute it",
+          "zh": ""
+        },
+        {
+          "id": 256,
+          "start": 835.86,
+          "end": 836.88,
+          "en": "whenever they want.",
+          "zh": ""
+        },
+        {
+          "id": 257,
+          "start": 836.88,
+          "end": 839.133,
+          "en": "So, for example, when a form is submitted.",
+          "zh": ""
+        },
+        {
+          "id": 258,
+          "start": 840.63,
+          "end": 843.87,
+          "en": "And that now allows us to go to the Meals component",
+          "zh": ""
+        },
+        {
+          "id": 259,
+          "start": 843.87,
+          "end": 848.87,
+          "en": "and get rid of useEffect here, delete all of that,",
+          "zh": ""
+        },
+        {
+          "id": 260,
+          "start": 849.33,
+          "end": 852.36,
+          "en": "and delete this useState code here,",
+          "zh": ""
+        },
+        {
+          "id": 261,
+          "start": 852.36,
+          "end": 854.433,
+          "en": "and delete these imports here.",
+          "zh": ""
+        },
+        {
+          "id": 262,
+          "start": 855.51,
+          "end": 860.51,
+          "en": "And instead import useHttp from the hooks folder",
+          "zh": ""
+        },
+        {
+          "id": 263,
+          "start": 862.08,
+          "end": 864.603,
+          "en": "and there the useHttp.js file,",
+          "zh": ""
+        },
+        {
+          "id": 264,
+          "start": 865.65,
+          "end": 868.5,
+          "en": "and call useHttp here.",
+          "zh": ""
+        },
+        {
+          "id": 265,
+          "start": 868.5,
+          "end": 870.84,
+          "en": "And now we just have to pass that URL",
+          "zh": ""
+        },
+        {
+          "id": 266,
+          "start": 870.84,
+          "end": 875.1,
+          "en": "to which the request should be sent as a first argument",
+          "zh": ""
+        },
+        {
+          "id": 267,
+          "start": 875.1,
+          "end": 878.64,
+          "en": "and a config object as a second argument.",
+          "zh": ""
+        },
+        {
+          "id": 268,
+          "start": 878.64,
+          "end": 880.83,
+          "en": "Though here, since it's a 'GET' request,",
+          "zh": ""
+        },
+        {
+          "id": 269,
+          "start": 880.83,
+          "end": 883.533,
+          "en": "we don't really need any config object.",
+          "zh": ""
+        },
+        {
+          "id": 270,
+          "start": 884.7,
+          "end": 886.35,
+          "en": "And we'll get back an object",
+          "zh": ""
+        },
+        {
+          "id": 271,
+          "start": 886.35,
+          "end": 889.38,
+          "en": "on which we can use object destructuring",
+          "zh": ""
+        },
+        {
+          "id": 272,
+          "start": 889.38,
+          "end": 893.1,
+          "en": "to get hold of the data that's eventually returned,",
+          "zh": ""
+        },
+        {
+          "id": 273,
+          "start": 893.1,
+          "end": 896.493,
+          "en": "the isLoading state and the error state.",
+          "zh": ""
+        },
+        {
+          "id": 274,
+          "start": 897.75,
+          "end": 901.56,
+          "en": "And we can now use these different states here in Meals.",
+          "zh": ""
+        },
+        {
+          "id": 275,
+          "start": 901.56,
+          "end": 905.193,
+          "en": "For example, the data which should be output down there.",
+          "zh": ""
+        },
+        {
+          "id": 276,
+          "start": 906.09,
+          "end": 908.01,
+          "en": "Now, here I know that my data in the end",
+          "zh": ""
+        },
+        {
+          "id": 277,
+          "start": 908.01,
+          "end": 911.28,
+          "en": "will be the loadedMeals so I'll give it that alias",
+          "zh": ""
+        },
+        {
+          "id": 278,
+          "start": 911.28,
+          "end": 913.893,
+          "en": "so that the code down there continues to work.",
+          "zh": ""
+        },
+        {
+          "id": 279,
+          "start": 915.15,
+          "end": 918.48,
+          "en": "And we'll take care about the loading and error state later.",
+          "zh": ""
+        },
+        {
+          "id": 280,
+          "start": 918.48,
+          "end": 921.54,
+          "en": "First, I simply want to check whether this works",
+          "zh": ""
+        },
+        {
+          "id": 281,
+          "start": 921.54,
+          "end": 924.84,
+          "en": "and whether it works without any infinite loop",
+          "zh": ""
+        },
+        {
+          "id": 282,
+          "start": 924.84,
+          "end": 926.223,
+          "en": "or anything like that.",
+          "zh": ""
+        },
+        {
+          "id": 283,
+          "start": 927.42,
+          "end": 931.32,
+          "en": "So if we save that and I reload this page,",
+          "zh": ""
+        },
+        {
+          "id": 284,
+          "start": 931.32,
+          "end": 934.92,
+          "en": "I don't see anything, and if I open the console,",
+          "zh": ""
+        },
+        {
+          "id": 285,
+          "start": 934.92,
+          "end": 936.063,
+          "en": "I get an error.",
+          "zh": ""
+        },
+        {
+          "id": 286,
+          "start": 937.406,
+          "end": 941.1,
+          "en": "And the error is \"Cannot read properties of undefined\"",
+          "zh": ""
+        },
+        {
+          "id": 287,
+          "start": 941.1,
+          "end": 944.253,
+          "en": "when calling map in the Meals component.",
+          "zh": ""
+        },
+        {
+          "id": 288,
+          "start": 945.63,
+          "end": 948.57,
+          "en": "So mapping here failed,",
+          "zh": ""
+        },
+        {
+          "id": 289,
+          "start": 948.57,
+          "end": 951.9,
+          "en": "so it looks like the data here is undefined,",
+          "zh": ""
+        },
+        {
+          "id": 290,
+          "start": 951.9,
+          "end": 953.73,
+          "en": "which of course can only be the case",
+          "zh": ""
+        },
+        {
+          "id": 291,
+          "start": 953.73,
+          "end": 956.16,
+          "en": "if sending this request fails.",
+          "zh": ""
+        },
+        {
+          "id": 292,
+          "start": 956.16,
+          "end": 957.873,
+          "en": "Or is that the reason?",
+          "zh": ""
+        },
+        {
+          "id": 293,
+          "start": 959.1,
+          "end": 962.28,
+          "en": "Keep in mind that sending the request takes some time",
+          "zh": ""
+        },
+        {
+          "id": 294,
+          "start": 962.28,
+          "end": 965.01,
+          "en": "so the data won't be there initially.",
+          "zh": ""
+        },
+        {
+          "id": 295,
+          "start": 965.01,
+          "end": 968.82,
+          "en": "Instead, useState for the data sets the initial state",
+          "zh": ""
+        },
+        {
+          "id": 296,
+          "start": 968.82,
+          "end": 971.76,
+          "en": "to undefined because there is no initial value",
+          "zh": ""
+        },
+        {
+          "id": 297,
+          "start": 971.76,
+          "end": 973.113,
+          "en": "here for the data.",
+          "zh": ""
+        },
+        {
+          "id": 298,
+          "start": 974.01,
+          "end": 977.55,
+          "en": "So the initial value of loadedMeals",
+          "zh": ""
+        },
+        {
+          "id": 299,
+          "start": 977.55,
+          "end": 981.63,
+          "en": "will be undefined until the request is done,",
+          "zh": ""
+        },
+        {
+          "id": 300,
+          "start": 981.63,
+          "end": 984.51,
+          "en": "but that will take some time and the component function",
+          "zh": ""
+        },
+        {
+          "id": 301,
+          "start": 984.51,
+          "end": 989.07,
+          "en": "will not wait for the request to finish to do its work.",
+          "zh": ""
+        },
+        {
+          "id": 302,
+          "start": 989.07,
+          "end": 991.74,
+          "en": "Instead, this JSX code will be parsed",
+          "zh": ""
+        },
+        {
+          "id": 303,
+          "start": 991.74,
+          "end": 995.52,
+          "en": "and converted to HTML code right away, so to say,",
+          "zh": ""
+        },
+        {
+          "id": 304,
+          "start": 995.52,
+          "end": 998.52,
+          "en": "and of course it therefore fails to run this code,",
+          "zh": ""
+        },
+        {
+          "id": 305,
+          "start": 998.52,
+          "end": 1001.04,
+          "en": "because loadedMeals, as I just explained,",
+          "zh": ""
+        },
+        {
+          "id": 306,
+          "start": 1001.04,
+          "end": 1003.47,
+          "en": "is undefined initially.",
+          "zh": ""
+        },
+        {
+          "id": 307,
+          "start": 1003.47,
+          "end": 1006.713,
+          "en": "And that's where this error message here is coming from.",
+          "zh": ""
+        },
+        {
+          "id": 308,
+          "start": 1007.55,
+          "end": 1011.27,
+          "en": "Now, to work around that issue, we could try to check",
+          "zh": ""
+        },
+        {
+          "id": 309,
+          "start": 1011.27,
+          "end": 1014.01,
+          "en": "if we are in a loading state",
+          "zh": ""
+        },
+        {
+          "id": 310,
+          "start": 1014.93,
+          "end": 1017.27,
+          "en": "and in that case return something else.",
+          "zh": ""
+        },
+        {
+          "id": 311,
+          "start": 1017.27,
+          "end": 1021.687,
+          "en": "For example, a paragraph where we say \"Fetching meals...\".",
+          "zh": ""
+        },
+        {
+          "id": 312,
+          "start": 1023.69,
+          "end": 1026.54,
+          "en": "But even though you might think that this does the trick,",
+          "zh": ""
+        },
+        {
+          "id": 313,
+          "start": 1026.54,
+          "end": 1029.33,
+          "en": "you'll see that if you save this and reload,",
+          "zh": ""
+        },
+        {
+          "id": 314,
+          "start": 1029.33,
+          "end": 1031.91,
+          "en": "you still get the same error.",
+          "zh": ""
+        },
+        {
+          "id": 315,
+          "start": 1031.91,
+          "end": 1034.7,
+          "en": "The reason for that is that technically",
+          "zh": ""
+        },
+        {
+          "id": 316,
+          "start": 1034.7,
+          "end": 1039.7,
+          "en": "in our custom hook isLoading is false initially.",
+          "zh": ""
+        },
+        {
+          "id": 317,
+          "start": 1041.18,
+          "end": 1044.39,
+          "en": "It is set to true once we start sending the request,",
+          "zh": ""
+        },
+        {
+          "id": 318,
+          "start": 1044.39,
+          "end": 1048.26,
+          "en": "but that's only the case once this effect function here runs",
+          "zh": ""
+        },
+        {
+          "id": 319,
+          "start": 1048.26,
+          "end": 1052.613,
+          "en": "which, as you learned, happens after the component rendered.",
+          "zh": ""
+        },
+        {
+          "id": 320,
+          "start": 1053.6,
+          "end": 1056.24,
+          "en": "So the first time this component renders",
+          "zh": ""
+        },
+        {
+          "id": 321,
+          "start": 1056.24,
+          "end": 1060.11,
+          "en": "will be with isLoading set to false and, therefore,",
+          "zh": ""
+        },
+        {
+          "id": 322,
+          "start": 1060.11,
+          "end": 1063.08,
+          "en": "will not return this here, but instead this code",
+          "zh": ""
+        },
+        {
+          "id": 323,
+          "start": 1063.08,
+          "end": 1065.723,
+          "en": "which fails for the reasons mentioned before.",
+          "zh": ""
+        },
+        {
+          "id": 324,
+          "start": 1066.98,
+          "end": 1069.92,
+          "en": "Now, we could of course set isLoading to true initially,",
+          "zh": ""
+        },
+        {
+          "id": 325,
+          "start": 1069.92,
+          "end": 1073.4,
+          "en": "but that will give us problems later once we also wanna",
+          "zh": ""
+        },
+        {
+          "id": 326,
+          "start": 1073.4,
+          "end": 1076.04,
+          "en": "use this hook in the Checkout component",
+          "zh": ""
+        },
+        {
+          "id": 327,
+          "start": 1076.04,
+          "end": 1078.593,
+          "en": "where we won't start in a loading state.",
+          "zh": ""
+        },
+        {
+          "id": 328,
+          "start": 1079.67,
+          "end": 1083.21,
+          "en": "Therefore, the better workaround, the better solution",
+          "zh": ""
+        },
+        {
+          "id": 329,
+          "start": 1083.21,
+          "end": 1087.14,
+          "en": "is to accept a third parameter here, for example,",
+          "zh": ""
+        },
+        {
+          "id": 330,
+          "start": 1087.14,
+          "end": 1089.043,
+          "en": "which could be called initialData,",
+          "zh": ""
+        },
+        {
+          "id": 331,
+          "start": 1090.17,
+          "end": 1092.36,
+          "en": "which is the initial data we wanna set",
+          "zh": ""
+        },
+        {
+          "id": 332,
+          "start": 1092.36,
+          "end": 1095.153,
+          "en": "to that data state in our custom hook.",
+          "zh": ""
+        },
+        {
+          "id": 333,
+          "start": 1096.35,
+          "end": 1100.01,
+          "en": "Because this now allows us to go to the Meals component",
+          "zh": ""
+        },
+        {
+          "id": 334,
+          "start": 1100.01,
+          "end": 1104.36,
+          "en": "and there to useHttp and maybe pass an empty object",
+          "zh": ""
+        },
+        {
+          "id": 335,
+          "start": 1104.36,
+          "end": 1108.08,
+          "en": "for the configuration, but then pass an empty array",
+          "zh": ""
+        },
+        {
+          "id": 336,
+          "start": 1108.08,
+          "end": 1111.903,
+          "en": "of meals as initial data for the loadedMeals.",
+          "zh": ""
+        },
+        {
+          "id": 337,
+          "start": 1112.76,
+          "end": 1114.53,
+          "en": "Because that's what we had before",
+          "zh": ""
+        },
+        {
+          "id": 338,
+          "start": 1114.53,
+          "end": 1117.08,
+          "en": "and this will make sure that when this renders",
+          "zh": ""
+        },
+        {
+          "id": 339,
+          "start": 1117.08,
+          "end": 1121.04,
+          "en": "for the first time, we won't output any items here,",
+          "zh": ""
+        },
+        {
+          "id": 340,
+          "start": 1121.04,
+          "end": 1122.813,
+          "en": "but we also won't fail.",
+          "zh": ""
+        },
+        {
+          "id": 341,
+          "start": 1125.24,
+          "end": 1128.27,
+          "en": "Alternatively, of course, you could have also checked",
+          "zh": ""
+        },
+        {
+          "id": 342,
+          "start": 1128.27,
+          "end": 1132.23,
+          "en": "if !data, so if data is undefined",
+          "zh": ""
+        },
+        {
+          "id": 343,
+          "start": 1132.23,
+          "end": 1134.45,
+          "en": "and you could have returned some fallback texts",
+          "zh": ""
+        },
+        {
+          "id": 344,
+          "start": 1134.45,
+          "end": 1137.75,
+          "en": "like \"No meals found\".",
+          "zh": ""
+        },
+        {
+          "id": 345,
+          "start": 1137.75,
+          "end": 1139.82,
+          "en": "That would've been an alternative,",
+          "zh": ""
+        },
+        {
+          "id": 346,
+          "start": 1139.82,
+          "end": 1143.21,
+          "en": "but here I'll go for that initial data approach instead,",
+          "zh": ""
+        },
+        {
+          "id": 347,
+          "start": 1143.21,
+          "end": 1146.423,
+          "en": "simply to also show you these alternatives.",
+          "zh": ""
+        },
+        {
+          "id": 348,
+          "start": 1147.74,
+          "end": 1150.35,
+          "en": "And with that, if we save that and reload,",
+          "zh": ""
+        },
+        {
+          "id": 349,
+          "start": 1150.35,
+          "end": 1153.38,
+          "en": "finally we have no error anymore,",
+          "zh": ""
+        },
+        {
+          "id": 350,
+          "start": 1153.38,
+          "end": 1157.22,
+          "en": "but we also don't see any meals here.",
+          "zh": ""
+        },
+        {
+          "id": 351,
+          "start": 1157.22,
+          "end": 1161.09,
+          "en": "Also no loading text, but also no meals.",
+          "zh": ""
+        },
+        {
+          "id": 352,
+          "start": 1161.09,
+          "end": 1164.54,
+          "en": "And the reason for this behavior can be found",
+          "zh": ""
+        },
+        {
+          "id": 353,
+          "start": 1164.54,
+          "end": 1168.23,
+          "en": "if we open the network tab and we reload,",
+          "zh": ""
+        },
+        {
+          "id": 354,
+          "start": 1168.23,
+          "end": 1171.59,
+          "en": "because here we won't find the request",
+          "zh": ""
+        },
+        {
+          "id": 355,
+          "start": 1171.59,
+          "end": 1175.133,
+          "en": "to the backend that would fetch any meals.",
+          "zh": ""
+        },
+        {
+          "id": 356,
+          "start": 1176.06,
+          "end": 1180.17,
+          "en": "So it looks like we're still not entirely there yet.",
+          "zh": ""
+        },
+        {
+          "id": 357,
+          "start": 1180.17,
+          "end": 1184.49,
+          "en": "We got our logic here, but it looks like this request",
+          "zh": ""
+        },
+        {
+          "id": 358,
+          "start": 1184.49,
+          "end": 1187.09,
+          "en": "is not being sent here.",
+          "zh": ""
+        },
+        {
+          "id": 359,
+          "start": 1187.09,
+          "end": 1189.83,
+          "en": "And the reason for that is that here we're checking",
+          "zh": ""
+        },
+        {
+          "id": 360,
+          "start": 1189.83,
+          "end": 1193.19,
+          "en": "if the config object is set and if it is set,",
+          "zh": ""
+        },
+        {
+          "id": 361,
+          "start": 1193.19,
+          "end": 1195.833,
+          "en": "if we have the 'GET' method chosen.",
+          "zh": ""
+        },
+        {
+          "id": 362,
+          "start": 1196.7,
+          "end": 1199.67,
+          "en": "The problem is that I am now setting it,",
+          "zh": ""
+        },
+        {
+          "id": 363,
+          "start": 1199.67,
+          "end": 1202.79,
+          "en": "but I'm setting it to an empty object here.",
+          "zh": ""
+        },
+        {
+          "id": 364,
+          "start": 1202.79,
+          "end": 1206.18,
+          "en": "And, therefore, this part of the condition is met,",
+          "zh": ""
+        },
+        {
+          "id": 365,
+          "start": 1206.18,
+          "end": 1208.943,
+          "en": "but this part of the condition is not met.",
+          "zh": ""
+        },
+        {
+          "id": 366,
+          "start": 1210.53,
+          "end": 1213.23,
+          "en": "Now, one way to work around that and make sure",
+          "zh": ""
+        },
+        {
+          "id": 367,
+          "start": 1213.23,
+          "end": 1215.9,
+          "en": "that we treat an empty config object",
+          "zh": ""
+        },
+        {
+          "id": 368,
+          "start": 1215.9,
+          "end": 1218.78,
+          "en": "where the method is not set as an object",
+          "zh": ""
+        },
+        {
+          "id": 369,
+          "start": 1218.78,
+          "end": 1222.83,
+          "en": "where we wanna set a 'GET' request is by adding",
+          "zh": ""
+        },
+        {
+          "id": 370,
+          "start": 1222.83,
+          "end": 1227.203,
+          "en": "the or operator here and checking if config.method",
+          "zh": ""
+        },
+        {
+          "id": 371,
+          "start": 1228.5,
+          "end": 1232.193,
+          "en": "is undefined by adding an exclamation mark in front of that.",
+          "zh": ""
+        },
+        {
+          "id": 372,
+          "start": 1233.27,
+          "end": 1237.17,
+          "en": "So we're running this code here if we have a config object",
+          "zh": ""
+        },
+        {
+          "id": 373,
+          "start": 1237.17,
+          "end": 1242.17,
+          "en": "and the method is set to 'GET', or if we have no method set,",
+          "zh": ""
+        },
+        {
+          "id": 374,
+          "start": 1242.24,
+          "end": 1245.33,
+          "en": "and we should group this here with parentheses",
+          "zh": ""
+        },
+        {
+          "id": 375,
+          "start": 1245.33,
+          "end": 1248.27,
+          "en": "so that we always check for the config object",
+          "zh": ""
+        },
+        {
+          "id": 376,
+          "start": 1248.27,
+          "end": 1249.98,
+          "en": "and then we have one of these two options",
+          "zh": ""
+        },
+        {
+          "id": 377,
+          "start": 1249.98,
+          "end": 1251.63,
+          "en": "to send the request.",
+          "zh": ""
+        },
+        {
+          "id": 378,
+          "start": 1251.63,
+          "end": 1254.39,
+          "en": "And there now actually is also another condition",
+          "zh": ""
+        },
+        {
+          "id": 379,
+          "start": 1254.39,
+          "end": 1257.36,
+          "en": "which I wanna check for to send this request.",
+          "zh": ""
+        },
+        {
+          "id": 380,
+          "start": 1257.36,
+          "end": 1260.03,
+          "en": "If we have no config object at all,",
+          "zh": ""
+        },
+        {
+          "id": 381,
+          "start": 1260.03,
+          "end": 1263.72,
+          "en": "I also wanna send it because if I have no config object,",
+          "zh": ""
+        },
+        {
+          "id": 382,
+          "start": 1263.72,
+          "end": 1267.62,
+          "en": "that also implies that I wanna go with the default behavior,",
+          "zh": ""
+        },
+        {
+          "id": 383,
+          "start": 1267.62,
+          "end": 1270.02,
+          "en": "which is that a 'GET' request should be sent",
+          "zh": ""
+        },
+        {
+          "id": 384,
+          "start": 1270.02,
+          "end": 1271.61,
+          "en": "and that the request should, therefore,",
+          "zh": ""
+        },
+        {
+          "id": 385,
+          "start": 1271.61,
+          "end": 1272.903,
+          "en": "be sent right away here.",
+          "zh": ""
+        },
+        {
+          "id": 386,
+          "start": 1274.76,
+          "end": 1278.48,
+          "en": "So by adding this condition where I either have no config",
+          "zh": ""
+        },
+        {
+          "id": 387,
+          "start": 1278.48,
+          "end": 1281.36,
+          "en": "or I have a config with the method set to 'GET'",
+          "zh": ""
+        },
+        {
+          "id": 388,
+          "start": 1281.36,
+          "end": 1284.9,
+          "en": "or not set at all, with this check added here,",
+          "zh": ""
+        },
+        {
+          "id": 389,
+          "start": 1284.9,
+          "end": 1287.51,
+          "en": "this request should now finally be sent.",
+          "zh": ""
+        },
+        {
+          "id": 390,
+          "start": 1287.51,
+          "end": 1289.28,
+          "en": "But after making this change,",
+          "zh": ""
+        },
+        {
+          "id": 391,
+          "start": 1289.28,
+          "end": 1291.53,
+          "en": "you'll see that if we reload again,",
+          "zh": ""
+        },
+        {
+          "id": 392,
+          "start": 1291.53,
+          "end": 1293.93,
+          "en": "we're back in error land,",
+          "zh": ""
+        },
+        {
+          "id": 393,
+          "start": 1293.93,
+          "end": 1298.4,
+          "en": "but this time not because loadedMeals would be undefined,",
+          "zh": ""
+        },
+        {
+          "id": 394,
+          "start": 1298.4,
+          "end": 1301.64,
+          "en": "but because it instead seems to be something",
+          "zh": ""
+        },
+        {
+          "id": 395,
+          "start": 1301.64,
+          "end": 1303.653,
+          "en": "on which we can't call map.",
+          "zh": ""
+        },
+        {
+          "id": 396,
+          "start": 1304.64,
+          "end": 1308.33,
+          "en": "And here it helps to go to the Meals component",
+          "zh": ""
+        },
+        {
+          "id": 397,
+          "start": 1308.33,
+          "end": 1312.02,
+          "en": "and simply console.log loadedMeals",
+          "zh": ""
+        },
+        {
+          "id": 398,
+          "start": 1312.02,
+          "end": 1315.863,
+          "en": "to see which data is stored in that state.",
+          "zh": ""
+        },
+        {
+          "id": 399,
+          "start": 1318.11,
+          "end": 1321.53,
+          "en": "If we add this and open the console and reload,",
+          "zh": ""
+        },
+        {
+          "id": 400,
+          "start": 1321.53,
+          "end": 1324.47,
+          "en": "we see that we start with this empty array,",
+          "zh": ""
+        },
+        {
+          "id": 401,
+          "start": 1324.47,
+          "end": 1326.81,
+          "en": "but thereafter it's a promise.",
+          "zh": ""
+        },
+        {
+          "id": 402,
+          "start": 1326.81,
+          "end": 1329.12,
+          "en": "And that's not the right value,",
+          "zh": ""
+        },
+        {
+          "id": 403,
+          "start": 1329.12,
+          "end": 1333.863,
+          "en": "it should instead be an array of meals, not some promise.",
+          "zh": ""
+        },
+        {
+          "id": 404,
+          "start": 1335.63,
+          "end": 1339.59,
+          "en": "So why is it a promise instead of that array of meals?",
+          "zh": ""
+        },
+        {
+          "id": 405,
+          "start": 1339.59,
+          "end": 1341.753,
+          "en": "To find out, let's go to the custom hook.",
+          "zh": ""
+        },
+        {
+          "id": 406,
+          "start": 1342.62,
+          "end": 1345.17,
+          "en": "Here we're triggering sendRequest",
+          "zh": ""
+        },
+        {
+          "id": 407,
+          "start": 1345.17,
+          "end": 1347.39,
+          "en": "and it's inside of send request",
+          "zh": ""
+        },
+        {
+          "id": 408,
+          "start": 1347.39,
+          "end": 1349.73,
+          "en": "where we're setting the data.",
+          "zh": ""
+        },
+        {
+          "id": 409,
+          "start": 1349.73,
+          "end": 1352.34,
+          "en": "And the problem is here with this line.",
+          "zh": ""
+        },
+        {
+          "id": 410,
+          "start": 1352.34,
+          "end": 1355.37,
+          "en": "I'm setting my data in the end to the result",
+          "zh": ""
+        },
+        {
+          "id": 411,
+          "start": 1355.37,
+          "end": 1357.203,
+          "en": "of calling sendHttpRequest.",
+          "zh": ""
+        },
+        {
+          "id": 412,
+          "start": 1358.79,
+          "end": 1363.47,
+          "en": "But calling sendHttpRequest will only eventually",
+          "zh": ""
+        },
+        {
+          "id": 413,
+          "start": 1363.47,
+          "end": 1365.39,
+          "en": "give me the data.",
+          "zh": ""
+        },
+        {
+          "id": 414,
+          "start": 1365.39,
+          "end": 1367.856,
+          "en": "Since I'm using async await here,",
+          "zh": ""
+        },
+        {
+          "id": 415,
+          "start": 1367.856,
+          "end": 1371.63,
+          "en": "sendHttpRequest will return a promise object",
+          "zh": ""
+        },
+        {
+          "id": 416,
+          "start": 1371.63,
+          "end": 1374.363,
+          "en": "which will resolve to that returned data.",
+          "zh": ""
+        },
+        {
+          "id": 417,
+          "start": 1375.65,
+          "end": 1378.65,
+          "en": "So I'm storing the promise in resData here",
+          "zh": ""
+        },
+        {
+          "id": 418,
+          "start": 1378.65,
+          "end": 1380.003,
+          "en": "and that's the problem.",
+          "zh": ""
+        },
+        {
+          "id": 419,
+          "start": 1380.84,
+          "end": 1383.36,
+          "en": "The solution is to add await here,",
+          "zh": ""
+        },
+        {
+          "id": 420,
+          "start": 1383.36,
+          "end": 1386.273,
+          "en": "which I can do because we're using async here.",
+          "zh": ""
+        },
+        {
+          "id": 421,
+          "start": 1387.44,
+          "end": 1390.62,
+          "en": "With that we'll instead store the resolved data",
+          "zh": ""
+        },
+        {
+          "id": 422,
+          "start": 1390.62,
+          "end": 1393.833,
+          "en": "in resData and, therefore, finally in our state.",
+          "zh": ""
+        },
+        {
+          "id": 423,
+          "start": 1394.94,
+          "end": 1397.28,
+          "en": "And with all that out of the way,",
+          "zh": ""
+        },
+        {
+          "id": 424,
+          "start": 1397.28,
+          "end": 1400.04,
+          "en": "we should now be able to reload without an error",
+          "zh": ""
+        },
+        {
+          "id": 425,
+          "start": 1400.04,
+          "end": 1404.24,
+          "en": "and at least get this \"Fetching meals...\" state here.",
+          "zh": ""
+        },
+        {
+          "id": 426,
+          "start": 1404.24,
+          "end": 1406.19,
+          "en": "But if you open the network tab,",
+          "zh": ""
+        },
+        {
+          "id": 427,
+          "start": 1406.19,
+          "end": 1408.2,
+          "en": "you'll see something unpleasant.",
+          "zh": ""
+        },
+        {
+          "id": 428,
+          "start": 1408.2,
+          "end": 1410.51,
+          "en": "Looks like we got some infinite loop here",
+          "zh": ""
+        },
+        {
+          "id": 429,
+          "start": 1410.51,
+          "end": 1412.94,
+          "en": "because I'm sending tons of requests,",
+          "zh": ""
+        },
+        {
+          "id": 430,
+          "start": 1412.94,
+          "end": 1416.33,
+          "en": "thankfully only to my dummy back in here, though.",
+          "zh": ""
+        },
+        {
+          "id": 431,
+          "start": 1416.33,
+          "end": 1418.52,
+          "en": "Now, why is that happening?",
+          "zh": ""
+        },
+        {
+          "id": 432,
+          "start": 1418.52,
+          "end": 1421.31,
+          "en": "Well, that can only happen because at least one",
+          "zh": ""
+        },
+        {
+          "id": 433,
+          "start": 1421.31,
+          "end": 1425.9,
+          "en": "of our dependencies here on useEffect seems to be recreated",
+          "zh": ""
+        },
+        {
+          "id": 434,
+          "start": 1425.9,
+          "end": 1428.24,
+          "en": "whenever the component in which we call",
+          "zh": ""
+        },
+        {
+          "id": 435,
+          "start": 1428.24,
+          "end": 1431.033,
+          "en": "our custom hook gets executed again,",
+          "zh": ""
+        },
+        {
+          "id": 436,
+          "start": 1431.9,
+          "end": 1434.573,
+          "en": "so either sendRequest or config.",
+          "zh": ""
+        },
+        {
+          "id": 437,
+          "start": 1435.47,
+          "end": 1438.65,
+          "en": "Now, theoretically sendRequest should not",
+          "zh": ""
+        },
+        {
+          "id": 438,
+          "start": 1438.65,
+          "end": 1440.24,
+          "en": "be recreated all the time",
+          "zh": ""
+        },
+        {
+          "id": 439,
+          "start": 1440.24,
+          "end": 1443.03,
+          "en": "because we wrapped it with useCallback.",
+          "zh": ""
+        },
+        {
+          "id": 440,
+          "start": 1443.03,
+          "end": 1445.61,
+          "en": "Though it could be recreated if one",
+          "zh": ""
+        },
+        {
+          "id": 441,
+          "start": 1445.61,
+          "end": 1448.76,
+          "en": "of its dependencies would change all the time.",
+          "zh": ""
+        },
+        {
+          "id": 442,
+          "start": 1448.76,
+          "end": 1451.253,
+          "en": "And here we have URL and config.",
+          "zh": ""
+        },
+        {
+          "id": 443,
+          "start": 1452.09,
+          "end": 1454.55,
+          "en": "Now, if we take a look at the Meals component,",
+          "zh": ""
+        },
+        {
+          "id": 444,
+          "start": 1454.55,
+          "end": 1457.25,
+          "en": "we'll see that we're passing the URL to it",
+          "zh": ""
+        },
+        {
+          "id": 445,
+          "start": 1457.25,
+          "end": 1459.59,
+          "en": "and this object here.",
+          "zh": ""
+        },
+        {
+          "id": 446,
+          "start": 1459.59,
+          "end": 1461.63,
+          "en": "And also our initial data of course,",
+          "zh": ""
+        },
+        {
+          "id": 447,
+          "start": 1461.63,
+          "end": 1463.34,
+          "en": "but that's not interesting here,",
+          "zh": ""
+        },
+        {
+          "id": 448,
+          "start": 1463.34,
+          "end": 1467.543,
+          "en": "because that isn't a dependency of useCallback or useEffect.",
+          "zh": ""
+        },
+        {
+          "id": 449,
+          "start": 1468.71,
+          "end": 1471.71,
+          "en": "But this here is the config object we're passing",
+          "zh": ""
+        },
+        {
+          "id": 450,
+          "start": 1471.71,
+          "end": 1475.79,
+          "en": "to useHttp and that's the problem here.",
+          "zh": ""
+        },
+        {
+          "id": 451,
+          "start": 1475.79,
+          "end": 1478.04,
+          "en": "It doesn't look like a big problem here,",
+          "zh": ""
+        },
+        {
+          "id": 452,
+          "start": 1478.04,
+          "end": 1481.13,
+          "en": "but this is a plain JavaScript object.",
+          "zh": ""
+        },
+        {
+          "id": 453,
+          "start": 1481.13,
+          "end": 1484.64,
+          "en": "An empty object, but still an object value",
+          "zh": ""
+        },
+        {
+          "id": 454,
+          "start": 1484.64,
+          "end": 1488.24,
+          "en": "that is created here in our component function",
+          "zh": ""
+        },
+        {
+          "id": 455,
+          "start": 1488.24,
+          "end": 1492.29,
+          "en": "and that's, therefore, recreated in that component function",
+          "zh": ""
+        },
+        {
+          "id": 456,
+          "start": 1492.29,
+          "end": 1494.75,
+          "en": "every time this component function runs,",
+          "zh": ""
+        },
+        {
+          "id": 457,
+          "start": 1494.75,
+          "end": 1497.543,
+          "en": "which happens every time the request finishes.",
+          "zh": ""
+        },
+        {
+          "id": 458,
+          "start": 1498.38,
+          "end": 1501.023,
+          "en": "It is a new object being created all the time.",
+          "zh": ""
+        },
+        {
+          "id": 459,
+          "start": 1501.92,
+          "end": 1504.56,
+          "en": "The solution is to create it outside",
+          "zh": ""
+        },
+        {
+          "id": 460,
+          "start": 1504.56,
+          "end": 1506.18,
+          "en": "of this component function.",
+          "zh": ""
+        },
+        {
+          "id": 461,
+          "start": 1506.18,
+          "end": 1509.51,
+          "en": "Here we can create our requestConfig",
+          "zh": ""
+        },
+        {
+          "id": 462,
+          "start": 1509.51,
+          "end": 1513.803,
+          "en": "and pass it as a parameter to useHttp like this.",
+          "zh": ""
+        },
+        {
+          "id": 463,
+          "start": 1514.64,
+          "end": 1517.79,
+          "en": "This might look like a simple trick,",
+          "zh": ""
+        },
+        {
+          "id": 464,
+          "start": 1517.79,
+          "end": 1520.43,
+          "en": "but it indeed is what we need to do here",
+          "zh": ""
+        },
+        {
+          "id": 465,
+          "start": 1520.43,
+          "end": 1523.46,
+          "en": "because now we're only creating this object once",
+          "zh": ""
+        },
+        {
+          "id": 466,
+          "start": 1523.46,
+          "end": 1526.79,
+          "en": "when this file here is parsed for the first time,",
+          "zh": ""
+        },
+        {
+          "id": 467,
+          "start": 1526.79,
+          "end": 1529.49,
+          "en": "and thereafter in the component function,",
+          "zh": ""
+        },
+        {
+          "id": 468,
+          "start": 1529.49,
+          "end": 1532.5529999999999,
+          "en": "we're always using the same object in memory here.",
+          "zh": ""
+        },
+        {
+          "id": 469,
+          "start": 1533.54,
+          "end": 1536.72,
+          "en": "So if we now save this and reload,",
+          "zh": ""
+        },
+        {
+          "id": 470,
+          "start": 1536.72,
+          "end": 1539.48,
+          "en": "you'll see that there is no infinite loop anymore,",
+          "zh": ""
+        },
+        {
+          "id": 471,
+          "start": 1539.48,
+          "end": 1542.483,
+          "en": "and finally, our meals are loaded.",
+          "zh": ""
+        },
+        {
+          "id": 472,
+          "start": 1543.56,
+          "end": 1547.97,
+          "en": "And this was a lot of work, a lot of errors to fix,",
+          "zh": ""
+        },
+        {
+          "id": 473,
+          "start": 1547.97,
+          "end": 1552.05,
+          "en": "but I deliberately went through that entire process",
+          "zh": ""
+        },
+        {
+          "id": 474,
+          "start": 1552.05,
+          "end": 1555.89,
+          "en": "because there are a lot of things that can go wrong",
+          "zh": ""
+        },
+        {
+          "id": 475,
+          "start": 1555.89,
+          "end": 1560.15,
+          "en": "when working with side effects and http requests",
+          "zh": ""
+        },
+        {
+          "id": 476,
+          "start": 1560.15,
+          "end": 1562.16,
+          "en": "and React in general.",
+          "zh": ""
+        },
+        {
+          "id": 477,
+          "start": 1562.16,
+          "end": 1564.98,
+          "en": "And I find it important for you to be able",
+          "zh": ""
+        },
+        {
+          "id": 478,
+          "start": 1564.98,
+          "end": 1569.98,
+          "en": "to deal with such problems and to know common error sources.",
+          "zh": ""
+        },
+        {
+          "id": 479,
+          "start": 1570.11,
+          "end": 1573.56,
+          "en": "And, therefore, now here, finally we got the working hook",
+          "zh": ""
+        },
+        {
+          "id": 480,
+          "start": 1573.56,
+          "end": 1575.78,
+          "en": "and we can continue working on this app,",
+          "zh": ""
+        },
+        {
+          "id": 481,
+          "start": 1575.78,
+          "end": 1579.35,
+          "en": "but along the way you learned a lot about sending requests",
+          "zh": ""
+        },
+        {
+          "id": 482,
+          "start": 1579.35,
+          "end": 1581.963,
+          "en": "and dealing with React and side effects.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

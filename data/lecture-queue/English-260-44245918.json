@@ -1,0 +1,695 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "44245918",
+      "title": "Updating the UI with useFormStatus()",
+      "sourceHash": "5fc168a6e2b56fcded7785bc33b7a129cb8e398316a82db6838efeb9f92a78ca",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.1,
+          "end": 4.62,
+          "en": "So we can submit forms, but at the moment,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.62,
+          "end": 7.98,
+          "en": "we are stuck for one second until the response",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.98,
+          "end": 11.19,
+          "en": "from the backend is back when we click Submit,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.19,
+          "end": 13.5,
+          "en": "at least if we have a valid form.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 13.5,
+          "end": 16.77,
+          "en": "And as mentioned, it would be great if this Submit button,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 16.77,
+          "end": 19.08,
+          "en": "for example, would be disabled,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 19.08,
+          "end": 21.54,
+          "en": "and maybe the text on it would change",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 21.54,
+          "end": 24.033,
+          "en": "whilst the form is being submitted.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 25.35,
+          "end": 29.64,
+          "en": "And we have two main ways of adding such a feature",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 29.64,
+          "end": 31.77,
+          "en": "to this application.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 31.77,
+          "end": 36.63,
+          "en": "One way would be to use this pending value here,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 36.63,
+          "end": 39.15,
+          "en": "which we got back from useActionState",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 39.15,
+          "end": 42.09,
+          "en": "as a third element in this array",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 42.09,
+          "end": 43.62,
+          "en": "because that will be true",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 43.62,
+          "end": 45.75,
+          "en": "if the form is currently being submitted",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 45.75,
+          "end": 48.45,
+          "en": "and it will be false otherwise.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 48.45,
+          "end": 50.55,
+          "en": "And therefore we could use this information",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 50.55,
+          "end": 52.173,
+          "en": "to update the UI.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 53.07,
+          "end": 56.1,
+          "en": "And that's also why it's important to await here",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 56.1,
+          "end": 58.83,
+          "en": "because pending then will be true",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 58.83,
+          "end": 61.26,
+          "en": "until this promise is resolved.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 61.26,
+          "end": 63.303,
+          "en": "React will wait for that.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 64.83,
+          "end": 67.08,
+          "en": "But I'll not use that approach here",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 67.08,
+          "end": 69.24,
+          "en": "because I wanna show you another hook",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 69.24,
+          "end": 72,
+          "en": "that's offered by React that helps us",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 72,
+          "end": 74.259,
+          "en": "with situations like this.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 74.259,
+          "end": 76.86,
+          "en": "A new hook that's meant to be used",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 76.86,
+          "end": 79.473,
+          "en": "in conjunction with formActions.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 80.58,
+          "end": 83.19,
+          "en": "And that new hook is a hook",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 83.19,
+          "end": 87.213,
+          "en": "that's actually imported from react-dom,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 88.32,
+          "end": 91.833,
+          "en": "the useFormStatus hook.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 93,
+          "end": 97.71000000000001,
+          "en": "And this hook actually can't be used",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 97.71000000000001,
+          "end": 102.059,
+          "en": "in the component that contains the form and the formAction.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 102.059,
+          "end": 104.313,
+          "en": "So we can't use it in this component,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 105.21000000000001,
+          "end": 108.75,
+          "en": "but instead it must be used in some nested component.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 108.75,
+          "end": 111,
+          "en": "So some component,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 111,
+          "end": 113.13,
+          "en": "and that's why I'm removing this import,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 113.13,
+          "end": 118.11,
+          "en": "some component that is used inside of this form.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 118.11,
+          "end": 120.6,
+          "en": "Therefore here, I'll add a new component",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 120.6,
+          "end": 125.25,
+          "en": "in this component's folder and I'll name it Submit.jsx,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 125.25,
+          "end": 127.47,
+          "en": "or that's the file name I guess.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 127.47,
+          "end": 130.743,
+          "en": "The component function then is named Submit.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 131.67,
+          "end": 134.553,
+          "en": "So I'm exporting a new default function called Submit.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 135.72,
+          "end": 138.32999999999998,
+          "en": "And in this Submit.jsx file,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 138.32999999999998,
+          "end": 142.95,
+          "en": "I will now import this useFormStatus hook",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 142.95,
+          "end": 145.473,
+          "en": "from react-dom.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 147.72,
+          "end": 150.93,
+          "en": "Now back in NewOpinion.jsx,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 150.93,
+          "end": 153.63,
+          "en": "I'll grab this paragraph here",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 153.63,
+          "end": 155.49,
+          "en": "which contains my Submit button,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 155.49,
+          "end": 159.69,
+          "en": "and I'll cut it and remove it from this component therefore,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 159.69,
+          "end": 163.71,
+          "en": "and instead return that here in the Submit.jsx file",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 163.71,
+          "end": 165.31,
+          "en": "in this Submit component",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 166.68,
+          "end": 169.5,
+          "en": "because now here in this Submit component,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 169.5,
+          "end": 174.09,
+          "en": "we can and should now call this useFormStatus hook.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 174.09,
+          "end": 175.17000000000002,
+          "en": "And as a result,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 175.17000000000002,
+          "end": 178.86,
+          "en": "we'll get back an object that contains various pieces",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 178.86,
+          "end": 182.52,
+          "en": "of information about the current form status,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 182.52,
+          "end": 184.41,
+          "en": "the current status of the form",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 184.41,
+          "end": 186.723,
+          "en": "in which this component is being used.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 188.13,
+          "end": 190.38,
+          "en": "For example, we could get hold of the data",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 190.38,
+          "end": 191.97,
+          "en": "that has been submitted.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 191.97,
+          "end": 195.03,
+          "en": "We could get hold of some other information as well.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 195.03,
+          "end": 198.81,
+          "en": "The official documentation lists all the information",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 198.81,
+          "end": 201.003,
+          "en": "you can get out of that object.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 201.93,
+          "end": 204.99,
+          "en": "But probably the most common piece of data,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 204.99,
+          "end": 207.87,
+          "en": "the most common information you want to get access",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 207.87,
+          "end": 210.27,
+          "en": "to is the pending property,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 210.27,
+          "end": 213.48,
+          "en": "which is true or false depending",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 213.48,
+          "end": 215.16,
+          "en": "on whether the surrounding form",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 215.16,
+          "end": 217.353,
+          "en": "is currently being submitted or not.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 218.55,
+          "end": 221.57999999999998,
+          "en": "And we can use this pending property",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 221.57999999999998,
+          "end": 224.43,
+          "en": "to conditionally disable this button",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 224.43,
+          "end": 227.79,
+          "en": "by setting the disabled prop to pending.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 227.79,
+          "end": 231.87,
+          "en": "So now if pending is true, if the form is being submitted,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 231.87,
+          "end": 233.373,
+          "en": "the button will be disabled.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 234.24,
+          "end": 237.6,
+          "en": "And we can also replace this text here",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 237.6,
+          "end": 241.32,
+          "en": "and set it dynamically and check if pending is truthy.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 241.32,
+          "end": 242.52,
+          "en": "And if that's the case,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 242.52,
+          "end": 244.573,
+          "en": "I'll set the text to, \"Submitting...\"",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 245.55,
+          "end": 247.473,
+          "en": "Otherwise, I'll set it to Submit.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 249.09,
+          "end": 251.85,
+          "en": "And now we got this reusable component",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 251.85,
+          "end": 256.32,
+          "en": "that we could use in any form that uses formActions",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 256.32,
+          "end": 258.66,
+          "en": "to output a button that adjusts",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 258.66,
+          "end": 260.58299999999997,
+          "en": "to the current submission status.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 261.75,
+          "end": 264.33,
+          "en": "So now back in the NewOpinion component,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 264.33,
+          "end": 267.633,
+          "en": "we can use this Submit component like this,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 268.8,
+          "end": 271.983,
+          "en": "and of course, import it like always.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 273.03,
+          "end": 276.9,
+          "en": "And if you then use it here inside of this form element",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 276.9,
+          "end": 279.873,
+          "en": "and you save this, you'll see that now if you reload,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 281.49,
+          "end": 284.98,
+          "en": "if I enter my name and a title",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 286.08,
+          "end": 288.63,
+          "en": "and some text, if I click Submit,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 288.63,
+          "end": 291.06,
+          "en": "you see the button is disabled, the text changes.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 291.06,
+          "end": 294.33,
+          "en": "And then once the form is submitted, everything is reset.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 294.33,
+          "end": 296.403,
+          "en": "And I see my opinion here,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 297.27,
+          "end": 299.58,
+          "en": "and that's therefore now working the way it should.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 299.58,
+          "end": 302.22,
+          "en": "And that's how you can update the UI based",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 302.22,
+          "end": 304.413,
+          "en": "on the current form status.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

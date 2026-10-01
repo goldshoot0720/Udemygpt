@@ -1,0 +1,27 @@
+const assert = require('node:assert/strict');
+const { parse, at, select, time } = require('../udemy-bilingual/subtitle-core.js');
+const cues = parse('\uFEFFWEBVTT\r\n\r\nNOTE ignore\r\n00:00:00.000 --> 00:00:99.000\r\nignored\r\n\r\n1\r\n00:00:01.000 --> 00:00:03.000 align:start\r\n<v Max>React &amp; JSX</v>\r\n\r\n00:00:02.000 --> 00:00:04.000\r\nSecond line\r\n\r\nbad\r\n00:00:06.000 --> 00:00:05.000\r\ninvalid');
+assert.equal(cues.length, 2);
+assert.equal(at(cues, 0), '');
+assert.equal(at(cues, 1), 'React & JSX');
+assert.equal(at(cues, 2.5), 'React & JSX Second line');
+assert.equal(at(cues, 3), 'Second line');
+assert.equal(at(cues, 4), '');
+assert.equal(at(cues, 1.5), 'React & JSX'); // backwards seek
+assert.equal(time('01:02:03,500'), 3723.5);
+assert.equal(parse('1\n00:00:01,000 --> 00:00:02,000\nSRT').length, 1);
+const languages = [{locale_id:'zh_CN',url:'cn'}, {locale_id:'en_US',url:'en'}, {locale_id:'zh_TW',url:'tw'}];
+assert.equal(select(languages).chinese.url, 'tw');
+assert.equal(select(languages.slice(0,2)).simplified, true);
+assert.equal(select(languages).english.url, 'en');
+const OpenCC = require('../udemy-bilingual/vendor/opencc.js');
+assert.equal(OpenCC.Converter({from:'cn',to:'tw'})('组件的状态改变了'), '組件的狀態改變了');
+console.log('PASS: VTT/SRT parsing, overlapping cues, cue boundaries, backwards seek, language selection, Simplified → Traditional.');
+const { localizeTaiwan } = require('../udemy-bilingual/subtitle-core.js');
+const taiwan = value => localizeTaiwan(OpenCC.Converter({from:'cn',to:'tw'})(value));
+assert.equal(taiwan('组件的状态与数组中的对象属性'), '元件的狀態與陣列中的物件屬性');
+assert.equal(taiwan('调用函数并返回值，加载数据和默认配置文件'), '呼叫函式並回傳值，載入資料和預設設定檔');
+assert.equal(taiwan('JavaScript 库、React 项目、数据库'), 'JavaScript 函式庫、React 專案、資料庫');
+assert.equal(taiwan('useState、props、Hooks、JSX'), 'useState、props、Hooks、JSX');
+assert.equal(taiwan('目标对象、三个项目'), '目標對象、三個項目');
+console.log('PASS: Taiwan technical terminology, intact API identifiers, context-sensitive object/project wording.');

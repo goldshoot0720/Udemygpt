@@ -1,0 +1,723 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "15700488",
+      "title": "Optimizing the Custom Hook Store",
+      "sourceHash": "3bc2668e74886ca64d569822ced4c83e62365832a3b4e30b2928d23a46f19b90",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.43,
+          "end": 4.24,
+          "en": "with all of that configured.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.24,
+          "end": 7.55,
+          "en": "There's one additional thing we can do,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.55,
+          "end": 9.89,
+          "en": "a little optimization we can put into place",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.89,
+          "end": 12.32,
+          "en": "now that we have our own management system",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.32,
+          "end": 14.9,
+          "en": "in the product item JS fall",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.9,
+          "end": 17.75,
+          "en": "there I can add a console log statement",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 17.75,
+          "end": 18.72,
+          "en": "where I say rendering.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 18.72,
+          "end": 21.92,
+          "en": "So that we can see whenever this gets rerendered.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 21.92,
+          "end": 22.97,
+          "en": "If you go to products,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 22.97,
+          "end": 24.34,
+          "en": "this gets rerendered four times",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 24.34,
+          "end": 25.7,
+          "en": "because I have four products.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 25.7,
+          "end": 28.04,
+          "en": "Let me clear that and click favorite",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 28.04,
+          "end": 30.35,
+          "en": "you see now does all the rendered four times",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 30.35,
+          "end": 32.84,
+          "en": "actually should only render one time",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 32.84,
+          "end": 35.27,
+          "en": "because this item here changed,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 35.27,
+          "end": 37.53,
+          "en": "we're updating the button look and so on,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 37.53,
+          "end": 40.3,
+          "en": "so therefore this definitely should rerender",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 40.3,
+          "end": 41.72,
+          "en": "that makes sense.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 41.72,
+          "end": 44.77,
+          "en": "But the other free items shouldn't really rerender",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 44.77,
+          "end": 46.1,
+          "en": "they weren't touched.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 46.1,
+          "end": 48.32,
+          "en": "So to avoid that these items rerender",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 48.32,
+          "end": 50.84,
+          "en": "you could of course say, yeah, sure, let's wrap them",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 50.84,
+          "end": 52.69,
+          "en": "in react memo, right.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 52.69,
+          "end": 55.51,
+          "en": "React memo around design and should make sure",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 55.51,
+          "end": 57.76,
+          "en": "they don't rerender if their props didn't change",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 57.76,
+          "end": 59.15,
+          "en": "and the prompts for the other items,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 59.15,
+          "end": 60.23,
+          "en": "certainly didn't change.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 60.23,
+          "end": 63.76,
+          "en": "They have the same title, the same favorite status ends on.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 63.76,
+          "end": 67.27,
+          "en": "You'll notice if we do that, they still rerender.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 67.27,
+          "end": 69.65,
+          "en": "The reason for that is our custom hook.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 69.65,
+          "end": 73.2,
+          "en": "In each product item I'm using useStore,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 73.2,
+          "end": 74.69,
+          "en": "so I use my custom hook",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 74.69,
+          "end": 78.53999999999999,
+          "en": "and in that custom hook we use useState.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 78.53999999999999,
+          "end": 81.03,
+          "en": "So whenever set state is called here,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 81.03,
+          "end": 85.28999999999999,
+          "en": "the component that uses this hook will be rerendered.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 85.28999999999999,
+          "end": 87.09,
+          "en": "Make sense it's the intended behavior,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 87.09,
+          "end": 88.563,
+          "en": "it's the default behavior.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 89.61,
+          "end": 93.64,
+          "en": "While we can fix this or improve this.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 93.64,
+          "end": 96.44,
+          "en": "In our custom hook here in the use store hook,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 96.44,
+          "end": 99.55,
+          "en": "we could accept an argument which is maybe should listen",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 99.55,
+          "end": 101.31,
+          "en": "and we can even assign a default value here.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 101.31,
+          "end": 103.05,
+          "en": "Let's say true.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 103.05,
+          "end": 104.66,
+          "en": "Now we can use that",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 104.66,
+          "end": 108.21000000000001,
+          "en": "to determine whether we actually want to register a listener",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 108.21000000000001,
+          "end": 109.69,
+          "en": "for this components here or not.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 109.69,
+          "end": 111.97999999999999,
+          "en": "So for this component which is using our store,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 111.97999999999999,
+          "end": 113.38,
+          "en": "because if we have a component",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 113.38,
+          "end": 116.92,
+          "en": "which only uses our store to dispatch actions",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 116.92,
+          "end": 119.27000000000001,
+          "en": "like our product item is doing it,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 119.27000000000001,
+          "end": 121.54,
+          "en": "well then we don't want to listen to changes",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 121.54,
+          "end": 123.65,
+          "en": "inside of this product item component.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 123.65,
+          "end": 125.5,
+          "en": "We're not interested in state changes.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 125.5,
+          "end": 129.44,
+          "en": "I'm only using the hook so that I can dispatch actions.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 129.44,
+          "end": 131.78,
+          "en": "So in the storage as follows,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 131.78,
+          "end": 133.74,
+          "en": "we can now go to use effect",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 133.74,
+          "end": 137.13,
+          "en": "and check if should listen is true",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 137.13,
+          "end": 139.863,
+          "en": "and only at our listener if it is.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 140.87,
+          "end": 143.53,
+          "en": "And of course although only tried to clean it up",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 143.53,
+          "end": 144.5,
+          "en": "if we are listening.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 144.5,
+          "end": 146.81,
+          "en": "So only if should listen is true",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 146.81,
+          "end": 149.81,
+          "en": "only then I'll try to clean that up.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 149.81,
+          "end": 152.1,
+          "en": "That also means that should listen",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 152.1,
+          "end": 153.92000000000002,
+          "en": "is now a dependency of use effect.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 153.92000000000002,
+          "end": 155.22,
+          "en": "So we should add it there.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 156.57,
+          "end": 158.69,
+          "en": "Now this allows to do the following.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 158.69,
+          "end": 160.12,
+          "en": "We can go to the product item",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 160.12,
+          "end": 162.81,
+          "en": "and here in use store I can pass in false.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 162.81,
+          "end": 167.35,
+          "en": "So false is now at a value for that should listen argument.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 167.35,
+          "end": 169.22,
+          "en": "So that means that in product item,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 169.22,
+          "end": 170.81,
+          "en": "I'm not setting up a listener.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 170.81,
+          "end": 172.61,
+          "en": "So this item here,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 172.61,
+          "end": 175.63,
+          "en": "this component should not register a listener",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 175.63,
+          "end": 178.47,
+          "en": "in my global listeners eray",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 178.47,
+          "end": 181.49,
+          "en": "and therefore it shouldn't rebuild when our store changes",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 181.49,
+          "end": 184.56,
+          "en": "because here I'm really not interested in store changes.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 184.56,
+          "end": 187.22,
+          "en": "The store change about this single product",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 187.22,
+          "end": 189.09,
+          "en": "which I set to be a favorite",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 189.09,
+          "end": 192.74,
+          "en": "is reaching this item anyways,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 192.74,
+          "end": 194.52,
+          "en": "because that is something I'm listening",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 194.52,
+          "end": 196.19,
+          "en": "to an a product JS file",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 196.19,
+          "end": 198.12,
+          "en": "where I rebuilt this list of products",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 198.12,
+          "end": 200.62,
+          "en": "when, well, I Mark something as a favorite",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 200.62,
+          "end": 202.86,
+          "en": "and therefore this specific product item,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 202.86,
+          "end": 204.92000000000002,
+          "en": "will get a new prop anyways,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 204.92000000000002,
+          "end": 206.74,
+          "en": "that will go through react memo",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 206.74,
+          "end": 209.07,
+          "en": "and therefore this single item we'll rebuild",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 209.07,
+          "end": 211.23,
+          "en": "but the other items shouldn't.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 211.23,
+          "end": 214.84,
+          "en": "So now let's save this and let's test it.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 214.84,
+          "end": 217.13,
+          "en": "Now we only see one rendering call here.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 217.13,
+          "end": 218.86,
+          "en": "If I marked this as a favorite,",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 218.86,
+          "end": 220.3,
+          "en": "and this makes way more sense",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 220.3,
+          "end": 222.47,
+          "en": "than the four calls we saw before,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 222.47,
+          "end": 223.78,
+          "en": "because that only makes sense",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 223.78,
+          "end": 226.31,
+          "en": "if we are rendering the entire list for the first time,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 226.31,
+          "end": 229.47,
+          "en": "but certainly not when we only update one item.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 229.47,
+          "end": 230.96,
+          "en": "So that's a tiny optimization,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 230.96,
+          "end": 233.17000000000002,
+          "en": "which we can also put in place here",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 233.17000000000002,
+          "end": 236.5,
+          "en": "and which also hopefully shows you the power of custom hooks",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 236.5,
+          "end": 238.79,
+          "en": "and of this custom state management system.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 238.79,
+          "end": 241.61,
+          "en": "You can really optimize this for your requirements",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 241.61,
+          "end": 242.593,
+          "en": "and your needs.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

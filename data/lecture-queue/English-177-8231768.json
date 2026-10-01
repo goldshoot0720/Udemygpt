@@ -1,0 +1,968 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "8231768",
+      "title": "useEffect's Cleanup Function: Another Example",
+      "sourceHash": "4c14e5443a53494ca5a79bc8548b79b76389e689ab5c48675c3a3e857ed45fbf",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.3,
+          "end": 3.15,
+          "en": "Now to conclude this section,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.15,
+          "end": 6.66,
+          "en": "I got one last feature which I wanna add to this app here.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.66,
+          "end": 8.55,
+          "en": "And this feature is related",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.55,
+          "end": 12.36,
+          "en": "to this modal that opens up when we delete an item.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.36,
+          "end": 15.18,
+          "en": "As you know, we got a timer running behind the scenes",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.18,
+          "end": 18.9,
+          "en": "when this modal opens up and that's why after three seconds,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.9,
+          "end": 20.853,
+          "en": "it closes and the item is removed.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 21.81,
+          "end": 23.25,
+          "en": "But of course, right now,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 23.25,
+          "end": 28.25,
+          "en": "we're not giving the user any hint regarding that timer.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 28.38,
+          "end": 31.23,
+          "en": "So the user might be surprised by the fact",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 31.23,
+          "end": 34.8,
+          "en": "that it suddenly disappears and the place is gone.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 34.8,
+          "end": 39.24,
+          "en": "Therefore, I want to add a little progress bar in this modal",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 39.24,
+          "end": 43.89,
+          "en": "which basically ticks down from being full to being empty,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 43.89,
+          "end": 46.56,
+          "en": "showing the user that a timer is running",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 46.56,
+          "end": 50.733,
+          "en": "and that the place will be removed once that timer expired.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 52.02,
+          "end": 55.323,
+          "en": "Now, to do that, we can go to the DeleteConfirmation",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 56.37,
+          "end": 61.37,
+          "en": "and in there, we can add the built-in progress element right",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 62.4,
+          "end": 64.773,
+          "en": "before the last closing div.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 66.21,
+          "end": 70.74,
+          "en": "This can be used to show a progress bar, but of course now,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 70.74,
+          "end": 74.16,
+          "en": "we also need to control the fill status",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 74.16,
+          "end": 76.08,
+          "en": "of that progress bar.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 76.08,
+          "end": 79.17,
+          "en": "And to do that, we, of course, need to manage some kind",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 79.17,
+          "end": 83.82,
+          "en": "of state which needs to change rather frequently",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 83.82,
+          "end": 86.22,
+          "en": "so that we re-render this JSX code",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 86.22,
+          "end": 89.67,
+          "en": "and this progress bar pretty frequently.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 89.67,
+          "end": 92.94,
+          "en": "And therefore, I'll add a new state here",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 92.94,
+          "end": 95.55,
+          "en": "in my DeleteConfirmation component.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 95.55,
+          "end": 99.84,
+          "en": "And I'll name that state here remainingTime",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 99.84,
+          "end": 103.863,
+          "en": "and the updating function setRemainingTime like this.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 105.36,
+          "end": 108.78,
+          "en": "And I'll add an initial state of 3,000",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 108.78,
+          "end": 113.16,
+          "en": "so that we have 3,000 milliseconds as an initial time",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 113.16,
+          "end": 115.503,
+          "en": "because that's also the time I picked here.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 116.91,
+          "end": 119.88,
+          "en": "And to make sure that we don't have to repeat that value",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 119.88,
+          "end": 122.88,
+          "en": "all the time and change it in multiple places",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 122.88,
+          "end": 124.26,
+          "en": "if we wanna change it,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 124.26,
+          "end": 127.26,
+          "en": "I'll add a global constant here in this file",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 127.26,
+          "end": 130.65,
+          "en": "which I'll name TIMER, which holds the 3,000",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 130.65,
+          "end": 133.563,
+          "en": "and which I'll then use in these two places.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 135.15,
+          "end": 137.52,
+          "en": "But we now, of course, also must update",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 137.52,
+          "end": 141.54,
+          "en": "this state multiple times per second to make sure",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 141.54,
+          "end": 144.603,
+          "en": "that we got a smoothly animating progress bar.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 146.07,
+          "end": 148.65,
+          "en": "And to do that, we can use another function",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 148.65,
+          "end": 153.65,
+          "en": "built into the browser, the setInterval function.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 153.78,
+          "end": 157.26,
+          "en": "Now, setInterval, as the name kind of suggests,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 157.26,
+          "end": 160.413,
+          "en": "is kind of related to setTimeout,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 161.25,
+          "end": 165.09,
+          "en": "but whilst setTimeout simply sets a timer",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 165.09,
+          "end": 168.484,
+          "en": "that expires after a given time period,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 168.484,
+          "end": 171.45,
+          "en": "setInterval defines a function",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 171.45,
+          "end": 175.07999999999998,
+          "en": "that will be executed every couple of milliseconds.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 175.07999999999998,
+          "end": 177.78,
+          "en": "For example, every 10 milliseconds",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 177.78,
+          "end": 181.893,
+          "en": "so that we execute it 100 times per second.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 183.75,
+          "end": 185.91,
+          "en": "And then it's in this function",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 185.91,
+          "end": 189,
+          "en": "which is executed super frequently",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 189,
+          "end": 191.34,
+          "en": "where I wanna update the remainingTime",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 191.34,
+          "end": 194.38,
+          "en": "and deduct 10 milliseconds from the timer",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 195.27,
+          "end": 198.78,
+          "en": "so that in here we call setRemainingTime",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 198.78,
+          "end": 202.23,
+          "en": "and we update it based on the previous value",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 202.23,
+          "end": 204.78,
+          "en": "that was stored in this state.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 204.78,
+          "end": 207.36,
+          "en": "So I'll use this function form",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 207.36,
+          "end": 210,
+          "en": "of updating it by passing a function",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 210,
+          "end": 212.19,
+          "en": "to this state updating function",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 212.19,
+          "end": 215.25,
+          "en": "where we get the old state snapshot",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 215.25,
+          "end": 220.143,
+          "en": "and then the new remainingTime is previous time minus 10.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 221.34,
+          "end": 226.05,
+          "en": "Now with that, we can use remainingTime down there to set",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 226.05,
+          "end": 228.6,
+          "en": "and update this progress bar.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 228.6,
+          "end": 230.73,
+          "en": "For that, we can set the value prop",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 230.73,
+          "end": 233.7,
+          "en": "and set that equal to our remainingTime.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 233.7,
+          "end": 236.49,
+          "en": "So 3,000 milliseconds initially",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 236.49,
+          "end": 241.49,
+          "en": "and then 2,990, 2,980 and so on.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 243.45,
+          "end": 247.8,
+          "en": "And we need to set a max value so that the fill status",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 247.8,
+          "end": 251.46,
+          "en": "of this progress bar can be calculated automatically",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 251.46,
+          "end": 252.423,
+          "en": "by the browser.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 253.29,
+          "end": 255.27,
+          "en": "And that, of course, is the timer.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 255.27,
+          "end": 260.27,
+          "en": "So these 3,000 milliseconds here, that's the maximum amount",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 260.76,
+          "end": 263.52,
+          "en": "of fill status for this progress bar.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 263.52,
+          "end": 264.87,
+          "en": "And then we wanna update it",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 264.87,
+          "end": 267.9,
+          "en": "every time the remainingTime is updated.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 267.9,
+          "end": 269.67,
+          "en": "And of course, that is a state update",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 269.67,
+          "end": 273.123,
+          "en": "that will be performed multiple times per second here.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 274.38,
+          "end": 279.18,
+          "en": "But with that, if we save this, you'll see that if I reload",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 279.18,
+          "end": 282.69,
+          "en": "and I add a place and I then open this modal,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 282.69,
+          "end": 285.03,
+          "en": "we got this timer expiring,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 285.03,
+          "end": 288.42,
+          "en": "though that expired pretty quickly",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 288.42,
+          "end": 290.82,
+          "en": "because by setting setInterval here,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 290.82,
+          "end": 292.77,
+          "en": "right in the component function,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 292.77,
+          "end": 294.33,
+          "en": "we, of course, have the problem",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 294.33,
+          "end": 297.93,
+          "en": "that we create an infinite loop here as explained earlier",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 297.93,
+          "end": 299.52,
+          "en": "in this section.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 299.52,
+          "end": 303.78,
+          "en": "So we should again useEffect here, this useEffect hook",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 303.78,
+          "end": 306.12,
+          "en": "and then define our effect function",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 306.12,
+          "end": 307.983,
+          "en": "and this dependencies array.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 308.82,
+          "end": 311.7,
+          "en": "And now we should move this into this effect function",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 311.7,
+          "end": 312.533,
+          "en": "and save this.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 313.68,
+          "end": 314.88,
+          "en": "Now if we reload,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 314.88,
+          "end": 317.43,
+          "en": "we should not have this infinite loop anymore.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 317.43,
+          "end": 320.43,
+          "en": "And to be sure that this isn't the case,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 320.43,
+          "end": 325.43,
+          "en": "I will simply console.log interval here and move that",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 326.31,
+          "end": 329.04,
+          "en": "into my setInterval code here",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 329.04,
+          "end": 332.673,
+          "en": "so that this should be executed every 10 milliseconds.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 334.2,
+          "end": 337.26,
+          "en": "With that, if I reload and open the dev tools,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 337.26,
+          "end": 339.51,
+          "en": "I see nothing here initially.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 339.51,
+          "end": 342.65999999999997,
+          "en": "If I open the mode though, I see a lot of interval logs",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 342.65999999999997,
+          "end": 345.57,
+          "en": "and I see the timer expiring and then it closes",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 345.57,
+          "end": 350.57,
+          "en": "but interval continues being logged, and that,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 350.58,
+          "end": 353.64,
+          "en": "of course, happens because we never stopped this interval.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 353.64,
+          "end": 356.31,
+          "en": "It keeps on going.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 356.31,
+          "end": 359.94,
+          "en": "Keep in mind that we had to stop the timer to make sure",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 359.94,
+          "end": 361.86,
+          "en": "that once the modal is closed,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 361.86,
+          "end": 365.64,
+          "en": "the timer doesn't keep on going behind the scenes.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 365.64,
+          "end": 369.03,
+          "en": "Now we're facing the same problem with the interval",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 369.03,
+          "end": 372.33,
+          "en": "but thankfully, the solution is the same.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 372.33,
+          "end": 374.76,
+          "en": "We have to return this cleanup function",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 374.76,
+          "end": 377.61,
+          "en": "that will be executed by React,",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 377.61,
+          "end": 379.8,
+          "en": "and we should then store a reference",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 379.8,
+          "end": 383.28,
+          "en": "to this interval in a constant or variable.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 383.28,
+          "end": 387.66,
+          "en": "And thankfully, setInterval returns such a reference.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 387.66,
+          "end": 389.97,
+          "en": "And then in the cleanup function,",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 389.97,
+          "end": 392.64300000000003,
+          "en": "you can execute clearInterval,",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 393.75,
+          "end": 395.90999999999997,
+          "en": "a function built into the browser",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 395.90999999999997,
+          "end": 399.903,
+          "en": "and you pass that interval reference to clearInterval.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 400.8,
+          "end": 403.65,
+          "en": "And with that, the interval will be stopped",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 403.65,
+          "end": 405.81,
+          "en": "whenever this cleanup function runs,",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 405.81,
+          "end": 408.69,
+          "en": "which since I have an empty dependencies array,",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 408.69,
+          "end": 409.77,
+          "en": "will be the case",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 409.77,
+          "end": 412.98,
+          "en": "when this DeleteConfirmation component unmounts.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 412.98,
+          "end": 415.023,
+          "en": "So when it's removed from the DOM.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 416.25,
+          "end": 419.43,
+          "en": "And with that, if we save everything and reload,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 419.43,
+          "end": 424.43,
+          "en": "if I wait for this here, add a place, open the modal,",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 424.77,
+          "end": 427.11,
+          "en": "we got the interval, we got the timer",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 427.11,
+          "end": 431.463,
+          "en": "but then it's done and we got no more log messages here.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 432.45,
+          "end": 434.43,
+          "en": "And that's therefore another example",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 434.43,
+          "end": 439.35,
+          "en": "for useEffect being needed to avoid an infinite loop",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 439.35,
+          "end": 441.87,
+          "en": "and the cleanup function being needed",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 441.87,
+          "end": 445.2,
+          "en": "to avoid ongoing processes behind the scenes",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 445.2,
+          "end": 446.91,
+          "en": "which aren't needed anymore",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 446.91,
+          "end": 449.463,
+          "en": "but which, of course, would cost performance.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,968 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "8226930",
+      "title": "What's a \"Side Effect\"? A Thorough Example",
+      "sourceHash": "c2bdfede2d1e7cd6dfa8351d66437d120dcf3869c874f03783d62b69ba537816",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.84,
+          "end": 4.95,
+          "en": "So what exactly are side effects?",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.95,
+          "end": 9.06,
+          "en": "Well, in the end, side effects are tasks you could say",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.06,
+          "end": 11.79,
+          "en": "that need to be executed in your app",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.79,
+          "end": 14.64,
+          "en": "in order for the app to work correctly",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 14.64,
+          "end": 18.36,
+          "en": "but tasks that don't directly impact",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 18.36,
+          "end": 21.27,
+          "en": "the current component render cycle.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 21.27,
+          "end": 23.97,
+          "en": "That's what a side effect is in the end",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 23.97,
+          "end": 26.34,
+          "en": "in the context of a React app.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 26.34,
+          "end": 29.76,
+          "en": "So whenever you have a task that must be performed",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 29.76,
+          "end": 32.94,
+          "en": "but that does not directly and instantly",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 32.94,
+          "end": 36.21,
+          "en": "impact the current component render cycle.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 36.21,
+          "end": 38.55,
+          "en": "And that's, of course still pretty vague.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 38.55,
+          "end": 40.95,
+          "en": "So let me give you an example.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 40.95,
+          "end": 44.31,
+          "en": "And let's say for example in this demo app,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 44.31,
+          "end": 49.02,
+          "en": "we actually wanna sort these available places down there",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 49.02,
+          "end": 53.07,
+          "en": "by distance to the user of the website.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 53.07,
+          "end": 56.91,
+          "en": "So if you are living near the Sahara Desert,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 56.91,
+          "end": 58.534,
+          "en": "this card should come first",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 58.534,
+          "end": 62.61,
+          "en": "and the other cards should be sorted by distance",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 62.61,
+          "end": 64.32,
+          "en": "to your location.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 64.32,
+          "end": 66.491,
+          "en": "That's my idea here.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 66.491,
+          "end": 70.41,
+          "en": "Now, that's why I'm providing this loc.js file",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 70.41,
+          "end": 73.92,
+          "en": "because in there I already prepare a function",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 73.92,
+          "end": 76.83,
+          "en": "that allows us to calculate the distance",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 76.83,
+          "end": 79.28999999999999,
+          "en": "between two points on the earth",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 79.28999999999999,
+          "end": 81.69,
+          "en": "where every point is described through",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 81.69,
+          "end": 84.93,
+          "en": "a latitude and longitude coordinate.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 84.93,
+          "end": 87.33,
+          "en": "And I'm exporting a sort places",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 87.33,
+          "end": 89.7,
+          "en": "by distance utility function here",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 89.7,
+          "end": 92.91,
+          "en": "which takes an array of places as input,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 92.91,
+          "end": 97.53,
+          "en": "so places as they are defined in the data.js file",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 97.53,
+          "end": 101.22,
+          "en": "and which then in the end, gives me that same list",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 101.22,
+          "end": 105.3,
+          "en": "just sorted by distance to the user's location.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 105.3,
+          "end": 108.39,
+          "en": "But that of course implies one important thing.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 108.39,
+          "end": 113.39,
+          "en": "We need to get the location of the user of this website.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 113.91,
+          "end": 117.45,
+          "en": "And thankfully, that's at least in theory,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 117.45,
+          "end": 120.75,
+          "en": "not too difficult in the browser.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 120.75,
+          "end": 123.84,
+          "en": "Because there's a built-in browser method you can call",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 123.84,
+          "end": 125.733,
+          "en": "to get that location.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 126.6,
+          "end": 129.6,
+          "en": "Now, for that, we could go into the app component",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 129.6,
+          "end": 132.63,
+          "en": "because, of course I want to get this location",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 132.63,
+          "end": 137.63,
+          "en": "as early as possible when this app starts up essentially.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 138.15,
+          "end": 141.12,
+          "en": "Then I want to get the user's location.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 141.12,
+          "end": 143.13,
+          "en": "And as you know, this app component",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 143.13,
+          "end": 145.882,
+          "en": "is the root component in most React apps,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 145.882,
+          "end": 148.59,
+          "en": "and this React app is no exception.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 148.59,
+          "end": 151.17000000000002,
+          "en": "So therefore this app component functions",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 151.17000000000002,
+          "end": 154.503,
+          "en": "sounds like a great place to get the user's location.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 155.67000000000002,
+          "end": 158.31,
+          "en": "So we could go there and then maybe here,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 158.31,
+          "end": 162.195,
+          "en": "we could add that code to get the user's location,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 162.195,
+          "end": 163.92000000000002,
+          "en": "which in the browser,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 163.92000000000002,
+          "end": 167.79,
+          "en": "involves the usage of the navigator object,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 167.79,
+          "end": 172.47,
+          "en": "an object exposed by the browser to our JavaScript code",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 172.47,
+          "end": 174.39,
+          "en": "that runs in the browser.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 174.39,
+          "end": 176.85,
+          "en": "So navigator is not defined by me,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 176.85,
+          "end": 178.56,
+          "en": "it's not built into React,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 178.56,
+          "end": 180.843,
+          "en": "it's provided by the browser instead.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 182.28,
+          "end": 185.97,
+          "en": "Now, this globally available navigator object",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 185.97,
+          "end": 188.82,
+          "en": "then has a geolocation object",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 188.82,
+          "end": 192.09,
+          "en": "which then has a get current position method",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 192.09,
+          "end": 194.622,
+          "en": "which we can call to get the current position",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 194.622,
+          "end": 197.193,
+          "en": "of the user of the website.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 198.32999999999998,
+          "end": 200.46,
+          "en": "Now, when we call this method,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 200.46,
+          "end": 205.46,
+          "en": "the user will be asked for permission to get their location",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 205.53,
+          "end": 208.11,
+          "en": "and then once that permission is granted,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 208.11,
+          "end": 211.023,
+          "en": "this will go ahead and fetch this location.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 212.04,
+          "end": 214.5,
+          "en": "Now of course, fetching that location",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 214.5,
+          "end": 216.39,
+          "en": "can take some time though,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 216.39,
+          "end": 219.12,
+          "en": "and therefore, get current position",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 219.12,
+          "end": 221.97,
+          "en": "takes a so-called callback function.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 221.97,
+          "end": 224.61,
+          "en": "It takes a function as an input.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 224.61,
+          "end": 227.4,
+          "en": "For example, an anonymous arrow function",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 227.4,
+          "end": 229.26,
+          "en": "as I'm defining it here,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 229.26,
+          "end": 232.32,
+          "en": "which will be executed by the browser",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 232.32,
+          "end": 235.11,
+          "en": "once the location has been fetched,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 235.11,
+          "end": 238.126,
+          "en": "which can be the case after a couple of milliseconds",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 238.126,
+          "end": 241.713,
+          "en": "or maybe even a couple of seconds if it's slow.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 243.51,
+          "end": 246.426,
+          "en": "So the code that depends on this location",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 246.426,
+          "end": 249.57,
+          "en": "should be executed inside of this function",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 249.57,
+          "end": 253.11,
+          "en": "because it's dysfunction that will be called by the browser",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 253.11,
+          "end": 255.273,
+          "en": "once the location has been determined.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 256.68,
+          "end": 260.983,
+          "en": "So it's in here where I want to call sortPlacesByDistance.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 266.61,
+          "end": 271.61,
+          "en": "So this function I'm exporting in loc.js",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 271.65,
+          "end": 275.01,
+          "en": "and therefore, of course we should import it here.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 275.01,
+          "end": 279.78,
+          "en": "We should import sortPlacesByDistance from loc.js",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 279.78,
+          "end": 281.373,
+          "en": "so that we can call it here.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 283.56,
+          "end": 285.6,
+          "en": "And then to this function,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 285.6,
+          "end": 289.02,
+          "en": "we must pass our available places,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 289.02,
+          "end": 292.53,
+          "en": "which is this array imported from the data.js file.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 292.53,
+          "end": 294.753,
+          "en": "So this array of dummy places.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 295.71,
+          "end": 297.65999999999997,
+          "en": "And then we also must provide",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 297.65999999999997,
+          "end": 302.55,
+          "en": "the latitude and longitude coordinates of the user.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 302.55,
+          "end": 305.34,
+          "en": "Now that's what we get from get current position",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 305.34,
+          "end": 309.66,
+          "en": "and the browser exposes the fetched position to us",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 309.66,
+          "end": 312.06,
+          "en": "through a position object,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 312.06,
+          "end": 315.74,
+          "en": "which it automatically passes to this function.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 315.74,
+          "end": 317.82,
+          "en": "Keep in mind that this function",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 317.82,
+          "end": 319.41,
+          "en": "will be called by the browser",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 319.41,
+          "end": 322.89,
+          "en": "and it's then the browser that also gives us this object",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 322.89,
+          "end": 325.233,
+          "en": "which includes this user's position.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 326.49,
+          "end": 328.211,
+          "en": "So we can use this position object",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 328.211,
+          "end": 331.53,
+          "en": "to then access the coords nested object",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 331.53,
+          "end": 333.693,
+          "en": "and then there the latitude.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 334.71,
+          "end": 338.52,
+          "en": "And as a third argument to sort places by distance,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 338.52,
+          "end": 342.453,
+          "en": "we pass position coords longitude.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 344.34000000000003,
+          "end": 345.63,
+          "en": "So that we're passing",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 345.63,
+          "end": 348.81,
+          "en": "the user's latitude and longitude coordinates",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 348.81,
+          "end": 351.843,
+          "en": "to this sort places by distance function.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 354.24,
+          "end": 358.29,
+          "en": "Now this will then return these sorted places array,",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 358.29,
+          "end": 361.68,
+          "en": "which we can now use in this application.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 361.68,
+          "end": 365.91,
+          "en": "And that's now where things get tricky.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 365.91,
+          "end": 368.67,
+          "en": "Because this here, this entire code",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 368.67,
+          "end": 371.64,
+          "en": "is actually a side effect.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 371.64,
+          "end": 373.98,
+          "en": "It's a side effect because",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 373.98,
+          "end": 377.73,
+          "en": "this code is, of course needed by this application,",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 377.73,
+          "end": 381.42,
+          "en": "we need the user's location after all",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 381.42,
+          "end": 384.93,
+          "en": "but it's not directly related to the task,",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 384.93,
+          "end": 388.35,
+          "en": "to the main goal of this component function.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 388.35,
+          "end": 391.68,
+          "en": "Because the main goal of every component function",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 391.68,
+          "end": 395.043,
+          "en": "is to return renderable JSX code.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 396.72,
+          "end": 399.24,
+          "en": "Now this code here is a side effect",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 399.24,
+          "end": 403.53,
+          "en": "because it's not directly related with that task.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 403.53,
+          "end": 406.38,
+          "en": "All the other code in this component is related",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 406.38,
+          "end": 408.84000000000003,
+          "en": "because we're setting up click listeners,",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 408.84000000000003,
+          "end": 411.06,
+          "en": "which we need in our JSX code,",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 411.06,
+          "end": 412.53,
+          "en": "we're setting up the state",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 412.53,
+          "end": 415.5,
+          "en": "which impacts what we see on the screen.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 415.5,
+          "end": 419.04,
+          "en": "But this code where we fetch a user's location",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 419.04,
+          "end": 421.56,
+          "en": "is not directly related.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 421.56,
+          "end": 424.92,
+          "en": "Especially also because this code here",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 424.92,
+          "end": 427.14,
+          "en": "does not finish instantly.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 427.14,
+          "end": 428.97,
+          "en": "Instead, this callback function",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 428.97,
+          "end": 431.88,
+          "en": "will be called at some point in the future",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 431.88,
+          "end": 434.37,
+          "en": "where this app component function",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 434.37,
+          "end": 438.12,
+          "en": "most likely finished its execution already.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 438.12,
+          "end": 440.913,
+          "en": "And that's why this here is a side effect.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

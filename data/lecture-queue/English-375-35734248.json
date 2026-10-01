@@ -1,0 +1,1094 @@
+{
+  "version": 1,
+  "courseId": 1362070,
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "35734248",
+      "title": "Managing the Token Expiration",
+      "sourceHash": "1170af6dad27c4b010b7aeafe684679a4e136f52917d5a9db892ff46e483f5b1",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.34,
+          "end": 5.16,
+          "en": "Now which flaw does this solution have?",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.16,
+          "end": 6,
+          "en": "Well, at the moment,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6,
+          "end": 8.73,
+          "en": "we always expired a token after 1 hour.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.73,
+          "end": 10.14,
+          "en": "The problem is that we of course,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.14,
+          "end": 11.34,
+          "en": "might have logged in.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 11.34,
+          "end": 14.07,
+          "en": "Then we were away for 10 minutes.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 14.07,
+          "end": 16.65,
+          "en": "Then we reloaded this application.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 16.65,
+          "end": 19.5,
+          "en": "And then therefore, this effect was triggered again.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 19.5,
+          "end": 21.57,
+          "en": "We found a token in the local storage,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 21.57,
+          "end": 23.88,
+          "en": "because we did log in 10 minutes ago,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 23.88,
+          "end": 27.42,
+          "en": "but now we reset that timer to 1 hour.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 27.42,
+          "end": 28.95,
+          "en": "That's not realistic,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 28.95,
+          "end": 31.62,
+          "en": "because the token is already 10 minutes old,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 31.62,
+          "end": 34.29,
+          "en": "so it will actually expire in 50 minutes,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 34.29,
+          "end": 37.62,
+          "en": "and the backend won't accept it anymore thereafter.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 37.62,
+          "end": 39.753,
+          "en": "But our timer is set to 1 hour.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 40.59,
+          "end": 43.83,
+          "en": "Therefore, it's not enough to always set this to 1 hour.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 43.83,
+          "end": 46.65,
+          "en": "Instead we need to manage and register,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 46.65,
+          "end": 49.53,
+          "en": "the actual token expiration.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 49.53,
+          "end": 53.79,
+          "en": "And to do that, we should go to our action that's triggered,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 53.79,
+          "end": 57.6,
+          "en": "when we authenticate where we do store that token.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 57.6,
+          "end": 61.11,
+          "en": "And here we should also store the expiration time.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 61.11,
+          "end": 63.21,
+          "en": "Because that's the code that executes",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 63.21,
+          "end": 65.52,
+          "en": "when we first get a token.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 65.52,
+          "end": 66.45,
+          "en": "Therefore here,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 66.45,
+          "end": 70.8,
+          "en": "we know for sure that the token will expire in 1 hour.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 70.8,
+          "end": 73.983,
+          "en": "Therefore, we should calculate an expiration date,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 74.85,
+          "end": 77.43,
+          "en": "by creating a new date object.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 77.43,
+          "end": 80.91,
+          "en": "And then we can call the setHours method on that object.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 80.91,
+          "end": 83.25,
+          "en": "And that's a built-in object and a built-in method,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 83.25,
+          "end": 88.25,
+          "en": "provided by JavaScript itself, but a browser to be precise.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 88.32,
+          "end": 92.88,
+          "en": "And then here we pass expiration.getHours plus 1.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 92.88,
+          "end": 94.65,
+          "en": "So this basically creates a date,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 94.65,
+          "end": 97.263,
+          "en": "that is 1 hour in the future.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 98.49000000000001,
+          "end": 100.35,
+          "en": "And then we want to store that date,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 100.35,
+          "end": 102,
+          "en": "in local storage as well.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 102,
+          "end": 104.34,
+          "en": "We can name it expiration.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 104.34,
+          "end": 106.08,
+          "en": "That's the key in local storage.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 106.08,
+          "end": 108.483,
+          "en": "And the value is expiration.toISOString,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 109.71000000000001,
+          "end": 112.62299999999999,
+          "en": "to convert this data to a standardized string.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 114.06,
+          "end": 116.7,
+          "en": "So now we're also storing the expiration date",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 116.7,
+          "end": 118.08,
+          "en": "in local storage.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 118.08,
+          "end": 119.22,
+          "en": "And this ensures,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 119.22,
+          "end": 123.033,
+          "en": "that we do respect that expiration date.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 123.93,
+          "end": 127.2,
+          "en": "Now we can update this getAuthToken utility function,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 127.2,
+          "end": 129.66,
+          "en": "to also take a look at that expiration date,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 129.66,
+          "end": 132.333,
+          "en": "and find out if the token did maybe expire.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 133.2,
+          "end": 136.5,
+          "en": "For that, I'll actually add a new function here,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 136.5,
+          "end": 137.7,
+          "en": "which I'll name getToken",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 139.8,
+          "end": 141.18,
+          "en": "Duration.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 141.18,
+          "end": 142.35,
+          "en": "And here I want to get back",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 142.35,
+          "end": 146.1,
+          "en": "the remaining lifetime of the token, in milliseconds.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 146.1,
+          "end": 148.07999999999998,
+          "en": "And I'll get that information,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 148.07999999999998,
+          "end": 150.573,
+          "en": "by getting my expiration date.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 151.8,
+          "end": 154.98,
+          "en": "By accessing localStorage.getItem expiration,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 154.98,
+          "end": 156.81,
+          "en": "so by using that key we just used",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 156.81,
+          "end": 158.643,
+          "en": "for storing the expiration date.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 159.51,
+          "end": 163.5,
+          "en": "And actually that's my storedExpirationDate.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 163.5,
+          "end": 166.95,
+          "en": "Which I now must transform to a date object,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 166.95,
+          "end": 169.59,
+          "en": "by simply passing that storedExpirationDate,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 169.59,
+          "end": 171.873,
+          "en": "which is a string, to the date constructor.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 173.25,
+          "end": 176.22,
+          "en": "And then I also need to get the current date.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 176.22,
+          "end": 178.82999999999998,
+          "en": "So the current timestamp, so to say.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 178.82999999999998,
+          "end": 181.05,
+          "en": "And the difference between the two dates of course,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 181.05,
+          "end": 182.433,
+          "en": "is the remaining duration.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 183.51,
+          "end": 185.28,
+          "en": "So the duration in milliseconds,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 185.28,
+          "end": 189.39,
+          "en": "can now be calculated by using that expiration date,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 189.39,
+          "end": 191.52,
+          "en": "and calling getTime on it,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 191.52,
+          "end": 195.69,
+          "en": "which gives me the time value in milliseconds.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 195.69,
+          "end": 197.85,
+          "en": "And deducting.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 197.85,
+          "end": 199.863,
+          "en": "Now.getTime from it.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 200.94,
+          "end": 203.28,
+          "en": "So I deduct the current timestamp,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 203.28,
+          "end": 205.47,
+          "en": "from the expiration timestamp.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 205.47,
+          "end": 207.96,
+          "en": "If the expiration is still in the future.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 207.96,
+          "end": 210.87,
+          "en": "So if the token is still valid, therefore,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 210.87,
+          "end": 213.21,
+          "en": "then this will be a positive value.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 213.21,
+          "end": 216.78,
+          "en": "If now is later than the token expiration,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 216.78,
+          "end": 220.893,
+          "en": "so if the token did expire, this will be a negative value.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 221.79,
+          "end": 224.57999999999998,
+          "en": "And here, I simply return the duration.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 224.57999999999998,
+          "end": 229.32,
+          "en": "But I can now use that duration, from getTokenDuration,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 229.32,
+          "end": 230.37,
+          "en": "here in getAuthToken.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 231.69,
+          "end": 234.24,
+          "en": "By calling getTokenDuration here.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 234.24,
+          "end": 238.47,
+          "en": "To check if tokenDuration is smaller than zero.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 238.47,
+          "end": 240.15,
+          "en": "Which means the token expired.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 240.15,
+          "end": 243.633,
+          "en": "Because we have no remaining time, it already expired.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 245.25,
+          "end": 250.05,
+          "en": "In that case, I will actually return a string expired here.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 250.05,
+          "end": 252.48,
+          "en": "So this special string.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 252.48,
+          "end": 255.017,
+          "en": "Which I can then use in other parts of my application,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 255.017,
+          "end": 257.733,
+          "en": "to trigger this logout action.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 259.17,
+          "end": 262.26,
+          "en": "For example, if I now go back to the Root layout.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 262.26,
+          "end": 265.11,
+          "en": "Here, I'm checking if I don't have a token.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 265.11,
+          "end": 266.73,
+          "en": "Well, I actually also want to check,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 266.73,
+          "end": 269.763,
+          "en": "if token is equal to expired.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 270.78,
+          "end": 273.21,
+          "en": "So to this special string I'm returning here,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 273.21,
+          "end": 275.1,
+          "en": "if the token did expire.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 275.1,
+          "end": 279.45,
+          "en": "In which case, I also want to trigger this logout action.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 279.45,
+          "end": 280.77,
+          "en": "And thereafter we can return,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 280.77,
+          "end": 283.27,
+          "en": "because we don't need to set any timer thereafter.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 284.15999999999997,
+          "end": 285.6,
+          "en": "If we make it past this check,",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 285.6,
+          "end": 287.73,
+          "en": "we know that we have a valid token.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 287.73,
+          "end": 290.7,
+          "en": "But now I nonetheless want to set a duration here,",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 290.7,
+          "end": 293.943,
+          "en": "that takes the remaining lifetime of the token into account.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 294.96,
+          "end": 298.32,
+          "en": "So here, I will get the token duration,",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 298.32,
+          "end": 300.9,
+          "en": "by calling getTokenDuration,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 300.9,
+          "end": 304.713,
+          "en": "so that helper function we just added in the util/auth file.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 305.55,
+          "end": 307.89,
+          "en": "And I'll also console.log it here,",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 307.89,
+          "end": 311.16,
+          "en": "so that we can see if everything looks good",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 311.16,
+          "end": 313.5,
+          "en": "while it's developing this.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 313.5,
+          "end": 317.22,
+          "en": "But I'll then replace this timeout time here,",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 317.22,
+          "end": 319.503,
+          "en": "with that token duration.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 321.18,
+          "end": 323.613,
+          "en": "That's now the updated user fact code.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 324.63,
+          "end": 326.19,
+          "en": "With those changes made,",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 326.19,
+          "end": 329.683,
+          "en": "I just also must make sure that in getAuthToken,",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 329.683,
+          "end": 332.19,
+          "en": "I not always return expired,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 332.19,
+          "end": 336.27,
+          "en": "but I also check if we have a token at all.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 336.27,
+          "end": 340.89,
+          "en": "If we don't even find a token, then I want to just return.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 340.89,
+          "end": 342.87,
+          "en": "So I return undefined in the end.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 342.87,
+          "end": 345.12,
+          "en": "I don't even need to check the duration.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 345.12,
+          "end": 348.15,
+          "en": "If I don't do that, the UI would not be updated correctly,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 348.15,
+          "end": 350.703,
+          "en": "because I would basically always return expired.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 351.72,
+          "end": 352.95,
+          "en": "But now with that,",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 352.95,
+          "end": 355.26,
+          "en": "I'm not returning anything if we have no token.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 355.26,
+          "end": 356.61,
+          "en": "But if we do have a token,",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 356.61,
+          "end": 358.413,
+          "en": "I'm also checking the expiration.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 359.73,
+          "end": 362.85,
+          "en": "So with that here, I currently have no token.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 362.85,
+          "end": 366.063,
+          "en": "But I'll now open my DevTools, and log in here.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 366.9,
+          "end": 369.513,
+          "en": "With my valid credentials.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 370.89,
+          "end": 371.723,
+          "en": "Like this.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 372.6,
+          "end": 373.92,
+          "en": "And you now see that here,",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 373.92,
+          "end": 376.2,
+          "en": "that is the token expiration.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 376.2,
+          "end": 380.133,
+          "en": "If I reload this page, this is already a smaller amount.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 382.14,
+          "end": 384.39,
+          "en": "Now as I navigate around it's not being locked,",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 384.39,
+          "end": 386.52,
+          "en": "because the root layout isn't re-rendered,",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 386.52,
+          "end": 388.83,
+          "en": "and the effect isn't running again.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 388.83,
+          "end": 390.78,
+          "en": "But eventually this is ticking down,",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 390.78,
+          "end": 394.05,
+          "en": "and will lead to us being locked out after some time.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 394.05,
+          "end": 395.97,
+          "en": "Now with that implemented,",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 395.97,
+          "end": 399.81,
+          "en": "the last thing I want to do, is here in my Logout action,",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 399.81,
+          "end": 404.43,
+          "en": "I also want to remove the expiration key from local storage,",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 404.43,
+          "end": 406.98,
+          "en": "because that's now also not needed anymore",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 406.98,
+          "end": 408.08,
+          "en": "and should be cleared.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 409.02,
+          "end": 413.58,
+          "en": "And with that, we added authentication to this application.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 413.58,
+          "end": 417.51,
+          "en": "We are able to create users and log in.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 417.51,
+          "end": 420.51,
+          "en": "And our user interface reflects that.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 420.51,
+          "end": 422.52,
+          "en": "We're then able to work",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 422.52,
+          "end": 424.74,
+          "en": "with the different features of this application.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 424.74,
+          "end": 427.77,
+          "en": "And for example, also delete events if logged in,",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 427.77,
+          "end": 431.67,
+          "en": "because that token is attached to outgoing requests.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 431.67,
+          "end": 435,
+          "en": "We have that auto logout timer behind the scenes.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 435,
+          "end": 436.83,
+          "en": "We can logout manually.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 436.83,
+          "end": 438.36,
+          "en": "And we update the UI,",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 438.36,
+          "end": 441.63,
+          "en": "to reflect the current authentication status.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 441.63,
+          "end": 443.58,
+          "en": "In addition, we protect certain routes,",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 443.58,
+          "end": 446.553,
+          "en": "so that we can't reach routes we're not supposed to reach.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
