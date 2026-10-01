@@ -3839,6 +3839,1532 @@
           "zh": "而它現在如應該的那樣運作了。"
         }
       ]
+    },
+    {
+      "id": "8231766",
+      "title": "Moving Logic To Components That Actually Need It (\"Moving State Down\")",
+      "sourceHash": "3454b93e62f361d801308844631c1afc0ac30d9d7f975c32a017416692db0c89",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.57,
+          "end": 2.04,
+          "en": "So now that we added",
+          "zh": "那麼現在我們新增了"
+        },
+        {
+          "id": 2,
+          "start": 2.04,
+          "end": 4.23,
+          "en": "this new Question component,",
+          "zh": "這個新的 Question 元件，"
+        },
+        {
+          "id": 3,
+          "start": 4.23,
+          "end": 7.98,
+          "en": "we fixed this problem with our key,",
+          "zh": "我們修正了這個 key 的問題，"
+        },
+        {
+          "id": 4,
+          "start": 7.98,
+          "end": 11.49,
+          "en": "but we also kind of added a new problem,",
+          "zh": "但我們也某種程度上加了個新問題，"
+        },
+        {
+          "id": 5,
+          "start": 11.49,
+          "end": 14.55,
+          "en": "because now we have to pass a lot of props",
+          "zh": "因為現在我們必須傳很多 props，"
+        },
+        {
+          "id": 6,
+          "start": 14.55,
+          "end": 17.07,
+          "en": "that are managed in the Quiz component",
+          "zh": "那些在 Quiz 元件中管理的 props，"
+        },
+        {
+          "id": 7,
+          "start": 17.07,
+          "end": 20.01,
+          "en": "to the Question component just to make sure",
+          "zh": "到 Question 元件，只為了確保"
+        },
+        {
+          "id": 8,
+          "start": 20.01,
+          "end": 21.573,
+          "en": "that it works correctly.",
+          "zh": "它能正確運作。"
+        },
+        {
+          "id": 9,
+          "start": 22.53,
+          "end": 25.53,
+          "en": "And this is something we can improve here,",
+          "zh": "而這是我們可以在這裡改善的，"
+        },
+        {
+          "id": 10,
+          "start": 25.53,
+          "end": 29.79,
+          "en": "and at the same time, we'll improve this Quiz component,",
+          "zh": "同時，我們也會改善這個 Quiz 元件，"
+        },
+        {
+          "id": 11,
+          "start": 29.79,
+          "end": 32.31,
+          "en": "because, for example, all that logic",
+          "zh": "因為，例如，所有那些"
+        },
+        {
+          "id": 12,
+          "start": 32.31,
+          "end": 35.28,
+          "en": "where we manage the answerState,",
+          "zh": "我們管理 answerState 的邏輯，"
+        },
+        {
+          "id": 13,
+          "start": 35.28,
+          "end": 40.23,
+          "en": "why does this need to happen here in the Quiz component?",
+          "zh": "為什麼這需要發生在 Quiz 元件這裡？"
+        },
+        {
+          "id": 14,
+          "start": 40.23,
+          "end": 42.18,
+          "en": "Well the answer is, it doesn't.",
+          "zh": "嗯，答案是：不需要。"
+        },
+        {
+          "id": 15,
+          "start": 42.18,
+          "end": 45.09,
+          "en": "That is a great example for a state",
+          "zh": "那是一個很好的例子，說明某個 state"
+        },
+        {
+          "id": 16,
+          "start": 45.09,
+          "end": 47.883,
+          "en": "that does not need to be lifted up.",
+          "zh": "不需要被提升上來。"
+        },
+        {
+          "id": 17,
+          "start": 48.78,
+          "end": 51.57,
+          "en": "Because we can simply go to the Question component",
+          "zh": "因為我們只要前往 Question 元件，"
+        },
+        {
+          "id": 18,
+          "start": 51.57,
+          "end": 55.74,
+          "en": "and then there, add a new state with the useState hook",
+          "zh": "然後在那裡用 useState hook 新增一個 state，"
+        },
+        {
+          "id": 19,
+          "start": 55.74,
+          "end": 57.78,
+          "en": "that must be imported, of course,",
+          "zh": "當然，它必須被匯入，"
+        },
+        {
+          "id": 20,
+          "start": 57.78,
+          "end": 61.293,
+          "en": "that will belong only to this Question component.",
+          "zh": "這個 state 只會屬於這個 Question 元件。"
+        },
+        {
+          "id": 21,
+          "start": 62.73,
+          "end": 66.78,
+          "en": "And this could be a state where we wanna store an object,",
+          "zh": "而這可以是一個我們想儲存物件的 state，"
+        },
+        {
+          "id": 22,
+          "start": 66.78,
+          "end": 69.53999999999999,
+          "en": "where we have the selectedAnswer, let's say,",
+          "zh": "例如裡面有 selectedAnswer，"
+        },
+        {
+          "id": 23,
+          "start": 69.53999999999999,
+          "end": 71.88,
+          "en": "which initially is an empty string,",
+          "zh": "它一開始是空字串，"
+        },
+        {
+          "id": 24,
+          "start": 71.88,
+          "end": 75.393,
+          "en": "and then let's say, isCorrect property,",
+          "zh": "然後比如說，isCorrect 屬性，"
+        },
+        {
+          "id": 25,
+          "start": 76.41,
+          "end": 77.97,
+          "en": "which initially is null,",
+          "zh": "它一開始是 null，"
+        },
+        {
+          "id": 26,
+          "start": 77.97,
+          "end": 80.673,
+          "en": "but which could then be true or false.",
+          "zh": "但之後可以是 true 或 false。"
+        },
+        {
+          "id": 27,
+          "start": 83.03999999999999,
+          "end": 85.74,
+          "en": "This is some state we could manage here",
+          "zh": "這是我們可以在這裡管理的某個 state，"
+        },
+        {
+          "id": 28,
+          "start": 85.74,
+          "end": 89.01,
+          "en": "and I'll name it answer",
+          "zh": "我會把它命名為 answer，"
+        },
+        {
+          "id": 29,
+          "start": 89.01,
+          "end": 91.953,
+          "en": "and have my setAnswer state updating function.",
+          "zh": "並有我的 setAnswer 更新函式。"
+        },
+        {
+          "id": 30,
+          "start": 93.50999999999999,
+          "end": 97.62,
+          "en": "And the idea now simply is to have a function,",
+          "zh": "而現在的想法就只是要有一個函式，"
+        },
+        {
+          "id": 31,
+          "start": 97.62,
+          "end": 102.39,
+          "en": "handleSelectAnswer, that should be triggered",
+          "zh": "handleSelectAnswer，它應該在"
+        },
+        {
+          "id": 32,
+          "start": 102.39,
+          "end": 104.91,
+          "en": "whenever an answer is selected here.",
+          "zh": "這裡有答案被選取時被觸發。"
+        },
+        {
+          "id": 33,
+          "start": 104.91,
+          "end": 108.333,
+          "en": "So therefore I'll point at handleSelectAnswer down there,",
+          "zh": "因此我會在下面那裡指向 handleSelectAnswer，"
+        },
+        {
+          "id": 34,
+          "start": 110.31,
+          "end": 113.78999999999999,
+          "en": "and I then expect to get my answer text here.",
+          "zh": "然後我預期在這裡收到我的答案文字。"
+        },
+        {
+          "id": 35,
+          "start": 113.78999999999999,
+          "end": 117.50999999999999,
+          "en": "We can then call setAnswer and set this object",
+          "zh": "我們接著可以呼叫 setAnswer，把這個物件"
+        },
+        {
+          "id": 36,
+          "start": 117.50999999999999,
+          "end": 120.828,
+          "en": "to a new object where selectedAnswer",
+          "zh": "設為一個新物件，其中 selectedAnswer"
+        },
+        {
+          "id": 37,
+          "start": 120.828,
+          "end": 124.14,
+          "en": "is equal to the answer we received here",
+          "zh": "等於我們在這裡收到的答案，"
+        },
+        {
+          "id": 38,
+          "start": 124.14,
+          "end": 127.71,
+          "en": "and isCorrect now must be derived.",
+          "zh": "而 isCorrect 現在必須被推導出來。"
+        },
+        {
+          "id": 39,
+          "start": 127.71,
+          "end": 131.16,
+          "en": "But it should only be derived after this one second",
+          "zh": "但它應該只在這一秒之後才被推導出來，"
+        },
+        {
+          "id": 40,
+          "start": 131.16,
+          "end": 134.343,
+          "en": "which we actually spend here in the Quiz component.",
+          "zh": "也就是我們其實花在 Quiz 元件裡的這一秒。"
+        },
+        {
+          "id": 41,
+          "start": 135.63,
+          "end": 138.3,
+          "en": "So for the moment, I'll still set it to null here,",
+          "zh": "所以目前，我在這裡還是先把它設為 null，"
+        },
+        {
+          "id": 42,
+          "start": 138.3,
+          "end": 140.97,
+          "en": "which basically should say that we don't know yet",
+          "zh": "這基本上表示我們還不知道"
+        },
+        {
+          "id": 43,
+          "start": 140.97,
+          "end": 142.833,
+          "en": "whether it's correct or wrong.",
+          "zh": "它是對的還是錯的。"
+        },
+        {
+          "id": 44,
+          "start": 143.7,
+          "end": 147.57999999999998,
+          "en": "So therefore here, I then wanna set a timer with setTimeout",
+          "zh": "因此在這裡，我接著想用 setTimeout 設定一個計時器，"
+        },
+        {
+          "id": 45,
+          "start": 148.44,
+          "end": 153.44,
+          "en": "where after one second we do set isCorrect to true or false.",
+          "zh": "在一秒之後，我們把 isCorrect 設為 true 或 false。"
+        },
+        {
+          "id": 46,
+          "start": 155.25,
+          "end": 158.37,
+          "en": "So where I call setAnswer again",
+          "zh": "也就是我再次呼叫 setAnswer，"
+        },
+        {
+          "id": 47,
+          "start": 158.37,
+          "end": 162.57,
+          "en": "and where I now set isCorrect equal to,",
+          "zh": "並在這裡把 isCorrect 設為，"
+        },
+        {
+          "id": 48,
+          "start": 162.57,
+          "end": 164.4,
+          "en": "and then I wanna set this to true",
+          "zh": "然後我想把它設為 true，"
+        },
+        {
+          "id": 49,
+          "start": 164.4,
+          "end": 168.24,
+          "en": "if this is the right answer or false if it's not.",
+          "zh": "如果這是正確答案，否則設為 false。"
+        },
+        {
+          "id": 50,
+          "start": 168.24,
+          "end": 170.88,
+          "en": "But for that, we, of course, need to know",
+          "zh": "但為此，我們當然需要知道"
+        },
+        {
+          "id": 51,
+          "start": 170.88,
+          "end": 172.773,
+          "en": "what the right answer is.",
+          "zh": "正確答案是什麼。"
+        },
+        {
+          "id": 52,
+          "start": 174.03,
+          "end": 176.4,
+          "en": "Now the great thing about this project",
+          "zh": "而這個專案很棒的一點是，"
+        },
+        {
+          "id": 53,
+          "start": 176.4,
+          "end": 179.7,
+          "en": "is that we have all questions and answers",
+          "zh": "我們所有的問題和答案都在"
+        },
+        {
+          "id": 54,
+          "start": 179.7,
+          "end": 182.43,
+          "en": "in this questions.js file.",
+          "zh": "這個 questions.js 檔案中。"
+        },
+        {
+          "id": 55,
+          "start": 182.43,
+          "end": 186.84,
+          "en": "So we can simply import this file into Question.jsx",
+          "zh": "所以我們只要把這個檔案匯入 Question.jsx，"
+        },
+        {
+          "id": 56,
+          "start": 186.84,
+          "end": 189.06,
+          "en": "to take a look at the current question",
+          "zh": "就能查看目前的問題，"
+        },
+        {
+          "id": 57,
+          "start": 189.06,
+          "end": 190.743,
+          "en": "and get the right answer.",
+          "zh": "並取得正確答案。"
+        },
+        {
+          "id": 58,
+          "start": 191.79,
+          "end": 196.65,
+          "en": "So here in this file we can also import QUESTIONS from",
+          "zh": "所以在這個檔案中，我們也可以從"
+        },
+        {
+          "id": 59,
+          "start": 196.65,
+          "end": 200.343,
+          "en": "and then going up one level, questions.js.",
+          "zh": "然後往上一層的 questions.js 匯入 QUESTIONS。"
+        },
+        {
+          "id": 60,
+          "start": 202.32,
+          "end": 206.343,
+          "en": "So that now, we can take a look at those questions here.",
+          "zh": "這樣一來，我們現在就可以在這裡查看那些問題。"
+        },
+        {
+          "id": 61,
+          "start": 208.29,
+          "end": 212.25,
+          "en": "And the great thing is that we also, of course, can find out",
+          "zh": "而很棒的是，我們當然也可以弄清楚"
+        },
+        {
+          "id": 62,
+          "start": 212.25,
+          "end": 216.39,
+          "en": "what the index of the currently active question is",
+          "zh": "目前作用中問題的索引是多少，"
+        },
+        {
+          "id": 63,
+          "start": 216.39,
+          "end": 219.84,
+          "en": "because in the Quiz component, we're setting this index",
+          "zh": "因為在 Quiz 元件中，我們把這個索引"
+        },
+        {
+          "id": 64,
+          "start": 219.84,
+          "end": 224.34,
+          "en": "as a value on key on this Question component.",
+          "zh": "設為這個 Question 元件上 key 的值。"
+        },
+        {
+          "id": 65,
+          "start": 224.34,
+          "end": 226.95,
+          "en": "And we can, of course, try using that key",
+          "zh": "而我們當然也可以嘗試在我們自己的元件上"
+        },
+        {
+          "id": 66,
+          "start": 226.95,
+          "end": 230.37,
+          "en": "on our own component for our own purposes as well.",
+          "zh": "把那個 key 用於我們自己的用途。"
+        },
+        {
+          "id": 67,
+          "start": 230.37,
+          "end": 234.75,
+          "en": "So in our Question component, we can therefore destructure",
+          "zh": "所以在我們的 Question 元件中，我們因此可以解構"
+        },
+        {
+          "id": 68,
+          "start": 234.75,
+          "end": 238.2,
+          "en": "this key prop and also use it here.",
+          "zh": "這個 key prop，並在這裡也使用它。"
+        },
+        {
+          "id": 69,
+          "start": 238.2,
+          "end": 240.09,
+          "en": "So now with that here in this Timeout,",
+          "zh": "所以現在有了這個，在這個 timeout 中，"
+        },
+        {
+          "id": 70,
+          "start": 240.09,
+          "end": 244.08,
+          "en": "we can access QUESTIONS for the key,",
+          "zh": "我們可以用這個 key 存取 QUESTIONS，"
+        },
+        {
+          "id": 71,
+          "start": 244.08,
+          "end": 247.5,
+          "en": "so for this activeQuestionIndex to take a look",
+          "zh": "也就是這個 activeQuestionIndex，來查看"
+        },
+        {
+          "id": 72,
+          "start": 247.5,
+          "end": 250.26,
+          "en": "at a specific question.",
+          "zh": "某個特定的問題。"
+        },
+        {
+          "id": 73,
+          "start": 250.26,
+          "end": 252.96,
+          "en": "And then we take a look at the first answer there,",
+          "zh": "然後我們看看那裡的第一個答案，"
+        },
+        {
+          "id": 74,
+          "start": 252.96,
+          "end": 255.24,
+          "en": "which we know is the correct answer",
+          "zh": "我們知道那就是所選問題的"
+        },
+        {
+          "id": 75,
+          "start": 255.24,
+          "end": 258.06,
+          "en": "for the selected question.",
+          "zh": "正確答案。"
+        },
+        {
+          "id": 76,
+          "start": 258.06,
+          "end": 261.06,
+          "en": "And we compare that to our answer here.",
+          "zh": "而我們把它和我們這裡的答案做比較。"
+        },
+        {
+          "id": 77,
+          "start": 261.06,
+          "end": 263.01,
+          "en": "And if that here yields true,",
+          "zh": "而如果這裡的結果為 true，"
+        },
+        {
+          "id": 78,
+          "start": 263.01,
+          "end": 265.62,
+          "en": "we know that the correct answer was picked,",
+          "zh": "我們就知道挑的是正確答案，"
+        },
+        {
+          "id": 79,
+          "start": 265.62,
+          "end": 267.723,
+          "en": "otherwise it's the wrong answer.",
+          "zh": "否則就是錯誤答案。"
+        },
+        {
+          "id": 80,
+          "start": 269.76,
+          "end": 272.88,
+          "en": "And with that, we can now use our own answerState",
+          "zh": "而有了這個，我們現在可以用我們自己的 answerState"
+        },
+        {
+          "id": 81,
+          "start": 272.88,
+          "end": 274.68,
+          "en": "to update the UI.",
+          "zh": "來更新 UI。"
+        },
+        {
+          "id": 82,
+          "start": 274.68,
+          "end": 276.96,
+          "en": "So the value for answerState here",
+          "zh": "所以這裡 answerState 的值"
+        },
+        {
+          "id": 83,
+          "start": 276.96,
+          "end": 279.123,
+          "en": "should now be correct or wrong.",
+          "zh": "現在應該是 correct 或 wrong。"
+        },
+        {
+          "id": 84,
+          "start": 280.02,
+          "end": 283.29,
+          "en": "So we can add a little helper variable here,",
+          "zh": "所以我們可以在這裡加一個小輔助變數，"
+        },
+        {
+          "id": 85,
+          "start": 283.29,
+          "end": 286.05,
+          "en": "which I'll name answerState,",
+          "zh": "我會把它命名為 answerState，"
+        },
+        {
+          "id": 86,
+          "start": 286.05,
+          "end": 290.133,
+          "en": "which initially is simply an empty string,",
+          "zh": "它一開始就只是空字串，"
+        },
+        {
+          "id": 87,
+          "start": 291.42,
+          "end": 296.42,
+          "en": "just as my old answerState here was in the Quiz component.",
+          "zh": "就像我之前在 Quiz 元件裡的 answerState 一樣。"
+        },
+        {
+          "id": 88,
+          "start": 299.55,
+          "end": 304.55,
+          "en": "But if in our answerState here in the Question component,",
+          "zh": "但如果我們 Question 元件這裡的 answerState，"
+        },
+        {
+          "id": 89,
+          "start": 304.95,
+          "end": 308.79,
+          "en": "if there we got a selectedAnswer,",
+          "zh": "如果那裡有 selectedAnswer，"
+        },
+        {
+          "id": 90,
+          "start": 308.79,
+          "end": 313.48,
+          "en": "I wanna set answerState depending on answer.isCorrect.",
+          "zh": "我想根據 answer.isCorrect 來設定 answerState。"
+        },
+        {
+          "id": 91,
+          "start": 314.67,
+          "end": 317.79,
+          "en": "And if that's true, I wanna set it to correct,",
+          "zh": "而如果那是 true，我想把它設為 correct，"
+        },
+        {
+          "id": 92,
+          "start": 317.79,
+          "end": 319.713,
+          "en": "otherwise I'll set it to wrong.",
+          "zh": "否則我會把它設為 wrong。"
+        },
+        {
+          "id": 93,
+          "start": 320.88,
+          "end": 322.98,
+          "en": "And then it's this answerState",
+          "zh": "然後就是這個 answerState"
+        },
+        {
+          "id": 94,
+          "start": 322.98,
+          "end": 325.08299999999997,
+          "en": "that will be passed to answers.",
+          "zh": "會被傳給 Answers。"
+        },
+        {
+          "id": 95,
+          "start": 327,
+          "end": 330.36,
+          "en": "Now of course, that's now clashing with my answerState prop,",
+          "zh": "那麼當然，這現在和我的 answerState prop 衝突了，"
+        },
+        {
+          "id": 96,
+          "start": 330.36,
+          "end": 333.36,
+          "en": "but this prop can and should now be removed",
+          "zh": "但這個 prop 現在可以也應該被移除，"
+        },
+        {
+          "id": 97,
+          "start": 333.36,
+          "end": 335.013,
+          "en": "because we don't need it anymore.",
+          "zh": "因為我們不再需要它了。"
+        },
+        {
+          "id": 98,
+          "start": 337.38,
+          "end": 340.65,
+          "en": "Now onSelectAnswer will not be removed though",
+          "zh": "不過 onSelectAnswer 不會被移除，"
+        },
+        {
+          "id": 99,
+          "start": 340.65,
+          "end": 344.76,
+          "en": "because we will still need to pass the selectedAnswer",
+          "zh": "因為我們仍然需要把 selectedAnswer"
+        },
+        {
+          "id": 100,
+          "start": 344.76,
+          "end": 346.71,
+          "en": "to the Quiz component,",
+          "zh": "傳給 Quiz 元件，"
+        },
+        {
+          "id": 101,
+          "start": 346.71,
+          "end": 348.99,
+          "en": "because, of course, in the Quiz component,",
+          "zh": "因為當然，在 Quiz 元件中，"
+        },
+        {
+          "id": 102,
+          "start": 348.99,
+          "end": 352.71,
+          "en": "we still wanna store all the selected userAnswers",
+          "zh": "我們仍然想儲存所有被選取的 userAnswers，"
+        },
+        {
+          "id": 103,
+          "start": 352.71,
+          "end": 356.64300000000003,
+          "en": "so that we can also find out when the quiz is over.",
+          "zh": "這樣我們也能知道測驗什麼時候結束。"
+        },
+        {
+          "id": 104,
+          "start": 358.35,
+          "end": 360.97,
+          "en": "Therefore, I'll call onSelectAnswer",
+          "zh": "因此，我會呼叫 onSelectAnswer，"
+        },
+        {
+          "id": 105,
+          "start": 362.79,
+          "end": 366.99,
+          "en": "here once this Timeout expired and once we show the user",
+          "zh": "在這裡，一旦這個 timeout 到期、一旦我們讓使用者看到"
+        },
+        {
+          "id": 106,
+          "start": 366.99,
+          "end": 369.813,
+          "en": "whether the picked answer is correct or not.",
+          "zh": "所挑的答案是對是錯。"
+        },
+        {
+          "id": 107,
+          "start": 370.89,
+          "end": 374.76,
+          "en": "To be precise, here, I then wanna set another timer again",
+          "zh": "確切地說，在這裡，我接著想再設定另一個計時器，"
+        },
+        {
+          "id": 108,
+          "start": 374.76,
+          "end": 377.463,
+          "en": "so that we don't instantly move away,",
+          "zh": "這樣我們就不會立刻離開，"
+        },
+        {
+          "id": 109,
+          "start": 378.66,
+          "end": 382.06,
+          "en": "where after two seconds, we call onSelectAnswer",
+          "zh": "在兩秒之後，我們呼叫 onSelectAnswer，"
+        },
+        {
+          "id": 110,
+          "start": 382.98,
+          "end": 386.94,
+          "en": "and pass the selectedAnswer to this function,",
+          "zh": "並把 selectedAnswer 傳給這個函式，"
+        },
+        {
+          "id": 111,
+          "start": 386.94,
+          "end": 390.06,
+          "en": "and that will then trigger the connected function",
+          "zh": "而那接著會觸發 Quiz 元件中"
+        },
+        {
+          "id": 112,
+          "start": 390.06,
+          "end": 391.683,
+          "en": "in the Quiz component.",
+          "zh": "連接的那個函式。"
+        },
+        {
+          "id": 113,
+          "start": 392.76,
+          "end": 395.76,
+          "en": "Now with that, we can still get rid of some props",
+          "zh": "那麼有了這個，我們還是可以擺脫一些 props，"
+        },
+        {
+          "id": 114,
+          "start": 395.76,
+          "end": 398.58,
+          "en": "here in this Question component though.",
+          "zh": "在這裡這個 Question 元件中。"
+        },
+        {
+          "id": 115,
+          "start": 398.58,
+          "end": 402.24,
+          "en": "For example, answers and questionText,",
+          "zh": "例如 answers 和 questionText，"
+        },
+        {
+          "id": 116,
+          "start": 402.24,
+          "end": 405.54,
+          "en": "because we are importing the raw data now",
+          "zh": "因為我們現在匯入了原始資料，"
+        },
+        {
+          "id": 117,
+          "start": 405.54,
+          "end": 409.01,
+          "en": "and we know that the key is the activeQuestionIndex.",
+          "zh": "而我們知道那個 key 就是 activeQuestionIndex。"
+        },
+        {
+          "id": 118,
+          "start": 410.22,
+          "end": 414.21,
+          "en": "Therefore, we can get rid of those props here",
+          "zh": "因此，我們可以在這裡擺脫那些 props，"
+        },
+        {
+          "id": 119,
+          "start": 414.21,
+          "end": 419.21,
+          "en": "and instead, here, simply use questions for the key",
+          "zh": "改為在這裡直接用 questions 搭配 key，"
+        },
+        {
+          "id": 120,
+          "start": 419.25,
+          "end": 421.95,
+          "en": "and then text, because the key, as mentioned,",
+          "zh": "然後取 text，因為如前面提到的，這個 key"
+        },
+        {
+          "id": 121,
+          "start": 421.95,
+          "end": 424.77,
+          "en": "is the activeQuestionIndex.",
+          "zh": "就是 activeQuestionIndex。"
+        },
+        {
+          "id": 122,
+          "start": 424.77,
+          "end": 428.403,
+          "en": "And for the answer, it's QUESTIONS[key].answers.",
+          "zh": "而答案則是 QUESTIONS[key].answers。"
+        },
+        {
+          "id": 123,
+          "start": 431.43,
+          "end": 436.113,
+          "en": "So with that, we got two props less that we have to accept.",
+          "zh": "這樣一來，我們要接收的 props 就少了兩個。"
+        },
+        {
+          "id": 124,
+          "start": 437.82,
+          "end": 441.21,
+          "en": "The selectedAnswer is also not needed anymore",
+          "zh": "selectedAnswer 也不再需要了，"
+        },
+        {
+          "id": 125,
+          "start": 441.21,
+          "end": 443.79,
+          "en": "because we're now storing this here in our state",
+          "zh": "因為我們現在把它存在我們這個"
+        },
+        {
+          "id": 126,
+          "start": 443.79,
+          "end": 445.983,
+          "en": "that belongs to this Question component.",
+          "zh": "屬於 Question 元件的 state 中。"
+        },
+        {
+          "id": 127,
+          "start": 447.48,
+          "end": 450.54,
+          "en": "We now just have to update the selectedAnswer down there",
+          "zh": "我們現在只要更新下面那裡的 selectedAnswer，"
+        },
+        {
+          "id": 128,
+          "start": 450.54,
+          "end": 453.783,
+          "en": "and set this equal to answer.selectedAnswer,",
+          "zh": "並把它設為 answer.selectedAnswer，"
+        },
+        {
+          "id": 129,
+          "start": 454.74,
+          "end": 457.92,
+          "en": "which is that selectedAnswer we are now managing",
+          "zh": "也就是我們現在在這個元件中"
+        },
+        {
+          "id": 130,
+          "start": 457.92,
+          "end": 460.443,
+          "en": "in our own state here in this component.",
+          "zh": "用自己的 state 管理的那個 selectedAnswer。"
+        },
+        {
+          "id": 131,
+          "start": 462.3,
+          "end": 464.94,
+          "en": "And with that, this question component",
+          "zh": "而有了這個，這個 Question 元件"
+        },
+        {
+          "id": 132,
+          "start": 464.94,
+          "end": 469.77,
+          "en": "now contains more logic and needs less props.",
+          "zh": "現在包含更多邏輯，並需要更少的 props。"
+        },
+        {
+          "id": 133,
+          "start": 469.77,
+          "end": 472.2,
+          "en": "Therefore, in the Quiz component,",
+          "zh": "因此，在 Quiz 元件中，"
+        },
+        {
+          "id": 134,
+          "start": 472.2,
+          "end": 476.7,
+          "en": "we can and should now remove all those redundant props.",
+          "zh": "我們現在可以也應該移除所有那些多餘的 props。"
+        },
+        {
+          "id": 135,
+          "start": 476.7,
+          "end": 480.3,
+          "en": "To be precise, selectedAnswer, answerState,",
+          "zh": "確切地說，selectedAnswer、answerState、"
+        },
+        {
+          "id": 136,
+          "start": 480.3,
+          "end": 482.137,
+          "en": "answers and questionText,",
+          "zh": "answers 和 questionText，"
+        },
+        {
+          "id": 137,
+          "start": 484.2,
+          "end": 488.22,
+          "en": "and get rid of all the logic that we don't need anymore.",
+          "zh": "並擺脫所有我們不再需要的邏輯。"
+        },
+        {
+          "id": 138,
+          "start": 488.22,
+          "end": 492.67,
+          "en": "Specifically, we don't need this answerState anymore,",
+          "zh": "具體來說，我們不再需要這個 answerState，"
+        },
+        {
+          "id": 139,
+          "start": 494.16,
+          "end": 498,
+          "en": "and we can, again, derive the activeQuestionIndex",
+          "zh": "而我們同樣可以只根據"
+        },
+        {
+          "id": 140,
+          "start": 498,
+          "end": 500.82,
+          "en": "just based on the userAnswers.length",
+          "zh": "userAnswers.length 推導出 activeQuestionIndex，"
+        },
+        {
+          "id": 141,
+          "start": 500.82,
+          "end": 503.55,
+          "en": "because this will now only be updated",
+          "zh": "因為現在它只會在"
+        },
+        {
+          "id": 142,
+          "start": 503.55,
+          "end": 506.28,
+          "en": "from inside the Question component",
+          "zh": "從 Question 元件內部、"
+        },
+        {
+          "id": 143,
+          "start": 506.28,
+          "end": 509.94,
+          "en": "once we did log in an answer and show the user",
+          "zh": "我們記錄答案並讓使用者看到"
+        },
+        {
+          "id": 144,
+          "start": 509.94,
+          "end": 513.633,
+          "en": "for two seconds whether that answer was correct or not.",
+          "zh": "那個答案是對是錯兩秒之後才被更新。"
+        },
+        {
+          "id": 145,
+          "start": 514.65,
+          "end": 518.85,
+          "en": "And we don't have to update the answerState here anymore",
+          "zh": "而我們不再需要在這裡更新 answerState，"
+        },
+        {
+          "id": 146,
+          "start": 518.85,
+          "end": 521.07,
+          "en": "and we should remove those timers",
+          "zh": "我們也應該移除 Quiz 元件這裡"
+        },
+        {
+          "id": 147,
+          "start": 521.07,
+          "end": 522.663,
+          "en": "here in the Quiz component.",
+          "zh": "的那些計時器。"
+        },
+        {
+          "id": 148,
+          "start": 524.46,
+          "end": 526.35,
+          "en": "Therefore, useCallback here",
+          "zh": "因此，這裡的 useCallback"
+        },
+        {
+          "id": 149,
+          "start": 526.35,
+          "end": 530.3,
+          "en": "also no longer needs the activeQuestionIndex.",
+          "zh": "也不再需要 activeQuestionIndex。"
+        },
+        {
+          "id": 150,
+          "start": 531.72,
+          "end": 534.27,
+          "en": "And with that, the Quiz component function",
+          "zh": "而有了這個，Quiz 元件函式"
+        },
+        {
+          "id": 151,
+          "start": 534.27,
+          "end": 536.61,
+          "en": "got leaner again, which is great,",
+          "zh": "又變得更精簡了，這很棒，"
+        },
+        {
+          "id": 152,
+          "start": 536.61,
+          "end": 539.583,
+          "en": "and the Question component got more powerful.",
+          "zh": "而 Question 元件變得更強大。"
+        },
+        {
+          "id": 153,
+          "start": 540.63,
+          "end": 542.46,
+          "en": "Now if we save all that,",
+          "zh": "現在如果我們把這些都儲存起來，"
+        },
+        {
+          "id": 154,
+          "start": 542.46,
+          "end": 545.583,
+          "en": "we'll see that we're now facing an error though.",
+          "zh": "我們會看到現在卻遇到了一個錯誤。"
+        },
+        {
+          "id": 155,
+          "start": 546.6,
+          "end": 549.75,
+          "en": "And the error is, if we open the DevTools,",
+          "zh": "而這個錯誤是，如果我們打開開發者工具，"
+        },
+        {
+          "id": 156,
+          "start": 549.75,
+          "end": 552.9,
+          "en": "that we are using the key prop.",
+          "zh": "我們使用了 key prop。"
+        },
+        {
+          "id": 157,
+          "start": 552.9,
+          "end": 556.5,
+          "en": "This is a prop that's exclusively used by React",
+          "zh": "這是一個專屬於 React 使用的 prop，"
+        },
+        {
+          "id": 158,
+          "start": 556.5,
+          "end": 558.423,
+          "en": "and must not be used by us.",
+          "zh": "我們不可以自己使用它。"
+        },
+        {
+          "id": 159,
+          "start": 559.68,
+          "end": 562.62,
+          "en": "Therefore, we should pick our own prop,",
+          "zh": "因此，我們應該選用我們自己的 prop，"
+        },
+        {
+          "id": 160,
+          "start": 562.62,
+          "end": 567.62,
+          "en": "for example, questionIndex or just index,",
+          "zh": "例如 questionIndex 或單純叫 index，"
+        },
+        {
+          "id": 161,
+          "start": 567.78,
+          "end": 569.133,
+          "en": "any name of your choice.",
+          "zh": "任何你選擇的名稱。"
+        },
+        {
+          "id": 162,
+          "start": 570.48,
+          "end": 575.01,
+          "en": "And we should use this prop instead of key in all the places",
+          "zh": "而我們應該在所有我原本在 Question 元件中"
+        },
+        {
+          "id": 163,
+          "start": 575.01,
+          "end": 578.283,
+          "en": "where I did use key in the Question component.",
+          "zh": "使用 key 的地方改用這個 prop。"
+        },
+        {
+          "id": 164,
+          "start": 579.84,
+          "end": 581.79,
+          "en": "And in the Quiz component,",
+          "zh": "而在 Quiz 元件中，"
+        },
+        {
+          "id": 165,
+          "start": 581.79,
+          "end": 585.57,
+          "en": "we should now also set this index prop here",
+          "zh": "我們現在也應該在這裡設定這個 index prop，"
+        },
+        {
+          "id": 166,
+          "start": 585.57,
+          "end": 589.35,
+          "en": "even though it contains the same value as the key prop.",
+          "zh": "即使它包含和 key prop 相同的值。"
+        },
+        {
+          "id": 167,
+          "start": 589.35,
+          "end": 594.3,
+          "en": "But since this is a prop exclusively reserved for React,",
+          "zh": "但因為這是專屬保留給 React 的 prop，"
+        },
+        {
+          "id": 168,
+          "start": 594.3,
+          "end": 596.523,
+          "en": "we must use our own prop here.",
+          "zh": "我們在這裡必須使用我們自己的 prop。"
+        },
+        {
+          "id": 169,
+          "start": 598.41,
+          "end": 602.28,
+          "en": "But with that, if we reload, we see our questionnaire,",
+          "zh": "但有了這個，如果我們重新載入，我們會看到我們的問卷，"
+        },
+        {
+          "id": 170,
+          "start": 602.28,
+          "end": 605.67,
+          "en": "we can log in questions, and of course,",
+          "zh": "我們可以記錄問題，而當然，"
+        },
+        {
+          "id": 171,
+          "start": 605.67,
+          "end": 609.78,
+          "en": "we also see that now I instantly get the feedback",
+          "zh": "我們也看到現在我會立刻得到回饋，"
+        },
+        {
+          "id": 172,
+          "start": 609.78,
+          "end": 613.2,
+          "en": "that tells me whether the question is right or wrong.",
+          "zh": "告訴我這個問題是對是錯。"
+        },
+        {
+          "id": 173,
+          "start": 613.2,
+          "end": 616.32,
+          "en": "And we also seem to move through questions",
+          "zh": "而我們現在似乎也很快就"
+        },
+        {
+          "id": 174,
+          "start": 616.32,
+          "end": 618.06,
+          "en": "pretty quickly now.",
+          "zh": "走過這些問題。"
+        },
+        {
+          "id": 175,
+          "start": 618.06,
+          "end": 621.18,
+          "en": "Now to make sure that we don't instantly mark an answer",
+          "zh": "現在為了確保我們不會立刻把答案標記"
+        },
+        {
+          "id": 176,
+          "start": 621.18,
+          "end": 624.69,
+          "en": "as right or wrong, we should actually go here",
+          "zh": "為對或錯，我們其實應該前往"
+        },
+        {
+          "id": 177,
+          "start": 624.69,
+          "end": 628.35,
+          "en": "to the answerState in our Question component",
+          "zh": "我們 Question 元件中的 answerState，"
+        },
+        {
+          "id": 178,
+          "start": 628.35,
+          "end": 631.8,
+          "en": "and not always set it to just correct or wrong,",
+          "zh": "不要總是把它設為 correct 或 wrong，"
+        },
+        {
+          "id": 179,
+          "start": 631.8,
+          "end": 636.09,
+          "en": "but instead here I wanna check whether answer.selectedAnswer",
+          "zh": "而是要在這裡檢查 answer.selectedAnswer"
+        },
+        {
+          "id": 180,
+          "start": 636.09,
+          "end": 641.09,
+          "en": "is truthy and answer.isCorrect is not equal to null,",
+          "zh": "是否為 truthy，且 answer.isCorrect 不等於 null，"
+        },
+        {
+          "id": 181,
+          "start": 642.54,
+          "end": 645.03,
+          "en": "because if isCorrect is null,",
+          "zh": "因為如果 isCorrect 是 null，"
+        },
+        {
+          "id": 182,
+          "start": 645.03,
+          "end": 648.48,
+          "en": "that means that we might have a selectedAnswer,",
+          "zh": "那表示我們可能有 selectedAnswer，"
+        },
+        {
+          "id": 183,
+          "start": 648.48,
+          "end": 652.65,
+          "en": "but we don't wanna show the result yet,",
+          "zh": "但我們還不想顯示結果，"
+        },
+        {
+          "id": 184,
+          "start": 652.65,
+          "end": 655.89,
+          "en": "because we deliberately set isCorrect to null here",
+          "zh": "因為我們在記錄答案時"
+        },
+        {
+          "id": 185,
+          "start": 655.89,
+          "end": 658.083,
+          "en": "when we log in an answer.",
+          "zh": "刻意把 isCorrect 設為 null。"
+        },
+        {
+          "id": 186,
+          "start": 659.19,
+          "end": 663.54,
+          "en": "Now to make sure that we mark the selectedAnswer",
+          "zh": "現在為了確保我們把 selectedAnswer"
+        },
+        {
+          "id": 187,
+          "start": 663.54,
+          "end": 666.36,
+          "en": "as selected, we also should make sure",
+          "zh": "標記為 selected，我們也應該確保"
+        },
+        {
+          "id": 188,
+          "start": 666.36,
+          "end": 669.45,
+          "en": "that if this condition here is not met,",
+          "zh": "如果這裡這個條件不成立，"
+        },
+        {
+          "id": 189,
+          "start": 669.45,
+          "end": 671.883,
+          "en": "but if we have a selectedAnswer,",
+          "zh": "但如果我們有 selectedAnswer，"
+        },
+        {
+          "id": 190,
+          "start": 673.17,
+          "end": 677.313,
+          "en": "we set the answerState equal to answered,",
+          "zh": "我們就把 answerState 設為 answered，"
+        },
+        {
+          "id": 191,
+          "start": 678.84,
+          "end": 682.05,
+          "en": "which is then the condition we're checking for",
+          "zh": "那接著就是我們在 Answers.jsx 檔案中"
+        },
+        {
+          "id": 192,
+          "start": 682.05,
+          "end": 687.05,
+          "en": "here in the Answers.jsx file to mark an answer as selected.",
+          "zh": "用來把答案標記為 selected 的條件。"
+        },
+        {
+          "id": 193,
+          "start": 691.2,
+          "end": 693,
+          "en": "Now we can stick in that file",
+          "zh": "現在我們可以留在那個檔案中，"
+        },
+        {
+          "id": 194,
+          "start": 693,
+          "end": 695.64,
+          "en": "to make sure that we then can't move",
+          "zh": "確保我們接著不會"
+        },
+        {
+          "id": 195,
+          "start": 695.64,
+          "end": 699.42,
+          "en": "through all those questions too quickly,",
+          "zh": "太快走過所有那些問題，"
+        },
+        {
+          "id": 196,
+          "start": 699.42,
+          "end": 701.79,
+          "en": "because here I actually wanna make sure",
+          "zh": "因為在這裡我其實想確保"
+        },
+        {
+          "id": 197,
+          "start": 701.79,
+          "end": 704.7,
+          "en": "that we can't click those answer buttons",
+          "zh": "如果我們有 selectedAnswer，"
+        },
+        {
+          "id": 198,
+          "start": 704.7,
+          "end": 707.79,
+          "en": "if we have a selectedAnswer,",
+          "zh": "我們就無法點擊那些答案按鈕，"
+        },
+        {
+          "id": 199,
+          "start": 707.79,
+          "end": 711.09,
+          "en": "so that we can't switch the answer thereafter.",
+          "zh": "這樣我們之後就不能改變答案。"
+        },
+        {
+          "id": 200,
+          "start": 711.09,
+          "end": 714.57,
+          "en": "And therefore I'll set the disabled prop here",
+          "zh": "因此我會在這裡設定 disabled prop，"
+        },
+        {
+          "id": 201,
+          "start": 714.57,
+          "end": 717.3,
+          "en": "and set that based on whether answerState",
+          "zh": "並根據 answerState"
+        },
+        {
+          "id": 202,
+          "start": 717.3,
+          "end": 718.23,
+          "en": "is an empty string,",
+          "zh": "是否為空字串來設定它，"
+        },
+        {
+          "id": 203,
+          "start": 718.23,
+          "end": 720.75,
+          "en": "which means we don't have an answer selected yet",
+          "zh": "這表示我們還沒有選取任何答案"
+        },
+        {
+          "id": 204,
+          "start": 720.75,
+          "end": 722.64,
+          "en": "or anything else.",
+          "zh": "或任何其他東西。"
+        },
+        {
+          "id": 205,
+          "start": 722.64,
+          "end": 725.73,
+          "en": "It should be disabled if answerState",
+          "zh": "如果 answerState"
+        },
+        {
+          "id": 206,
+          "start": 725.73,
+          "end": 727.743,
+          "en": "is not equal to an empty string.",
+          "zh": "不等於空字串，它就應該被停用。"
+        },
+        {
+          "id": 207,
+          "start": 729.63,
+          "end": 732.96,
+          "en": "Because if it is an empty string, it should be enabled.",
+          "zh": "因為如果它是空字串，它就應該被啟用。"
+        },
+        {
+          "id": 208,
+          "start": 732.96,
+          "end": 736.29,
+          "en": "It should not be disabled because we have no answer yet.",
+          "zh": "它不應該被停用，因為我們還沒有答案。"
+        },
+        {
+          "id": 209,
+          "start": 736.29,
+          "end": 738.78,
+          "en": "But if it is not equal to an empty string,",
+          "zh": "但如果它不等於空字串，"
+        },
+        {
+          "id": 210,
+          "start": 738.78,
+          "end": 740.7,
+          "en": "we know that it should be disabled",
+          "zh": "我們就知道它應該被停用，"
+        },
+        {
+          "id": 211,
+          "start": 740.7,
+          "end": 743.67,
+          "en": "because we either have a correct or wrong answer",
+          "zh": "因為我們不是已經有正確或錯誤的答案，"
+        },
+        {
+          "id": 212,
+          "start": 743.67,
+          "end": 746.973,
+          "en": "or we don't know yet, but we did select an answer.",
+          "zh": "就是還不知道，但我們確實選取了答案。"
+        },
+        {
+          "id": 213,
+          "start": 748.83,
+          "end": 751.05,
+          "en": "And with that, if we save that and reload,",
+          "zh": "而有了這個，如果我們儲存並重新載入，"
+        },
+        {
+          "id": 214,
+          "start": 751.05,
+          "end": 754.23,
+          "en": "now I can select an answer, it gets highlighted as such,",
+          "zh": "現在我可以選取一個答案，它會如實被醒目顯示，"
+        },
+        {
+          "id": 215,
+          "start": 754.23,
+          "end": 758.1,
+          "en": "the other answers get grayed out, and as you can tell,",
+          "zh": "其他答案會變灰，而你可以看出，"
+        },
+        {
+          "id": 216,
+          "start": 758.1,
+          "end": 760.62,
+          "en": "it then gets marked as right or wrong,",
+          "zh": "它接著會被標記為對或錯，"
+        },
+        {
+          "id": 217,
+          "start": 760.62,
+          "end": 763.503,
+          "en": "and we move on to the next question thereafter.",
+          "zh": "我們之後就前進到下一個問題。"
+        }
+      ]
     }
   ],
   "errors": []
