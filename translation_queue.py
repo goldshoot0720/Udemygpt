@@ -50,9 +50,17 @@ def main():
         source, translated = load(item["sourceFile"]), load(args.file)
         if verify(source, translated) != {args.id}:
             raise ValueError("Result must contain exactly the requested lecture")
-        target = ROOT / f"data/tw-{int(item['lectureOrder']):03d}.json"
-        target.write_text(json.dumps(translated, ensure_ascii=False, indent=2), encoding="utf-8")
-        item.update(status="verified", translationFile=str(target), verifiedCues=len(translated["lectures"][0]["cues"]))
+        order = int(item["lectureOrder"])
+        start = (order - 1) // 50 * 50 + 1
+        target = ROOT / f"data/tw-{start:03d}-{start + 49:03d}.json"
+        bundle = load(target) if target.exists() else {"version": 1, "courseId": 1362070,
+            "sourceLanguage": "en", "targetLanguage": "zh-TW", "lectures": [], "errors": []}
+        lecture = translated["lectures"][0]
+        order_of = {str(x["id"]): int(x.get("lectureOrder", 0)) for x in lectures}
+        bundle["lectures"] = [l for l in bundle["lectures"] if str(l["id"]) != str(lecture["id"])] + [lecture]
+        bundle["lectures"].sort(key=lambda l: order_of.get(str(l["id"]), 0))
+        target.write_text(json.dumps(bundle, ensure_ascii=False, indent=2), encoding="utf-8")
+        item.update(status="verified", translationFile=str(target), verifiedCues=len(lecture["cues"]))
     elif args.action == "imported":
         if item["status"] != "verified" or not args.evidence:
             parser.error("Verify first, then supply observed Firefox import evidence")
