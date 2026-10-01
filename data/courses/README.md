@@ -15,10 +15,10 @@
 | [Angular - The Complete Guide](756150/README.md) | 756150 | 701 | 0 | [查看譯文](756150/translations/README.md) |
 | [Next.js & React - The Complete Guide](3873464/README.md) | 3873464 | 417 | 0 | [查看譯文](3873464/translations/README.md) |
 | [Vue - The Complete Guide (incl. Router & Composition API)](995016/README.md) | 995016 | 294 | 0 | [查看譯文](995016/translations/README.md) |
-| [Ionic - Build iOS, Android & Web Apps with Ionic & Angular](1070124/README.md) | 1070124 | 242 | 0 | [查看譯文](1070124/translations/README.md) |
+| [Ionic - Build iOS, Android & Web Apps with Ionic & Angular](1070124/README.md) | 1070124 | 242 | 10 | [查看譯文](1070124/translations/README.md) |
 | [JavaScript - The Complete Guide (Beginner + Advanced)](2508942/README.md) | 2508942 | 540 | 0 | [查看譯文](2508942/translations/README.md) |
 
-13 門課影片講座合計 4,672 堂（不含文章與測驗）。React 優先處理、累計完成 550 堂，往後每 25 堂自動提交一次。Remix、Svelte 與 NativeScript 各已驗證前 10 堂；Svelte 另有 3 堂音訊補件譯文。其餘課程依堂數由少到多，以 10 堂為單位輪流提交。
+13 門課影片講座合計 4,672 堂（不含文章與測驗）。React 優先處理、累計完成 550 堂，往後每 25 堂自動提交一次。Remix、Svelte、NativeScript 與 Ionic 各已驗證前 10 堂；Svelte 另有 3 堂音訊補件譯文。其餘課程依堂數由少到多，以 10 堂為單位輪流提交。
 
 每課分類：
 
