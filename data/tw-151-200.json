@@ -33890,6 +33890,811 @@
           "zh": "而那些當然會消耗效能。"
         }
       ]
+    },
+    {
+      "id": "8231816",
+      "title": "Optimizing State Updates",
+      "sourceHash": "10ad635e3fcaae062766900cfbe28d54196e04b39ad095f007feb190a344d4d7",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.75,
+          "end": 4.002,
+          "en": "Now, in the last lecture, I explained why we need",
+          "zh": "現在，在上一堂課中，我解釋了為什麼我們需要"
+        },
+        {
+          "id": 2,
+          "start": 4.002,
+          "end": 7.47,
+          "en": "useEffect to use setInterval correctly",
+          "zh": "useEffect 才能正確使用 setInterval，"
+        },
+        {
+          "id": 3,
+          "start": 7.47,
+          "end": 11.19,
+          "en": "and I also mentioned that we want to clear the interval,",
+          "zh": "而我也提到我們想清除這個 interval，"
+        },
+        {
+          "id": 4,
+          "start": 11.19,
+          "end": 15.48,
+          "en": "not really to avoid some strange behaviors or bugs",
+          "zh": "其實不是為了避免某些奇怪的行為或 bug，"
+        },
+        {
+          "id": 5,
+          "start": 15.48,
+          "end": 18.72,
+          "en": "but to make sure that we don't impact",
+          "zh": "而是為了確保我們不會影響"
+        },
+        {
+          "id": 6,
+          "start": 18.72,
+          "end": 21.54,
+          "en": "the performance of this application.",
+          "zh": "這個應用程式的效能。"
+        },
+        {
+          "id": 7,
+          "start": 21.54,
+          "end": 23.82,
+          "en": "And speaking of performance,",
+          "zh": "而說到效能，"
+        },
+        {
+          "id": 8,
+          "start": 23.82,
+          "end": 27,
+          "en": "there is something that could be optimized here",
+          "zh": "在這個應用程式中，有一件事可以最佳化，"
+        },
+        {
+          "id": 9,
+          "start": 27,
+          "end": 30.36,
+          "en": "in this application because at the moment,",
+          "zh": "因為目前，"
+        },
+        {
+          "id": 10,
+          "start": 30.36,
+          "end": 32.67,
+          "en": "I am managing this interval",
+          "zh": "我在我的刪除確認元件中"
+        },
+        {
+          "id": 11,
+          "start": 32.67,
+          "end": 35.37,
+          "en": "in my delete confirmation component.",
+          "zh": "管理這個 interval。"
+        },
+        {
+          "id": 12,
+          "start": 35.37,
+          "end": 37.95,
+          "en": "And in this interval, we're updating the state",
+          "zh": "而在這個 interval 中，我們每 10 毫秒更新一次 state，"
+        },
+        {
+          "id": 13,
+          "start": 37.95,
+          "end": 41.88,
+          "en": "every 10 milliseconds which means that this component runs",
+          "zh": "這代表這個元件每 10 毫秒執行一次，"
+        },
+        {
+          "id": 14,
+          "start": 41.88,
+          "end": 45.27,
+          "en": "every 10 milliseconds which also means",
+          "zh": "而這也代表"
+        },
+        {
+          "id": 15,
+          "start": 45.27,
+          "end": 48.27,
+          "en": "that every 10 milliseconds, React",
+          "zh": "每 10 毫秒，React"
+        },
+        {
+          "id": 16,
+          "start": 48.27,
+          "end": 52.83,
+          "en": "has to compare the unconfirmed value here to figure out",
+          "zh": "就必須比較這裡的 onConfirm 值，以判斷"
+        },
+        {
+          "id": 17,
+          "start": 52.83,
+          "end": 56.07,
+          "en": "whether this effect function should run again.",
+          "zh": "這個 effect 函式是否應該再次執行。"
+        },
+        {
+          "id": 18,
+          "start": 56.07,
+          "end": 61.07,
+          "en": "And React has to reevaluate this entire JSX code",
+          "zh": "而 React 必須重新評估這整段 JSX 程式碼，"
+        },
+        {
+          "id": 19,
+          "start": 61.35,
+          "end": 65.61,
+          "en": "and this works and also doesn't really slow down",
+          "zh": "而這行得通，在現代電腦上其實也不會讓"
+        },
+        {
+          "id": 20,
+          "start": 65.61,
+          "end": 69.453,
+          "en": "the app here on a modern computer but it's not optimal.",
+          "zh": "這裡的應用程式變慢，但這不是最佳做法。"
+        },
+        {
+          "id": 21,
+          "start": 70.35,
+          "end": 74.78999999999999,
+          "en": "It would be better to outsource this progress indicator",
+          "zh": "更好的做法是把這個進度指示器，"
+        },
+        {
+          "id": 22,
+          "start": 74.78999999999999,
+          "end": 76.83,
+          "en": "and this related state logic",
+          "zh": "以及相關的 state 邏輯"
+        },
+        {
+          "id": 23,
+          "start": 76.83,
+          "end": 80.1,
+          "en": "and useEffect hook into a separate component",
+          "zh": "和 useEffect hook 外包到一個獨立的元件，"
+        },
+        {
+          "id": 24,
+          "start": 80.1,
+          "end": 83.76,
+          "en": "so that it's then just this one single component",
+          "zh": "這樣就只有這一個單一元件"
+        },
+        {
+          "id": 25,
+          "start": 83.76,
+          "end": 86.373,
+          "en": "that should be re-executed all the time.",
+          "zh": "需要一直重新執行。"
+        },
+        {
+          "id": 26,
+          "start": 87.42,
+          "end": 90.39,
+          "en": "And therefore here I'll add a new component,",
+          "zh": "因此，在這裡我會加入一個新元件，"
+        },
+        {
+          "id": 27,
+          "start": 90.39,
+          "end": 94.97999999999999,
+          "en": "ProgressBar could be a name that we want to use",
+          "zh": "ProgressBar 可以是我們想用的名稱，"
+        },
+        {
+          "id": 28,
+          "start": 94.97999999999999,
+          "end": 97.74000000000001,
+          "en": "and of course, export it here.",
+          "zh": "而當然，在這裡匯出它。"
+        },
+        {
+          "id": 29,
+          "start": 97.74000000000001,
+          "end": 100.05,
+          "en": "And then in here in this component,",
+          "zh": "然後在這裡這個元件中，"
+        },
+        {
+          "id": 30,
+          "start": 100.05,
+          "end": 102.12299999999999,
+          "en": "I wanna manage this state.",
+          "zh": "我想管理這個 state。"
+        },
+        {
+          "id": 31,
+          "start": 102.99000000000001,
+          "end": 105.273,
+          "en": "So I'll copy that and move it in here.",
+          "zh": "所以我會把它複製並移到這裡。"
+        },
+        {
+          "id": 32,
+          "start": 106.25999999999999,
+          "end": 109.22999999999999,
+          "en": "And we, of course, want to have this useEffect hook",
+          "zh": "而我們當然想要有這個 useEffect hook，"
+        },
+        {
+          "id": 33,
+          "start": 109.22999999999999,
+          "end": 113.52000000000001,
+          "en": "so I'll also copy that, or actually we can cut it",
+          "zh": "所以我同樣會複製它，其實我們可以剪下它，"
+        },
+        {
+          "id": 34,
+          "start": 113.52000000000001,
+          "end": 117.47999999999999,
+          "en": "and also remove this state now from the lead confirmation",
+          "zh": "並現在把這個 state 從刪除確認元件中移除，"
+        },
+        {
+          "id": 35,
+          "start": 117.47999999999999,
+          "end": 119.463,
+          "en": "and add it here to progress bar.",
+          "zh": "把它加到這裡的 ProgressBar。"
+        },
+        {
+          "id": 36,
+          "start": 120.39,
+          "end": 124.35,
+          "en": "And, of course, then return this progress element",
+          "zh": "而當然，接著回傳這個 progress 元素，"
+        },
+        {
+          "id": 37,
+          "start": 124.35,
+          "end": 127.5,
+          "en": "and remove that from the lead confirmation",
+          "zh": "並把它從刪除確認元件中移除，"
+        },
+        {
+          "id": 38,
+          "start": 127.5,
+          "end": 129.033,
+          "en": "and instead return it here.",
+          "zh": "改為在這裡回傳它。"
+        },
+        {
+          "id": 39,
+          "start": 131.79,
+          "end": 135.58,
+          "en": "Now with that, we, of course, also must import useState",
+          "zh": "這樣一來，我們當然也必須從 React"
+        },
+        {
+          "id": 40,
+          "start": 136.812,
+          "end": 139.14,
+          "en": "and useEffect from React",
+          "zh": "匯入 useState 和 useEffect，"
+        },
+        {
+          "id": 41,
+          "start": 139.14,
+          "end": 141.93,
+          "en": "because we're using these things here",
+          "zh": "因為我們在這裡使用了這些東西，"
+        },
+        {
+          "id": 42,
+          "start": 141.93,
+          "end": 144.66,
+          "en": "and I need that timer.",
+          "zh": "而我也需要那個 timer。"
+        },
+        {
+          "id": 43,
+          "start": 144.66,
+          "end": 146.94,
+          "en": "And we could, again, define it as a constant",
+          "zh": "而我們同樣可以把它定義為常數，"
+        },
+        {
+          "id": 44,
+          "start": 146.94,
+          "end": 149.343,
+          "en": "or simply accept it as a prop here.",
+          "zh": "或直接在這裡把它當作 prop 接收。"
+        },
+        {
+          "id": 45,
+          "start": 150.36,
+          "end": 153.363,
+          "en": "So use it here and here.",
+          "zh": "所以在這裡和這裡使用它。"
+        },
+        {
+          "id": 46,
+          "start": 155.22,
+          "end": 158.92000000000002,
+          "en": "And now we can use this progress bar component here",
+          "zh": "而現在我們可以在這個刪除確認元件中"
+        },
+        {
+          "id": 47,
+          "start": 159.81,
+          "end": 162.213,
+          "en": "in this delete confirmation component.",
+          "zh": "使用這裡這個 ProgressBar 元件。"
+        },
+        {
+          "id": 48,
+          "start": 163.56,
+          "end": 166.2,
+          "en": "For that, we, of course, must import it",
+          "zh": "為此，我們當然必須從 ProgressBar.jsx"
+        },
+        {
+          "id": 49,
+          "start": 166.2,
+          "end": 168.25,
+          "en": "from progress bar JSX",
+          "zh": "匯入它，"
+        },
+        {
+          "id": 50,
+          "start": 169.14,
+          "end": 172.203,
+          "en": "and we can get rid of the useState import here now.",
+          "zh": "而我們現在可以把這裡的 useState 匯入移除。"
+        },
+        {
+          "id": 51,
+          "start": 173.07,
+          "end": 176.4,
+          "en": "And now with that, it's not the entire delete confirmation",
+          "zh": "而這樣一來，就不再是整個刪除確認元件"
+        },
+        {
+          "id": 52,
+          "start": 176.4,
+          "end": 180.57,
+          "en": "component that will be re-executed every 10 milliseconds,",
+          "zh": "每 10 毫秒被重新執行，"
+        },
+        {
+          "id": 53,
+          "start": 180.57,
+          "end": 184.08,
+          "en": "but it's, instead, inside of the progress bar component",
+          "zh": "相反地，是在 ProgressBar 元件內部"
+        },
+        {
+          "id": 54,
+          "start": 184.08,
+          "end": 187.14,
+          "en": "that this computation will take place.",
+          "zh": "進行這個計算。"
+        },
+        {
+          "id": 55,
+          "start": 187.14,
+          "end": 190.17,
+          "en": "And this is an optimization you might wanna consider",
+          "zh": "而這是一個你可能會想考慮的最佳化，"
+        },
+        {
+          "id": 56,
+          "start": 190.17,
+          "end": 193.32,
+          "en": "to avoid unnecessary computations.",
+          "zh": "用來避免不必要的計算。"
+        },
+        {
+          "id": 57,
+          "start": 193.32,
+          "end": 195.3,
+          "en": "Of course, we now just have to make sure",
+          "zh": "當然，我們現在只需要確保"
+        },
+        {
+          "id": 58,
+          "start": 195.3,
+          "end": 198.96,
+          "en": "that we also do pass a value for this timer prop.",
+          "zh": "我們確實有為這個 timer prop 傳值。"
+        },
+        {
+          "id": 59,
+          "start": 198.96,
+          "end": 201,
+          "en": "So here in delete confirmation,",
+          "zh": "所以在這裡的刪除確認元件中，"
+        },
+        {
+          "id": 60,
+          "start": 201,
+          "end": 204.45,
+          "en": "we should now set timer equal to timer.",
+          "zh": "我們現在應該把 timer 設為 timer。"
+        },
+        {
+          "id": 61,
+          "start": 204.45,
+          "end": 207.72,
+          "en": "And if we now save that and go back",
+          "zh": "而如果我們現在儲存並回到頁面，"
+        },
+        {
+          "id": 62,
+          "start": 207.72,
+          "end": 212.16,
+          "en": "and reload this app here, we should be able to add places.",
+          "zh": "重新載入這裡這個應用程式，我們應該就能加入地點。"
+        },
+        {
+          "id": 63,
+          "start": 212.16,
+          "end": 214.56,
+          "en": "And when we click on a place, it will be deleted.",
+          "zh": "而當我們點擊一個地點時，它會被刪除。"
+        },
+        {
+          "id": 64,
+          "start": 214.56,
+          "end": 216.09,
+          "en": "We see the timer.",
+          "zh": "我們會看到計時器。"
+        },
+        {
+          "id": 65,
+          "start": 216.09,
+          "end": 217.82999999999998,
+          "en": "And if we delete another place,",
+          "zh": "而如果我們刪除另一個地點，"
+        },
+        {
+          "id": 66,
+          "start": 217.82999999999998,
+          "end": 220.14,
+          "en": "a new timer starts in a new modal.",
+          "zh": "一個新的計時器會在新的 modal 中開始。"
+        },
+        {
+          "id": 67,
+          "start": 220.14,
+          "end": 222.513,
+          "en": "And that all works as it should now.",
+          "zh": "而現在那一切都如預期運作。"
+        }
+      ]
+    },
+    {
+      "id": "8231834",
+      "title": "Module Introduction & Starting Project",
+      "sourceHash": "0c69074787ea7e1eb13a57ecad274267286dddf33f898e3769a389d5ee20cc0b",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.48,
+          "end": 2.73,
+          "en": "In this course section,",
+          "zh": "在這個課程章節中，"
+        },
+        {
+          "id": 2,
+          "start": 2.73,
+          "end": 6.33,
+          "en": "we'll dive into a brand new demo project",
+          "zh": "我們要深入一個全新的示範專案，"
+        },
+        {
+          "id": 3,
+          "start": 6.33,
+          "end": 10.32,
+          "en": "and we're going to build this project from scratch,",
+          "zh": "而我們會從零開始建構這個專案，"
+        },
+        {
+          "id": 4,
+          "start": 10.32,
+          "end": 12,
+          "en": "from the ground up.",
+          "zh": "從最基礎開始。"
+        },
+        {
+          "id": 5,
+          "start": 12,
+          "end": 16.44,
+          "en": "And whilst building this project, we will continue working",
+          "zh": "而在建構這個專案的同時，我們會繼續使用"
+        },
+        {
+          "id": 6,
+          "start": 16.44,
+          "end": 19.68,
+          "en": "with side effects and the useEffect hook.",
+          "zh": "副作用和 useEffect hook。"
+        },
+        {
+          "id": 7,
+          "start": 19.68,
+          "end": 24.15,
+          "en": "And therefore, the idea behind this course section here",
+          "zh": "因此，這裡這個課程章節背後的想法，"
+        },
+        {
+          "id": 8,
+          "start": 24.15,
+          "end": 28.74,
+          "en": "is to give you an opportunity to practice what you learned.",
+          "zh": "就是給你一個練習所學的機會。"
+        },
+        {
+          "id": 9,
+          "start": 28.74,
+          "end": 33.48,
+          "en": "And to dive a bit deeper into React and effects.",
+          "zh": "並更深入一點探討 React 和 effects。"
+        },
+        {
+          "id": 10,
+          "start": 33.48,
+          "end": 36.42,
+          "en": "Therefore, in this section, you can apply",
+          "zh": "因此在這個章節中，你可以應用"
+        },
+        {
+          "id": 11,
+          "start": 36.42,
+          "end": 39.96,
+          "en": "your existing React and effects knowledge.",
+          "zh": "你現有的 React 和 effects 知識。"
+        },
+        {
+          "id": 12,
+          "start": 39.96,
+          "end": 41.55,
+          "en": "We'll continue dealing",
+          "zh": "我們會繼續處理"
+        },
+        {
+          "id": 13,
+          "start": 41.55,
+          "end": 45.18,
+          "en": "with effect dependencies and cleanup functions,",
+          "zh": "effect 依賴項目和清理函式，"
+        },
+        {
+          "id": 14,
+          "start": 45.18,
+          "end": 47.82,
+          "en": "so that you get a better feeling for",
+          "zh": "讓你對什麼時候該加入和使用這些東西"
+        },
+        {
+          "id": 15,
+          "start": 47.82,
+          "end": 51.06,
+          "en": "when to add and use those things.",
+          "zh": "有更好的感覺。"
+        },
+        {
+          "id": 16,
+          "start": 51.06,
+          "end": 54.57,
+          "en": "And since we're going to build a brand new project",
+          "zh": "而既然我們要從零開始建構一個全新的專案，"
+        },
+        {
+          "id": 17,
+          "start": 54.57,
+          "end": 55.95,
+          "en": "from the ground up,",
+          "zh": "從最基礎開始，"
+        },
+        {
+          "id": 18,
+          "start": 55.95,
+          "end": 59.55,
+          "en": "you will also see how you can combine effects",
+          "zh": "你也會看到如何把 effects 和其他 React 概念"
+        },
+        {
+          "id": 19,
+          "start": 59.55,
+          "end": 62.37,
+          "en": "with other React concepts.",
+          "zh": "結合起來。"
+        },
+        {
+          "id": 20,
+          "start": 62.37,
+          "end": 67.23,
+          "en": "And therefore, in this section you can absolutely",
+          "zh": "因此，在這個章節中，你絕對可以"
+        },
+        {
+          "id": 21,
+          "start": 67.23,
+          "end": 71.82,
+          "en": "try building this project on your own as a practice.",
+          "zh": "試著自己建構這個專案作為練習。"
+        },
+        {
+          "id": 22,
+          "start": 71.82,
+          "end": 73.86,
+          "en": "But the main idea indeed",
+          "zh": "但主要的概念確實是"
+        },
+        {
+          "id": 23,
+          "start": 73.86,
+          "end": 77.37,
+          "en": "is that we'll build it together step by step,",
+          "zh": "我們會一起逐步建構它，"
+        },
+        {
+          "id": 24,
+          "start": 77.37,
+          "end": 80.49,
+          "en": "that I explain why we build it like this",
+          "zh": "我會解釋為什麼我們這樣建構，"
+        },
+        {
+          "id": 25,
+          "start": 80.49,
+          "end": 84.27,
+          "en": "and that therefore, whilst you are following along",
+          "zh": "因此，當你跟著做、"
+        },
+        {
+          "id": 26,
+          "start": 84.27,
+          "end": 86.37,
+          "en": "and you're also building it on your own,",
+          "zh": "同時也自己建構它、"
+        },
+        {
+          "id": 27,
+          "start": 86.37,
+          "end": 88.38,
+          "en": "whilst watching those videos,",
+          "zh": "一邊看這些影片時，"
+        },
+        {
+          "id": 28,
+          "start": 88.38,
+          "end": 90.33,
+          "en": "you get a better understanding",
+          "zh": "你就能對所有這些關鍵概念"
+        },
+        {
+          "id": 29,
+          "start": 90.33,
+          "end": 93.15,
+          "en": "of all these crucial concepts.",
+          "zh": "有更好的理解。"
+        },
+        {
+          "id": 30,
+          "start": 93.15,
+          "end": 95.94,
+          "en": "Now, as always, for this section here,",
+          "zh": "現在，一如往常，為了這裡這個章節，"
+        },
+        {
+          "id": 31,
+          "start": 95.94,
+          "end": 98.22,
+          "en": "I prepared a starting project,",
+          "zh": "我準備了一個起始專案，"
+        },
+        {
+          "id": 32,
+          "start": 98.22,
+          "end": 101.00999999999999,
+          "en": "a local and a CodeSandbox version.",
+          "zh": "本機版本和 CodeSandbox 版本。"
+        },
+        {
+          "id": 33,
+          "start": 101.00999999999999,
+          "end": 102.57,
+          "en": "In the local version, as always,",
+          "zh": "在本機版本中，一如往常，"
+        },
+        {
+          "id": 34,
+          "start": 102.57,
+          "end": 105.42,
+          "en": "you need to run 'npm' install and 'npm' run dev.",
+          "zh": "你需要執行 npm install 和 npm run dev。"
+        },
+        {
+          "id": 35,
+          "start": 105.42,
+          "end": 108.27000000000001,
+          "en": "In the CodeSandbox version, you don't need to do that.",
+          "zh": "在 CodeSandbox 版本中，你不需要那麼做。"
+        },
+        {
+          "id": 36,
+          "start": 108.27000000000001,
+          "end": 111.57,
+          "en": "And once you got this project started up",
+          "zh": "而一旦你啟動了這個專案，"
+        },
+        {
+          "id": 37,
+          "start": 111.57,
+          "end": 113.91,
+          "en": "you should see a screen like this,",
+          "zh": "你應該會看到像這樣的畫面，"
+        },
+        {
+          "id": 38,
+          "start": 113.91,
+          "end": 117.63,
+          "en": "if you visit the running development server.",
+          "zh": "如果你造訪正在運行的開發伺服器。"
+        },
+        {
+          "id": 39,
+          "start": 117.63,
+          "end": 119.49000000000001,
+          "en": "So not a lot on it,",
+          "zh": "所以畫面上東西不多，"
+        },
+        {
+          "id": 40,
+          "start": 119.49000000000001,
+          "end": 122.37,
+          "en": "because that's what we're going to build together",
+          "zh": "因為那就是我們要在這個章節中"
+        },
+        {
+          "id": 41,
+          "start": 122.37,
+          "end": 123.9,
+          "en": "throughout this section.",
+          "zh": "一起建構的東西。"
+        },
+        {
+          "id": 42,
+          "start": 123.9,
+          "end": 125.97,
+          "en": "Because as mentioned we're going to",
+          "zh": "因為如我提到的，我們要"
+        },
+        {
+          "id": 43,
+          "start": 125.97,
+          "end": 128.7,
+          "en": "build this project from scratch.",
+          "zh": "從零開始建構這個專案。"
+        },
+        {
+          "id": 44,
+          "start": 128.7,
+          "end": 132.15,
+          "en": "And we're therefore going to use effects again,",
+          "zh": "因此我們會再次使用 effects，"
+        },
+        {
+          "id": 45,
+          "start": 132.15,
+          "end": 135.03,
+          "en": "because we'll need them for this project.",
+          "zh": "因為這個專案會需要它們。"
+        },
+        {
+          "id": 46,
+          "start": 135.03,
+          "end": 139.713,
+          "en": "But we'll also revisit Components and all those things.",
+          "zh": "但我們也會再次檢視元件和所有那些東西。"
+        }
+      ]
     }
   ],
   "errors": []
