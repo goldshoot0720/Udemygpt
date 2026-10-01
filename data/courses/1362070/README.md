@@ -13,4 +13,4 @@
 
 ## 翻譯進度
 
-678 堂影片中已完成 **500 堂**（累計至第 500 堂，已提交 `b3d5558`）；**剩餘 178 堂（第 501-678 堂）尚未翻譯**，逐堂流程目前暫停，待恢復後再續。進度以 [translation-progress.json](translation-progress.json) 為準。
+678 堂影片中已完成 **525 堂**（累計至第 525 堂，每 25 堂自動提交）；**剩餘 153 堂（第 526-678 堂）**，逐堂翻譯持續進行。進度以 [translation-progress.json](translation-progress.json) 為準。
