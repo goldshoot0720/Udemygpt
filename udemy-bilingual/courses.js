@@ -11,7 +11,9 @@
     { slug: "css-the-complete-guide-incl-flexbox-grid-sass", title: "CSS - The Complete Guide" },
     { slug: "sveltejs-the-complete-guide", title: "Svelte.js - The Complete Guide" },
     { slug: "nativescript-angular-build-native-ios-android-web-apps", title: "NativeScript + Angular: Build Native iOS, Android & Web Apps" },
-    { slug: "remix-course", title: "Remix.js - The Practical Guide" }
+    { slug: "remix-course", title: "Remix.js - The Practical Guide" },
+    { slug: "the-complete-guide-to-angular-2", title: "Angular - The Complete Guide" },
+    { slug: "nextjs-react-the-complete-guide", title: "Next.js & React - The Complete Guide" }
   ].map(course => Object.freeze({ ...course, instructor: "Maximilian Schwarzmüller" })));
   const ids = new Map();
   function forUrl(value) {

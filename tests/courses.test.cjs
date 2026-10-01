@@ -5,7 +5,7 @@ const courses = require('../udemy-bilingual/courses.js');
 const manifest = require('../udemy-bilingual/manifest.json');
 
 async function main() {
-  assert.equal(courses.courses.length, 10);
+  assert.equal(courses.courses.length, 12);
   assert.deepEqual(manifest.content_scripts[0].matches,
     courses.courses.map(c => `https://www.udemy.com/course/${c.slug}/learn/*`));
   assert.ok(manifest.background.scripts.indexOf('courses.js') < manifest.background.scripts.indexOf('background.js'));
@@ -57,6 +57,6 @@ async function main() {
     await assert.rejects(listener({ type: 'caption-file', url: 'https://evil.test/test.vtt' }, sender), /字幕來源/);
   }
   await assert.rejects(listener({ type: 'page-zoom' }, { url: 'https://www.udemy.com/course/unknown/learn/', tab: { id: 1 } }), /不支援/);
-  console.log('PASS: 10 course routes, ID resolution/cache/retry, per-course storage keys, background authorization and caption hosts.');
+  console.log(`PASS: ${courses.courses.length} course routes, ID resolution/cache/retry, per-course storage keys, background authorization and caption hosts.`);
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });

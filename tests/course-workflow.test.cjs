@@ -103,5 +103,5 @@ async function workflow(course, index) {
 }
 (async () => {
   for (const [index, course] of courses.entries()) await workflow(course, index);
-  console.log('PASS: All 10 courses load English, export current/full course, reject cross-course imports, import/render translations; legacy React storage remains readable.');
+  console.log(`PASS: All ${courses.length} courses load English, export current/full course, reject cross-course imports, import/render translations; legacy React storage remains readable.`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
