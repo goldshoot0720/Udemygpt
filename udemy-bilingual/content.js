@@ -2,13 +2,15 @@
   "use strict";
   if (document.getElementById("udemy-bilingual-root")) return;
   const core = SubtitleCore;
+  let course = UdemyCourses.forUrl(location.href);
+  if (!course) return;
   const convertCharacters = OpenCC.Converter({ from: "cn", to: "tw" });
   const toTraditional = text => SubtitleCore.localizeTaiwan(convertCharacters(text));
   const defaults = { enabled: true, effect: "glow", size: 25, bottom: 10, offset: 0 };
   let prefs = { ...defaults }, video, player, root, shadow, chineseLine, englishLine, panel, status, toggle;
   let en = [], zh = [], key = "", loaded = false, generation = 0, controller, last = "", savedTimer;
   let pageZoom = 1, zoomChecked = 0, zoomPending = false;
-  const terms = /\b(React(?:\.js)?|JavaScript|TypeScript|JSX|Redux|Next\.js|Hooks?|useState|useEffect|useReducer|useRef|useContext|props|state|components?|DOM|API|HTTP|CSS|HTML|Vite)\b/gi;
+  const terms = /\b(Claude(?: Code)?|Codex|Flutter|Dart|Node(?:\.js|JS)?|React Native|NativeScript|Angular|Svelte(?:\.js)?|Remix(?:\.js)?|GraphQL|Express|MongoDB|Deno|Flexbox|Sass|React(?:\.js)?|JavaScript|TypeScript|JSX|Redux|Next\.js|Hooks?|useState|useEffect|useReducer|useRef|useContext|props|state|components?|DOM|API|HTTP|CSS|HTML|Vite)\b/gi;
   const css = `
     :host { all: initial; position: absolute; inset: 0; z-index: 30; pointer-events: none; font-family: -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif; color: white; }
     * { box-sizing: border-box; }
@@ -140,13 +142,16 @@
     apply();
   }
   async function load(lecture) {
+    const activeCourse = course;
     const revision = ++generation;
     controller?.abort(); controller = new AbortController();
     const signal = controller.signal;
     en = []; zh = []; loaded = false; last = ""; apply();
     status.textContent = "正在讀取課程字幕…";
     try {
-      const url = new URL(`/api-2.0/users/me/subscribed-courses/1362070/lectures/${lecture}/`, location.origin);
+      const courseId = await UdemyCourses.idFor(activeCourse);
+      if (revision !== generation) return;
+      const url = new URL(`/api-2.0/users/me/subscribed-courses/${courseId}/lectures/${lecture}/`, location.origin);
       url.searchParams.set("fields[lecture]", "asset");
       url.searchParams.set("fields[asset]", "captions");
       const response = await fetch(url, { credentials: "include", signal, headers: { Accept: "application/json" } });
@@ -160,9 +165,12 @@
       en = core.parse(englishVtt);
       if (!en.length) throw new Error("英文字幕格式無法解析");
       const hash = await sourceHash(en);
-      const stored = await browser.storage.local.get(`translation:${lecture}`);
+      const storageKey = UdemyCourses.translationKey(courseId, lecture);
+      // Existing React translations used only the lecture ID.
+      const legacyKey = `translation:${lecture}`;
+      const stored = await browser.storage.local.get(courseId === 1362070 ? [storageKey, legacyKey] : storageKey);
       if (revision !== generation) return;
-      const translation = stored[`translation:${lecture}`];
+      const translation = stored[storageKey] || (courseId === 1362070 ? stored[legacyKey] : null);
       if (translation?.sourceHash === hash && translation.cues?.length === en.length) {
         zh = en.map((cue,i) => ({ ...cue, text: translation.cues[i].zh }));
       }
@@ -192,21 +200,26 @@
   }
   async function exportCurrent() {
     if (!en.length) { status.textContent = "請先等待英文字幕讀取完成"; return; }
-    const lecture = key;
-    downloadJSON({version:1,courseId:1362070,sourceLanguage:"en",targetLanguage:"zh-TW",lectures:[{
-      id:lecture,title:document.querySelector('[data-purpose="lecture-title"]')?.textContent || document.title,
-      sourceHash:await sourceHash(en),cues:en.map(({start,end,text},i)=>({id:i+1,start,end,en:text,zh:""}))
-    }]},`Udemy-English-${lecture}.json`);
-    status.textContent = `已匯出 ${en.length} 段英文；請交給 ChatGPT 翻譯`;
+    const lecture = key, cues = en, activeCourse = course;
+    const title = document.querySelector('[data-purpose="lecture-title"]')?.textContent || document.title;
+    try {
+      const courseId = await UdemyCourses.idFor(activeCourse);
+      downloadJSON({version:1,courseId,sourceLanguage:"en",targetLanguage:"zh-TW",lectures:[{
+        id:lecture,title,sourceHash:await sourceHash(cues),
+        cues:cues.map(({start,end,text},i)=>({id:i+1,start,end,en:text,zh:""}))
+      }]},`Udemy-English-${courseId}-${lecture}.json`);
+      status.textContent = `已匯出 ${cues.length} 段英文；請交給 ChatGPT 翻譯`;
+    } catch (error) { status.textContent = error.message; }
   }
   let collecting = false;
   async function exportCourse() {
     if (collecting) return;
     collecting = true;
     const button = shadow.querySelector(".export-course"); button.disabled = true;
-    const lectures = [], errors = [];
+    const lectures = [], errors = [], activeCourse = course;
     try {
-      let next = new URL('/api-2.0/courses/1362070/subscriber-curriculum-items/',location.origin);
+      const courseId = await UdemyCourses.idFor(activeCourse);
+      let next = new URL(`/api-2.0/courses/${courseId}/subscriber-curriculum-items/`,location.origin);
       next.searchParams.set('page_size','200');
       next.searchParams.set('fields[lecture]','id,title,asset');
       next.searchParams.set('fields[asset]','asset_type,captions');
@@ -225,7 +238,7 @@
         try {
           let captions = item.asset?.captions;
           if (!captions?.length) {
-            const response = await fetch(`/api-2.0/users/me/subscribed-courses/1362070/lectures/${item.id}/?fields[lecture]=asset&fields[asset]=captions`,{credentials:"include"});
+            const response = await fetch(`/api-2.0/users/me/subscribed-courses/${courseId}/lectures/${item.id}/?fields[lecture]=asset&fields[asset]=captions`,{credentials:"include"});
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             captions = (await response.json()).asset?.captions;
           }
@@ -237,16 +250,18 @@
         } catch(error) { errors.push({id:item.id,title:item.title,error:error.message}); }
         await new Promise(resolve => setTimeout(resolve,300));
       }
-      downloadJSON({version:1,courseId:1362070,sourceLanguage:"en",targetLanguage:"zh-TW",lectures,errors},'Udemy-English-course-1362070.json');
+      downloadJSON({version:1,courseId,sourceLanguage:"en",targetLanguage:"zh-TW",lectures,errors},`Udemy-English-course-${courseId}.json`);
       status.textContent = `英文匯出完成：${lectures.length} 堂；${errors.length} 堂缺少字幕或讀取失敗`;
     } catch(error) { status.textContent = error.message; }
     finally { collecting = false; button.disabled = false; }
   }
   async function importTranslation(event) {
+    const activeCourse = course;
     try {
       const file = event.target.files[0]; if (!file) return;
       const value = JSON.parse(await file.text());
-      if (value.courseId !== 1362070 || value.sourceLanguage !== "en" || value.targetLanguage !== "zh-TW") throw new Error("譯文必須來自本課英文字幕，目標語言為 zh-TW");
+      const courseId = await UdemyCourses.idFor(activeCourse);
+      if (value.courseId !== courseId || value.sourceLanguage !== "en" || value.targetLanguage !== "zh-TW") throw new Error("譯文必須來自本課英文字幕，目標語言為 zh-TW");
       const updates = {};
       if (!Array.isArray(value.lectures) || !value.lectures.length) throw new Error("譯文沒有講座資料");
       for (const lecture of value.lectures) {
@@ -256,14 +271,26 @@
         }
         const hash = await sourceHash(lecture.cues.map(c=>({start:c.start,end:c.end,text:c.en})));
         if (hash !== lecture.sourceHash) throw new Error(`${lecture.title || lecture.id} 的英文或時間軸已變動`);
-        updates[`translation:${lecture.id}`] = {sourceHash:hash,translatedBy:"ChatGPT",cues:lecture.cues.map(c=>({zh:toTraditional(c.zh)})),importedAt:new Date().toISOString()};
+        updates[UdemyCourses.translationKey(courseId, lecture.id)] = {sourceHash:hash,translatedBy:"ChatGPT",cues:lecture.cues.map(c=>({zh:toTraditional(c.zh)})),importedAt:new Date().toISOString()};
       }
       await browser.storage.local.set(updates);
-      key = ""; check();
+      if (course === activeCourse) { key = ""; check(); }
     } catch(error) { status.textContent = `匯入失敗：${error.message}`; }
     finally { event.target.value = ""; }
   }
   function check() {
+    const activeCourse = UdemyCourses.forUrl(location.href);
+    if (activeCourse !== course) {
+      course = activeCourse; key = ""; ++generation; controller?.abort();
+      en = []; zh = []; loaded = false; last = "";
+      if (root) apply();
+    }
+    if (!course) {
+      if (root) root.hidden = true;
+      player?.classList.remove("udemy-bilingual-active");
+      return;
+    }
+    if (root) root.hidden = false;
     if (!zoomPending && Date.now() - zoomChecked > 2000) {
       zoomPending = true; zoomChecked = Date.now();
       browser.runtime.sendMessage({type:"page-zoom"}).then(value => {

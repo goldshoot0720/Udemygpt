@@ -1,8 +1,25 @@
 # Udemy 中英雙語特效字幕
 
-這門 React 課程的字幕流程：**英文原字幕 → ChatGPT 線上逐段翻譯 → 台灣繁體術語檢查 → 依英文時間軸顯示**。
+支援課程的字幕流程：**英文原字幕 → ChatGPT 線上逐段翻譯 → 台灣繁體術語檢查 → 依英文時間軸顯示**。
 
 版本 2.0 不再下載或使用 Udemy 中文字幕，也不使用本機翻譯模型。尚未完成英文預譯的講座只顯示英文，左上角會標示「中文待翻譯」。
+
+## 支援課程（2.1）
+
+- [React - The Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/)
+- [Claude Code - The Practical Guide](https://www.udemy.com/course/claude-code-the-practical-guide/)
+- [Codex - The Practical Guide](https://www.udemy.com/course/codex-the-practical-guide/)
+- [Flutter & Dart - The Complete Guide](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/)
+- [NodeJS - The Complete Guide](https://www.udemy.com/course/nodejs-the-complete-guide/)
+- [React Native - The Practical Guide](https://www.udemy.com/course/react-native-the-practical-guide/)
+- [CSS - The Complete Guide](https://www.udemy.com/course/css-the-complete-guide-incl-flexbox-grid-sass/)
+- [Svelte.js - The Complete Guide](https://www.udemy.com/course/sveltejs-the-complete-guide/)
+- [NativeScript + Angular](https://www.udemy.com/course/nativescript-angular-build-native-ios-android-web-apps/)
+- [Remix.js - The Practical Guide](https://www.udemy.com/course/remix-course/)
+
+在上述課程的 `learn/` 播放器頁面啟用。課程 ID 自動從 Udemy 取得；本堂及全課英文匯出、譯文匯入均使用目前課程 ID，譯文依課程分開儲存，並相容既有 React 譯文。新增支援不代表字幕已翻譯；新課程需先匯出英文，再交給 ChatGPT 翻譯與匯入。
+
+更新後在 `about:debugging#/runtime/this-firefox` 重新載入此附加元件，再重新整理課程播放器頁面。
 
 ## 播放與縮放
 
@@ -33,11 +50,14 @@ Firefox 完全關閉後暫用附加元件會移除；長期安裝需要 Mozilla 
 ## 主要檔案
 
 - `udemy-bilingual/`：Firefox 擴充功能原始碼。
+- `udemy-bilingual/courses.js`：支援課程清單、課程 ID 辨識與譯文儲存鍵。
 - `data/`：英文素材與已驗證譯文。
 - `ChatGPT-翻譯指令.md`：逐段翻譯及台灣術語要求。
 - `tests/subtitle-core.test.cjs`：字幕時間邊界、重疊、倒退跳轉、語言選取及台灣術語驗證。
 
 ## 逐堂處理進度
+
+以下進度與 `translation_queue.py` 目前專用於原有 React 課程；新增課程可使用播放器的英文匯出與譯文匯入，尚未建立逐堂翻譯進度。
 
 已核對完整清單：727 堂講座包含 678 堂影片與 49 堂文字教材；文字教材沒有影片字幕。678 堂的 80,645 段原始英文字幕均已取得，逐堂交給 ChatGPT 線上翻譯。
 

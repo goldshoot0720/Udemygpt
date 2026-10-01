@@ -8,7 +8,10 @@
     { slug: "learn-flutter-dart-to-build-ios-android-apps", title: "Flutter & Dart - The Complete Guide" },
     { slug: "nodejs-the-complete-guide", title: "NodeJS - The Complete Guide" },
     { slug: "react-native-the-practical-guide", title: "React Native - The Practical Guide" },
-    { slug: "css-the-complete-guide-incl-flexbox-grid-sass", title: "CSS - The Complete Guide" }
+    { slug: "css-the-complete-guide-incl-flexbox-grid-sass", title: "CSS - The Complete Guide" },
+    { slug: "sveltejs-the-complete-guide", title: "Svelte.js - The Complete Guide" },
+    { slug: "nativescript-angular-build-native-ios-android-web-apps", title: "NativeScript + Angular: Build Native iOS, Android & Web Apps" },
+    { slug: "remix-course", title: "Remix.js - The Practical Guide" }
   ].map(Object.freeze));
   const ids = new Map();
   function forUrl(value) {
