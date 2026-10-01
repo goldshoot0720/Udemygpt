@@ -1,0 +1,1315 @@
+{
+  "version": 1,
+  "courseId": 3873464,
+  "courseSlug": "nextjs-react-the-complete-guide",
+  "courseTitle": "Next.js & React - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "25218882",
+      "title": "Getting Meetup Detail Data & Paths",
+      "lectureOrder": 445,
+      "videoOrder": 412,
+      "sourceHash": "f1036c231aa1695d8e6542d7cfdfa25ad1492b4b8bbf504028b4b2ef60cb386f",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.04,
+          "end": 4.68,
+          "en": "So now we also execute server-side code",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.68,
+          "end": 8.27,
+          "en": "in getStaticProps and I can't emphasize enough",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.27,
+          "end": 10.6,
+          "en": "that this is a standard way of doing it.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.6,
+          "end": 13.23,
+          "en": "This code will not end up in the client-side bundle.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 13.23,
+          "end": 15.56,
+          "en": "Your credentials will not be exposed,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.56,
+          "end": 17.87,
+          "en": "the bundle will not be bloated.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 17.87,
+          "end": 21.623,
+          "en": "This code will execute when this page is pre-generated.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 22.89,
+          "end": 26.2,
+          "en": "Now, for the MeetupDetail page,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 26.2,
+          "end": 29.97,
+          "en": "we also want to fetch data from the database now",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 29.97,
+          "end": 33.12,
+          "en": "for a specific meetup that was selected",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 33.12,
+          "end": 37.7,
+          "en": "but also for determining which paths should be generated.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 37.7,
+          "end": 40.54,
+          "en": "So which meetup IDs should be supported",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 40.54,
+          "end": 41.627,
+          "en": "because after all,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 41.627,
+          "end": 44.94,
+          "en": "we do only have a limited list of meetups",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 44.94,
+          "end": 47.14,
+          "en": "with specific IDs here.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 47.14,
+          "end": 49.56,
+          "en": "So we wanna pre-generate all the paths",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 49.56,
+          "end": 51.803,
+          "en": "for all those IDs which we have here.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 52.66,
+          "end": 54.28,
+          "en": "And therefore, we will again need",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 54.28,
+          "end": 56.68,
+          "en": "to connect to MongoDB.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 56.68,
+          "end": 58.69,
+          "en": "So for this, from index.js,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 58.69,
+          "end": 61.41,
+          "en": "I will again copy this connection code",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 61.41,
+          "end": 63.61,
+          "en": "and again, you could refactor therefore",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 63.61,
+          "end": 66.523,
+          "en": "if you wanted to avoid duplication.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 67.37,
+          "end": 71.32,
+          "en": "And I will import MongoClient here",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 71.32,
+          "end": 75.56,
+          "en": "from mongodb like this",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 75.56,
+          "end": 79.52,
+          "en": "in the meetupId index.js file",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 79.52,
+          "end": 82.15299999999999,
+          "en": "and then here we can start with getStaticPaths.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 83.44,
+          "end": 86.53,
+          "en": "In there, I wanna connect to my database",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 86.53,
+          "end": 88.48,
+          "en": "and get access to the meetupsCollection",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 89.4,
+          "end": 93.67,
+          "en": "and then now here I wanna get all the meetup data.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 93.67,
+          "end": 96.15,
+          "en": "So for this, I get my meetups",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 96.15,
+          "end": 101.08,
+          "en": "by again awaiting meetupsCollection.find.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 101.08,
+          "end": 103.78999999999999,
+          "en": "Find gives me access to all the meetups.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 104.71000000000001,
+          "end": 108.12,
+          "en": "Now, actually here I'm only interested in the IDs",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 108.12,
+          "end": 110.28999999999999,
+          "en": "and therefore we can tweak find",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 110.28999999999999,
+          "end": 113.34,
+          "en": "and pass an empty object as a first argument.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 113.34,
+          "end": 116.35,
+          "en": "Here we could define our filter criteria",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 116.35,
+          "end": 119.02000000000001,
+          "en": "if we wanna not find all documents",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 119.02000000000001,
+          "end": 122.21,
+          "en": "but filter for certain field values.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 122.21,
+          "end": 123.96,
+          "en": "But I do wanna find all here.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 123.96,
+          "end": 126.04,
+          "en": "Hence we use a empty object,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 126.04,
+          "end": 128.75,
+          "en": "which means give me all the objects.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 128.75,
+          "end": 131.04,
+          "en": "I have no filter criteria",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 131.9,
+          "end": 134.37,
+          "en": "but then we can pass a second argument",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 134.37,
+          "end": 138.01,
+          "en": "where we can define which fields should be extracted",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 138.01,
+          "end": 139.79,
+          "en": "for every document.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 139.79,
+          "end": 143.03,
+          "en": "And by default, all the fields will be returned.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 143.03,
+          "end": 146.483,
+          "en": "So all the field values, title, image and so on",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 146.483,
+          "end": 148.931,
+          "en": "but if we're only interested in the ID,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 148.931,
+          "end": 152.88,
+          "en": "we can also add _id here",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 152.88,
+          "end": 154.56,
+          "en": "and set this to one,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 154.56,
+          "end": 157.32999999999998,
+          "en": "which means only include the ID",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 157.32999999999998,
+          "end": 160.07999999999998,
+          "en": "but no other field values.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 160.07999999999998,
+          "end": 162.53,
+          "en": "And with that, we're only fetching the IDs.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 162.53,
+          "end": 164.53,
+          "en": "So we fetch the document objects",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 164.53,
+          "end": 168.463,
+          "en": "but they each will only contain the ID, nothing else.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 169.6,
+          "end": 171.68,
+          "en": "Now again, we should call toArray here",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 171.68,
+          "end": 175.44,
+          "en": "to convert this to a JavaScript array of objects.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 175.44,
+          "end": 177.57,
+          "en": "And now we got our meetups here",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 177.57,
+          "end": 180.393,
+          "en": "and now we can generate the paths dynamically.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 181.26,
+          "end": 183.55,
+          "en": "Instead of hard coding this array,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 183.55,
+          "end": 185.76,
+          "en": "we can use meetups here",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 185.76,
+          "end": 188.69,
+          "en": "and then map every meetup item,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 188.69,
+          "end": 191.15,
+          "en": "which is a document with an id",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 191.15,
+          "end": 196.15,
+          "en": "into an object, because paths should be an array of objects,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 197.1,
+          "end": 200.03,
+          "en": "where every object has this params key",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 200.03,
+          "end": 202.12,
+          "en": "just as we have it down there.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 202.12,
+          "end": 204.56,
+          "en": "And then we have a nested object in there",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 204.56,
+          "end": 207.82999999999998,
+          "en": "where we define our meetupId values.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 207.82999999999998,
+          "end": 212.09300000000002,
+          "en": "And the values for meetupId should now be our IDs here.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 213.49,
+          "end": 216.28,
+          "en": "So here we can then access meetup,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 216.28,
+          "end": 220.485,
+          "en": "so this parameter, which map gives us automatically,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 220.485,
+          "end": 222.56799999999998,
+          "en": "._id.toString, like that.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 227.6,
+          "end": 229.823,
+          "en": "And now get rid of this array here.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 231.2,
+          "end": 236.09,
+          "en": "With that, we're generating our array of paths dynamically.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 236.09,
+          "end": 239.09,
+          "en": "And as a result, if I now save this,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 239.09,
+          "end": 240.63,
+          "en": "if we reload the starting page,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 240.63,
+          "end": 242.23,
+          "en": "if we click on Show Details,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 242.23,
+          "end": 245.65,
+          "en": "we're taken to the page for this specific object,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 245.65,
+          "end": 247.57,
+          "en": "for this specific meetup.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 247.57,
+          "end": 249.87,
+          "en": "And you'll see this cryptic ID here,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 249.87,
+          "end": 254.87,
+          "en": "which is this autogenerated ID MongoDB generated for us.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 255.67,
+          "end": 257.51,
+          "en": "So that's working.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 257.51,
+          "end": 261.15,
+          "en": "But we're not yet fetching the data dynamically here.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 261.15,
+          "end": 263.38,
+          "en": "I wanna do that as well.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 263.38,
+          "end": 264.42,
+          "en": "For this, first of all,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 264.42,
+          "end": 267.02,
+          "en": "I'll close the connection here.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 267.02,
+          "end": 270.2,
+          "en": "It isn't a bad idea to do that once we're done",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 270.2,
+          "end": 272.25,
+          "en": "and then I'll copy this code",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 272.25,
+          "end": 275.007,
+          "en": "from getStaticPaths and add it here",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 276.53,
+          "end": 279.793,
+          "en": "after we got the meetupId instead of logging the ID.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 280.75,
+          "end": 283.73,
+          "en": "I'll again connect and get access to the collection.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 283.73,
+          "end": 285.83,
+          "en": "Again, we could outsource this into a function",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 285.83,
+          "end": 287.69,
+          "en": "if we wanted to.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 287.69,
+          "end": 290.40999999999997,
+          "en": "And then here, I want to get access to a single meetup,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 290.40999999999997,
+          "end": 294.01,
+          "en": "not to all the meetups, just a single meetup.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 294.01,
+          "end": 296.73,
+          "en": "So I want to get access to my selectedMeetup here",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 296.73,
+          "end": 299.76,
+          "en": "and we do this by using the meetupsCollection",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 299.76,
+          "end": 302.543,
+          "en": "and then using the the findOne method.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 303.795,
+          "end": 307.53,
+          "en": "findOne finds one single document.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 307.53,
+          "end": 310.65,
+          "en": "And to findOne, we need to pass an object",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 310.65,
+          "end": 313.01,
+          "en": "where we define how to filter,",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 313.01,
+          "end": 316.08,
+          "en": "how to search for that document.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 316.08,
+          "end": 319.94,
+          "en": "On this object, you can pass your field names,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 319.94,
+          "end": 323.94,
+          "en": "like title, image, address or description as keys",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 323.94,
+          "end": 327.4,
+          "en": "and then the values for which you wanna search as values.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 327.4,
+          "end": 331.16,
+          "en": "So we could pass title: A First Meetup as a key-value pair",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 331.16,
+          "end": 333.73,
+          "en": "into this object here",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 333.73,
+          "end": 338.363,
+          "en": "to find this first meetup where the title is A First Meetup.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 339.26,
+          "end": 341.27,
+          "en": "Now, here we don't wanna search by title",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 341.27,
+          "end": 342.99,
+          "en": "but instead by ID.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 342.99,
+          "end": 345.39,
+          "en": "So I wanna make sure that _id,",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 345.39,
+          "end": 349.31,
+          "en": "the automatically added and generated ID field,",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 349.31,
+          "end": 354.21,
+          "en": "has a value of meetupId, so this meetupId,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 354.21,
+          "end": 356.793,
+          "en": "which we extract from the params up there.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 357.82,
+          "end": 360.54,
+          "en": "This then finds us this single meetup.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 360.54,
+          "end": 363.77,
+          "en": "This returns a promise because it's an asynchronous task",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 363.77,
+          "end": 365.87,
+          "en": "and hence we should await this",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 365.87,
+          "end": 369.6,
+          "en": "and make sure that we added async in front of the function.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 369.6,
+          "end": 372.81,
+          "en": "Oops, and with that we got the selectedMeetup eventually.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 374.165,
+          "end": 376.01800000000003,
+          "en": "And now it's the selectedMeetup,",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 376.01800000000003,
+          "end": 379.76800000000003,
+          "en": "which I return here as meetupData, like this.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 382.89,
+          "end": 385.44,
+          "en": "And then if we do that and save everything,",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 385.44,
+          "end": 388.23,
+          "en": "if I reload this meetup here,",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 388.23,
+          "end": 389.78,
+          "en": "it should load successfully",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 389.78,
+          "end": 391.95,
+          "en": "and it should display all the data.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 391.95,
+          "end": 394.77,
+          "en": "Now, at the moment, the data I'm showing here, however,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 394.77,
+          "end": 397.65999999999997,
+          "en": "is still hard coded in the JSX code",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 397.65999999999997,
+          "end": 400.69,
+          "en": "and now it's finally time to use our props data here.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 400.69,
+          "end": 404.92,
+          "en": "So the actual fetch data in the JSX code as well.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 404.92,
+          "end": 407.22,
+          "en": "For this, we're exposing the meetupData prop",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 407.22,
+          "end": 410.47,
+          "en": "to the component and hence, here we should accept props",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 410.47,
+          "end": 412.707,
+          "en": "and use that data here.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 412.707,
+          "end": 417.35,
+          "en": "So that for image, I'm passing in props.image",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 418.97,
+          "end": 423.97,
+          "en": "and for the title, we pass in props.title and so on.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 424.39,
+          "end": 425.66,
+          "en": "Same for the address.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 425.66,
+          "end": 428.57,
+          "en": "That's props.address.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 428.57,
+          "end": 431.633,
+          "en": "And for description, it's props.description.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 433.23,
+          "end": 436.723,
+          "en": "And actually not props dot but props.meetupData dot",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 439.99,
+          "end": 442.75,
+          "en": "because we have that meetupData prop,",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 442.75,
+          "end": 446.83,
+          "en": "this prop which holds the meetup item, the meetup object.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 446.83,
+          "end": 450.16,
+          "en": "So we need to drill into that meetupData object first",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 450.16,
+          "end": 454.58,
+          "en": "before we can access image, title, address and description.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 454.58,
+          "end": 456.04,
+          "en": "Now, once we did all of that,",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 456.04,
+          "end": 458.32,
+          "en": "there's one other thing we need to do though,",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 458.32,
+          "end": 459.86,
+          "en": "which I just noticed.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 459.86,
+          "end": 462.58,
+          "en": "Here for findOne, I'm looking for an id,",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 462.58,
+          "end": 464.89,
+          "en": "which is equal to the id I'm getting out",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 464.89,
+          "end": 468.67,
+          "en": "of my URL but that, of course, will be a string.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 468.67,
+          "end": 471.15999999999997,
+          "en": "Keep in mind that in MongoDB actually,",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 471.15999999999997,
+          "end": 475.40999999999997,
+          "en": "our IDs are these strange object ID things.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 475.40999999999997,
+          "end": 479.43,
+          "en": "To ensure that we can correctly look for a specific ID,",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 479.43,
+          "end": 481.01,
+          "en": "we need to convert it from string",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 481.01,
+          "end": 483.371,
+          "en": "to such a object ID thing",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 483.371,
+          "end": 485.39,
+          "en": "and for this, from MongoDB,",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 485.39,
+          "end": 489.16,
+          "en": "you should import ObjectId like this",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 489.16,
+          "end": 492.18,
+          "en": "with a lowercase D at the end.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 492.18,
+          "end": 494.68,
+          "en": "And wrap your string with that.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 494.68,
+          "end": 499.14,
+          "en": "So down here, wrap ObjectId around meetupId",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 499.14,
+          "end": 501.02,
+          "en": "and this will convert this string",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 501.02,
+          "end": 503.84,
+          "en": "into such a ObjectId object.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 503.84,
+          "end": 505.334,
+          "en": "And once that is done,",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 505.334,
+          "end": 508.02,
+          "en": "we also wanna go to selectedMeetup",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 508.02,
+          "end": 511.94,
+          "en": "and make sure that there we convert this id,",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 511.94,
+          "end": 515.23,
+          "en": "this _id field back to a string",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 515.23,
+          "end": 518.45,
+          "en": "because otherwise, we'll get that serialization error",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 518.45,
+          "end": 519.673,
+          "en": "we saw before.",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 520.54,
+          "end": 524.03,
+          "en": "So for this, I'll set meetupData actually to an object",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 524.03,
+          "end": 526.36,
+          "en": "where I do add an id field,",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 526.36,
+          "end": 528.61,
+          "en": "which is equal to selectedMeetup._id.toString",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 532.08,
+          "end": 533.98,
+          "en": "and where I then add all the other data,",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 533.98,
+          "end": 536.5,
+          "en": "like selectedMeetup.title,",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 536.5,
+          "end": 540.7,
+          "en": "then the address, which is selectedMeetup.address.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 540.7,
+          "end": 544.25,
+          "en": "Then the image, which is selectedMeetup.image",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 544.25,
+          "end": 546.53,
+          "en": "and then also last but not least,",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 546.53,
+          "end": 549.463,
+          "en": "the description, which is selectedMeetup.description.",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 552.491,
+          "end": 555.25,
+          "en": "And with all that done, if we now save this,",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 555.25,
+          "end": 557.42,
+          "en": "if you reload a single meetup page,",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 557.42,
+          "end": 560.95,
+          "en": "you see the data for that single meetup.",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 560.95,
+          "end": 564.16,
+          "en": "And that works for all the meetups now.",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 564.16,
+          "end": 566.98,
+          "en": "And now these meetup detail pages",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 566.98,
+          "end": 570.71,
+          "en": "are pre-rendered on the server dynamically",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 570.71,
+          "end": 573.67,
+          "en": "with our code being active",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 573.67,
+          "end": 577.63,
+          "en": "and with our code establishing that database connection",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 577.63,
+          "end": 579.713,
+          "en": "and fetching the data from there.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

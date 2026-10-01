@@ -1,0 +1,846 @@
+{
+  "version": 1,
+  "courseId": 3873464,
+  "courseSlug": "nextjs-react-the-complete-guide",
+  "courseTitle": "Next.js & React - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "41159732",
+      "title": "Using Suspense & Streamed Responses For Granular Loading State Management",
+      "lectureOrder": 110,
+      "videoOrder": 103,
+      "sourceHash": "3f55990911f8bd19bf9b24002b49ec23f06abc7741554aca2b7f3811930bbbc5",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.84,
+          "end": 2.94,
+          "en": "Still, it's not perfect yet,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 2.94,
+          "end": 5.67,
+          "en": "because of course, whilst it works,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.67,
+          "end": 9.84,
+          "en": "the loading text basically occupies the entire screen.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.84,
+          "end": 13.11,
+          "en": "But if we take a closer look at this meals page,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 13.11,
+          "end": 15.24,
+          "en": "we actually have that header here,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.24,
+          "end": 19.11,
+          "en": "which does not depend on any loaded data at all.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 19.11,
+          "end": 22.86,
+          "en": "So it would be great if we could show that header instantly",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 22.86,
+          "end": 25.86,
+          "en": "and only show that loading text whilst we're waiting",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 25.86,
+          "end": 27.96,
+          "en": "for the meals to be fetched.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 27.96,
+          "end": 30.51,
+          "en": "And that is also something we can implement",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 30.51,
+          "end": 32.103,
+          "en": "with help of NextJS.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 33.24,
+          "end": 35.7,
+          "en": "Now, one way of implementing it would be",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 35.7,
+          "end": 39.057,
+          "en": "to copy this header code here",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 39.057,
+          "end": 43.5,
+          "en": "and also all the styles in the related CSS file,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 43.5,
+          "end": 45.963,
+          "en": "and add that to the loading.js file.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 47.16,
+          "end": 50.37,
+          "en": "That would work, but it would not be ideal.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 50.37,
+          "end": 53.46,
+          "en": "In addition, this loading.js file will also be used",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 53.46,
+          "end": 55.38,
+          "en": "for any nested layouts and pages,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 55.38,
+          "end": 57.12,
+          "en": "and there we might not want",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 57.12,
+          "end": 59.403,
+          "en": "that header whilst waiting for data.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 61.11,
+          "end": 62.94,
+          "en": "So a better solution",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 62.94,
+          "end": 65.853,
+          "en": "is to not use this loading.js file here,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 66.69,
+          "end": 70.71000000000001,
+          "en": "and hence, I'll name it loading-out",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 70.71000000000001,
+          "end": 73.53,
+          "en": "so that it does not have any special purpose anymore,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 73.53,
+          "end": 76.8,
+          "en": "because that's now not a file name NextJS will be looking",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 76.8,
+          "end": 80.03999999999999,
+          "en": "for, and I renamed it instead of deleting it",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 80.03999999999999,
+          "end": 81.72,
+          "en": "so that we can still see it",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 81.72,
+          "end": 84.33,
+          "en": "and you still have that as an alternative.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 84.33,
+          "end": 85.71000000000001,
+          "en": "And I just noticed",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 85.71000000000001,
+          "end": 87.99,
+          "en": "that I actually added the loading files",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 87.99,
+          "end": 90.06,
+          "en": "in my Root app directory.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 90.06,
+          "end": 92.4,
+          "en": "Now, it still worked because as I mentioned,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 92.4,
+          "end": 95.72999999999999,
+          "en": "it will be applied to any nested pages and layouts as well.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 95.72999999999999,
+          "end": 97.62,
+          "en": "So it worked for that meals page,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 97.62,
+          "end": 100.59,
+          "en": "but I actually wanted those files in the meals folder,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 100.59,
+          "end": 102.42,
+          "en": "so I will now move them there,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 102.42,
+          "end": 104.46000000000001,
+          "en": "even though I have now renamed it,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 104.46000000000001,
+          "end": 106.32,
+          "en": "and we're not using it anymore.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 106.32,
+          "end": 109.2,
+          "en": "But that would've been the place where I wanted it,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 109.2,
+          "end": 110.61,
+          "en": "even though it worked either way,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 110.61,
+          "end": 114.06,
+          "en": "because it does apply to nested pages.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 114.06,
+          "end": 118.14,
+          "en": "But now we're going to go to that meals page.js file here,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 118.14,
+          "end": 120.93,
+          "en": "because NextJS also gives us another way",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 120.93,
+          "end": 125.61,
+          "en": "of handling loading states, a more granular way.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 125.61,
+          "end": 127.89,
+          "en": "Because we can simply go to the place",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 127.89,
+          "end": 131.43,
+          "en": "where we have some operation that may take a bit longer,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 131.43,
+          "end": 133.704,
+          "en": "like here loading that data,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 133.704,
+          "end": 137.73,
+          "en": "and we can then create a separate component, here,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 137.73,
+          "end": 140.97,
+          "en": "I'll do it in the same file since it'll be a component",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 140.97,
+          "end": 143.97,
+          "en": "that's closely connected to this meals page,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 143.97,
+          "end": 146.688,
+          "en": "and I'll name this component Meals.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 146.688,
+          "end": 149.28,
+          "en": "And the idea behind this component",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 149.28,
+          "end": 153.24,
+          "en": "is that it's now this component that will fetch the data.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 153.24,
+          "end": 156.959,
+          "en": "So this code here goes into this component,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 156.959,
+          "end": 160.86,
+          "en": "and hence this must be an async component, which it can be",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 160.86,
+          "end": 163.413,
+          "en": "because it's a server component by default.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 164.264,
+          "end": 167.64,
+          "en": "Now, async can be removed here on the meals page",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 167.64,
+          "end": 170.253,
+          "en": "because I'm not using a weight in there anymore.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 171.57,
+          "end": 175.26,
+          "en": "But now my idea is that meals is responsible",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 175.26,
+          "end": 178.05,
+          "en": "for returning this meals grit.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 178.05,
+          "end": 180.84,
+          "en": "So I'll cut that from the meals page component",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 180.84,
+          "end": 184.113,
+          "en": "and instead return it here where I'm fetching the meals.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 185.13,
+          "end": 187.17,
+          "en": "And it's now the meals component",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 187.17,
+          "end": 190.563,
+          "en": "that can be used down there, like this.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 191.423,
+          "end": 194.88,
+          "en": "But what's now the advantage of this approach?",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 194.88,
+          "end": 195.87,
+          "en": "The advantage",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 195.87,
+          "end": 198.84,
+          "en": "is that we now outsourced the data fetching part",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 198.84,
+          "end": 200.73,
+          "en": "into a separate component,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 200.73,
+          "end": 202.98,
+          "en": "and we can now wrap this component",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 202.98,
+          "end": 206.31,
+          "en": "with a component that's built into React.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 206.31,
+          "end": 207.93,
+          "en": "We can wrap this here",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 207.93,
+          "end": 212.073,
+          "en": "with the suspense component like this.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 213.87,
+          "end": 217.5,
+          "en": "And suspense is a component that is provided by React.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 217.5,
+          "end": 220.353,
+          "en": "Hence you must import it from React.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 221.73,
+          "end": 223.17000000000002,
+          "en": "Suspense is a component",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 223.17000000000002,
+          "end": 227.49,
+          "en": "provided by React that allows you to handle loading states",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 227.49,
+          "end": 230.85,
+          "en": "and show fallback content until some data",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 230.85,
+          "end": 232.863,
+          "en": "or resource has been loaded.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 233.82,
+          "end": 237.69,
+          "en": "And NextJS embraces this suspense component",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 237.69,
+          "end": 239.61,
+          "en": "and this React concept,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 239.61,
+          "end": 240.72,
+          "en": "and makes sure that",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 240.72,
+          "end": 242.97,
+          "en": "whenever you have a component like this one here,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 242.97,
+          "end": 245.16,
+          "en": "which performs some data fetching",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 245.16,
+          "end": 247.26,
+          "en": "and returns such a promise here,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 247.26,
+          "end": 250.05,
+          "en": "that such components will trigger suspense",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 250.05,
+          "end": 252.483,
+          "en": "to show the fallback until they're done.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 253.41,
+          "end": 255.54,
+          "en": "So you don't need to do anything else.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 255.54,
+          "end": 257.9,
+          "en": "You just have to set up the fallback prop",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 257.9,
+          "end": 262.44,
+          "en": "on this suspense component and find the fallback content",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 262.44,
+          "end": 264.24,
+          "en": "that should be shown whilst",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 264.24,
+          "end": 266.913,
+          "en": "that wrapped component is loading some data.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 267.75,
+          "end": 270.84,
+          "en": "And in the end, this loading.js file, which we used before,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 270.84,
+          "end": 274.44,
+          "en": "is doing the same thing just behind the scenes.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 274.44,
+          "end": 279.44,
+          "en": "It's wrapping the page content with this suspense component,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 279.72,
+          "end": 282.45,
+          "en": "and it's then showing this loading content",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 282.45,
+          "end": 284.581,
+          "en": "here as a fallback.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 284.581,
+          "end": 287.19,
+          "en": "Now we can do this manually,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 287.19,
+          "end": 290.19,
+          "en": "and therefore I'll copy this paragraph, which I wanna show",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 290.19,
+          "end": 294.48,
+          "en": "as a fallback, and put that here.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 294.48,
+          "end": 297.72,
+          "en": "And for this loading class to be available, I'll go",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 297.72,
+          "end": 302.28,
+          "en": "to my loading.module CSS file, copy all the code in there",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 302.28,
+          "end": 305.28,
+          "en": "and add it to my Page module.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 305.28,
+          "end": 308.133,
+          "en": "For example, here at the end doesn't really matter.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 309.563,
+          "end": 313.56,
+          "en": "And with that, we're now telling React that it's now just",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 313.56,
+          "end": 316.74,
+          "en": "for this part of the JSX code where we want",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 316.74,
+          "end": 318.873,
+          "en": "to show our loading fallback.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 319.965,
+          "end": 322.02,
+          "en": "And therefore, if you save that,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 322.02,
+          "end": 324.27,
+          "en": "you'll see that now the header is there,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 324.27,
+          "end": 326.373,
+          "en": "but we have this loading text down there,",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 327.45,
+          "end": 330.54,
+          "en": "and then that content is streamed in",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 330.54,
+          "end": 333.15,
+          "en": "and rendered once it's there,",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 333.15,
+          "end": 336.06,
+          "en": "so we don't reload the page or anything like that.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 336.06,
+          "end": 339.348,
+          "en": "Instead, NextJS partially renders this page",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 339.348,
+          "end": 342.18,
+          "en": "with all the content that can already be rendered,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 342.18,
+          "end": 343.68,
+          "en": "and then streams in",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 343.68,
+          "end": 347.193,
+          "en": "and renders this loaded content once it has been loaded.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 348.033,
+          "end": 349.59000000000003,
+          "en": "And that of course,",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 349.59000000000003,
+          "end": 352.473,
+          "en": "is now arguably a better user experience here.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

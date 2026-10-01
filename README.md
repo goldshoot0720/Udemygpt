@@ -66,7 +66,7 @@ Firefox 完全關閉後暫用附加元件會移除；長期安裝需要 Mozilla 
 
 ## 逐堂處理進度
 
-以下進度與 `translation_queue.py` 目前專用於原有 React 課程；新增課程可使用播放器的英文匯出與譯文匯入，尚未建立逐堂翻譯進度。
+以下進度與 `translation_queue.py` 專用於原有 React 課程。新增課程的英文來源、逐堂佇列及翻譯批次分別保存在 `data/courses/課程ID/`；每課 `translation-progress.json` 初始化為待翻譯，下載英文不代表譯文已完成。缺少英文字幕的影片另列於 `data/missing-english-sources.json`，需補上英文來源後才能翻譯與匯入。
 
 已核對完整清單：727 堂講座包含 678 堂影片與 49 堂文字教材；文字教材沒有影片字幕。678 堂的 80,645 段原始英文字幕均已取得，逐堂交給 ChatGPT 線上翻譯。
 

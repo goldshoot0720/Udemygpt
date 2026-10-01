@@ -1,0 +1,2099 @@
+{
+  "version": 1,
+  "courseId": 3873464,
+  "courseSlug": "nextjs-react-the-complete-guide",
+  "courseTitle": "Next.js & React - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "25146422",
+      "title": "Adding the \"Credentials Auth Provider\" & User Login Logic",
+      "lectureOrder": 401,
+      "videoOrder": 369,
+      "sourceHash": "7e2252b4e49b867e34502afc806668ca88f6109cc14e03c48841393af1ef3b26",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.15,
+          "end": 3.11,
+          "en": "Now that we are able",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.11,
+          "end": 5.32,
+          "en": "to create users, it's now time",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.32,
+          "end": 8.84,
+          "en": "to work on the authentication functionality.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.84,
+          "end": 10.8,
+          "en": "So on logging users in",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.8,
+          "end": 13.65,
+          "en": "and getting that permission, this token",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 13.65,
+          "end": 15.69,
+          "en": "for our logged in users.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 15.69,
+          "end": 19.22,
+          "en": "And being able to find out if a user is logged in,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 19.22,
+          "end": 22.69,
+          "en": "both on the client side for changing what we see",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 22.69,
+          "end": 24.95,
+          "en": "and for disabling certain routes,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 24.95,
+          "end": 28.98,
+          "en": "as well as on the server side in different API routes",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 28.98,
+          "end": 30.53,
+          "en": "we might be adding.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 30.53,
+          "end": 33.71,
+          "en": "And that's now the part where this NextAuth package,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 33.71,
+          "end": 37.38,
+          "en": "which we installed earlier already becomes important.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 37.38,
+          "end": 40.38,
+          "en": "It helps us with authenticating users",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 40.38,
+          "end": 43.16,
+          "en": "and it helps us with finding out",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 43.16,
+          "end": 45.52,
+          "en": "whether a user has that permission",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 45.52,
+          "end": 49.82,
+          "en": "by managing that token creation and storage,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 49.82,
+          "end": 52.6,
+          "en": "both parts behind the scenes.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 52.6,
+          "end": 53.94,
+          "en": "Now, to use NextAuth,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 53.94,
+          "end": 56.83,
+          "en": "we start by adding another API route",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 56.83,
+          "end": 60.41,
+          "en": "because logging a user in, signing a user in,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 60.41,
+          "end": 63.74,
+          "en": "that, of course, also requires a request",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 63.74,
+          "end": 66.76,
+          "en": "to be sent to a certain API route",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 66.76,
+          "end": 68.7,
+          "en": "where we then look into the database",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 68.7,
+          "end": 72.66,
+          "en": "and find out whether we have that user in the database",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 72.66,
+          "end": 75.82,
+          "en": "and whether the password is correct.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 75.82,
+          "end": 78.22,
+          "en": "And therefore, I'll create another file",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 78.22,
+          "end": 81.33,
+          "en": "in that api/auth folder",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 81.33,
+          "end": 85.03,
+          "en": "but this file now needs a special name.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 85.03,
+          "end": 87.05,
+          "en": "It's a square bracket file name.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 87.05,
+          "end": 89.8,
+          "en": "So a dynamic API route",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 89.8,
+          "end": 93.15,
+          "en": "and it's a dynamic catch all API route,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 93.15,
+          "end": 96.66,
+          "en": "which catches all unknown routes",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 96.66,
+          "end": 99.88,
+          "en": "that start with api/auth.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 99.88,
+          "end": 104.88,
+          "en": "Here we can then use ...nextauth written like this.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 105.88,
+          "end": 110.88,
+          "en": "One word and in here, we now use that NextAuth package.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 111.34,
+          "end": 113.72999999999999,
+          "en": "And we need this catch all route",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 113.72999999999999,
+          "end": 117.35,
+          "en": "because the next auth package behind the scenes",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 117.35,
+          "end": 120.08,
+          "en": "will expose multiple routes",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 120.08,
+          "end": 125.08,
+          "en": "for user login and for user logout, for example.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 125.38,
+          "end": 127.95,
+          "en": "A couple of other routes as well.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 127.95,
+          "end": 130.24,
+          "en": "And in order to set up its own routes",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 130.24,
+          "end": 131.83,
+          "en": "and handle its own routes,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 131.83,
+          "end": 133.69,
+          "en": "we need to have a catch all route",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 133.69,
+          "end": 136.85,
+          "en": "so that all those special requests",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 136.85,
+          "end": 138.53,
+          "en": "to these special routes",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 138.53,
+          "end": 143.17000000000002,
+          "en": "are automatically handled by the NextAuth package.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 143.17000000000002,
+          "end": 145.91,
+          "en": "We can still also define our own routes,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 145.91,
+          "end": 147.89,
+          "en": "like the signup route in addition,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 147.89,
+          "end": 150.03,
+          "en": "as long as we don't override one",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 150.03,
+          "end": 154.59,
+          "en": "of the built-in routes NextAuth exposes.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 154.59,
+          "end": 157.82,
+          "en": "If you wanna find out which routes it creates,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 157.82,
+          "end": 160.53,
+          "en": "you can check out the official NextAuth documentation",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 160.53,
+          "end": 162.45,
+          "en": "and click on REST API there",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 162.45,
+          "end": 165.26,
+          "en": "and these are the different routes,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 165.26,
+          "end": 168.77,
+          "en": "they all start with /api/auth as you can tell,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 168.77,
+          "end": 171.01,
+          "en": "which will be handled by NextAuth.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 171.01,
+          "end": 173.393,
+          "en": "So we shouldn't clash with those.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 174.81,
+          "end": 177.252,
+          "en": "Now, how do we then use NextAuth here?",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 177.252,
+          "end": 179.26,
+          "en": "We, first of all, import it",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 179.26,
+          "end": 182.47,
+          "en": "in this square bracket nextauth.js file.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 182.47,
+          "end": 184.12,
+          "en": "We import NextAuth from next-auth",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 186.81,
+          "end": 188.56,
+          "en": "and then with this imported,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 188.56,
+          "end": 192.89,
+          "en": "we export NextAuth as a default",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 192.89,
+          "end": 195.64,
+          "en": "but not like this but we execute it.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 195.64,
+          "end": 198.29,
+          "en": "So NextAuth here is a function,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 198.29,
+          "end": 199.86,
+          "en": "which we can execute",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 199.86,
+          "end": 201.23,
+          "en": "and when we execute it,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 201.23,
+          "end": 204.81,
+          "en": "it returns a new function, a handler function.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 204.81,
+          "end": 208.46,
+          "en": "It needs to because this is still an API route",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 208.46,
+          "end": 210.36,
+          "en": "and therefore, an API route still needs",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 210.36,
+          "end": 211.9,
+          "en": "to return a function.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 211.9,
+          "end": 213.67000000000002,
+          "en": "It needs to export a function.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 213.67000000000002,
+          "end": 216.49,
+          "en": "But that exported handler function",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 216.49,
+          "end": 220.233,
+          "en": "is created by NextAuth by calling NextAuth.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 221.09,
+          "end": 222.98,
+          "en": "And when we call NextAuth,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 222.98,
+          "end": 226.31,
+          "en": "we can pass a configuration object to it.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 226.31,
+          "end": 227.96,
+          "en": "That's the object which allows us",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 227.96,
+          "end": 231.21,
+          "en": "to configure NextAuth's behavior.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 231.21,
+          "end": 233.54,
+          "en": "And you can dive into the official docs,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 233.54,
+          "end": 237.93,
+          "en": "configuration options to learn about all the options you can",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 237.93,
+          "end": 239.34300000000002,
+          "en": "and must set here.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 240.59,
+          "end": 245.59,
+          "en": "Now, in our case, we wanna set the providers option here",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 245.77,
+          "end": 248.11,
+          "en": "and set this to an array.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 248.11,
+          "end": 250.71,
+          "en": "And here we need to import something else.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 250.71,
+          "end": 252.38,
+          "en": "We need to import Providers",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 252.38,
+          "end": 257.38,
+          "en": "from next-auth/providers like this",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 259.24,
+          "end": 261.11,
+          "en": "and then here in the providers array,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 261.11,
+          "end": 263.32,
+          "en": "we use Providers dot",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 263.32,
+          "end": 265.7,
+          "en": "and then here you can choose from the long list",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 265.7,
+          "end": 267.79,
+          "en": "of supported providers.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 267.79,
+          "end": 270.51,
+          "en": "And again, check out the providers docs",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 270.51,
+          "end": 272.67,
+          "en": "to learn more about the concrete way",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 272.67,
+          "end": 275.73,
+          "en": "of setting up the different providers.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 275.73,
+          "end": 278.96,
+          "en": "But here, we need the Credentials provider,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 278.96,
+          "end": 281.653,
+          "en": "which means that we bring our own credentials.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 282.52,
+          "end": 286.06,
+          "en": "Now, this takes a configuration object itself",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 286.06,
+          "end": 291.06,
+          "en": "and here, we now can configure a couple of things.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 291.79,
+          "end": 295.08,
+          "en": "For example, we can set the credentials key",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 295.08,
+          "end": 298.05,
+          "en": "and then here define what our credentials are.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 298.05,
+          "end": 299.62,
+          "en": "Email and password.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 299.62,
+          "end": 303.42,
+          "en": "We could use that to let NextAuth generate a login",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 303.42,
+          "end": 305.65,
+          "en": "form for us.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 305.65,
+          "end": 308.98,
+          "en": "Here, however, I don't wanna let NextAuth generate",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 308.98,
+          "end": 310.38,
+          "en": "a form for me.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 310.38,
+          "end": 312.21,
+          "en": "I already have one",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 312.21,
+          "end": 314.7,
+          "en": "and hence, I'll not set credentials.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 314.7,
+          "end": 318.19,
+          "en": "The only thing we need to set here actually is authorize",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 318.19,
+          "end": 321.73,
+          "en": "and authorize turns out to be a method.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 321.73,
+          "end": 325.38,
+          "en": "It's a method which Next.js will call for us",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 325.38,
+          "end": 329.85,
+          "en": "when it receives a incoming login request.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 329.85,
+          "end": 332.28,
+          "en": "At the moment, we're not sending such requests yet",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 332.28,
+          "end": 334.46,
+          "en": "but we will soon do so.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 334.46,
+          "end": 336.47,
+          "en": "Authorize is an async function,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 336.47,
+          "end": 338.31,
+          "en": "so it returns a promise,",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 338.31,
+          "end": 341.24,
+          "en": "and as a argument, we get the credentials",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 341.24,
+          "end": 342.87,
+          "en": "that were submitted.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 342.87,
+          "end": 345.44,
+          "en": "And that is the object with the data we submitted,",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 345.44,
+          "end": 347.58,
+          "en": "for example, email, password.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 347.58,
+          "end": 352.58,
+          "en": "In here, we now have to bring our own authorization logic,",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 352.59000000000003,
+          "end": 355.15,
+          "en": "check if the credentials are valid",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 355.15,
+          "end": 358.15999999999997,
+          "en": "and tell the user if that's not the case.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 358.15999999999997,
+          "end": 360.843,
+          "en": "For example, throw an error if that's not the case.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 361.74,
+          "end": 366.68,
+          "en": "Therefore, in here we again wanna connect to the database",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 366.68,
+          "end": 368.93,
+          "en": "and hence, import connectToDatabase",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 368.93,
+          "end": 370.233,
+          "en": "from the lib folder.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 371.28,
+          "end": 374.3,
+          "en": "And get hold of that client here",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 374.3,
+          "end": 375.623,
+          "en": "by awaiting this.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 376.83,
+          "end": 379.84,
+          "en": "We also wanna close the client later, of course.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 379.84,
+          "end": 381.41,
+          "en": "So let's already do that",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 381.41,
+          "end": 383.16,
+          "en": "so that we don't forget it.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 383.16,
+          "end": 385.95,
+          "en": "And then we wanna find out if we have a user",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 385.95,
+          "end": 387.57,
+          "en": "for the entered email",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 387.57,
+          "end": 391.54,
+          "en": "and if we have a user with that password then.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 391.54,
+          "end": 393.223,
+          "en": "So if that password is correct.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 394.22,
+          "end": 397.43,
+          "en": "Hence, let's first of all check if we have a user.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 397.43,
+          "end": 401.15999999999997,
+          "en": "For that, I'll have my usersCollection,",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 401.15999999999997,
+          "end": 406.15999999999997,
+          "en": "which I get access to with client.db.collection users.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 406.61,
+          "end": 408.05,
+          "en": "Let's do that in one go.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 408.05,
+          "end": 410.523,
+          "en": "And then we can use the usersCollection",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 411.5,
+          "end": 414.416,
+          "en": "to find one user where the email",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 414.416,
+          "end": 418.7,
+          "en": "is equal to credentials.email and I'm expecting",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 418.7,
+          "end": 422.08,
+          "en": "that credentials will have a email property.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 422.08,
+          "end": 423.51,
+          "en": "I can expect this",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 423.51,
+          "end": 427.4,
+          "en": "because it will be us who later set those credentials",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 427.4,
+          "end": 431.04,
+          "en": "when we send a request from the client-side code.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 431.04,
+          "end": 433.12,
+          "en": "So I expect to have a email field",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 433.12,
+          "end": 435.04,
+          "en": "in the credentials object",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 435.04,
+          "end": 438.72,
+          "en": "and then I check if I find a user with that email.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 438.72,
+          "end": 439.68,
+          "en": "We should await this",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 439.68,
+          "end": 442.503,
+          "en": "because it's an asynchronous task.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 444.08,
+          "end": 445.4,
+          "en": "Returning a promise",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 445.4,
+          "end": 447.913,
+          "en": "and then here we got our user.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 449.5,
+          "end": 453.28,
+          "en": "Now, if we don't find a user, if not user,",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 453.28,
+          "end": 456.58,
+          "en": "then we know that there is no user with that email address.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 456.58,
+          "end": 460.21,
+          "en": "In that case, we can throw a new Error",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 460.21,
+          "end": 464.753,
+          "en": "where we say No user found, or anything like that.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 465.6,
+          "end": 469.19,
+          "en": "Now, when you throw an error inside of authorize,",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 469.19,
+          "end": 471.7,
+          "en": "authorize will reject that promise,",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 471.7,
+          "end": 473.11,
+          "en": "which it generates",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 473.11,
+          "end": 477.02,
+          "en": "and it will then by default redirect the client",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 477.02,
+          "end": 478.3,
+          "en": "to another page.",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 478.3,
+          "end": 480.22,
+          "en": "But we will be able to override this",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 480.22,
+          "end": 482.57,
+          "en": "so that we stay on this login page",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 482.57,
+          "end": 485.42,
+          "en": "and maybe just show an error there.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 485.42,
+          "end": 487.21,
+          "en": "But that's something we'll do later.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 487.21,
+          "end": 488.623,
+          "en": "So here we throw an error.",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 489.46,
+          "end": 491.3,
+          "en": "But if we make it past this if check,",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 491.3,
+          "end": 495.04,
+          "en": "we know that we found a user for the email address.",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 495.04,
+          "end": 497.06,
+          "en": "That's nice but we now also need",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 497.06,
+          "end": 499.453,
+          "en": "to find out whether the password is correct.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 500.36,
+          "end": 503.15,
+          "en": "Now, keep in mind that we hashed the password,",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 503.15,
+          "end": 504.87,
+          "en": "so we will not be able",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 504.87,
+          "end": 507.85,
+          "en": "to just compare the submitted password",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 507.85,
+          "end": 509.53,
+          "en": "with the stored password.",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 509.53,
+          "end": 512.03,
+          "en": "The stored password will never be equal",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 512.03,
+          "end": 513.303,
+          "en": "because it's hashed.",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 514.33,
+          "end": 516.74,
+          "en": "Now, we can't unhash the password",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 516.74,
+          "end": 519.99,
+          "en": "but we can hash the incoming password again",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 519.99,
+          "end": 521.64,
+          "en": "to find out if it's equal.",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 521.64,
+          "end": 524.19,
+          "en": "But if we just call hashPassword again,",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 524.19,
+          "end": 526.61,
+          "en": "we would also generate a different hash",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 526.61,
+          "end": 529.27,
+          "en": "because it's not always the same.",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 529.27,
+          "end": 532.64,
+          "en": "But bcrypt.js has a method that helps us.",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 532.64,
+          "end": 535.22,
+          "en": "It has the compare function.",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 535.22,
+          "end": 539.04,
+          "en": "And that allows us to find out if a plaintext password",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 539.04,
+          "end": 541.38,
+          "en": "matches a hashedPassword.",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 541.38,
+          "end": 544.9,
+          "en": "So if that plaintext password could result",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 544.9,
+          "end": 547.25,
+          "en": "in the same hashedPassword",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 547.25,
+          "end": 548.44,
+          "en": "and if that's the case,",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 548.44,
+          "end": 551.65,
+          "en": "we know that the passwords are equal.",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 551.65,
+          "end": 555.02,
+          "en": "For this we here export another async function.",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 555.02,
+          "end": 559.58,
+          "en": "verifyPassword could be the function name",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 559.58,
+          "end": 562.28,
+          "en": "and here we then get the plaintext password",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 562.28,
+          "end": 564.043,
+          "en": "and the hashedPassword,",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 565.61,
+          "end": 567.49,
+          "en": "so both passwords.",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 567.49,
+          "end": 569.96,
+          "en": "And then we run compare",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 569.96,
+          "end": 572.57,
+          "en": "and there we pass in the plaintext password",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 572.57,
+          "end": 574.607,
+          "en": "and the hashedPassword.",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 576.37,
+          "end": 579.893,
+          "en": "And await this because compare does return a promise.",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 580.93,
+          "end": 582.36,
+          "en": "And that will return a Boolean,",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 582.36,
+          "end": 584.84,
+          "en": "which is true if the passwords are equal",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 584.84,
+          "end": 586.3,
+          "en": "and false otherwise",
+          "zh": ""
+        },
+        {
+          "id": 204,
+          "start": 586.3,
+          "end": 589.763,
+          "en": "and hence here I'll return that Boolean.",
+          "zh": ""
+        },
+        {
+          "id": 205,
+          "start": 590.85,
+          "end": 593.913,
+          "en": "Then back in our authorize function,",
+          "zh": ""
+        },
+        {
+          "id": 206,
+          "start": 596.211,
+          "end": 597.72,
+          "en": "we can run verifyPassword",
+          "zh": ""
+        },
+        {
+          "id": 207,
+          "start": 598.87,
+          "end": 601.19,
+          "en": "and pass in credentials.password,",
+          "zh": ""
+        },
+        {
+          "id": 208,
+          "start": 601.19,
+          "end": 603.09,
+          "en": "which is the submitted password",
+          "zh": ""
+        },
+        {
+          "id": 209,
+          "start": 603.09,
+          "end": 606.03,
+          "en": "with which the user tries to log in.",
+          "zh": ""
+        },
+        {
+          "id": 210,
+          "start": 606.03,
+          "end": 607.82,
+          "en": "And as a second argument,",
+          "zh": ""
+        },
+        {
+          "id": 211,
+          "start": 607.82,
+          "end": 609.92,
+          "en": "the password's stores in the database",
+          "zh": ""
+        },
+        {
+          "id": 212,
+          "start": 609.92,
+          "end": 611.66,
+          "en": "so in that user object.",
+          "zh": ""
+        },
+        {
+          "id": 213,
+          "start": 611.66,
+          "end": 616.66,
+          "en": "So we pass in user.password",
+          "zh": ""
+        },
+        {
+          "id": 214,
+          "start": 616.94,
+          "end": 618.11,
+          "en": "as a second argument,",
+          "zh": ""
+        },
+        {
+          "id": 215,
+          "start": 618.11,
+          "end": 619.98,
+          "en": "accessing that password field,",
+          "zh": ""
+        },
+        {
+          "id": 216,
+          "start": 619.98,
+          "end": 621.483,
+          "en": "which is stored in MongoDB.",
+          "zh": ""
+        },
+        {
+          "id": 217,
+          "start": 622.64,
+          "end": 623.98,
+          "en": "We need to await this",
+          "zh": ""
+        },
+        {
+          "id": 218,
+          "start": 623.98,
+          "end": 628.05,
+          "en": "because verifyPassword is a async function",
+          "zh": ""
+        },
+        {
+          "id": 219,
+          "start": 628.05,
+          "end": 630.42,
+          "en": "and hence returns a promise.",
+          "zh": ""
+        },
+        {
+          "id": 220,
+          "start": 630.42,
+          "end": 633.333,
+          "en": "And then we got our isValid result here.",
+          "zh": ""
+        },
+        {
+          "id": 221,
+          "start": 634.24,
+          "end": 636.1,
+          "en": "Now, if this is not valid,",
+          "zh": ""
+        },
+        {
+          "id": 222,
+          "start": 636.1,
+          "end": 638.13,
+          "en": "if the password is not valid,",
+          "zh": ""
+        },
+        {
+          "id": 223,
+          "start": 638.13,
+          "end": 640.9,
+          "en": "then again, we wanna throw an error.",
+          "zh": ""
+        },
+        {
+          "id": 224,
+          "start": 640.9,
+          "end": 645.31,
+          "en": "We could say Could not log you in.",
+          "zh": ""
+        },
+        {
+          "id": 225,
+          "start": 645.31,
+          "end": 646.353,
+          "en": "Something like this.",
+          "zh": ""
+        },
+        {
+          "id": 226,
+          "start": 647.33,
+          "end": 649.89,
+          "en": "If we make it past this if check as well,",
+          "zh": ""
+        },
+        {
+          "id": 227,
+          "start": 649.89,
+          "end": 653.48,
+          "en": "we know that we have a user for the given email address",
+          "zh": ""
+        },
+        {
+          "id": 228,
+          "start": 653.48,
+          "end": 655.79,
+          "en": "and that the password is valid.",
+          "zh": ""
+        },
+        {
+          "id": 229,
+          "start": 655.79,
+          "end": 657.01,
+          "en": "So in that case,",
+          "zh": ""
+        },
+        {
+          "id": 230,
+          "start": 657.01,
+          "end": 659.72,
+          "en": "the user is logged in and in that case,",
+          "zh": ""
+        },
+        {
+          "id": 231,
+          "start": 659.72,
+          "end": 662.53,
+          "en": "here we should return an object.",
+          "zh": ""
+        },
+        {
+          "id": 232,
+          "start": 662.53,
+          "end": 665.61,
+          "en": "If we return an object inside of authorize,",
+          "zh": ""
+        },
+        {
+          "id": 233,
+          "start": 665.61,
+          "end": 670.37,
+          "en": "we let nextAuth know that authorization succeeded",
+          "zh": ""
+        },
+        {
+          "id": 234,
+          "start": 670.37,
+          "end": 672.84,
+          "en": "so that the user is logged in.",
+          "zh": ""
+        },
+        {
+          "id": 235,
+          "start": 672.84,
+          "end": 676.37,
+          "en": "And this object will then actually be encoded",
+          "zh": ""
+        },
+        {
+          "id": 236,
+          "start": 676.37,
+          "end": 678.92,
+          "en": "into that JSON Web Token.",
+          "zh": ""
+        },
+        {
+          "id": 237,
+          "start": 678.92,
+          "end": 680.41,
+          "en": "Hence here, we could, for example,",
+          "zh": ""
+        },
+        {
+          "id": 238,
+          "start": 680.41,
+          "end": 682.72,
+          "en": "include the user email.",
+          "zh": ""
+        },
+        {
+          "id": 239,
+          "start": 682.72,
+          "end": 685.83,
+          "en": "We should not pass the entire user object",
+          "zh": ""
+        },
+        {
+          "id": 240,
+          "start": 685.83,
+          "end": 688.32,
+          "en": "because we don't wanna include the password.",
+          "zh": ""
+        },
+        {
+          "id": 241,
+          "start": 688.32,
+          "end": 691.29,
+          "en": "Even though it's hashed, we don't wanna expose that",
+          "zh": ""
+        },
+        {
+          "id": 242,
+          "start": 691.29,
+          "end": 693.03,
+          "en": "to the client.",
+          "zh": ""
+        },
+        {
+          "id": 243,
+          "start": 693.03,
+          "end": 694.87,
+          "en": "So that's the object we return",
+          "zh": ""
+        },
+        {
+          "id": 244,
+          "start": 694.87,
+          "end": 698.91,
+          "en": "and that will then be encoded in a JSON Web Token.",
+          "zh": ""
+        },
+        {
+          "id": 245,
+          "start": 698.91,
+          "end": 700.39,
+          "en": "But speaking of that,",
+          "zh": ""
+        },
+        {
+          "id": 246,
+          "start": 700.39,
+          "end": 704.04,
+          "en": "to make sure that a JSON Web Token is created,",
+          "zh": ""
+        },
+        {
+          "id": 247,
+          "start": 704.04,
+          "end": 707.92,
+          "en": "we should go to the NextAuth config object",
+          "zh": ""
+        },
+        {
+          "id": 248,
+          "start": 707.92,
+          "end": 710.64,
+          "en": "and besides setting up our providers,",
+          "zh": ""
+        },
+        {
+          "id": 249,
+          "start": 710.64,
+          "end": 715.64,
+          "en": "also add the sessions option here.",
+          "zh": ""
+        },
+        {
+          "id": 250,
+          "start": 715.98,
+          "end": 718.873,
+          "en": "That's another option which you can set up here.",
+          "zh": ""
+        },
+        {
+          "id": 251,
+          "start": 720.51,
+          "end": 723.093,
+          "en": "Actually, it's session, not sessions.",
+          "zh": ""
+        },
+        {
+          "id": 252,
+          "start": 724.57,
+          "end": 726.34,
+          "en": "It's a object where you can configure",
+          "zh": ""
+        },
+        {
+          "id": 253,
+          "start": 726.34,
+          "end": 730.61,
+          "en": "how that session for an authenticated user will be managed",
+          "zh": ""
+        },
+        {
+          "id": 254,
+          "start": 730.61,
+          "end": 733.43,
+          "en": "and there, you've got a jwt key,",
+          "zh": ""
+        },
+        {
+          "id": 255,
+          "start": 733.43,
+          "end": 735.2,
+          "en": "which should be set to true",
+          "zh": ""
+        },
+        {
+          "id": 256,
+          "start": 735.2,
+          "end": 738.34,
+          "en": "so that JSON Web Tokens are being used.",
+          "zh": ""
+        },
+        {
+          "id": 257,
+          "start": 738.34,
+          "end": 741.08,
+          "en": "For some other authentication providers,",
+          "zh": ""
+        },
+        {
+          "id": 258,
+          "start": 741.08,
+          "end": 743.62,
+          "en": "you have other ways of managing this.",
+          "zh": ""
+        },
+        {
+          "id": 259,
+          "start": 743.62,
+          "end": 746.96,
+          "en": "For example, that a session is stored in a database",
+          "zh": ""
+        },
+        {
+          "id": 260,
+          "start": 746.96,
+          "end": 750.07,
+          "en": "but for credential-based authentication,",
+          "zh": ""
+        },
+        {
+          "id": 261,
+          "start": 750.07,
+          "end": 754.11,
+          "en": "for this provider, you must use JWT",
+          "zh": ""
+        },
+        {
+          "id": 262,
+          "start": 754.11,
+          "end": 755.96,
+          "en": "and set this to true.",
+          "zh": ""
+        },
+        {
+          "id": 263,
+          "start": 755.96,
+          "end": 758.57,
+          "en": "As you see, it I would be set to true automatically",
+          "zh": ""
+        },
+        {
+          "id": 264,
+          "start": 758.57,
+          "end": 760.77,
+          "en": "if you don't specify a database",
+          "zh": ""
+        },
+        {
+          "id": 265,
+          "start": 760.77,
+          "end": 763.18,
+          "en": "and we aren't specifying a database",
+          "zh": ""
+        },
+        {
+          "id": 266,
+          "start": 763.18,
+          "end": 767.2,
+          "en": "because we handle all database access manually anyways",
+          "zh": ""
+        },
+        {
+          "id": 267,
+          "start": 767.2,
+          "end": 769.25,
+          "en": "with this specific provider",
+          "zh": ""
+        },
+        {
+          "id": 268,
+          "start": 769.25,
+          "end": 770.81,
+          "en": "but nonetheless, setting it",
+          "zh": ""
+        },
+        {
+          "id": 269,
+          "start": 770.81,
+          "end": 773.483,
+          "en": "to true explicitly also isn't too bad.",
+          "zh": ""
+        },
+        {
+          "id": 270,
+          "start": 774.41,
+          "end": 776.97,
+          "en": "Now, if you do use other providers,",
+          "zh": ""
+        },
+        {
+          "id": 271,
+          "start": 776.97,
+          "end": 778.15,
+          "en": "then you might, of course,",
+          "zh": ""
+        },
+        {
+          "id": 272,
+          "start": 778.15,
+          "end": 781.34,
+          "en": "we able to add a database and user session.",
+          "zh": ""
+        },
+        {
+          "id": 273,
+          "start": 781.34,
+          "end": 786.06,
+          "en": "It really depends on which authentication provider you use.",
+          "zh": ""
+        },
+        {
+          "id": 274,
+          "start": 786.06,
+          "end": 789.75,
+          "en": "For example, if you use the email authentication provider",
+          "zh": ""
+        },
+        {
+          "id": 275,
+          "start": 789.75,
+          "end": 793.58,
+          "en": "where you get an email with the magic link sent to you,",
+          "zh": ""
+        },
+        {
+          "id": 276,
+          "start": 793.58,
+          "end": 795.64,
+          "en": "then you need to add a database",
+          "zh": ""
+        },
+        {
+          "id": 277,
+          "start": 795.64,
+          "end": 797.5,
+          "en": "in which the emails will be stored",
+          "zh": ""
+        },
+        {
+          "id": 278,
+          "start": 797.5,
+          "end": 799.733,
+          "en": "and you don't need to use JWT.",
+          "zh": ""
+        },
+        {
+          "id": 279,
+          "start": 800.62,
+          "end": 801.86,
+          "en": "But that's just a side note.",
+          "zh": ""
+        },
+        {
+          "id": 280,
+          "start": 801.86,
+          "end": 803.75,
+          "en": "Here we are using JWT.",
+          "zh": ""
+        },
+        {
+          "id": 281,
+          "start": 803.75,
+          "end": 806.44,
+          "en": "We are using credentials and hence we need",
+          "zh": ""
+        },
+        {
+          "id": 282,
+          "start": 806.44,
+          "end": 808.85,
+          "en": "to configure it like this.",
+          "zh": ""
+        },
+        {
+          "id": 283,
+          "start": 808.85,
+          "end": 811.86,
+          "en": "Now, before using this API route though,",
+          "zh": ""
+        },
+        {
+          "id": 284,
+          "start": 811.86,
+          "end": 813.48,
+          "en": "before sending requests,",
+          "zh": ""
+        },
+        {
+          "id": 285,
+          "start": 813.48,
+          "end": 814.87,
+          "en": "there's one thing I wanna do.",
+          "zh": ""
+        },
+        {
+          "id": 286,
+          "start": 814.87,
+          "end": 816.7,
+          "en": "Client.close, of course, should be called",
+          "zh": ""
+        },
+        {
+          "id": 287,
+          "start": 816.7,
+          "end": 818.2,
+          "en": "before we return",
+          "zh": ""
+        },
+        {
+          "id": 288,
+          "start": 818.2,
+          "end": 820.85,
+          "en": "and also should be called if we throw an error",
+          "zh": ""
+        },
+        {
+          "id": 289,
+          "start": 820.85,
+          "end": 823.75,
+          "en": "so that we still close that database connection.",
+          "zh": ""
+        },
+        {
+          "id": 290,
+          "start": 823.75,
+          "end": 826.26,
+          "en": "That is something we should do here.",
+          "zh": ""
+        },
+        {
+          "id": 291,
+          "start": 826.26,
+          "end": 829.48,
+          "en": "And actually I just saw, this should be hashedPassword,",
+          "zh": ""
+        },
+        {
+          "id": 292,
+          "start": 829.48,
+          "end": 831.3,
+          "en": "of course, not hashPassword.",
+          "zh": ""
+        },
+        {
+          "id": 293,
+          "start": 831.3,
+          "end": 833.26,
+          "en": "So that's one thing.",
+          "zh": ""
+        },
+        {
+          "id": 294,
+          "start": 833.26,
+          "end": 835.24,
+          "en": "That's now the backend.",
+          "zh": ""
+        },
+        {
+          "id": 295,
+          "start": 835.24,
+          "end": 839.333,
+          "en": "That's the authentication API route using NextAuth.",
+          "zh": ""
+        },
+        {
+          "id": 296,
+          "start": 840.29,
+          "end": 843.75,
+          "en": "Let's now find out what we do on the front end",
+          "zh": ""
+        },
+        {
+          "id": 297,
+          "start": 843.75,
+          "end": 846.313,
+          "en": "on the client to log users in.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

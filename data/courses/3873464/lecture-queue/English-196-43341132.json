@@ -1,0 +1,678 @@
+{
+  "version": 1,
+  "courseId": 3873464,
+  "courseSlug": "nextjs-react-the-complete-guide",
+  "courseTitle": "Next.js & React - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "43341132",
+      "title": "Checking for Email Duplication",
+      "lectureOrder": 210,
+      "videoOrder": 196,
+      "sourceHash": "9ffa9f59d2e1b4d46105b68b43208c18ff198556a7f95422b796fbf9fa0103ad",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.63,
+          "end": 2.67,
+          "en": "Now with that, we're almost there",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 2.67,
+          "end": 5.28,
+          "en": "and we almost got all the logic we need",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.28,
+          "end": 8.25,
+          "en": "to create and store new users,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.25,
+          "end": 10.683,
+          "en": "but we're not entirely there yet.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.7,
+          "end": 15.66,
+          "en": "Whilst this will create a new user, it is now possible",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.66,
+          "end": 19.71,
+          "en": "that we try to create a user for an email address",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 19.71,
+          "end": 23.52,
+          "en": "that we did already store in the database.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 23.52,
+          "end": 26.34,
+          "en": "And that is not something we can do",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 26.34,
+          "end": 29.37,
+          "en": "because indeed the user's table is configured",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 29.37,
+          "end": 31.98,
+          "en": "such that the email must be unique.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 31.98,
+          "end": 35.913,
+          "en": "We can't have multiple users with the same email address.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 37.26,
+          "end": 40.05,
+          "en": "Hence in auth-actions.js,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 40.05,
+          "end": 44.37,
+          "en": "we should actually wrap createUser with try catch.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 44.37,
+          "end": 47.22,
+          "en": "Because this SQLite package,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 47.22,
+          "end": 50.58,
+          "en": "which we're using for interacting with the database,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 50.58,
+          "end": 54.96,
+          "en": "will actually throw an error if the database complains,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 54.96,
+          "end": 59.373,
+          "en": "for example, because we violate that unique constraint.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 60.57,
+          "end": 63.033,
+          "en": "So we will then get an error here.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 64.2,
+          "end": 65.76,
+          "en": "And therefore in this catch block,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 65.76,
+          "end": 69.57,
+          "en": "I wanna check if that error has a code,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 69.57,
+          "end": 73.74,
+          "en": "which it will have if it's coming from that SQLite package.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 73.74,
+          "end": 75.813,
+          "en": "That's equal to SQLITE_CONSTRAINT_UNIQUE.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 79.08,
+          "end": 80.253,
+          "en": "Written like this.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 81.66,
+          "end": 85.11,
+          "en": "So that's simply a code this package uses",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 85.11,
+          "end": 88.77,
+          "en": "if the SQLite database generates an error",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 88.77,
+          "end": 91.71000000000001,
+          "en": "because we violate such a unique constraint,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 91.71000000000001,
+          "end": 94.22999999999999,
+          "en": "like the one on the email address.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 94.22999999999999,
+          "end": 99,
+          "en": "And in that case, if we get such an error with this code,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 99,
+          "end": 101.91,
+          "en": "I actually don't wanna handle this error",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 101.91,
+          "end": 105.87,
+          "en": "with an error JS file or in any other way.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 105.87,
+          "end": 109.32,
+          "en": "But instead then, I wanna return an object again.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 109.32,
+          "end": 114.12,
+          "en": "So return a response to the page that's submitted the form.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 114.12,
+          "end": 117.66,
+          "en": "And in there, I want to have an errors object,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 117.66,
+          "end": 121.68,
+          "en": "just as we did before with the email password validation.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 121.68,
+          "end": 126.68,
+          "en": "And that should be an object that has an email field",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 127.29,
+          "end": 130.98,
+          "en": "where we say, \"It seems like an account",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 130.98,
+          "end": 135.567,
+          "en": "for the chosen email already exists.\"",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 137.19,
+          "end": 141.78,
+          "en": "Now, you could also output a more cryptic error message",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 141.78,
+          "end": 143.85,
+          "en": "so that the user doesn't know",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 143.85,
+          "end": 146.37,
+          "en": "whether the creation now failed",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 146.37,
+          "end": 149.04,
+          "en": "because they used an existing email address",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 149.04,
+          "end": 151.05,
+          "en": "or for some other reason,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 151.05,
+          "end": 155.61,
+          "en": "so that users can't simply try out different email addresses",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 155.61,
+          "end": 158.79,
+          "en": "to find out which users might have signed up",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 158.79,
+          "end": 160.56,
+          "en": "with your service.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 160.56,
+          "end": 162.32999999999998,
+          "en": "So you could make this more cryptic.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 162.32999999999998,
+          "end": 164.55,
+          "en": "Here also for us during development",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 164.55,
+          "end": 166.26,
+          "en": "so that we can see that this works,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 166.26,
+          "end": 168.963,
+          "en": "I'll use this pretty specific message.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 170.46,
+          "end": 172.2,
+          "en": "Now, if we have any other error,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 172.2,
+          "end": 174.24,
+          "en": "we'll not make it into this if check.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 174.24,
+          "end": 177.51,
+          "en": "And in that case, I just wanna throw that error",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 177.51,
+          "end": 181.83,
+          "en": "so that the default next JS error handling mechanism",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 181.83,
+          "end": 183.12,
+          "en": "can kick in,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 183.12,
+          "end": 186.6,
+          "en": "which means that the closest error JS file",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 186.6,
+          "end": 188.703,
+          "en": "will take over if we have one.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 189.54,
+          "end": 190.53,
+          "en": "Well, and with that,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 190.53,
+          "end": 192.51,
+          "en": "we therefore now will create a user",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 192.51,
+          "end": 195.63,
+          "en": "if that email address isn't taken already,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 195.63,
+          "end": 197.88,
+          "en": "otherwise will generate this error.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 197.88,
+          "end": 200.76,
+          "en": "And if we make it past this try catch block,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 200.76,
+          "end": 204.48,
+          "en": "we therefore will have successfully created a user.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 204.48,
+          "end": 208.833,
+          "en": "And in that case, I want to call redirect,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 209.79,
+          "end": 213.183,
+          "en": "a function that's imported from next navigation.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 215.34,
+          "end": 218.88,
+          "en": "And I wanna redirect the user to the training page",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 218.88,
+          "end": 222.81,
+          "en": "because we don't need to stay on the authentication page",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 222.81,
+          "end": 224.94,
+          "en": "if we just created a new user.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 224.94,
+          "end": 228.48,
+          "en": "Instead then, I wanna forward that user",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 228.48,
+          "end": 229.8,
+          "en": "who's using the website",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 229.8,
+          "end": 232.44,
+          "en": "to the main pages that make up my website.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 232.44,
+          "end": 234.573,
+          "en": "In this case, to the training page.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 236.19,
+          "end": 239.01,
+          "en": "And therefore, let's now give this a try.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 239.01,
+          "end": 241.83,
+          "en": "If we save everything and we go back here,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 241.83,
+          "end": 244.5,
+          "en": "if I enter an invalid password that's too short,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 244.5,
+          "end": 245.673,
+          "en": "I get that error.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 246.6,
+          "end": 250.95,
+          "en": "If I enter a valid password though, you see, I'm redirected.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 250.95,
+          "end": 252.213,
+          "en": "So that seems to work.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 253.74,
+          "end": 255.3,
+          "en": "However, if I now go back",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 255.3,
+          "end": 258.33,
+          "en": "and I try to use that same email address again,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 258.33,
+          "end": 262.53,
+          "en": "even if I have a valid password, I get an error,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 262.53,
+          "end": 266.073,
+          "en": "because we have that unique constraint in the database.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 267.03,
+          "end": 269.28,
+          "en": "Of course, if I use a different email address,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 269.28,
+          "end": 271.26,
+          "en": "it works again.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 271.26,
+          "end": 273.78,
+          "en": "And that's therefore the user creation",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 273.78,
+          "end": 275.52,
+          "en": "and the signup process,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 275.52,
+          "end": 278.1,
+          "en": "which is an important first step.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 278.1,
+          "end": 279.81,
+          "en": "But at this point,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 279.81,
+          "end": 283.68,
+          "en": "we actually haven't added any authentication yet,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 283.68,
+          "end": 286.38,
+          "en": "we just can create users.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 286.38,
+          "end": 289.23,
+          "en": "But we don't have any log in mechanism,",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 289.23,
+          "end": 291.87,
+          "en": "we can't check whether a request",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 291.87,
+          "end": 294.75,
+          "en": "is coming from a logged in user,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 294.75,
+          "end": 296.31,
+          "en": "we got nothing like that.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 296.31,
+          "end": 299.103,
+          "en": "And that's therefore what we'll work on next.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
