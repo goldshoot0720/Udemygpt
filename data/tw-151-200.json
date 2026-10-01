@@ -39581,6 +39581,881 @@
           "zh": "所以看起來我們需要在這裡修正幾件事。"
         }
       ]
+    },
+    {
+      "id": "8231754",
+      "title": "Working with Effect Dependencies & useCallback",
+      "sourceHash": "d64dc05c555a8362a759a40fe85fae4bcd0a2fbf90ff0d8aba5a4dc4bb9dcfb0",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.63,
+          "end": 3.3,
+          "en": "Now to understand what's wrong here",
+          "zh": "現在，為了理解這裡哪裡出了問題，"
+        },
+        {
+          "id": 2,
+          "start": 3.3,
+          "end": 6.69,
+          "en": "let's first of all add a couple of console log statements",
+          "zh": "讓我們先在 QuestionTimer.jsx 這裡加入幾個 console.log 敘述，"
+        },
+        {
+          "id": 3,
+          "start": 6.69,
+          "end": 9.78,
+          "en": "here in QuestionTimer.jsx,",
+          "zh": "在這裡的 QuestionTimer.jsx 中，"
+        },
+        {
+          "id": 4,
+          "start": 9.78,
+          "end": 12.27,
+          "en": "and I'll add one right in this effect",
+          "zh": "我會在其中一個 effect 中加一個，"
+        },
+        {
+          "id": 5,
+          "start": 12.27,
+          "end": 14.163,
+          "en": "where I set my timeout.",
+          "zh": "也就是我設定 timeout 的那個。"
+        },
+        {
+          "id": 6,
+          "start": 15.45,
+          "end": 19.053,
+          "en": "Here I'll basically say SETTING TIMEOUT,",
+          "zh": "在這裡我基本上會寫 SETTING TIMEOUT，"
+        },
+        {
+          "id": 7,
+          "start": 20.07,
+          "end": 23.25,
+          "en": "and I'll copy that to the second useEffect call",
+          "zh": "而我也會把同樣的加到第二個 useEffect 呼叫，"
+        },
+        {
+          "id": 8,
+          "start": 23.25,
+          "end": 25.26,
+          "en": "where I set my interval",
+          "zh": "也就是我設定 interval 的那個，"
+        },
+        {
+          "id": 9,
+          "start": 25.26,
+          "end": 28.203,
+          "en": "and therefore I'll say SETTING INTERVAL here.",
+          "zh": "因此我會在這裡寫 SETTING INTERVAL。"
+        },
+        {
+          "id": 10,
+          "start": 30.36,
+          "end": 33.9,
+          "en": "Now one thing you'll notice if you save that and reload",
+          "zh": "現在，如果你儲存並重新載入，你會注意到一件事，"
+        },
+        {
+          "id": 11,
+          "start": 33.9,
+          "end": 38.34,
+          "en": "and open the console here is that you get those logs twice,",
+          "zh": "然後打開這裡的主控台，這些紀錄會出現兩次，"
+        },
+        {
+          "id": 12,
+          "start": 38.34,
+          "end": 43.05,
+          "en": "but that's only happening because we're in StrictMode here",
+          "zh": "但那只會發生，是因為我們在這裡處於 StrictMode，"
+        },
+        {
+          "id": 13,
+          "start": 43.05,
+          "end": 45.45,
+          "en": "in the main JSX file,",
+          "zh": "在 main.jsx 檔案中，"
+        },
+        {
+          "id": 14,
+          "start": 45.45,
+          "end": 47.88,
+          "en": "the whole app is wrapped in StrictMode,",
+          "zh": "整個應用程式都被 StrictMode 包住，"
+        },
+        {
+          "id": 15,
+          "start": 47.88,
+          "end": 50.88,
+          "en": "and that StrictMode actually calls",
+          "zh": "而那個 StrictMode 其實會在幕後"
+        },
+        {
+          "id": 16,
+          "start": 50.88,
+          "end": 53.76,
+          "en": "every component function twice behind the scenes",
+          "zh": "把每個元件函式呼叫兩次，"
+        },
+        {
+          "id": 17,
+          "start": 53.76,
+          "end": 57.363,
+          "en": "since this can help you catch certain issues.",
+          "zh": "因為這能幫你捕捉某些問題。"
+        },
+        {
+          "id": 18,
+          "start": 58.35,
+          "end": 61.26,
+          "en": "But you'll also notice if you reload again",
+          "zh": "但你如果再次重新載入，也會注意到"
+        },
+        {
+          "id": 19,
+          "start": 61.26,
+          "end": 66.26,
+          "en": "that as this timer expires, nothing happens,",
+          "zh": "當這個計時器到期時，什麼都不會發生，"
+        },
+        {
+          "id": 20,
+          "start": 66.96,
+          "end": 71.96000000000001,
+          "en": "but then after a while a new timer is set",
+          "zh": "但過了一會兒，一個新的計時器被設定了，"
+        },
+        {
+          "id": 21,
+          "start": 72.36,
+          "end": 74.493,
+          "en": "but not a new interval.",
+          "zh": "但不是新的 interval。"
+        },
+        {
+          "id": 22,
+          "start": 75.66,
+          "end": 78.53999999999999,
+          "en": "There we still only have the old logs.",
+          "zh": "在那裡我們仍然只有舊的紀錄。"
+        },
+        {
+          "id": 23,
+          "start": 78.53999999999999,
+          "end": 81.53999999999999,
+          "en": "But this timer keeps getting a reset,",
+          "zh": "但這個計時器一直不斷被重設，"
+        },
+        {
+          "id": 24,
+          "start": 81.53999999999999,
+          "end": 83.97,
+          "en": "as you can tell by this number",
+          "zh": "你可以從 SETTING TIMEOUT 前面這個數字看出來，"
+        },
+        {
+          "id": 25,
+          "start": 83.97,
+          "end": 87.36,
+          "en": "in front of SETTING TIMEOUT, which is incrementing here,",
+          "zh": "它在這裡不斷增加，"
+        },
+        {
+          "id": 26,
+          "start": 87.36,
+          "end": 90.15299999999999,
+          "en": "which changed to two and now to three.",
+          "zh": "它變成了 2，現在變成 3。"
+        },
+        {
+          "id": 27,
+          "start": 91.23,
+          "end": 95.4,
+          "en": "So clearly this effect function here",
+          "zh": "所以很明顯，這裡這個 effect 函式"
+        },
+        {
+          "id": 28,
+          "start": 95.4,
+          "end": 97.32300000000001,
+          "en": "keeps on getting executed.",
+          "zh": "一直不斷被執行。"
+        },
+        {
+          "id": 29,
+          "start": 98.19,
+          "end": 102.63,
+          "en": "And that is weird because this QuestionTimer component",
+          "zh": "而這很奇怪，因為這個 QuestionTimer 元件"
+        },
+        {
+          "id": 30,
+          "start": 102.63,
+          "end": 106.65,
+          "en": "is rendered once, here, when that quiz is being rendered",
+          "zh": "只被渲染一次，在這裡，當那個 quiz 被渲染時，"
+        },
+        {
+          "id": 31,
+          "start": 106.65,
+          "end": 109.89,
+          "en": "but it's not getting recreated thereafter.",
+          "zh": "但之後它並沒有被重新建立。"
+        },
+        {
+          "id": 32,
+          "start": 109.89,
+          "end": 112.32,
+          "en": "Sure, the quiz component rerenders",
+          "zh": "當然，quiz 元件會在每次選取答案時"
+        },
+        {
+          "id": 33,
+          "start": 112.32,
+          "end": 116.91,
+          "en": "whenever an answer is selected, but this component instance",
+          "zh": "重新渲染，但這個 QuestionTimer 的"
+        },
+        {
+          "id": 34,
+          "start": 116.91,
+          "end": 119.88,
+          "en": "of the question timer does not change.",
+          "zh": "元件實例並沒有改變。"
+        },
+        {
+          "id": 35,
+          "start": 119.88,
+          "end": 122.52,
+          "en": "It was part of the old JSX code.",
+          "zh": "它是舊 JSX 程式碼的一部分。"
+        },
+        {
+          "id": 36,
+          "start": 122.52,
+          "end": 125.73,
+          "en": "It is part of the new JSX code.",
+          "zh": "它也是新 JSX 程式碼的一部分。"
+        },
+        {
+          "id": 37,
+          "start": 125.73,
+          "end": 129.54,
+          "en": "So in theory, this effect function shouldn't execute again,",
+          "zh": "所以理論上，這個 effect 函式不應該再次執行，"
+        },
+        {
+          "id": 38,
+          "start": 129.54,
+          "end": 131.85,
+          "en": "and for example, this effect function,",
+          "zh": "而例如這個 effect 函式，"
+        },
+        {
+          "id": 39,
+          "start": 131.85,
+          "end": 135.57,
+          "en": "where the interval is set does not execute again.",
+          "zh": "也就是設定 interval 的那個，就沒有再次執行。"
+        },
+        {
+          "id": 40,
+          "start": 135.57,
+          "end": 136.89,
+          "en": "As you see in the log,",
+          "zh": "如你在紀錄中看到的，"
+        },
+        {
+          "id": 41,
+          "start": 136.89,
+          "end": 139.77,
+          "en": "it's just the timeout effect function",
+          "zh": "只有這個 timeout effect 函式"
+        },
+        {
+          "id": 42,
+          "start": 139.77,
+          "end": 142.71,
+          "en": "that was executed again.",
+          "zh": "再次被執行。"
+        },
+        {
+          "id": 43,
+          "start": 142.71,
+          "end": 145.47,
+          "en": "So the fact that this effect function",
+          "zh": "所以這個 effect 函式"
+        },
+        {
+          "id": 44,
+          "start": 145.47,
+          "end": 147.66,
+          "en": "keeps on getting executed",
+          "zh": "一直不斷被執行這件事，"
+        },
+        {
+          "id": 45,
+          "start": 147.66,
+          "end": 150.573,
+          "en": "must be related to our dependencies here.",
+          "zh": "一定和我們這裡的依賴項目有關。"
+        },
+        {
+          "id": 46,
+          "start": 151.89,
+          "end": 153.99,
+          "en": "Now one dependency is the timeout",
+          "zh": "現在，其中一個依賴項目是 timeout，"
+        },
+        {
+          "id": 47,
+          "start": 153.99,
+          "end": 156.51,
+          "en": "and that value never changes.",
+          "zh": "而那個值永遠不會改變。"
+        },
+        {
+          "id": 48,
+          "start": 156.51,
+          "end": 160.44,
+          "en": "So that should not trigger the effect function to run again",
+          "zh": "所以那不應該觸發這個 effect 函式再次執行，"
+        },
+        {
+          "id": 49,
+          "start": 160.44,
+          "end": 161.79,
+          "en": "because as you learned,",
+          "zh": "因為如你所學到的，"
+        },
+        {
+          "id": 50,
+          "start": 161.79,
+          "end": 164.55,
+          "en": "the effect function is executed again",
+          "zh": "這個 effect 函式會再次執行，"
+        },
+        {
+          "id": 51,
+          "start": 164.55,
+          "end": 167.79,
+          "en": "if the surrounding component function executes again",
+          "zh": "是在周圍的元件函式再次執行、"
+        },
+        {
+          "id": 52,
+          "start": 167.79,
+          "end": 170.91,
+          "en": "and the dependency values changed,",
+          "zh": "且依賴值改變時，"
+        },
+        {
+          "id": 53,
+          "start": 170.91,
+          "end": 174.32999999999998,
+          "en": "and for a timeout that will definitely not be the case,",
+          "zh": "而對於 timeout 來說絕對不會這樣，"
+        },
+        {
+          "id": 54,
+          "start": 174.32999999999998,
+          "end": 177.037,
+          "en": "it is always 10,000.",
+          "zh": "它永遠是 10000。"
+        },
+        {
+          "id": 55,
+          "start": 178.14,
+          "end": 181.92,
+          "en": "So it must be this function that changed.",
+          "zh": "所以一定是這個函式改變了。"
+        },
+        {
+          "id": 56,
+          "start": 181.92,
+          "end": 184.833,
+          "en": "That's the only possible explanation here.",
+          "zh": "那是這裡唯一可能的解釋。"
+        },
+        {
+          "id": 57,
+          "start": 185.7,
+          "end": 189.21,
+          "en": "And indeed this is what's happening here,",
+          "zh": "而這確實就是這裡發生的事，"
+        },
+        {
+          "id": 58,
+          "start": 189.21,
+          "end": 193.02,
+          "en": "because as you also learned in the previous section",
+          "zh": "因為如你在上一章節也學到的，"
+        },
+        {
+          "id": 59,
+          "start": 193.02,
+          "end": 197.94,
+          "en": "functions in JavaScript are values, they are objects.",
+          "zh": "JavaScript 中的函式是值，它們是物件。"
+        },
+        {
+          "id": 60,
+          "start": 197.94,
+          "end": 200.55,
+          "en": "And when a function is created like here,",
+          "zh": "而當一個函式像這樣被建立時，"
+        },
+        {
+          "id": 61,
+          "start": 200.55,
+          "end": 203.13,
+          "en": "when this JSX code is evaluated,",
+          "zh": "當這段 JSX 程式碼被求值時，"
+        },
+        {
+          "id": 62,
+          "start": 203.13,
+          "end": 207.24,
+          "en": "it is a new object in memory that's being created.",
+          "zh": "在記憶體中就建立了一個新物件。"
+        },
+        {
+          "id": 63,
+          "start": 207.24,
+          "end": 210.84,
+          "en": "And even if it contains the same logic and code as before",
+          "zh": "而即使它包含和之前相同的邏輯和程式碼，"
+        },
+        {
+          "id": 64,
+          "start": 210.84,
+          "end": 214.263,
+          "en": "it's still technically a new value in memory.",
+          "zh": "技術上它仍然是記憶體中的一個新值。"
+        },
+        {
+          "id": 65,
+          "start": 215.57999999999998,
+          "end": 217.47,
+          "en": "So every time this JSX code",
+          "zh": "所以每當這個 quiz 元件中的"
+        },
+        {
+          "id": 66,
+          "start": 217.47,
+          "end": 220.77,
+          "en": "in this quiz component gets reevaluated",
+          "zh": "這段 JSX 程式碼被重新求值時，"
+        },
+        {
+          "id": 67,
+          "start": 220.77,
+          "end": 222.963,
+          "en": "a new function gets created here.",
+          "zh": "這裡就會建立一個新的函式。"
+        },
+        {
+          "id": 68,
+          "start": 224.22,
+          "end": 227.49,
+          "en": "And this JSX code gets reevaluated",
+          "zh": "而這段 JSX 程式碼會在這個 quiz 元件的 state"
+        },
+        {
+          "id": 69,
+          "start": 227.49,
+          "end": 230.94,
+          "en": "whenever the state in this quiz component is updated,",
+          "zh": "被更新時重新求值，"
+        },
+        {
+          "id": 70,
+          "start": 230.94,
+          "end": 233.703,
+          "en": "which happens when the user picks an answer.",
+          "zh": "而那會在使用者挑選答案時發生。"
+        },
+        {
+          "id": 71,
+          "start": 234.63,
+          "end": 237.84,
+          "en": "Now, to work around that we have to do something",
+          "zh": "現在，要繞過這點，我們必須做一件事，"
+        },
+        {
+          "id": 72,
+          "start": 237.84,
+          "end": 240.84,
+          "en": "which you learned in the last section as well.",
+          "zh": "那也是你在上一章節學到的。"
+        },
+        {
+          "id": 73,
+          "start": 240.84,
+          "end": 244.14,
+          "en": "We have to use another special hook",
+          "zh": "我們必須使用另一個特別的 hook，"
+        },
+        {
+          "id": 74,
+          "start": 244.14,
+          "end": 247.92,
+          "en": "which ensures that functions don't get recreated",
+          "zh": "它確保函式不會被重新建立，"
+        },
+        {
+          "id": 75,
+          "start": 247.92,
+          "end": 252.48,
+          "en": "unless they need because their dependencies changed.",
+          "zh": "除非因為它們的依賴項目改變而必須重新建立。"
+        },
+        {
+          "id": 76,
+          "start": 252.48,
+          "end": 255.363,
+          "en": "We need to use the useCallback hook here.",
+          "zh": "我們需要在這裡使用 useCallback hook。"
+        },
+        {
+          "id": 77,
+          "start": 257.16,
+          "end": 260.64300000000003,
+          "en": "We need to use it and wrap this function with it.",
+          "zh": "我們需要使用它，並用它把這個函式包起來。"
+        },
+        {
+          "id": 78,
+          "start": 261.75,
+          "end": 265.02,
+          "en": "Now to not violate any rules of hooks here",
+          "zh": "而為了不在這裡違反任何 hooks 規則，"
+        },
+        {
+          "id": 79,
+          "start": 265.02,
+          "end": 267.72,
+          "en": "and use this hook in this nested code,",
+          "zh": "不把這個 hook 用在這個嵌套的程式碼中，"
+        },
+        {
+          "id": 80,
+          "start": 267.72,
+          "end": 271,
+          "en": "I will actually go up here below handleSelectAnswer",
+          "zh": "我其實會往上到這裡，在 handleSelectAnswer 下方，"
+        },
+        {
+          "id": 81,
+          "start": 271.86,
+          "end": 276.10699999999997,
+          "en": "and add a new constant that could be called handleSkipAnswer",
+          "zh": "加入一個新常數，它可以叫做 handleSkipAnswer，"
+        },
+        {
+          "id": 82,
+          "start": 278.22,
+          "end": 281.793,
+          "en": "because that's in the end what happens if the timer expired.",
+          "zh": "因為那到頭來就是計時器到期時會發生的事。"
+        },
+        {
+          "id": 83,
+          "start": 283.23,
+          "end": 287.92,
+          "en": "And here I'll then store the return value of useCallback",
+          "zh": "而在這裡，我會接著儲存 useCallback 的回傳值，"
+        },
+        {
+          "id": 84,
+          "start": 288.99,
+          "end": 293.34000000000003,
+          "en": "and I'll then wrap this function here,",
+          "zh": "然後我會把這裡這個函式包起來，"
+        },
+        {
+          "id": 85,
+          "start": 293.34000000000003,
+          "end": 296.82,
+          "en": "which I had down here, this function.",
+          "zh": "也就是我原本放在下面的這個函式。"
+        },
+        {
+          "id": 86,
+          "start": 296.82,
+          "end": 297.93,
+          "en": "I'll cut it from here",
+          "zh": "我會把它從這裡剪下來，"
+        },
+        {
+          "id": 87,
+          "start": 297.93,
+          "end": 301.473,
+          "en": "and wrap it with useCallback like this.",
+          "zh": "並像這樣用 useCallback 包住它。"
+        },
+        {
+          "id": 88,
+          "start": 303.33,
+          "end": 306.191,
+          "en": "And then, as you learned in the previous section,",
+          "zh": "然後，如你在上一章節學到的，"
+        },
+        {
+          "id": 89,
+          "start": 306.191,
+          "end": 309.24,
+          "en": "useCallback also needs a dependencies array",
+          "zh": "useCallback 也需要一個依賴項目陣列，"
+        },
+        {
+          "id": 90,
+          "start": 309.24,
+          "end": 312.633,
+          "en": "that lists all dependencies that might be used in here.",
+          "zh": "列出所有可能被用在裡面的依賴項目。"
+        },
+        {
+          "id": 91,
+          "start": 314.4,
+          "end": 317.46,
+          "en": "Now, in here I am indeed using a dependency.",
+          "zh": "而在這裡，我確實使用了一個依賴項目。"
+        },
+        {
+          "id": 92,
+          "start": 317.46,
+          "end": 321.273,
+          "en": "I am indeed using the handleSelectAnswer function.",
+          "zh": "我確實使用了 handleSelectAnswer 函式。"
+        },
+        {
+          "id": 93,
+          "start": 322.86,
+          "end": 325.05,
+          "en": "So technically we should add that",
+          "zh": "所以技術上，我們應該把它"
+        },
+        {
+          "id": 94,
+          "start": 325.05,
+          "end": 328.02,
+          "en": "as a dependency here in this array",
+          "zh": "加入這個陣列作為依賴項目，"
+        },
+        {
+          "id": 95,
+          "start": 328.02,
+          "end": 330.84,
+          "en": "because this is a value created here",
+          "zh": "因為這是在這個元件函式中"
+        },
+        {
+          "id": 96,
+          "start": 330.84,
+          "end": 332.55,
+          "en": "in this component function",
+          "zh": "建立的值，"
+        },
+        {
+          "id": 97,
+          "start": 332.55,
+          "end": 336,
+          "en": "which could depend on props and state.",
+          "zh": "而它可能取決於 props 和 state。"
+        },
+        {
+          "id": 98,
+          "start": 336,
+          "end": 338.97,
+          "en": "So therefore, indirectly, this function here",
+          "zh": "因此，間接地，這裡這個函式"
+        },
+        {
+          "id": 99,
+          "start": 338.97,
+          "end": 342.825,
+          "en": "depends on props and state, and therefore",
+          "zh": "取決於 props 和 state，因此"
+        },
+        {
+          "id": 100,
+          "start": 342.825,
+          "end": 346.56,
+          "en": "we should also use useCallback here",
+          "zh": "我們在這裡也應該使用 useCallback，"
+        },
+        {
+          "id": 101,
+          "start": 346.56,
+          "end": 348.25,
+          "en": "and create handleSelectAnswer",
+          "zh": "並建立 handleSelectAnswer，"
+        },
+        {
+          "id": 102,
+          "start": 349.74,
+          "end": 354.74,
+          "en": "by wrapping this function here with useCallback,",
+          "zh": "透過用 useCallback 包住這裡這個函式，"
+        },
+        {
+          "id": 103,
+          "start": 357.12,
+          "end": 360.603,
+          "en": "and there we also have to add our list of dependencies.",
+          "zh": "而在那裡我們也必須加入我們的依賴項目清單。"
+        },
+        {
+          "id": 104,
+          "start": 362.31,
+          "end": 366.06,
+          "en": "But here we now don't have to add anything to that list",
+          "zh": "但在這裡，我們現在不需要在那個清單中加入任何東西，"
+        },
+        {
+          "id": 105,
+          "start": 366.06,
+          "end": 369.87,
+          "en": "because in this handleSelectAnswer function",
+          "zh": "因為在這個 handleSelectAnswer 函式中，"
+        },
+        {
+          "id": 106,
+          "start": 369.87,
+          "end": 373.2,
+          "en": "we are not using any state or props",
+          "zh": "我們沒有使用任何 state 或 props，"
+        },
+        {
+          "id": 107,
+          "start": 373.2,
+          "end": 378.2,
+          "en": "and also not any other values that depend on state or props.",
+          "zh": "也沒有使用任何其他取決於 state 或 props 的值。"
+        },
+        {
+          "id": 108,
+          "start": 379.08,
+          "end": 381.42,
+          "en": "A state updating functions like this",
+          "zh": "像這樣的 state 更新函式"
+        },
+        {
+          "id": 109,
+          "start": 381.42,
+          "end": 383.1,
+          "en": "don't have to be added here",
+          "zh": "不需要加在這裡，"
+        },
+        {
+          "id": 110,
+          "start": 383.1,
+          "end": 386.493,
+          "en": "because React will guarantee that they never change.",
+          "zh": "因為 React 保證它們永遠不會改變。"
+        },
+        {
+          "id": 111,
+          "start": 388.83,
+          "end": 390.75,
+          "en": "Well, and with all that",
+          "zh": "那麼，有了這一切，"
+        },
+        {
+          "id": 112,
+          "start": 390.75,
+          "end": 394.89,
+          "en": "we now have functions that are not recreated",
+          "zh": "我們現在有了不會只因為周圍的元件函式"
+        },
+        {
+          "id": 113,
+          "start": 394.89,
+          "end": 398.04,
+          "en": "just because the surrounding component function",
+          "zh": "再次執行就被重新建立的"
+        },
+        {
+          "id": 114,
+          "start": 398.04,
+          "end": 402.36,
+          "en": "was executed again, and therefore it's now handleSkipAnswer",
+          "zh": "函式，因此現在就是 handleSkipAnswer，"
+        },
+        {
+          "id": 115,
+          "start": 402.36,
+          "end": 404.85,
+          "en": "which I pass to on timeout.",
+          "zh": "我把它傳給 onTimeout。"
+        },
+        {
+          "id": 116,
+          "start": 404.85,
+          "end": 408.202,
+          "en": "And as I do that, if I reload, you'll see",
+          "zh": "而當我那麼做，如果我重新載入，你會看到"
+        },
+        {
+          "id": 117,
+          "start": 408.202,
+          "end": 412.08,
+          "en": "that the timeout and interval is set initially,",
+          "zh": "timeout 和 interval 一開始被設定，"
+        },
+        {
+          "id": 118,
+          "start": 412.08,
+          "end": 413.82,
+          "en": "but not thereafter.",
+          "zh": "但之後就不會了。"
+        },
+        {
+          "id": 119,
+          "start": 413.82,
+          "end": 415.994,
+          "en": "As we move to a new question",
+          "zh": "當我們前進到一個新問題時，"
+        },
+        {
+          "id": 120,
+          "start": 415.994,
+          "end": 419.043,
+          "en": "the timeout is now not set again.",
+          "zh": "這個 timeout 現在不會再被設定。"
+        },
+        {
+          "id": 121,
+          "start": 420.06,
+          "end": 424.41,
+          "en": "Now we still have that weird pause after the timer expired",
+          "zh": "現在，計時器到期後我們仍然有那個奇怪的停頓，"
+        },
+        {
+          "id": 122,
+          "start": 424.41,
+          "end": 428.25,
+          "en": "where we're not moving on to the next answer instantly,",
+          "zh": "我們沒有立刻前進到"
+        },
+        {
+          "id": 123,
+          "start": 428.25,
+          "end": 429.9,
+          "en": "or to the next question,",
+          "zh": "下一個問題，"
+        },
+        {
+          "id": 124,
+          "start": 429.9,
+          "end": 432.903,
+          "en": "but that's something we'll fix in the next lectures.",
+          "zh": "但那是我們會在接下來幾堂課修正的事。"
+        }
+      ]
     }
   ],
   "errors": []
