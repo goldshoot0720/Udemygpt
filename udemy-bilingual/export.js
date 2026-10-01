@@ -58,8 +58,11 @@
         record.courseId = courseId;
         state.textContent = '正在讀取完整課程清單…';
         const items = [];
-        let next = `/api-2.0/courses/${courseId}/subscriber-curriculum-items/?page_size=200&fields[lecture]=id,title,asset&fields[asset]=asset_type,captions`;
+        // Caption lists can be large; retrieve them only through each authorized lecture.
+        let next = `/api-2.0/courses/${courseId}/subscriber-curriculum-items/?page_size=100&fields[lecture]=id,title,asset&fields[asset]=asset_type`;
+        let page = 0;
         while (next) {
+          state.textContent = `正在讀取完整課程清單（第 ${++page} 頁）…`;
           const data = await json(next); items.push(...data.results); next = data.next;
         }
         let lectureOrder = 0;
