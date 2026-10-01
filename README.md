@@ -40,6 +40,8 @@
 
 下載後執行 `node prepare_course_sources.cjs /完整路徑/Udemy-English-course-ID.json`，驗證英文、時間軸雜湊、影片覆蓋範圍與缺漏記錄，並在 `data/courses/ID/` 保存原文、逐堂英文檔及約 800 段的 ChatGPT 批次（不拆開單堂）。各課程獨立的翻譯進度會初始化為待翻譯；既有進度不會重設。`data/english-download-progress.json` 記錄 13 門課的下載與驗證狀態，和 React 既有翻譯進度分開。
 
+英文來源的逐課統計與缺漏處理方式見 [課程英文字幕來源進度](data/english-source-summary.md)。沒有英文字幕的影片先列為待補來源；若改由影片音訊轉錄，需校對英文與時間軸，並加入外部英文字幕匯入支援後才能同步播放。
+
 1. 播放器設定按「匯出本堂英文」或「匯出全課英文」。全課匯出會讀取登入帳號可觀看的講座，完成後下載 JSON，失敗項目記錄在 errors。
 2. 將英文 JSON 與 `ChatGPT-翻譯指令.md` 的指令交給 ChatGPT 線上翻譯；大型檔案應分成小批次。
 3. 取得翻譯結果後檢查段數、空白 zh 及時間軸，再按「匯入 ChatGPT 譯文」。

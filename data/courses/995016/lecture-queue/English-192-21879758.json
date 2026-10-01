@@ -1,0 +1,1091 @@
+{
+  "version": 1,
+  "courseId": 995016,
+  "courseSlug": "vuejs-2-the-complete-guide",
+  "courseTitle": "Vue - The Complete Guide (incl. Router & Composition API)",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "21879758",
+      "title": "Running Async Code with Actions",
+      "lectureOrder": 219,
+      "videoOrder": 192,
+      "sourceHash": "b1a3aefc9c9e684c60e6927c80764de07d816c8dd2c9c421fe6b0fa67815c7ba",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.22,
+          "end": 5.12,
+          "en": "Now we got \"Mutations and Getters,\"",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.12,
+          "end": 6.86,
+          "en": "what could be missing?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.86,
+          "end": 8.453,
+          "en": "There is another important concept,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.453,
+          "end": 12.23,
+          "en": "another important feature Vuex exposes.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.23,
+          "end": 14.56,
+          "en": "But in order to understand it,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.56,
+          "end": 16.76,
+          "en": "let's go back to our code.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 16.76,
+          "end": 21.13,
+          "en": "Let's say, in the increment mutation,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 21.13,
+          "end": 24.18,
+          "en": "we don't wanna increment immediately.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 24.18,
+          "end": 26.51,
+          "en": "Instead, we wanna wait two seconds",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 26.51,
+          "end": 28.76,
+          "en": "and then increment.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 28.76,
+          "end": 31.14,
+          "en": "Now this might be a dumb example,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 31.14,
+          "end": 33.06,
+          "en": "but a better example could be an app",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 33.06,
+          "end": 35.87,
+          "en": "where you send an HTTP request",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 35.87,
+          "end": 37.73,
+          "en": "and you wait for the response.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 37.73,
+          "end": 39.81,
+          "en": "And only once the response is there,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 39.81,
+          "end": 41.463,
+          "en": "you wanna change your state.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 42.6,
+          "end": 45.63,
+          "en": "Put in other words, you sometimes have code,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 45.63,
+          "end": 47.82,
+          "en": "which runs asynchronously,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 47.82,
+          "end": 49.94,
+          "en": "which doesn't finish immediately,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 49.94,
+          "end": 51.683,
+          "en": "but sometimes in the future.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 52.62,
+          "end": 57.43,
+          "en": "The problem is that Mutations must be synchronous.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 57.43,
+          "end": 61.04,
+          "en": "You're not allowed to have any asynchronous code in there.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 61.04,
+          "end": 63.37,
+          "en": "So if you run a Mutation,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 63.37,
+          "end": 67.09,
+          "en": "it needs to execute step-by-step-by-step without any pause",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 67.09,
+          "end": 69.61,
+          "en": "and immediately change the state.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 69.61,
+          "end": 74.28999999999999,
+          "en": "It's not allowed to do anything that may take a bit longer.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 74.28999999999999,
+          "end": 77.07,
+          "en": "The reason for that simply is that if multiple",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 77.07,
+          "end": 78.55,
+          "en": "Mutations execute,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 78.55,
+          "end": 81.82,
+          "en": "every mutation should get the latest state.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 81.82,
+          "end": 84.53999999999999,
+          "en": "And if another mutation was committed,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 84.53999999999999,
+          "end": 86.33,
+          "en": "but didn't finish yet,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 86.33,
+          "end": 90.53999999999999,
+          "en": "that is unexpected and will lead to errors in your program.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 90.53999999999999,
+          "end": 93.68,
+          "en": "That's why a key requirement of Mutations",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 93.68,
+          "end": 97.15,
+          "en": "is that they have to be synchronous.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 97.15,
+          "end": 100.77000000000001,
+          "en": "But what if I do want to wait for two seconds?",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 100.77000000000001,
+          "end": 103.14,
+          "en": "We could do it as we've set timeout.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 103.14,
+          "end": 105.6,
+          "en": "There, we could wait two seconds,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 105.6,
+          "end": 107.35,
+          "en": "and then the function here,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 107.35,
+          "end": 109.8,
+          "en": "which then executes after two seconds,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 109.8,
+          "end": 111.283,
+          "en": "we update our state.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 112.22,
+          "end": 113.91,
+          "en": "But this is actually not allowed.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 113.91,
+          "end": 115.57,
+          "en": "It will work if you try it,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 115.57,
+          "end": 119.32,
+          "en": "but it is a very bad practice and nothing you should do.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 119.32,
+          "end": 122.7,
+          "en": "Instead Vuex has a better concept in place",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 122.7,
+          "end": 125.55,
+          "en": "for working with asynchronous code.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 125.55,
+          "end": 130.17,
+          "en": "Besides Mutations and Getters, it also has Actions.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 130.17,
+          "end": 133.2,
+          "en": "And Components should trigger Actions,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 133.2,
+          "end": 135.863,
+          "en": "which then in turn commit Mutations.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 136.81,
+          "end": 141.81,
+          "en": "Because Actions can now use asynchronous code.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 141.88,
+          "end": 142.82,
+          "en": "And because of that,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 142.82,
+          "end": 146.41,
+          "en": "it's actually considered a good practice in general,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 146.41,
+          "end": 151.27,
+          "en": "to always put Actions between Components and Mutations,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 151.27,
+          "end": 154.79,
+          "en": "even though Components could commit Mutations themselves.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 154.79,
+          "end": 156.76,
+          "en": "And that wouldn't be a problem",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 156.76,
+          "end": 159.38,
+          "en": "if you only had synchronous code.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 159.38,
+          "end": 163.3,
+          "en": "But even with that fact that directly committing Mutations",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 163.3,
+          "end": 166.57999999999998,
+          "en": "from inside Components often would not be a problem.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 166.57999999999998,
+          "end": 170,
+          "en": "Even with that, it is considered a good practice",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 170,
+          "end": 172.3,
+          "en": "to always put Actions in between",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 172.3,
+          "end": 177.04,
+          "en": "to ensure that you never accidentally put asynchronous code",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 177.04,
+          "end": 178.483,
+          "en": "into Mutations.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 179.57,
+          "end": 180.9,
+          "en": "So how do Actions work then?",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 180.9,
+          "end": 182.633,
+          "en": "How do we add them to our store?",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 183.64,
+          "end": 185.28,
+          "en": "In main js,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 185.28,
+          "end": 188.32,
+          "en": "besides Mutations and Getters and State,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 188.32,
+          "end": 190.77,
+          "en": "we can add Actions.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 190.77,
+          "end": 194.063,
+          "en": "And I'm doing this here, I'll add Actions here.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 195.71,
+          "end": 197.88,
+          "en": "And Action also takes an object",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 197.88,
+          "end": 200.403,
+          "en": "just like Getters and Mutations did.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 201.52,
+          "end": 204.35,
+          "en": "An action again is just a method.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 204.35,
+          "end": 209.14,
+          "en": "For example, increment: You can use the same name here",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 209.14,
+          "end": 211.82,
+          "en": "as you do in your Mutations.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 211.82,
+          "end": 213.84,
+          "en": "So here I've got an increment mutation.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 213.84,
+          "end": 216.143,
+          "en": "I'm also using an increment action.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 217.1,
+          "end": 218.89,
+          "en": "You don't have to use the same name,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 218.89,
+          "end": 222.36,
+          "en": "but often you will because often you just have an action",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 222.36,
+          "end": 225.07999999999998,
+          "en": "in between a component and a mutation.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 225.07999999999998,
+          "end": 227.513,
+          "en": "So using the same name makes sense.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 229.12,
+          "end": 233.97,
+          "en": "Now, this action will get an object as a argument,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 233.97,
+          "end": 236.03,
+          "en": "a context object.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 236.03,
+          "end": 240.7,
+          "en": "And this context object is full of interesting things.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 240.7,
+          "end": 244.36,
+          "en": "The actual get this argument automatically by Vuex,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 244.36,
+          "end": 246.503,
+          "en": "like all these Veux features do.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 247.63,
+          "end": 251.47,
+          "en": "Now context, for example, has a commit method,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 251.47,
+          "end": 252.75,
+          "en": "which you can call.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 252.75,
+          "end": 257.75,
+          "en": "And it's does what you think, it commits a mutation,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 258.04,
+          "end": 261.71,
+          "en": "just like you could commit it from inside a component.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 261.71,
+          "end": 264.3,
+          "en": "You can pass a second argument as a payload",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 264.3,
+          "end": 267.28,
+          "en": "and you can pass an object alternatively",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 267.28,
+          "end": 270.15,
+          "en": "to the two argument way of using it.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 270.15,
+          "end": 272.1,
+          "en": "But here I only need one argument",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 272.1,
+          "end": 274.23,
+          "en": "and that will be the name of the mutation",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 274.23,
+          "end": 275.48,
+          "en": "that should be committed.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 276.37,
+          "end": 278.24,
+          "en": "Now we'll have a look at the other things",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 278.24,
+          "end": 280.53,
+          "en": "inside of context in a second,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 280.53,
+          "end": 282.69,
+          "en": "but for the moment, let's leave it like this.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 282.69,
+          "end": 285.81,
+          "en": "And now we got an action which commits increment.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 285.81,
+          "end": 288.31,
+          "en": "The interesting thing is that Actions,",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 288.31,
+          "end": 292.603,
+          "en": "unlike Mutations are allowed to run asynchronous code.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 293.78,
+          "end": 296.46,
+          "en": "So we can take our timeout here",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 297.89,
+          "end": 300.663,
+          "en": "and wrap context commit with it.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 302.14,
+          "end": 305.53,
+          "en": "With that, the mutation is synchronous again,",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 305.53,
+          "end": 307.94,
+          "en": "but the action is asynchronous,",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 307.94,
+          "end": 310.45,
+          "en": "which is allowed by Veux.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 310.45,
+          "end": 312.65,
+          "en": "It simply commits the mutation only",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 312.65,
+          "end": 314.493,
+          "en": "once the two seconds have passed.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 315.64,
+          "end": 318.28,
+          "en": "And now we need to change our component code",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 318.28,
+          "end": 320.29,
+          "en": "and make sure that we don't commit",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 320.29,
+          "end": 321.97,
+          "en": "from inside the component,",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 321.97,
+          "end": 324.69,
+          "en": "but that we use the action instead.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 324.69,
+          "end": 326.95,
+          "en": "And how do we use an action then?",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 326.95,
+          "end": 330.343,
+          "en": "How is that meant to happen in Veux?",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 331.21,
+          "end": 333.09000000000003,
+          "en": "Well, inside of the component",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 333.09000000000003,
+          "end": 335.43,
+          "en": "where we previously committed,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 335.43,
+          "end": 339,
+          "en": "we can now dispatch an action.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 339,
+          "end": 342.07,
+          "en": "And the cool thing is the syntax for dispatching",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 342.07,
+          "end": 344.83,
+          "en": "is pretty much the same as for committing.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 344.83,
+          "end": 348.27,
+          "en": "You can either dispatch with two arguments",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 348.27,
+          "end": 351.48,
+          "en": "where the first argument is the action name.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 351.48,
+          "end": 354.01,
+          "en": "So in my case increments here.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 354.01,
+          "end": 357.90999999999997,
+          "en": "And the second argument is a potential payload you want,",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 357.90999999999997,
+          "end": 361.293,
+          "en": "or you use the one argument syntax.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 362.16,
+          "end": 364.64,
+          "en": "Here however, I'm dispatching increase,",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 364.64,
+          "end": 366.99,
+          "en": "which doesn't exist as an action yet.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 366.99,
+          "end": 370.24,
+          "en": "So I will quickly also add an increase action",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 370.24,
+          "end": 372.08,
+          "en": "so that this will work.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 372.08,
+          "end": 375.05,
+          "en": "Simply add a new action named Increase,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 375.05,
+          "end": 378.173,
+          "en": "and context commit Increase here.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 379.41,
+          "end": 382.19,
+          "en": "Your action will receive the payload",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 382.19,
+          "end": 384.89,
+          "en": "that was added to the dispatch function",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 385.79,
+          "end": 388.83,
+          "en": "like value here, or like this second object",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 388.83,
+          "end": 390.53,
+          "en": "as an extra argument.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 390.53,
+          "end": 392.83,
+          "en": "So here we will automatically get payload,",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 392.83,
+          "end": 396.263,
+          "en": "which we then can forward to the committed mutation.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 397.56,
+          "end": 399.86,
+          "en": "So this is how we can set up an action",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 399.86,
+          "end": 401.73,
+          "en": "that also has a payload",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 401.73,
+          "end": 404.93,
+          "en": "and forwards that payload to the mutation.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 404.93,
+          "end": 407.27,
+          "en": "Of course, you could also change the payload",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 407.27,
+          "end": 409.24,
+          "en": "before you commit this mutation.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 409.24,
+          "end": 411.99,
+          "en": "You can do whatever you wanna do in this action.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 411.99,
+          "end": 414.86,
+          "en": "Whatever needs to be done for your application",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 414.86,
+          "end": 416.033,
+          "en": "to work correctly.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 417.67,
+          "end": 419.49,
+          "en": "But let's get back to the Components.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 419.49,
+          "end": 424.17,
+          "en": "We dispatch Actions just as we committed Mutations",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 424.17,
+          "end": 426.37,
+          "en": "with the difference that we now run Actions",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 426.37,
+          "end": 427.633,
+          "en": "instead of Mutations.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 428.54,
+          "end": 431.23,
+          "en": "And therefore we can also do this and change counter",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 431.23,
+          "end": 434.263,
+          "en": "and simply dispatch the increment action here.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 435.44,
+          "end": 438.16,
+          "en": "And with all those changes in place,",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 438.16,
+          "end": 441.58,
+          "en": "if you go back, this still works.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 441.58,
+          "end": 443.54,
+          "en": "And only after two seconds",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 443.54,
+          "end": 447.1,
+          "en": "do you add two button click is having an effect.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 447.1,
+          "end": 450.903,
+          "en": "But now we're doing this in the proper way using Actions.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

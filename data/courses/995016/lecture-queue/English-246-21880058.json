@@ -1,0 +1,1574 @@
+{
+  "version": 1,
+  "courseId": 995016,
+  "courseSlug": "vuejs-2-the-complete-guide",
+  "courseTitle": "Vue - The Complete Guide (incl. Router & Composition API)",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "21880058",
+      "title": "Adding \"Auto Logout\"",
+      "lectureOrder": 275,
+      "videoOrder": 246,
+      "sourceHash": "314a6d448c1483bbdbff63e46793165cef4f346d0c95105a337845092f9c3dd0",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.22,
+          "end": 5.11,
+          "en": "So let's start with logging the user out",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.11,
+          "end": 6.49,
+          "en": "and clearing the data.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.49,
+          "end": 11,
+          "en": "For that and the log out action besides committing this,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11,
+          "end": 13.74,
+          "en": "we should also reach out to local storage",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 13.74,
+          "end": 18.74,
+          "en": "and remove the token and all the remove the user ID.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 20.38,
+          "end": 22.25,
+          "en": "Now that was the easy part.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 22.25,
+          "end": 26.13,
+          "en": "The more tricky part is that we wanna log the user out",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 26.13,
+          "end": 28.483,
+          "en": "automatically if the token expired.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 29.35,
+          "end": 31.58,
+          "en": "And for that got this token expiration,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 31.58,
+          "end": 34.863,
+          "en": "which we aren't really using at the moment though.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 35.81,
+          "end": 37.44,
+          "en": "Now when we do log in",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 39.35,
+          "end": 41.97,
+          "en": "here like this,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 41.97,
+          "end": 45.41,
+          "en": "in the data which we get back from Firebase,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 45.41,
+          "end": 49.13,
+          "en": "as you see in their docs, we also get the expires in field,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 49.13,
+          "end": 52.69,
+          "en": "which is a text, but actually holds the number of seconds",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 52.69,
+          "end": 55.35,
+          "en": "in which the ID token expires.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 55.35,
+          "end": 59.28,
+          "en": "I can tell you by default, that will be 3,600 seconds,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 59.28,
+          "end": 60.483,
+          "en": "which is an hour.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 61.38,
+          "end": 64.2,
+          "en": "Now we wanna store that expiration date,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 64.2,
+          "end": 67.09,
+          "en": "not the duration because that doesn't help us,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 67.09,
+          "end": 68.61,
+          "en": "but the expiration date",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 68.61,
+          "end": 71.56,
+          "en": "in the future when the token becomes invalid,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 71.56,
+          "end": 74.72,
+          "en": "whenever we do log the user in.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 74.72,
+          "end": 79.72,
+          "en": "So here in our off action, where we sent the request,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 80.52,
+          "end": 83.27,
+          "en": "when we store that data in local storage,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 83.27,
+          "end": 88.27,
+          "en": "we now also wanna derive the expiration date,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 88.44,
+          "end": 91.69,
+          "en": "which has a date in the future, which is the current date,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 91.69,
+          "end": 95.363,
+          "en": "plus the amount of seconds until the token expires.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 96.61,
+          "end": 100.28,
+          "en": "So for that we can get the current date by calling new date",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 100.28,
+          "end": 102.7,
+          "en": "that gives us the current timestamp.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 102.7,
+          "end": 107.49000000000001,
+          "en": "But now I wanna add something here and actually for that",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 107.49000000000001,
+          "end": 109.3,
+          "en": "I will call get time",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 109.3,
+          "end": 113.321,
+          "en": "to get the current timestamp in milliseconds",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 113.321,
+          "end": 115.93,
+          "en": "and I wanna add the expiration time,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 115.93,
+          "end": 118.71000000000001,
+          "en": "the expiration duration in milliseconds.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 118.71000000000001,
+          "end": 120.97,
+          "en": "So for that I'll add expires in",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 122.79,
+          "end": 127.79,
+          "en": "and get that from responseData.expiresIn times 1,000",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 130.335,
+          "end": 132.68,
+          "en": "and ensure that this is converted to a number",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 132.68,
+          "end": 134.77,
+          "en": "by adding a plus here.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 134.77,
+          "end": 137.01,
+          "en": "So that is then converting the string to a number",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 137.01,
+          "end": 140.98,
+          "en": "then since this is in seconds, I multiplied with 1,000",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 140.98,
+          "end": 142.81,
+          "en": "to have it in milliseconds",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 142.81,
+          "end": 147.61,
+          "en": "and then I can add expires in here to expiration dates,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 147.61,
+          "end": 152.32999999999998,
+          "en": "to have a new expiration timestamp in milliseconds,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 152.32999999999998,
+          "end": 153.85,
+          "en": "which will be in the future.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 153.85,
+          "end": 156.293,
+          "en": "Current time plus that duration.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 157.86,
+          "end": 159.67000000000002,
+          "en": "And it's this expiration date,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 159.67000000000002,
+          "end": 163.46,
+          "en": "which now also has to be stored in local storage.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 163.46,
+          "end": 168.46,
+          "en": "So here I set a new item, which is the expiration,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 169.04,
+          "end": 171.35,
+          "en": "which is called token expiration,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 171.35,
+          "end": 174.543,
+          "en": "which is that expiration date.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 178.2,
+          "end": 183.2,
+          "en": "And here we now also store data in UX the expiration date.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 184.92,
+          "end": 187.8,
+          "en": "Actually, we don't even need it in UX",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 187.8,
+          "end": 189.82,
+          "en": "because local storage is enough.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 189.82,
+          "end": 192.97,
+          "en": "It only matters to us when we reload the page.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 192.97,
+          "end": 196.32999999999998,
+          "en": "So we don't need to commit it here and then in mutation,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 196.32999999999998,
+          "end": 198.29,
+          "en": "we can actually also get rid of it here",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 201.9,
+          "end": 206.253,
+          "en": "And in try log in we also don't need to set this anymore.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 207.4,
+          "end": 210.43,
+          "en": "Instead now we store it in local storage,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 210.43,
+          "end": 213.53,
+          "en": "but I wanna do one other key thing.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 213.53,
+          "end": 217.23,
+          "en": "I wanna set a timer whenever the user is logged in",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 217.23,
+          "end": 219.55,
+          "en": "so that we automatically log user out",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 219.55,
+          "end": 222.02,
+          "en": "if that timer expires.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 222.02,
+          "end": 223.81,
+          "en": "And that's something that we'll also do here",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 223.81,
+          "end": 225.453,
+          "en": "in the auth actions.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 226.3,
+          "end": 231.3,
+          "en": "I will set a new time out here where I have my expires in",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 231.98,
+          "end": 235.47,
+          "en": "so this time in milliseconds as a duration,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 235.47,
+          "end": 239.69,
+          "en": "and after that duration, this function will execute.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 239.69,
+          "end": 241.253,
+          "en": "And in this function,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 242.45,
+          "end": 245.62,
+          "en": "I will simply dispatch the log out action,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 245.62,
+          "end": 249.363,
+          "en": "because that's what I wanna do if the token expires.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 250.73,
+          "end": 255.07,
+          "en": "I also wanna make sure that I only have one timer active",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 255.07,
+          "end": 260.07,
+          "en": "at a time so I will actually add a global variable here,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 260.37,
+          "end": 265.37,
+          "en": "timer, which I use to hold my timer like this,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 268.85,
+          "end": 270.7,
+          "en": "and then we can use this timer variable",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 270.7,
+          "end": 273.76,
+          "en": "from anywhere in this file to clear the timer.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 273.76,
+          "end": 276,
+          "en": "And I wanna clear it whenever we log out.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 276,
+          "end": 279.23,
+          "en": "When we log out, I wanna call clear timeout",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 279.23,
+          "end": 281.44,
+          "en": "and pass this timer variable to it,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 281.44,
+          "end": 283.77,
+          "en": "to clear the ongoing timer.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 283.77,
+          "end": 287.23,
+          "en": "For example, if we manually clicked the log out button,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 287.23,
+          "end": 290.223,
+          "en": "then I also wanna clear the log out timer.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 291.22,
+          "end": 296.22,
+          "en": "I also of course, wanna remove the token expiration item",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 297.61,
+          "end": 300.503,
+          "en": "from local storage if we do log out.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 303.15,
+          "end": 305.47,
+          "en": "And also not commit to this anymore",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 305.47,
+          "end": 309.083,
+          "en": "because we don't store token expiration in Vuex anymore.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 310.81,
+          "end": 315.033,
+          "en": "So now we've got this timer set whenever we logged in here,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 316.93,
+          "end": 320.92,
+          "en": "we also need to set this timer when we automatically log in,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 320.92,
+          "end": 325.03,
+          "en": "then we need to check how much expiration time is left",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 325.03,
+          "end": 328.26,
+          "en": "and set a new timer to that time.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 328.26,
+          "end": 331.7,
+          "en": "So that's why I'm storing token expiration in local storage.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 331.7,
+          "end": 334.26,
+          "en": "So here I can get my token expiration",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 334.26,
+          "end": 339.26,
+          "en": "by accessing local storage get item token expiration,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 340.75,
+          "end": 344.06,
+          "en": "and that will now be a timestamp in the future.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 344.06,
+          "end": 345.81,
+          "en": "So we now need to get to the difference",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 345.81,
+          "end": 348.58299999999997,
+          "en": "between that timestamp and the current time,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 350.42,
+          "end": 354.08299999999997,
+          "en": "which I'll again store in a constant named expiresIn",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 355.33,
+          "end": 359.63,
+          "en": "which is that token expiration converted to a number",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 359.63,
+          "end": 364.63,
+          "en": "by adding a plus minus to current time",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 364.75,
+          "end": 367.74,
+          "en": "as a timestamp in milliseconds.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 367.74,
+          "end": 370.34,
+          "en": "So that will then be the difference in milliseconds",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 370.34,
+          "end": 373.25,
+          "en": "between this time and a future when the token expires",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 373.25,
+          "end": 374.403,
+          "en": "and the current time.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 376.25,
+          "end": 380.84,
+          "en": "And of course, if expires in, should be negative here,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 380.84,
+          "end": 383.18,
+          "en": "then we don't even need to log the user in.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 383.18,
+          "end": 387.63,
+          "en": "We could even argue that if it's smaller than let's say",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 387.63,
+          "end": 390.94,
+          "en": "10,000 so smaller than 10 seconds,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 390.94,
+          "end": 394.64,
+          "en": "that even then logging the user in makes no sense.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 394.64,
+          "end": 397.28,
+          "en": "But I will go with smaller zero here.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 397.28,
+          "end": 399.79,
+          "en": "And if expires in a smaller than that,",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 399.79,
+          "end": 402.96,
+          "en": "then the token is definitely invalid",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 402.96,
+          "end": 406.6,
+          "en": "so then in that case, I will just return here",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 406.6,
+          "end": 410.15,
+          "en": "and not continue with logging the user in",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 410.15,
+          "end": 412.11,
+          "en": "because the timer expired,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 412.11,
+          "end": 414.948,
+          "en": "there is no need to continue here.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 414.948,
+          "end": 418.28,
+          "en": "Otherwise though, if the timer is positive,",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 418.28,
+          "end": 422.36,
+          "en": "if we have enough time left, if the token is still valid,",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 422.36,
+          "end": 427.36,
+          "en": "I again will set a timer here with expiresIn as a duration",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 427.95,
+          "end": 430.89,
+          "en": "and just as on my average timer in this function,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 430.89,
+          "end": 435.49,
+          "en": "I'll call context dispatch log out",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 435.49,
+          "end": 438.14300000000003,
+          "en": "and store that timer in the timer variable.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 441.27,
+          "end": 445.01,
+          "en": "Okay, so theoretically that should work.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 445.01,
+          "end": 447.07,
+          "en": "In order to test it,",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 447.07,
+          "end": 450.75,
+          "en": "I will manually tweak this expiration time a bit",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 450.75,
+          "end": 452.15999999999997,
+          "en": "and when we log in,",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 452.15999999999997,
+          "end": 457.15999999999997,
+          "en": "I will not set it to the actual exploration duration",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 457.71,
+          "end": 458.69,
+          "en": "which we have.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 458.69,
+          "end": 460.19,
+          "en": "But instead I'll duplicate this",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 460.19,
+          "end": 461.94,
+          "en": "and comment out to the correct one",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 461.94,
+          "end": 465.19,
+          "en": "and just set it to five seconds.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 465.19,
+          "end": 467.883,
+          "en": "So now after five seconds, we should be logged out.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 469.86,
+          "end": 473.773,
+          "en": "So if we give this a try and reload and log in here,",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 477.08,
+          "end": 479.78,
+          "en": "that works, but after five seconds",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 479.78,
+          "end": 482.37,
+          "en": "we shouldn't be logged in anymore.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 482.37,
+          "end": 483.53,
+          "en": "And that looks good.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 483.53,
+          "end": 486.433,
+          "en": "The UI switched to not logged in state.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 487.33,
+          "end": 490.663,
+          "en": "That should also work if I reload the page in between.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 491.91,
+          "end": 494.25,
+          "en": "So if I reload, I'm still logged in,",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 494.25,
+          "end": 498.173,
+          "en": "but still this should then update and it does.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 499.14,
+          "end": 502.17,
+          "en": "Now one problem we have with this solution",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 502.17,
+          "end": 507.17,
+          "en": "can be seen if I visit a protected page like requests,",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 507.82,
+          "end": 511.87,
+          "en": "if I'm logged out, I now stay on this page.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 511.87,
+          "end": 514.63,
+          "en": "So we should ensure that we redirect the user",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 514.63,
+          "end": 517.683,
+          "en": "if we automatically log the user out.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 518.6,
+          "end": 522.86,
+          "en": "And to achieve this redirecting upon auto log out,",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 522.86,
+          "end": 527.357,
+          "en": "I will add a new action, which I name autoLogout",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 529.82,
+          "end": 532.1,
+          "en": "where I get my context",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 532.1,
+          "end": 536.253,
+          "en": "and where I will dispatch the regular log out,",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 537.22,
+          "end": 540.11,
+          "en": "but where in addition,",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 540.11,
+          "end": 544.98,
+          "en": "I will also commit and never a mutation,",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 544.98,
+          "end": 548.497,
+          "en": "which we have yet to add, which I'll name didLogout.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 550.61,
+          "end": 555.61,
+          "en": "And in this mutation did log out, I'll set a new state",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 559.25,
+          "end": 562.573,
+          "en": "did log out to true,",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 563.41,
+          "end": 566.93,
+          "en": "and that's some state we first of all wanna add to our",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 566.93,
+          "end": 570.89,
+          "en": "main state here in the auth index JS fall",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 570.89,
+          "end": 573.113,
+          "en": "did log out initially is false,",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 574.37,
+          "end": 578.01,
+          "en": "maybe name it did auto log out to be clearer,",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 578.01,
+          "end": 581.62,
+          "en": "I will also name it did auto log out here when I update it",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 581.62,
+          "end": 586.033,
+          "en": "and named a mutation, did auto log out.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 586.89,
+          "end": 589.85,
+          "en": "Maybe also the name it set auto log out to be in line",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 589.85,
+          "end": 593.58,
+          "en": "with the other mutation and then in actions dispatch",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 593.58,
+          "end": 594.913,
+          "en": "set auto log out.",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 595.76,
+          "end": 598.71,
+          "en": "Now what's my idea here with that auto log out thing,",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 598.71,
+          "end": 599.713,
+          "en": "which I now is set?",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 600.608,
+          "end": 601.441,
+          "en": "That should be set",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 601.441,
+          "end": 604.46,
+          "en": "when the auto log out action is dispatched.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 604.46,
+          "end": 608.71,
+          "en": "So now in the timer, I wanna dispatch all the log out",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 608.71,
+          "end": 612.163,
+          "en": "here and also in the other place where I create the timer.",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 613.32,
+          "end": 618.32,
+          "en": "And the idea is that now in App View, we can add a watcher",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 618.49,
+          "end": 622.21,
+          "en": "and watch this all the log out.",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 622.21,
+          "end": 624.38,
+          "en": "For that, we just need to add a getter",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 625.62,
+          "end": 629.56,
+          "en": "did auto log out, we get our state",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 629.56,
+          "end": 632.463,
+          "en": "where return state.didAutoLogout.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 635.87,
+          "end": 638.55,
+          "en": "So that state which I'm setting in this mutation",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 638.55,
+          "end": 641.49,
+          "en": "returned by this getter and in App View,",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 641.49,
+          "end": 646.49,
+          "en": "we can then add a compute property, did auto log out",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 647.97,
+          "end": 652.97,
+          "en": "where I returned this store.getters.didAutoLogout,",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 655.93,
+          "end": 660.83,
+          "en": "and then we can watch this, didAutoLogout computed property",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 660.83,
+          "end": 665.83,
+          "en": "received a new value or the current value and the old value.",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 666.12,
+          "end": 670.32,
+          "en": "And we can now check if current value is true.",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 670.32,
+          "end": 671.82,
+          "en": "So if we did auto log out",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 671.82,
+          "end": 675.61,
+          "en": "and current value is not the same as the previous value.",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 675.61,
+          "end": 678.53,
+          "en": "So it did change and it is now true,",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 678.53,
+          "end": 680.69,
+          "en": "then we can use the router",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 680.69,
+          "end": 683.563,
+          "en": "to redirect to slash coaches let's say.",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 684.69,
+          "end": 687.55,
+          "en": "With that when we automatically log the user out,",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 687.55,
+          "end": 689.52,
+          "en": "we redirect to coaches.",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 689.52,
+          "end": 694.52,
+          "en": "So if we now give us a try and we are on slash requests,",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 697.87,
+          "end": 700.17,
+          "en": "we are redirected to coaches.",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 700.17,
+          "end": 701.06,
+          "en": "So now with that,",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 701.06,
+          "end": 703.59,
+          "en": "that would be one way I can think of that",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 703.59,
+          "end": 706.083,
+          "en": "should help us redirect the user here.",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 707.21,
+          "end": 711.27,
+          "en": "Now with that auto log out approach and this mutation",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 711.27,
+          "end": 713.67,
+          "en": "where I changed did auto log out,",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 713.67,
+          "end": 716.97,
+          "en": "I also wanna make sure that I changed if we log in again.",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 716.97,
+          "end": 718.76,
+          "en": "So if we set a user again,",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 718.76,
+          "end": 722.36,
+          "en": "then did auto log out is set to false again",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 722.36,
+          "end": 725.32,
+          "en": "so that the next time it switches to true,",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 725.32,
+          "end": 727.683,
+          "en": "we also triggered as watcher again.",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 728.58,
+          "end": 731.67,
+          "en": "This watcher will then run if it's true and changed",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 731.67,
+          "end": 734.24,
+          "en": "and therefore we need to change it back.",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 734.24,
+          "end": 737.17,
+          "en": "Otherwise it would never change again.",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 737.17,
+          "end": 739.73,
+          "en": "I also noticed that, of course now here",
+          "zh": ""
+        },
+        {
+          "id": 204,
+          "start": 739.73,
+          "end": 742.62,
+          "en": "in index.js of module,",
+          "zh": ""
+        },
+        {
+          "id": 205,
+          "start": 742.62,
+          "end": 744.95,
+          "en": "we can get rid of the token expiration here",
+          "zh": ""
+        },
+        {
+          "id": 206,
+          "start": 744.95,
+          "end": 748.65,
+          "en": "because we're not really using it in our Vuex state,",
+          "zh": ""
+        },
+        {
+          "id": 207,
+          "start": 748.65,
+          "end": 750.87,
+          "en": "but that's just a side note.",
+          "zh": ""
+        },
+        {
+          "id": 208,
+          "start": 750.87,
+          "end": 753.79,
+          "en": "With it we get the auto log out functionality added",
+          "zh": ""
+        },
+        {
+          "id": 209,
+          "start": 753.79,
+          "end": 755.91,
+          "en": "and therefore in the auth actions,",
+          "zh": ""
+        },
+        {
+          "id": 210,
+          "start": 755.91,
+          "end": 760.91,
+          "en": "I wanna switch back that expires in time to the real time,",
+          "zh": ""
+        },
+        {
+          "id": 211,
+          "start": 761.32,
+          "end": 764.48,
+          "en": "which is of course longer than five seconds.",
+          "zh": ""
+        },
+        {
+          "id": 212,
+          "start": 764.48,
+          "end": 766.363,
+          "en": "So that now if we log in,",
+          "zh": ""
+        },
+        {
+          "id": 213,
+          "start": 768.52,
+          "end": 770.87,
+          "en": "we actually should stay logged in",
+          "zh": ""
+        },
+        {
+          "id": 214,
+          "start": 770.87,
+          "end": 773.64,
+          "en": "and we can interact with this application.",
+          "zh": ""
+        },
+        {
+          "id": 215,
+          "start": 773.64,
+          "end": 776.64,
+          "en": "And for example, send a message",
+          "zh": ""
+        },
+        {
+          "id": 216,
+          "start": 779.56,
+          "end": 784.393,
+          "en": "to a number or a coach, or also send a message to ourselves,",
+          "zh": ""
+        },
+        {
+          "id": 217,
+          "start": 788.89,
+          "end": 793.89,
+          "en": "hi there, which we now can also see under requests.",
+          "zh": ""
+        },
+        {
+          "id": 218,
+          "start": 795.53,
+          "end": 797.64,
+          "en": "So that's now all auto log in",
+          "zh": ""
+        },
+        {
+          "id": 219,
+          "start": 799.18,
+          "end": 801.23,
+          "en": "so that we can reload and stay logged in",
+          "zh": ""
+        },
+        {
+          "id": 220,
+          "start": 801.23,
+          "end": 805.9,
+          "en": "and auto log out added to this application.",
+          "zh": ""
+        },
+        {
+          "id": 221,
+          "start": 805.9,
+          "end": 809.16,
+          "en": "And therefore we now added all the key building blocks",
+          "zh": ""
+        },
+        {
+          "id": 222,
+          "start": 809.16,
+          "end": 812.593,
+          "en": "which you need to add authentication to a View App.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
