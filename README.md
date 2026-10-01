@@ -1,5 +1,7 @@
 # Udemy 中英雙語特效字幕
 
+Firefox、Chrome、Edge 開發者載入包與 Safari 轉換來源包見 [GitHub Releases](https://github.com/goldshoot0720/Udemygpt/releases)。安裝方式與簽章限制見 [安裝指南](releases/INSTALL.md)。執行 `python3 scripts/build_extensions.py` 可重建四種套件，輸出至 `dist/v版本/`。
+
 支援課程的字幕流程：**英文原字幕 → ChatGPT 線上逐段翻譯 → 台灣繁體術語檢查 → 依英文時間軸顯示**。
 
 版本 2.0 不再下載或使用 Udemy 中文字幕，也不使用本機翻譯模型。尚未完成英文預譯的講座只顯示英文，左上角會標示「中文待翻譯」。
@@ -85,7 +87,7 @@ Firefox 完全關閉後暫用附加元件會移除；長期安裝需要 Mozilla 
 
 `course_queue.py` 處理 React 以外的 12 門課，依堂數由少到多排序：Remix 106 → Svelte 171 → NativeScript 217 → Ionic 242 → CSS 266 → React Native 275 → Flutter 286 → Vue 294 → Next.js 417 → NodeJS 479 → JavaScript 540 → Angular 701。這 12 門課合計 3,994 堂影片。各課堂數與進度一覽見 [課程字幕分類索引](data/courses/README.md)。
 
-Remix 前 10 堂（672 段）在 `data/courses/4958062/translations/tw-001-050.json`。Svelte 前 10 堂（762 段）在 `data/courses/2360566/translations/tw-001-050.json`。其餘課程依堂數由少到多，以 10 堂為單位輪流提交。
+Remix、Svelte 與 NativeScript 各已驗證前 10 堂。NativeScript 的 373 段在 `data/courses/2126948/translations/tw-001-050.json`。其餘課程依堂數由少到多，以 10 堂為單位輪流提交。
 
 - `python3 course_queue.py order`：列出課程順序與完成堂數。
 - `python3 course_queue.py next`：取得最小未完成課程的下一堂（`--course ID` 限定課程）。
