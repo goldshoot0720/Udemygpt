@@ -1,0 +1,5194 @@
+{
+  "version": 1,
+  "courseId": 1708340,
+  "courseSlug": "learn-flutter-dart-to-build-ios-android-apps",
+  "courseTitle": "Flutter & Dart - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "37736668",
+      "title": "Adding a Remote Database: Firestore Setup",
+      "lectureOrder": 292,
+      "videoOrder": 272,
+      "sourceHash": "4614b57a0551a2e16d0925e5a7f7f66361f78dfa0a8b7b3b89170862229d3622",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.1,
+          "end": 4.29,
+          "en": "So, now we're able to upload an image,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.29,
+          "end": 6.93,
+          "en": "and we get this DownloadURL.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.93,
+          "end": 11.17,
+          "en": "The next step now is to store that URL on Firebase,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.17,
+          "end": 13.958,
+          "en": "not here with this storage service,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 13.958,
+          "end": 17.01,
+          "en": "because it's now not a file that I wanna store.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 17.01,
+          "end": 19.68,
+          "en": "It's instead, some user metadata,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 19.68,
+          "end": 22.11,
+          "en": "because of course, I don't just wanna store",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 22.11,
+          "end": 24.42,
+          "en": "Email/Password combinations here,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 24.42,
+          "end": 27.927,
+          "en": "but also store extra data like that DownloadURL,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 27.927,
+          "end": 31.923,
+          "en": "and soon also a username that belongs to the user.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 33.18,
+          "end": 35.67,
+          "en": "Now, at the moment, the only data we're storing",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 35.67,
+          "end": 37.62,
+          "en": "is in the end, the email and password",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 37.62,
+          "end": 39.96,
+          "en": "through that Firebase auth package",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 39.96,
+          "end": 43.11,
+          "en": "when calling create user with email and password.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 43.11,
+          "end": 45.27,
+          "en": "But this method doesn't allow us",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 45.27,
+          "end": 47.34,
+          "en": "to add any extra parameters,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 47.34,
+          "end": 50.013,
+          "en": "it just wants an email and a password.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 50.94,
+          "end": 53.88,
+          "en": "If we wanna store some extra data on Firebase,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 53.88,
+          "end": 57.93,
+          "en": "we have to do that through an extra Firebase service,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 57.93,
+          "end": 61.56,
+          "en": "which we also find in our Firebase project under Build.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 61.56,
+          "end": 64.56,
+          "en": "And there, it's either the Realtime Database,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 64.56,
+          "end": 67.68,
+          "en": "which we used as a dummy backend before",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 67.68,
+          "end": 69.72,
+          "en": "in an earlier course section,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 69.72,
+          "end": 72.09,
+          "en": "and we could use it here as well,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 72.09,
+          "end": 74.85,
+          "en": "but we're actually going to use a different product here.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 74.85,
+          "end": 76.89,
+          "en": "The alternative, which we could use",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 76.89,
+          "end": 78.66,
+          "en": "instead of the Realtime Database,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 78.66,
+          "end": 81.63,
+          "en": "and that would be the Firestore Database,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 81.63,
+          "end": 83.768,
+          "en": "which is a slightly more complex",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 83.768,
+          "end": 88.768,
+          "en": "and more elaborate database solution offered by Firebase.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 90.53999999999999,
+          "end": 91.65,
+          "en": "Now, in my case here,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 91.65,
+          "end": 94.77000000000001,
+          "en": "I'm prompted to go to the Google Cloud Console,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 94.77000000000001,
+          "end": 97.32,
+          "en": "but there, I actually then can choose",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 97.32,
+          "end": 99.63300000000001,
+          "en": "SWITCH TO NATIVE MODE.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 101.16,
+          "end": 104.281,
+          "en": "And with that done, I can then reload this page here,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 104.281,
+          "end": 107.85,
+          "en": "this Firestore Database page in my Firebase project",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 107.85,
+          "end": 110.292,
+          "en": "to use it from inside Firebase again.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 110.292,
+          "end": 112.25999999999999,
+          "en": "Now, here, we'll then later see",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 112.25999999999999,
+          "end": 114.50999999999999,
+          "en": "any extra data that we store,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 114.50999999999999,
+          "end": 115.97999999999999,
+          "en": "and that's important.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 115.97999999999999,
+          "end": 117.84,
+          "en": "Data, not files.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 117.84,
+          "end": 120.51,
+          "en": "Instead, data, like the username",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 120.51,
+          "end": 124.71,
+          "en": "or a path to the uploaded image that belongs to a user,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 124.71,
+          "end": 128.37,
+          "en": "or later, also the chat messages.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 128.37,
+          "end": 130.44,
+          "en": "Because later, we're also going to use",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 130.44,
+          "end": 134.22,
+          "en": "this Firestore Database for storing the chat messages.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 134.22,
+          "end": 135.053,
+          "en": "For the moment,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 135.053,
+          "end": 137.19,
+          "en": "I wanna use it to store some extra user data,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 137.19,
+          "end": 139.38,
+          "en": "and for that we need to set it up.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 139.38,
+          "end": 141.03,
+          "en": "And then under Rules,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 141.03,
+          "end": 143.7,
+          "en": "I wanna make sure that only authenticated users",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 143.7,
+          "end": 147.24,
+          "en": "can read and write to that database,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 147.24,
+          "end": 150.42000000000002,
+          "en": "just as we did it for the storage service.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 150.42000000000002,
+          "end": 153.78,
+          "en": "And indeed here, we should edit that rule in a similar way",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 153.78,
+          "end": 156.75,
+          "en": "to what we did on the storage service.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 156.75,
+          "end": 158.475,
+          "en": "We should replace false here",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 158.475,
+          "end": 163.475,
+          "en": "with request.auth != null.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 163.5,
+          "end": 166.98,
+          "en": "That then simply means that only authenticated users",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 166.98,
+          "end": 169.53300000000002,
+          "en": "can read and write to that database.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 170.67000000000002,
+          "end": 172.68,
+          "en": "And we then should also publish that.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 172.68,
+          "end": 176.07,
+          "en": "Now, in reality, you might fine-tune these roles a bit more,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 176.07,
+          "end": 177.3,
+          "en": "because at the moment,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 177.3,
+          "end": 179.13,
+          "en": "this rule would imply",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 179.13,
+          "end": 182.335,
+          "en": "that every user can read and write any data,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 182.335,
+          "end": 185.947,
+          "en": "including data that belongs to another user,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 185.947,
+          "end": 188.64,
+          "en": "and you might wanna prevent that.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 188.64,
+          "end": 190.35,
+          "en": "So, therefore, you might wanna dive into",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 190.35,
+          "end": 193.74,
+          "en": "the official Firebase Firestore Security Rules",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 193.74,
+          "end": 195.42,
+          "en": "to learn more about how",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 195.42,
+          "end": 198.3,
+          "en": "those rules can be written and structured and improved,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 198.3,
+          "end": 200.25,
+          "en": "and how you could make sure that users",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 200.25,
+          "end": 202.92000000000002,
+          "en": "can only read and write their own data.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 202.92000000000002,
+          "end": 205.62,
+          "en": "Here, for this app, I'll keep it a bit simpler,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 205.62,
+          "end": 207.48,
+          "en": "also because in this app,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 207.48,
+          "end": 209.55,
+          "en": "you don't really have a way",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 209.55,
+          "end": 212.1,
+          "en": "of accessing another user's data,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 212.1,
+          "end": 213.32999999999998,
+          "en": "but I wanted to mention",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 213.32999999999998,
+          "end": 216.15,
+          "en": "that you could consider locking this down a bit more.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 216.15,
+          "end": 219.15,
+          "en": "But here for this demo, this basic check will do,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 219.15,
+          "end": 220.966,
+          "en": "because this check at least ensures",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 220.966,
+          "end": 223.00900000000001,
+          "en": "that no unauthenticated users",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 223.00900000000001,
+          "end": 226.56,
+          "en": "can interact with that database.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 226.56,
+          "end": 230.76,
+          "en": "And with that, we got this Cloud Firestore Database set up.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 230.76,
+          "end": 234.515,
+          "en": "Now to send requests to it from inside our app,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 234.515,
+          "end": 237.9,
+          "en": "we could, again, use some REST API",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 237.9,
+          "end": 242.9,
+          "en": "provided by Firebase to send HTTP requests manually.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 242.97,
+          "end": 245.82,
+          "en": "But just as we did it with user creation",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 245.82,
+          "end": 248.85,
+          "en": "and logging users in and uploading an image,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 248.85,
+          "end": 250.38,
+          "en": "we're not going to do that.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 250.38,
+          "end": 253.68,
+          "en": "Instead, we're going to leverage another Firebase package",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 253.68,
+          "end": 256.29,
+          "en": "to make our life a bit easier here.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 256.29,
+          "end": 258.51,
+          "en": "For that, to install that extra package,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 258.51,
+          "end": 261.18,
+          "en": "we should again run flutter pub add,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 261.18,
+          "end": 263.553,
+          "en": "and then the package name is cloud_firestore.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 266.46,
+          "end": 269.79,
+          "en": "That's the official package provided by Firebase",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 269.79,
+          "end": 273.51,
+          "en": "to interact with the Firestore Database.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 273.51,
+          "end": 275.547,
+          "en": "And with that package installed,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 275.547,
+          "end": 278.34000000000003,
+          "en": "we can now use it in our project",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 278.34000000000003,
+          "end": 281.307,
+          "en": "to send that extra data to Firestore.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "37736672",
+      "title": "Sending Data to Firestore",
+      "lectureOrder": 293,
+      "videoOrder": 273,
+      "sourceHash": "293fb89699a4d108e6b84c87c061f8541e5de4dcef47a74eab2aaa179611c6af",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.1,
+          "end": 4.71,
+          "en": "Now, to send extra data to Firestore,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.71,
+          "end": 9.21,
+          "en": "here in the auth.dart after uploading the image,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.21,
+          "end": 12.21,
+          "en": "I want to use",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.21,
+          "end": 13.503,
+          "en": "FirebaseFirestore,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.57,
+          "end": 18.3,
+          "en": "a new object which we can use",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 18.3,
+          "end": 22.44,
+          "en": "after adding this import here to the file,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 22.44,
+          "end": 24.183,
+          "en": "the cloud_firestore import.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 25.53,
+          "end": 26.76,
+          "en": "And with that added,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 26.76,
+          "end": 30.12,
+          "en": "we can access FirebaseFirestore.instance",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 30.12,
+          "end": 34.56,
+          "en": "just as we used this instance property on FirebaseStorage,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 34.56,
+          "end": 38.343,
+          "en": "and also on this auth package provided by Firebase.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 39.33,
+          "end": 41.82,
+          "en": "And this instance can then be used",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 41.82,
+          "end": 44.61,
+          "en": "for talking to this database here",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 44.61,
+          "end": 47.133,
+          "en": "and for uploading and fetching data.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 48.09,
+          "end": 50.07,
+          "en": "Now, here it's important to understand",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 50.07,
+          "end": 54.84,
+          "en": "that Firestore works with so-called collections,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 54.84,
+          "end": 59.16,
+          "en": "which you can think of as folders that contain data.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 59.16,
+          "end": 61.8,
+          "en": "So on this instance, we can call collection",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 61.8,
+          "end": 64.74,
+          "en": "to reach out to a collection",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 64.74,
+          "end": 67.8,
+          "en": "or create it if it doesn't exist yet.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 67.8,
+          "end": 70.56,
+          "en": "And I'll name this collection here users,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 70.56,
+          "end": 73.83,
+          "en": "because this should be a folder, you could say,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 73.83,
+          "end": 75.813,
+          "en": "that should contain some user data.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 77.61,
+          "end": 81.84,
+          "en": "Now, in this Firestore database provided by Firebase,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 81.84,
+          "end": 85.17,
+          "en": "these collections then contain so-called documents,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 85.17,
+          "end": 88.98,
+          "en": "which are the actual data entries.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 88.98,
+          "end": 90.84,
+          "en": "And a document then in turn",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 90.84,
+          "end": 94.53,
+          "en": "could have more nested collections if you needed to,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 94.53,
+          "end": 95.72999999999999,
+          "en": "but here I'll just have",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 95.72999999999999,
+          "end": 98.55,
+          "en": "this one root collection called users.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 98.55,
+          "end": 100.25999999999999,
+          "en": "And in that collection,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 100.25999999999999,
+          "end": 104.31,
+          "en": "I'll add a new document by using the doc method,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 104.31,
+          "end": 107.763,
+          "en": "which can be chained on the result of calling collection.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 109.02000000000001,
+          "end": 111.96000000000001,
+          "en": "Here, you then give this document a name,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 111.96000000000001,
+          "end": 113.82,
+          "en": "and this could be a fixed name",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 113.82,
+          "end": 117,
+          "en": "or as I wanna do it here, a dynamic name,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 117,
+          "end": 120.45,
+          "en": "because here I want to use that user ID as a name.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 120.45,
+          "end": 122.76,
+          "en": "So just as I used it here as a file name,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 122.76,
+          "end": 124.92,
+          "en": "I'll use it here as a collection name",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 124.92,
+          "end": 128.073,
+          "en": "just without the jpg thing at the end.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 129,
+          "end": 131.73,
+          "en": "This will then create a new document",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 131.73,
+          "end": 134.76,
+          "en": "in a collection called users.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 134.76,
+          "end": 136.74,
+          "en": "And now we just need to tell Firebase",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 136.74,
+          "end": 140.16,
+          "en": "which data should be stored in that document.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 140.16,
+          "end": 143.64,
+          "en": "And that's done by chaining the set method here",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 143.64,
+          "end": 145.56,
+          "en": "after this document.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 145.56,
+          "end": 148.92000000000002,
+          "en": "And of course, as with all these Firebase features,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 148.92000000000002,
+          "end": 152.91,
+          "en": "you can always dive into the official Firebase documentation",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 152.91,
+          "end": 155.31,
+          "en": "to learn all about these packages",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 155.31,
+          "end": 157.38,
+          "en": "and these Firebase services,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 157.38,
+          "end": 160.89,
+          "en": "and to learn all about the things you can do with them.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 160.89,
+          "end": 163.26,
+          "en": "Here, we're using set on this document",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 163.26,
+          "end": 164.49,
+          "en": "to define the data",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 164.49,
+          "end": 167.04,
+          "en": "that should be stored in that document.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 167.04,
+          "end": 168.32999999999998,
+          "en": "And for that here,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 168.32999999999998,
+          "end": 171.69,
+          "en": "Firebase actually wants to get a map",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 171.69,
+          "end": 174.06,
+          "en": "where the keys will be the keys",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 174.06,
+          "end": 176.97,
+          "en": "that will also be used in the database,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 176.97,
+          "end": 179.31,
+          "en": "and the values will then be the values",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 179.31,
+          "end": 183.36,
+          "en": "that should be stored under those keys in the database.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 183.36,
+          "end": 186.09,
+          "en": "And here, I wanna store a username,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 186.09,
+          "end": 188.76,
+          "en": "which is to be done",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 188.76,
+          "end": 191.163,
+          "en": "because that's a feature we have yet to add.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 192.54,
+          "end": 194.4,
+          "en": "Then also maybe an email,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 194.4,
+          "end": 196.92000000000002,
+          "en": "which, of course, already was stored here",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 196.92000000000002,
+          "end": 200.01,
+          "en": "by Firebase when using this auth package.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 200.01,
+          "end": 202.38,
+          "en": "But we can also store it again here,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 202.38,
+          "end": 204.333,
+          "en": "the _enteredEmail that is,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 205.23,
+          "end": 207.93,
+          "en": "and then this image URL",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 207.93,
+          "end": 212.07,
+          "en": "stored in a key named image_url, for example,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 212.07,
+          "end": 215.55,
+          "en": "though these key names are all up to you.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 215.55,
+          "end": 219.9,
+          "en": "And that here, of course, is that imageUrl I'm getting here",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 219.9,
+          "end": 222.363,
+          "en": "by calling getDownloadURL.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 223.29,
+          "end": 226.35,
+          "en": "So that's now the data that should be set in this document,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 226.35,
+          "end": 228.42000000000002,
+          "en": "in this collection.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 228.42000000000002,
+          "end": 230.25,
+          "en": "And then here in the end,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 230.25,
+          "end": 232.23,
+          "en": "set yields a future",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 232.23,
+          "end": 234,
+          "en": "which we therefore should await",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 234,
+          "end": 235.23,
+          "en": "to make sure that we wait",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 235.23,
+          "end": 237.363,
+          "en": "until this operation is completed.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 239.1,
+          "end": 241.11,
+          "en": "And with all of that added here,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 241.11,
+          "end": 243.99,
+          "en": "we should now be storing this extra data",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 243.99,
+          "end": 246.78,
+          "en": "in this Firestore database.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 246.78,
+          "end": 248.76,
+          "en": "Hence, we can save this,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 248.76,
+          "end": 250.86,
+          "en": "reload the app,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 250.86,
+          "end": 252.3,
+          "en": "and then log out",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 252.3,
+          "end": 255.63,
+          "en": "to make sure that we can create another new account",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 255.63,
+          "end": 257.613,
+          "en": "with an unused email address.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 258.81,
+          "end": 260.23,
+          "en": "Also, add an image",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 261.214,
+          "end": 262.08,
+          "en": "(device beeping)",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 262.08,
+          "end": 263.73,
+          "en": "like this,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 263.73,
+          "end": 264.783,
+          "en": "click Signup.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 266.04,
+          "end": 268.8,
+          "en": "And now we should actually be able",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 268.8,
+          "end": 272.25,
+          "en": "to reload here in this Firestore database",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 272.25,
+          "end": 273.873,
+          "en": "part of Firebase.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 274.77,
+          "end": 278.13,
+          "en": "And I actually don't see the data here",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 278.13,
+          "end": 281.01,
+          "en": "because I got an error in my debug console.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 281.01,
+          "end": 285.27,
+          "en": "Looks like the package actually wasn't found,",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 285.27,
+          "end": 288,
+          "en": "and that's an error that should be fixable",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 288,
+          "end": 289.92,
+          "en": "by stopping this process",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 289.92,
+          "end": 293.79,
+          "en": "and restarting this run app process",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 293.79,
+          "end": 296.4,
+          "en": "to make sure that all the newly added packages",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 296.4,
+          "end": 299.463,
+          "en": "are incorporated into this app bundle correctly.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 302.97,
+          "end": 307.02,
+          "en": "And here for me, this compilation process actually fails",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 307.02,
+          "end": 308.49,
+          "en": "because in the end here for me,",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 308.49,
+          "end": 310.65,
+          "en": "it turns out that for Android",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 310.65,
+          "end": 314.103,
+          "en": "I need to set a higher minSdkVersion than 16.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 315.45,
+          "end": 317.91,
+          "en": "This package, at the moment I'm recording this,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 317.91,
+          "end": 320.64,
+          "en": "needs at least version 19.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 320.64,
+          "end": 323.16,
+          "en": "So therefore, here to make sure that this works,",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 323.16,
+          "end": 325.35,
+          "en": "I should go back to android",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 325.35,
+          "end": 327.96,
+          "en": "and then there app, build.gradle,",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 327.96,
+          "end": 332.13,
+          "en": "a file we did add it earlier in this course.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 332.13,
+          "end": 334.38,
+          "en": "And there under android,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 334.38,
+          "end": 335.61,
+          "en": "in the defaultConfig,",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 335.61,
+          "end": 339.243,
+          "en": "we should set the minSdkVersion to 19.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 340.44,
+          "end": 343.83,
+          "en": "And besides setting this minSdkVersion,",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 343.83,
+          "end": 346.08,
+          "en": "at least here at the point of time I'm recording this,",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 346.08,
+          "end": 348.65999999999997,
+          "en": "I also have to add one other setting",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 348.65999999999997,
+          "end": 351.33,
+          "en": "to this defaultConfig in this build.gradle file",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 351.33,
+          "end": 353.7,
+          "en": "in the app folder in the android folder,",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 353.7,
+          "end": 358.7,
+          "en": "and that's the multiDexEnabled setting written like this,",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 359.55,
+          "end": 361.38,
+          "en": "and the casing does matter.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 361.38,
+          "end": 363.423,
+          "en": "And here, this should be set to true.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 365.85,
+          "end": 367.35,
+          "en": "With this entry added",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 367.35,
+          "end": 369.54,
+          "en": "and this minSdkVersion set",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 369.54,
+          "end": 371.73,
+          "en": "as mentioned in that error message,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 371.73,
+          "end": 372.84,
+          "en": "if I now go back,",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 372.84,
+          "end": 374.91,
+          "en": "save everything and run this again,",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 374.91,
+          "end": 377.31,
+          "en": "it should now compile successfully",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 377.31,
+          "end": 379.443,
+          "en": "and the app should run successfully,",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 380.64,
+          "end": 382.68,
+          "en": "and it does.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 382.68,
+          "end": 384.72,
+          "en": "And therefore, now if I log out,",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 384.72,
+          "end": 388.38,
+          "en": "create another new user here",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 388.38,
+          "end": 390.18,
+          "en": "with email and password",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 390.18,
+          "end": 392.793,
+          "en": "and I add my image as I did before.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 394.29,
+          "end": 396.48,
+          "en": "If I now click Signup,",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 396.48,
+          "end": 399.3,
+          "en": "this still works, I'm still logged in.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 399.3,
+          "end": 401.88,
+          "en": "And it might take a short while until it's done,",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 401.88,
+          "end": 403.05,
+          "en": "but then it works.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 403.05,
+          "end": 405.63,
+          "en": "And now here, if I go back to Firestore database",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 405.63,
+          "end": 407.7,
+          "en": "and I reload this page,",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 407.7,
+          "end": 410.19,
+          "en": "I now do see this user's collection",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 410.19,
+          "end": 413.55,
+          "en": "with one new document that carries the ID",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 413.55,
+          "end": 416.94,
+          "en": "of the user that was created as a name.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 416.94,
+          "end": 418.56,
+          "en": "And in there, in this document,",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 418.56,
+          "end": 422.34,
+          "en": "I see these different key-value pairs that were stored,",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 422.34,
+          "end": 426.81,
+          "en": "including this image URL of the uploaded image.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 426.81,
+          "end": 430.17,
+          "en": "And that's how we can store user-specific data,",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 430.17,
+          "end": 433.02,
+          "en": "not with help of this authentication service,",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 433.02,
+          "end": 437.88,
+          "en": "but by simply storing extra data with help of Firestore.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 437.88,
+          "end": 441.09,
+          "en": "And now, I just wanna complete this data here",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 441.09,
+          "end": 444.063,
+          "en": "by also providing an actual username.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "37736680",
+      "title": "Storing a Username",
+      "lectureOrder": 294,
+      "videoOrder": 274,
+      "sourceHash": "ed413d887dad070bb19e2d729109f772e06e21af351c195abec3011329e11e72",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.1,
+          "end": 3.78,
+          "en": "So now in order to make sure",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.78,
+          "end": 8.78,
+          "en": "that users also have to provide a username when signing up,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.3,
+          "end": 13.11,
+          "en": "I'll go back to my auth.dart file and there to this form.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.11,
+          "end": 15.15,
+          "en": "And then maybe here",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.15,
+          "end": 18.24,
+          "en": "below this email address text form field,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 18.24,
+          "end": 20.91,
+          "en": "though the exact position does not matter,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 20.91,
+          "end": 23.61,
+          "en": "I'll add another text form field",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 23.61,
+          "end": 26.76,
+          "en": "and this will be a text form field that's meant to be used",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 26.76,
+          "end": 28.353,
+          "en": "for storing a username.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 29.46,
+          "end": 32.43,
+          "en": "Now on this text form field here,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 32.43,
+          "end": 36.69,
+          "en": "I'll therefore add a validator as I did it for the email",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 36.69,
+          "end": 38.82,
+          "en": "and the password as well.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 38.82,
+          "end": 42.48,
+          "en": "And here we could say that a username should be correct,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 42.48,
+          "end": 47.25,
+          "en": "if it is maybe at least four characters long.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 47.25,
+          "end": 52.25,
+          "en": "So here I wanna check if value is equal to null",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 52.32,
+          "end": 57.27,
+          "en": "or if value is empty, or if value.length",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 57.27,
+          "end": 62.27,
+          "en": "or maybe the length after trimming it is smaller than four.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 63.78,
+          "end": 66.24,
+          "en": "So if either of these conditions is met,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 66.24,
+          "end": 68.46000000000001,
+          "en": "we know that the value is invalid",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 68.46000000000001,
+          "end": 71.46000000000001,
+          "en": "and will therefore return an error message.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 71.46000000000001,
+          "end": 73.117,
+          "en": "And the error message could be,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 73.117,
+          "end": 78.117,
+          "en": "\"Please enter a valid username, at least four characters,\"",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 81.21000000000001,
+          "end": 86.21000000000001,
+          "en": "or a bit shorter, \"Please enter at least four characters.\"",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 86.46000000000001,
+          "end": 89.07,
+          "en": "Otherwise we return null because otherwise,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 89.07,
+          "end": 91.233,
+          "en": "we have no validation error.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 93.09,
+          "end": 97.89,
+          "en": "I'll also add a decoration maybe above the validator,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 97.89,
+          "end": 99.42,
+          "en": "though it doesn't matter.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 99.42,
+          "end": 101.91,
+          "en": "And here that's an InputDecoration object,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 101.91,
+          "end": 106.2,
+          "en": "which I'll use to set the label text to a string.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 106.2,
+          "end": 110.82,
+          "en": "And here, the label simply is username.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 110.82,
+          "end": 113.10300000000001,
+          "en": "And this can be a const object.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 114.36,
+          "end": 119.28,
+          "en": "I'll set enableSuggestions to false to make sure",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 119.28,
+          "end": 122.46,
+          "en": "that the keyboard on the screen doesn't give the user",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 122.46,
+          "end": 125.76,
+          "en": "any suggestions because you typically don't want that",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 125.76,
+          "end": 129.12,
+          "en": "when entering fictional names like a username.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 129.12,
+          "end": 132.03,
+          "en": "Suggestions often aren't helpful there.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 132.03,
+          "end": 133.8,
+          "en": "That's why I'm turning them off here",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 133.8,
+          "end": 135.87,
+          "en": "for this text form field.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 135.87,
+          "end": 140.87,
+          "en": "And now of course, we also need to add our onSaved method",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 140.91,
+          "end": 144.87,
+          "en": "or our onSaved function where we get the value",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 144.87,
+          "end": 147.22,
+          "en": "and where we then save the value",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 149.04,
+          "end": 153.51,
+          "en": "just as we did it on the password and the email fields.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 153.51,
+          "end": 156.51,
+          "en": "Therefore, of course, we need to add a new property",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 156.51,
+          "end": 160.07999999999998,
+          "en": "to this class here, to this state class.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 160.07999999999998,
+          "end": 163.41,
+          "en": "And that's the enteredUsername property",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 163.41,
+          "end": 167.913,
+          "en": "which initially holds an empty string like this.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 169.68,
+          "end": 173.617,
+          "en": "And this should now be updated whenever we save the form,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 173.617,
+          "end": 176.82,
+          "en": "therefore here in this onSaved function",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 176.82,
+          "end": 179.55,
+          "en": "that belongs to the username text form field,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 179.55,
+          "end": 183.81,
+          "en": "I'll set enteredUsername equal to value",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 183.81,
+          "end": 185.4,
+          "en": "and add an exclamation mark",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 185.4,
+          "end": 188.253,
+          "en": "because of course here, we know that this won't be null.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 189.42,
+          "end": 192.03,
+          "en": "That's how we can add such a username field here.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 192.03,
+          "end": 195.72,
+          "en": "Of course, it should only be shown if we're in signup mode,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 195.72,
+          "end": 197.94,
+          "en": "not if we're logging in.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 197.94,
+          "end": 200.34,
+          "en": "Therefore here, we should also add a if check",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 200.34,
+          "end": 203.55,
+          "en": "where we are checking if we're not in login mode.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 203.55,
+          "end": 205.44,
+          "en": "So if we are signing up",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 205.44,
+          "end": 209.04,
+          "en": "and only then this text form field should be added",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 209.04,
+          "end": 212.523,
+          "en": "to this list of widget that belongs to this column.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 213.45,
+          "end": 215.25,
+          "en": "Otherwise, it should not be shown.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 215.25,
+          "end": 218.34300000000002,
+          "en": "If we're logging in, this should not be showing up.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 219.45,
+          "end": 222.54,
+          "en": "So that's how we then show such a form field.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 222.54,
+          "end": 225.3,
+          "en": "Of course, this data now also should be submitted",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 225.3,
+          "end": 227.52,
+          "en": "once we are submitting the form,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 227.52,
+          "end": 230.043,
+          "en": "so once this submit method is triggered.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 231.21,
+          "end": 233.94,
+          "en": "Therefore here where we're reaching out",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 233.94,
+          "end": 238.26,
+          "en": "to FirebaseFirestore, instead of using to be done",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 238.26,
+          "end": 242.37,
+          "en": "as a username, I now want to use the enteredUsername.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 242.37,
+          "end": 245.283,
+          "en": "And now we can save that all, reload,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 246.78,
+          "end": 248.04,
+          "en": "log out again.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 248.04,
+          "end": 252.03,
+          "en": "And we don't see the username field here when logging in,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 252.03,
+          "end": 255,
+          "en": "but if I create an account, I now do see it here.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 255,
+          "end": 257.613,
+          "en": "So now again, we can take a picture here,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 258.93,
+          "end": 263.93,
+          "en": "use an unused email address and a password.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 264.51,
+          "end": 269.19,
+          "en": "And then here also a username like max1.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 269.19,
+          "end": 271.29,
+          "en": "And if I now sign up,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 271.29,
+          "end": 273.87,
+          "en": "this takes a short while, we're logged in",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 273.87,
+          "end": 277.89,
+          "en": "and now in Firestore, we see a new document",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 277.89,
+          "end": 281.58299999999997,
+          "en": "and there, we now got this username stored as well.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 282.87,
+          "end": 284.58299999999997,
+          "en": "So that's this feature added.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "37736690",
+      "title": "Adding ChatMessages & Input Widgets",
+      "lectureOrder": 295,
+      "videoOrder": 275,
+      "sourceHash": "b44ce1a168674189b1f47dbf0bca495925f9b34e19938e4e8c36d0e8447d45aa",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.16,
+          "end": 3,
+          "en": "So now that we've got",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3,
+          "end": 5.85,
+          "en": "the entire authentication process finished,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.85,
+          "end": 9.84,
+          "en": "and now that we even got started with Firebase Firestore",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.84,
+          "end": 12.63,
+          "en": "with that extra database we're also going to use",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.63,
+          "end": 15,
+          "en": "for storing the chat messages,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15,
+          "end": 18.57,
+          "en": "it's time to start working on that chat.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.57,
+          "end": 21.48,
+          "en": "And for that here, when logged in, I, of course,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 21.48,
+          "end": 23.7,
+          "en": "wanna make sure that on this screen",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 23.7,
+          "end": 25.86,
+          "en": "we show the chat messages,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 25.86,
+          "end": 29.04,
+          "en": "but also a little row at the bottom",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 29.04,
+          "end": 32.01,
+          "en": "that has a text input field and a button",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 32.01,
+          "end": 36.06,
+          "en": "that allows users to enter a new chat message.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 36.06,
+          "end": 38.43,
+          "en": "So for that, here on this chat screen,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 38.43,
+          "end": 41.97,
+          "en": "this dummy Center widget should be replaced",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 41.97,
+          "end": 45.12,
+          "en": "with a Messages widget that shows all messages",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 45.12,
+          "end": 47.34,
+          "en": "and a NewMessage widget",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 47.34,
+          "end": 50.163,
+          "en": "that allows users to enter a new message.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 51.27,
+          "end": 53.34,
+          "en": "For that, here in the widgets folder,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 53.34,
+          "end": 57.72,
+          "en": "I'll add a new file, chat_messages.dart,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 57.72,
+          "end": 62.19,
+          "en": "that will later show that list of chat messages,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 62.19,
+          "end": 65.46,
+          "en": "and also a new_message.dart file",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 65.46,
+          "end": 69.333,
+          "en": "that will show the forum for providing a single new message.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 71.03999999999999,
+          "end": 74.03999999999999,
+          "en": "Now, the chat_messages.dart file",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 74.03999999999999,
+          "end": 79.03999999999999,
+          "en": "should contain a new class that can be called ChatMessages.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 80.186,
+          "end": 83.13,
+          "en": "That should extend a Stateless widget",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 83.13,
+          "end": 85.59,
+          "en": "because here we won't need to manage",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 85.59,
+          "end": 88.17,
+          "en": "any state in that list of messages.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 88.17,
+          "end": 90.48,
+          "en": "We'll just load that list of messages,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 90.48,
+          "end": 92.25,
+          "en": "but we'll then display that list",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 92.25,
+          "end": 94.77000000000001,
+          "en": "without manually changing any state,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 94.77000000000001,
+          "end": 97.443,
+          "en": "and you'll see how that works a little bit later.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 98.52000000000001,
+          "end": 101.61,
+          "en": "Therefore, here we're extending Stateless widget.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 101.61,
+          "end": 104.46000000000001,
+          "en": "We can and should add our constructor here",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 104.46000000000001,
+          "end": 107.46000000000001,
+          "en": "where we get and forward that key",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 107.46000000000001,
+          "end": 110.00999999999999,
+          "en": "as we did so often in this course,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 110.00999999999999,
+          "end": 112.38,
+          "en": "and we should, of course, add that build method.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 112.38,
+          "end": 116.28,
+          "en": "And then here in this build method, at the moment,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 116.28,
+          "end": 120.21,
+          "en": "I'll just return a Center widget,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 120.21,
+          "end": 123.66,
+          "en": "which has a single child as all Center widgets do,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 123.66,
+          "end": 128.58,
+          "en": "where I output some text and I say, \"No messages found.\"",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 128.58,
+          "end": 131.31,
+          "en": "And we'll of course replace this later.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 131.31,
+          "end": 133.44,
+          "en": "For the moment, that's the content",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 133.44,
+          "end": 135.453,
+          "en": "displayed by ChatMessages.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 136.65,
+          "end": 141,
+          "en": "Next, I also wanna work on the new_message.dart file.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 141,
+          "end": 146,
+          "en": "And in that file here, we add another new class, NewMessage,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 147.42000000000002,
+          "end": 151.74,
+          "en": "and this will extend Stateful widget",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 151.74,
+          "end": 154.683,
+          "en": "because here we will need to manage some state,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 156.175,
+          "end": 158.88,
+          "en": "and we, of course, have our constructor here,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 158.88,
+          "end": 163.14,
+          "en": "as always, super.key.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 163.14,
+          "end": 166.92000000000002,
+          "en": "And then we have our createState method,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 166.92000000000002,
+          "end": 169.5,
+          "en": "and we have that state class here,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 169.5,
+          "end": 174,
+          "en": "underscore NewMessageState, which extends State,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 174,
+          "end": 177.75,
+          "en": "a state that belongs to the NewMessage widget.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 177.75,
+          "end": 180.723,
+          "en": "That's also the state we wanna set up here.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 181.56,
+          "end": 184.538,
+          "en": "And then here we return a new instance",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 184.538,
+          "end": 188.55,
+          "en": "of this NewMessageState class here like this.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 188.55,
+          "end": 190.71,
+          "en": "And here in the NewMessageState class,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 190.71,
+          "end": 192.333,
+          "en": "we then add the build method.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 194.13,
+          "end": 196.89,
+          "en": "And in this build method here,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 196.89,
+          "end": 200.07,
+          "en": "you can then, of course, style this however you want.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 200.07,
+          "end": 203.22,
+          "en": "You can use whichever widget combination you want.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 203.22,
+          "end": 207.3,
+          "en": "I'll simply add a Padding widget here",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 207.3,
+          "end": 209.52,
+          "en": "to make sure that we do set up some padding",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 209.52,
+          "end": 212.43,
+          "en": "around the text input field and the button.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 212.43,
+          "end": 217.43,
+          "en": "And here I'll set my padding to const EdgeInsets.only",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 219.06,
+          "end": 223.32,
+          "en": "to set specific padding values for the different directions.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 223.32,
+          "end": 226.77,
+          "en": "And use a padding to the left of 15,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 226.77,
+          "end": 228.63,
+          "en": "to the right of 1.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 228.63,
+          "end": 232.5,
+          "en": "And you'll see soon that this should look decent.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 232.5,
+          "end": 235.74,
+          "en": "Of course, you can tweak those values as needed, though,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 235.74,
+          "end": 238.56,
+          "en": "and set a bottom widget of 14.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 238.56,
+          "end": 240.57,
+          "en": "But again, you can definitely fine tune",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 240.57,
+          "end": 242.553,
+          "en": "and tweak those settings.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 243.78,
+          "end": 246.69,
+          "en": "Then here as a child for Padding,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 246.69,
+          "end": 249.51,
+          "en": "I wanna use a row because I wanna have two widgets",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 249.51,
+          "end": 252.09,
+          "en": "next to each other horizontally.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 252.09,
+          "end": 255.501,
+          "en": "And the first widget should be a TextField,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 255.501,
+          "end": 257.07,
+          "en": "not a text form field,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 257.07,
+          "end": 259.65,
+          "en": "because here I'm not using the form widget,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 259.65,
+          "end": 263.49,
+          "en": "though, of course, you could also use that if you wanted to.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 263.49,
+          "end": 266.82,
+          "en": "And TextField inside of a row can be problematic",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 266.82,
+          "end": 268.65,
+          "en": "as you learned before in the course.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 268.65,
+          "end": 272.52,
+          "en": "Hence, I'll wrap it with expanded like this.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 272.52,
+          "end": 275.13,
+          "en": "Now, this Expanded TextField combination",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 275.13,
+          "end": 279.69,
+          "en": "should then go into the children list of row,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 279.69,
+          "end": 281.76,
+          "en": "but it should not go in there alone.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 281.76,
+          "end": 284.94,
+          "en": "Instead, in addition here, I will also add",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 284.94,
+          "end": 287.52,
+          "en": "an IconButton widget to render,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 287.52,
+          "end": 290.19,
+          "en": "well, an icon button",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 290.19,
+          "end": 295.19,
+          "en": "where the icon will be the send icon,",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 297.15,
+          "end": 299.46,
+          "en": "so the send icon it is.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 299.46,
+          "end": 303.12,
+          "en": "And then onPressed here is, of course as always, a function",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 303.12,
+          "end": 305.913,
+          "en": "that will be triggered whenever this button is pressed.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 307.56,
+          "end": 309.423,
+          "en": "Now here, I'll then also add a color,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 310.32,
+          "end": 315.213,
+          "en": "and that will be Theme.of(context).colorScheme.primary.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 316.59,
+          "end": 319.65,
+          "en": "And now we just have to configure this text fill here.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 319.65,
+          "end": 323.88,
+          "en": "And there, for example, I wanna set textCapitalization",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 323.88,
+          "end": 327.36,
+          "en": "to TextCapitalization.sentences",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 327.36,
+          "end": 330.57,
+          "en": "to make sure how the device supports the user",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 330.57,
+          "end": 332.64,
+          "en": "with entering text.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 332.64,
+          "end": 335.55,
+          "en": "That it, for example, should capitalize the start",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 335.55,
+          "end": 338.28,
+          "en": "of every new sentence, which you can turn off",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 338.28,
+          "end": 340.17,
+          "en": "or configure differently,",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 340.17,
+          "end": 343.26,
+          "en": "but it is a configuration I wanna add here.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 343.26,
+          "end": 345.84000000000003,
+          "en": "I'll also set autocorrect to true to make sure",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 345.84000000000003,
+          "end": 350.01,
+          "en": "that errors are caught and corrected automatically.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 350.01,
+          "end": 353.853,
+          "en": "I'll enable suggestions by setting this to true like this.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 354.96,
+          "end": 357.993,
+          "en": "And I will also add a decoration here,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 358.89,
+          "end": 362.55,
+          "en": "an InputDecoration, of course, to set the LabelText",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 362.55,
+          "end": 366.573,
+          "en": "to send a message, dot, dot, dot.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 367.47,
+          "end": 370.203,
+          "en": "And this can be a const object here, of course.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 371.34,
+          "end": 374.003,
+          "en": "Now last but not least, on this TextField,",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 374.003,
+          "end": 375.78,
+          "en": "I'll also add a controller",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 375.78,
+          "end": 378.9,
+          "en": "to get hold of the value entered by the user.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 378.9,
+          "end": 381.63,
+          "en": "And for that, of course, here in NewMessageState,",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 381.63,
+          "end": 384.243,
+          "en": "I'll add a new messageController,",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 385.47,
+          "end": 388.98,
+          "en": "which is a new TextEditingController object",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 388.98,
+          "end": 390.243,
+          "en": "created like this.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 391.74,
+          "end": 393.87,
+          "en": "And as you learned before in the course,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 393.87,
+          "end": 396.63,
+          "en": "you should also add the dispose method",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 396.63,
+          "end": 399.18,
+          "en": "when dealing with controllers.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 399.18,
+          "end": 404.18,
+          "en": "And then here you should call messageController.dispose",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 404.19,
+          "end": 406.53,
+          "en": "inside of this dispose method",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 406.53,
+          "end": 408.9,
+          "en": "to make sure that the memory resources",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 408.9,
+          "end": 412.14,
+          "en": "occupied by the controller get freed up",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 412.14,
+          "end": 414.57,
+          "en": "as it's not needed anymore.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 414.57,
+          "end": 417.84000000000003,
+          "en": "And it's this messageController that's used as a value",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 417.84000000000003,
+          "end": 420.75,
+          "en": "for controller on this text field.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 420.75,
+          "end": 422.49,
+          "en": "And now whenever this button is pressed,",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 422.49,
+          "end": 426.87,
+          "en": "I wanna read that entered value and send it to Firebase.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 426.87,
+          "end": 428.853,
+          "en": "Therefore, here I'll add a new method,",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 429.81,
+          "end": 432.93,
+          "en": "submitMessage could be the name.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 432.93,
+          "end": 436.03,
+          "en": "And this method is now connected to this button",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 436.95,
+          "end": 440.97,
+          "en": "like this so that the submitMessage method",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 440.97,
+          "end": 444.6,
+          "en": "is triggered whenever this IconButton is pressed.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 444.6,
+          "end": 449.25,
+          "en": "And in submitMessage, we can then get the enteredMessage",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 450.81,
+          "end": 454.2,
+          "en": "by using the messageController",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 454.2,
+          "end": 456.3,
+          "en": "and accessing the text field,",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 456.3,
+          "end": 459.093,
+          "en": "which will return the entered text as a string.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 459.96,
+          "end": 462.78,
+          "en": "Now that we get hold of the entered text here,",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 462.78,
+          "end": 465,
+          "en": "we can add validation",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 465,
+          "end": 467.79,
+          "en": "and check if the enteredMessage,",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 467.79,
+          "end": 471.12,
+          "en": "once we trimmed it, maybe is empty,",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 471.12,
+          "end": 474.3,
+          "en": "because empty messages should not be sent to Firestore.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 474.3,
+          "end": 476.22,
+          "en": "So in that case, I'll return here",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 476.22,
+          "end": 480.03,
+          "en": "and we also might want to show an error message,",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 480.03,
+          "end": 483.09,
+          "en": "otherwise it should be sent to Firebase",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 483.09,
+          "end": 486,
+          "en": "and we'll add the logic for this soon.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 486,
+          "end": 489.87,
+          "en": "And thereafter, I wanna use my messageController again",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 489.87,
+          "end": 494.49,
+          "en": "to call the clear method and reset that input",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 494.49,
+          "end": 496.83,
+          "en": "so that this text field is set back",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 496.83,
+          "end": 499.29,
+          "en": "to an empty text field again,",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 499.29,
+          "end": 502.56,
+          "en": "because, of course, we're not going to leave this screen",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 502.56,
+          "end": 503.94,
+          "en": "or anything like that.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 503.94,
+          "end": 507.87,
+          "en": "Instead, this NewMessage widget will soon be rendered",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 507.87,
+          "end": 509.97,
+          "en": "below the ChatMessages widget.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 509.97,
+          "end": 511.95,
+          "en": "So it will always be visible,",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 511.95,
+          "end": 515.22,
+          "en": "that's why I just wanna reset it and clear it",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 515.22,
+          "end": 517.8,
+          "en": "after a message has been submitted.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 517.8,
+          "end": 521.25,
+          "en": "And with all that added here, back in chat.dart,",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 521.25,
+          "end": 523.47,
+          "en": "so in this chat screen widget,",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 523.47,
+          "end": 527.1,
+          "en": "here, instead of displaying this center widget,",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 527.1,
+          "end": 529.44,
+          "en": "I now wanna output a column",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 529.44,
+          "end": 532.74,
+          "en": "where I have two child widgets",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 532.74,
+          "end": 537,
+          "en": "and the first widget will be my messages,",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 537,
+          "end": 538.983,
+          "en": "my ChatMessages widget.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 540.06,
+          "end": 541.47,
+          "en": "So this widget here in the end,",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 541.47,
+          "end": 543.63,
+          "en": "which at the moment is this Center widget,",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 543.63,
+          "end": 546.063,
+          "en": "though that's going to change in the future.",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 547.11,
+          "end": 551.523,
+          "en": "And then below that, I wanna have my NewMessage widget.",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 552.87,
+          "end": 555.18,
+          "en": "Now, both can be created with const,",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 555.18,
+          "end": 557.25,
+          "en": "and if that's the case, you can also add const",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 557.25,
+          "end": 560.163,
+          "en": "in front of the list, so in front of the square brackets.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 561.6,
+          "end": 563.94,
+          "en": "With all of that out of the way, if we save this",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 563.94,
+          "end": 567.27,
+          "en": "and reload the app, we got no messages found here,",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 567.27,
+          "end": 569.733,
+          "en": "and then our input field and this button here.",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 571.167,
+          "end": 573.93,
+          "en": "Now I'm not 100% happy with that yet.",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 573.93,
+          "end": 577.35,
+          "en": "Instead, I'll wrap ChatMessages with Expanded here,",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 577.35,
+          "end": 579.6,
+          "en": "not to get rid of some error,",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 579.6,
+          "end": 581.16,
+          "en": "but instead to make sure",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 581.16,
+          "end": 584.52,
+          "en": "that this ChatMessages widget indeed does take up",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 584.52,
+          "end": 586.35,
+          "en": "as much space as it can get",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 586.35,
+          "end": 589.113,
+          "en": "and we push this input here to the bottom.",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 590.1,
+          "end": 592.44,
+          "en": "But with that, that's looking good.",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 592.44,
+          "end": 595.53,
+          "en": "And now here I can enter something, submit this,",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 595.53,
+          "end": 600.12,
+          "en": "and thereafter, this is cleared just as I want it to work.",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 600.12,
+          "end": 602.07,
+          "en": "So that's looking good.",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 602.07,
+          "end": 604.53,
+          "en": "This seems to work the way it should work.",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 604.53,
+          "end": 607.65,
+          "en": "Now the next step is to make sure that any message",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 607.65,
+          "end": 610.953,
+          "en": "that was entered is indeed also sent to Firebase.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "37736700",
+      "title": "Sending & Reading Data To & From Firestore",
+      "lectureOrder": 297,
+      "videoOrder": 276,
+      "sourceHash": "a2d5266f4b6ccfb14a9526eb1d807978e9821e7146ff773cbcf510e798121289",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.22,
+          "end": 5.16,
+          "en": "So, how can we now send data to Firebase",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.16,
+          "end": 8.82,
+          "en": "from inside this new message.dart file?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.82,
+          "end": 12.483,
+          "en": "So, from inside this _NewMessageState widget here.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.71,
+          "end": 16.98,
+          "en": "Well, we're extracting data from that messageController,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 16.98,
+          "end": 19.02,
+          "en": "and therefore, we can actually, also,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.02,
+          "end": 21.18,
+          "en": "set this to a final controller here",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 21.18,
+          "end": 23.79,
+          "en": "to get rid of these blue squiggly lines.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 23.79,
+          "end": 25.98,
+          "en": "But we are extracting text from it,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 25.98,
+          "end": 29.49,
+          "en": "we're validating it here to send it to Firebase.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 29.49,
+          "end": 33.57,
+          "en": "We can then, again, use FirebaseFireStore.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 33.57,
+          "end": 35.28,
+          "en": "So, this object here",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 35.28,
+          "end": 38.34,
+          "en": "provided by the cloud_firestore package,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 38.34,
+          "end": 41.88,
+          "en": "which we installed before, and which we also used before",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 41.88,
+          "end": 45.81,
+          "en": "in auth.dart for storing that extra data.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 45.81,
+          "end": 48.18,
+          "en": "And we can now use exactly the same approach",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 48.18,
+          "end": 50.34,
+          "en": "for storing a new message.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 50.34,
+          "end": 53.04,
+          "en": "So, we, in the end, want to get hold of the instance here,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 53.04,
+          "end": 54.93,
+          "en": "then reach out to a collection,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 54.93,
+          "end": 57.633,
+          "en": "and to some document to store new data.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 58.95,
+          "end": 62.1,
+          "en": "So here, in this new message state class,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 62.1,
+          "end": 65.97,
+          "en": "we reach out to the instance of FirebaseFireStore,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 65.97,
+          "end": 67.71,
+          "en": "then to some collection.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 67.71,
+          "end": 70.11,
+          "en": "And here, I'll name the collection chat,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 70.11,
+          "end": 71.56,
+          "en": "though the name is up to you.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 72.72,
+          "end": 75.53999999999999,
+          "en": "And then, here, we could create a new document like this.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 75.53999999999999,
+          "end": 78.78,
+          "en": "But here, I'll instead use a different approach.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 78.78,
+          "end": 83.34,
+          "en": "I'll call the add method to dynamically add a new document,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 83.34,
+          "end": 86.28,
+          "en": "which then does not have a name of my choice,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 86.28,
+          "end": 90.21000000000001,
+          "en": "but which instead will have a unique ID as a name,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 90.21000000000001,
+          "end": 92.253,
+          "en": "generated by Firebase.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 93.33,
+          "end": 96.45,
+          "en": "This add method then takes another map,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 96.45,
+          "end": 99.96000000000001,
+          "en": "and that map then again contains these key-value pairs",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 99.96000000000001,
+          "end": 101.763,
+          "en": "that should be stored in Firebase.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 102.6,
+          "end": 103.92,
+          "en": "So, the only difference",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 103.92,
+          "end": 107.22,
+          "en": "compared to the approach taken in the auth.dart file",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 107.22,
+          "end": 109.62,
+          "en": "is that we don't set our own name",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 109.62,
+          "end": 111.99000000000001,
+          "en": "explicitly for this document,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 111.99000000000001,
+          "end": 116.34,
+          "en": "but that we instead go with an automatically generated name.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 116.34,
+          "end": 119.13,
+          "en": "This automatically generated unique ID",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 119.13,
+          "end": 121.413,
+          "en": "that will be created by Firebase.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 122.34,
+          "end": 124.83,
+          "en": "Now, the data that should be stored in this document,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 124.83,
+          "end": 127.53,
+          "en": "of course, should be the entered text,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 127.53,
+          "end": 130.14,
+          "en": "but also some additional metadata.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 130.14,
+          "end": 134.52,
+          "en": "But I'll start with the text, store it under a text key,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 134.52,
+          "end": 136.98,
+          "en": "though that key name is up to you,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 136.98,
+          "end": 140.253,
+          "en": "and it's the enteredMessage that should be stored here.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 141.24,
+          "end": 145.95,
+          "en": "But in addition, I also want to add a createdAt field",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 145.95,
+          "end": 148.113,
+          "en": "to store the current timestamp.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 149.13,
+          "end": 152.91,
+          "en": "And for that, we can use the Timestamp clause,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 152.91,
+          "end": 155.22,
+          "en": "which is built into Dart,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 155.22,
+          "end": 158.493,
+          "en": "and then use now to use the current timestamp.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 160.05,
+          "end": 162.63,
+          "en": "And in addition, I wanna store some user data,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 162.63,
+          "end": 166.29,
+          "en": "like the ID of the user to whom this message belongs.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 166.29,
+          "end": 169.02,
+          "en": "So, who posted this message.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 169.02,
+          "end": 173.01,
+          "en": "And to get information about the currently logged in user,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 173.01,
+          "end": 177,
+          "en": "we can use FirebaseAuth again.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 177,
+          "end": 179.28,
+          "en": "This FirebaseAuth thing,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 179.28,
+          "end": 182.97,
+          "en": "which we set up before in auth.dart.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 182.97,
+          "end": 185.22,
+          "en": "So, we again want to use FirebaseAuth,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 185.22,
+          "end": 188.22,
+          "en": "this FirebaseAuth object, which is available",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 188.22,
+          "end": 191.853,
+          "en": "as soon as we add this FirebaseAuth import here.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 192.75,
+          "end": 195.39,
+          "en": "And then again, we can use .instance",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 195.39,
+          "end": 198.72,
+          "en": "to get hold of the globally managed instance.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 198.72,
+          "end": 201.15,
+          "en": "And the convenient thing about FirebaseAuth",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 201.15,
+          "end": 204,
+          "en": "is that it does not just give us these methods",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 204,
+          "end": 207.72,
+          "en": "for creating users or for logging users in,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 207.72,
+          "end": 209.64,
+          "en": "instead, it also gives us access",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 209.64,
+          "end": 212.91,
+          "en": "to the currently logged in user if we have one.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 212.91,
+          "end": 215.49,
+          "en": "And of course, here we know that we will have one",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 215.49,
+          "end": 216.75,
+          "en": "on this chat screen,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 216.75,
+          "end": 220.653,
+          "en": "because we only reach this chat screen if we are logged in.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 221.82,
+          "end": 225.57,
+          "en": "So, this gives me access to the currently logged in user.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 225.57,
+          "end": 229.9,
+          "en": "And then here on userId, I can use user.uid",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 231.32999999999998,
+          "end": 235.053,
+          "en": "to get the unique ID of the currently logged in user.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 236.34,
+          "end": 239.25,
+          "en": "Now here I just need to convince Dart that currentUser",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 239.25,
+          "end": 242.1,
+          "en": "will not be null, by adding an exclamation mark.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 242.1,
+          "end": 243.57,
+          "en": "And again, as mentioned here,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 243.57,
+          "end": 245.88,
+          "en": "we know that this shouldn't be null,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 245.88,
+          "end": 247.86,
+          "en": "because unauthenticated users",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 247.86,
+          "end": 251.25,
+          "en": "shouldn't be able to even reach this screen.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 251.25,
+          "end": 253.05,
+          "en": "So with that, we can get the userId,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 254.25,
+          "end": 258.03,
+          "en": "but then here, I actually also wanna store the username",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 258.03,
+          "end": 261.6,
+          "en": "so that we can easily show that next to the message,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 261.6,
+          "end": 264.033,
+          "en": "when we're outputting the messages later.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 264.87,
+          "end": 267.57,
+          "en": "And I also wanna store the user image,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 267.57,
+          "end": 269.94,
+          "en": "so that we also have that image URL",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 269.94,
+          "end": 271.83299999999997,
+          "en": "readily available when we need it.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 272.7,
+          "end": 275.88,
+          "en": "Now that data, username and user image,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 275.88,
+          "end": 279.81,
+          "en": "of course wasn't stored with help of FirebaseAuth.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 279.81,
+          "end": 284.463,
+          "en": "Instead we stored it manually with the Firestore package.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 285.99,
+          "end": 287.88,
+          "en": "Therefore, now to access it here,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 287.88,
+          "end": 290.64300000000003,
+          "en": "we need to retrieve it from Firestore.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 291.65999999999997,
+          "end": 293.1,
+          "en": "And this can also be done",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 293.1,
+          "end": 296.85,
+          "en": "through FirebaseFirestore instance.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 296.85,
+          "end": 300.6,
+          "en": "And then there, we again reach out to a collection,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 300.6,
+          "end": 302.58,
+          "en": "the users collection in this case,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 302.58,
+          "end": 304.8,
+          "en": "because that's the collection we also used",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 304.8,
+          "end": 306.243,
+          "en": "for storing the data.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 307.38,
+          "end": 310.38,
+          "en": "And then we wanna reach out to the document that belongs",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 310.38,
+          "end": 312.93,
+          "en": "to the user with this id.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 312.93,
+          "end": 315.27,
+          "en": "So therefore, again, we can use doc",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 315.27,
+          "end": 318.058,
+          "en": "and then user.uid to get hold of that document,",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 318.058,
+          "end": 322.803,
+          "en": "which we know contains the data we're interested in.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 323.97,
+          "end": 326.94,
+          "en": "And then Firestore gives us a get method,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 326.94,
+          "end": 330.57,
+          "en": "which then in the end will send an HTTP request",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 330.57,
+          "end": 334.59000000000003,
+          "en": "behind the scenes to Firestore to retrieve the data",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 334.59000000000003,
+          "end": 337.17,
+          "en": "stored in this document in this collection,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 337.17,
+          "end": 339.65999999999997,
+          "en": "which in this case will be that user data",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 339.65999999999997,
+          "end": 340.83299999999997,
+          "en": "that we stored there.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 342.24,
+          "end": 344.67,
+          "en": "Now get in the end returns a future,",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 344.67,
+          "end": 347.04,
+          "en": "which then in the end will give us access",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 347.04,
+          "end": 349.23,
+          "en": "to the fetched data.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 349.23,
+          "end": 351.87,
+          "en": "Therefore here, to use async await,",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 351.87,
+          "end": 356.763,
+          "en": "I'll add async here on this submitMessage method.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 357.81,
+          "end": 361.05,
+          "en": "And then we can await this here.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 361.05,
+          "end": 366.05,
+          "en": "So, here we get the userData, by awaiting,",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 366.21,
+          "end": 368.307,
+          "en": "this get request here in the end.,",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 369.54,
+          "end": 373.593,
+          "en": "and then here we can set username equal to userData.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 374.52,
+          "end": 378.6,
+          "en": "And then, this actually is a so-called document snapshot,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 378.6,
+          "end": 383.01,
+          "en": "which is a type of data provided by Firebase.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 383.01,
+          "end": 386.55,
+          "en": "And this object has a data method which we can call,",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 386.55,
+          "end": 389.7,
+          "en": "to in the end, get access to the actual data",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 389.7,
+          "end": 392.763,
+          "en": "that was stored in the document as a map.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 394.14,
+          "end": 396.3,
+          "en": "We have to add an exclamation mark",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 396.3,
+          "end": 398.82,
+          "en": "to convince Dart that this will not be null.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 398.82,
+          "end": 401.34000000000003,
+          "en": "It could be null if we're trying to fetch data",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 401.34000000000003,
+          "end": 405,
+          "en": "for a document that doesn't exist, for example.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 405,
+          "end": 407.88,
+          "en": "But here we know that we have an authenticated user,",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 407.88,
+          "end": 410.13,
+          "en": "and therefore it will exist.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 410.13,
+          "end": 412.77,
+          "en": "So, we can add the exclamation mark here,",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 412.77,
+          "end": 415.26,
+          "en": "and then we'll be working with that map,",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 415.26,
+          "end": 417.27,
+          "en": "so we can use square up brackets,",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 417.27,
+          "end": 418.65,
+          "en": "as you learned in this course,",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 418.65,
+          "end": 421.53,
+          "en": "to access the different values for the different keys",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 421.53,
+          "end": 423.237,
+          "en": "that make up the map.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 423.237,
+          "end": 426.15,
+          "en": "And then here it's the username key which I want to access",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 426.15,
+          "end": 428.73,
+          "en": "to get the username value.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 428.73,
+          "end": 430.68,
+          "en": "And I'm using username as a key",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 430.68,
+          "end": 434.91,
+          "en": "because I used username as a key for storing that data.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 434.91,
+          "end": 439.83,
+          "en": "And I used image_url for storing the image URL data.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 439.83,
+          "end": 443.94,
+          "en": "Therefore, for retrieving that, we would use userData.data",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 443.94,
+          "end": 447.993,
+          "en": "with an exclamation mark and access image_url like this.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 449.22,
+          "end": 451.74,
+          "en": "And that will retrieve this extra data",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 451.74,
+          "end": 453.867,
+          "en": "from Firebase Firestore.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 454.95,
+          "end": 458.49,
+          "en": "Now, we could also be storing that extra user data locally",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 458.49,
+          "end": 461.1,
+          "en": "on the device, maybe just in memory,",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 461.1,
+          "end": 463.2,
+          "en": "for example, with Riverpod.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 463.2,
+          "end": 466.74,
+          "en": "But here, I'm deliberately using this remote solution",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 466.74,
+          "end": 469.56,
+          "en": "using Firestore, even though it leads",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 469.56,
+          "end": 472.65,
+          "en": "to this extra HTTP request being sent",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 472.65,
+          "end": 475.02,
+          "en": "whenever we submit a new message.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 475.02,
+          "end": 477.15,
+          "en": "But I'm using this so that you also see",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 477.15,
+          "end": 480.03,
+          "en": "how data can be retrieved from Firestore,",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 480.03,
+          "end": 483.57,
+          "en": "because that's of course also something you should know.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 483.57,
+          "end": 485.25,
+          "en": "With that, we're getting the data,",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 485.25,
+          "end": 488.7,
+          "en": "we're then using it to send it back to Firestore",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 488.7,
+          "end": 491.43,
+          "en": "combined with the entered message.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 491.43,
+          "end": 493.95,
+          "en": "And therefore, now with all that out of the way,",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 493.95,
+          "end": 497.85,
+          "en": "if we saved it, reload and make sure we're logged in",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 497.85,
+          "end": 501.39,
+          "en": "with a user where we did submit that extra data",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 501.39,
+          "end": 502.92,
+          "en": "to Firestore.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 502.92,
+          "end": 506.7,
+          "en": "So, if that's all true, we can now enter a new message,",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 506.7,
+          "end": 509.253,
+          "en": "like a test message, submit it,",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 510.48,
+          "end": 515.22,
+          "en": "and now here, we should actually see a new collection",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 515.22,
+          "end": 520.22,
+          "en": "if we reload this, a chat collection with one new document.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 520.23,
+          "end": 523.607,
+          "en": "And this title was generated automatically by Firestore,",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 523.607,
+          "end": 525.06,
+          "en": "by Firebase in the end.",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 525.06,
+          "end": 528.3,
+          "en": "And in there, we see that submitted data:",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 528.3,
+          "end": 531.06,
+          "en": "the username, the userImage, the ID,",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 531.06,
+          "end": 534.603,
+          "en": "but of course, most importantly, also our message.",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 536.07,
+          "end": 538.95,
+          "en": "So, that's all working as it should.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 538.95,
+          "end": 542.04,
+          "en": "Now the last thing I wanna do, is I wanna make sure",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 542.04,
+          "end": 545.58,
+          "en": "that once I send a message, I don't just reset the input,",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 545.58,
+          "end": 548.37,
+          "en": "but I also close this keyboard.",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 548.37,
+          "end": 552.63,
+          "en": "And this can be done by going here in my code",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 552.63,
+          "end": 555.03,
+          "en": "after clearing my message controller.",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 555.03,
+          "end": 558.87,
+          "en": "And then here we can use the FocusScope object",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 558.87,
+          "end": 561.387,
+          "en": "provided by Flutter, of(context),",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 562.86,
+          "end": 564.633,
+          "en": "and then call .unfocus.",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 565.65,
+          "end": 568.71,
+          "en": "And in the end, this will close any open keyboard",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 568.71,
+          "end": 571.86,
+          "en": "by removing the focus from the input field.",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 571.86,
+          "end": 573.63,
+          "en": "Now here, I'm getting some blue squiggly lines",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 573.63,
+          "end": 577.26,
+          "en": "because I'm using context after async await.",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 577.26,
+          "end": 580.11,
+          "en": "We could work around that as we did early in the course,",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 580.11,
+          "end": 581.94,
+          "en": "or we simply move that",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 581.94,
+          "end": 584.61,
+          "en": "to the beginning of this async method,",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 584.61,
+          "end": 588.3,
+          "en": "because indeed I am happy with closing this right away,",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 588.3,
+          "end": 591.21,
+          "en": "maybe here after validating the input.",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 591.21,
+          "end": 593.16,
+          "en": "Because we don't need to keep this open",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 593.16,
+          "end": 595.14,
+          "en": "whilst the message is being sent,",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 595.14,
+          "end": 597.933,
+          "en": "instead, closing it immediately is just fine.",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 599.82,
+          "end": 603.51,
+          "en": "Indeed, we can even clear the input there already,",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 603.51,
+          "end": 606,
+          "en": "because even though the data was not sent yet,",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 606,
+          "end": 608.16,
+          "en": "we definitely don't want the user",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 608.16,
+          "end": 609.87,
+          "en": "to send the same message twice",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 609.87,
+          "end": 612.69,
+          "en": "because they think that something went wrong.",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 612.69,
+          "end": 614.46,
+          "en": "So, clearing this immediately,",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 614.46,
+          "end": 617.28,
+          "en": "and losing the focus immediately, makes a lot of sense",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 617.28,
+          "end": 620.283,
+          "en": "before then the data is sent behind the scenes.",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 621.33,
+          "end": 623.643,
+          "en": "So now with that, if we reload this,",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 624.96,
+          "end": 627.24,
+          "en": "I can send another message.",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 627.24,
+          "end": 630.06,
+          "en": "And now you see this is closed, this is cleared.",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 630.06,
+          "end": 631.14,
+          "en": "That looks good.",
+          "zh": ""
+        },
+        {
+          "id": 204,
+          "start": 631.14,
+          "end": 634.86,
+          "en": "And of course, these messages all show up here",
+          "zh": ""
+        },
+        {
+          "id": 205,
+          "start": 634.86,
+          "end": 635.883,
+          "en": "on the backend.",
+          "zh": ""
+        },
+        {
+          "id": 206,
+          "start": 636.72,
+          "end": 640.14,
+          "en": "And that's how data can be sent to Firestore",
+          "zh": ""
+        },
+        {
+          "id": 207,
+          "start": 640.14,
+          "end": 642.633,
+          "en": "and how it can be read from Firestore.",
+          "zh": ""
+        },
+        {
+          "id": 208,
+          "start": 643.47,
+          "end": 645.24,
+          "en": "And now that we know how to read it,",
+          "zh": ""
+        },
+        {
+          "id": 209,
+          "start": 645.24,
+          "end": 648.06,
+          "en": "we can of course next work on the chat messages,",
+          "zh": ""
+        },
+        {
+          "id": 210,
+          "start": 648.06,
+          "end": 651.39,
+          "en": "and make sure that we load all the chat messages",
+          "zh": ""
+        },
+        {
+          "id": 211,
+          "start": 651.39,
+          "end": 654.663,
+          "en": "to then show them in a list of messages in this widget.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

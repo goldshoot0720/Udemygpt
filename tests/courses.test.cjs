@@ -5,7 +5,7 @@ const courses = require('../udemy-bilingual/courses.js');
 const manifest = require('../udemy-bilingual/manifest.json');
 
 async function main() {
-  assert.equal(courses.courses.length, 12);
+  assert.equal(courses.courses.length, 13);
   assert.equal(courses.forUrl('https://www.udemy.com/course/claude-code-the-practical-guide/learn/lecture/123'), null);
   assert.equal(courses.forUrl('https://www.udemy.com/course/codex-the-practical-guide/learn/lecture/123'), null);
   assert.deepEqual(manifest.content_scripts[0].matches,

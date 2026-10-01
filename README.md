@@ -4,9 +4,9 @@
 
 版本 2.0 不再下載或使用 Udemy 中文字幕，也不使用本機翻譯模型。尚未完成英文預譯的講座只顯示英文，左上角會標示「中文待翻譯」。
 
-## 支援課程（2.2）
+## 支援課程（2.3）
 
-以下 12 門課程的講師皆為 **Maximilian Schwarzmüller**。
+以下 13 門課程的講師皆為 **Maximilian Schwarzmüller**。
 
 - [React - The Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/)
 - [Flutter & Dart - The Complete Guide](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/)
@@ -20,6 +20,7 @@
 - [Next.js & React - The Complete Guide](https://www.udemy.com/course/nextjs-react-the-complete-guide/)
 - [Vue - The Complete Guide (incl. Router & Composition API)](https://www.udemy.com/course/vuejs-2-the-complete-guide/)
 - [Ionic - Build iOS, Android & Web Apps with Ionic & Angular](https://www.udemy.com/course/ionic-2-the-practical-guide-to-building-ios-android-apps/)
+- [JavaScript - The Complete Guide (Beginner + Advanced)](https://www.udemy.com/course/javascript-the-complete-guide-2020-beginner-advanced/)
 
 在上述課程的 `learn/` 播放器頁面啟用。課程 ID 自動從 Udemy 取得；本堂及全課英文匯出、譯文匯入均使用目前課程 ID，譯文依課程分開儲存，並相容既有 React 譯文。新增支援不代表字幕已翻譯；新課程需先匯出英文，再交給 ChatGPT 翻譯與匯入。
 
@@ -37,7 +38,7 @@
 
 在已登入的課程播放器網址加上 `?subtitleExport=batch`（原本已有查詢參數則加上 `&subtitleExport=batch`），即可開啟「課程英文字幕匯出」。此專用分頁須保持開啟，可逐課下載目前清單中的英文 JSON 與匯出報告。預設沿用 React 既有完整英文備份；影片與文章清單分別記錄，缺少英文字幕或無觀看權限的項目會列入報告。選項頁也有相同介面；若跨來源請求無回應，使用播放器內的匯出頁。
 
-下載後執行 `node prepare_course_sources.cjs /完整路徑/Udemy-English-course-ID.json`，驗證英文、時間軸雜湊、影片覆蓋範圍與缺漏記錄，並在 `data/courses/ID/` 保存原文、逐堂英文檔及約 800 段的 ChatGPT 批次（不拆開單堂）。各課程獨立的翻譯進度會初始化為待翻譯；既有進度不會重設。`data/english-download-progress.json` 記錄 12 門課的下載與驗證狀態，和 React 既有翻譯進度分開。
+下載後執行 `node prepare_course_sources.cjs /完整路徑/Udemy-English-course-ID.json`，驗證英文、時間軸雜湊、影片覆蓋範圍與缺漏記錄，並在 `data/courses/ID/` 保存原文、逐堂英文檔及約 800 段的 ChatGPT 批次（不拆開單堂）。各課程獨立的翻譯進度會初始化為待翻譯；既有進度不會重設。`data/english-download-progress.json` 記錄 13 門課的下載與驗證狀態，和 React 既有翻譯進度分開。
 
 1. 播放器設定按「匯出本堂英文」或「匯出全課英文」。全課匯出會讀取登入帳號可觀看的講座，完成後下載 JSON，失敗項目記錄在 errors。
 2. 將英文 JSON 與 `ChatGPT-翻譯指令.md` 的指令交給 ChatGPT 線上翻譯；大型檔案應分成小批次。

@@ -13,7 +13,8 @@
     { slug: "the-complete-guide-to-angular-2", title: "Angular - The Complete Guide" },
     { slug: "nextjs-react-the-complete-guide", title: "Next.js & React - The Complete Guide" },
     { slug: "vuejs-2-the-complete-guide", title: "Vue - The Complete Guide (incl. Router & Composition API)" },
-    { slug: "ionic-2-the-practical-guide-to-building-ios-android-apps", title: "Ionic - Build iOS, Android & Web Apps with Ionic & Angular" }
+    { slug: "ionic-2-the-practical-guide-to-building-ios-android-apps", title: "Ionic - Build iOS, Android & Web Apps with Ionic & Angular" },
+    { slug: "javascript-the-complete-guide-2020-beginner-advanced", title: "JavaScript - The Complete Guide (Beginner + Advanced)" }
   ].map(course => Object.freeze({ ...course, instructor: "Maximilian Schwarzmüller" })));
   const ids = new Map();
   function forUrl(value) {
