@@ -9,8 +9,9 @@
   const defaults = { enabled: true, effect: "glow", size: 25, bottom: 10, offset: 0 };
   let prefs = { ...defaults }, video, player, root, shadow, chineseLine, englishLine, panel, status, toggle;
   let en = [], zh = [], key = "", loaded = false, generation = 0, controller, last = "", savedTimer;
+  let englishOrigin = "udemy-caption";
   let pageZoom = 1, zoomChecked = 0, zoomPending = false;
-  let timeCourse = null, timeItems = null, timeError = "", timeRevision = 0, timeController;
+  let timeCourse = null, timeCourseId = null, timeItems = null, timeError = "", timeRevision = 0, timeController;
   const terms = /\b(Claude(?: Code)?|Codex|Flutter|Dart|Node(?:\.js|JS)?|React Native|NativeScript|Angular|Svelte(?:\.js)?|Remix(?:\.js)?|GraphQL|Express|MongoDB|Deno|Flexbox|Sass|React(?:\.js)?|JavaScript|TypeScript|JSX|Redux|Next\.js|Hooks?|useState|useEffect|useReducer|useRef|useContext|props|state|components?|DOM|API|HTTP|CSS|HTML|Vite)\b/gi;
   const css = `
     :host { all: initial; position: absolute; inset: 0; z-index: 30; pointer-events: none; font-family: -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif; color: white; }
@@ -34,7 +35,8 @@
     button { color: #eef6ff; background: #0a1527e8; border: 1px solid #ffffff30; border-radius: 9px; padding: 7px 10px; font-size: 12px; cursor: pointer; }
     button:hover,button:focus-visible { border-color: #79e6ff; outline: none; }
     .toolbar { display: flex; gap: 4px; opacity: .25; transition: opacity .15s; }
-    .course-time { width: 310px; max-width:calc(var(--player-width,800px)/var(--ui-scale,1) - 20px); padding:8px 10px; border:1px solid #ffffff30; border-radius:9px; background:#0a1527e8; font-size:12px; line-height:1.5; pointer-events:auto; }
+    .course-id { color:#79e6ff; font-weight:650; margin-bottom:4px; user-select:text; }
+    .course-time { width: 100%; margin-bottom:12px; padding:8px 10px; border:1px solid #ffffff30; border-radius:9px; background:#0a1527e8; font-size:12px; line-height:1.5; pointer-events:auto; }
     .time-current { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#eef6ff; }
     .time-values { display:flex; flex-wrap:wrap; column-gap:12px; color:#79e6ff; font-variant-numeric:tabular-nums; }
     .time-total,.time-note { color:#b9cee8; font-size:11px; }
@@ -108,12 +110,14 @@
     shadow.innerHTML = `<style>${css}</style>
       <div class="captions"><div class="lines" hidden><div class="zh" lang="zh-TW"></div><div class="en" lang="en"></div></div></div>
       <div class="controls"><div class="toolbar"><button class="toggle" type="button">中英 CC ✓</button><button class="settings" type="button" aria-label="雙語字幕設定" aria-expanded="false">設定</button></div>
-      <div class="course-time" aria-label="課程影片分鐘數">
+      <div class="panel" hidden>
+      <div class="course-time" aria-label="課程影片分鐘數" hidden>
+      <div class="course-id">課程 ID：讀取中…</div>
       <div class="time-current">正在讀取課程時長…</div><div class="time-total"></div>
       <div class="time-values"><span class="time-watched"></span><span class="time-remaining"></span></div>
       <div class="time-note">依序觀看估算：前面影片＋本堂播放位置</div>
       <button class="time-retry" type="button" hidden>重新讀取時長</button></div>
-      <div class="panel" hidden><div class="status" role="status">正在讀取課程字幕…</div>
+      <div class="status" role="status">正在讀取課程字幕…</div>
       <label>字幕效果<select name="effect"><option value="glow">光暈＋淡入</option><option value="cinema">電影描邊</option><option value="minimal">簡潔閱讀</option></select></label>
       <label>字體大小<input name="size" type="range" min="16" max="40" aria-label="字體大小"></label>
       <label>字幕高度<input name="bottom" type="range" min="5" max="65" aria-label="字幕高度"></label>
@@ -121,6 +125,8 @@
       <button class="retry" type="button">重新讀取字幕</button>
       <button class="export-current" type="button">匯出本堂英文</button>
       <button class="export-course" type="button">匯出全課英文</button>
+      <button class="import-english" type="button">匯入補充英文字幕</button>
+      <input class="import-english-file" type="file" accept=".json,application/json" hidden>
       <button class="import" type="button">匯入 ChatGPT 譯文</button>
       <input class="import-file" type="file" accept=".json,application/json" hidden>
       <p class="source">中文由英文預先翻譯，採台灣術語；不使用 Udemy 中文字幕。尚未匯入譯文時只顯示英文。</p></div></div>`;
@@ -131,6 +137,7 @@
     const settings = shadow.querySelector(".settings");
     settings.addEventListener("click", () => {
       panel.hidden = !panel.hidden;
+      shadow.querySelector(".course-time").hidden = panel.hidden;
       settings.setAttribute("aria-expanded", String(!panel.hidden));
       shadow.querySelector(".toolbar").dataset.open = String(!panel.hidden);
     });
@@ -138,6 +145,8 @@
     shadow.querySelector(".time-retry").addEventListener("click", () => loadCourseTime(true));
     shadow.querySelector(".export-current").addEventListener("click", exportCurrent);
     shadow.querySelector(".export-course").addEventListener("click", exportCourse);
+    shadow.querySelector(".import-english").addEventListener("click", () => shadow.querySelector(".import-english-file").click());
+    shadow.querySelector(".import-english-file").addEventListener("change", importEnglish);
     shadow.querySelector(".import").addEventListener("click", () => shadow.querySelector(".import-file").click());
     shadow.querySelector(".import-file").addEventListener("change", importTranslation);
     for (const input of shadow.querySelectorAll("select,input[name]")) {
@@ -149,7 +158,7 @@
     }
     root.addEventListener("keydown", event => {
       event.stopPropagation();
-      if (event.key === "Escape" && !panel.hidden) { panel.hidden = true; settings.setAttribute("aria-expanded", "false"); shadow.querySelector(".toolbar").dataset.open = "false"; }
+      if (event.key === "Escape" && !panel.hidden) { panel.hidden = true; shadow.querySelector(".course-time").hidden = true; settings.setAttribute("aria-expanded", "false"); shadow.querySelector(".toolbar").dataset.open = "false"; }
     });
     root.addEventListener("click", event => event.stopPropagation());
     apply();
@@ -161,6 +170,9 @@
     const watched = shadow.querySelector(".time-watched"), remaining = shadow.querySelector(".time-remaining");
     const note = shadow.querySelector(".time-note"), retry = shadow.querySelector(".time-retry");
     const lecture = location.pathname.match(/\/lecture\/(\d+)/)?.[1];
+    const courseId = shadow.querySelector(".course-id");
+    courseId.textContent = timeCourseId ? `課程 ID：${timeCourseId} · 資料夾 data/courses/${timeCourseId}` : "課程 ID：讀取中…";
+    courseId.title = course ? `${course.title}（${timeCourseId || "讀取中"}）` : "";
     if (!timeItems) {
       current.textContent = timeError || "正在讀取課程時長…";
       total.textContent = ""; watched.textContent = "已觀看 — 分鐘"; remaining.textContent = "未觀看 — 分鐘";
@@ -181,10 +193,11 @@
     if (!course || (!force && timeCourse === course)) return;
     const activeCourse = course, revision = ++timeRevision;
     timeController?.abort(); timeController = new AbortController();
-    timeCourse = activeCourse; timeItems = null; timeError = ""; renderCourseTime();
+    timeCourse = activeCourse; timeCourseId = null; timeItems = null; timeError = ""; renderCourseTime();
     try {
       const courseId = await UdemyCourses.idFor(activeCourse);
       if (revision !== timeRevision) return;
+      timeCourseId = courseId; renderCourseTime();
       const signal = typeof AbortSignal !== "undefined" && AbortSignal.timeout && AbortSignal.any ?
         AbortSignal.any([timeController.signal, AbortSignal.timeout(30000)]) : timeController.signal;
       const items = await UdemyCourseTime.read(courseId, fetch, signal);
@@ -202,6 +215,7 @@
     controller?.abort(); controller = new AbortController();
     const signal = controller.signal;
     en = []; zh = []; loaded = false; last = ""; apply();
+    englishOrigin = "udemy-caption";
     status.textContent = "正在讀取課程字幕…";
     try {
       const courseId = await UdemyCourses.idFor(activeCourse);
@@ -213,17 +227,30 @@
       if (!response.ok) throw new Error(`課程字幕讀取失敗（${response.status}）；請確認仍已登入`);
       const data = await response.json();
       const selected = core.select(data.asset?.captions || []);
-      if (!selected.english?.url) throw new Error("這堂課沒有可用的英文字幕");
-      const download = caption => caption?.url ? browser.runtime.sendMessage({ type: "caption-file", url: caption.url }) : Promise.resolve("");
-      const englishVtt = await download(selected.english);
-      if (revision !== generation) return;
-      en = core.parse(englishVtt);
-      if (!en.length) throw new Error("英文字幕格式無法解析");
-      const hash = await sourceHash(en);
       const storageKey = UdemyCourses.translationKey(courseId, lecture);
+      const englishKey = `english-source:${courseId}:${lecture}`;
       // Existing React translations used only the lecture ID.
       const legacyKey = `translation:${lecture}`;
-      const stored = await browser.storage.local.get(courseId === 1362070 ? [storageKey, legacyKey] : storageKey);
+      const stored = await browser.storage.local.get([storageKey, englishKey, ...(courseId === 1362070 ? [legacyKey] : [])]);
+      if (revision !== generation) return;
+      if (selected.english?.url) {
+        const englishVtt = await browser.runtime.sendMessage({ type: "caption-file", url: selected.english.url });
+        if (revision !== generation) return;
+        en = core.parse(englishVtt);
+        if (!en.length) throw new Error("英文字幕格式無法解析");
+      } else {
+        const supplemental = stored[englishKey];
+        if (supplemental?.sourceOrigin !== "audio-transcription") throw new Error("這堂課沒有可用的英文字幕；可匯入補充英文字幕");
+        await validateEnglish(supplemental);
+        if (revision !== generation) return;
+        let maxEnd = 0;
+        en = supplemental.cues.map(cue => {
+          maxEnd = Math.max(maxEnd, cue.end);
+          return { start: cue.start, end: cue.end, text: cue.en, maxEnd };
+        });
+        englishOrigin = "audio-transcription";
+      }
+      const hash = await sourceHash(en);
       if (revision !== generation) return;
       const translation = stored[storageKey] || (courseId === 1362070 ? stored[legacyKey] : null);
       if (translation?.sourceHash === hash && translation.cues?.length === en.length) {
@@ -232,6 +259,8 @@
       loaded = true;
       status.textContent = zh.length ? `ChatGPT 英文預譯已就緒 · ${en.length} 段中英字幕` :
         `英文 ${en.length} 段已就緒；本堂尚未匯入 ChatGPT 譯文`;
+      if (englishOrigin === "audio-transcription") status.textContent += " · 英文來源：音訊轉錄";
+      root.dataset.source = englishOrigin;
       root.dataset.status = zh.length ? "bilingual-ready" : "english-only";
       apply();
     } catch (error) {
@@ -255,12 +284,12 @@
   }
   async function exportCurrent() {
     if (!en.length) { status.textContent = "請先等待英文字幕讀取完成"; return; }
-    const lecture = key, cues = en, activeCourse = course;
+    const lecture = key, cues = en, activeCourse = course, sourceOrigin = englishOrigin;
     const title = document.querySelector('[data-purpose="lecture-title"]')?.textContent || document.title;
     try {
       const courseId = await UdemyCourses.idFor(activeCourse);
       downloadJSON({version:1,courseId,sourceLanguage:"en",targetLanguage:"zh-TW",lectures:[{
-        id:lecture,title,sourceHash:await sourceHash(cues),
+        id:lecture,title,sourceHash:await sourceHash(cues),sourceOrigin,
         cues:cues.map(({start,end,text},i)=>({id:i+1,start,end,en:text,zh:""}))
       }]},`Udemy-English-${courseId}-${lecture}.json`);
       status.textContent = `已匯出 ${cues.length} 段英文；請交給 ChatGPT 翻譯`;
@@ -310,6 +339,41 @@
     } catch(error) { status.textContent = error.message; }
     finally { collecting = false; button.disabled = false; }
   }
+  async function validateEnglish(lecture) {
+    if (!/^\d+$/.test(String(lecture.id)) || !Array.isArray(lecture.cues) || !lecture.cues.length || !/^[a-f0-9]{64}$/.test(lecture.sourceHash)) throw new Error("講座格式不正確");
+    let previousStart = -1;
+    for (const [index, cue] of lecture.cues.entries()) {
+      if (cue.id !== index + 1 || typeof cue.en !== "string" || !cue.en.trim() || !Number.isFinite(cue.start) || !Number.isFinite(cue.end) || cue.start < 0 || cue.start < previousStart || cue.end <= cue.start) throw new Error(`${lecture.title || lecture.id} 第 ${index + 1} 段英文或時間軸格式錯誤`);
+      previousStart = cue.start;
+    }
+    const hash = await sourceHash(lecture.cues.map(cue => ({start:cue.start,end:cue.end,text:cue.en})));
+    if (hash !== lecture.sourceHash) throw new Error(`${lecture.title || lecture.id} 的英文或時間軸已變動`);
+    return hash;
+  }
+  function supplementalEntry(lecture, hash) {
+    return {id:String(lecture.id),title:lecture.title,sourceHash:hash,sourceOrigin:"audio-transcription",cues:lecture.cues.map(({id,start,end,en})=>({id,start,end,en})),importedAt:new Date().toISOString()};
+  }
+  async function importEnglish(event) {
+    const activeCourse = course;
+    try {
+      const file = event.target.files[0]; if (!file) return;
+      const value = JSON.parse(await file.text());
+      const courseId = await UdemyCourses.idFor(activeCourse);
+      if (value.version !== 1 || value.courseId !== courseId || value.sourceLanguage !== "en") throw new Error("補充英文字幕必須屬於目前課程");
+      if (!Array.isArray(value.lectures) || !value.lectures.length) throw new Error("檔案沒有英文講座資料");
+      const updates = {};
+      for (const lecture of value.lectures) {
+        if (lecture.sourceOrigin !== "audio-transcription") throw new Error("補充英文字幕需標明音訊轉錄來源");
+        const hash = await validateEnglish(lecture);
+        const storageKey = `english-source:${courseId}:${lecture.id}`;
+        if (updates[storageKey]) throw new Error("補充英文檔案包含重複講座");
+        updates[storageKey] = supplementalEntry(lecture, hash);
+      }
+      await browser.storage.local.set(updates);
+      if (course === activeCourse) { key = ""; check(); }
+    } catch (error) { status.textContent = `英文匯入失敗：${error.message}`; }
+    finally { event.target.value = ""; }
+  }
   async function importTranslation(event) {
     const activeCourse = course;
     try {
@@ -320,13 +384,12 @@
       const updates = {};
       if (!Array.isArray(value.lectures) || !value.lectures.length) throw new Error("譯文沒有講座資料");
       for (const lecture of value.lectures) {
-        if (!/^\d+$/.test(String(lecture.id)) || !lecture.cues?.length || !/^[a-f0-9]{64}$/.test(lecture.sourceHash)) throw new Error("講座格式不正確");
+        const hash = await validateEnglish(lecture);
         for (const [index,cue] of lecture.cues.entries()) {
           if (cue.id !== index+1 || typeof cue.en !== "string" || !cue.en.trim() || typeof cue.zh !== "string" || !cue.zh.trim() || !Number.isFinite(cue.start) || !Number.isFinite(cue.end) || cue.end <= cue.start) throw new Error(`${lecture.title || lecture.id} 第 ${index+1} 段缺漏或格式錯誤`);
         }
-        const hash = await sourceHash(lecture.cues.map(c=>({start:c.start,end:c.end,text:c.en})));
-        if (hash !== lecture.sourceHash) throw new Error(`${lecture.title || lecture.id} 的英文或時間軸已變動`);
         updates[UdemyCourses.translationKey(courseId, lecture.id)] = {sourceHash:hash,translatedBy:"ChatGPT",cues:lecture.cues.map(c=>({zh:toTraditional(c.zh)})),importedAt:new Date().toISOString()};
+        if (lecture.sourceOrigin === "audio-transcription") updates[`english-source:${courseId}:${lecture.id}`] = supplementalEntry(lecture, hash);
       }
       await browser.storage.local.set(updates);
       if (course === activeCourse) { key = ""; check(); }
@@ -337,7 +400,7 @@
     const activeCourse = UdemyCourses.forUrl(location.href);
     if (activeCourse !== course) {
       course = activeCourse; key = ""; ++generation; controller?.abort();
-      ++timeRevision; timeController?.abort(); timeCourse = null; timeItems = null; timeError = "";
+      ++timeRevision; timeController?.abort(); timeCourse = null; timeCourseId = null; timeItems = null; timeError = "";
       en = []; zh = []; loaded = false; last = "";
       if (root) apply();
     }

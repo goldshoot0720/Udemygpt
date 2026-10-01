@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
-const { webcrypto } = require('node:crypto');
+const { webcrypto, createHash } = require('node:crypto');
 const { courses } = require('../udemy-bilingual/courses.js');
 const SubtitleCore = require('../udemy-bilingual/subtitle-core.js');
 
@@ -31,7 +31,8 @@ class Element {
 }
 const settle = async () => { for (let i = 0; i < 25; i++) await new Promise(setImmediate); };
 
-async function workflow(course, index) {
+async function workflow(course, index, withoutEnglish = false) {
+  let captionAvailable = !withoutEnglish, playbackText = 'Hello world', denied = false;
   const courseId = course.id || 8000000 + index, lectureId = '123';
   const video = new Element(); video.player = new Element(); video.currentTime = 1.5;
   const nodes = [], downloads = [], storage = {}, requests = [];
@@ -57,14 +58,15 @@ async function workflow(course, index) {
         async get(keys) { return Object.fromEntries((Array.isArray(keys) ? keys : [keys]).map(key => [key, storage[key]])); },
         async set(updates) { Object.assign(storage, updates); }
       } },
-      runtime: { async sendMessage(message) { return message.type === 'page-zoom' ? 1 : 'WEBVTT\n\n00:00:01.000 --> 00:00:03.000\nHello world\n'; } }
+      runtime: { async sendMessage(message) { return message.type === 'page-zoom' ? 1 : `WEBVTT\n\n00:00:01.000 --> 00:00:03.000\n${playbackText}\n`; } }
     },
     async fetch(address) {
       address = String(address); requests.push(address);
       if (address.includes(`courses/${course.slug}/?fields[course]=id`)) return { ok: true, json: async () => ({ id: courseId }) };
       if (address.includes(`/courses/${courseId}/subscriber-curriculum-items/`)) return { ok: true, json: async () => ({ results: [{ _class: 'lecture', id: 123, title: 'Fixture lecture', asset: { asset_type: 'Video', length: 120, captions: [{ locale_id: 'en_US', url: 'https://vtt-a.udemycdn.com/test.vtt' }] } }], next: null }) };
       assert.ok(address.includes(`/subscribed-courses/${courseId}/lectures/123/`), address);
-      return { ok: true, json: async () => ({ asset: { captions: [{ locale_id: 'en_US', url: 'https://vtt-a.udemycdn.com/test.vtt' }] } }) };
+      if (denied) return {ok:false,status:403};
+      return { ok: true, json: async () => ({ asset: { captions: captionAvailable ? [{ locale_id: 'en_US', url: 'https://vtt-a.udemycdn.com/test.vtt' }] : [] } }) };
     }
   };
   vm.createContext(context);
@@ -73,8 +75,33 @@ async function workflow(course, index) {
   vm.runInContext(fs.readFileSync(require.resolve('../udemy-bilingual/content.js'), 'utf8'), context);
   await settle();
   const root = nodes.find(node => node.id === 'udemy-bilingual-root'), shadow = root.shadow;
+  const upload = value => ({ target: { files: [{ text: async () => JSON.stringify(value) }], value: 'fixture' } });
+  if (withoutEnglish) {
+    assert.equal(root.dataset.status, 'error');
+    const supplemental = {version:1,courseId,sourceLanguage:'en',targetLanguage:'zh-TW',lectures:[{
+      id:lectureId,title:'Fixture lecture',sourceOrigin:'audio-transcription',
+      sourceHash:createHash('sha256').update(JSON.stringify([{start:1,end:3,text:'Hello world'}])).digest('hex'),
+      cues:[{id:1,start:1,end:3,en:'Hello world',zh:''}]
+    }]};
+    const wrongCourse = structuredClone(supplemental); wrongCourse.courseId++;
+    await shadow.querySelector('.import-english-file').events.change(upload(wrongCourse));
+    assert.match(shadow.querySelector('.status').textContent,/英文匯入失敗/);
+    const tampered = structuredClone(supplemental); tampered.lectures[0].cues[0].en='Changed';
+    await shadow.querySelector('.import-english-file').events.change(upload(tampered));
+    assert.match(shadow.querySelector('.status').textContent,/英文或時間軸已變動/);
+    const negative = structuredClone(supplemental); negative.lectures[0].cues[0].start=-1;
+    await shadow.querySelector('.import-english-file').events.change(upload(negative));
+    assert.match(shadow.querySelector('.status').textContent,/格式錯誤/);
+    assert.equal(Object.keys(storage).length,0);
+    await shadow.querySelector('.import-english-file').events.change(upload(supplemental));
+    await settle();
+    assert.ok(storage[`english-source:${courseId}:${lectureId}`]);
+    assert.equal(root.dataset.source,'audio-transcription');
+    assert.match(shadow.querySelector('.status').textContent,/音訊轉錄/);
+  }
   assert.equal(root.dataset.status, 'english-only');
   assert.equal(shadow.querySelector('.time-current').textContent, '目前：1. Fixture lecture');
+  assert.equal(shadow.querySelector('.course-id').textContent, `課程 ID：${courseId} · 資料夾 data/courses/${courseId}`);
   assert.equal(shadow.querySelector('.time-total').textContent, '總影片 2.0 分鐘');
   assert.equal(shadow.querySelector('.time-watched').textContent, '已觀看 0.0 分鐘');
   video.currentTime = 60; video.events.timeupdate();
@@ -92,16 +119,29 @@ async function workflow(course, index) {
   assert.equal(whole.errors.length, 0);
   assert.equal(whole.lectures.length, 1);
   const translated = structuredClone(exported); translated.lectures[0].cues[0].zh = '哈囉，世界';
-  const upload = value => ({ target: { files: [{ text: async () => JSON.stringify(value) }], value: 'fixture' } });
+  const storedBeforeWrongImport = Object.keys(storage).length;
   const wrong = structuredClone(translated); wrong.courseId++;
   await shadow.querySelector('.import-file').events.change(upload(wrong));
   assert.match(shadow.querySelector('.status').textContent, /匯入失敗/);
-  assert.equal(Object.keys(storage).length, 0);
+  assert.equal(Object.keys(storage).length, storedBeforeWrongImport);
   await shadow.querySelector('.import-file').events.change(upload(translated));
   await settle();
   assert.ok(storage[`translation:${courseId}:${lectureId}`]);
   assert.equal(root.dataset.status, 'bilingual-ready');
   assert.equal(shadow.querySelector('.toggle').textContent, '中英 CC ✓');
+  if (withoutEnglish) {
+    denied = true;
+    shadow.querySelector('.retry').events.click(); await settle();
+    assert.equal(root.dataset.status,'error');
+    assert.match(shadow.querySelector('.status').textContent,/403/);
+    denied = false; captionAvailable = true; playbackText = 'Official English';
+    shadow.querySelector('.retry').events.click(); await settle();
+    assert.equal(root.dataset.source,'udemy-caption');
+    assert.equal(root.dataset.status,'english-only');
+    await shadow.querySelector('.export-current').events.click();
+    const official = JSON.parse(await downloads.pop().text());
+    assert.equal(official.lectures[0].cues[0].en,'Official English');
+  }
   if (course.id === 1362070) {
     storage[`translation:${lectureId}`] = storage[`translation:${courseId}:${lectureId}`];
     delete storage[`translation:${courseId}:${lectureId}`];
@@ -111,5 +151,6 @@ async function workflow(course, index) {
 }
 (async () => {
   for (const [index, course] of courses.entries()) await workflow(course, index);
+  await workflow(courses.find(course=>course.slug==='sveltejs-the-complete-guide'), 100, true);
   console.log(`PASS: All ${courses.length} courses load English, export current/full course, reject cross-course imports, import/render translations; legacy React storage remains readable.`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
