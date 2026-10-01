@@ -1,5 +1,7 @@
 # Udemy 中英雙語特效字幕
 
+Firefox、Chrome、Edge 開發者載入包與 Safari 轉換來源包見 [GitHub Releases](https://github.com/goldshoot0720/Udemygpt/releases)。安裝方式與簽章限制見 [安裝指南](releases/INSTALL.md)。執行 `python3 scripts/build_extensions.py` 可重建四種套件，輸出至 `dist/v版本/`。
+
 支援課程的字幕流程：**英文原字幕 → ChatGPT 線上逐段翻譯 → 台灣繁體術語檢查 → 依英文時間軸顯示**。
 
 版本 2.0 不再下載或使用 Udemy 中文字幕，也不使用本機翻譯模型。尚未完成英文預譯的講座只顯示英文，左上角會標示「中文待翻譯」。

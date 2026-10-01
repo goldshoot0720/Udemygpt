@@ -31,7 +31,7 @@ class Element {
 }
 const settle = async () => { for (let i = 0; i < 25; i++) await new Promise(setImmediate); };
 
-async function workflow(course, index, withoutEnglish = false) {
+async function workflow(course, index, withoutEnglish = false, chromium = false) {
   let captionAvailable = !withoutEnglish, playbackText = 'Hello world', denied = false;
   const courseId = course.id || 8000000 + index, lectureId = '123';
   const video = new Element(); video.player = new Element(); video.currentTime = 1.5;
@@ -69,7 +69,22 @@ async function workflow(course, index, withoutEnglish = false) {
       return { ok: true, json: async () => ({ asset: { captions: captionAvailable ? [{ locale_id: 'en_US', url: 'https://vtt-a.udemycdn.com/test.vtt' }] : [] } }) };
     }
   };
+  if (chromium) {
+    const fixtureBrowser = context.browser;
+    delete context.browser;
+    context.chrome = {
+      storage: { local: {
+        get: (keys, callback) => fixtureBrowser.storage.local.get(keys).then(callback),
+        set: (updates, callback) => fixtureBrowser.storage.local.set(updates).then(callback)
+      } },
+      runtime: { sendMessage: (message, callback) => fixtureBrowser.runtime.sendMessage(message).then(
+        value => callback({udemyBilingualResponse:1,value}),
+        error => callback({udemyBilingualResponse:1,error:error.message})
+      ) }
+    };
+  }
   vm.createContext(context);
+  if (chromium) vm.runInContext(fs.readFileSync(require.resolve('../udemy-bilingual/chrome-compat.js'), 'utf8'), context);
   vm.runInContext(fs.readFileSync(require.resolve('../udemy-bilingual/courses.js'), 'utf8'), context);
   vm.runInContext(fs.readFileSync(require.resolve('../udemy-bilingual/course-time.js'), 'utf8'), context);
   vm.runInContext(fs.readFileSync(require.resolve('../udemy-bilingual/content.js'), 'utf8'), context);
@@ -152,5 +167,7 @@ async function workflow(course, index, withoutEnglish = false) {
 (async () => {
   for (const [index, course] of courses.entries()) await workflow(course, index);
   await workflow(courses.find(course=>course.slug==='sveltejs-the-complete-guide'), 100, true);
-  console.log(`PASS: All ${courses.length} courses load English, export current/full course, reject cross-course imports, import/render translations; legacy React storage remains readable.`);
+  for (const [index, course] of courses.entries()) await workflow(course, index, false, true);
+  await workflow(courses.find(course=>course.slug==='sveltejs-the-complete-guide'), 100, true, true);
+  console.log(`PASS: All ${courses.length} courses load, export and import subtitles with native and Chromium APIs; source fallback, authorization and legacy React storage remain verified.`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
