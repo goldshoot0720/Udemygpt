@@ -40456,6 +40456,1056 @@
           "zh": "但那是我們會在接下來幾堂課修正的事。"
         }
       ]
+    },
+    {
+      "id": "8226908",
+      "title": "Using Effect Cleanup Functions & Using Keys for Resetting Components",
+      "sourceHash": "abf0c08ed742c0f37ddf51edeeb98d76c734f5c90dad3a8b949e32521b1325f1",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.33,
+          "end": 3.57,
+          "en": "Now, where's this strange behavior",
+          "zh": "那麼，這個奇怪的行為"
+        },
+        {
+          "id": 2,
+          "start": 3.57,
+          "end": 7.587,
+          "en": "coming from that this progress bar is empty,",
+          "zh": "是從哪裡來的，這個進度條空白的，"
+        },
+        {
+          "id": 3,
+          "start": 7.587,
+          "end": 10.83,
+          "en": "but we only move on to the next question",
+          "zh": "但我們卻在多了幾秒之後"
+        },
+        {
+          "id": 4,
+          "start": 10.83,
+          "end": 12.933,
+          "en": "after a couple of extra seconds?",
+          "zh": "才前進到下一個問題？"
+        },
+        {
+          "id": 5,
+          "start": 13.86,
+          "end": 15.39,
+          "en": "Well, the problem is simply",
+          "zh": "嗯，問題很簡單，"
+        },
+        {
+          "id": 6,
+          "start": 15.39,
+          "end": 19.11,
+          "en": "that the progress bar is depleting too quickly.",
+          "zh": "就是這個進度條消耗得太快了。"
+        },
+        {
+          "id": 7,
+          "start": 19.11,
+          "end": 21.42,
+          "en": "We have a ten second timer,",
+          "zh": "我們有一個十秒的計時器，"
+        },
+        {
+          "id": 8,
+          "start": 21.42,
+          "end": 23.25,
+          "en": "but if you set a stopwatch,",
+          "zh": "但如果你按下碼錶，"
+        },
+        {
+          "id": 9,
+          "start": 23.25,
+          "end": 25.95,
+          "en": "you'll see that the progress bar is empty",
+          "zh": "你會看到這個進度條在五秒後"
+        },
+        {
+          "id": 10,
+          "start": 25.95,
+          "end": 28.35,
+          "en": "after five seconds.",
+          "zh": "就空了。"
+        },
+        {
+          "id": 11,
+          "start": 28.35,
+          "end": 32.34,
+          "en": "And that's happening because this interval here",
+          "zh": "而會這樣，是因為這裡這個 interval"
+        },
+        {
+          "id": 12,
+          "start": 32.34,
+          "end": 35.46,
+          "en": "is actually getting triggered twice",
+          "zh": "其實被觸發了兩次，"
+        },
+        {
+          "id": 13,
+          "start": 35.46,
+          "end": 38.61,
+          "en": "and therefore we have two intervals running",
+          "zh": "因此我們有兩個 interval 在幕後運行，"
+        },
+        {
+          "id": 14,
+          "start": 38.61,
+          "end": 42.27,
+          "en": "behind the scenes that keep on updating this state.",
+          "zh": "它們不斷更新這個 state。"
+        },
+        {
+          "id": 15,
+          "start": 42.27,
+          "end": 46.77,
+          "en": "And therefore the progress bar is empty in half the time.",
+          "zh": "因此這個進度條只花一半的時間就空了。"
+        },
+        {
+          "id": 16,
+          "start": 46.77,
+          "end": 47.603,
+          "en": "You can see",
+          "zh": "你可以看到"
+        },
+        {
+          "id": 17,
+          "start": 47.603,
+          "end": 51.9,
+          "en": "that it's getting triggered twice here in the console.",
+          "zh": "它在這裡的主控台中被觸發了兩次。"
+        },
+        {
+          "id": 18,
+          "start": 51.9,
+          "end": 55.17,
+          "en": "And that's happening as I mentioned before,",
+          "zh": "而如我之前提到的，這會發生，"
+        },
+        {
+          "id": 19,
+          "start": 55.17,
+          "end": 60.17,
+          "en": "because we have React's StrictMode turned on in main JSX.",
+          "zh": "是因為我們在 main.jsx 中開啟了 React 的 StrictMode。"
+        },
+        {
+          "id": 20,
+          "start": 62.01,
+          "end": 65.19,
+          "en": "Now during development, and only there,",
+          "zh": "而在開發期間，也只有在那時，"
+        },
+        {
+          "id": 21,
+          "start": 65.19,
+          "end": 68.58,
+          "en": "this StrictMode will actually execute",
+          "zh": "這個 StrictMode 其實會把"
+        },
+        {
+          "id": 22,
+          "start": 68.58,
+          "end": 71.1,
+          "en": "every component function twice,",
+          "zh": "每個元件函式執行兩次，"
+        },
+        {
+          "id": 23,
+          "start": 71.1,
+          "end": 76.1,
+          "en": "which is done to help you catch certain errors in your app.",
+          "zh": "這麼做是為了幫你捕捉應用程式中的某些錯誤。"
+        },
+        {
+          "id": 24,
+          "start": 76.26,
+          "end": 77.91,
+          "en": "Because in theory,",
+          "zh": "因為理論上，"
+        },
+        {
+          "id": 25,
+          "start": 77.91,
+          "end": 81.51,
+          "en": "your app should work in exactly the same way,",
+          "zh": "你的應用程式應該以完全相同的方式運作，"
+        },
+        {
+          "id": 26,
+          "start": 81.51,
+          "end": 85.53,
+          "en": "no matter if a component function gets executed once",
+          "zh": "無論一個元件函式在渲染到畫面上時"
+        },
+        {
+          "id": 27,
+          "start": 85.53,
+          "end": 89.94,
+          "en": "when being rendered to the screen or 100 times.",
+          "zh": "被執行一次還是 100 次。"
+        },
+        {
+          "id": 28,
+          "start": 89.94,
+          "end": 92.52000000000001,
+          "en": "And clearly here, that's not the case,",
+          "zh": "而很明顯，在這裡並非如此，"
+        },
+        {
+          "id": 29,
+          "start": 92.52000000000001,
+          "end": 96.87,
+          "en": "which is an indicator for a bug we have in our code.",
+          "zh": "這就指出我們的程式碼中有個 bug。"
+        },
+        {
+          "id": 30,
+          "start": 96.87,
+          "end": 98.91,
+          "en": "So here in this case,",
+          "zh": "所以在這裡這個情況下，"
+        },
+        {
+          "id": 31,
+          "start": 98.91,
+          "end": 103.68,
+          "en": "StrictMode helps us identify that we have a bug.",
+          "zh": "StrictMode 幫我們辨識出我們有個 bug。"
+        },
+        {
+          "id": 32,
+          "start": 103.68,
+          "end": 105.72,
+          "en": "But what is the problem?",
+          "zh": "但問題是什麼？"
+        },
+        {
+          "id": 33,
+          "start": 105.72,
+          "end": 110.55,
+          "en": "Well, the problem here is that when this effect function",
+          "zh": "嗯，這裡的問題是，當這個 effect 函式"
+        },
+        {
+          "id": 34,
+          "start": 110.55,
+          "end": 112.56,
+          "en": "gets executed twice here",
+          "zh": "在這裡被執行兩次時，"
+        },
+        {
+          "id": 35,
+          "start": 112.56,
+          "end": 115.59,
+          "en": "we have two running intervals.",
+          "zh": "我們就有兩個正在運行的 interval。"
+        },
+        {
+          "id": 36,
+          "start": 115.59,
+          "end": 117.27000000000001,
+          "en": "That should not be the case.",
+          "zh": "那不應該發生。"
+        },
+        {
+          "id": 37,
+          "start": 117.27000000000001,
+          "end": 122.27,
+          "en": "And what's missing here in our code is a cleanup function.",
+          "zh": "而我們程式碼中缺少的是清理函式。"
+        },
+        {
+          "id": 38,
+          "start": 122.34,
+          "end": 125.73,
+          "en": "We have to clean up the existing interval",
+          "zh": "我們必須清理現有的 interval，"
+        },
+        {
+          "id": 39,
+          "start": 125.73,
+          "end": 128.64,
+          "en": "if this effect function runs again.",
+          "zh": "如果這個 effect 函式再次執行。"
+        },
+        {
+          "id": 40,
+          "start": 128.64,
+          "end": 130.35,
+          "en": "And if we do that,",
+          "zh": "而如果我們那麼做，"
+        },
+        {
+          "id": 41,
+          "start": 130.35,
+          "end": 132.69,
+          "en": "it wouldn't matter if this effect function",
+          "zh": "這個 effect 函式被呼叫 10 次"
+        },
+        {
+          "id": 42,
+          "start": 132.69,
+          "end": 134.64,
+          "en": "gets called 10 times,",
+          "zh": "也無所謂，"
+        },
+        {
+          "id": 43,
+          "start": 134.64,
+          "end": 138.42000000000002,
+          "en": "because if we always clean up the old intervals,",
+          "zh": "因為如果我們總是清理舊的 intervals，"
+        },
+        {
+          "id": 44,
+          "start": 138.42000000000002,
+          "end": 141.32999999999998,
+          "en": "we'll only have one interval up and running",
+          "zh": "同一時間就只會有一個 interval"
+        },
+        {
+          "id": 45,
+          "start": 141.32999999999998,
+          "end": 142.503,
+          "en": "at the same time.",
+          "zh": "在運行。"
+        },
+        {
+          "id": 46,
+          "start": 143.88,
+          "end": 146.31,
+          "en": "And this is something we should add anyways,",
+          "zh": "而這是我們無論如何都應該加入的，"
+        },
+        {
+          "id": 47,
+          "start": 146.31,
+          "end": 149.49,
+          "en": "because at the moment if I move to a different question",
+          "zh": "因為目前如果我切換到另一個問題，"
+        },
+        {
+          "id": 48,
+          "start": 149.49,
+          "end": 154.07999999999998,
+          "en": "we also have the problem that the old timer keeps on running",
+          "zh": "我們也會有舊計時器持續運行、"
+        },
+        {
+          "id": 49,
+          "start": 154.07999999999998,
+          "end": 156.69,
+          "en": "and is not being reset.",
+          "zh": "沒有被重設的問題。"
+        },
+        {
+          "id": 50,
+          "start": 156.69,
+          "end": 159.57,
+          "en": "And that should eventually also change",
+          "zh": "而那最終也應該改變，"
+        },
+        {
+          "id": 51,
+          "start": 159.57,
+          "end": 161.88,
+          "en": "and therefore will also need a cleanup function",
+          "zh": "因此也會需要一個清理函式，"
+        },
+        {
+          "id": 52,
+          "start": 161.88,
+          "end": 163.56,
+          "en": "for that reason.",
+          "zh": "基於那個原因。"
+        },
+        {
+          "id": 53,
+          "start": 163.56,
+          "end": 167.7,
+          "en": "So let's go here to the question timer component",
+          "zh": "所以讓我們前往這裡的 QuestionTimer 元件，"
+        },
+        {
+          "id": 54,
+          "start": 167.7,
+          "end": 172.38,
+          "en": "and store a reference to that interval in a constant",
+          "zh": "把那個 interval 的參考存在一個常數中，"
+        },
+        {
+          "id": 55,
+          "start": 172.38,
+          "end": 175.02,
+          "en": "and then add that cleanup function",
+          "zh": "然後加入那個清理函式，"
+        },
+        {
+          "id": 56,
+          "start": 175.02,
+          "end": 178.26,
+          "en": "as you learned it as a return value",
+          "zh": "如你所學到的，把它當作回傳值，"
+        },
+        {
+          "id": 57,
+          "start": 178.26,
+          "end": 179.913,
+          "en": "in that effect function.",
+          "zh": "在那個 effect 函式中。"
+        },
+        {
+          "id": 58,
+          "start": 180.84,
+          "end": 182.79,
+          "en": "And this cleanup function",
+          "zh": "而這個清理函式"
+        },
+        {
+          "id": 59,
+          "start": 182.79,
+          "end": 186.51,
+          "en": "will then automatically be executed by React",
+          "zh": "接著會自動被 React 執行，"
+        },
+        {
+          "id": 60,
+          "start": 186.51,
+          "end": 189.54,
+          "en": "before it runs this effect function again,",
+          "zh": "在它再次執行這個 effect 函式之前，"
+        },
+        {
+          "id": 61,
+          "start": 189.54,
+          "end": 193.41,
+          "en": "or when this component is unmounted from the DOM.",
+          "zh": "或當這個元件被從 DOM 卸載時。"
+        },
+        {
+          "id": 62,
+          "start": 193.41,
+          "end": 195.783,
+          "en": "So if it disappears from the screen.",
+          "zh": "也就是如果它從畫面上消失。"
+        },
+        {
+          "id": 63,
+          "start": 198.21,
+          "end": 200.28,
+          "en": "So therefore here in this cleanup function",
+          "zh": "因此，在這裡這個清理函式中，"
+        },
+        {
+          "id": 64,
+          "start": 200.28,
+          "end": 202.68,
+          "en": "we now should call clear interval",
+          "zh": "我們現在應該呼叫 clearInterval，"
+        },
+        {
+          "id": 65,
+          "start": 202.68,
+          "end": 205.173,
+          "en": "and pass this interval reference to it.",
+          "zh": "並把這個 interval 參考傳給它。"
+        },
+        {
+          "id": 66,
+          "start": 206.64,
+          "end": 209.49,
+          "en": "And we should actually do the same for the timer,",
+          "zh": "而我們其實也應該對計時器做同樣的事，"
+        },
+        {
+          "id": 67,
+          "start": 209.49,
+          "end": 213.69,
+          "en": "because otherwise this timer will keep on going.",
+          "zh": "因為否則這個計時器會持續運行。"
+        },
+        {
+          "id": 68,
+          "start": 213.69,
+          "end": 214.74,
+          "en": "And for example,",
+          "zh": "而例如，"
+        },
+        {
+          "id": 69,
+          "start": 214.74,
+          "end": 217.95,
+          "en": "if this component would be removed from this screen",
+          "zh": "如果這個元件因為我們到達那個 game over 畫面"
+        },
+        {
+          "id": 70,
+          "start": 217.95,
+          "end": 222.9,
+          "en": "because we reach that game over screen here,",
+          "zh": "而被從這個畫面移除，"
+        },
+        {
+          "id": 71,
+          "start": 222.9,
+          "end": 225.453,
+          "en": "we of course wanna clean up the timer.",
+          "zh": "我們當然想清理那個計時器。"
+        },
+        {
+          "id": 72,
+          "start": 226.35,
+          "end": 229.44,
+          "en": "So therefore here we should also store a reference",
+          "zh": "因此，在這裡我們也應該把那個計時器的參考"
+        },
+        {
+          "id": 73,
+          "start": 229.44,
+          "end": 232.74,
+          "en": "to that timer in a variable or constant.",
+          "zh": "存在一個變數或常數中。"
+        },
+        {
+          "id": 74,
+          "start": 232.74,
+          "end": 235.92000000000002,
+          "en": "And then add that cleanup function here",
+          "zh": "然後在這裡加入那個清理函式，"
+        },
+        {
+          "id": 75,
+          "start": 235.92000000000002,
+          "end": 240.003,
+          "en": "where we clear that timeout by passing the timer to it.",
+          "zh": "我們透過把這個 timer 傳給它來清除那個 timeout。"
+        },
+        {
+          "id": 76,
+          "start": 241.71,
+          "end": 242.94,
+          "en": "And now with that,",
+          "zh": "而現在有了這個，"
+        },
+        {
+          "id": 77,
+          "start": 242.94,
+          "end": 245.49,
+          "en": "with those cleanup functions added,",
+          "zh": "加入了那些清理函式之後，"
+        },
+        {
+          "id": 78,
+          "start": 245.49,
+          "end": 247.17,
+          "en": "if we now reload",
+          "zh": "如果我們現在重新載入，"
+        },
+        {
+          "id": 79,
+          "start": 247.17,
+          "end": 249.99,
+          "en": "we will see that this progress bar",
+          "zh": "我們會看到這個進度條"
+        },
+        {
+          "id": 80,
+          "start": 249.99,
+          "end": 253.05,
+          "en": "does not deplete that quickly anymore,",
+          "zh": "不再那麼快就消耗完，"
+        },
+        {
+          "id": 81,
+          "start": 253.05,
+          "end": 255.3,
+          "en": "but instead works as intended.",
+          "zh": "而是如預期般運作。"
+        },
+        {
+          "id": 82,
+          "start": 255.3,
+          "end": 257.01,
+          "en": "And therefore, once it's empty,",
+          "zh": "因此，一旦它空了，"
+        },
+        {
+          "id": 83,
+          "start": 257.01,
+          "end": 259.56,
+          "en": "we move on to the next question.",
+          "zh": "我們就前進到下一個問題。"
+        },
+        {
+          "id": 84,
+          "start": 259.56,
+          "end": 261.69,
+          "en": "But of course, now we have the problem",
+          "zh": "但當然，現在我們有個問題，"
+        },
+        {
+          "id": 85,
+          "start": 261.69,
+          "end": 266.69,
+          "en": "that the timer and this progress bar is never reset.",
+          "zh": "就是這個計時器和這個進度條從來沒有被重設。"
+        },
+        {
+          "id": 86,
+          "start": 266.76,
+          "end": 271.76,
+          "en": "Now why is that timer and progress bar not reset",
+          "zh": "那為什麼當我們前進到新問題時，"
+        },
+        {
+          "id": 87,
+          "start": 271.8,
+          "end": 274.023,
+          "en": "when we move on to a new question?",
+          "zh": "那個計時器和進度條沒有被重設？"
+        },
+        {
+          "id": 88,
+          "start": 275.4,
+          "end": 278.64,
+          "en": "Well, because this question timer component",
+          "zh": "嗯，因為這個 QuestionTimer 元件"
+        },
+        {
+          "id": 89,
+          "start": 278.64,
+          "end": 281.31,
+          "en": "doesn't get recreated.",
+          "zh": "並沒有被重新建立。"
+        },
+        {
+          "id": 90,
+          "start": 281.31,
+          "end": 282.21,
+          "en": "Keep in mind",
+          "zh": "請記住，"
+        },
+        {
+          "id": 91,
+          "start": 282.21,
+          "end": 285.39,
+          "en": "that we're using the question timer component",
+          "zh": "我們是在這裡的 quiz 元件中"
+        },
+        {
+          "id": 92,
+          "start": 285.39,
+          "end": 288.6,
+          "en": "in the quiz component here.",
+          "zh": "使用這個 QuestionTimer 元件。"
+        },
+        {
+          "id": 93,
+          "start": 288.6,
+          "end": 291.84000000000003,
+          "en": "And when we move on to a new question,",
+          "zh": "而當我們前進到一個新問題時，"
+        },
+        {
+          "id": 94,
+          "start": 291.84000000000003,
+          "end": 295.32,
+          "en": "we do that by storing a user answer.",
+          "zh": "我們是透過儲存一個使用者答案來做到的。"
+        },
+        {
+          "id": 95,
+          "start": 295.32,
+          "end": 298.26,
+          "en": "And then the act of question index changes",
+          "zh": "然後 activeQuestionIndex 會改變，"
+        },
+        {
+          "id": 96,
+          "start": 298.26,
+          "end": 300.843,
+          "en": "because the length of user answers changed.",
+          "zh": "因為 userAnswers 的長度改變了。"
+        },
+        {
+          "id": 97,
+          "start": 301.83,
+          "end": 306.83,
+          "en": "But therefore, of course this JSX code just gets updated.",
+          "zh": "但因此，這段 JSX 程式碼當然就只是被更新。"
+        },
+        {
+          "id": 98,
+          "start": 307.05,
+          "end": 311.67,
+          "en": "But this question timer component is not being recreated",
+          "zh": "但這個 QuestionTimer 元件並沒有被重新建立，"
+        },
+        {
+          "id": 99,
+          "start": 311.67,
+          "end": 313.38,
+          "en": "because it hasn't changed.",
+          "zh": "因為它沒有改變。"
+        },
+        {
+          "id": 100,
+          "start": 313.38,
+          "end": 315.96,
+          "en": "It was part of the DOM before.",
+          "zh": "它之前是 DOM 的一部分。"
+        },
+        {
+          "id": 101,
+          "start": 315.96,
+          "end": 319.05,
+          "en": "It is still part of the DOM now.",
+          "zh": "它現在仍然是 DOM 的一部分。"
+        },
+        {
+          "id": 102,
+          "start": 319.05,
+          "end": 321.09,
+          "en": "The only thing that changed",
+          "zh": "唯一改變的"
+        },
+        {
+          "id": 103,
+          "start": 321.09,
+          "end": 324.12,
+          "en": "is the question text that's being displayed",
+          "zh": "是被顯示的問題文字，"
+        },
+        {
+          "id": 104,
+          "start": 324.12,
+          "end": 326.613,
+          "en": "and the answers that are displayed.",
+          "zh": "以及被顯示的答案。"
+        },
+        {
+          "id": 105,
+          "start": 327.6,
+          "end": 330.93,
+          "en": "But this component was there and is there,",
+          "zh": "但這個元件之前在那裡，現在也在那裡，"
+        },
+        {
+          "id": 106,
+          "start": 330.93,
+          "end": 334.77,
+          "en": "and therefore it's not unmounted, not remounted,",
+          "zh": "因此它沒有被卸載、沒有被重新掛載，"
+        },
+        {
+          "id": 107,
+          "start": 334.77,
+          "end": 338.37,
+          "en": "and therefore the timers and intervals in that component",
+          "zh": "因此那個元件中的計時器和 intervals"
+        },
+        {
+          "id": 108,
+          "start": 338.37,
+          "end": 340.17,
+          "en": "are not reset.",
+          "zh": "不會被重設。"
+        },
+        {
+          "id": 109,
+          "start": 340.17,
+          "end": 342.9,
+          "en": "Now of course here in this application,",
+          "zh": "而當然，在這個應用程式中，"
+        },
+        {
+          "id": 110,
+          "start": 342.9,
+          "end": 346.8,
+          "en": "we'd like to have this timer to be reset though,",
+          "zh": "我們確實希望這個計時器被重設，"
+        },
+        {
+          "id": 111,
+          "start": 346.8,
+          "end": 350.223,
+          "en": "because of course it should reset when the question changed.",
+          "zh": "因為當問題改變時它當然應該重設。"
+        },
+        {
+          "id": 112,
+          "start": 351.18,
+          "end": 354.87,
+          "en": "And there is a simple yet very powerful trick",
+          "zh": "而有一個簡單卻非常強大的技巧，"
+        },
+        {
+          "id": 113,
+          "start": 354.87,
+          "end": 358.11,
+          "en": "you can use in React to achieve this.",
+          "zh": "你可以在 React 中用來達成這點。"
+        },
+        {
+          "id": 114,
+          "start": 358.11,
+          "end": 361.8,
+          "en": "You can add a key to this component,",
+          "zh": "你可以為這個元件加上一個 key，"
+        },
+        {
+          "id": 115,
+          "start": 361.8,
+          "end": 365.1,
+          "en": "because this key prop can actually be added",
+          "zh": "因為這個 key prop 其實可以加到"
+        },
+        {
+          "id": 116,
+          "start": 365.1,
+          "end": 368.37,
+          "en": "to any element and any component,",
+          "zh": "任何元素和任何元件上，"
+        },
+        {
+          "id": 117,
+          "start": 368.37,
+          "end": 373.17,
+          "en": "because key is a built-in prop React is looking for.",
+          "zh": "因為 key 是 React 會尋找的內建 prop。"
+        },
+        {
+          "id": 118,
+          "start": 373.17,
+          "end": 376.41,
+          "en": "And you already learned that you should use this key",
+          "zh": "而你已經學到，當你輸出列表資料時"
+        },
+        {
+          "id": 119,
+          "start": 376.41,
+          "end": 378.48,
+          "en": "when outputting list data,",
+          "zh": "應該使用這個 key，"
+        },
+        {
+          "id": 120,
+          "start": 378.48,
+          "end": 381.48,
+          "en": "because there this key helps React",
+          "zh": "因為在那裡這個 key 能幫 React"
+        },
+        {
+          "id": 121,
+          "start": 381.48,
+          "end": 384.3,
+          "en": "identify those different list items",
+          "zh": "辨識那些不同的列表項目，"
+        },
+        {
+          "id": 122,
+          "start": 384.3,
+          "end": 387.87,
+          "en": "and it helps React manage that list efficiently",
+          "zh": "並幫 React 在幕後有效率地管理那個列表，"
+        },
+        {
+          "id": 123,
+          "start": 387.87,
+          "end": 389.913,
+          "en": "behind the scenes, so to say.",
+          "zh": "可以這麼說。"
+        },
+        {
+          "id": 124,
+          "start": 391.62,
+          "end": 395.55,
+          "en": "But the key prop also has another purpose.",
+          "zh": "但 key prop 還有另一個用途。"
+        },
+        {
+          "id": 125,
+          "start": 395.55,
+          "end": 398.90999999999997,
+          "en": "Whenever it changes on a component,",
+          "zh": "每當它在某個元件上改變時，"
+        },
+        {
+          "id": 126,
+          "start": 398.90999999999997,
+          "end": 402.18,
+          "en": "even if that component is not part of a list,",
+          "zh": "即使那個元件不是列表的一部分，"
+        },
+        {
+          "id": 127,
+          "start": 402.18,
+          "end": 404.01,
+          "en": "whenever it changes",
+          "zh": "每當它改變時，"
+        },
+        {
+          "id": 128,
+          "start": 404.01,
+          "end": 408.39,
+          "en": "React will destroy the old component instance",
+          "zh": "React 就會銷毀舊的元件實例，"
+        },
+        {
+          "id": 129,
+          "start": 408.39,
+          "end": 409.83299999999997,
+          "en": "and create a new one.",
+          "zh": "並建立一個新的。"
+        },
+        {
+          "id": 130,
+          "start": 410.76,
+          "end": 414.57,
+          "en": "So it will unmount and remount it basically.",
+          "zh": "所以基本上它會把它卸載再重新掛載。"
+        },
+        {
+          "id": 131,
+          "start": 414.57,
+          "end": 416.94,
+          "en": "And that's exactly what we need here,",
+          "zh": "而那正是我們在這裡需要的，"
+        },
+        {
+          "id": 132,
+          "start": 416.94,
+          "end": 420.9,
+          "en": "because I wanna recreate this question timer component",
+          "zh": "因為我想在每次切換到新問題時"
+        },
+        {
+          "id": 133,
+          "start": 420.9,
+          "end": 423.303,
+          "en": "whenever we switch to a new question.",
+          "zh": "重新建立這個 QuestionTimer 元件。"
+        },
+        {
+          "id": 134,
+          "start": 424.5,
+          "end": 428.49,
+          "en": "And therefore we could set the question timer key here",
+          "zh": "因此我們可以在這裡把 QuestionTimer 的 key"
+        },
+        {
+          "id": 135,
+          "start": 428.49,
+          "end": 431.28,
+          "en": "to the act of question index,",
+          "zh": "設為 activeQuestionIndex，"
+        },
+        {
+          "id": 136,
+          "start": 431.28,
+          "end": 434.373,
+          "en": "which will change whenever the question changes.",
+          "zh": "它會在問題改變時改變。"
+        },
+        {
+          "id": 137,
+          "start": 435.36,
+          "end": 437.22,
+          "en": "And with that simple change",
+          "zh": "而有了那個簡單的變更，"
+        },
+        {
+          "id": 138,
+          "start": 437.22,
+          "end": 439.35,
+          "en": "with that key prop added here,",
+          "zh": "在這裡加上那個 key prop，"
+        },
+        {
+          "id": 139,
+          "start": 439.35,
+          "end": 440.82,
+          "en": "if you now reload",
+          "zh": "如果你現在重新載入，"
+        },
+        {
+          "id": 140,
+          "start": 440.82,
+          "end": 444.78,
+          "en": "you'll see that once this timer expired here,",
+          "zh": "你會看到一旦這裡這個計時器到期，"
+        },
+        {
+          "id": 141,
+          "start": 444.78,
+          "end": 446.88,
+          "en": "once this progress bar is empty",
+          "zh": "一旦這個進度條空了，"
+        },
+        {
+          "id": 142,
+          "start": 446.88,
+          "end": 449.043,
+          "en": "and we move to a new question,",
+          "zh": "而我們前進到新問題時，"
+        },
+        {
+          "id": 143,
+          "start": 450,
+          "end": 452.19,
+          "en": "it will jump back and reset.",
+          "zh": "它就會跳回去並重設。"
+        },
+        {
+          "id": 144,
+          "start": 452.19,
+          "end": 455.64,
+          "en": "A new timer will be set, a new interval will start,",
+          "zh": "一個新的計時器會被設定、一個新的 interval 會開始，"
+        },
+        {
+          "id": 145,
+          "start": 455.64,
+          "end": 458.37,
+          "en": "and that will keep on happening",
+          "zh": "而這會持續發生，"
+        },
+        {
+          "id": 146,
+          "start": 458.37,
+          "end": 462.543,
+          "en": "as we automatically go through all these questions.",
+          "zh": "當我們自動走過所有這些問題時。"
+        },
+        {
+          "id": 147,
+          "start": 464.01,
+          "end": 466.8,
+          "en": "So that's a nice trick with key,",
+          "zh": "所以那是個關於 key 的好技巧，"
+        },
+        {
+          "id": 148,
+          "start": 466.8,
+          "end": 469.29,
+          "en": "a nice feature of React",
+          "zh": "一個 React 的好功能，"
+        },
+        {
+          "id": 149,
+          "start": 469.29,
+          "end": 471.543,
+          "en": "that you should definitely be aware of.",
+          "zh": "你絕對應該知道它。"
+        }
+      ]
     }
   ],
   "errors": []
