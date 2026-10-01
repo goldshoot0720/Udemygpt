@@ -1,8 +1,13 @@
 /* Runs in an extension page; uses the existing Udemy host permissions only. */
 (async () => {
   'use strict';
-  const status = document.querySelector('#status'), list = document.querySelector('#courses');
-  const start = document.querySelector('#start'), skipReact = document.querySelector('#skip-react');
+  const surface = document.getElementById?.('udemy-english-export')?.shadowRoot || document;
+  const start = surface.querySelector('#start');
+  if (!start) return;
+  const status = surface.querySelector('#status'), list = surface.querySelector('#courses');
+  const skipReact = surface.querySelector('#skip-react');
+  const inPlayer = typeof location !== 'undefined' && location.origin === 'https://www.udemy.com';
+  const timedFetch = (url, options) => fetch(url, { ...options, signal: AbortSignal.timeout(30000) });
   const rows = new Map();
   for (const course of UdemyCourses.courses) {
     const row = document.createElement('li'); row.textContent = course.title;
@@ -13,14 +18,15 @@
   async function json(url) {
     const address = new URL(url, 'https://www.udemy.com');
     if (address.origin !== 'https://www.udemy.com') throw new Error('課程清單來源不符');
-    const response = await fetch(address.href, { credentials: 'include', headers: { Accept: 'application/json' } });
+    const response = await timedFetch(address.href, { credentials: 'include', headers: { Accept: 'application/json' } });
     if (!response.ok) throw new Error(`課程讀取失敗（HTTP ${response.status}）；請確認登入及觀看權限`);
     return response.json();
   }
   async function caption(url) {
     const address = new URL(url);
     if (address.protocol !== 'https:' || !(address.hostname.endsWith('.udemycdn.com') || address.hostname === 'udemy-captions.s3.amazonaws.com' || address.hostname === 'www.udemy.com')) throw new Error('字幕來源不是 Udemy');
-    const response = await fetch(address.href, { credentials: 'omit', redirect: 'error' });
+    if (inPlayer) return browser.runtime.sendMessage({type:'caption-file',url:address.href});
+    const response = await timedFetch(address.href, { credentials: 'omit', redirect: 'error' });
     if (!response.ok) throw new Error(`英文字幕讀取失敗（HTTP ${response.status}）`);
     const text = await response.text();
     if (text.length > 5000000) throw new Error('字幕檔過大');
@@ -45,8 +51,10 @@
       const record = { slug: course.slug, title: course.title, status: 'pending' }; report.courses.push(record);
       try {
         status.textContent = `課程 ${index + 1}/${targets.length} · ${course.title}`;
-        const courseId = await UdemyCourses.idFor(course);
+        state.textContent = '正在辨識課程 ID…';
+        const courseId = await UdemyCourses.idFor(course, timedFetch);
         record.courseId = courseId;
+        state.textContent = '正在讀取完整課程清單…';
         const items = [];
         let next = `/api-2.0/courses/${courseId}/subscriber-curriculum-items/?page_size=200&fields[lecture]=id,title,asset&fields[asset]=asset_type,captions`;
         while (next) {
