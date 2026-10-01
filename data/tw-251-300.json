@@ -10188,6 +10188,3891 @@
           "zh": "也把你自己自訂的驗證邏輯加到這個表單。"
         }
       ]
+    },
+    {
+      "id": "39838000",
+      "title": "Building & Using a Reusable Input Component",
+      "sourceHash": "4955319a22ae723ff285e11b7f520f58742c9cc3c70270a6d067a9d251e7ffcd",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.48,
+          "end": 1.53,
+          "en": "So now that you learned",
+          "zh": "所以現在你學到了"
+        },
+        {
+          "id": 2,
+          "start": 1.53,
+          "end": 5.34,
+          "en": "about different ways of handling forms submission",
+          "zh": "處理表單提交的不同方式、"
+        },
+        {
+          "id": 3,
+          "start": 5.34,
+          "end": 7.5,
+          "en": "and extracting user input values",
+          "zh": "取出使用者輸入值，"
+        },
+        {
+          "id": 4,
+          "start": 7.5,
+          "end": 10.53,
+          "en": "and of validating those values,",
+          "zh": "以及驗證那些值，"
+        },
+        {
+          "id": 5,
+          "start": 10.53,
+          "end": 13.05,
+          "en": "I wanna conclude this section",
+          "zh": "我想透過探索一些撰寫更可重用、"
+        },
+        {
+          "id": 6,
+          "start": 13.05,
+          "end": 18.05,
+          "en": "by exploring some techniques of writing more reusable",
+          "zh": "更容易管理程式碼的技巧，"
+        },
+        {
+          "id": 7,
+          "start": 18.06,
+          "end": 20.463,
+          "en": "and easier to manage code.",
+          "zh": "來為這一節作結。"
+        },
+        {
+          "id": 8,
+          "start": 21.42,
+          "end": 25.62,
+          "en": "And for that, I'm back here in the StateLogin.jsx file",
+          "zh": "而為此，我回到了這裡的 StateLogin.jsx 檔案，"
+        },
+        {
+          "id": 9,
+          "start": 25.62,
+          "end": 28.17,
+          "en": "because it's in this component here",
+          "zh": "因為就是在這裡這個元件中，"
+        },
+        {
+          "id": 10,
+          "start": 28.17,
+          "end": 33.17,
+          "en": "where I do have the most complex user input management.",
+          "zh": "我有最複雜的使用者輸入管理。"
+        },
+        {
+          "id": 11,
+          "start": 33.54,
+          "end": 36.66,
+          "en": "I'm keeping track of all the entered values",
+          "zh": "我在每次按鍵時"
+        },
+        {
+          "id": 12,
+          "start": 36.66,
+          "end": 39.3,
+          "en": "upon every keystroke with state",
+          "zh": "用 state 追蹤所有輸入的值，"
+        },
+        {
+          "id": 13,
+          "start": 39.3,
+          "end": 43.08,
+          "en": "and I'm performing validation on every keystroke",
+          "zh": "而我在每次按鍵時執行驗證，"
+        },
+        {
+          "id": 14,
+          "start": 43.08,
+          "end": 46.023,
+          "en": "and whenever input fields lose focus.",
+          "zh": "以及每當輸入欄位失去焦點時。"
+        },
+        {
+          "id": 15,
+          "start": 47.76,
+          "end": 51.84,
+          "en": "And of course, that's not too bad in this component here,",
+          "zh": "而當然，在這個元件中那還不算太糟，"
+        },
+        {
+          "id": 16,
+          "start": 51.84,
+          "end": 53.76,
+          "en": "but keep in mind that here,",
+          "zh": "但請記住，在這裡"
+        },
+        {
+          "id": 17,
+          "start": 53.76,
+          "end": 58.76,
+          "en": "we also have a relatively basic form, with only two inputs.",
+          "zh": "我們也有一個相對基本的表單，只有兩個輸入。"
+        },
+        {
+          "id": 18,
+          "start": 60,
+          "end": 65,
+          "en": "And given that fact, we do indeed have quite some code here.",
+          "zh": "而考慮到這一點，我們確實有相當多程式碼在這裡。"
+        },
+        {
+          "id": 19,
+          "start": 65.13,
+          "end": 67.8,
+          "en": "And as you can also see here,",
+          "zh": "而如你在這裡也可以看到的，"
+        },
+        {
+          "id": 20,
+          "start": 67.8,
+          "end": 72.21000000000001,
+          "en": "we also have quite a bit of code repetition here,",
+          "zh": "我們在這裡也有相當多的程式碼重複，"
+        },
+        {
+          "id": 21,
+          "start": 72.21000000000001,
+          "end": 74.67,
+          "en": "because in the end, we have the same logic",
+          "zh": "因為到頭來，email 和密碼欄位"
+        },
+        {
+          "id": 22,
+          "start": 74.67,
+          "end": 77.7,
+          "en": "for both the email and the password field.",
+          "zh": "我們有相同的邏輯。"
+        },
+        {
+          "id": 23,
+          "start": 77.7,
+          "end": 82.02,
+          "en": "And we have the same JSX code down here,",
+          "zh": "而我們在下面這裡有相同的 JSX 程式碼，"
+        },
+        {
+          "id": 24,
+          "start": 82.02,
+          "end": 87.02,
+          "en": "just with some tiny details that are different.",
+          "zh": "只是有些微小的細節不同。"
+        },
+        {
+          "id": 25,
+          "start": 87.21000000000001,
+          "end": 88.995,
+          "en": "For example, a different input type,",
+          "zh": "例如不同的 input type、"
+        },
+        {
+          "id": 26,
+          "start": 88.995,
+          "end": 91.44,
+          "en": "a different input name, and so on,",
+          "zh": "不同的 input name 等等，"
+        },
+        {
+          "id": 27,
+          "start": 91.44,
+          "end": 94.95,
+          "en": "but the same general structure.",
+          "zh": "但整體結構相同。"
+        },
+        {
+          "id": 28,
+          "start": 94.95,
+          "end": 99,
+          "en": "And of course, whenever you have situations like this",
+          "zh": "而當然，每當你遇到像這樣的情況，"
+        },
+        {
+          "id": 29,
+          "start": 99,
+          "end": 103.71000000000001,
+          "en": "where you have some kind of duplicate JSX code here",
+          "zh": "在這個例子中你在這裡有某種"
+        },
+        {
+          "id": 30,
+          "start": 103.71000000000001,
+          "end": 105.15,
+          "en": "in this example,",
+          "zh": "重複的 JSX 程式碼，"
+        },
+        {
+          "id": 31,
+          "start": 105.15,
+          "end": 108.81,
+          "en": "you could consider building a custom component.",
+          "zh": "你可以考慮建立一個自訂元件。"
+        },
+        {
+          "id": 32,
+          "start": 108.81,
+          "end": 112.86,
+          "en": "And that is indeed what I'll do here, therefore.",
+          "zh": "因此，那確實就是我在這裡要做的。"
+        },
+        {
+          "id": 33,
+          "start": 112.86,
+          "end": 117.06,
+          "en": "In the components folder, I'll add input.jsx file",
+          "zh": "在 components 資料夾中，我會加入 Input.jsx 檔案，"
+        },
+        {
+          "id": 34,
+          "start": 117.06,
+          "end": 120.27,
+          "en": "to build a custom input component",
+          "zh": "來建立一個自訂的 input 元件，"
+        },
+        {
+          "id": 35,
+          "start": 120.27,
+          "end": 123.78,
+          "en": "which should in the end wrap this code",
+          "zh": "它到頭來應該包住這段程式碼，"
+        },
+        {
+          "id": 36,
+          "start": 123.78,
+          "end": 128.78,
+          "en": "so that we can reuse this code easily, this JSX code here.",
+          "zh": "讓我們能輕鬆重用這段程式碼，也就是這裡這段 JSX 程式碼。"
+        },
+        {
+          "id": 37,
+          "start": 130.71,
+          "end": 132.556,
+          "en": "So for that, in the input.jsx file,",
+          "zh": "所以為此，在 Input.jsx 檔案中，"
+        },
+        {
+          "id": 38,
+          "start": 132.556,
+          "end": 136.803,
+          "en": "I'll export a new function called Input,",
+          "zh": "我會匯出一個叫做 Input 的新函式，"
+        },
+        {
+          "id": 39,
+          "start": 138.06,
+          "end": 143.06,
+          "en": "and that function should return this JSX code here",
+          "zh": "而那個函式到頭來應該回傳這裡這段"
+        },
+        {
+          "id": 40,
+          "start": 143.94,
+          "end": 144.813,
+          "en": "in the end.",
+          "zh": "JSX 程式碼。"
+        },
+        {
+          "id": 41,
+          "start": 145.82999999999998,
+          "end": 148.44,
+          "en": "So this div with that label, the input,",
+          "zh": "所以這個帶有那個 label 的 div、這個 input，"
+        },
+        {
+          "id": 42,
+          "start": 148.44,
+          "end": 153.44,
+          "en": "and the error area below it, I'll output this here.",
+          "zh": "以及它下方的錯誤區域，我會在這裡輸出這些。"
+        },
+        {
+          "id": 43,
+          "start": 156.36,
+          "end": 159.93,
+          "en": "But of course, we now have a lot of parts in this code",
+          "zh": "但當然，我們現在這段程式碼中有很多部分"
+        },
+        {
+          "id": 44,
+          "start": 159.93,
+          "end": 163.29,
+          "en": "that should be configurable from outside",
+          "zh": "應該能從外部設定，"
+        },
+        {
+          "id": 45,
+          "start": 163.29,
+          "end": 166.263,
+          "en": "that should not be hard coded in this component.",
+          "zh": "不應該在這個元件中被寫死。"
+        },
+        {
+          "id": 46,
+          "start": 167.13,
+          "end": 170.46,
+          "en": "For example, the label text, but also the type,",
+          "zh": "例如 label 文字，還有 type、"
+        },
+        {
+          "id": 47,
+          "start": 170.46,
+          "end": 172.563,
+          "en": "the identifier, and so on.",
+          "zh": "識別碼等等。"
+        },
+        {
+          "id": 48,
+          "start": 173.82,
+          "end": 176.07,
+          "en": "And therefore, we can start accepting",
+          "zh": "因此，我們可以開始接收"
+        },
+        {
+          "id": 49,
+          "start": 176.07,
+          "end": 178.413,
+          "en": "and destructuring some props here.",
+          "zh": "並解構這裡的一些 props。"
+        },
+        {
+          "id": 50,
+          "start": 179.52,
+          "end": 181.62,
+          "en": "For example, a label prop,",
+          "zh": "例如一個 label prop，"
+        },
+        {
+          "id": 51,
+          "start": 181.62,
+          "end": 184.533,
+          "en": "which then can be used here instead of email.",
+          "zh": "它接著可以在這裡用來取代 email。"
+        },
+        {
+          "id": 52,
+          "start": 186.96,
+          "end": 189.81,
+          "en": "But we also might want to get a name prop,",
+          "zh": "但我們可能也想取得一個 name prop，"
+        },
+        {
+          "id": 53,
+          "start": 189.81,
+          "end": 192.903,
+          "en": "which we can use as a value for name here.",
+          "zh": "我們可以用它作為這裡 name 的值。"
+        },
+        {
+          "id": 54,
+          "start": 194.64,
+          "end": 197.4,
+          "en": "Though we actually won't need this",
+          "zh": "不過我們其實不會需要這個，"
+        },
+        {
+          "id": 55,
+          "start": 197.4,
+          "end": 200.31,
+          "en": "because instead, we can simply gather",
+          "zh": "因為反之，我們可以直接收集"
+        },
+        {
+          "id": 56,
+          "start": 200.31,
+          "end": 205.14,
+          "en": "all other extra props that might be set here on input",
+          "zh": "所有可能被設在這裡 input 上的其他額外 props，"
+        },
+        {
+          "id": 57,
+          "start": 205.14,
+          "end": 208.353,
+          "en": "and simply spread those onto the input field.",
+          "zh": "並直接把它們展開到那個 input 欄位上。"
+        },
+        {
+          "id": 58,
+          "start": 209.43,
+          "end": 213.24,
+          "en": "So that type and name can simply be set",
+          "zh": "這樣 type 和 name 就可以單純透過"
+        },
+        {
+          "id": 59,
+          "start": 213.24,
+          "end": 217.2,
+          "en": "by setting type and name on our own input component.",
+          "zh": "在我們自己的 input 元件上設定 type 和 name 來設定。"
+        },
+        {
+          "id": 60,
+          "start": 217.2,
+          "end": 220.1,
+          "en": "And we then just forward these props",
+          "zh": "然後我們只要把這些 props"
+        },
+        {
+          "id": 61,
+          "start": 220.1,
+          "end": 222.393,
+          "en": "to the input element we're wrapping.",
+          "zh": "轉發到我們所包住的那個 input 元素。"
+        },
+        {
+          "id": 62,
+          "start": 224.31,
+          "end": 225.45,
+          "en": "That being said,",
+          "zh": "話雖如此，"
+        },
+        {
+          "id": 63,
+          "start": 225.45,
+          "end": 227.19,
+          "en": "there still are some props",
+          "zh": "還是有些 props"
+        },
+        {
+          "id": 64,
+          "start": 227.19,
+          "end": 231.96,
+          "en": "which I wanna accept and destructure explicitly,",
+          "zh": "我想明確接收並解構，"
+        },
+        {
+          "id": 65,
+          "start": 231.96,
+          "end": 236.49,
+          "en": "like this label prop, but also like the id prop,",
+          "zh": "例如這個 label prop，還有像 id prop，"
+        },
+        {
+          "id": 66,
+          "start": 236.49,
+          "end": 240.194,
+          "en": "which could also be set and forwarded with that props object",
+          "zh": "它其實也可以用那個收集所有剩餘 props 的"
+        },
+        {
+          "id": 67,
+          "start": 240.194,
+          "end": 243.27,
+          "en": "that gathers all remaining props,",
+          "zh": "props 物件來設定和轉發，"
+        },
+        {
+          "id": 68,
+          "start": 243.27,
+          "end": 246.27,
+          "en": "but which I wanna pull out explicitly here",
+          "zh": "但我想在這裡明確把它拉出來，"
+        },
+        {
+          "id": 69,
+          "start": 246.27,
+          "end": 249.57,
+          "en": "since I don't just wanna set it on the input here",
+          "zh": "因為我不只想把它設在這裡的 input 上，"
+        },
+        {
+          "id": 70,
+          "start": 249.57,
+          "end": 254.283,
+          "en": "but also on the label as a value for HTML 4.",
+          "zh": "還想把它設在 label 上，作為 htmlFor 的值。"
+        },
+        {
+          "id": 71,
+          "start": 255.6,
+          "end": 258.87,
+          "en": "In addition, things can of course go wrong,",
+          "zh": "此外，事情當然可能出錯，"
+        },
+        {
+          "id": 72,
+          "start": 258.87,
+          "end": 263.4,
+          "en": "and therefore, I also want to get an error prop here,",
+          "zh": "因此，我也想在這裡取得一個 error prop，"
+        },
+        {
+          "id": 73,
+          "start": 263.4,
+          "end": 267.693,
+          "en": "which I use to show an error message.",
+          "zh": "我用它來顯示錯誤訊息。"
+        },
+        {
+          "id": 74,
+          "start": 268.59,
+          "end": 270.87,
+          "en": "So I'm using it to find out",
+          "zh": "所以我用它來判斷"
+        },
+        {
+          "id": 75,
+          "start": 270.87,
+          "end": 273.63,
+          "en": "whether an error message should be shown",
+          "zh": "是否應該顯示錯誤訊息，"
+        },
+        {
+          "id": 76,
+          "start": 273.63,
+          "end": 278.493,
+          "en": "and I expect it to that error message if we should show one,",
+          "zh": "而如果我們應該顯示一個，我預期它就是那個錯誤訊息，"
+        },
+        {
+          "id": 77,
+          "start": 279.36,
+          "end": 283.05,
+          "en": "so that I'm using it both for this conditional check",
+          "zh": "所以我既把它用於這個條件檢查，"
+        },
+        {
+          "id": 78,
+          "start": 283.05,
+          "end": 286.023,
+          "en": "and as a value that then being output.",
+          "zh": "也把它當作接著被輸出的值。"
+        },
+        {
+          "id": 79,
+          "start": 287.1,
+          "end": 289.08299999999997,
+          "en": "Now when it comes to onBlur, onChange,",
+          "zh": "那麼講到 onBlur、onChange"
+        },
+        {
+          "id": 80,
+          "start": 290.04,
+          "end": 295.04,
+          "en": "and the value prop here, we can get rid of the value prop",
+          "zh": "和這裡的 value prop，我們可以擺脫 value prop，"
+        },
+        {
+          "id": 81,
+          "start": 296.01,
+          "end": 299.04,
+          "en": "and set that through the remaining props",
+          "zh": "並透過那些總之會被展開到這個元素上的"
+        },
+        {
+          "id": 82,
+          "start": 299.04,
+          "end": 301.683,
+          "en": "that are spread onto this element anyways.",
+          "zh": "剩餘 props 來設定它。"
+        },
+        {
+          "id": 83,
+          "start": 302.7,
+          "end": 307.41,
+          "en": "And I can do the same here for onBlur and onChange",
+          "zh": "而我在這裡也可以對 onBlur 和 onChange 做同樣的事，"
+        },
+        {
+          "id": 84,
+          "start": 307.41,
+          "end": 311.103,
+          "en": "to make this input as reusable as possible.",
+          "zh": "讓這個 input 盡可能可重用。"
+        },
+        {
+          "id": 85,
+          "start": 312.6,
+          "end": 315.54,
+          "en": "And with that, we got some pretty lean code here.",
+          "zh": "這樣一來，我們在這裡就有了相當精簡的程式碼。"
+        },
+        {
+          "id": 86,
+          "start": 315.54,
+          "end": 319.56,
+          "en": "And back in StateLogin.jsx,",
+          "zh": "而回到 StateLogin.jsx，"
+        },
+        {
+          "id": 87,
+          "start": 319.56,
+          "end": 322.5,
+          "en": "we can now use this input element",
+          "zh": "我們現在可以直接在這裡這個"
+        },
+        {
+          "id": 88,
+          "start": 322.5,
+          "end": 326.703,
+          "en": "here directly in this control-row div in this case,",
+          "zh": "control-row div 中使用這個 input 元素，"
+        },
+        {
+          "id": 89,
+          "start": 328.89,
+          "end": 333.89,
+          "en": "by, first of all, importing it from the input.jsx file,",
+          "zh": "首先透過從 Input.jsx 檔案匯入它，"
+        },
+        {
+          "id": 90,
+          "start": 336.6,
+          "end": 339.993,
+          "en": "and by then using it here and setting some props.",
+          "zh": "然後在這裡使用它並設定一些 props。"
+        },
+        {
+          "id": 91,
+          "start": 341.25,
+          "end": 345.15,
+          "en": "For example, the label prop here should be set to email.",
+          "zh": "例如，這裡的 label prop 應該設為 email。"
+        },
+        {
+          "id": 92,
+          "start": 345.15,
+          "end": 347.56,
+          "en": "So to this text which I wanna output",
+          "zh": "也就是我想輸出的這段文字，"
+        },
+        {
+          "id": 93,
+          "start": 348.42,
+          "end": 351.243,
+          "en": "because we'll soon remove this div here,",
+          "zh": "因為我們很快就會移除這裡這個 div，"
+        },
+        {
+          "id": 94,
+          "start": 352.77,
+          "end": 355.14300000000003,
+          "en": "The id prop should be set to email,",
+          "zh": "id prop 應該設為 email，"
+        },
+        {
+          "id": 95,
+          "start": 356.13,
+          "end": 358.65,
+          "en": "the type prop should be set to email,",
+          "zh": "type prop 應該設為 email，"
+        },
+        {
+          "id": 96,
+          "start": 358.65,
+          "end": 361.92,
+          "en": "and the name should also be set to email.",
+          "zh": "而 name 也應該設為 email。"
+        },
+        {
+          "id": 97,
+          "start": 361.92,
+          "end": 365.49,
+          "en": "And type and name are, for example, props",
+          "zh": "而 type 和 name 例如是"
+        },
+        {
+          "id": 98,
+          "start": 365.49,
+          "end": 368.7,
+          "en": "that will be set on the input element",
+          "zh": "將在 input 元件內部，"
+        },
+        {
+          "id": 99,
+          "start": 368.7,
+          "end": 370.38,
+          "en": "inside of the input component",
+          "zh": "藉由這些被轉發的 props，"
+        },
+        {
+          "id": 100,
+          "start": 370.38,
+          "end": 373.3,
+          "en": "with help of these forwarded props",
+          "zh": "被設定到那個 input 元素上的 props。"
+        },
+        {
+          "id": 101,
+          "start": 374.67,
+          "end": 378.33,
+          "en": "I'm not explicitly pulling out type and name here.",
+          "zh": "我並沒有在這裡明確拉出 type 和 name。"
+        },
+        {
+          "id": 102,
+          "start": 378.33,
+          "end": 381.93,
+          "en": "Instead, I'm just gathering and spreading remaining props,",
+          "zh": "反之，我只是收集並展開剩餘的 props，"
+        },
+        {
+          "id": 103,
+          "start": 381.93,
+          "end": 384.6,
+          "en": "and that's how type and name will end up",
+          "zh": "而那就是 type 和 name 最後"
+        },
+        {
+          "id": 104,
+          "start": 384.6,
+          "end": 388.053,
+          "en": "on that wrapped input in my own input component.",
+          "zh": "落在我自己的 input 元件中那個被包住的 input 上的方式。"
+        },
+        {
+          "id": 105,
+          "start": 390.45,
+          "end": 394.53,
+          "en": "Now, I will also forward onBlur, onChange, and value,",
+          "zh": "那麼，我也會轉發 onBlur、onChange 和 value，"
+        },
+        {
+          "id": 106,
+          "start": 394.53,
+          "end": 398.193,
+          "en": "and therefore, copy those props from down here.",
+          "zh": "因此，把那些 props 從下面這裡複製過來。"
+        },
+        {
+          "id": 107,
+          "start": 399.3,
+          "end": 403.77,
+          "en": "And with that, we can get rid of that div down here.",
+          "zh": "這樣一來，我們就可以擺脫下面這裡那個 div。"
+        },
+        {
+          "id": 108,
+          "start": 403.77,
+          "end": 405.84000000000003,
+          "en": "And therefore, we were able to get rid",
+          "zh": "因此，我們得以透過使用這個自訂元件，"
+        },
+        {
+          "id": 109,
+          "start": 405.84000000000003,
+          "end": 409.683,
+          "en": "of a bunch of JSX code by using this custom component.",
+          "zh": "擺脫一大堆 JSX 程式碼。"
+        },
+        {
+          "id": 110,
+          "start": 411,
+          "end": 413.58,
+          "en": "And we can now reuse that component",
+          "zh": "而我們現在可以重用那個元件，"
+        },
+        {
+          "id": 111,
+          "start": 413.58,
+          "end": 416.373,
+          "en": "to all the output and input for the password,",
+          "zh": "來輸出密碼的那個 input，"
+        },
+        {
+          "id": 112,
+          "start": 417.96,
+          "end": 422.96,
+          "en": "where the label is password, the id is password,",
+          "zh": "其中 label 是 password、id 是 password、"
+        },
+        {
+          "id": 113,
+          "start": 423.12,
+          "end": 427.863,
+          "en": "the type is password, and the name is password, like this.",
+          "zh": "type 是 password，而 name 也是 password，像這樣。"
+        },
+        {
+          "id": 114,
+          "start": 430.02,
+          "end": 433.2,
+          "en": "And for onBlur, onChange, and value,",
+          "zh": "而對於 onBlur、onChange 和 value，"
+        },
+        {
+          "id": 115,
+          "start": 433.2,
+          "end": 436.05,
+          "en": "I can again copy the code from down there,",
+          "zh": "我可以再次從下面那裡複製程式碼，"
+        },
+        {
+          "id": 116,
+          "start": 436.05,
+          "end": 439.77,
+          "en": "though here I don't even have an onBlur listener yet,",
+          "zh": "不過在這裡我甚至還沒有 onBlur 監聽器，"
+        },
+        {
+          "id": 117,
+          "start": 439.77,
+          "end": 441.813,
+          "en": "which I'll change now though.",
+          "zh": "不過我現在會改變這點。"
+        },
+        {
+          "id": 118,
+          "start": 442.77,
+          "end": 444.91,
+          "en": "So here I'll now call handleInputBlur",
+          "zh": "所以在這裡我現在會呼叫 handleInputBlur，"
+        },
+        {
+          "id": 119,
+          "start": 447.37,
+          "end": 449.523,
+          "en": "and blur the password input,",
+          "zh": "並讓密碼輸入失焦，"
+        },
+        {
+          "id": 120,
+          "start": 451.53,
+          "end": 454.773,
+          "en": "just as I'm also doing it for the email here.",
+          "zh": "就像我在這裡也對 email 做的那樣。"
+        },
+        {
+          "id": 121,
+          "start": 456.57,
+          "end": 459.21,
+          "en": "And with that, we can also get rid of this div",
+          "zh": "這樣一來，我們也可以擺脫這個 div，"
+        },
+        {
+          "id": 122,
+          "start": 459.21,
+          "end": 461.094,
+          "en": "and we now simplified this form",
+          "zh": "而我們現在透過在這裡使用我們自己的自訂元件，"
+        },
+        {
+          "id": 123,
+          "start": 461.094,
+          "end": 464.193,
+          "en": "by using our own custom component here.",
+          "zh": "簡化了這個表單。"
+        },
+        {
+          "id": 124,
+          "start": 465.57,
+          "end": 469.40999999999997,
+          "en": "Now I removed one div closing tag too much,",
+          "zh": "那麼我多移除了一個 div 閉合標籤，"
+        },
+        {
+          "id": 125,
+          "start": 469.40999999999997,
+          "end": 470.85,
+          "en": "so let me re add this.",
+          "zh": "所以讓我把它加回來。"
+        },
+        {
+          "id": 126,
+          "start": 470.85,
+          "end": 474.33,
+          "en": "And with that, the JSX code just got leaner.",
+          "zh": "這樣一來，JSX 程式碼就變得更精簡了。"
+        },
+        {
+          "id": 127,
+          "start": 474.33,
+          "end": 477.63,
+          "en": "And if we save that and go to the app component",
+          "zh": "而如果我們儲存，然後前往 App 元件，"
+        },
+        {
+          "id": 128,
+          "start": 477.63,
+          "end": 482.63,
+          "en": "to import this login component from /components/StateLogin,",
+          "zh": "從 /components/StateLogin 匯入這個 Login 元件，"
+        },
+        {
+          "id": 129,
+          "start": 486.33,
+          "end": 489.453,
+          "en": "you will see that it will work Just as before.",
+          "zh": "你會看到它會像之前一樣運作。"
+        },
+        {
+          "id": 130,
+          "start": 490.62,
+          "end": 493.86,
+          "en": "The only remaining thing we have to do for this to work",
+          "zh": "為了讓它運作，我們剩下唯一要做的事，"
+        },
+        {
+          "id": 131,
+          "start": 493.86,
+          "end": 497.46,
+          "en": "back in StateLogin.jsx is, of course,",
+          "zh": "回到 StateLogin.jsx，當然就是"
+        },
+        {
+          "id": 132,
+          "start": 497.46,
+          "end": 501.45,
+          "en": "to find out whether those inputs are valid or not,",
+          "zh": "判斷那些輸入是否有效，"
+        },
+        {
+          "id": 133,
+          "start": 501.45,
+          "end": 504.66,
+          "en": "which we're already doing here with emailIsInvalid,",
+          "zh": "這是我們已經用 emailIsInvalid 在做的事，"
+        },
+        {
+          "id": 134,
+          "start": 504.66,
+          "end": 508.113,
+          "en": "but which I will now also do with passwordIsInvalid.",
+          "zh": "但我現在也會用 passwordIsInvalid 來做。"
+        },
+        {
+          "id": 135,
+          "start": 510.06,
+          "end": 514.47,
+          "en": "And here, I can simply check if didEdit.password",
+          "zh": "而在這裡，我可以直接檢查 didEdit.password"
+        },
+        {
+          "id": 136,
+          "start": 514.47,
+          "end": 519.47,
+          "en": "and enteredValues.password once we trim it",
+          "zh": "以及 enteredValues.password，在我們對它做 trim"
+        },
+        {
+          "id": 137,
+          "start": 521.22,
+          "end": 523.53,
+          "en": "to remove excess white space",
+          "zh": "以移除多餘空白之後，"
+        },
+        {
+          "id": 138,
+          "start": 523.53,
+          "end": 527.85,
+          "en": "maybe has a length that is shorter than six characters,",
+          "zh": "其長度可能比六個字元短，"
+        },
+        {
+          "id": 139,
+          "start": 527.85,
+          "end": 529.203,
+          "en": "so it's too short.",
+          "zh": "也就是太短。"
+        },
+        {
+          "id": 140,
+          "start": 531.87,
+          "end": 534.03,
+          "en": "And with those booleans added here,",
+          "zh": "而在這裡加入那些布林值之後，"
+        },
+        {
+          "id": 141,
+          "start": 534.03,
+          "end": 537.75,
+          "en": "we can simply use them to set an error message",
+          "zh": "我們可以直接用它們在我們的 input 上"
+        },
+        {
+          "id": 142,
+          "start": 537.75,
+          "end": 539.76,
+          "en": "on our inputs.",
+          "zh": "設定錯誤訊息。"
+        },
+        {
+          "id": 143,
+          "start": 539.76,
+          "end": 542.7,
+          "en": "Because keep in mind that on this input component,",
+          "zh": "因為請記住，在這個 input 元件上，"
+        },
+        {
+          "id": 144,
+          "start": 542.7,
+          "end": 546.21,
+          "en": "I'm also expecting this error prop here.",
+          "zh": "我在這裡也預期會收到這個 error prop。"
+        },
+        {
+          "id": 145,
+          "start": 546.21,
+          "end": 549.603,
+          "en": "And therefore, we must set this prop if there is an error.",
+          "zh": "因此，如果有錯誤，我們就必須設定這個 prop。"
+        },
+        {
+          "id": 146,
+          "start": 550.47,
+          "end": 552.09,
+          "en": "So here for the email input,",
+          "zh": "所以在這裡的 email 輸入，"
+        },
+        {
+          "id": 147,
+          "start": 552.09,
+          "end": 555.81,
+          "en": "I'll set this to emailIsInvalid.",
+          "zh": "我會把它設為 emailIsInvalid。"
+        },
+        {
+          "id": 148,
+          "start": 555.81,
+          "end": 556.92,
+          "en": "And if that's the case,",
+          "zh": "而如果是那樣，"
+        },
+        {
+          "id": 149,
+          "start": 556.92,
+          "end": 561.27,
+          "en": "I'll pass a string as a value for the error prop.",
+          "zh": "我會傳一個字串作為 error prop 的值。"
+        },
+        {
+          "id": 150,
+          "start": 561.27,
+          "end": 565.017,
+          "en": "Like, \"Please enter a valid email.\"",
+          "zh": "例如「請輸入有效的 email」。"
+        },
+        {
+          "id": 151,
+          "start": 566.49,
+          "end": 571.18,
+          "en": "And we can repeat this step here for the password input",
+          "zh": "而我們可以在這裡對密碼輸入重複這個步驟，"
+        },
+        {
+          "id": 152,
+          "start": 572.04,
+          "end": 575.19,
+          "en": "and check if passwordIsInvalid,",
+          "zh": "並檢查 if passwordIsInvalid，"
+        },
+        {
+          "id": 153,
+          "start": 575.19,
+          "end": 578.667,
+          "en": "and say, \"Please enter a valid password.\"",
+          "zh": "然後說「請輸入有效的密碼」。"
+        },
+        {
+          "id": 154,
+          "start": 581.28,
+          "end": 583.35,
+          "en": "And with that, if you save that,",
+          "zh": "這樣一來，如果你儲存，"
+        },
+        {
+          "id": 155,
+          "start": 583.35,
+          "end": 586.18,
+          "en": "I got the same behavior as before",
+          "zh": "我就會得到和之前一樣的行為，"
+        },
+        {
+          "id": 156,
+          "start": 587.4,
+          "end": 590.493,
+          "en": "where I got this validation on every keystroke,",
+          "zh": "也就是我在每次按鍵時有這個驗證，"
+        },
+        {
+          "id": 157,
+          "start": 591.33,
+          "end": 596.33,
+          "en": "and when I lose focus, also if the password is too short.",
+          "zh": "以及當我失去焦點時，還有如果密碼太短時。"
+        },
+        {
+          "id": 158,
+          "start": 597.36,
+          "end": 600.81,
+          "en": "And hence, we replicated the result from before,",
+          "zh": "因此，我們複製了之前的結果，"
+        },
+        {
+          "id": 159,
+          "start": 600.81,
+          "end": 603.933,
+          "en": "but now with that reusable input component.",
+          "zh": "但現在是用了那個可重用的 input 元件。"
+        }
+      ]
+    },
+    {
+      "id": "8246380",
+      "title": "Outsourcing Validation Logic",
+      "sourceHash": "0348863818b1d44715538b40b702625c17cd2c46b59526a350013381db7831f6",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.66,
+          "end": 4.11,
+          "en": "Now, reusing code and simplifying code",
+          "zh": "那麼，重複使用程式碼和簡化程式碼"
+        },
+        {
+          "id": 2,
+          "start": 4.11,
+          "end": 8.01,
+          "en": "doesn't stop at the custom component level",
+          "zh": "並不只限於自訂元件這個層級，"
+        },
+        {
+          "id": 3,
+          "start": 8.01,
+          "end": 11.07,
+          "en": "because adding such a custom input component",
+          "zh": "因為加入這樣一個自訂 input 元件"
+        },
+        {
+          "id": 4,
+          "start": 11.07,
+          "end": 12.63,
+          "en": "can definitely help,",
+          "zh": "確實有幫助，"
+        },
+        {
+          "id": 5,
+          "start": 12.63,
+          "end": 17.49,
+          "en": "but it's not the only code that could be outsourced",
+          "zh": "但它不是唯一可以被外包的程式碼，"
+        },
+        {
+          "id": 6,
+          "start": 17.49,
+          "end": 22.143,
+          "en": "because what about this validation logic here, for example?",
+          "zh": "因為例如這裡這段驗證邏輯呢？"
+        },
+        {
+          "id": 7,
+          "start": 23.07,
+          "end": 26.73,
+          "en": "Obviously these are rather basic checks here,",
+          "zh": "顯然這些在這裡是相當基本的檢查，"
+        },
+        {
+          "id": 8,
+          "start": 26.73,
+          "end": 29.4,
+          "en": "but still this is logic which we might need",
+          "zh": "但這仍然是我們可能"
+        },
+        {
+          "id": 9,
+          "start": 29.4,
+          "end": 32.22,
+          "en": "in different places of the app.",
+          "zh": "在應用程式不同地方需要的邏輯。"
+        },
+        {
+          "id": 10,
+          "start": 32.22,
+          "end": 35.97,
+          "en": "For example, if we would add all validation manually",
+          "zh": "例如，如果我們手動加入所有驗證，"
+        },
+        {
+          "id": 11,
+          "start": 35.97,
+          "end": 38.91,
+          "en": "instead of using browser based in features,",
+          "zh": "而不是使用瀏覽器內建功能，"
+        },
+        {
+          "id": 12,
+          "start": 38.91,
+          "end": 41.43,
+          "en": "we would also have to check the password",
+          "zh": "我們在註冊元件中也得"
+        },
+        {
+          "id": 13,
+          "start": 41.43,
+          "end": 44.283,
+          "en": "and the email in the signup component.",
+          "zh": "檢查密碼和 email。"
+        },
+        {
+          "id": 14,
+          "start": 45.33,
+          "end": 48.12,
+          "en": "And therefore, you might want to make",
+          "zh": "因此，你可能會想讓"
+        },
+        {
+          "id": 15,
+          "start": 48.12,
+          "end": 51.693,
+          "en": "that validation logic code reusable as well.",
+          "zh": "那段驗證邏輯程式碼也可以重用。"
+        },
+        {
+          "id": 16,
+          "start": 52.65,
+          "end": 55.14,
+          "en": "And for that, in this starting project,",
+          "zh": "而為此，在這個起始專案中，"
+        },
+        {
+          "id": 17,
+          "start": 55.14,
+          "end": 58.44,
+          "en": "I actually already created a util folder",
+          "zh": "我其實已經建立了一個 util 資料夾，"
+        },
+        {
+          "id": 18,
+          "start": 58.44,
+          "end": 61.17,
+          "en": "which contains a validation.js file",
+          "zh": "裡面有一個 validation.js 檔案，"
+        },
+        {
+          "id": 19,
+          "start": 61.17,
+          "end": 64.65,
+          "en": "with some example validation functions",
+          "zh": "包含一些範例驗證函式，"
+        },
+        {
+          "id": 20,
+          "start": 64.65,
+          "end": 68.7,
+          "en": "that you can consider using in your own projects.",
+          "zh": "你可以考慮在你自己的專案中使用。"
+        },
+        {
+          "id": 21,
+          "start": 68.7,
+          "end": 70.89,
+          "en": "And, of course, you can also enhance them",
+          "zh": "而當然，你也可以為那些專案"
+        },
+        {
+          "id": 22,
+          "start": 70.89,
+          "end": 72.45,
+          "en": "for those projects,",
+          "zh": "增強它們，"
+        },
+        {
+          "id": 23,
+          "start": 72.45,
+          "end": 76.02,
+          "en": "but which we most importantly can also use now",
+          "zh": "但最重要的是，我們現在也可以"
+        },
+        {
+          "id": 24,
+          "start": 76.02,
+          "end": 77.40299999999999,
+          "en": "in this project here.",
+          "zh": "在這裡這個專案中使用它們。"
+        },
+        {
+          "id": 25,
+          "start": 78.78,
+          "end": 82.95,
+          "en": "For example, isEmail to define this check for",
+          "zh": "例如 isEmail，用來在這個專案中定義一次"
+        },
+        {
+          "id": 26,
+          "start": 82.95,
+          "end": 86.97,
+          "en": "whether something is an email or not once in this project",
+          "zh": "檢查某個東西是否為 email 的邏輯，"
+        },
+        {
+          "id": 27,
+          "start": 86.97,
+          "end": 90.723,
+          "en": "and then use it as often and anywhere I need it.",
+          "zh": "然後在我需要的地方盡量使用它。"
+        },
+        {
+          "id": 28,
+          "start": 91.8,
+          "end": 94.47,
+          "en": "For example, in StateLogin.jsx,",
+          "zh": "例如，在 StateLogin.jsx 中，"
+        },
+        {
+          "id": 29,
+          "start": 94.47,
+          "end": 99.47,
+          "en": "I can now import from this util folder",
+          "zh": "我現在可以從這個 util 資料夾"
+        },
+        {
+          "id": 30,
+          "start": 99.63,
+          "end": 101.68,
+          "en": "and their validation.js",
+          "zh": "和其中的 validation.js 匯入，"
+        },
+        {
+          "id": 31,
+          "start": 102.6,
+          "end": 106.38300000000001,
+          "en": "and I can import the isEmail, isNotEmpty,",
+          "zh": "而我可以匯入定義在那裡的"
+        },
+        {
+          "id": 32,
+          "start": 107.55,
+          "end": 111.63300000000001,
+          "en": "and hasMinLength validation functions defined there.",
+          "zh": "isEmail、isNotEmpty 和 hasMinLength 驗證函式。"
+        },
+        {
+          "id": 33,
+          "start": 113.61,
+          "end": 116.43,
+          "en": "And we could say that the email is invalid",
+          "zh": "而我們可以說 email 是無效的，"
+        },
+        {
+          "id": 34,
+          "start": 116.43,
+          "end": 120.48,
+          "en": "if it is not an email.",
+          "zh": "如果它不是 email。"
+        },
+        {
+          "id": 35,
+          "start": 120.48,
+          "end": 124.96,
+          "en": "And for that, I have to pass my email value to isEmail.",
+          "zh": "而為此，我必須把我的 email 值傳給 isEmail。"
+        },
+        {
+          "id": 36,
+          "start": 126.45,
+          "end": 130.563,
+          "en": "And if it is not, not empty,",
+          "zh": "而如果它不是「不是空的」，"
+        },
+        {
+          "id": 37,
+          "start": 131.7,
+          "end": 133.413,
+          "en": "so if it is empty.",
+          "zh": "也就是如果它是空的。"
+        },
+        {
+          "id": 38,
+          "start": 136.98,
+          "end": 140.31,
+          "en": "That's how we could enhance this validation",
+          "zh": "那就是我們如何透過外包和重用驗證邏輯"
+        },
+        {
+          "id": 39,
+          "start": 140.31,
+          "end": 144.75,
+          "en": "by outsourcing and reusing the validation logic.",
+          "zh": "來增強這個驗證。"
+        },
+        {
+          "id": 40,
+          "start": 144.75,
+          "end": 147.66,
+          "en": "And we can do the same for the password here.",
+          "zh": "而我們在這裡也可以對密碼做同樣的事。"
+        },
+        {
+          "id": 41,
+          "start": 147.66,
+          "end": 150.51,
+          "en": "I can check whether we did edit the password",
+          "zh": "我可以檢查我們是否編輯過密碼，"
+        },
+        {
+          "id": 42,
+          "start": 150.51,
+          "end": 155.51,
+          "en": "and then if it has a min length and hasMinLength,",
+          "zh": "然後如果它有最小長度，使用 hasMinLength，"
+        },
+        {
+          "id": 43,
+          "start": 156,
+          "end": 159.32999999999998,
+          "en": "then once the value which should be checked,",
+          "zh": "第一個參數是應該被檢查的值，"
+        },
+        {
+          "id": 44,
+          "start": 159.32999999999998,
+          "end": 163.2,
+          "en": "and as a second argument, the minLength we wanna have.",
+          "zh": "第二個引數是我們想要的最小長度。"
+        },
+        {
+          "id": 45,
+          "start": 163.2,
+          "end": 167.64,
+          "en": "And therefore here, I can pass my password as a first value",
+          "zh": "因此在這裡，我可以把我的密碼作為第一個值傳入，"
+        },
+        {
+          "id": 46,
+          "start": 167.64,
+          "end": 172.35,
+          "en": "and then let's say six if I require at least six characters",
+          "zh": "然後如果我要求至少六個字元就傳比如六，"
+        },
+        {
+          "id": 47,
+          "start": 172.35,
+          "end": 173.94299999999998,
+          "en": "as a second value.",
+          "zh": "作為第二個值。"
+        },
+        {
+          "id": 48,
+          "start": 175.17000000000002,
+          "end": 177.3,
+          "en": "And then here we need an exclamation mark",
+          "zh": "然後在這裡我們需要一個驚嘆號，"
+        },
+        {
+          "id": 49,
+          "start": 177.3,
+          "end": 180.06,
+          "en": "because here I wanna check for invalidity,",
+          "zh": "因為在這裡我想檢查無效性，"
+        },
+        {
+          "id": 50,
+          "start": 180.06,
+          "end": 182.43,
+          "en": "so if this condition is not met",
+          "zh": "也就是如果這個條件未滿足，"
+        },
+        {
+          "id": 51,
+          "start": 182.43,
+          "end": 185.073,
+          "en": "because then the password is invalid.",
+          "zh": "因為那麼密碼就是無效的。"
+        },
+        {
+          "id": 52,
+          "start": 187.98,
+          "end": 190.56,
+          "en": "And with that, we got this validation code",
+          "zh": "這樣一來，我們就把這段驗證程式碼"
+        },
+        {
+          "id": 53,
+          "start": 190.56,
+          "end": 191.82,
+          "en": "out of this component.",
+          "zh": "移出了這個元件。"
+        },
+        {
+          "id": 54,
+          "start": 191.82,
+          "end": 195.81,
+          "en": "And therefore again, we got the same behavior as before,",
+          "zh": "因此再次，我們得到和之前一樣的行為，"
+        },
+        {
+          "id": 55,
+          "start": 195.81,
+          "end": 200.343,
+          "en": "but now again achieved by outsourcing and reusing logic.",
+          "zh": "但現在同樣是透過外包和重用邏輯來達成。"
+        }
+      ]
+    },
+    {
+      "id": "13556592",
+      "title": "Creating a Custom useInput Hook",
+      "sourceHash": "17f326181e15345f66f6087986bb0e2169a775c2012c174a582f056004bbf456",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.33,
+          "end": 2.94,
+          "en": "Now with all those steps taken,",
+          "zh": "那麼，在採取所有這些步驟之後，"
+        },
+        {
+          "id": 2,
+          "start": 2.94,
+          "end": 6.09,
+          "en": "the code in this StateLogin JSX file",
+          "zh": "這個 StateLogin.jsx 檔案中的程式碼"
+        },
+        {
+          "id": 3,
+          "start": 6.09,
+          "end": 8.64,
+          "en": "got a little bit leaner.",
+          "zh": "變得精簡了一些。"
+        },
+        {
+          "id": 4,
+          "start": 8.64,
+          "end": 10.59,
+          "en": "But of course, if we're honest,",
+          "zh": "但當然，如果我們老實說，"
+        },
+        {
+          "id": 5,
+          "start": 10.59,
+          "end": 13.44,
+          "en": "most of the code that we had to write here",
+          "zh": "我們在這裡必須寫的大部分程式碼，"
+        },
+        {
+          "id": 6,
+          "start": 13.44,
+          "end": 18.44,
+          "en": "is about managing the entered values and didEdit states",
+          "zh": "都是在管理輸入值和 didEdit 這兩塊 state，"
+        },
+        {
+          "id": 7,
+          "start": 18.51,
+          "end": 22.599,
+          "en": "and about updating those states with the handleInputChange",
+          "zh": "以及用 handleInputChange"
+        },
+        {
+          "id": 8,
+          "start": 22.599,
+          "end": 25.41,
+          "en": "and the handleInputBlur functions.",
+          "zh": "和 handleInputBlur 函式更新那些 state。"
+        },
+        {
+          "id": 9,
+          "start": 25.41,
+          "end": 28.23,
+          "en": "And we therefore also might wanna outsource",
+          "zh": "因此我們可能也想外包"
+        },
+        {
+          "id": 10,
+          "start": 28.23,
+          "end": 30.36,
+          "en": "and reuse this code.",
+          "zh": "並重用這段程式碼。"
+        },
+        {
+          "id": 11,
+          "start": 30.36,
+          "end": 32.73,
+          "en": "And how could we do that?",
+          "zh": "而我們可以怎麼做？"
+        },
+        {
+          "id": 12,
+          "start": 32.73,
+          "end": 35.34,
+          "en": "Well, with help of a custom hook.",
+          "zh": "嗯，藉由自訂 hook 的幫助。"
+        },
+        {
+          "id": 13,
+          "start": 35.34,
+          "end": 39.27,
+          "en": "And we need a custom hook because we are managing some state",
+          "zh": "而我們需要自訂 hook，因為我們在那段應該被外包的程式碼中"
+        },
+        {
+          "id": 14,
+          "start": 39.27,
+          "end": 41.49,
+          "en": "in that code that should be outsourced,",
+          "zh": "正在管理一些 state，"
+        },
+        {
+          "id": 15,
+          "start": 41.49,
+          "end": 44.613,
+          "en": "and therefore we can't use a regular function.",
+          "zh": "因此我們不能使用一般的函式。"
+        },
+        {
+          "id": 16,
+          "start": 45.87,
+          "end": 49.8,
+          "en": "But we can now build such a custom hook by, for example,",
+          "zh": "但我們現在可以建立這樣的自訂 hook，例如"
+        },
+        {
+          "id": 17,
+          "start": 49.8,
+          "end": 52.92,
+          "en": "adding a hooks folder in that source folder.",
+          "zh": "在那個 src 資料夾中加入一個 hooks 資料夾。"
+        },
+        {
+          "id": 18,
+          "start": 52.92,
+          "end": 55.38,
+          "en": "And as you learned, that name is up to you,",
+          "zh": "而如你所學的，那個名稱由你決定，"
+        },
+        {
+          "id": 19,
+          "start": 55.38,
+          "end": 57.54,
+          "en": "doesn't have to be named hooks.",
+          "zh": "不一定要叫做 hooks。"
+        },
+        {
+          "id": 20,
+          "start": 57.54,
+          "end": 61.773,
+          "en": "And in there, we could add a file named useInput.js.",
+          "zh": "在那裡，我們可以加入一個名為 useInput.js 的檔案。"
+        },
+        {
+          "id": 21,
+          "start": 62.94,
+          "end": 64.59,
+          "en": "Doesn't need to be JSX",
+          "zh": "不需要是 JSX，"
+        },
+        {
+          "id": 22,
+          "start": 64.59,
+          "end": 68.07300000000001,
+          "en": "because I'm not going to write any JSX code in there.",
+          "zh": "因為我不會在那裡寫任何 JSX 程式碼。"
+        },
+        {
+          "id": 23,
+          "start": 69.36,
+          "end": 74.36,
+          "en": "And here we can now export a useInput function,",
+          "zh": "而在這裡我們現在可以匯出一個 useInput 函式，"
+        },
+        {
+          "id": 24,
+          "start": 74.97,
+          "end": 77.25,
+          "en": "and it must start with use,",
+          "zh": "而它必須以 use 開頭，"
+        },
+        {
+          "id": 25,
+          "start": 77.25,
+          "end": 80.7,
+          "en": "as you learned in the custom hooks section,",
+          "zh": "如你在自訂 hooks 章節學到的，"
+        },
+        {
+          "id": 26,
+          "start": 80.7,
+          "end": 84.63,
+          "en": "so that it's identified as a hook function by React",
+          "zh": "這樣 React 才會辨識它是 hook 函式，"
+        },
+        {
+          "id": 27,
+          "start": 84.63,
+          "end": 87.813,
+          "en": "and the rules of hooks are applied to it.",
+          "zh": "並對它套用 hooks 的規則。"
+        },
+        {
+          "id": 28,
+          "start": 89.01,
+          "end": 93.53999999999999,
+          "en": "And then we can grab this state management code,",
+          "zh": "然後我們可以拿這段 state 管理程式碼，"
+        },
+        {
+          "id": 29,
+          "start": 93.53999999999999,
+          "end": 96.393,
+          "en": "copy it, and add it to useInput,",
+          "zh": "複製它並加到 useInput 中，"
+        },
+        {
+          "id": 30,
+          "start": 97.22999999999999,
+          "end": 100.36,
+          "en": "though we'll of course have to tweak it a little bit",
+          "zh": "不過我們當然得稍微調整它，"
+        },
+        {
+          "id": 31,
+          "start": 101.31,
+          "end": 104.22,
+          "en": "because my idea here now is",
+          "zh": "因為我現在在這裡的想法是，"
+        },
+        {
+          "id": 32,
+          "start": 104.22,
+          "end": 108.3,
+          "en": "that I build a useInput hook that should be used",
+          "zh": "我要建立一個 useInput hook，它應該在我們表單中"
+        },
+        {
+          "id": 33,
+          "start": 108.3,
+          "end": 112.22999999999999,
+          "en": "once per input element we have in our form.",
+          "zh": "每個 input 元素上使用一次。"
+        },
+        {
+          "id": 34,
+          "start": 112.22999999999999,
+          "end": 114.33,
+          "en": "So if we have two input elements,",
+          "zh": "所以如果我們有兩個 input 元素，"
+        },
+        {
+          "id": 35,
+          "start": 114.33,
+          "end": 116.493,
+          "en": "we need to call the hook twice.",
+          "zh": "我們就需要呼叫這個 hook 兩次。"
+        },
+        {
+          "id": 36,
+          "start": 118.2,
+          "end": 121.35,
+          "en": "So instead of managing some object state here",
+          "zh": "所以不是在這裡管理某個把多個 input 值"
+        },
+        {
+          "id": 37,
+          "start": 121.35,
+          "end": 125.46,
+          "en": "that groups the values of multiple inputs together,",
+          "zh": "群組在一起的物件 state，"
+        },
+        {
+          "id": 38,
+          "start": 125.46,
+          "end": 128.763,
+          "en": "I just want to manage one single value here,",
+          "zh": "我只想在這裡管理單一個值，"
+        },
+        {
+          "id": 39,
+          "start": 129.84,
+          "end": 131.73,
+          "en": "and therefore I'll rename that state",
+          "zh": "因此我會把那塊 state"
+        },
+        {
+          "id": 40,
+          "start": 131.73,
+          "end": 133.863,
+          "en": "from enteredValues to EnteredValue,",
+          "zh": "從 enteredValues 改名為 enteredValue，"
+        },
+        {
+          "id": 41,
+          "start": 135.42,
+          "end": 139.89,
+          "en": "and my initial value should be settable from outside",
+          "zh": "而我的初始值應該能從外部設定，"
+        },
+        {
+          "id": 42,
+          "start": 139.89,
+          "end": 143.25,
+          "en": "so that we could also pre-populate an input",
+          "zh": "這樣我們也可以預先填入一個 input，"
+        },
+        {
+          "id": 43,
+          "start": 143.25,
+          "end": 145.893,
+          "en": "with any value of our choice.",
+          "zh": "用我們選擇的任何值。"
+        },
+        {
+          "id": 44,
+          "start": 147.12,
+          "end": 150.96,
+          "en": "Therefore here we could accept a default value parameter",
+          "zh": "因此在這裡我們可以接收一個 defaultValue 參數，"
+        },
+        {
+          "id": 45,
+          "start": 150.96,
+          "end": 152.61,
+          "en": "in this custom hook",
+          "zh": "在這個自訂 hook 中，"
+        },
+        {
+          "id": 46,
+          "start": 152.61,
+          "end": 155.99,
+          "en": "and use this to set the default state here",
+          "zh": "並用它來設定這裡"
+        },
+        {
+          "id": 47,
+          "start": 155.99,
+          "end": 157.773,
+          "en": "of the entered value state.",
+          "zh": "entered value state 的預設值。"
+        },
+        {
+          "id": 48,
+          "start": 158.94,
+          "end": 162.813,
+          "en": "And then here of course, we must import useState from React.",
+          "zh": "然後在這裡，我們當然必須從 React 匯入 useState。"
+        },
+        {
+          "id": 49,
+          "start": 165.6,
+          "end": 167.28300000000002,
+          "en": "So that's one piece of state.",
+          "zh": "所以那是一塊 state。"
+        },
+        {
+          "id": 50,
+          "start": 168.251,
+          "end": 172.62,
+          "en": "DidEdit now also should not manage some object",
+          "zh": "didEdit 現在也不應該管理某個"
+        },
+        {
+          "id": 51,
+          "start": 172.62,
+          "end": 175.68,
+          "en": "that combines the states of multiple inputs",
+          "zh": "結合多個 input state 的物件，"
+        },
+        {
+          "id": 52,
+          "start": 175.68,
+          "end": 179.07,
+          "en": "but instead just manage a single value,",
+          "zh": "而是只管理單一個值，"
+        },
+        {
+          "id": 53,
+          "start": 179.07,
+          "end": 181.77,
+          "en": "where I again will start with false,",
+          "zh": "我同樣會從 false 開始，"
+        },
+        {
+          "id": 54,
+          "start": 181.77,
+          "end": 184.14,
+          "en": "though we could of course also accept this",
+          "zh": "不過我們當然也可以把這個"
+        },
+        {
+          "id": 55,
+          "start": 184.14,
+          "end": 187.803,
+          "en": "as a parameter here if we would wanna make it configurable.",
+          "zh": "當作參數接收，如果我們想讓它可以設定的話。"
+        },
+        {
+          "id": 56,
+          "start": 188.7,
+          "end": 190.62,
+          "en": "Now that we've got the state in here,",
+          "zh": "現在我們已經把 state 放進來了，"
+        },
+        {
+          "id": 57,
+          "start": 190.62,
+          "end": 193.62,
+          "en": "we'll also have to bring the functions",
+          "zh": "我們也得把更新那塊 state 的函式"
+        },
+        {
+          "id": 58,
+          "start": 193.62,
+          "end": 196.653,
+          "en": "that update that state into the custom hook though.",
+          "zh": "帶進這個自訂 hook 中。"
+        },
+        {
+          "id": 59,
+          "start": 197.57999999999998,
+          "end": 201.76,
+          "en": "So I will copy handleInputChange and handleInputBlur",
+          "zh": "所以我會複製 handleInputChange 和 handleInputBlur，"
+        },
+        {
+          "id": 60,
+          "start": 202.95,
+          "end": 205.713,
+          "en": "and add those to my custom hook here.",
+          "zh": "並把它們加到我在這裡的自訂 hook。"
+        },
+        {
+          "id": 61,
+          "start": 207.54,
+          "end": 211.38,
+          "en": "And since we're now just managing one single input",
+          "zh": "而由於我們現在只在這裡管理單一個 input"
+        },
+        {
+          "id": 62,
+          "start": 211.38,
+          "end": 213.42000000000002,
+          "en": "and one single value in here,",
+          "zh": "和單一個值，"
+        },
+        {
+          "id": 63,
+          "start": 213.42000000000002,
+          "end": 216.603,
+          "en": "we can also simplify those functions here.",
+          "zh": "我們也可以簡化這裡那些函式。"
+        },
+        {
+          "id": 64,
+          "start": 217.47,
+          "end": 219,
+          "en": "And, for example, again,",
+          "zh": "而例如同樣地，"
+        },
+        {
+          "id": 65,
+          "start": 219,
+          "end": 222.15,
+          "en": "just expect to get the event object here",
+          "zh": "在 handleInputChange 上"
+        },
+        {
+          "id": 66,
+          "start": 222.15,
+          "end": 223.78,
+          "en": "on handleInputChange",
+          "zh": "就只預期收到 event 物件，"
+        },
+        {
+          "id": 67,
+          "start": 225.18,
+          "end": 229.2,
+          "en": "and then set the entered value, not values,",
+          "zh": "然後把 entered value（不是 values）"
+        },
+        {
+          "id": 68,
+          "start": 229.2,
+          "end": 232.083,
+          "en": "to event.target.value again,",
+          "zh": "同樣設為 event.target.value，"
+        },
+        {
+          "id": 69,
+          "start": 234.06,
+          "end": 238.23,
+          "en": "and setDidEdit here simply to false",
+          "zh": "並在這裡把 setDidEdit 直接設為 false，"
+        },
+        {
+          "id": 70,
+          "start": 238.23,
+          "end": 240.87,
+          "en": "because, again, we just have a single inputs value",
+          "zh": "因為同樣地，我們在這裡管理的"
+        },
+        {
+          "id": 71,
+          "start": 240.87,
+          "end": 242.17,
+          "en": "which we're managing here.",
+          "zh": "只是單一 input 的值。"
+        },
+        {
+          "id": 72,
+          "start": 243.72,
+          "end": 248.613,
+          "en": "And then handleInputBlur, we therefore setDidEdit to true.",
+          "zh": "而在 handleInputBlur 中，我們因此把 setDidEdit 設為 true。"
+        },
+        {
+          "id": 73,
+          "start": 250.26,
+          "end": 254.043,
+          "en": "So now we got much simpler code in this custom hook.",
+          "zh": "所以現在我們在這個自訂 hook 中有了簡單許多的程式碼。"
+        },
+        {
+          "id": 74,
+          "start": 255.78,
+          "end": 257.82,
+          "en": "Now of course, just having the state",
+          "zh": "那麼當然，只是把 state"
+        },
+        {
+          "id": 75,
+          "start": 257.82,
+          "end": 262.38,
+          "en": "and these functions in here won't do much for us though.",
+          "zh": "和這些函式放在這裡，對我們幫助不大。"
+        },
+        {
+          "id": 76,
+          "start": 262.38,
+          "end": 266.13,
+          "en": "What we need to do is expose them to the component",
+          "zh": "我們需要做的是把它們暴露給"
+        },
+        {
+          "id": 77,
+          "start": 266.13,
+          "end": 268.62,
+          "en": "where this hook should be used.",
+          "zh": "應該使用這個 hook 的元件。"
+        },
+        {
+          "id": 78,
+          "start": 268.62,
+          "end": 272.67,
+          "en": "And therefore, here I'll return a value in my custom hook,",
+          "zh": "因此，在這裡我會在我的自訂 hook 中回傳一個值，"
+        },
+        {
+          "id": 79,
+          "start": 272.67,
+          "end": 274.89,
+          "en": "and you could return an array",
+          "zh": "你可以回傳一個陣列"
+        },
+        {
+          "id": 80,
+          "start": 274.89,
+          "end": 276.93,
+          "en": "to group multiple values together,",
+          "zh": "來把多個值群組在一起，"
+        },
+        {
+          "id": 81,
+          "start": 276.93,
+          "end": 279.963,
+          "en": "or what I'll do, return an object.",
+          "zh": "或者像我這樣，回傳一個物件。"
+        },
+        {
+          "id": 82,
+          "start": 281.07,
+          "end": 285.213,
+          "en": "And here I will then return my value,",
+          "zh": "而在這裡我接著會回傳我的值，"
+        },
+        {
+          "id": 83,
+          "start": 286.2,
+          "end": 290.163,
+          "en": "so this enteredValue state which we're managing here.",
+          "zh": "也就是我們在這裡管理的這塊 enteredValue state。"
+        },
+        {
+          "id": 84,
+          "start": 291.09000000000003,
+          "end": 292.26,
+          "en": "I'll expose it",
+          "zh": "我會把它暴露"
+        },
+        {
+          "id": 85,
+          "start": 292.26,
+          "end": 295.683,
+          "en": "through a value property in this returned object.",
+          "zh": "透過這個被回傳物件中的 value 屬性。"
+        },
+        {
+          "id": 86,
+          "start": 297,
+          "end": 300.37,
+          "en": "And I'll also add pointers at handleInputChange",
+          "zh": "而我也會把指向 handleInputChange"
+        },
+        {
+          "id": 87,
+          "start": 302.036,
+          "end": 305.423,
+          "en": "and handleInputBlur to this returned object",
+          "zh": "和 handleInputBlur 的指標加到這個被回傳的物件上，"
+        },
+        {
+          "id": 88,
+          "start": 306.63,
+          "end": 310.05,
+          "en": "so that this object also has these properties,",
+          "zh": "這樣這個物件也就有這些屬性，"
+        },
+        {
+          "id": 89,
+          "start": 310.05,
+          "end": 313.983,
+          "en": "which contain values that point at these functions.",
+          "zh": "它們包含指向這些函式的值。"
+        },
+        {
+          "id": 90,
+          "start": 315.24,
+          "end": 318.63,
+          "en": "Now with that, didEdit is not getting used yet,",
+          "zh": "這樣一來，didEdit 還沒有被用到，"
+        },
+        {
+          "id": 91,
+          "start": 318.63,
+          "end": 320.403,
+          "en": "but that will change soon.",
+          "zh": "但那很快就會改變。"
+        },
+        {
+          "id": 92,
+          "start": 321.3,
+          "end": 324.39,
+          "en": "What I wanna change right away is this identifier here,",
+          "zh": "我想立刻改變的是這裡這個識別碼，"
+        },
+        {
+          "id": 93,
+          "start": 324.39,
+          "end": 328.413,
+          "en": "which should no longer be accepted on handleInputBlur.",
+          "zh": "它不應該再被 handleInputBlur 接收。"
+        },
+        {
+          "id": 94,
+          "start": 329.85,
+          "end": 332.82,
+          "en": "But with that, we now got a first basic draft",
+          "zh": "但這樣一來，我們現在有了這個 useInput hook 的"
+        },
+        {
+          "id": 95,
+          "start": 332.82,
+          "end": 337.17,
+          "en": "of this use input hook, and we can start using this hook.",
+          "zh": "第一版基本草稿，而我們可以開始使用這個 hook。"
+        },
+        {
+          "id": 96,
+          "start": 337.17,
+          "end": 340.53,
+          "en": "And for that, I'll go back to the StateLogin JSX file,",
+          "zh": "而為此，我會回到 StateLogin.jsx 檔案，"
+        },
+        {
+          "id": 97,
+          "start": 340.53,
+          "end": 344.65,
+          "en": "and in there, we can now get rid of this state here",
+          "zh": "在那裡，我們現在可以擺脫這裡這塊 state，"
+        },
+        {
+          "id": 98,
+          "start": 346.467,
+          "end": 350.22,
+          "en": "and get rid of handleInputChange and handleInputBlur,",
+          "zh": "並擺脫 handleInputChange 和 handleInputBlur，"
+        },
+        {
+          "id": 99,
+          "start": 350.22,
+          "end": 353.823,
+          "en": "and also of these commented-out functions here,",
+          "zh": "還有這裡這些被註解掉的函式，"
+        },
+        {
+          "id": 100,
+          "start": 354.9,
+          "end": 357.453,
+          "en": "so that we got much leaner code in here,",
+          "zh": "讓我們在這裡有精簡許多的程式碼，"
+        },
+        {
+          "id": 101,
+          "start": 358.32,
+          "end": 360.52,
+          "en": "and instead call useInput",
+          "zh": "並改為呼叫 useInput，"
+        },
+        {
+          "id": 102,
+          "start": 362.28,
+          "end": 364.98,
+          "en": "and, of course, import useInput",
+          "zh": "當然，還要從 hooks 資料夾中的 useInput.js 檔案"
+        },
+        {
+          "id": 103,
+          "start": 364.98,
+          "end": 368.373,
+          "en": "from the useInput.js file in the hooks folder.",
+          "zh": "匯入 useInput。"
+        },
+        {
+          "id": 104,
+          "start": 370.02,
+          "end": 373.41,
+          "en": "We can now also get rid of the useState import here",
+          "zh": "我們現在也可以擺脫這裡的 useState import，"
+        },
+        {
+          "id": 105,
+          "start": 373.41,
+          "end": 375.99,
+          "en": "because I'm not managing any custom state",
+          "zh": "因為我已經不在這個元件中"
+        },
+        {
+          "id": 106,
+          "start": 375.99,
+          "end": 377.58299999999997,
+          "en": "in this component anymore.",
+          "zh": "管理任何自訂 state 了。"
+        },
+        {
+          "id": 107,
+          "start": 379.83,
+          "end": 382.304,
+          "en": "Instead, we have useInput,",
+          "zh": "反之，我們有 useInput，"
+        },
+        {
+          "id": 108,
+          "start": 382.304,
+          "end": 385.77,
+          "en": "and useInput wants the default value of the input",
+          "zh": "而 useInput 想要它所屬的那個 input"
+        },
+        {
+          "id": 109,
+          "start": 385.77,
+          "end": 388.68,
+          "en": "to which it should belong as an input.",
+          "zh": "的預設值作為輸入。"
+        },
+        {
+          "id": 110,
+          "start": 388.68,
+          "end": 390.93,
+          "en": "So therefore, here I'll pass an empty string,",
+          "zh": "因此，在這裡我會傳入一個空字串，"
+        },
+        {
+          "id": 111,
+          "start": 391.86,
+          "end": 394.743,
+          "en": "and we'll get back an object which we can destructure,",
+          "zh": "而我們會取回一個可以解構的物件，"
+        },
+        {
+          "id": 112,
+          "start": 395.58,
+          "end": 397.62,
+          "en": "and that object will have a value",
+          "zh": "而那個物件會有一個 value，"
+        },
+        {
+          "id": 113,
+          "start": 397.62,
+          "end": 399.99,
+          "en": "to which I'll assign an alias here,",
+          "zh": "我會在這裡給它指派一個別名，"
+        },
+        {
+          "id": 114,
+          "start": 399.99,
+          "end": 403.02,
+          "en": "which I'll name emailValue,",
+          "zh": "我會把它命名為 emailValue，"
+        },
+        {
+          "id": 115,
+          "start": 403.02,
+          "end": 407.15999999999997,
+          "en": "because I plan on using useInput multiple times",
+          "zh": "因為我計畫對不同的 input"
+        },
+        {
+          "id": 116,
+          "start": 407.15999999999997,
+          "end": 408.81,
+          "en": "for different inputs.",
+          "zh": "多次使用 useInput。"
+        },
+        {
+          "id": 117,
+          "start": 408.81,
+          "end": 410.67,
+          "en": "Therefore, I need an alias here",
+          "zh": "因此，我需要在這裡用別名，"
+        },
+        {
+          "id": 118,
+          "start": 410.67,
+          "end": 413.703,
+          "en": "to clearly identify which value this is.",
+          "zh": "來清楚辨識這是哪個值。"
+        },
+        {
+          "id": 119,
+          "start": 415.53,
+          "end": 419.28,
+          "en": "I will also get handleInputChange out of here",
+          "zh": "我也會從這裡取出 handleInputChange，"
+        },
+        {
+          "id": 120,
+          "start": 419.28,
+          "end": 422.823,
+          "en": "and alias it to handleEmailChange,",
+          "zh": "並把它別名為 handleEmailChange，"
+        },
+        {
+          "id": 121,
+          "start": 424.95,
+          "end": 426.67,
+          "en": "and get handleInputBlur",
+          "zh": "然後取出 handleInputBlur，"
+        },
+        {
+          "id": 122,
+          "start": 427.92,
+          "end": 430.9,
+          "en": "and assign an alias of handleEmailBlur",
+          "zh": "並指派別名 handleEmailBlur，"
+        },
+        {
+          "id": 123,
+          "start": 434.88,
+          "end": 437.523,
+          "en": "so that I'm using my custom hook like this.",
+          "zh": "讓我像這樣使用我的自訂 hook。"
+        },
+        {
+          "id": 124,
+          "start": 439.44,
+          "end": 442.98,
+          "en": "Now with that, that validation logic here won't work,",
+          "zh": "那麼這樣一來，這裡那段驗證邏輯就不會運作，"
+        },
+        {
+          "id": 125,
+          "start": 442.98,
+          "end": 447.87,
+          "en": "but we can now use the emailValue to assign it as a value",
+          "zh": "但我們現在可以使用 emailValue 把它設為"
+        },
+        {
+          "id": 126,
+          "start": 447.87,
+          "end": 450.723,
+          "en": "for the value prop on the email input.",
+          "zh": "email input 上 value prop 的值。"
+        },
+        {
+          "id": 127,
+          "start": 452.67,
+          "end": 457.59000000000003,
+          "en": "And here for onBlur, we no longer need this wrapper",
+          "zh": "而在這裡的 onBlur，我們不再需要這個包裝，"
+        },
+        {
+          "id": 128,
+          "start": 457.59000000000003,
+          "end": 460.65,
+          "en": "because we no longer need this identifier",
+          "zh": "因為我們不再需要這個識別碼，"
+        },
+        {
+          "id": 129,
+          "start": 460.65,
+          "end": 464.49,
+          "en": "because we now have a dedicated handleEmailChange function",
+          "zh": "因為我們現在有一個專屬的 handleEmailChange 函式，"
+        },
+        {
+          "id": 130,
+          "start": 464.49,
+          "end": 467.01,
+          "en": "since this hook is about managing the state",
+          "zh": "因為這個 hook 是在管理"
+        },
+        {
+          "id": 131,
+          "start": 467.01,
+          "end": 468.33299999999997,
+          "en": "of a single input.",
+          "zh": "單一 input 的 state。"
+        },
+        {
+          "id": 132,
+          "start": 469.17,
+          "end": 472.62,
+          "en": "So therefore, this code down here can be simplified",
+          "zh": "因此，下面這裡這段程式碼可以簡化"
+        },
+        {
+          "id": 133,
+          "start": 472.62,
+          "end": 474.49,
+          "en": "to point at handleEmailBlur",
+          "zh": "為指向 handleEmailBlur，"
+        },
+        {
+          "id": 134,
+          "start": 476.1,
+          "end": 478.533,
+          "en": "and here simply at handleEmailChange.",
+          "zh": "而在這裡直接指向 handleEmailChange。"
+        },
+        {
+          "id": 135,
+          "start": 482.344,
+          "end": 484.92,
+          "en": "And this here will, for example, work",
+          "zh": "而這裡這個，例如，會運作，"
+        },
+        {
+          "id": 136,
+          "start": 484.92,
+          "end": 487.62,
+          "en": "because inside of the use input hook,",
+          "zh": "因為在 useInput hook 內部，"
+        },
+        {
+          "id": 137,
+          "start": 487.62,
+          "end": 489.39,
+          "en": "this input change function",
+          "zh": "這個 input change 函式"
+        },
+        {
+          "id": 138,
+          "start": 489.39,
+          "end": 491.97,
+          "en": "just wants the default event object,",
+          "zh": "只想要預設的 event 物件，"
+        },
+        {
+          "id": 139,
+          "start": 491.97,
+          "end": 495.06,
+          "en": "and that is exactly what we will be getting here",
+          "zh": "而那正是我們在這裡會收到的，"
+        },
+        {
+          "id": 140,
+          "start": 495.06,
+          "end": 498.903,
+          "en": "when binding this as a value for the onChange prop.",
+          "zh": "當我們把它綁定為 onChange prop 的值時。"
+        },
+        {
+          "id": 141,
+          "start": 500.85,
+          "end": 504.45,
+          "en": "But, of course, as mentioned, validation will be a problem.",
+          "zh": "但當然，如提到的，驗證會是個問題。"
+        },
+        {
+          "id": 142,
+          "start": 504.45,
+          "end": 508.02,
+          "en": "But thankfully, we can also outsource this",
+          "zh": "但幸好，我們也可以把這件事外包"
+        },
+        {
+          "id": 143,
+          "start": 508.02,
+          "end": 509.313,
+          "en": "into our custom hook.",
+          "zh": "到我們的自訂 hook 中。"
+        },
+        {
+          "id": 144,
+          "start": 510.51,
+          "end": 514.41,
+          "en": "Here we can add a new computed value,",
+          "zh": "在這裡我們可以加入一個新的計算值，"
+        },
+        {
+          "id": 145,
+          "start": 514.41,
+          "end": 516.607,
+          "en": "which could be called valueIsValid.",
+          "zh": "可以叫做 valueIsValid。"
+        },
+        {
+          "id": 146,
+          "start": 518.605,
+          "end": 521.19,
+          "en": "And then I want to validate that value",
+          "zh": "然後我想根據某個驗證函式"
+        },
+        {
+          "id": 147,
+          "start": 521.19,
+          "end": 523.71,
+          "en": "based on some validation function,",
+          "zh": "來驗證那個值，"
+        },
+        {
+          "id": 148,
+          "start": 523.71,
+          "end": 527.58,
+          "en": "which should now not be hardcoded into this hook",
+          "zh": "而它現在不應該被寫死在這個 hook 中，"
+        },
+        {
+          "id": 149,
+          "start": 527.58,
+          "end": 529.89,
+          "en": "because, of course, this hook should be usable",
+          "zh": "因為當然，這個 hook 應該能用於"
+        },
+        {
+          "id": 150,
+          "start": 529.89,
+          "end": 533.13,
+          "en": "for different inputs with different requirements",
+          "zh": "有不同需求和不同驗證函式的"
+        },
+        {
+          "id": 151,
+          "start": 533.13,
+          "end": 535.533,
+          "en": "and different validation functions.",
+          "zh": "不同 input。"
+        },
+        {
+          "id": 152,
+          "start": 536.67,
+          "end": 540.24,
+          "en": "Therefore, it makes sense to accept a validation function",
+          "zh": "因此，在這個 hook 函式上接收一個驗證函式"
+        },
+        {
+          "id": 153,
+          "start": 540.24,
+          "end": 544.83,
+          "en": "as a second argument on this hook function",
+          "zh": "作為第二個引數是合理的，"
+        },
+        {
+          "id": 154,
+          "start": 544.83,
+          "end": 548.16,
+          "en": "so that we can then compute valueIsValid",
+          "zh": "這樣我們接著就能透過呼叫這個驗證函式、"
+        },
+        {
+          "id": 155,
+          "start": 548.16,
+          "end": 550.65,
+          "en": "by calling this validation function",
+          "zh": "並把我們在這個 hook 中管理的 enteredValue"
+        },
+        {
+          "id": 156,
+          "start": 550.65,
+          "end": 552.72,
+          "en": "and passing the enteredValue,",
+          "zh": "傳給這個函式，"
+        },
+        {
+          "id": 157,
+          "start": 552.72,
+          "end": 556.293,
+          "en": "which we are managing in this hook, to this function,",
+          "zh": "來計算 valueIsValid，"
+        },
+        {
+          "id": 158,
+          "start": 557.19,
+          "end": 559.8,
+          "en": "so that from outside this hook,",
+          "zh": "這樣從這個 hook 外部，"
+        },
+        {
+          "id": 159,
+          "start": 559.8,
+          "end": 562.68,
+          "en": "so in the place where we use the hook,",
+          "zh": "也就是在我們使用這個 hook 的地方，"
+        },
+        {
+          "id": 160,
+          "start": 562.68,
+          "end": 565.11,
+          "en": "in the login function, for example,",
+          "zh": "例如在 Login 函式中，"
+        },
+        {
+          "id": 161,
+          "start": 565.11,
+          "end": 568.35,
+          "en": "we just define what the validation logic",
+          "zh": "我們只要定義驗證邏輯和函式"
+        },
+        {
+          "id": 162,
+          "start": 568.35,
+          "end": 569.97,
+          "en": "and function should be,",
+          "zh": "應該是什麼，"
+        },
+        {
+          "id": 163,
+          "start": 569.97,
+          "end": 573.333,
+          "en": "and we then execute this logic inside of the hook.",
+          "zh": "然後我們就在 hook 內部執行這些邏輯。"
+        },
+        {
+          "id": 164,
+          "start": 574.29,
+          "end": 578.07,
+          "en": "And then we could use valueIsValid here",
+          "zh": "然後我們可以在這裡使用 valueIsValid"
+        },
+        {
+          "id": 165,
+          "start": 578.07,
+          "end": 583.07,
+          "en": "to return another value, the hasError value, for example,",
+          "zh": "來回傳另一個值，例如 hasError 值，"
+        },
+        {
+          "id": 166,
+          "start": 583.98,
+          "end": 586.38,
+          "en": "which is the combination of didEdit",
+          "zh": "它是 didEdit"
+        },
+        {
+          "id": 167,
+          "start": 586.38,
+          "end": 590.493,
+          "en": "and not valueIsValid like this.",
+          "zh": "與 not valueIsValid 的組合，像這樣。"
+        },
+        {
+          "id": 168,
+          "start": 592.5,
+          "end": 595.68,
+          "en": "So if we did edit the input, if this is true,",
+          "zh": "所以如果我們確實編輯過 input，也就是如果這個為 true，"
+        },
+        {
+          "id": 169,
+          "start": 595.68,
+          "end": 597.99,
+          "en": "which we are managing a state here,",
+          "zh": "這是我們在這裡管理的一塊 state，"
+        },
+        {
+          "id": 170,
+          "start": 597.99,
+          "end": 602.913,
+          "en": "and the value is not valid, we wanna set hasError to true.",
+          "zh": "而這個值無效，我們就想把 hasError 設為 true。"
+        },
+        {
+          "id": 171,
+          "start": 604.53,
+          "end": 607.35,
+          "en": "And this change now allows us",
+          "zh": "而這個改變現在讓我們能"
+        },
+        {
+          "id": 172,
+          "start": 607.35,
+          "end": 609.96,
+          "en": "to pass the validation function",
+          "zh": "把應該被執行的驗證函式"
+        },
+        {
+          "id": 173,
+          "start": 609.96,
+          "end": 612.99,
+          "en": "that should be executed to useInput,",
+          "zh": "傳給 useInput，"
+        },
+        {
+          "id": 174,
+          "start": 612.99,
+          "end": 615.69,
+          "en": "so, for example, pass a pointer to isEmail to useInput",
+          "zh": "所以例如把指向 isEmail 的指標傳給 useInput，"
+        },
+        {
+          "id": 175,
+          "start": 617.58,
+          "end": 621.6,
+          "en": "so that this will be executed as a validation function.",
+          "zh": "這樣它就會被當作驗證函式執行。"
+        },
+        {
+          "id": 176,
+          "start": 621.6,
+          "end": 625.533,
+          "en": "And we can get rid of this email validation code here.",
+          "zh": "而我們可以擺脫這裡這段 email 驗證程式碼。"
+        },
+        {
+          "id": 177,
+          "start": 626.49,
+          "end": 630.12,
+          "en": "Now, if we would want to run multiple validation functions,",
+          "zh": "那麼，如果我們想執行多個驗證函式，"
+        },
+        {
+          "id": 178,
+          "start": 630.12,
+          "end": 632.61,
+          "en": "we could either tweak the logic here",
+          "zh": "我們可以調整這裡的邏輯，"
+        },
+        {
+          "id": 179,
+          "start": 632.61,
+          "end": 635.37,
+          "en": "to accept an array of functions",
+          "zh": "改為接收一個函式的陣列，"
+        },
+        {
+          "id": 180,
+          "start": 635.37,
+          "end": 639.3,
+          "en": "and go through that array and execute all those functions.",
+          "zh": "並走訪那個陣列、執行所有那些函式。"
+        },
+        {
+          "id": 181,
+          "start": 639.3,
+          "end": 641.91,
+          "en": "Or we change the logic here,",
+          "zh": "或者我們改變這裡的邏輯，"
+        },
+        {
+          "id": 182,
+          "start": 641.91,
+          "end": 645.84,
+          "en": "where we set that second argument on useInput",
+          "zh": "也就是我們在 useInput 上設定的第二個引數，"
+        },
+        {
+          "id": 183,
+          "start": 645.84,
+          "end": 648.84,
+          "en": "and instead of pointing at a validation function,",
+          "zh": "不是指向一個驗證函式，"
+        },
+        {
+          "id": 184,
+          "start": 648.84,
+          "end": 651.24,
+          "en": "we pass an anonymous function,",
+          "zh": "而是傳入一個匿名函式，"
+        },
+        {
+          "id": 185,
+          "start": 651.24,
+          "end": 653.1,
+          "en": "which will then be the value",
+          "zh": "它接著會成為這個驗證函式參數的"
+        },
+        {
+          "id": 186,
+          "start": 653.1,
+          "end": 655.83,
+          "en": "for this validation function parameter",
+          "zh": "值，"
+        },
+        {
+          "id": 187,
+          "start": 655.83,
+          "end": 658.023,
+          "en": "and which will be executed here.",
+          "zh": "並且會在這裡被執行。"
+        },
+        {
+          "id": 188,
+          "start": 659.01,
+          "end": 660.66,
+          "en": "And in this anonymous function,",
+          "zh": "而在這個匿名函式中，"
+        },
+        {
+          "id": 189,
+          "start": 660.66,
+          "end": 663,
+          "en": "we expect to get a value",
+          "zh": "我們預期會收到一個 value，"
+        },
+        {
+          "id": 190,
+          "start": 663,
+          "end": 665.67,
+          "en": "because, inside of this hook, as I just said,",
+          "zh": "因為在這個 hook 內部，如我剛說的，"
+        },
+        {
+          "id": 191,
+          "start": 665.67,
+          "end": 668.16,
+          "en": "this function will be executed here,",
+          "zh": "這個函式會在這裡被執行，"
+        },
+        {
+          "id": 192,
+          "start": 668.16,
+          "end": 670.59,
+          "en": "and the entered value will be passed",
+          "zh": "而 entered value 會被"
+        },
+        {
+          "id": 193,
+          "start": 670.59,
+          "end": 673.17,
+          "en": "to this function as a value,",
+          "zh": "當作 value 傳給這個函式，"
+        },
+        {
+          "id": 194,
+          "start": 673.17,
+          "end": 676.56,
+          "en": "so we should expect it as a value here.",
+          "zh": "所以我們在這裡應該預期收到它作為 value。"
+        },
+        {
+          "id": 195,
+          "start": 676.56,
+          "end": 679.56,
+          "en": "And then we simply run all the code we wanna run",
+          "zh": "然後我們直接執行我們想執行的所有程式碼"
+        },
+        {
+          "id": 196,
+          "start": 679.56,
+          "end": 681.543,
+          "en": "to validate that value here,",
+          "zh": "來在這裡驗證那個值，"
+        },
+        {
+          "id": 197,
+          "start": 682.41,
+          "end": 685.74,
+          "en": "and we just return true or false once we're done.",
+          "zh": "並在完成後直接回傳 true 或 false。"
+        },
+        {
+          "id": 198,
+          "start": 685.74,
+          "end": 688.63,
+          "en": "So here we could then run isEmail",
+          "zh": "所以在這裡我們接著可以執行 isEmail"
+        },
+        {
+          "id": 199,
+          "start": 690.54,
+          "end": 695.1,
+          "en": "and isNotEmpty, for example.",
+          "zh": "和 isNotEmpty，例如。"
+        },
+        {
+          "id": 200,
+          "start": 695.1,
+          "end": 698.91,
+          "en": "And that's how we could easily execute multiple functions.",
+          "zh": "而那就是我們如何輕鬆執行多個函式。"
+        },
+        {
+          "id": 201,
+          "start": 698.91,
+          "end": 701.52,
+          "en": "And we could also shorten this code here,",
+          "zh": "而我們也可以縮短這裡這段程式碼，"
+        },
+        {
+          "id": 202,
+          "start": 701.52,
+          "end": 702.99,
+          "en": "get rid of the return statement",
+          "zh": "擺脫 return 陳述式，"
+        },
+        {
+          "id": 203,
+          "start": 702.99,
+          "end": 706.443,
+          "en": "and of these curly braces and all of this semicolon,",
+          "zh": "還有這些大括號和那個分號，"
+        },
+        {
+          "id": 204,
+          "start": 707.58,
+          "end": 709.563,
+          "en": "and use useInput like this.",
+          "zh": "並像這樣使用 useInput。"
+        },
+        {
+          "id": 205,
+          "start": 711.66,
+          "end": 715.44,
+          "en": "And now we can repeat this approach for the second input",
+          "zh": "而現在我們可以對這裡的第二個 input 重複這個做法，"
+        },
+        {
+          "id": 206,
+          "start": 715.44,
+          "end": 717.333,
+          "en": "which we got here, the password,",
+          "zh": "也就是這裡的密碼，"
+        },
+        {
+          "id": 207,
+          "start": 718.2,
+          "end": 721.98,
+          "en": "where I also have an empty string as an initial value",
+          "zh": "我在那裡也有空字串作為初始值，"
+        },
+        {
+          "id": 208,
+          "start": 721.98,
+          "end": 724.41,
+          "en": "and where I have hasMinLength,",
+          "zh": "並在那裡使用 hasMinLength，"
+        },
+        {
+          "id": 209,
+          "start": 724.41,
+          "end": 727.53,
+          "en": "which is a function where I need full control",
+          "zh": "它是個我需要完全控制"
+        },
+        {
+          "id": 210,
+          "start": 727.53,
+          "end": 729.45,
+          "en": "over how it's executed",
+          "zh": "它如何被執行的函式，"
+        },
+        {
+          "id": 211,
+          "start": 729.45,
+          "end": 732.303,
+          "en": "because I wanna set that min length parameter.",
+          "zh": "因為我想設定那個最小長度參數。"
+        },
+        {
+          "id": 212,
+          "start": 733.23,
+          "end": 736.8,
+          "en": "So again, we can pass in that wrapper function",
+          "zh": "所以同樣地，我們可以傳入那個包裝函式，"
+        },
+        {
+          "id": 213,
+          "start": 736.8,
+          "end": 738.9,
+          "en": "where we get a value,",
+          "zh": "我們在其中收到一個 value，"
+        },
+        {
+          "id": 214,
+          "start": 738.9,
+          "end": 740.88,
+          "en": "and then make sure that once it's called",
+          "zh": "然後確保當它從 hook 內部"
+        },
+        {
+          "id": 215,
+          "start": 740.88,
+          "end": 744.48,
+          "en": "from inside the hook, we call hasMinLength",
+          "zh": "被呼叫時，我們會呼叫 hasMinLength，"
+        },
+        {
+          "id": 216,
+          "start": 744.48,
+          "end": 746.04,
+          "en": "and we forward the value,",
+          "zh": "並轉發那個 value，"
+        },
+        {
+          "id": 217,
+          "start": 746.04,
+          "end": 748.923,
+          "en": "and also set the second parameter to six.",
+          "zh": "也把第二個參數設為六。"
+        },
+        {
+          "id": 218,
+          "start": 750.24,
+          "end": 753.78,
+          "en": "And now we can extract all those values here",
+          "zh": "而現在我們可以在這裡取出所有那些值，"
+        },
+        {
+          "id": 219,
+          "start": 753.78,
+          "end": 757.56,
+          "en": "by again using destructuring and getting the value,",
+          "zh": "同樣透過解構，取得 value，"
+        },
+        {
+          "id": 220,
+          "start": 757.56,
+          "end": 760.023,
+          "en": "which here could be the passwordValue,",
+          "zh": "在這裡可以是 passwordValue，"
+        },
+        {
+          "id": 221,
+          "start": 761.07,
+          "end": 763.293,
+          "en": "by getting handleInputChange,",
+          "zh": "取得 handleInputChange，"
+        },
+        {
+          "id": 222,
+          "start": 764.58,
+          "end": 768.513,
+          "en": "which I'll name handlePasswordChange here,",
+          "zh": "我這裡會把它命名為 handlePasswordChange，"
+        },
+        {
+          "id": 223,
+          "start": 770.37,
+          "end": 773.01,
+          "en": "by then also getting handleInputBlur,",
+          "zh": "接著也取得 handleInputBlur，"
+        },
+        {
+          "id": 224,
+          "start": 773.01,
+          "end": 776.823,
+          "en": "which I'll name handlePasswordBlur like this.",
+          "zh": "我會像這樣把它命名為 handlePasswordBlur。"
+        },
+        {
+          "id": 225,
+          "start": 777.96,
+          "end": 781.68,
+          "en": "And by then, of course, also extracting hasError,",
+          "zh": "然後當然，也取出 hasError，"
+        },
+        {
+          "id": 226,
+          "start": 781.68,
+          "end": 785.16,
+          "en": "which I'll here name passwordHasError",
+          "zh": "我在這裡會把它命名為 passwordHasError，"
+        },
+        {
+          "id": 227,
+          "start": 785.16,
+          "end": 788.19,
+          "en": "and which I'll also do here for the first input,",
+          "zh": "而我也會在這裡對第一個 input 這麼做，"
+        },
+        {
+          "id": 228,
+          "start": 788.19,
+          "end": 790.59,
+          "en": "which belongs to the email.",
+          "zh": "它屬於 email。"
+        },
+        {
+          "id": 229,
+          "start": 790.59,
+          "end": 793.89,
+          "en": "There, I also want to extract hasError",
+          "zh": "在那裡，我也想取出 hasError，"
+        },
+        {
+          "id": 230,
+          "start": 793.89,
+          "end": 796.47,
+          "en": "and rename it to emailHasError.",
+          "zh": "並把它改名為 emailHasError。"
+        },
+        {
+          "id": 231,
+          "start": 799.5,
+          "end": 800.94,
+          "en": "And now we can also get rid of",
+          "zh": "而現在我們也可以擺脫"
+        },
+        {
+          "id": 232,
+          "start": 800.94,
+          "end": 803.76,
+          "en": "that password validation constant here",
+          "zh": "這裡那個密碼驗證常數，"
+        },
+        {
+          "id": 233,
+          "start": 803.76,
+          "end": 805.413,
+          "en": "and go down to our form.",
+          "zh": "並前往下面的表單。"
+        },
+        {
+          "id": 234,
+          "start": 806.25,
+          "end": 810.03,
+          "en": "And here on the error prop of the email input,",
+          "zh": "而在這裡 email input 的 error prop 上，"
+        },
+        {
+          "id": 235,
+          "start": 810.03,
+          "end": 813.87,
+          "en": "I'll check for emailHasError",
+          "zh": "我會檢查 emailHasError，"
+        },
+        {
+          "id": 236,
+          "start": 813.87,
+          "end": 817.533,
+          "en": "and then forward that error message if that should be true.",
+          "zh": "然後如果它為 true 就轉發那個錯誤訊息。"
+        },
+        {
+          "id": 237,
+          "start": 818.61,
+          "end": 821.58,
+          "en": "And on the input for onChange,",
+          "zh": "而在 input 的 onChange 上，"
+        },
+        {
+          "id": 238,
+          "start": 821.58,
+          "end": 824.463,
+          "en": "it's now handlePasswordChange.",
+          "zh": "現在是 handlePasswordChange。"
+        },
+        {
+          "id": 239,
+          "start": 825.87,
+          "end": 828.213,
+          "en": "For onBlur, it's handlePasswordBlur.",
+          "zh": "對於 onBlur，則是 handlePasswordBlur。"
+        },
+        {
+          "id": 240,
+          "start": 832.17,
+          "end": 835.95,
+          "en": "For the value, it is the passwordValue,",
+          "zh": "對於 value，是 passwordValue，"
+        },
+        {
+          "id": 241,
+          "start": 835.95,
+          "end": 837.03,
+          "en": "and for the error,",
+          "zh": "而對於 error，"
+        },
+        {
+          "id": 242,
+          "start": 837.03,
+          "end": 840.933,
+          "en": "it is the passwordHasError constant I'm interested in.",
+          "zh": "我感興趣的是 passwordHasError 常數。"
+        },
+        {
+          "id": 243,
+          "start": 842.61,
+          "end": 845.52,
+          "en": "And with that, this code got easier again,",
+          "zh": "這樣一來，這段程式碼又變得更簡單了，"
+        },
+        {
+          "id": 244,
+          "start": 845.52,
+          "end": 848.58,
+          "en": "and we got rid of a lot of code up here",
+          "zh": "而我們透過把那些邏輯放進自訂 hook，"
+        },
+        {
+          "id": 245,
+          "start": 848.58,
+          "end": 851.403,
+          "en": "by putting that logic into a custom hook.",
+          "zh": "擺脫了上面一大堆程式碼。"
+        },
+        {
+          "id": 246,
+          "start": 852.45,
+          "end": 854.73,
+          "en": "And, of course, here in handleSubmit,",
+          "zh": "而當然，在這裡的 handleSubmit 中，"
+        },
+        {
+          "id": 247,
+          "start": 854.73,
+          "end": 859.73,
+          "en": "we can now also check if emailHasError or passwordHasError,",
+          "zh": "我們現在也可以檢查 if emailHasError 或 passwordHasError，"
+        },
+        {
+          "id": 248,
+          "start": 862.62,
+          "end": 865.35,
+          "en": "in which case we might wanna return here",
+          "zh": "在那種情況下我們可能想在這裡 return，"
+        },
+        {
+          "id": 249,
+          "start": 865.35,
+          "end": 868.2,
+          "en": "so that we don't continue executing logic",
+          "zh": "這樣如果我們有無效的輸入，"
+        },
+        {
+          "id": 250,
+          "start": 868.2,
+          "end": 870.093,
+          "en": "if we have some invalid input.",
+          "zh": "就不會繼續執行邏輯。"
+        },
+        {
+          "id": 251,
+          "start": 870.96,
+          "end": 872.76,
+          "en": "But if we have valid inputs,",
+          "zh": "但如果我們的輸入有效，"
+        },
+        {
+          "id": 252,
+          "start": 872.76,
+          "end": 877.76,
+          "en": "we could output the emailValue and the passwordValue here",
+          "zh": "我們可以在這裡輸出 emailValue 和 passwordValue，"
+        },
+        {
+          "id": 253,
+          "start": 878.49,
+          "end": 880.23,
+          "en": "and, of course, potentially",
+          "zh": "而當然，也可能"
+        },
+        {
+          "id": 254,
+          "start": 880.23,
+          "end": 882.903,
+          "en": "also send that information to a backend.",
+          "zh": "把那些資訊送到後端。"
+        },
+        {
+          "id": 255,
+          "start": 884.43,
+          "end": 885.87,
+          "en": "And with all that done,",
+          "zh": "而這一切都完成後，"
+        },
+        {
+          "id": 256,
+          "start": 885.87,
+          "end": 889.23,
+          "en": "we're using this custom hook here, the useInput hook,",
+          "zh": "我們在這裡使用了這個自訂 hook，也就是 useInput hook，"
+        },
+        {
+          "id": 257,
+          "start": 889.23,
+          "end": 891.84,
+          "en": "and we can therefore now go back to our form",
+          "zh": "因此我們現在可以回到我們的表單，"
+        },
+        {
+          "id": 258,
+          "start": 891.84,
+          "end": 894.61,
+          "en": "and we get the same behavior as before",
+          "zh": "而我們會得到和之前一樣的行為，"
+        },
+        {
+          "id": 259,
+          "start": 896.19,
+          "end": 900.48,
+          "en": "where I got this validation experience I showed you before,",
+          "zh": "也就是我之前展示給你的那個驗證體驗，"
+        },
+        {
+          "id": 260,
+          "start": 900.48,
+          "end": 904.35,
+          "en": "but now all powered with help of a custom hook",
+          "zh": "但現在全都由一個自訂 hook 提供，"
+        },
+        {
+          "id": 261,
+          "start": 904.35,
+          "end": 907.23,
+          "en": "that allows us to keep track of these different states",
+          "zh": "它讓我們能追蹤這些不同的 state"
+        },
+        {
+          "id": 262,
+          "start": 907.23,
+          "end": 909.333,
+          "en": "and get hold of the entered values.",
+          "zh": "並取得輸入的值。"
+        }
+      ]
+    },
+    {
+      "id": "8244702",
+      "title": "Using Third-Party Form Libraries",
+      "sourceHash": "a8eeb37b00b4871829e11970cdb15029229c17a6820be00ff4e01cbc5b1ccf3a",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.66,
+          "end": 3.24,
+          "en": "Now, throughout this section,",
+          "zh": "那麼，在這一節中，"
+        },
+        {
+          "id": 2,
+          "start": 3.24,
+          "end": 5.49,
+          "en": "you learned a lot about working",
+          "zh": "你學到了很多關於"
+        },
+        {
+          "id": 3,
+          "start": 5.49,
+          "end": 10.49,
+          "en": "with forms in React apps and you learned how to get hold",
+          "zh": "在 React 應用程式中處理表單的知識，也學到了如何取得"
+        },
+        {
+          "id": 4,
+          "start": 10.65,
+          "end": 14.788,
+          "en": "of entered values and how to validate those values",
+          "zh": "輸入的值，以及如何驗證那些值，"
+        },
+        {
+          "id": 5,
+          "start": 14.788,
+          "end": 19.44,
+          "en": "on your own and by leveraging browser features",
+          "zh": "無論是靠自己還是善用瀏覽器功能，"
+        },
+        {
+          "id": 6,
+          "start": 19.44,
+          "end": 22.86,
+          "en": "but there actually also is another way",
+          "zh": "但其實還有另一種"
+        },
+        {
+          "id": 7,
+          "start": 22.86,
+          "end": 26.73,
+          "en": "for dealing with forms and user input.",
+          "zh": "處理表單和使用者輸入的方式。"
+        },
+        {
+          "id": 8,
+          "start": 26.73,
+          "end": 31.17,
+          "en": "You could use third-party libraries that make your life",
+          "zh": "你可以使用第三方函式庫，讓你"
+        },
+        {
+          "id": 9,
+          "start": 31.17,
+          "end": 33.57,
+          "en": "as a developer easier.",
+          "zh": "作為開發者的生活更輕鬆。"
+        },
+        {
+          "id": 10,
+          "start": 33.57,
+          "end": 37.59,
+          "en": "If you, for example, search for React form libraries,",
+          "zh": "如果你例如搜尋 React form libraries，"
+        },
+        {
+          "id": 11,
+          "start": 37.59,
+          "end": 41.13,
+          "en": "you'll find a couple of popular libraries,",
+          "zh": "你會找到幾個熱門的函式庫，"
+        },
+        {
+          "id": 12,
+          "start": 41.13,
+          "end": 46.13,
+          "en": "like React Hook Form or Formik, which can help you",
+          "zh": "例如 React Hook Form 或 Formik，它們可以幫助你"
+        },
+        {
+          "id": 13,
+          "start": 46.95,
+          "end": 51.95,
+          "en": "with getting hold of user input and validating that input.",
+          "zh": "取得使用者輸入並驗證那些輸入。"
+        },
+        {
+          "id": 14,
+          "start": 53.58,
+          "end": 57,
+          "en": "And you therefore might wanna explore libraries",
+          "zh": "因此你可能會想探索像這樣的"
+        },
+        {
+          "id": 15,
+          "start": 57,
+          "end": 59.79,
+          "en": "like these to see how they work",
+          "zh": "函式庫，看看它們如何運作，"
+        },
+        {
+          "id": 16,
+          "start": 59.79,
+          "end": 64.36,
+          "en": "and how they could help you deal with forms and validation",
+          "zh": "以及它們如何幫助你處理表單和驗證，"
+        },
+        {
+          "id": 17,
+          "start": 65.22,
+          "end": 67.05,
+          "en": "because of course, as a developer,",
+          "zh": "因為當然，作為一位開發者，"
+        },
+        {
+          "id": 18,
+          "start": 67.05,
+          "end": 71.94,
+          "en": "you must know how to work with forms totally on your own",
+          "zh": "你必須知道如何完全靠自己處理表單，"
+        },
+        {
+          "id": 19,
+          "start": 71.94,
+          "end": 75.24,
+          "en": "and how to write efficient React code",
+          "zh": "以及如何撰寫高效的 React 程式碼，"
+        },
+        {
+          "id": 20,
+          "start": 75.24,
+          "end": 78.42,
+          "en": "and that is what you learned in this section.",
+          "zh": "而那正是你在這一節中學到的。"
+        },
+        {
+          "id": 21,
+          "start": 78.42,
+          "end": 82.62,
+          "en": "But you should also know that libraries like these exist",
+          "zh": "但你也應該知道像這樣的函式庫存在，"
+        },
+        {
+          "id": 22,
+          "start": 82.62,
+          "end": 86.91,
+          "en": "and therefore, exploring them and playing around with them",
+          "zh": "因此，探索它們並試玩它們，"
+        },
+        {
+          "id": 23,
+          "start": 86.91,
+          "end": 89.163,
+          "en": "is also something you might wanna do.",
+          "zh": "也是你可能想做的事。"
+        }
+      ]
+    },
+    {
+      "id": "44245110",
+      "title": "Module Introduction",
+      "sourceHash": "972339752e72f88fd1e002911e051775ef2198555707c506c0462cf09a855f71",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.22,
+          "end": 4.89,
+          "en": "In the previous course section,",
+          "zh": "在之前的課程章節中，"
+        },
+        {
+          "id": 2,
+          "start": 4.89,
+          "end": 9.69,
+          "en": "you learned in detail how you can handle form submissions",
+          "zh": "你詳細學到了如何在 React 應用程式中"
+        },
+        {
+          "id": 3,
+          "start": 9.69,
+          "end": 13.32,
+          "en": "and user input in React apps.",
+          "zh": "處理表單提交和使用者輸入。"
+        },
+        {
+          "id": 4,
+          "start": 13.32,
+          "end": 17.244,
+          "en": "In this section, we're kind of building up",
+          "zh": "在這一節中，我們算是建立"
+        },
+        {
+          "id": 5,
+          "start": 17.244,
+          "end": 19.44,
+          "en": "on what you learned there,",
+          "zh": "在你那裡學到的基礎上，"
+        },
+        {
+          "id": 6,
+          "start": 19.44,
+          "end": 24.21,
+          "en": "and we'll explore a different way of handling user input.",
+          "zh": "而我們會探索另一種處理使用者輸入的方式。"
+        },
+        {
+          "id": 7,
+          "start": 24.21,
+          "end": 28.38,
+          "en": "Because in this section, we'll explore form actions,",
+          "zh": "因為在這一節中，我們會探索 form actions，"
+        },
+        {
+          "id": 8,
+          "start": 28.38,
+          "end": 32.79,
+          "en": "a feature that's actually built into React,",
+          "zh": "一個其實內建於 React 的功能，"
+        },
+        {
+          "id": 9,
+          "start": 32.79,
+          "end": 37.71,
+          "en": "at least if you're using React 19 or higher.",
+          "zh": "至少如果你使用的是 React 19 或更高版本。"
+        },
+        {
+          "id": 10,
+          "start": 37.71,
+          "end": 40.26,
+          "en": "So it's a relatively new feature.",
+          "zh": "所以它是個相對新的功能。"
+        },
+        {
+          "id": 11,
+          "start": 40.26,
+          "end": 43.68,
+          "en": "It's not part of older React versions,",
+          "zh": "它不屬於較舊的 React 版本，"
+        },
+        {
+          "id": 12,
+          "start": 43.68,
+          "end": 46.68,
+          "en": "but if you are working in a project",
+          "zh": "但如果你正在進行的專案"
+        },
+        {
+          "id": 13,
+          "start": 46.68,
+          "end": 50.1,
+          "en": "that uses at least version 19 or higher,",
+          "zh": "至少使用版本 19 或更高，"
+        },
+        {
+          "id": 14,
+          "start": 50.1,
+          "end": 53.19,
+          "en": "you can use this form actions feature,",
+          "zh": "你就可以使用這個 form actions 功能，"
+        },
+        {
+          "id": 15,
+          "start": 53.19,
+          "end": 56.07,
+          "en": "about which you will learn in this section here,",
+          "zh": "你會在這一節中學到它，"
+        },
+        {
+          "id": 16,
+          "start": 56.07,
+          "end": 60.93,
+          "en": "instead of handling form submissions manually",
+          "zh": "用它來取代手動處理表單提交，"
+        },
+        {
+          "id": 17,
+          "start": 60.93,
+          "end": 63.66,
+          "en": "as you learned it in the previous section.",
+          "zh": "就像你在上一節學到的那樣。"
+        },
+        {
+          "id": 18,
+          "start": 63.66,
+          "end": 65.46,
+          "en": "Though, as a React developer,",
+          "zh": "不過，作為一位 React 開發者，"
+        },
+        {
+          "id": 19,
+          "start": 65.46,
+          "end": 68.13,
+          "en": "you should know about both approaches",
+          "zh": "你應該兩種做法都知道，"
+        },
+        {
+          "id": 20,
+          "start": 68.13,
+          "end": 70.83,
+          "en": "because you will encounter both approaches",
+          "zh": "因為你會在真實世界中"
+        },
+        {
+          "id": 21,
+          "start": 70.83,
+          "end": 72.96000000000001,
+          "en": "out there in the wild.",
+          "zh": "遇到這兩種做法。"
+        },
+        {
+          "id": 22,
+          "start": 72.96000000000001,
+          "end": 74.78999999999999,
+          "en": "Now, in this section, as mentioned,",
+          "zh": "那麼，如提到的，在這一節中，"
+        },
+        {
+          "id": 23,
+          "start": 74.78999999999999,
+          "end": 77.85,
+          "en": "I'll introduce you to this form actions feature.",
+          "zh": "我會向你介紹這個 form actions 功能。"
+        },
+        {
+          "id": 24,
+          "start": 77.85,
+          "end": 81,
+          "en": "I'll explain how you can use it and what it's all about,",
+          "zh": "我會說明你可以如何使用它，以及它是怎麼回事，"
+        },
+        {
+          "id": 25,
+          "start": 81,
+          "end": 84.12,
+          "en": "and you will learn how you can use this React feature",
+          "zh": "而你將會學到如何使用這個 React 功能"
+        },
+        {
+          "id": 26,
+          "start": 84.12,
+          "end": 87.66,
+          "en": "to extract values and manage form state.",
+          "zh": "來取出值並管理表單 state。"
+        },
+        {
+          "id": 27,
+          "start": 87.66,
+          "end": 91.44,
+          "en": "You will learn how to set up and deal with synchronous",
+          "zh": "你會學到如何設定並處理同步"
+        },
+        {
+          "id": 28,
+          "start": 91.44,
+          "end": 95.13,
+          "en": "and asynchronous actions, and you will learn",
+          "zh": "和非同步的 actions，而你將會學到"
+        },
+        {
+          "id": 29,
+          "start": 95.13,
+          "end": 98.65,
+          "en": "how you can implement optimistic updating",
+          "zh": "如何藉由這個功能和 React 的幫助，"
+        },
+        {
+          "id": 30,
+          "start": 98.65,
+          "end": 102.78,
+          "en": "into your user interface with help of this feature",
+          "zh": "在你的使用者介面中"
+        },
+        {
+          "id": 31,
+          "start": 102.78,
+          "end": 104.913,
+          "en": "and with help of React.",
+          "zh": "實作樂觀更新。"
+        },
+        {
+          "id": 32,
+          "start": 106.11,
+          "end": 108.21000000000001,
+          "en": "Now in this section,",
+          "zh": "那麼在這一節中，"
+        },
+        {
+          "id": 33,
+          "start": 108.21000000000001,
+          "end": 111.21000000000001,
+          "en": "we'll use a brand new starting project,",
+          "zh": "我們會使用一個全新的起始專案，"
+        },
+        {
+          "id": 34,
+          "start": 111.21000000000001,
+          "end": 113.94,
+          "en": "which you'll find attached, of course.",
+          "zh": "你當然會在附加檔案中找到它。"
+        },
+        {
+          "id": 35,
+          "start": 113.94,
+          "end": 117.12,
+          "en": "And this starting project is very similar",
+          "zh": "而這個起始專案和你在上一節看到的專案"
+        },
+        {
+          "id": 36,
+          "start": 117.12,
+          "end": 120.87,
+          "en": "to the project you saw in the previous section.",
+          "zh": "非常相似。"
+        },
+        {
+          "id": 37,
+          "start": 120.87,
+          "end": 123.45,
+          "en": "It's just a slightly simplified version",
+          "zh": "它只是稍微簡化的版本，"
+        },
+        {
+          "id": 38,
+          "start": 123.45,
+          "end": 125.1,
+          "en": "if you want to call it like this,",
+          "zh": "如果你想這麼稱呼的話，"
+        },
+        {
+          "id": 39,
+          "start": 125.1,
+          "end": 127.68,
+          "en": "because here I just have this signup",
+          "zh": "因為在這裡我只有這個註冊"
+        },
+        {
+          "id": 40,
+          "start": 127.68,
+          "end": 132.033,
+          "en": "component with that signup form you already know though.",
+          "zh": "元件，帶著你已經知道的那個註冊表單。"
+        },
+        {
+          "id": 41,
+          "start": 132.96,
+          "end": 136.62,
+          "en": "But I got no login form because you already know",
+          "zh": "但我沒有登入表單，因為你已經知道"
+        },
+        {
+          "id": 42,
+          "start": 136.62,
+          "end": 138.57,
+          "en": "how you can handle forms in general.",
+          "zh": "一般來說你可以如何處理表單。"
+        },
+        {
+          "id": 43,
+          "start": 138.57,
+          "end": 141.69,
+          "en": "But in this section you'll now learn about an alternative",
+          "zh": "但在這一節中，你現在會學到一個替代方案，"
+        },
+        {
+          "id": 44,
+          "start": 141.69,
+          "end": 143.943,
+          "en": "because you'll learn about form actions.",
+          "zh": "因為你會學到 form actions。"
+        },
+        {
+          "id": 45,
+          "start": 144.78,
+          "end": 146.49,
+          "en": "Now in this starting project,",
+          "zh": "那麼在這個起始專案中，"
+        },
+        {
+          "id": 46,
+          "start": 146.49,
+          "end": 149.43,
+          "en": "if you're using the local version,",
+          "zh": "如果你使用的是本機版本，"
+        },
+        {
+          "id": 47,
+          "start": 149.43,
+          "end": 151.32,
+          "en": "you of course should download it",
+          "zh": "你當然應該下載它，"
+        },
+        {
+          "id": 48,
+          "start": 151.32,
+          "end": 154.683,
+          "en": "and then run npm install to install all dependencies,",
+          "zh": "然後執行 npm install 來安裝所有依賴，"
+        },
+        {
+          "id": 49,
+          "start": 155.73,
+          "end": 159.423,
+          "en": "and then run npm run dev to start that development server.",
+          "zh": "接著執行 npm run dev 來啟動那個開發伺服器。"
+        },
+        {
+          "id": 50,
+          "start": 160.53,
+          "end": 164.25,
+          "en": "And if you then visit local host 5173,",
+          "zh": "而如果你接著造訪 localhost:5173，"
+        },
+        {
+          "id": 51,
+          "start": 164.25,
+          "end": 167.34300000000002,
+          "en": "you should see a page like this on the screen.",
+          "zh": "你應該會在畫面上看到像這樣的頁面。"
+        }
+      ]
     }
   ],
   "errors": []
