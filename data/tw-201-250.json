@@ -13009,6 +13009,825 @@
           "zh": "它確實改變了，也確實需要更新。"
         }
       ]
+    },
+    {
+      "id": "40270550",
+      "title": "Understanding the useMemo() Hook",
+      "sourceHash": "f65e3acdb1541d83bc5d4f3ac25c23da812f30d8495875896808c6f2f304f983",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.51,
+          "end": 3.48,
+          "en": "Now in this output from the last lecture,",
+          "zh": "那麼，在上一堂課的這個輸出中，"
+        },
+        {
+          "id": 2,
+          "start": 3.48,
+          "end": 8.48,
+          "en": "you also see that this calculating if is prime number code",
+          "zh": "你也看到這段「計算是否為質數」的程式碼"
+        },
+        {
+          "id": 3,
+          "start": 8.97,
+          "end": 12.09,
+          "en": "is output every time we click this button.",
+          "zh": "每次我們點擊這個按鈕時都會被輸出。"
+        },
+        {
+          "id": 4,
+          "start": 12.09,
+          "end": 15.3,
+          "en": "So this clearly is code that is executed,",
+          "zh": "所以這顯然是會被執行的程式碼，"
+        },
+        {
+          "id": 5,
+          "start": 15.3,
+          "end": 18.363,
+          "en": "again, if the counter changes.",
+          "zh": "再次地，如果計數器改變的話。"
+        },
+        {
+          "id": 6,
+          "start": 20.07,
+          "end": 22.44,
+          "en": "And that makes sense because",
+          "zh": "而這很合理，因為"
+        },
+        {
+          "id": 7,
+          "start": 22.44,
+          "end": 25.11,
+          "en": "it's this isPrime function,",
+          "zh": "就是這個 isPrime 函式，"
+        },
+        {
+          "id": 8,
+          "start": 25.11,
+          "end": 27.27,
+          "en": "that is called directly inside",
+          "zh": "它直接在 Counter 元件函式內部"
+        },
+        {
+          "id": 9,
+          "start": 27.27,
+          "end": 29.31,
+          "en": "of the counter component function,",
+          "zh": "被呼叫，"
+        },
+        {
+          "id": 10,
+          "start": 29.31,
+          "end": 30.66,
+          "en": "that is being executed",
+          "zh": "而它會在"
+        },
+        {
+          "id": 11,
+          "start": 30.66,
+          "end": 32.79,
+          "en": "whenever this component function changes.",
+          "zh": "每當這個元件函式改變時被執行。"
+        },
+        {
+          "id": 12,
+          "start": 32.79,
+          "end": 34.14,
+          "en": "And it's this function",
+          "zh": "而就是這個函式"
+        },
+        {
+          "id": 13,
+          "start": 34.14,
+          "end": 36.363,
+          "en": "where this log statement is coming from.",
+          "zh": "產生這個紀錄訊息的。"
+        },
+        {
+          "id": 14,
+          "start": 37.5,
+          "end": 41.7,
+          "en": "Now, this function is just there for demo purposes,",
+          "zh": "那麼，這個函式其實只是為了示範，"
+        },
+        {
+          "id": 15,
+          "start": 41.7,
+          "end": 42.6,
+          "en": "to be honest.",
+          "zh": "老實說。"
+        },
+        {
+          "id": 16,
+          "start": 42.6,
+          "end": 44.94,
+          "en": "But this function does, in the end,",
+          "zh": "但這個函式到頭來"
+        },
+        {
+          "id": 17,
+          "start": 44.94,
+          "end": 48.42,
+          "en": "use this initial account value as an input.",
+          "zh": "確實使用這個 initialCount 值作為輸入。"
+        },
+        {
+          "id": 18,
+          "start": 48.42,
+          "end": 51.69,
+          "en": "And this value technically only changes",
+          "zh": "而這個值技術上只會在"
+        },
+        {
+          "id": 19,
+          "start": 51.69,
+          "end": 55.23,
+          "en": "if we enter a new value here and click set.",
+          "zh": "我們在這裡輸入新值並點擊 Set 時才會改變。"
+        },
+        {
+          "id": 20,
+          "start": 55.23,
+          "end": 56.97,
+          "en": "Though at the moment this doesn't work",
+          "zh": "不過目前這還無法運作，"
+        },
+        {
+          "id": 21,
+          "start": 56.97,
+          "end": 58.8,
+          "en": "and we'll fix it later.",
+          "zh": "我們之後會修正它。"
+        },
+        {
+          "id": 22,
+          "start": 58.8,
+          "end": 61.92,
+          "en": "But still it's only at this point of time",
+          "zh": "但仍然，只有在這個時間點，"
+        },
+        {
+          "id": 23,
+          "start": 61.92,
+          "end": 65.34,
+          "en": "where a new initial count value will be received",
+          "zh": "才會收到新的 initialCount 值，"
+        },
+        {
+          "id": 24,
+          "start": 65.34,
+          "end": 69.12,
+          "en": "and isPrime will yield a new result.",
+          "zh": "而 isPrime 也會產生新的結果。"
+        },
+        {
+          "id": 25,
+          "start": 69.12,
+          "end": 72.66,
+          "en": "Other than that, if initial count does not change",
+          "zh": "除此之外，如果 initialCount 沒有改變，"
+        },
+        {
+          "id": 26,
+          "start": 72.66,
+          "end": 75.57,
+          "en": "and if the counter component function is only",
+          "zh": "而如果 Counter 元件函式只是因為"
+        },
+        {
+          "id": 27,
+          "start": 75.57,
+          "end": 79.23,
+          "en": "re-executed because the counter state changed,",
+          "zh": "counter state 改變而重新執行，"
+        },
+        {
+          "id": 28,
+          "start": 79.23,
+          "end": 83.55,
+          "en": "isPrime will always produce the same result.",
+          "zh": "isPrime 永遠會產生相同的結果。"
+        },
+        {
+          "id": 29,
+          "start": 83.55,
+          "end": 87.48,
+          "en": "And that can be a problem if you have a function",
+          "zh": "而如果你有一個函式"
+        },
+        {
+          "id": 30,
+          "start": 87.48,
+          "end": 90.24,
+          "en": "that performs a rather complex",
+          "zh": "會執行相當複雜"
+        },
+        {
+          "id": 31,
+          "start": 90.24,
+          "end": 93.66,
+          "en": "and performance intensive calculation.",
+          "zh": "且耗費效能的計算，那可能會是個問題。"
+        },
+        {
+          "id": 32,
+          "start": 93.66,
+          "end": 96.6,
+          "en": "Which is not necessarily the case here",
+          "zh": "在這裡不一定是這樣，"
+        },
+        {
+          "id": 33,
+          "start": 96.6,
+          "end": 100.86,
+          "en": "but it's also not a super trivial calculation,",
+          "zh": "但它也不是超級簡單的計算，"
+        },
+        {
+          "id": 34,
+          "start": 100.86,
+          "end": 104.91,
+          "en": "especially if you enter a bigger number in here,",
+          "zh": "特別是如果你在這裡輸入更大的數字，"
+        },
+        {
+          "id": 35,
+          "start": 104.91,
+          "end": 108.003,
+          "en": "like a million, or a trillion, or something like this.",
+          "zh": "例如一百萬、一兆之類的。"
+        },
+        {
+          "id": 36,
+          "start": 109.83,
+          "end": 113.58,
+          "en": "Re-executing all this code all the time,",
+          "zh": "一直重新執行這整段程式碼，"
+        },
+        {
+          "id": 37,
+          "start": 113.58,
+          "end": 116.91,
+          "en": "even though it will produce the same result as before",
+          "zh": "即使它會產生和之前相同的結果，"
+        },
+        {
+          "id": 38,
+          "start": 116.91,
+          "end": 119.91,
+          "en": "is then not very efficient.",
+          "zh": "這樣就不是很有效率。"
+        },
+        {
+          "id": 39,
+          "start": 119.91,
+          "end": 123.21,
+          "en": "And therefore just as you might want to prevent",
+          "zh": "因此，正如你可能會想用 memo"
+        },
+        {
+          "id": 40,
+          "start": 123.21,
+          "end": 126.3,
+          "en": "component function executions with memo,",
+          "zh": "防止元件函式執行，"
+        },
+        {
+          "id": 41,
+          "start": 126.3,
+          "end": 129.33,
+          "en": "you also might want to prevent the execution",
+          "zh": "你可能也會想防止一般函式的執行，"
+        },
+        {
+          "id": 42,
+          "start": 129.33,
+          "end": 131.28,
+          "en": "of normal functions",
+          "zh": "也就是那些在元件函式內"
+        },
+        {
+          "id": 43,
+          "start": 131.28,
+          "end": 134.82,
+          "en": "that are called inside of component functions,",
+          "zh": "被呼叫的函式，"
+        },
+        {
+          "id": 44,
+          "start": 134.82,
+          "end": 137.67000000000002,
+          "en": "unless their input changed.",
+          "zh": "除非它們的輸入改變了。"
+        },
+        {
+          "id": 45,
+          "start": 137.67000000000002,
+          "end": 139.38,
+          "en": "And React gives us a hook",
+          "zh": "而 React 提供我們一個 hook，"
+        },
+        {
+          "id": 46,
+          "start": 139.38,
+          "end": 143.52,
+          "en": "that can be used for this scenario and problem,",
+          "zh": "可以用於這個情境和問題，"
+        },
+        {
+          "id": 47,
+          "start": 143.52,
+          "end": 145.62,
+          "en": "the useMemo hook.",
+          "zh": "那就是 useMemo hook。"
+        },
+        {
+          "id": 48,
+          "start": 145.62,
+          "end": 148.32,
+          "en": "Which is not to be confused with memo,",
+          "zh": "它不該和 memo 搞混，"
+        },
+        {
+          "id": 49,
+          "start": 148.32,
+          "end": 151.17000000000002,
+          "en": "memo is wrapped around component functions,",
+          "zh": "memo 是包在元件函式外，"
+        },
+        {
+          "id": 50,
+          "start": 151.17000000000002,
+          "end": 153.75,
+          "en": "as explained a couple of lectures ago.",
+          "zh": "如幾堂課前解釋過的。"
+        },
+        {
+          "id": 51,
+          "start": 153.75,
+          "end": 157.82999999999998,
+          "en": "useMemo is wrapped around normal functions",
+          "zh": "useMemo 則是包在一般函式外，"
+        },
+        {
+          "id": 52,
+          "start": 157.82999999999998,
+          "end": 161.4,
+          "en": "that are executed in component functions",
+          "zh": "那些在元件函式中被執行的函式，"
+        },
+        {
+          "id": 53,
+          "start": 161.4,
+          "end": 164.57999999999998,
+          "en": "to prevent their execution.",
+          "zh": "用來防止它們執行。"
+        },
+        {
+          "id": 54,
+          "start": 164.57999999999998,
+          "end": 167.31,
+          "en": "And useMemo should really only be used",
+          "zh": "而 useMemo 真的只應該在"
+        },
+        {
+          "id": 55,
+          "start": 167.31,
+          "end": 172.02,
+          "en": "if you have a complex calculation that you want to prevent.",
+          "zh": "你有想避免的複雜計算時使用。"
+        },
+        {
+          "id": 56,
+          "start": 172.02,
+          "end": 173.57999999999998,
+          "en": "For example, here if we wanna",
+          "zh": "例如，在這裡如果我們想"
+        },
+        {
+          "id": 57,
+          "start": 173.57999999999998,
+          "end": 178.57999999999998,
+          "en": "prevent isPrime from executing we can call useMemo here.",
+          "zh": "防止 isPrime 執行，我們可以在這裡呼叫 useMemo。"
+        },
+        {
+          "id": 58,
+          "start": 179.25,
+          "end": 181.39,
+          "en": "And then through useMemo,",
+          "zh": "然後透過 useMemo，"
+        },
+        {
+          "id": 59,
+          "start": 182.61,
+          "end": 184.92,
+          "en": "we pass a function,",
+          "zh": "我們傳入一個函式，"
+        },
+        {
+          "id": 60,
+          "start": 184.92,
+          "end": 187.68,
+          "en": "for example, an anonymous arrow function.",
+          "zh": "例如一個匿名的箭頭函式。"
+        },
+        {
+          "id": 61,
+          "start": 187.68,
+          "end": 190.77,
+          "en": "Which then returns the result of the function",
+          "zh": "它接著會回傳我們想防止執行的"
+        },
+        {
+          "id": 62,
+          "start": 190.77,
+          "end": 192.9,
+          "en": "that we want to prevent executing.",
+          "zh": "那個函式的結果。"
+        },
+        {
+          "id": 63,
+          "start": 192.9,
+          "end": 195.33,
+          "en": "So it's in this anonymous function",
+          "zh": "所以就是在這個匿名函式中，"
+        },
+        {
+          "id": 64,
+          "start": 195.33,
+          "end": 196.923,
+          "en": "where we now call isPrime.",
+          "zh": "我們現在呼叫 isPrime。"
+        },
+        {
+          "id": 65,
+          "start": 198.761,
+          "end": 202.17000000000002,
+          "en": "useMemo then also wants a dependencies array,",
+          "zh": "useMemo 接著也需要一個依賴項目陣列，"
+        },
+        {
+          "id": 66,
+          "start": 202.17000000000002,
+          "end": 204.543,
+          "en": "just as useCallback wanted it.",
+          "zh": "就像 useCallback 需要的一樣。"
+        },
+        {
+          "id": 67,
+          "start": 205.38,
+          "end": 208.77,
+          "en": "And the idea behind useMemo is now",
+          "zh": "而 useMemo 背後的想法是，"
+        },
+        {
+          "id": 68,
+          "start": 208.77,
+          "end": 211.82999999999998,
+          "en": "that react will now execute this function,",
+          "zh": "React 現在會執行這個函式，"
+        },
+        {
+          "id": 69,
+          "start": 211.82999999999998,
+          "end": 213.99,
+          "en": "which you pass to useMemo.",
+          "zh": "你傳給 useMemo 的這個。"
+        },
+        {
+          "id": 70,
+          "start": 213.99,
+          "end": 216.66,
+          "en": "So this anonymous arrow function here.",
+          "zh": "也就是這裡這個匿名箭頭函式。"
+        },
+        {
+          "id": 71,
+          "start": 216.66,
+          "end": 220.07999999999998,
+          "en": "And it will then store the result of this execution,",
+          "zh": "然後它會儲存這次執行的結果，"
+        },
+        {
+          "id": 72,
+          "start": 220.07999999999998,
+          "end": 223.23,
+          "en": "so the result of calling isPrime then in the end",
+          "zh": "也就是到頭來呼叫 isPrime 的結果，"
+        },
+        {
+          "id": 73,
+          "start": 223.23,
+          "end": 227.133,
+          "en": "since that's returned in this anonymous function here.",
+          "zh": "因為那就是在這裡這個匿名函式中被回傳的。"
+        },
+        {
+          "id": 74,
+          "start": 228.27,
+          "end": 231.39,
+          "en": "And it will only re-execute this function",
+          "zh": "而它只會在這個依賴項目之一改變時"
+        },
+        {
+          "id": 75,
+          "start": 231.39,
+          "end": 234.48,
+          "en": "if one of those dependencies here changed.",
+          "zh": "才重新執行這個函式。"
+        },
+        {
+          "id": 76,
+          "start": 234.48,
+          "end": 237.24,
+          "en": "So if you have an empty dependencies array",
+          "zh": "所以如果你有一個空的依賴項目陣列，"
+        },
+        {
+          "id": 77,
+          "start": 237.24,
+          "end": 239.49,
+          "en": "this will never re-execute,",
+          "zh": "它就永遠不會重新執行，"
+        },
+        {
+          "id": 78,
+          "start": 239.49,
+          "end": 243.06,
+          "en": "because there are no dependencies that could change.",
+          "zh": "因為沒有任何可能改變的依賴項目。"
+        },
+        {
+          "id": 79,
+          "start": 243.06,
+          "end": 244.77,
+          "en": "But of course here you can see",
+          "zh": "但當然，在這裡你可以看到"
+        },
+        {
+          "id": 80,
+          "start": 244.77,
+          "end": 246.87,
+          "en": "that I'm already getting a warning,",
+          "zh": "我已經收到一個警告，"
+        },
+        {
+          "id": 81,
+          "start": 246.87,
+          "end": 251.01,
+          "en": "because here I should add initial count as a dependency",
+          "zh": "因為在這裡我應該把 initialCount 加入作為依賴項目，"
+        },
+        {
+          "id": 82,
+          "start": 251.01,
+          "end": 255.15,
+          "en": "because that is used as a input by isPrime.",
+          "zh": "因為它被 isPrime 當作輸入使用。"
+        },
+        {
+          "id": 83,
+          "start": 255.15,
+          "end": 257.95799999999997,
+          "en": "And indeed, if initialCount changes isPrime",
+          "zh": "而確實，如果 initialCount 改變，isPrime"
+        },
+        {
+          "id": 84,
+          "start": 257.95799999999997,
+          "end": 260.58,
+          "en": "will yield a different result,",
+          "zh": "會產生不同的結果，"
+        },
+        {
+          "id": 85,
+          "start": 260.58,
+          "end": 264.03,
+          "en": "and therefore you should add initialCount",
+          "zh": "因此你應該把 initialCount"
+        },
+        {
+          "id": 86,
+          "start": 264.03,
+          "end": 267.39300000000003,
+          "en": "as a value here in this dependencies array.",
+          "zh": "加入這裡這個依賴項目陣列作為值。"
+        },
+        {
+          "id": 87,
+          "start": 268.5,
+          "end": 271.35,
+          "en": "And with that useMemo, we'll now make sure",
+          "zh": "而有了 useMemo，我們現在確保"
+        },
+        {
+          "id": 88,
+          "start": 271.35,
+          "end": 274.89,
+          "en": "that in the end isPrime only gets re-executed",
+          "zh": "isPrime 到頭來只會在"
+        },
+        {
+          "id": 89,
+          "start": 274.89,
+          "end": 277.08,
+          "en": "if initial count changed.",
+          "zh": "initialCount 改變時被重新執行。"
+        },
+        {
+          "id": 90,
+          "start": 277.08,
+          "end": 279.09000000000003,
+          "en": "But it will not get executed",
+          "zh": "但它不會因為"
+        },
+        {
+          "id": 91,
+          "start": 279.09000000000003,
+          "end": 282.063,
+          "en": "if this counter state changed, for example.",
+          "zh": "例如這個 counter state 改變而被執行。"
+        },
+        {
+          "id": 92,
+          "start": 282.99,
+          "end": 286.68,
+          "en": "So if we save this and we go back and reload,",
+          "zh": "所以如果我們儲存這個、回到畫面並重新載入，"
+        },
+        {
+          "id": 93,
+          "start": 286.68,
+          "end": 287.73,
+          "en": "clear this,",
+          "zh": "清除這個，"
+        },
+        {
+          "id": 94,
+          "start": 287.73,
+          "end": 289.75,
+          "en": "you'll see that if I click increment",
+          "zh": "你會看到如果我點擊 increment，"
+        },
+        {
+          "id": 95,
+          "start": 291.392,
+          "end": 292.68,
+          "en": "we no longer get this output",
+          "zh": "我們不再得到這個來自"
+        },
+        {
+          "id": 96,
+          "start": 292.68,
+          "end": 295.05,
+          "en": "from inside the isPrime function.",
+          "zh": "isPrime 函式內部的輸出。"
+        },
+        {
+          "id": 97,
+          "start": 295.05,
+          "end": 295.953,
+          "en": "On the other hand,",
+          "zh": "另一方面，"
+        },
+        {
+          "id": 98,
+          "start": 296.841,
+          "end": 300.243,
+          "en": "if I set a new counter value we do get that output here.",
+          "zh": "如果我設定新的計數值，我們確實會在這裡得到那個輸出。"
+        },
+        {
+          "id": 99,
+          "start": 301.71,
+          "end": 303.63,
+          "en": "Now I wanna emphasize though",
+          "zh": "不過我想強調，"
+        },
+        {
+          "id": 100,
+          "start": 303.63,
+          "end": 307.41,
+          "en": "that you really should not overuse useMemo.",
+          "zh": "你真的不應該過度使用 useMemo。"
+        },
+        {
+          "id": 101,
+          "start": 307.41,
+          "end": 310.86,
+          "en": "You should not start wrapping it around all your functions,",
+          "zh": "你不應該開始把它包在你所有的函式上，"
+        },
+        {
+          "id": 102,
+          "start": 310.86,
+          "end": 313.95,
+          "en": "because just like Memo, of course it does need",
+          "zh": "因為就像 memo 一樣，它當然需要"
+        },
+        {
+          "id": 103,
+          "start": 313.95,
+          "end": 318.36,
+          "en": "to perform this extra dependency value comparison.",
+          "zh": "執行這個額外的依賴值比較。"
+        },
+        {
+          "id": 104,
+          "start": 318.36,
+          "end": 319.8,
+          "en": "And if you have a function",
+          "zh": "而如果你有一個函式"
+        },
+        {
+          "id": 105,
+          "start": 319.8,
+          "end": 322.95,
+          "en": "that for example simply needs to be executed",
+          "zh": "例如基本上每次元件函式重新執行時"
+        },
+        {
+          "id": 106,
+          "start": 322.95,
+          "end": 326.7,
+          "en": "on basically every component function, re-execution.",
+          "zh": "都需要被執行，"
+        },
+        {
+          "id": 107,
+          "start": 326.7,
+          "end": 329.58,
+          "en": "Adding this extra check doesn't make any sense",
+          "zh": "加入這個額外的檢查就完全不合理，"
+        },
+        {
+          "id": 108,
+          "start": 329.58,
+          "end": 332.493,
+          "en": "and instead just cost extra performance.",
+          "zh": "反而只會多耗費效能。"
+        },
+        {
+          "id": 109,
+          "start": 333.57,
+          "end": 335.90999999999997,
+          "en": "On the other hand here where indeed",
+          "zh": "另一方面，在這裡確實"
+        },
+        {
+          "id": 110,
+          "start": 335.90999999999997,
+          "end": 338.64,
+          "en": "a lot of executions can be avoided,",
+          "zh": "可以避免很多執行，"
+        },
+        {
+          "id": 111,
+          "start": 338.64,
+          "end": 341.88,
+          "en": "and where we potentially execute code",
+          "zh": "而且我們可能會執行需要一些時間"
+        },
+        {
+          "id": 112,
+          "start": 341.88,
+          "end": 343.26,
+          "en": "that could take some time",
+          "zh": "才能完成的程式碼，"
+        },
+        {
+          "id": 113,
+          "start": 343.26,
+          "end": 347.22,
+          "en": "to finish using useMemo makes more sense.",
+          "zh": "使用 useMemo 就比較合理。"
+        },
+        {
+          "id": 114,
+          "start": 347.22,
+          "end": 350.1,
+          "en": "So just as with memo, you should use it with care.",
+          "zh": "所以就像 memo 一樣，你應該謹慎使用它。"
+        },
+        {
+          "id": 115,
+          "start": 350.1,
+          "end": 353.31,
+          "en": "But if used in the right situations it can help",
+          "zh": "但如果在正確的情況下使用，它可以幫助"
+        },
+        {
+          "id": 116,
+          "start": 353.31,
+          "end": 356.613,
+          "en": "improve the performance of your react application.",
+          "zh": "提升你的 React 應用程式的效能。"
+        }
+      ]
     }
   ],
   "errors": []
