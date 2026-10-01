@@ -5,7 +5,8 @@ const courses = require('../udemy-bilingual/courses.js');
 const manifest = require('../udemy-bilingual/manifest.json');
 
 async function main() {
-  assert.equal(courses.courses.length, 12);
+  assert.equal(courses.courses.length, 13);
+  assert.equal(courses.forUrl('https://www.udemy.com/course/claude-code-the-practical-guide/learn/lecture/123'), null);
   assert.deepEqual(manifest.content_scripts[0].matches,
     courses.courses.map(c => `https://www.udemy.com/course/${c.slug}/learn/*`));
   assert.ok(manifest.background.scripts.indexOf('courses.js') < manifest.background.scripts.indexOf('background.js'));
@@ -38,10 +39,10 @@ async function main() {
   const context = { URL, Map, fetch: () => {}, module: { exports: {} } };
   vm.createContext(context);
   vm.runInContext(fs.readFileSync(require.resolve('../udemy-bilingual/courses.js'), 'utf8'), context);
-  const fresh = context.module.exports, course = fresh.courses[1];
+  const fresh = context.module.exports, course = fresh.courses.find(item => item.slug === 'codex-the-practical-guide');
   await assert.rejects(fresh.idFor(course, async () => ({ ok: false, status: 403 })), /403/);
   await assert.rejects(fresh.idFor(course, async () => ({ ok: true, json: async () => ({ id: 'invalid' }) })), /ID/);
-  assert.equal(await fresh.idFor(course, async () => ({ ok: true, json: async () => ({ id: 7029917 }) })), 7029917);
+  assert.equal(await fresh.idFor(course, async () => ({ ok: true, json: async () => ({ id: 7062345 }) })), 7062345);
 
   let listener;
   const background = {
@@ -57,6 +58,7 @@ async function main() {
     await assert.rejects(listener({ type: 'caption-file', url: 'https://evil.test/test.vtt' }, sender), /字幕來源/);
   }
   await assert.rejects(listener({ type: 'page-zoom' }, { url: 'https://www.udemy.com/course/unknown/learn/', tab: { id: 1 } }), /不支援/);
+  await assert.rejects(listener({ type: 'page-zoom' }, { url: 'https://www.udemy.com/course/claude-code-the-practical-guide/learn/lecture/123', tab: { id: 1 } }), /不支援/);
   console.log(`PASS: ${courses.courses.length} course routes, ID resolution/cache/retry, per-course storage keys, background authorization and caption hosts.`);
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });

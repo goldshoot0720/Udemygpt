@@ -3,7 +3,6 @@
   "use strict";
   const courses = Object.freeze([
     { slug: "react-the-complete-guide-incl-redux", title: "React - The Complete Guide", id: 1362070 },
-    { slug: "claude-code-the-practical-guide", title: "Claude Code - The Practical Guide" },
     { slug: "codex-the-practical-guide", title: "Codex - The Practical Guide" },
     { slug: "learn-flutter-dart-to-build-ios-android-apps", title: "Flutter & Dart - The Complete Guide" },
     { slug: "nodejs-the-complete-guide", title: "NodeJS - The Complete Guide" },
@@ -13,7 +12,9 @@
     { slug: "nativescript-angular-build-native-ios-android-web-apps", title: "NativeScript + Angular: Build Native iOS, Android & Web Apps" },
     { slug: "remix-course", title: "Remix.js - The Practical Guide" },
     { slug: "the-complete-guide-to-angular-2", title: "Angular - The Complete Guide" },
-    { slug: "nextjs-react-the-complete-guide", title: "Next.js & React - The Complete Guide" }
+    { slug: "nextjs-react-the-complete-guide", title: "Next.js & React - The Complete Guide" },
+    { slug: "vuejs-2-the-complete-guide", title: "Vue - The Complete Guide (incl. Router & Composition API)" },
+    { slug: "ionic-2-the-practical-guide-to-building-ios-android-apps", title: "Ionic - Build iOS, Android & Web Apps with Ionic & Angular" }
   ].map(course => Object.freeze({ ...course, instructor: "Maximilian Schwarzmüller" })));
   const ids = new Map();
   function forUrl(value) {

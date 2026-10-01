@@ -6,10 +6,9 @@
 
 ## 支援課程（2.1）
 
-以下 12 門課程的講師皆為 **Maximilian Schwarzmüller**。
+以下 13 門課程的講師皆為 **Maximilian Schwarzmüller**。
 
 - [React - The Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/)
-- [Claude Code - The Practical Guide](https://www.udemy.com/course/claude-code-the-practical-guide/)
 - [Codex - The Practical Guide](https://www.udemy.com/course/codex-the-practical-guide/)
 - [Flutter & Dart - The Complete Guide](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/)
 - [NodeJS - The Complete Guide](https://www.udemy.com/course/nodejs-the-complete-guide/)
@@ -20,6 +19,8 @@
 - [Remix.js - The Practical Guide](https://www.udemy.com/course/remix-course/)
 - [Angular - The Complete Guide](https://www.udemy.com/course/the-complete-guide-to-angular-2/)
 - [Next.js & React - The Complete Guide](https://www.udemy.com/course/nextjs-react-the-complete-guide/)
+- [Vue - The Complete Guide (incl. Router & Composition API)](https://www.udemy.com/course/vuejs-2-the-complete-guide/)
+- [Ionic - Build iOS, Android & Web Apps with Ionic & Angular](https://www.udemy.com/course/ionic-2-the-practical-guide-to-building-ios-android-apps/)
 
 在上述課程的 `learn/` 播放器頁面啟用。課程 ID 自動從 Udemy 取得；本堂及全課英文匯出、譯文匯入均使用目前課程 ID，譯文依課程分開儲存，並相容既有 React 譯文。新增支援不代表字幕已翻譯；新課程需先匯出英文，再交給 ChatGPT 翻譯與匯入。
 
