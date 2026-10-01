@@ -47,6 +47,13 @@ function prepare(file) {
   const result = validate(source);
   const folder = path.join(root, 'data', 'courses', String(source.courseId));
   const sourceFile = path.join(folder, `English-course-${source.courseId}.json`);
+  const queue = path.join(folder, 'translation-progress.json');
+  const previous = fs.existsSync(queue) ? JSON.parse(fs.readFileSync(queue,'utf8')) : null;
+  const saved = new Map((previous?.lectures || []).map(item=>[String(item.lectureId),item]));
+  for (const entry of saved.values()) {
+    const lecture = source.lectures.find(item=>String(item.id)===String(entry.lectureId));
+    if (!lecture || lecture.sourceHash !== entry.sourceHash) throw new Error(`Existing queue source changed: ${entry.lectureId}; preserve old source and resolve before replacing`);
+  }
   write(sourceFile, source);
   write(path.join(folder, 'curriculum.json'), source.curriculum);
   const metadata = {version:1,courseId:source.courseId,courseSlug:source.courseSlug,courseTitle:source.courseTitle,sourceLanguage:'en',targetLanguage:'zh-TW'};
@@ -63,15 +70,14 @@ function prepare(file) {
     const filename = `English-${String(lecture.videoOrder).padStart(3,'0')}-${lecture.id}.json`;
     const lectureFile = path.join(folder, 'lecture-queue', filename);
     write(lectureFile, {...metadata,lectures:[lecture],errors:[]});
-    entries.push({lectureId:String(lecture.id),title:lecture.title,lectureOrder:lecture.lectureOrder,videoOrder:lecture.videoOrder,cueCount:lecture.cues.length,sourceHash:lecture.sourceHash,sourceFile:lectureFile,status:'pending',translationFile:null,verified:false,imported:false});
+    entries.push(saved.get(String(lecture.id)) || {lectureId:String(lecture.id),title:lecture.title,lectureOrder:lecture.lectureOrder,videoOrder:lecture.videoOrder,cueCount:lecture.cues.length,sourceHash:lecture.sourceHash,sourceFile:lectureFile,status:'pending',translationFile:null,verified:false,imported:false});
     if (chunk.length && count + lecture.cues.length > 800) flush();
     chunk.push(lecture); count += lecture.cues.length;
   }
   flush();
   write(path.join(folder, 'chatgpt-batches', 'index.json'), {courseId:source.courseId,batches});
-  // Never reset an existing translation ledger when reprocessing a source.
-  const queue = path.join(folder, 'translation-progress.json');
-  if (!fs.existsSync(queue)) write(queue, {...metadata,lectures:entries});
+  // Preserve completed work while adding previously missing source lectures.
+  write(queue, {...previous,...metadata,lectures:entries});
   const progressFile = path.join(root,'data','english-download-progress.json');
   const progress = JSON.parse(fs.readFileSync(progressFile,'utf8'));
   const entry = progress.courses.find(item => item.slug === source.courseSlug);

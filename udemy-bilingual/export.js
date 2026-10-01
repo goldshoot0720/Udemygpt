@@ -44,7 +44,9 @@
   start.addEventListener('click', async () => {
     start.disabled = true; skipReact.disabled = true;
     const report = { version: 1, startedAt: new Date().toISOString(), courses: [] };
-    const targets = UdemyCourses.courses.filter(course => !(skipReact.checked && course.id === 1362070));
+    const skipped = new Set(inPlayer ? (new URL(location.href).searchParams.get('subtitleExportSkip') || '').split(',') : []);
+    const targets = UdemyCourses.courses.filter(course => !(skipReact.checked && course.id === 1362070) && !skipped.has(course.slug));
+    for (const slug of skipped) if (rows.has(slug)) rows.get(slug).state.textContent = '沿用已驗證英文備份';
     if (skipReact.checked) rows.get('react-the-complete-guide-incl-redux').state.textContent = '沿用已有完整英文備份';
     for (const [index, course] of targets.entries()) {
       const { row, state } = rows.get(course.slug);
@@ -67,8 +69,11 @@
         if (!videos.length) throw new Error('未取得影片講座清單');
         const result = { version: 1, courseId, courseSlug: course.slug, courseTitle: course.title,
           sourceLanguage: 'en', targetLanguage: 'zh-TW', lectures: [], errors: [], curriculum };
-        for (const [videoIndex, item] of videos.entries()) {
-          state.textContent = `下載 ${videoIndex + 1}/${videos.length} · ${item.title}`;
+        for (let batchStart = 0; batchStart < videos.length; batchStart += 3) {
+          const group = videos.slice(batchStart, batchStart + 3);
+          state.textContent = `下載 ${batchStart + 1}–${batchStart + group.length}/${videos.length} · ${group[0].title}`;
+          await Promise.all(group.map(async (item, offset) => {
+          const videoIndex = batchStart + offset;
           try {
             // Check access through the same subscribed-lecture endpoint used by the player.
             const lecture = await json(`/api-2.0/users/me/subscribed-courses/${courseId}/lectures/${item.id}/?fields[lecture]=asset&fields[asset]=captions`);
@@ -81,8 +86,11 @@
               videoOrder: videoIndex + 1, sourceHash: await hash(cues),
               cues: cues.map(({ start, end, text }, i) => ({ id: i + 1, start, end, en: text, zh: '' })) });
           } catch (error) { result.errors.push({ id: item.id, title: item.title, error: error.message }); }
+          }));
           await delay(300);
         }
+        result.lectures.sort((a,b) => a.videoOrder - b.videoOrder);
+        result.errors.sort((a,b) => videos.findIndex(item=>item.id===a.id) - videos.findIndex(item=>item.id===b.id));
         record.status = result.errors.length ? 'partial' : 'downloaded';
         record.videoCount = videos.length; record.downloadedLectures = result.lectures.length;
         record.cueCount = result.lectures.reduce((count, lecture) => count + lecture.cues.length, 0);

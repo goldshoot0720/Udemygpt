@@ -15,6 +15,7 @@ class Element {
     {slug:'complete',title:'Complete'}, {slug:'partial',title:'Partial'}, {slug:'denied',title:'Denied'}];
   const nodes = Object.fromEntries(['#status','#courses','#start','#skip-react'].map(key=>[key,new Element()]));
   const files = [], requests = [];
+  let active = 0, peak = 0;
   class TestURL extends URL {}
   TestURL.createObjectURL = blob => { files.push(blob); return 'blob:fixture'; };
   const context = {
@@ -26,8 +27,14 @@ class Element {
       if (address.includes('/courses/4/')) return {ok:false,status:403};
       if (address.includes('subscriber-curriculum-items')) return {ok:true,json:async()=>({results:[
         {_class:'lecture',id:100,title:'Video',asset:{asset_type:'Video'}},
-        {_class:'lecture',id:101,title:'Article',asset:{asset_type:'Article'}}],next:null})};
-      if (address.includes('subscribed-courses')) return {ok:true,json:async()=>({asset:{captions:address.includes('/3/')?[]:[{locale_id:'en_US',url:'https://vtt-a.udemycdn.com/fixture.vtt'}]}})};
+        {_class:'lecture',id:101,title:'Article',asset:{asset_type:'Article'}},
+        {_class:'lecture',id:102,title:'Video 2',asset:{asset_type:'Video'}},
+        {_class:'lecture',id:103,title:'Video 3',asset:{asset_type:'Video'}}],next:null})};
+      if (address.includes('subscribed-courses')) {
+        active++; peak=Math.max(peak,active);
+        await new Promise(resolve=>setTimeout(resolve,address.includes('/100/')?10:1)); active--;
+        return {ok:true,json:async()=>({asset:{captions:address.includes('/3/')?[]:[{locale_id:'en_US',url:'https://vtt-a.udemycdn.com/fixture.vtt'}]}})};
+      }
       return {ok:true,text:async()=>'WEBVTT\n\n00:00:01.000 --> 00:00:03.000\nHello\n'};
     }
   };
@@ -35,15 +42,17 @@ class Element {
   await nodes['#start'].events.click();
   const values = await Promise.all(files.map(async file=>JSON.parse(await file.text())));
   const complete = values.find(value=>value.courseSlug==='complete');
-  assert.equal(complete.lectures.length,1);
-  assert.equal(complete.curriculum.length,2);
+  assert.equal(complete.lectures.length,3);
+  assert.equal(peak,3);
+  assert.deepEqual(complete.lectures.map(x=>x.id),['100','102','103']);
+  assert.equal(complete.curriculum.length,4);
   assert.equal(complete.lectures[0].lectureOrder,1);
   assert.equal(complete.lectures[0].cues[0].zh,'');
   const hash = createHash('sha256').update(JSON.stringify([{start:1,end:3,text:'Hello'}])).digest('hex');
   assert.equal(complete.lectures[0].sourceHash,hash);
   const partial = values.find(value=>value.courseSlug==='partial');
   assert.equal(partial.lectures.length,0);
-  assert.equal(partial.errors.length,1);
+  assert.equal(partial.errors.length,3);
   const report = values.find(value=>value.startedAt);
   assert.deepEqual(report.courses.map(course=>course.status),['downloaded','partial','failed']);
   assert.match(report.courses[2].error,/403/);
