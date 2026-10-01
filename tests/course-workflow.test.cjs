@@ -62,17 +62,25 @@ async function workflow(course, index) {
     async fetch(address) {
       address = String(address); requests.push(address);
       if (address.includes(`courses/${course.slug}/?fields[course]=id`)) return { ok: true, json: async () => ({ id: courseId }) };
-      if (address.includes(`/courses/${courseId}/subscriber-curriculum-items/`)) return { ok: true, json: async () => ({ results: [{ _class: 'lecture', id: 123, title: 'Fixture lecture', asset: { asset_type: 'Video', captions: [{ locale_id: 'en_US', url: 'https://vtt-a.udemycdn.com/test.vtt' }] } }], next: null }) };
+      if (address.includes(`/courses/${courseId}/subscriber-curriculum-items/`)) return { ok: true, json: async () => ({ results: [{ _class: 'lecture', id: 123, title: 'Fixture lecture', asset: { asset_type: 'Video', length: 120, captions: [{ locale_id: 'en_US', url: 'https://vtt-a.udemycdn.com/test.vtt' }] } }], next: null }) };
       assert.ok(address.includes(`/subscribed-courses/${courseId}/lectures/123/`), address);
       return { ok: true, json: async () => ({ asset: { captions: [{ locale_id: 'en_US', url: 'https://vtt-a.udemycdn.com/test.vtt' }] } }) };
     }
   };
   vm.createContext(context);
   vm.runInContext(fs.readFileSync(require.resolve('../udemy-bilingual/courses.js'), 'utf8'), context);
+  vm.runInContext(fs.readFileSync(require.resolve('../udemy-bilingual/course-time.js'), 'utf8'), context);
   vm.runInContext(fs.readFileSync(require.resolve('../udemy-bilingual/content.js'), 'utf8'), context);
   await settle();
   const root = nodes.find(node => node.id === 'udemy-bilingual-root'), shadow = root.shadow;
   assert.equal(root.dataset.status, 'english-only');
+  assert.equal(shadow.querySelector('.time-current').textContent, '目前：1. Fixture lecture');
+  assert.equal(shadow.querySelector('.time-total').textContent, '總影片 2.0 分鐘');
+  assert.equal(shadow.querySelector('.time-watched').textContent, '已觀看 0.0 分鐘');
+  video.currentTime = 60; video.events.timeupdate();
+  assert.equal(shadow.querySelector('.time-watched').textContent, '已觀看 1.0 分鐘');
+  assert.equal(shadow.querySelector('.time-remaining').textContent, '未觀看 1.0 分鐘');
+  video.currentTime = 1.5;
   await shadow.querySelector('.export-current').events.click();
   const exported = JSON.parse(await downloads.pop().text());
   assert.equal(exported.courseId, courseId);

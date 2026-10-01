@@ -1,0 +1,1035 @@
+{
+  "version": 1,
+  "courseId": 2508942,
+  "courseSlug": "javascript-the-complete-guide-2020-beginner-advanced",
+  "courseTitle": "JavaScript - The Complete Guide (Beginner + Advanced)",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "16477270",
+      "title": "Adding Basic REST Routes",
+      "lectureOrder": 491,
+      "videoOrder": 430,
+      "sourceHash": "eb6a36ad9b23e1be0673f0d648d75b2e5f829f735a5d9643fe3803a43f7b8eee",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.1,
+          "end": 6.39,
+          "en": "To implement this new approach, we could delete the view folder but we can also just ignore it.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.66,
+          "end": 13.07,
+          "en": "I will comment out these two lines because we won't send back any HTML rendered templates anymore,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 13.29,
+          "end": 16.38,
+          "en": "instead now I want to exchange JSON data.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.38,
+          "end": 18.4,
+          "en": "So for that, we can also comment out",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 18.42,
+          "end": 26.49,
+          "en": "these middlewares here and when we parse incoming data for our API which we're now building, I also don't",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 26.49,
+          "end": 30,
+          "en": "expect form data anymore but I expect JSON data,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 30.03,
+          "end": 33.53,
+          "en": "so I will try to parse incoming JSON data here.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 33.6,
+          "end": 41.51,
+          "en": "Now I want to set up two routes, two URLs which I handle here on this backend Node.js server,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 41.76,
+          "end": 44.95,
+          "en": "one URL which can be triggered from share place,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 45.03,
+          "end": 52.98,
+          "en": "basically when we select a place here, I want to send the request to this backend server with the chosen",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 53.07,
+          "end": 58.59,
+          "en": "address and the chosen coordinates, so that on the backend we can store that in a database and create",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 58.62,
+          "end": 64.81,
+          "en": "a unique ID for that which we then send back to the frontend and the second URL I want is reached",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 64.81,
+          "end": 71.23,
+          "en": "from my-place.js where we extract an ID from the URL and then request the data for that place",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 71.56,
+          "end": 73.9,
+          "en": "here from our server as well.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 74.02,
+          "end": 79.53999999999999,
+          "en": "Now to split our code a bit more and have a clearer structure, I'll create a new folder, routes which",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 79.53999999999999,
+          "end": 84.91,
+          "en": "should hold these routes so that in app.js, we just have the general setup like this body parsing which",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 84.91,
+          "end": 90.73,
+          "en": "I set up and then we have our routes, so the specific different paths which we want to support and the",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 90.73,
+          "end": 97.53999999999999,
+          "en": "logic for that in a separate file. So for that, let's go into the routes folder and here, I will add",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 97.53999999999999,
+          "end": 98.53,
+          "en": "my-location.js",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 98.68,
+          "end": 99.37,
+          "en": "file,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 99.37,
+          "end": 101.91,
+          "en": "you can name this however you want of course and there",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 101.92,
+          "end": 105.69,
+          "en": "we also need to import Express by requiring Expressy",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 105.78999999999999,
+          "end": 108.68,
+          "en": "You need to import this in any file where you want to use it.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 108.82,
+          "end": 113.55,
+          "en": "Here I won't create a new Express app, so we'll not execute it like this,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 113.56,
+          "end": 119.2,
+          "en": "instead we can use another feature which is part of the Express package and that's the Express router.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 120.18,
+          "end": 125.04,
+          "en": "We can execute this as a as a function here and store it in a constant,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 125.04,
+          "end": 133.5,
+          "en": "the router makes it easy for us to register different routes. You can simply specify the kind of HTTP",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 133.5,
+          "end": 134.95,
+          "en": "method you want to support,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 134.97,
+          "end": 142.98,
+          "en": "for example a post method and then any incoming post request to the path which you specify as the first",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 142.98,
+          "end": 150.78,
+          "en": "argument, for example slash nothing or /add-location, whatever you want, will then be handled",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 151.07999999999998,
+          "end": 157.98,
+          "en": "by the function you specify as a second argument which receives a request, a response and the next function",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 157.98,
+          "end": 158.7,
+          "en": "here.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 158.73,
+          "end": 166.8,
+          "en": "So it's like a middleware but filtered for a path and a specific HTTP method and only incoming post requests",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 166.98,
+          "end": 170.48,
+          "en": "to this address here will make it into this",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 170.5,
+          "end": 173.75,
+          "en": "function. Now that's one of the two routes we need,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 173.75,
+          "end": 177.2,
+          "en": "the other route will be a get route because we want to get data,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 177.41,
+          "end": 183.62,
+          "en": "we want to get let's say a specific location for a specific ID and I'll come back to how that works",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 183.62,
+          "end": 190.34,
+          "en": "later, for now let's focus on the post route. So here on the post route, the idea now is that we get some",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 190.34,
+          "end": 193.41,
+          "en": "data and keep in mind that we parsed data here,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 193.43,
+          "end": 199.52,
+          "en": "so we got it already extracted and stored in this body property of the request object and the data we",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 199.52,
+          "end": 205.01,
+          "en": "get there are the coordinates and the address and then we want to store that in a database.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 205.01,
+          "end": 210.92000000000002,
+          "en": "Now let's add the database later, for now here I'll just use an in-memory storage which will basically",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 211.16,
+          "end": 215.66,
+          "en": "live as long as our server lives but whenever we shut down the server, it will be lost,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 215.69,
+          "end": 221.09,
+          "en": "so it's not a great permanent storage but here to get started it's fine and there I'll have my location",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 221.09,
+          "end": 227.42000000000002,
+          "en": "storage which simply is let's say a Javascript object and there I have my locations which is an array",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 227.91,
+          "end": 234.89,
+          "en": "and now here when we got an incoming request, I'll reach out to location storage.locations and I push a",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 234.89,
+          "end": 240.38,
+          "en": "new location in there and this new location will receive an ID which I want to generate on the fly.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 241.2,
+          "end": 247.4,
+          "en": "For that, we can for example use math random which is not perfectly unique but for now it will do, later",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 247.4,
+          "end": 254.03,
+          "en": "we'll have a better ID and then I will have my address which we get from the request body, request",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 254.03,
+          "end": 255.05,
+          "en": "body.address",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 255.05,
+          "end": 261.56,
+          "en": "let's say, we expect an address field on the incoming request body and the coords, the coordinates which",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 261.56,
+          "end": 266.76,
+          "en": "could be a nested object with a lat key which we get from request.body.lat",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 266.8,
+          "end": 272.15999999999997,
+          "en": "let's say and a lng key which we get from request.body.lng.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 272.3,
+          "end": 278.42,
+          "en": "Of course it will be our duty to make sure that when we sent this request, we do provide this address",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 278.42,
+          "end": 284.42,
+          "en": "field on the body of the request and this lat and lng fields on the request body",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 284.69,
+          "end": 288.51,
+          "en": "and with that we should add this to our location storage.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 288.74,
+          "end": 294.83,
+          "en": "Now sending back a response would also be nice so that we basically provide some answer to the client",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 294.86,
+          "end": 296.37,
+          "en": "who sent us this data",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 296.57,
+          "end": 300.71,
+          "en": "and here we can use the JSON method to send back a JSON response.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 300.71,
+          "end": 305.12,
+          "en": "It's like using send and setting the content type to JSON manually,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 305.12,
+          "end": 311.06,
+          "en": "here we can simply abbreviate this and just send back JSON data, we can send back an object which",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 311.06,
+          "end": 316.94,
+          "en": "will be converted to JSON automatically by Express.js and there we could have a message maybe where",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 316.94,
+          "end": 323.84,
+          "en": "we say stored location or whatever you want to send back. You could always add an extra validation",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 323.9,
+          "end": 328.64,
+          "en": "where you first of all check whether you got valid coordinates and you may be send back an error if",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 328.64,
+          "end": 329.84,
+          "en": "that's not the case",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 330.05,
+          "end": 333.22,
+          "en": "but to not dive too deeply into that right now, let's ignore that and",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 333.26,
+          "end": 341.17,
+          "en": "let's just assume we get valid data here. With all of that, we got our first routes set up but it lives",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 341.17,
+          "end": 349.3,
+          "en": "in the location.js file. Right now nowhere in this application we tell Javascript or Node or Express",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 349.3,
+          "end": 351.25,
+          "en": "that we're interested in this file.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 351.25,
+          "end": 356.53,
+          "en": "So back to app.js which is the file we actually will execute with Node with this command here in the",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 356.53,
+          "end": 363.61,
+          "en": "terminal, here we should import this location.js file or the routes set up there to be precise and",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 363.61,
+          "end": 369.04,
+          "en": "we should then also tell Express.js that it should consider these routes when it funnels the request",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 369.04,
+          "end": 374.47,
+          "en": "through all the middlewares. Now to import something from that file, we first of all need to export",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 374.47,
+          "end": 380.11,
+          "en": "something here and here Node.js has its own export syntax, you don't have an export keyword as you",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 380.11,
+          "end": 386.8,
+          "en": "have it in client side Javascript, instead you export with module.exports. This by the way might look",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 386.8,
+          "end": 392.71,
+          "en": "familiar to you, it is what we had here in the webpack config earlier because I mentioned that this",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 392.71,
+          "end": 394.2,
+          "en": "would be handled by Node.js,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 394.33,
+          "end": 400.18,
+          "en": "well here is how we export something in a Node.js file. We then point at the something which should",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 400.18,
+          "end": 406.38,
+          "en": "be exported and here, that's the router with these registered routes that are added to it.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 406.45,
+          "end": 413.56,
+          "en": "So here we export this configured Express router and now we can import it into another file and we do",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 413.56,
+          "end": 420.07,
+          "en": "import with the syntax you see up there. We can import our routes here, however you want to name it, by",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 420.07,
+          "end": 426.7,
+          "en": "requiring this file where we store them, so ./routes to go to the routes folder and then",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 426.7,
+          "end": 434.07,
+          "en": "location, maybe name it location routes therefore but the name is up to you. Here we have a relative",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 434.07,
+          "end": 439.08,
+          "en": "path, before we just had the package names but now we're not working with a package but with one of our",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 439.08,
+          "end": 444.02,
+          "en": "own files and therefore we have to specify a relative path here and also important,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 444.03,
+          "end": 446.85,
+          "en": "you can and should omit the file extension here,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 446.91,
+          "end": 450.42,
+          "en": "Node.js will add it for you automatically when it looks up this file,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 450.42,
+          "end": 454.01,
+          "en": "it will look for a Javascript file in there after all.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 454.02,
+          "end": 460.08,
+          "en": "Now we just have to tell Express.js that it should consider these location routes and for that, after",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 460.2,
+          "end": 461.19,
+          "en": "parsing the body",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 461.22,
+          "end": 468.09000000000003,
+          "en": "but before you listen, you want to register a new middleware here and that should just be the location",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 468.64,
+          "end": 473.79,
+          "en": "routes here because it turns out the Express router is actually a middleware",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 473.82,
+          "end": 480.27,
+          "en": "you can register in your Express application and now Express knows that it should funnel incoming requests",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 480.42,
+          "end": 482.13,
+          "en": "through these routes as well",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 482.13,
+          "end": 488.49,
+          "en": "and there, we have our filtering logic by HTTP method and by path to then execute these functions",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 488.76,
+          "end": 495.32,
+          "en": "which in the end are also just like middleware functions you could say. So that was a lot of talking,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 495.32,
+          "end": 499.37,
+          "en": "now if we start our server, let's see if it works. Server is running,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 499.37,
+          "end": 504.62,
+          "en": "now we need to work on the client side and make sure that in share place, once we got coordinates and",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 504.62,
+          "end": 514.62,
+          "en": "address, we send a request to our backend. Now the backend is running on port 3000, the frontend",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 514.62,
+          "end": 520.02,
+          "en": "by default has port 8080, the webpack dev server takes this. So we have no clash here,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 520.02,
+          "end": 525.39,
+          "en": "we have to use different ports because these are two totally different servers as if they were running",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 525.42,
+          "end": 531.51,
+          "en": "on different domains and therefore now here, we can use fetch for example to send the request to HTTP",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 531.55,
+          "end": 537.18,
+          "en": "localhost:3000 for now because we're running this locally",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 537.2,
+          "end": 539.17,
+          "en": "but again this is like a separate server,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 539.19,
+          "end": 546.6,
+          "en": "it is technically a separate server and then here, we want to send the request to /add-location",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 546.9,
+          "end": 553.7,
+          "en": "because that's the path we're filtering out with a post request here. So send this to /add-location",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 554.03,
+          "end": 558.62,
+          "en": "and now configure this request because as I just said it should be a post request,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 558.71,
+          "end": 564.59,
+          "en": "so we want to add the method here and set this to post and add a body to this request and this body",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 564.59,
+          "end": 567.77,
+          "en": "should be the coordinates and the address.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 567.77,
+          "end": 573.98,
+          "en": "So for that, we can call json.stringify because we need to provide some JSON content here and",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 574.01,
+          "end": 578.35,
+          "en": "json. stringify object and now it's important that we pass the right keys here,",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 578.48,
+          "end": 583.02,
+          "en": "we have to pass the keys which we tried to extract on the backend. There",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 583.04,
+          "end": 589.34,
+          "en": "we're looking for an address key, for a lat key and for an lng key, so we should provide exactly these",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 589.34,
+          "end": 591.14,
+          "en": "keys here as well,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 591.38,
+          "end": 599.47,
+          "en": "an address key which holds the address we're getting here and then a lat key which holds",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 599.47,
+          "end": 600.16,
+          "en": "coordinates.latitude",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 600.47,
+          "end": 606.71,
+          "en": "and then a lng key which holds coordinates.lng",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 606.86,
+          "end": 610.24,
+          "en": "and this should now be a valid body for our request.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 611.73,
+          "end": 616.56,
+          "en": "Now let's also provide some headers here to tell the backend that we're sending some JSON data,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 616.68,
+          "end": 618.42,
+          "en": "so here I will add my headers,",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 618.45,
+          "end": 624.81,
+          "en": "I will add the content-type header and set this to application/json to tell the backend",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 624.84,
+          "end": 630.6,
+          "en": "that we're sending some JSON data so that body parser and app.js which is watching for JSON data",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 630.69,
+          "end": 635.74,
+          "en": "knows that this is a request where it should parse its body.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 635.76,
+          "end": 637.44,
+          "en": "So now we're trying to send this,",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 638.07,
+          "end": 641.52,
+          "en": "then we get back a response here in the end,",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 641.52,
+          "end": 648.09,
+          "en": "so we might want to parse that JSON data in there and return that, as you learned this returns a new",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 648.09,
+          "end": 649.44,
+          "en": "promise",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 649.44,
+          "end": 656.93,
+          "en": "and thereafter we got the data and our response which we for now can just log here on the client. You",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 656.93,
+          "end": 659.3,
+          "en": "could of course also use async await if you wanted to,",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 659.3,
+          "end": 661.55,
+          "en": "here I'll go for two then blocks.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 661.61,
+          "end": 666.96,
+          "en": "Now in reality, you might also want to check if the status code is ok, if you've got any errors",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 667.04,
+          "end": 671.96,
+          "en": "but on our server, we're not setting any other status codes than the default 200 code",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 671.96,
+          "end": 675.52,
+          "en": "and we're also not throwing any errors unless we have a bug in there,",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 675.53,
+          "end": 677.21,
+          "en": "so for now we can leave it as it is,",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 677.3,
+          "end": 683.16,
+          "en": "it's just there so that we can have a look at how this generally works. So with all of that, let's save",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 683.15,
+          "end": 684.5,
+          "en": "the client side code",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 684.66,
+          "end": 689.13,
+          "en": "and then here, make sure you've got all packages installed which I'll do again here because I deleted",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 689.13,
+          "end": 693.99,
+          "en": "node modules in this project in between the different videos and with dependencies installed,",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 693.99,
+          "end": 700.17,
+          "en": "let's run npm run build: dev to bring up that development server, looking good, running on localhost:8080",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 700.17,
+          "end": 702.12,
+          "en": "as you can see.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 702.15,
+          "end": 710.49,
+          "en": "So now here if you visit localhost:8080, this works, let's open a console to see if it really works",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 711.93,
+          "end": 719.5,
+          "en": "and now here I will find a place, maybe also enter a correct one, 6th avenue, find place.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 719.52,
+          "end": 724.74,
+          "en": "Now this works but we got an error here and it's coming from our server and it's complaining about some",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 724.74,
+          "end": 726.32,
+          "en": "CORS thing,",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 726.33,
+          "end": 727.02,
+          "en": "now what's that?",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

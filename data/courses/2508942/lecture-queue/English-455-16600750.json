@@ -1,0 +1,776 @@
+{
+  "version": 1,
+  "courseId": 2508942,
+  "courseSlug": "javascript-the-complete-guide-2020-beginner-advanced",
+  "courseTitle": "JavaScript - The Complete Guide (Beginner + Advanced)",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "16600750",
+      "title": "Updating The DOM Correctly",
+      "lectureOrder": 522,
+      "videoOrder": 455,
+      "sourceHash": "c31b3747be7f7afaf4f084bf7e4c74c489c72f2562d2f2ce654a3d21b231eda7",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.18,
+          "end": 5.45,
+          "en": "So we potentially at least improved our startup time,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.45,
+          "end": 10.27,
+          "en": "now let's have a look at runtime performance and for that, I'll go to the performance tab here, enable",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.27,
+          "end": 15.16,
+          "en": "CPU throttling, clear all previous snapshots and I'll take a new snapshot",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 15.17,
+          "end": 19.73,
+          "en": "when I delete a product, then stop that.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 19.8,
+          "end": 25.05,
+          "en": "Now you see, here is the interesting part so let's zoom in there,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 25.18,
+          "end": 30.13,
+          "en": "you see ongoing network requests, that were the extra chunks that were downloaded,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 30.25,
+          "end": 31.44,
+          "en": "let's close that.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 31.63,
+          "end": 36.28,
+          "en": "Now let's have a look at the main thread down there because that's the more interesting part.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 36.28,
+          "end": 42.61,
+          "en": "Now what you see is here I got my click on a button and you see we have a little warning here that this",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 42.61,
+          "end": 46.39,
+          "en": "took around 80 milliseconds which isn't great,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 46.49,
+          "end": 53.15,
+          "en": "we have the function call and then we have another function call here where other functions are getting",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 53.15,
+          "end": 57.08,
+          "en": "executed based on the extra bundles we added.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 57.09,
+          "end": 64.5,
+          "en": "Now here whilst we don't see the function names unfortunately here in this tab, we see it's from",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 64.5,
+          "end": 70.23,
+          "en": "line 10 in the shop.js and this is delete product function which makes sense because that",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 70.23,
+          "end": 76.34,
+          "en": "is what should be triggered if we clicked the delete button and then after our extra chunks were downloaded,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 76.64,
+          "end": 81.86,
+          "en": "more code was getting executed here from our extra chunk files.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 81.86,
+          "end": 85.9,
+          "en": "Now to be honest, here this time it took for the handler,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 86.06,
+          "end": 90.32,
+          "en": "we probably won't be able to do much about it because the function call here which is getting executed,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 90.35,
+          "end": 94.66,
+          "en": "which takes some time really isn't taking that long because of any of our code,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 94.67,
+          "end": 100.43,
+          "en": "you see all the code which is executing here and executing here runs fairly fast.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 100.53,
+          "end": 107.13,
+          "en": "I mean for example this entire script here takes like 42 milliseconds which should be okay but actually",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 107.25,
+          "end": 111.72999999999999,
+          "en": "in our script we still have an issue or a couple of things we can improve.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 111.97999999999999,
+          "end": 118.77000000000001,
+          "en": "For that I'll even turn off throttling because I can show it nonetheless. Again hit escape here and in",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 118.8,
+          "end": 123.75,
+          "en": "the bottom tab here, click on rendering and turn on paint flashing,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 123.75,
+          "end": 131.6,
+          "en": "this will allow us to see which problem we have on this page, you can now close that. If you now reload, you",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 131.61,
+          "end": 137.03,
+          "en": "see everything flashes green and whenever something is re-rendered, it flashes green.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 137.04,
+          "end": 143.52,
+          "en": "Now the interesting thing is if I delete let's say the last item, the t shirt here,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 143.57999999999998,
+          "end": 147.5,
+          "en": "so if I click on delete here, you see everything here flashes green,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 147.52,
+          "end": 149.57,
+          "en": "that's what we saw earlier already.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 149.61,
+          "end": 153.85,
+          "en": "If we expand the unordered list here and we watch the list items on the right,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 153.99,
+          "end": 160.11,
+          "en": "whenever I delete an item, everything here is updated, the entire unordered list and all the list items",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 160.65,
+          "end": 163.29,
+          "en": "and I'll turn off the flashing because it's a bit annoying",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 163.29,
+          "end": 167.01,
+          "en": "but you see the problem here, the whole list is being re-rendered",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 167.01,
+          "end": 173.16,
+          "en": "whenever we delete an item even if it's the last item and there is no reason for that to happen. It makes",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 173.16,
+          "end": 180.21,
+          "en": "more sense when we add a new item because when we do add a new item, we actually add it at the beginning",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 180.21,
+          "end": 186.21,
+          "en": "of the list so of course Javascript has to shift all items to the back or the browser has to shift all",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 186.21,
+          "end": 192.26,
+          "en": "items to the back here but why is it re-rendering the entire list when we delete an item, even if it's",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 192.26,
+          "end": 193.82,
+          "en": "the last one?",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 193.82,
+          "end": 198.2,
+          "en": "Well we could see the answer if we have a look at the rendering.js file here in the optimized folder.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 198.86,
+          "end": 204.07999999999998,
+          "en": "In rendering.js, we see render products which is the function responsible for displaying the products",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 204.07999999999998,
+          "end": 212.54,
+          "en": "on the screen, when it executes it always clears all existing DOM elements in the product list element",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 212.9,
+          "end": 219.2,
+          "en": "which is in the end that unordered list element here with the product list ID and then it creates",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 220.27,
+          "end": 224.69,
+          "en": "all these new DOM nodes and adds them for every product we have,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 224.82999999999998,
+          "end": 230.41,
+          "en": "so for five products initially, if we had 100 products it does it for 100 products.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 230.45,
+          "end": 233.01,
+          "en": "Now this is really not a great code here,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 233.02,
+          "end": 240.29,
+          "en": "this is not what we want to do, re-rendering everything for every change can be horrible,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 240.37,
+          "end": 247,
+          "en": "imagine you have a list with 100 items and you delete everything on the screen and re-render it all",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 247.27,
+          "end": 249.36,
+          "en": "for every tiny change,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 249.37,
+          "end": 255.19,
+          "en": "well if your users have a bit slower devices, they will probably feel that and see that and it's not",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 255.19,
+          "end": 262.48,
+          "en": "a great user experience because accessing the DOM in general is quite performance intensive and such",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 262.57,
+          "end": 265.6,
+          "en": "errors like this one can quickly add up.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 265.6,
+          "end": 271.06,
+          "en": "So we should improve the render products function here to not re-render everything",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 271.06,
+          "end": 279.21,
+          "en": "whenever we change something and therefore to improve this, I will actually add a new function here, update",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 280.02,
+          "end": 289.29,
+          "en": "products which should be a little bit more careful when we add or remove an item. We will still",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 289.29,
+          "end": 295.99,
+          "en": "need render products to render the entire list when we initially render all products here in init products",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 296.22,
+          "end": 302.71,
+          "en": "but I certainly don't want to call render products when we added or removed an item. So I'll leave render",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 302.72,
+          "end": 305.12,
+          "en": "products as it is but in update products,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 305.18,
+          "end": 310.15,
+          "en": "I want to add code which we can use when we added or removed an item.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 310.22,
+          "end": 316.16,
+          "en": "So therefore here I expect to get the product data which was added or removed as a first argument,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 316.57,
+          "end": 322.31,
+          "en": "let's say we also need the product ID in case we're deleting so that we directly get that, I want to get",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 322.31,
+          "end": 329.3,
+          "en": "that delete product function because if we add a new product, I will still need to render a button which",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 329.3,
+          "end": 337.54,
+          "en": "points at this function and I want to get one last argument which tells me if we're calling update products",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 337.54,
+          "end": 343.12,
+          "en": "because we're adding a new one or because we're deleting one because then I can use an if check to find",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 343.12,
+          "end": 349.51,
+          "en": "out if we're adding and if we do, I essentially want to create a new product again and append it, otherwise",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 349.81,
+          "end": 356.98,
+          "en": "I want to remove it. So let's start with removing maybe in the else case here, I want to get access to my",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 356.98,
+          "end": 363.04,
+          "en": "product element here or product el to stay in line with the naming in other parts of this script",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 363.79,
+          "end": 373.26,
+          "en": "by using document get element by ID prodId because when we render a product in the future, I want",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 373.26,
+          "end": 380.2,
+          "en": "to add the ID attribute on the rendered DOM node and point at the ID of the product which was added.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 380.28,
+          "end": 386.55,
+          "en": "So here in render products, my new list element which is my new product item here",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 389.43,
+          "end": 395.89,
+          "en": "should actually get the ID property set to product.id,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 395.98,
+          "end": 401.56,
+          "en": "so to the ID of the product we're-rendering, so that every DOM element has the ID attribute which",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 401.56,
+          "end": 402.63,
+          "en": "is the ID of the product,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 402.64,
+          "end": 407.05,
+          "en": "we can then use this to get a hold of that element when we want to delete it.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 407.71,
+          "end": 414.39,
+          "en": "And then we can call product element remove or for better browser support of course as you've learned,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 414.43,
+          "end": 424.11,
+          "en": "reach out to the parent element and there, call remove child on product el. Both works, I'll use the",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 424.11,
+          "end": 430.07,
+          "en": "shorter, more modern approach here which doesn't work in all browsers though.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 430.2,
+          "end": 432.36,
+          "en": "So this is now the deletion part,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 432.36,
+          "end": 435.21,
+          "en": "now I want to call update products when we do delete.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 435.45,
+          "end": 442.62,
+          "en": "So in product management, in delete product, I don't want to call a render products in the end but instead",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 442.68,
+          "end": 444.12,
+          "en": "update products.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 444.18,
+          "end": 452.69,
+          "en": "So from rendering, I'll import update products and down there, I call update products with a pointer at",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 452.7,
+          "end": 454.40999999999997,
+          "en": "the product",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 454.42,
+          "end": 459.97,
+          "en": "I want to update, the ID of that product, a pointer at the delete product function,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 459.98,
+          "end": 468.15,
+          "en": "so this function itself and the value for is add which here would be false.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 468.2,
+          "end": 474.38,
+          "en": "Now the problem is the product which is affected I don't have access to it here and this code here in general",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 474.47,
+          "end": 482.55,
+          "en": "also isn't optimal yet. Now we can optimize this code later, for now I'll add a variable, deleted product",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 482.56,
+          "end": 489.32,
+          "en": "and here in this loop where I go over all my products, I'll check if the product I'm looking at does",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 489.32,
+          "end": 493.67,
+          "en": "not have the ID of the deleted one which means I want to keep it which is why I add it to updated products",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 493.67,
+          "end": 496.11,
+          "en": "which I then set as my new products array,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 496.34,
+          "end": 500.5,
+          "en": "so else if the IDs do match, I know this is the product which was deleted,",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 500.6,
+          "end": 509.64,
+          "en": "so I'll set deleted product equal to prod in that case. And then down there, deleted product is what I",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 509.64,
+          "end": 511.04,
+          "en": "want to forward here,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 511.05,
+          "end": 517.63,
+          "en": "prodId which is the argument I get here is the ID I want to forward, here",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 517.66,
+          "end": 525.28,
+          "en": "I point at the function itself for this argument which the delete part of the update products function",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 525.28,
+          "end": 530.91,
+          "en": "won't even use though and important, for is adding, we set false because we're not adding, we're deleting.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 531.4,
+          "end": 537.19,
+          "en": "So now when the delete product function executes, update products should actually execute and that should",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 537.19,
+          "end": 543.01,
+          "en": "now update our list of products in a way that doesn't cost the entire list to re-render,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 543.82,
+          "end": 545.17,
+          "en": "well let's test this.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 545.38,
+          "end": 548.05,
+          "en": "Let's reload and expand unordered list here,",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 548.05,
+          "end": 550.42,
+          "en": "now you see the IDs are being added here,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 550.45,
+          "end": 554.43,
+          "en": "I'm using dates as IDs here and now watch the list items on the right",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 554.44,
+          "end": 561.62,
+          "en": "when I delete the magic broomstick. You see, the list items here didn't flash, only the unordered list",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 561.71,
+          "end": 567.17,
+          "en": "because the unordered list of course was affected, one of its child items was removed but the other",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 567.17,
+          "end": 573.65,
+          "en": "list items which weren't removed weren't re-rendered, they weren't touched and therefore this is far more",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 573.65,
+          "end": 576.45,
+          "en": "efficient than what we had before.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 576.56,
+          "end": 583.55,
+          "en": "Now definitely, use this now as a chance to pause and try coming up with an approach of implementing adding",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 583.76,
+          "end": 589.7,
+          "en": "in a way that doesn't affect everything or doesn't re-render everything, of course in the next lecture,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 589.71,
+          "end": 591.2,
+          "en": "we'll also do it together.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

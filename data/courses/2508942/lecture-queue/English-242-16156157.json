@@ -1,0 +1,923 @@
+{
+  "version": 1,
+  "courseId": 2508942,
+  "courseSlug": "javascript-the-complete-guide-2020-beginner-advanced",
+  "courseTitle": "JavaScript - The Complete Guide (Beginner + Advanced)",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "16156157",
+      "title": "Setting & Getting Prototypes",
+      "lectureOrder": 275,
+      "videoOrder": 242,
+      "sourceHash": "6469d9df59fddf82ef195bf56ecf4f53322b7a4f0531caf267b23717b0fee634",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.18,
+          "end": 6.53,
+          "en": "So that's almost it for prototypes and constructor functions.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.54,
+          "end": 14.79,
+          "en": "One thing we hadn't had a look at yet is how you can actually change the prototype of an object which",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 14.79,
+          "end": 21.42,
+          "en": "already was created or which you are not creating with your own constructor function.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 21.42,
+          "end": 28.38,
+          "en": "So here for person for example, we clearly can set the prototype with person.prototype or to be precise,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 28.41,
+          "end": 33.1,
+          "en": "we could set it to a new object or as we do it here, manipulate the default prototype",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 33.12,
+          "end": 38.73,
+          "en": "but what if you already have an object and you somehow want to change the prototype after it has been",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 38.73,
+          "end": 45.78,
+          "en": "created or you want to create a new object without your own constructor function for whichever reason",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 45.78,
+          "end": 48.81,
+          "en": "and you still want to set a different prototype.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 48.82,
+          "end": 55.53,
+          "en": "Now let me make it clear that both cases are definitely niche use cases, very advanced use cases,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 55.53,
+          "end": 62.01,
+          "en": "you might not encounter them every day but you will certainly find some scenarios where it can be useful",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 62.01,
+          "end": 68.31,
+          "en": "if you are able to change the prototype of an existing object or of an object which is not created with",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 68.31,
+          "end": 70.02,
+          "en": "one of your own constructors.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 70.02,
+          "end": 72.45,
+          "en": "So let's have a look at that case here",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 72.57,
+          "end": 82.57,
+          "en": "and for that actually, I'll comment this here out just so that the console isn't cluttered too much and let's",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 82.57,
+          "end": 87.34,
+          "en": "create a new object here, maybe to mix things up,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 87.34,
+          "end": 88.24,
+          "en": "name it",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 88.51,
+          "end": 94.78,
+          "en": "course. Now course is an object which I create here with the object literal notation, an alternative",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 94.78,
+          "end": 103.81,
+          "en": "would be to use new object, this built-in object constructor but I'll use the literal notation here and",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 103.81,
+          "end": 112.45,
+          "en": "now in there, let's say a course has a title, Javascript - The Complete Guide and also a rating which of",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 112.45,
+          "end": 113.38,
+          "en": "course is five here.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 114.07,
+          "end": 115.15,
+          "en": "So that's my course",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 115.15,
+          "end": 120.86,
+          "en": "and now here, I want to call print rating.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 120.86,
+          "end": 123.87,
+          "en": "Now that should output some information about the rating of the course,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 123.98,
+          "end": 129.68,
+          "en": "unsurprisingly though if we reload, we just get an error that print rating is not a function because",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 129.71,
+          "end": 132.49,
+          "en": "it's clearly not a method defined on this object",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 132.65,
+          "end": 138.35,
+          "en": "and the prototype of this object also won't help us. If we comment this out for a second,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 138.35,
+          "end": 145.4,
+          "en": "if we console log course.__proto so that we can have a look at the prototype",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 145.4,
+          "end": 148.22,
+          "en": "that is assigned here and we reload,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 148.22,
+          "end": 155.3,
+          "en": "we see that is in the end prototype which has a constructor function, which has toString so it's that",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 155.3,
+          "end": 159.92000000000002,
+          "en": "default object.prototype thing we already learned about.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 160.04,
+          "end": 161.06,
+          "en": "So that doesn't help us,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 161.06,
+          "end": 167.18,
+          "en": "we would want to adjust that prototype and we want to do that after the object has been created because",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 167.18,
+          "end": 169.55,
+          "en": "it clearly has been created already.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 169.73,
+          "end": 178.16,
+          "en": "We can do this with the object constructor function here, the global object constructor function",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 178.16,
+          "end": 182.59,
+          "en": "and there you have a get prototype and set prototype method.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 182.6,
+          "end": 188.33,
+          "en": "Now let's first of all have a look at get prototype of and pass in the course and then let's console",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 188.33,
+          "end": 188.69,
+          "en": "log",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 188.69,
+          "end": 191.01,
+          "en": "the result of that,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 191.03,
+          "end": 192.4,
+          "en": "just like that.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 192.41,
+          "end": 196.1,
+          "en": "So now I'm using get prototype of of my course object.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 196.1,
+          "end": 201.78,
+          "en": "If we reload, we get exactly the same output as before when we accessed __proto.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 202.1,
+          "end": 209,
+          "en": "This __proto thing in the end is just an unofficial feature which was implemented",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 209,
+          "end": 216.98,
+          "en": "by all browsers actually but it's not really the way you're meant to work with prototypes in Javascript,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 217.34,
+          "end": 224.32999999999998,
+          "en": "it's just due to the evolution of Javascript and that certain methods of interacting with prototypes weren't",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 224.36,
+          "end": 231.02,
+          "en": "always available, that we have this special __proto__property",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 231.17000000000002,
+          "end": 234.68,
+          "en": "which can be useful for looking into a prototype.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 234.68,
+          "end": 236.44,
+          "en": "This here would be the more official way",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 236.45,
+          "end": 238.46,
+          "en": "but of course it's also a bit longer,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 238.46,
+          "end": 244.28,
+          "en": "so you want to consider using that in code you write where you really need that logic as part of your",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 244.82,
+          "end": 245.96,
+          "en": "code execution.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 245.96,
+          "end": 250.91,
+          "en": "If you just want to look into the prototype during development, definitely use __proto.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 250.9,
+          "end": 258.61,
+          "en": "So that's get prototype of, more interesting for us here is clearly set prototype of.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 258.62,
+          "end": 263.74,
+          "en": "This takes two parameters and the first one is the object where you want to set the prototype,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 263.78,
+          "end": 268.09,
+          "en": "so my course object here, the second then is a prototype",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 268.1,
+          "end": 270.83,
+          "en": "you want to use and that's the interesting thing now.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 270.86,
+          "end": 277.31,
+          "en": "Here you can override the prototype that has been assigned to an object after the object was created",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 277.58,
+          "end": 283.34000000000003,
+          "en": "and of course this works on any object, you can override the prototype of any object, including objects",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 283.34000000000003,
+          "end": 286.52,
+          "en": "that were created based on your own constructor function",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 286.64,
+          "end": 295.35,
+          "en": "and here for example we could then add a print rating method like this and there, output some string",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 295.35,
+          "end": 300.64,
+          "en": "here where we say this.rating and then maybe of five,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 300.69,
+          "end": 306.99,
+          "en": "so /5 thereafter as a string and thereafter we'll see that this line should of course work because",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 306.99,
+          "end": 315.4,
+          "en": "we set the prototype of course to something new. If we now reload, this output works and we switched the",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 315.4,
+          "end": 316.34,
+          "en": "prototype.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 316.84,
+          "end": 322.78,
+          "en": "If you would want to keep the original prototype and only add something to it, you could of course use",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 322.78,
+          "end": 327.84,
+          "en": "the spread operator here and access object get prototype",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 327.85,
+          "end": 331.84,
+          "en": "of course, this is a valid use case for the get prototype of method",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 331.85,
+          "end": 337.02,
+          "en": "now because this is not just some quick hack we're using to look into the prototype,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 337.03,
+          "end": 340.47,
+          "en": "it'll be part of the code we shipped to our end users.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 340.51,
+          "end": 346.3,
+          "en": "So here I get the current prototype, spread its properties into my new object which will be used as a",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 346.3,
+          "end": 350.65,
+          "en": "new prototype and then add my own print rating method.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 350.65,
+          "end": 356.8,
+          "en": "So this would be a way of making this work whilst keeping the old prototype object functionality, though",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 356.8,
+          "end": 363.49,
+          "en": "it's also important to keep in mind that since we set the prototype to a new object, that new object which",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 363.49,
+          "end": 369.76,
+          "en": "we set as a prototype will have its own prototype which is also object.prototype.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 369.82,
+          "end": 372.61,
+          "en": "So actually through that entire prototype chain,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 372.61,
+          "end": 378.91,
+          "en": "we would have access to toString and so on even without that line here because this object which we",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 378.91,
+          "end": 383.88,
+          "en": "set as a new prototype will have that default object prototype itself",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 383.89,
+          "end": 389.54,
+          "en": "and we wouldn't be able to access anything on that prototype from our course object as well thanks to that",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 389.56,
+          "end": 393.15999999999997,
+          "en": "prototype chain where we always go to the next prototype in line",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 393.34000000000003,
+          "end": 399.02,
+          "en": "if we can't find a certain property or method on the given object.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 399.12,
+          "end": 404.38,
+          "en": "So this is how we could set a prototype after the object has been created.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 404.4,
+          "end": 410.64,
+          "en": "You can also set a prototype for an object which you are creating even if you're not creating it with",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 410.64,
+          "end": 416.4,
+          "en": "your own constructor function. For your own constructor function, you can adjust the prototype like this",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 416.4,
+          "end": 419.01,
+          "en": "here before you create your own objects.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 419.01,
+          "end": 424.32,
+          "en": "Now if you for some reason don't want to use your own constructor function, you can also create let's",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 424.32,
+          "end": 433.72,
+          "en": "say a student object here, not with the object literal notation and also not with new object but instead",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 433.72,
+          "end": 439.41,
+          "en": "with a new way which I haven't showed you before where you use object.create.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 439.54,
+          "end": 442.3,
+          "en": "This will actually also create a new object",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 442.3,
+          "end": 445.05,
+          "en": "basically just like this does it,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 445.06,
+          "end": 448.99,
+          "en": "the object literal notation but with a twist.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 448.99,
+          "end": 454.51,
+          "en": "Now object create takes a parameter and as you see, it takes an object as a parameter.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 454.51,
+          "end": 460.33,
+          "en": "Now that's not the object with which it will initialize the object it creates, instead it will basically",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 460.33,
+          "end": 468.28,
+          "en": "create an empty object. The object you pass here as a parameter will be set as a prototype for this initial",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 468.28,
+          "end": 468.7,
+          "en": "object.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 469.03,
+          "end": 475.23,
+          "en": "So here we could add let's say a printProgress",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 475.23,
+          "end": 480.66,
+          "en": "function where I console log this.progress,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 480.66,
+          "end": 488.23,
+          "en": "clearly a property which I haven't added anymore and now if we console log student, you'll see that",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 488.23,
+          "end": 490.56,
+          "en": "if we reload this application,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 490.72,
+          "end": 496.02,
+          "en": "student is an empty object but it has a prototype which has a printProgress method.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 496.21,
+          "end": 503.32,
+          "en": "So the object you pass to create is set as a prototype for the empty object object",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 503.38,
+          "end": 504.25,
+          "en": "create creates",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 504.25,
+          "end": 509.8,
+          "en": "otherwise. If you then would want to add something to that object, you can do that by using the dot notation",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 509.8,
+          "end": 510.61,
+          "en": "here of course,",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 510.61,
+          "end": 518.56,
+          "en": "for example, a name Max or of course also with the defined property method we already learned about earlier",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 518.56,
+          "end": 522.79,
+          "en": "in the course where you can add a property to an object,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 523.03,
+          "end": 531.13,
+          "en": "so to student here, let's say the progress property which you then also can configure with such a descriptor",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 531.31,
+          "end": 539.38,
+          "en": "object, where you have configurable, maybe set this to true, enumerable maybe set this to true, a value",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 539.41,
+          "end": 546.85,
+          "en": "of let's say 0.8 to have 80% progress kind of and then also here writable, maybe set this",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 546.85,
+          "end": 548.77,
+          "en": "to false, whatever you want.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 548.77,
+          "end": 551.88,
+          "en": "So these are different ways of adding properties to an empty object,",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 551.89,
+          "end": 557.62,
+          "en": "the important thing is that object it creates does create such an empty object but it does create it with",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 557.62,
+          "end": 563.89,
+          "en": "a prototype of your choice. Side note, object.create also takes a second argument which would take such",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 563.89,
+          "end": 569.98,
+          "en": "a property descriptor map where you then also could add properties like that in the creation process",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 570.01,
+          "end": 573.43,
+          "en": "if you want to create a non-empty object,",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 573.48,
+          "end": 577.89,
+          "en": "so let me comment that out, here in this object descriptor map",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 577.89,
+          "end": 583.89,
+          "en": "you could also add properties like name and then have an object for every property you want to have added",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 583.89,
+          "end": 590.76,
+          "en": "to this newly created object where here, each object has to describe a property exactly like we do",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 590.76,
+          "end": 592.11,
+          "en": "it down there.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 592.11,
+          "end": 603.36,
+          "en": "So here you can also add configurable false or maybe true, enumerable true, value Max, the value for the",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 603.36,
+          "end": 607.59,
+          "en": "name property will be Max and writable true.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 607.59,
+          "end": 612.87,
+          "en": "So that's an alternative to that and thereafter I'll comment that back in so that we also have a progress",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 613.31,
+          "end": 616.28,
+          "en": "and these are simply different ways of creating objects,",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 616.32,
+          "end": 621.9,
+          "en": "obviously not always the ways you will use all the time because they're a bit more complex but they",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 621.9,
+          "end": 627.93,
+          "en": "also give you more features therefore, more flexibility, more power and hence you should definitely be",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 627.93,
+          "end": 634.32,
+          "en": "aware of this object creation methods as well and of objects created in specific because it allows you",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 634.32,
+          "end": 640.15,
+          "en": "to create an object with a different but the default prototype assigned right from the start.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 640.2,
+          "end": 642.49,
+          "en": "So now just to verify that everything works,",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 642.63,
+          "end": 648.54,
+          "en": "let's reload this and we output the progress here and we see this is the object that was created.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 648.54,
+          "end": 650.7,
+          "en": "So that is all working",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 650.7,
+          "end": 655.59,
+          "en": "and with that, we learned a lot about prototypes and objects and how to create objects I guess.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

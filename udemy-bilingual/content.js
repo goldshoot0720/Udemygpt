@@ -10,6 +10,7 @@
   let prefs = { ...defaults }, video, player, root, shadow, chineseLine, englishLine, panel, status, toggle;
   let en = [], zh = [], key = "", loaded = false, generation = 0, controller, last = "", savedTimer;
   let pageZoom = 1, zoomChecked = 0, zoomPending = false;
+  let timeCourse = null, timeItems = null, timeError = "", timeRevision = 0, timeController;
   const terms = /\b(Claude(?: Code)?|Codex|Flutter|Dart|Node(?:\.js|JS)?|React Native|NativeScript|Angular|Svelte(?:\.js)?|Remix(?:\.js)?|GraphQL|Express|MongoDB|Deno|Flexbox|Sass|React(?:\.js)?|JavaScript|TypeScript|JSX|Redux|Next\.js|Hooks?|useState|useEffect|useReducer|useRef|useContext|props|state|components?|DOM|API|HTTP|CSS|HTML|Vite)\b/gi;
   const css = `
     :host { all: initial; position: absolute; inset: 0; z-index: 30; pointer-events: none; font-family: -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif; color: white; }
@@ -33,6 +34,11 @@
     button { color: #eef6ff; background: #0a1527e8; border: 1px solid #ffffff30; border-radius: 9px; padding: 7px 10px; font-size: 12px; cursor: pointer; }
     button:hover,button:focus-visible { border-color: #79e6ff; outline: none; }
     .toolbar { display: flex; gap: 4px; opacity: .25; transition: opacity .15s; }
+    .course-time { width: 310px; max-width:calc(var(--player-width,800px)/var(--ui-scale,1) - 20px); padding:8px 10px; border:1px solid #ffffff30; border-radius:9px; background:#0a1527e8; font-size:12px; line-height:1.5; pointer-events:auto; }
+    .time-current { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#eef6ff; }
+    .time-values { display:flex; flex-wrap:wrap; column-gap:12px; color:#79e6ff; font-variant-numeric:tabular-nums; }
+    .time-total,.time-note { color:#b9cee8; font-size:11px; }
+    .time-retry { margin-top:5px; padding:4px 8px; }
     :host(:hover) .toolbar,.toolbar:focus-within,.toolbar[data-open="true"] { opacity: 1; }
     .panel { width: 290px; max-height:calc(var(--player-height,400px)/var(--ui-scale,1) - 65px); overflow:auto; background: #0a1527f5; border: 1px solid #ffffff30; border-radius: 12px; padding: 14px; box-shadow: 0 6px 20px #0008; font-size: 13px; }
     label { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; }
@@ -52,6 +58,7 @@
     root.style.setProperty("--size", `${prefs.size / pageZoom}px`);
     root.style.setProperty("--ui-scale", String(1 / pageZoom));
     root.style.setProperty("--player-height", `${player.clientHeight}px`);
+    root.style.setProperty("--player-width", `${player.clientWidth}px`);
     root.style.setProperty("--bottom", `${prefs.bottom}%`);
     root.dataset.effect = prefs.effect;
     toggle.textContent = prefs.enabled ? (zh.length ? "中英 CC ✓" : "中英 CC · 中文待翻譯") : "中英 CC 關";
@@ -101,6 +108,11 @@
     shadow.innerHTML = `<style>${css}</style>
       <div class="captions"><div class="lines" hidden><div class="zh" lang="zh-TW"></div><div class="en" lang="en"></div></div></div>
       <div class="controls"><div class="toolbar"><button class="toggle" type="button">中英 CC ✓</button><button class="settings" type="button" aria-label="雙語字幕設定" aria-expanded="false">設定</button></div>
+      <div class="course-time" aria-label="課程影片分鐘數">
+      <div class="time-current">正在讀取課程時長…</div><div class="time-total"></div>
+      <div class="time-values"><span class="time-watched"></span><span class="time-remaining"></span></div>
+      <div class="time-note">依序觀看估算：前面影片＋本堂播放位置</div>
+      <button class="time-retry" type="button" hidden>重新讀取時長</button></div>
       <div class="panel" hidden><div class="status" role="status">正在讀取課程字幕…</div>
       <label>字幕效果<select name="effect"><option value="glow">光暈＋淡入</option><option value="cinema">電影描邊</option><option value="minimal">簡潔閱讀</option></select></label>
       <label>字體大小<input name="size" type="range" min="16" max="40" aria-label="字體大小"></label>
@@ -123,6 +135,7 @@
       shadow.querySelector(".toolbar").dataset.open = String(!panel.hidden);
     });
     shadow.querySelector(".retry").addEventListener("click", () => { key = ""; check(); });
+    shadow.querySelector(".time-retry").addEventListener("click", () => loadCourseTime(true));
     shadow.querySelector(".export-current").addEventListener("click", exportCurrent);
     shadow.querySelector(".export-course").addEventListener("click", exportCourse);
     shadow.querySelector(".import").addEventListener("click", () => shadow.querySelector(".import-file").click());
@@ -140,6 +153,48 @@
     });
     root.addEventListener("click", event => event.stopPropagation());
     apply();
+    renderCourseTime();
+  }
+  function renderCourseTime() {
+    if (!shadow) return;
+    const current = shadow.querySelector(".time-current"), total = shadow.querySelector(".time-total");
+    const watched = shadow.querySelector(".time-watched"), remaining = shadow.querySelector(".time-remaining");
+    const note = shadow.querySelector(".time-note"), retry = shadow.querySelector(".time-retry");
+    const lecture = location.pathname.match(/\/lecture\/(\d+)/)?.[1];
+    if (!timeItems) {
+      current.textContent = timeError || "正在讀取課程時長…";
+      total.textContent = ""; watched.textContent = "已觀看 — 分鐘"; remaining.textContent = "未觀看 — 分鐘";
+      note.textContent = "依序觀看估算：前面影片＋本堂播放位置";
+      retry.hidden = !timeError; return;
+    }
+    const result = UdemyCourseTime.calculate(timeItems, lecture, video?.currentTime || 0);
+    current.textContent = result.current ? `目前：${result.current.order}. ${result.current.title}` : "目前講座不在課程清單中";
+    current.title = current.textContent;
+    total.textContent = `總影片 ${UdemyCourseTime.minutes(result.total)} 分鐘`;
+    watched.textContent = `已觀看 ${UdemyCourseTime.minutes(result.watched)} 分鐘`;
+    remaining.textContent = `未觀看 ${UdemyCourseTime.minutes(result.remaining)} 分鐘`;
+    note.textContent = result.missing ? `${result.missing} 堂影片缺少時長，完整分鐘數待補` :
+      "依序觀看估算；以原速片長計算，跳課不代表已觀看";
+    retry.hidden = !result.missing;
+  }
+  async function loadCourseTime(force = false) {
+    if (!course || (!force && timeCourse === course)) return;
+    const activeCourse = course, revision = ++timeRevision;
+    timeController?.abort(); timeController = new AbortController();
+    timeCourse = activeCourse; timeItems = null; timeError = ""; renderCourseTime();
+    try {
+      const courseId = await UdemyCourses.idFor(activeCourse);
+      if (revision !== timeRevision) return;
+      const signal = typeof AbortSignal !== "undefined" && AbortSignal.timeout && AbortSignal.any ?
+        AbortSignal.any([timeController.signal, AbortSignal.timeout(30000)]) : timeController.signal;
+      const items = await UdemyCourseTime.read(courseId, fetch, signal);
+      if (revision !== timeRevision) return;
+      timeItems = items;
+    } catch (error) {
+      if (revision !== timeRevision) return;
+      timeError = error.name === "TimeoutError" ? "課程時長讀取逾時，請重試" : (error.message || "課程時長讀取失敗，請重試");
+    }
+    renderCourseTime();
   }
   async function load(lecture) {
     const activeCourse = course;
@@ -282,6 +337,7 @@
     const activeCourse = UdemyCourses.forUrl(location.href);
     if (activeCourse !== course) {
       course = activeCourse; key = ""; ++generation; controller?.abort();
+      ++timeRevision; timeController?.abort(); timeCourse = null; timeItems = null; timeError = "";
       en = []; zh = []; loaded = false; last = "";
       if (root) apply();
     }
@@ -291,6 +347,7 @@
       return;
     }
     if (root) root.hidden = false;
+    loadCourseTime();
     if (!zoomPending && Date.now() - zoomChecked > 2000) {
       zoomPending = true; zoomChecked = Date.now();
       browser.runtime.sendMessage({type:"page-zoom"}).then(value => {
@@ -317,9 +374,10 @@
     if (root && full && full !== video && !full.contains(root) && full.contains(video)) full.append(root);
     else if (root && !full && root.parentElement !== player) player.append(root);
     render();
+    renderCourseTime();
   }
-  function renderEvent() { render(); }
-  const resizeObserver = new ResizeObserver(() => { if(root) { root.style.setProperty("--player-height",`${player.clientHeight}px`); render(true); } });
+  function renderEvent() { render(); renderCourseTime(); }
+  const resizeObserver = new ResizeObserver(() => { if(root) { root.style.setProperty("--player-height",`${player.clientHeight}px`); root.style.setProperty("--player-width",`${player.clientWidth}px`); render(true); } });
   const nativeStyle = document.createElement("style");
   nativeStyle.textContent = `.udemy-bilingual-active .vjs-text-track-display,
     .udemy-bilingual-active [data-purpose="captions-display"],

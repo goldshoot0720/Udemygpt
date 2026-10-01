@@ -16,13 +16,17 @@
 | Next.js & React - The Complete Guide | 已完整驗證 | 417／417 | 46,195 | 64 |
 | Vue - The Complete Guide (incl. Router & Composition API) | 已完整驗證 | 294／294 | 33,933 | 48 |
 | Ionic - Build iOS, Android & Web Apps with Ionic & Angular | 已完整驗證 | 242／242 | 13,917 | 19 |
-| JavaScript - The Complete Guide (Beginner + Advanced) | 待下載 | 待取得 | 0 | 待準備 |
+| JavaScript - The Complete Guide (Beginner + Advanced) | 已完整驗證 | 540／540 | 37,567 | 50 |
+
+已取得 4,669／4,672 堂影片的英文字幕，共 429,395 段；新增 12 門課已整理為 479 個翻譯批次。React 沿用既有佇列。12 門英文完整，Svelte 有 3 堂待補。
+
+原始瀏覽器匯出報告：[2026-10-01 英文匯出報告](english-export-report-2026-10-01.json)。
 
 ## 缺少英文字幕的影片
 
-- Svelte.js - The Complete Guide 第 73 堂：[ Utilizing Slots ](https://www.udemy.com/course/sveltejs-the-complete-guide/learn/lecture/14689636)（沒有英文字幕）。
-- Svelte.js - The Complete Guide 第 87 堂：[ Binding to Element References ](https://www.udemy.com/course/sveltejs-the-complete-guide/learn/lecture/14689664)（沒有英文字幕）。
-- Svelte.js - The Complete Guide 第 111 堂：[ Wrap Up ](https://www.udemy.com/course/sveltejs-the-complete-guide/learn/lecture/14689718)（沒有英文字幕）。
+- Svelte.js - The Complete Guide 第 73 堂：[Utilizing Slots](https://www.udemy.com/course/sveltejs-the-complete-guide/learn/lecture/14689636)（沒有英文字幕）。
+- Svelte.js - The Complete Guide 第 87 堂：[Binding to Element References](https://www.udemy.com/course/sveltejs-the-complete-guide/learn/lecture/14689664)（沒有英文字幕）。
+- Svelte.js - The Complete Guide 第 111 堂：[Wrap Up](https://www.udemy.com/course/sveltejs-the-complete-guide/learn/lecture/14689718)（沒有英文字幕）。
 
 缺漏影片保留在課程清單中，尚未取得的字幕不得列為完成。文字教材沒有影片字幕，與上述缺漏影片分開計算。
 

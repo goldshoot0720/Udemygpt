@@ -1,0 +1,916 @@
+{
+  "version": 1,
+  "courseId": 2508942,
+  "courseSlug": "javascript-the-complete-guide-2020-beginner-advanced",
+  "courseTitle": "JavaScript - The Complete Guide (Beginner + Advanced)",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "16677256",
+      "title": "Dealing with Async Code",
+      "lectureOrder": 536,
+      "videoOrder": 467,
+      "sourceHash": "c9c762fb6a9a2eca4bed1ab275db1d1a7205aa0129169685e25d16f5bfdf877c",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.18,
+          "end": 6.72,
+          "en": "Now we had a basic introduction to testing now, to the core types of tests but thus far we always tested",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.05,
+          "end": 13.77,
+          "en": "relatively simple code, synchronous code where nothing special was happening, where no side effects",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 13.77,
+          "end": 18.84,
+          "en": "were involved like a HttpRequest going out when a function is called.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 18.84,
+          "end": 24.81,
+          "en": "Now things like that can cause problems when you're trying to run tests because your tests will also",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 24.81,
+          "end": 31.62,
+          "en": "trigger that code which might send a HttpRequest or which might do something which makes the test take",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 31.62,
+          "end": 34.67,
+          "en": "longer, might hit a backend API",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 34.74,
+          "end": 37.17,
+          "en": "or might towards results.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 37.17,
+          "end": 43.83,
+          "en": "So now we'll have a look at what we can do to make our test simpler and focus on the core things and",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 43.83,
+          "end": 46.64,
+          "en": "really only test what matters to us.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 46.65,
+          "end": 51.95,
+          "en": "So for this, again I prepared a starting project which you find attached to this lecture here so that",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 51.96,
+          "end": 58.56,
+          "en": "you can follow along and if you start the project by double clicking the index.html file, you'll see",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 58.56,
+          "end": 64.11,
+          "en": "a button there, if you click that button, you will eventually see an all uppercase text being printed",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 64.11,
+          "end": 64.68,
+          "en": "here.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 64.68,
+          "end": 68.12,
+          "en": "Now responsible for that output is this code here,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 68.13,
+          "end": 70.87,
+          "en": "I got a very simple setup here using webpack",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 71.1,
+          "end": 74.28,
+          "en": "and here I'm getting access to a button in my DOM,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 74.37,
+          "end": 80.1,
+          "en": "I'm adding a listener to print the title. In print title, I call load title which is this function here,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 80.39,
+          "end": 86.48,
+          "en": "in that function I reach out to fetch data which is provided in a different file also created by me.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 86.64,
+          "end": 93.33,
+          "en": "There, I seem to get some data object of which I extract the title, I then transform this title to",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 93.33,
+          "end": 95.19,
+          "en": "be all uppercase and I return that",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 95.19,
+          "end": 96.97999999999999,
+          "en": "hence I can print it here.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 96.99000000000001,
+          "end": 102.45,
+          "en": "Now if we have a look in this HTTP file, into this http.js file, here I'm using a third-party",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 102.45,
+          "end": 103.71000000000001,
+          "en": "package, axios,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 103.71000000000001,
+          "end": 104.9,
+          "en": "so this is not written by me,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 104.9,
+          "end": 110.96000000000001,
+          "en": "this is another third-party package and here in fetch data, I make a get request to a dummy API,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 111,
+          "end": 114.93,
+          "en": "so this is a real API in the web, a real request is made here,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 114.96000000000001,
+          "end": 117.06,
+          "en": "this API is not maintained by me,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 117.18,
+          "end": 124.02,
+          "en": "it's just an API we can use for playing around, for testing and there, I get back a response object, axios",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 124.05,
+          "end": 129.36,
+          "en": "gives me such a response object which happens to have a couple of properties, like the status code for",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 129.36,
+          "end": 133.55,
+          "en": "example but also the data property which I'm extracting here.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 133.59,
+          "end": 135.32,
+          "en": "This is essentially what I do,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 135.42,
+          "end": 137.35,
+          "en": "now let's write some tests.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 137.46,
+          "end": 146.61,
+          "en": "I already installed the jest package here and I also already configured my test command here to use",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 146.61,
+          "end": 147.59,
+          "en": "jest,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 147.6,
+          "end": 154.5,
+          "en": "I also have a project where I use Node.js import export syntax because jest uses that by default",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 154.71,
+          "end": 160.35,
+          "en": "and just as with my other testing video where I gave you an introduction to testing with jest, there",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 160.35,
+          "end": 165.87,
+          "en": "I explained that jest uses that syntax, that setting it up to understand a different syntax would be",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 165.87,
+          "end": 171.3,
+          "en": "more complex and I still don't want to do that here because here, I want to focus on testing async code.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 171.81,
+          "end": 174.42000000000002,
+          "en": "So we got everything set up to write some tests, so",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 174.48,
+          "end": 181.97,
+          "en": "let's do that. You learned in that last video that you can create a new file with .test.js at",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 181.98,
+          "end": 186.4,
+          "en": "the end to have Jest.js pick it up and execute it automatically.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 186.51,
+          "end": 192.41,
+          "en": "So this will be the testing file for app.js and let's say we want a test print title.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 192.42,
+          "end": 195.61,
+          "en": "Conveniently I'm already exporting it here at the bottom,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 195.81,
+          "end": 196.98,
+          "en": "so what can we do?",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 197.01,
+          "end": 202.98,
+          "en": "Well in app-test.js, we can use the test function which is globally available when we run that",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 202.98,
+          "end": 210.27,
+          "en": "file with jest, there we give it a description, some text, yes some description of what should be tested",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 210.27,
+          "end": 219.69,
+          "en": "here and there I have should print an uppercase text for example. I have my arrow function then that",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 219.69,
+          "end": 225.55,
+          "en": "should execute or that contains the testing logic and in there we define our expectations.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 225.72,
+          "end": 232.74,
+          "en": "Now we could expect uppercase text with the help of some regex magic or anything like that but here",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 233.04,
+          "end": 239.1,
+          "en": "because we'll change that anyways, I just want to expect this text because right now I will always get",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 239.1,
+          "end": 246.09,
+          "en": "the text for the API endpoint I'm hitting. So I expect and now I need to import that function which",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 246.09,
+          "end": 247.36,
+          "en": "I want to test,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 247.56,
+          "end": 258.04,
+          "en": "so that will be print title, I am pulling that out of my exported object in the app.js file,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 258.05,
+          "end": 267.1,
+          "en": "so I expect a print title, the result of that function call to be equal to my all uppercase text here,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 267.1,
+          "end": 268.83,
+          "en": "this is my expectation.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 268.96,
+          "end": 276.65,
+          "en": "We can now run that test by running npm test and this executes all test.js files and this actually",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 276.65,
+          "end": 281.65999999999997,
+          "en": "fails because it fails to execute add event listener null.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 281.69,
+          "end": 288.85,
+          "en": "Now the reason for that actually is that app.js contains some code that will always run when this file",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 288.86,
+          "end": 295.58,
+          "en": "gets executed and it does get executed when I import from that file and it tries to access the DOM here",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 295.64,
+          "end": 297.98,
+          "en": "which just doesn't work in this environment",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 297.98,
+          "end": 300.41,
+          "en": "here, the real DOM is not loaded here,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 300.41,
+          "end": 306.52,
+          "en": "so an easy way around that is to take that function and export it into a separate file,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 306.53,
+          "end": 308.79,
+          "en": "maybe a util.js file,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 308.87,
+          "end": 315.03,
+          "en": "this is also something we did in the last video already, export print title here",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 316.88,
+          "end": 322.34,
+          "en": "and what this allows us to do is it allows us to import something from that file only without executing",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 322.37,
+          "end": 329.19,
+          "en": "app.js and therefore without hitting the real DOM. So we can rename that testing file here to",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 329.23,
+          "end": 337.31,
+          "en": "utiltest.js and we import print title from ./util and in app.js since I removed",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 337.34000000000003,
+          "end": 338.8,
+          "en": "print title from there,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 338.81,
+          "end": 348.95,
+          "en": "we also need to import print title by requiring it from the ./util file here",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 349.08,
+          "end": 354.75,
+          "en": "and now for that to work, I'll also have to move load title over to util.js because print title",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 354.75,
+          "end": 356.37,
+          "en": "depends on that,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 356.37,
+          "end": 359.67,
+          "en": "so let's move load title into that file as well.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 359.67,
+          "end": 362.31,
+          "en": "That means that fetch data also needs to move in there,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 362.55,
+          "end": 369.9,
+          "en": "so from app.js let's grab the fetch data import and move that to the util.js file",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 369.9,
+          "end": 378.24,
+          "en": "and now with that setup, if we rerun npm test here, now it should be able to run our test here and it",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 378.24,
+          "end": 378.68,
+          "en": "does",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 378.69,
+          "end": 384.92,
+          "en": "but I get an error that essentially it expected a string but it received undefined",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 385.32,
+          "end": 391.1,
+          "en": "and now this already shows us a problem we have with asynchronous code testing.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 391.14,
+          "end": 394.69,
+          "en": "Well actually in print title, I am indeed returning nothing,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 394.71,
+          "end": 397.56,
+          "en": "so getting undefined as a result makes perfect sense",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 398.1,
+          "end": 403.40999999999997,
+          "en": "but even if I would return something, like for example in here, if I not only log the title but I also",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 403.40999999999997,
+          "end": 410.39,
+          "en": "returned the title here, if I do that and I rerun, I will still get that error,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 410.4,
+          "end": 415.26,
+          "en": "I can already say that. The reason for that is that and that has nothing to do with testing, that's normal",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 415.26,
+          "end": 420.64,
+          "en": "Javascript behavior, return statements inside of callbacks or inside of promise",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 420.66,
+          "end": 426.99,
+          "en": "then calls are not executed or are executed but Javascript does not wait for them,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 427.02,
+          "end": 431.94,
+          "en": "it does not return this value as a return value for this overall function,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 431.94,
+          "end": 435.17,
+          "en": "instead this is the return value of that inner function here",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 435.3,
+          "end": 437.22,
+          "en": "and we're not testing this inner function,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 437.28,
+          "end": 439.95,
+          "en": "we're testing that overall function.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 440.04,
+          "end": 447.03,
+          "en": "So in our case here, one simple solution would be to test load title. Here we return something in the inner",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 447.03,
+          "end": 447.87,
+          "en": "function",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 447.87,
+          "end": 450.39,
+          "en": "and we also return something in the main function,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 450.45,
+          "end": 452.87,
+          "en": "we returned the whole promise.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 452.90999999999997,
+          "end": 458.61,
+          "en": "So chances are that we get back a promise here to which we then can listen and that might allow us to",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 458.61,
+          "end": 460.65,
+          "en": "expect something helpful.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 460.68,
+          "end": 467.74,
+          "en": "So let's change something, let's export load title here so that we can test it,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 467.76,
+          "end": 474.45,
+          "en": "let's go to utiltest.js and there, I will not expect something like that but I'll get my title",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 475.05,
+          "end": 483.41,
+          "en": "but instead, I will import load title here and I will execute load title and this gives us a promise",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 483.41,
+          "end": 489.51,
+          "en": "so I will add then here and in there, I know I'll get my title because that's exactly the way I use",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 489.51,
+          "end": 490.8,
+          "en": "it in print title right,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 490.8,
+          "end": 493.71,
+          "en": "I have load title and then I get my title.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 493.89,
+          "end": 501.03,
+          "en": "So now I have the exact same usage here in utiltest.js and now here I want to expect something, that",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 501.03,
+          "end": 505.93,
+          "en": "my title should be equal to that uppercase title I got here.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 506.04,
+          "end": 515.41,
+          "en": "So we can grab that title here, copy it and that is what I expect as a value. Now if I rerun npm test,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 516.88,
+          "end": 520.76,
+          "en": "it actually passes because now this test succeeds.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 520.81,
+          "end": 521.69,
+          "en": "So this is better,",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 521.7,
+          "end": 526.75,
+          "en": "this is how we could test our asynchronous code but we still have a problem here,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 526.84,
+          "end": 530.29,
+          "en": "the problem is we're still hitting our API.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 530.95,
+          "end": 536.17,
+          "en": "So here in util.js, I'm using fetch data and if you remember, we're defining that in the HTTP",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 536.17,
+          "end": 540.53,
+          "en": "file, so here and there we're making a real API request.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 540.58,
+          "end": 547.3,
+          "en": "We typically don't want to do that in testing, we might exceed certain API quotas if we do that, if we're",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 547.3,
+          "end": 548.8,
+          "en": "testing post requests,",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 548.83,
+          "end": 554.41,
+          "en": "we might even edit something on the API which we certainly don't want to do as part of testing,",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 554.44,
+          "end": 557.18,
+          "en": "certainly not with our production API at least.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 557.32,
+          "end": 560.59,
+          "en": "So hitting the API is typically not something we want to do,",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 560.59,
+          "end": 562.95,
+          "en": "there also are other reasons against it,",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 562.99,
+          "end": 569.86,
+          "en": "what would we achieve by really making that HttpRequest? Do you want to test if your API works correctly?",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 570.19,
+          "end": 575.09,
+          "en": "If you're building that API, you should do these tests during the API development,",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 575.17,
+          "end": 577.05,
+          "en": "not when working on your frontend,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 577.15,
+          "end": 579.1,
+          "en": "these two should be separated,",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 579.34,
+          "end": 581.4,
+          "en": "so that is certainly not something you want to test.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 581.5,
+          "end": 588.17,
+          "en": "If the API works or not is not something you test in your frontend code, you might test error fallbacks",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 588.19,
+          "end": 591.77,
+          "en": "or anything like that but not if the API works correctly.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 591.94,
+          "end": 597.88,
+          "en": "You also don't want to test if the get method exposed by axios works correctly.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 597.88,
+          "end": 603.27,
+          "en": "That is a method provided by a third-party package and we rely on that package doing its job,",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 603.31,
+          "end": 606.93,
+          "en": "so we also don't test third-party package functionalities.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 607.06,
+          "end": 614.14,
+          "en": "We want to test our own code and our own code here for example is that we extract data and that here,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 614.2,
+          "end": 617.74,
+          "en": "that we transform this to uppercase and that we pull out the title.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
