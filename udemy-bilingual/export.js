@@ -1,0 +1,92 @@
+/* Runs in an extension page; uses the existing Udemy host permissions only. */
+(async () => {
+  'use strict';
+  const status = document.querySelector('#status'), list = document.querySelector('#courses');
+  const start = document.querySelector('#start'), skipReact = document.querySelector('#skip-react');
+  const rows = new Map();
+  for (const course of UdemyCourses.courses) {
+    const row = document.createElement('li'); row.textContent = course.title;
+    const state = document.createElement('small'); state.textContent = '待下載'; row.append(state); list.append(row);
+    rows.set(course.slug, { row, state });
+  }
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+  async function json(url) {
+    const address = new URL(url, 'https://www.udemy.com');
+    if (address.origin !== 'https://www.udemy.com') throw new Error('課程清單來源不符');
+    const response = await fetch(address.href, { credentials: 'include', headers: { Accept: 'application/json' } });
+    if (!response.ok) throw new Error(`課程讀取失敗（HTTP ${response.status}）；請確認登入及觀看權限`);
+    return response.json();
+  }
+  async function caption(url) {
+    const address = new URL(url);
+    if (address.protocol !== 'https:' || !(address.hostname.endsWith('.udemycdn.com') || address.hostname === 'udemy-captions.s3.amazonaws.com' || address.hostname === 'www.udemy.com')) throw new Error('字幕來源不是 Udemy');
+    const response = await fetch(address.href, { credentials: 'omit', redirect: 'error' });
+    if (!response.ok) throw new Error(`英文字幕讀取失敗（HTTP ${response.status}）`);
+    const text = await response.text();
+    if (text.length > 5000000) throw new Error('字幕檔過大');
+    return text;
+  }
+  async function hash(cues) {
+    const data = new TextEncoder().encode(JSON.stringify(cues.map(({ start, end, text }) => ({ start, end, text }))));
+    return [...new Uint8Array(await crypto.subtle.digest('SHA-256', data))].map(x => x.toString(16).padStart(2, '0')).join('');
+  }
+  function download(value, filename, row) {
+    const link = document.createElement('a'); link.textContent = '下載 JSON'; link.download = filename;
+    link.href = URL.createObjectURL(new Blob([JSON.stringify(value, null, 2)], { type: 'application/json' }));
+    row.append(link); link.click();
+  }
+  start.addEventListener('click', async () => {
+    start.disabled = true; skipReact.disabled = true;
+    const report = { version: 1, startedAt: new Date().toISOString(), courses: [] };
+    const targets = UdemyCourses.courses.filter(course => !(skipReact.checked && course.id === 1362070));
+    if (skipReact.checked) rows.get('react-the-complete-guide-incl-redux').state.textContent = '沿用已有完整英文備份';
+    for (const [index, course] of targets.entries()) {
+      const { row, state } = rows.get(course.slug);
+      const record = { slug: course.slug, title: course.title, status: 'pending' }; report.courses.push(record);
+      try {
+        status.textContent = `課程 ${index + 1}/${targets.length} · ${course.title}`;
+        const courseId = await UdemyCourses.idFor(course);
+        record.courseId = courseId;
+        const items = [];
+        let next = `/api-2.0/courses/${courseId}/subscriber-curriculum-items/?page_size=200&fields[lecture]=id,title,asset&fields[asset]=asset_type,captions`;
+        while (next) {
+          const data = await json(next); items.push(...data.results); next = data.next;
+        }
+        let lectureOrder = 0;
+        const curriculum = items.map(item => ({ type: item._class, id: item.id, title: item.title,
+          ...(item._class === 'lecture' ? { lectureOrder: ++lectureOrder, assetType: item.asset?.asset_type || null } : {}) }));
+        const videos = items.filter(item => item._class === 'lecture' && /^video$/i.test(item.asset?.asset_type || ''));
+        if (!videos.length) throw new Error('未取得影片講座清單');
+        const result = { version: 1, courseId, courseSlug: course.slug, courseTitle: course.title,
+          sourceLanguage: 'en', targetLanguage: 'zh-TW', lectures: [], errors: [], curriculum };
+        for (const [videoIndex, item] of videos.entries()) {
+          state.textContent = `下載 ${videoIndex + 1}/${videos.length} · ${item.title}`;
+          try {
+            // Check access through the same subscribed-lecture endpoint used by the player.
+            const lecture = await json(`/api-2.0/users/me/subscribed-courses/${courseId}/lectures/${item.id}/?fields[lecture]=asset&fields[asset]=captions`);
+            const english = SubtitleCore.select(lecture.asset?.captions || []).english;
+            if (!english?.url) throw new Error('沒有英文字幕');
+            const cues = SubtitleCore.parse(await caption(english.url));
+            if (!cues.length) throw new Error('英文字幕無法解析');
+            result.lectures.push({ id: String(item.id), title: item.title,
+              lectureOrder: curriculum.find(entry => entry.type === 'lecture' && entry.id === item.id)?.lectureOrder,
+              videoOrder: videoIndex + 1, sourceHash: await hash(cues),
+              cues: cues.map(({ start, end, text }, i) => ({ id: i + 1, start, end, en: text, zh: '' })) });
+          } catch (error) { result.errors.push({ id: item.id, title: item.title, error: error.message }); }
+          await delay(300);
+        }
+        record.status = result.errors.length ? 'partial' : 'downloaded';
+        record.videoCount = videos.length; record.downloadedLectures = result.lectures.length;
+        record.cueCount = result.lectures.reduce((count, lecture) => count + lecture.cues.length, 0);
+        record.errors = result.errors;
+        record.filename = `Udemy-English-course-${courseId}.json`;
+        download(result, record.filename, row);
+        state.textContent = `英文匯出：${record.downloadedLectures}/${record.videoCount} 堂影片、${record.cueCount} 段；${result.errors.length} 堂待補`;
+      } catch (error) { record.status = 'failed'; record.error = error.message; state.textContent = error.message; }
+    }
+    report.finishedAt = new Date().toISOString();
+    download(report, 'Udemy-English-export-report.json', status);
+    status.prepend(document.createTextNode(`匯出結束：${report.courses.filter(x => x.status === 'downloaded').length}/${targets.length} 門成功；請檢查各課程結果。 `));
+    start.disabled = false; skipReact.disabled = false;
+  });
+})();
