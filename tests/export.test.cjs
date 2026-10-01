@@ -57,6 +57,7 @@ class Element {
   assert.deepEqual(report.courses.map(course=>course.status),['downloaded','partial','failed']);
   assert.match(report.courses[2].error,/403/);
   assert.ok(requests.filter(x=>!x.address.endsWith('.vtt')).every(x=>x.credentials==='include'));
+  assert.ok(requests.filter(x=>x.address.includes('subscriber-curriculum-items')).every(x=>!x.address.includes('captions') && x.address.includes('page_size=100')));
   assert.ok(requests.filter(x=>x.address.endsWith('.vtt')).every(x=>x.credentials==='omit'));
   assert.equal(nodes['#start'].disabled,false);
   console.log('PASS: Batch export, original English/time hash, article listing, missing-caption and inaccessible-course reporting, authenticated course requests.');
