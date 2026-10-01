@@ -106,6 +106,6 @@ Remix、Svelte、NativeScript、Ionic 與 CSS 各已驗證前 10 堂。CSS 的 3
 
 `data/courses/1362070/translation-progress.json` 保留每堂英文檔、翻譯檔、驗證與匯入狀態。`translation_queue.py next` 取得下一堂；`verify` 核對完整結果，`imported` 必須附上實際觀察到的匯入證據。每完成一堂通知一次，可中斷後續接。詳細步驟見 `ONLINE-WORKFLOW.md`。
 
-使用者指定優先處理 React，每 25 堂自動提交備份至 [GitHub 儲存庫](https://github.com/goldshoot0720/Udemygpt)。React 累計完成 575 堂（第 551-575 堂已提交），剩餘 103 堂持續翻譯。其他課程由堂數少的開始。Remix 與 Svelte 的前 10 堂已完成。
+使用者指定優先處理 React，每 25 堂自動提交備份至 [GitHub 儲存庫](https://github.com/goldshoot0720/Udemygpt)。React 累計完成 600 堂（第 576-600 堂已提交），剩餘 78 堂持續翻譯。其他課程由堂數少的開始。Remix 與 Svelte 的前 10 堂已完成。
 
 參考：[Mozilla 暫時安裝](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)、[OpenCC JS](https://github.com/nk2028/opencc-js)、[ChatGPT 檔案處理](https://learn.chatgpt.com/docs/use-chatgpt)。
