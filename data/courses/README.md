@@ -5,20 +5,20 @@
 | 課程 | 課程 ID | 總堂數 | 已完成譯文 | 繁體中文譯文 |
 | --- | ---: | ---: | ---: | --- |
 | [React - The Complete Guide](1362070/README.md) | 1362070 | 678 | 678（全部完成） | [查看譯文](1362070/translations/README.md) |
-| [Flutter & Dart - The Complete Guide](1708340/README.md) | 1708340 | 286 | 230 | [查看譯文](1708340/translations/README.md) |
+| [Flutter & Dart - The Complete Guide](1708340/README.md) | 1708340 | 286 | 286（全部完成） | [查看譯文](1708340/translations/README.md) |
 | [NodeJS - The Complete Guide](1879018/README.md) | 1879018 | 479 | 90 | [查看譯文](1879018/translations/README.md) |
 | [React Native - The Practical Guide](1436092/README.md) | 1436092 | 275 | 275（全部完成） | [查看譯文](1436092/translations/README.md) |
 | [CSS - The Complete Guide](1561458/README.md) | 1561458 | 266 | 266（全部完成） | [查看譯文](1561458/translations/README.md) |
 | [Svelte.js - The Complete Guide](2360566/README.md) | 2360566 | 171 | 171（全部完成） | [查看譯文](2360566/translations/README.md) |
 | [NativeScript + Angular: Build Native iOS, Android & Web Apps](2126948/README.md) | 2126948 | 217 | 217（全部完成） | [查看譯文](2126948/translations/README.md) |
 | [Remix.js - The Practical Guide](4958062/README.md) | 4958062 | 106 | 106（全部完成） | [查看譯文](4958062/translations/README.md) |
-| [Angular - The Complete Guide](756150/README.md) | 756150 | 701 | 106 | [查看譯文](756150/translations/README.md) |
+| [Angular - The Complete Guide](756150/README.md) | 756150 | 701 | 154 | [查看譯文](756150/translations/README.md) |
 | [Next.js & React - The Complete Guide](3873464/README.md) | 3873464 | 417 | 90 | [查看譯文](3873464/translations/README.md) |
 | [Vue - The Complete Guide (incl. Router & Composition API)](995016/README.md) | 995016 | 294 | 294（全部完成） | [查看譯文](995016/translations/README.md) |
 | [Ionic - Build iOS, Android & Web Apps with Ionic & Angular](1070124/README.md) | 1070124 | 242 | 242（全部完成） | [查看譯文](1070124/translations/README.md) |
-| [JavaScript - The Complete Guide (Beginner + Advanced)](2508942/README.md) | 2508942 | 540 | 90 | [查看譯文](2508942/translations/README.md) |
+| [JavaScript - The Complete Guide (Beginner + Advanced)](2508942/README.md) | 2508942 | 540 | 124 | [查看譯文](2508942/translations/README.md) |
 
-13 門課影片講座合計 4,672 堂（不含文章與測驗）。React 優先處理、678 堂已全部完成（每 25 堂自動提交）。Remix 106 堂已全部完成（10,422 段）；Svelte 171 堂已全部完成（10,409 段）；NativeScript 217 堂已全部完成（15,428 段）。Vue 294 堂已全部完成。Ionic 242 堂已全部完成；React Native 275 堂已全部完成；CSS 266 堂已全部完成；Flutter 已完成 230 堂；Next.js 已完成 90 堂；NodeJS 已完成 90 堂；JavaScript 已完成 90 堂；Angular 已完成 106 堂；Svelte 含 3 堂音訊補件譯文。下一輪從 Svelte 或堂數少的課程繼續。
+13 門課影片講座合計 4,672 堂（不含文章與測驗）。React 優先處理、678 堂已全部完成（每 25 堂自動提交）。Remix 106 堂已全部完成（10,422 段）；Svelte 171 堂已全部完成（10,409 段）；NativeScript 217 堂已全部完成（15,428 段）。Vue 294 堂已全部完成。Ionic 242 堂已全部完成；React Native 275 堂已全部完成；CSS 266 堂已全部完成；Flutter 已完成 286 堂（全部完成，36,671 段）；Next.js 已完成 90 堂；NodeJS 已完成 90 堂；JavaScript 已完成 124 堂；Angular 已完成 154 堂；Svelte 含 3 堂音訊補件譯文。下一輪從 JavaScript 或堂數少的課程繼續。
 
 每課分類：
 
