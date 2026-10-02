@@ -1,0 +1,3075 @@
+{
+  "version": 1,
+  "courseId": 995016,
+  "courseSlug": "vuejs-2-the-complete-guide",
+  "courseTitle": "Vue - The Complete Guide (incl. Router & Composition API)",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "21880374",
+      "title": "Understanding Mixin Merging",
+      "lectureOrder": 313,
+      "videoOrder": 279,
+      "sourceHash": "cc79e093626b10722ade8bfbd0be5126fc3adf89cf3e54acd0ef01429d9b0ed0",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.12,
+          "end": 3.87,
+          "en": "Mixins can be powerful",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.87,
+          "end": 5.89,
+          "en": "when working with the options API,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.89,
+          "end": 7.91,
+          "en": "as you saw in the last lecture,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.91,
+          "end": 9.59,
+          "en": "it's always important though,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 9.59,
+          "end": 12.73,
+          "en": "to be aware of how mixins are merged",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 12.73,
+          "end": 15.45,
+          "en": "with the options you define in your components,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 15.45,
+          "end": 18.86,
+          "en": "where you use them. Thus far, I only have one mixin,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 18.86,
+          "end": 22.27,
+          "en": "in each component and I got no other options",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 22.27,
+          "end": 25.513,
+          "en": "besides the components option in those components.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 26.47,
+          "end": 28.1,
+          "en": "Now you could add more mixins,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 28.1,
+          "end": 31.05,
+          "en": "but you could also have more component options.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 31.05,
+          "end": 34.51,
+          "en": "And let's say I also had a data option here",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 34.51,
+          "end": 36.41,
+          "en": "in the delete user component.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 36.41,
+          "end": 41.41,
+          "en": "And in there I return a data object with some other data,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 42.15,
+          "end": 45.7,
+          "en": "maybe with the alert title, let's say.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 45.7,
+          "end": 48.51,
+          "en": "Delete user. That could be my title.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 48.51,
+          "end": 52.47,
+          "en": "And now I wanna bind alert title to title prop",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 52.47,
+          "end": 54.193,
+          "en": "on my user alert component.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 55.37,
+          "end": 57.56,
+          "en": "Of course we can do this with a colon",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 57.56,
+          "end": 59.98,
+          "en": "and then point at alert title,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 59.98,
+          "end": 62.633,
+          "en": "which now is a data property of this component.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 63.88,
+          "end": 66.02,
+          "en": "There's just one important question.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 66.02,
+          "end": 71.02,
+          "en": "Will this work after all the mixin also provides some data?",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 71.46000000000001,
+          "end": 74.45,
+          "en": "So which data wins the one of the mixin,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 74.45,
+          "end": 77.82,
+          "en": "or the one of the lead user. And if one of the two wins,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 77.82,
+          "end": 81.03999999999999,
+          "en": "does that mean that the other functionality breaks?",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 81.03999999999999,
+          "end": 85.1,
+          "en": "Well, let's see. If I reload and I click delete user,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 85.1,
+          "end": 87.97,
+          "en": "the alert opens, and we see that title,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 87.97,
+          "end": 91.22,
+          "en": "which I just defined as a data property",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 91.22,
+          "end": 93.28,
+          "en": "of the delete user component.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 93.28,
+          "end": 96.45,
+          "en": "So actually no data option wins",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 96.45,
+          "end": 99.12299999999999,
+          "en": "instead vue merges the data.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 100,
+          "end": 101.06,
+          "en": "And that's important.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 101.06,
+          "end": 104.86,
+          "en": "This is a built in mechanism when you have a mixin,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 104.86,
+          "end": 109.77000000000001,
+          "en": "the options exposed by the mixin are merged",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 109.77000000000001,
+          "end": 112.453,
+          "en": "with the options you have in your component.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 113.39,
+          "end": 116.09,
+          "en": "So for example, here in the alert mixin,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 116.09,
+          "end": 119.24000000000001,
+          "en": "I have this alert is visible data property.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 119.24000000000001,
+          "end": 121.53,
+          "en": "And by default, it's false.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 121.53,
+          "end": 123.82,
+          "en": "Now this is merged with my component",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 123.82,
+          "end": 124.97,
+          "en": "and the data for,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 124.97,
+          "end": 127.78,
+          "en": "in the end my component has this property as well",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 127.78,
+          "end": 129.603,
+          "en": "because I'm applying this mixin.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 130.98,
+          "end": 134.57,
+          "en": "But I could also add the same data property here,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 134.57,
+          "end": 138.28,
+          "en": "cue the data of delete user, and set it to true,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 138.28,
+          "end": 140.93,
+          "en": "which is a different value than applied in the mixin.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 142.23,
+          "end": 143.713,
+          "en": "And if I do that and save it,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 144.68,
+          "end": 147.05,
+          "en": "we see when I reload my app,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 147.05,
+          "end": 149.27,
+          "en": "this alert is opened by default.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 149.27,
+          "end": 152.25,
+          "en": "So this means that my component option,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 152.25,
+          "end": 154.15,
+          "en": "where I set this to true,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 154.15,
+          "end": 157.53,
+          "en": "hence making sure that the alert is opened by default,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 157.53,
+          "end": 162.42000000000002,
+          "en": "this component option overrides the option set by the mixin.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 162.42000000000002,
+          "end": 165.57,
+          "en": "And that's indeed how vue merges mixins",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 165.57,
+          "end": 167.489,
+          "en": "with component options.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 167.489,
+          "end": 171.31,
+          "en": "The component options win if there is a clash.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 171.31,
+          "end": 174.82,
+          "en": "By default, data is simply combined, but if you have",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 174.82,
+          "end": 176.73,
+          "en": "like, we have it here, for example,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 176.73,
+          "end": 179.57999999999998,
+          "en": "the same data property in your component,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 179.57999999999998,
+          "end": 183.79,
+          "en": "as you have it in a mixin, the component option wins,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 183.79,
+          "end": 184.923,
+          "en": "not the mixin.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 184.923,
+          "end": 187.25,
+          "en": "This is how you merge the data",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 187.25,
+          "end": 188.993,
+          "en": "between component and mixin.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "21880370",
+      "title": "Using Mixins",
+      "lectureOrder": 312,
+      "videoOrder": 278,
+      "sourceHash": "c4c15e19561e40ddbccaf9c6eac69b734703aef7d6f5f8c9ab0fcb27d4f903e3",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.11,
+          "end": 4.36,
+          "en": "In this example, project, the logic,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.36,
+          "end": 8.07,
+          "en": "which I would want to reuse can be found in the add and",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.07,
+          "end": 10,
+          "en": "delete user components.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10,
+          "end": 11.65,
+          "en": "There I basically have",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.65,
+          "end": 14.78,
+          "en": "the same data and methods and actually all",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.78,
+          "end": 18.13,
+          "en": "the components option, if you take a closer look.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.13,
+          "end": 22.37,
+          "en": "Now you might be able to reuse these logic by creating some",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 22.37,
+          "end": 23.76,
+          "en": "wrapper component,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 23.76,
+          "end": 27.07,
+          "en": "but another powerful tool for easily sharing this",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 27.07,
+          "end": 29.95,
+          "en": "configuration across both components are",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 29.95,
+          "end": 31.523,
+          "en": "the already mentioned mixins.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 32.62,
+          "end": 35.19,
+          "en": "For that I'll create a new folder mixins,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 35.19,
+          "end": 36.19,
+          "en": "the name is up to you,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 36.19,
+          "end": 38.75,
+          "en": "but I guess this name makes sense since I'm going",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 38.75,
+          "end": 41.47,
+          "en": "to store one or more mixins in there,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 41.47,
+          "end": 46.09,
+          "en": "and I will add the alert mixin file,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 46.09,
+          "end": 48.49,
+          "en": "or just the alert js file.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 48.49,
+          "end": 51.563,
+          "en": "The name is up to you though, how you wanna name this file.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 52.97,
+          "end": 55.01,
+          "en": "And in this new js file,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 55.01,
+          "end": 56.44,
+          "en": "so not a dot vue file,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 56.44,
+          "end": 61.44,
+          "en": "but in this js file, I want to store my shared config logic.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 63.96,
+          "end": 67.48,
+          "en": "And in this case here, it's actually an extreme case,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 67.48,
+          "end": 68.357,
+          "en": "the entire config objects",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 68.357,
+          "end": 69.19,
+          "en": "for both components are exactly equal",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 69.19,
+          "end": 74.19,
+          "en": "they're exactly the same.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 75.12,
+          "end": 77.7,
+          "en": "So therefore I will actually grab",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 77.7,
+          "end": 80.35,
+          "en": "this entire default export here,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 80.35,
+          "end": 83.1,
+          "en": "copy it from one of the components and go to",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 83.1,
+          "end": 85.583,
+          "en": "the alert js file and paste it in there.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 86.43,
+          "end": 90.45,
+          "en": "So now in alert js, I'm exporting this object",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 90.45,
+          "end": 93.37,
+          "en": "as a default object.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 93.37,
+          "end": 95.68,
+          "en": "Now what's the advantage of this?",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 95.68,
+          "end": 100.22,
+          "en": "Well, now we can use this as a mixin, in those components.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 100.22,
+          "end": 104.8,
+          "en": "So for example, an add user there, I can now import",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 104.8,
+          "end": 108.72999999999999,
+          "en": "the alert mixin this name is up to you",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 108.72999999999999,
+          "end": 111.95,
+          "en": "from, going up one level diving into",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 111.95,
+          "end": 115.033,
+          "en": "the mixins folder alert js,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 115.9,
+          "end": 120.9,
+          "en": "and now we can remove all the code here so that we're left",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 120.98,
+          "end": 124.93,
+          "en": "with the empty config object and add a new option,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 124.93,
+          "end": 129.53,
+          "en": "which we haven't used before, the mixins option.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 129.53,
+          "end": 133.21,
+          "en": "And this takes an array where you add all the mixins,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 133.21,
+          "end": 136.94,
+          "en": "so all the shared code you wanna apply to this component.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 136.94,
+          "end": 139.313,
+          "en": "And here I add my alert mixin,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 141.03,
+          "end": 145.41,
+          "en": "and I'm going to copy this now, go to delete user",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 145.41,
+          "end": 146.94,
+          "en": "and add the same code",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 146.94,
+          "end": 149.913,
+          "en": "there replacing the existing config object.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 151.39,
+          "end": 154.68,
+          "en": "Now with that, there's just one more tweak we gotta do.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 154.68,
+          "end": 157.99,
+          "en": "I get an error now regarding my user alert.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 157.99,
+          "end": 162.3,
+          "en": "This import here is not required in delete user",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 162.3,
+          "end": 164.1,
+          "en": "and add user Vue anymore,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 164.1,
+          "end": 165.39,
+          "en": "but we have to add it",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 165.39,
+          "end": 168.903,
+          "en": "in our mixin because here I'm referencing user alert.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 169.93,
+          "end": 174.93,
+          "en": "So here I'm going to import user alert from going up one",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 175.1,
+          "end": 179.44299999999998,
+          "en": "level, going into components, user alert dot Vue.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 180.91,
+          "end": 183.15,
+          "en": "With that, I can save this and reload.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 183.15,
+          "end": 186.713,
+          "en": "And we get a warning failed to resolve component.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 188.56,
+          "end": 191.14,
+          "en": "This mixin concept here will work,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 191.14,
+          "end": 193.9,
+          "en": "but actually not for components.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 193.9,
+          "end": 195.09,
+          "en": "If you've got components",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 195.09,
+          "end": 197.1,
+          "en": "that should be registered in a component,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 197.1,
+          "end": 201.63,
+          "en": "this components option cannot be shared through a mixin.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 201.63,
+          "end": 204.56,
+          "en": "So therefore we actually have to remove this and remove the",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 204.56,
+          "end": 206.07999999999998,
+          "en": "import we just added",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 206.07999999999998,
+          "end": 209.35,
+          "en": "and bring it back into our custom components",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 209.35,
+          "end": 211.78,
+          "en": "into our custom component options here.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 211.78,
+          "end": 213.68,
+          "en": "So re-add components pointing",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 213.68,
+          "end": 216.84,
+          "en": "at user alert and re-add the import.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 216.84,
+          "end": 218.82,
+          "en": "Yes, I know we just removed it,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 218.82,
+          "end": 222.03,
+          "en": "but it is important to understand what you can and what you",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 222.03,
+          "end": 225.94,
+          "en": "cannot share through mixins and component configuration",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 225.94,
+          "end": 227.573,
+          "en": "can actually not be shared.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 228.7,
+          "end": 232.42000000000002,
+          "en": "So let's quickly re-add it to both our add and delete user",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 232.42000000000002,
+          "end": 235.053,
+          "en": "components and save everything thereafter.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 236.35,
+          "end": 238.3,
+          "en": "And with that though, if we reload,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 238.3,
+          "end": 242.57,
+          "en": "this will just work and it works as before,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 242.57,
+          "end": 244.31,
+          "en": "but there is one key difference.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 244.31,
+          "end": 249.14,
+          "en": "Now we got way leaner add and delete user components where",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 249.14,
+          "end": 252.77,
+          "en": "the config objects simply contained the components option",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 252.77,
+          "end": 256.91,
+          "en": "and then the mixins option and all the logic we had in both",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 256.91,
+          "end": 260.07,
+          "en": "components before is now in our mixin,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 260.07,
+          "end": 261.76,
+          "en": "and with these mixins,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 261.76,
+          "end": 265.73,
+          "en": "you can share all the component options you typically have",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 265.73,
+          "end": 268.23,
+          "en": "with the exception of components as you saw here,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 268.23,
+          "end": 273.08,
+          "en": "but you can share data, computed, methods, watchers,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 273.08,
+          "end": 278.08,
+          "en": "whatever you need there, it can be shared through mixins.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 278.13,
+          "end": 281.18,
+          "en": "And therefore mixins can be a powerful tool for",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 281.18,
+          "end": 283.9,
+          "en": "making your components leaner and sharing,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 283.9,
+          "end": 286.483,
+          "en": "reused logic across components.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "21880366",
+      "title": "Reusability Concepts",
+      "lectureOrder": 311,
+      "videoOrder": 277,
+      "sourceHash": "9a0a93c7e0d5db53d56b3de7682703229c2ddcc2359a6d92f66583005e3e3709",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.13,
+          "end": 3.3,
+          "en": "For this, I, again,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.3,
+          "end": 6.03,
+          "en": "prepared a little starting project for you.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.03,
+          "end": 7.58,
+          "en": "It is a simple project,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.58,
+          "end": 10.45,
+          "en": "which you can start as always with NPM install",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.45,
+          "end": 11.68,
+          "en": "and NPM run surf.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 11.68,
+          "end": 15.17,
+          "en": "And when you do so you will see this on the screen.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 15.17,
+          "end": 18.04,
+          "en": "We've got two dummy components here for adding",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 18.04,
+          "end": 20.02,
+          "en": "and deleting a user, presumably.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 20.02,
+          "end": 23.04,
+          "en": "And when we click add user, we open a,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 23.04,
+          "end": 25.86,
+          "en": "an alert, a model with add a user",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 25.86,
+          "end": 29.257,
+          "en": "and the text asking us whether we want to add a user",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 29.257,
+          "end": 31.88,
+          "en": "and we can close this by clicking on the backdrop",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 31.88,
+          "end": 34.2,
+          "en": "or by clicking on the close button.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 34.2,
+          "end": 36.05,
+          "en": "And when we click on delete user,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 36.05,
+          "end": 40.01,
+          "en": "we see almost the same dialogue, the same alert,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 40.01,
+          "end": 43.53,
+          "en": "but with a different content, a different text,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 43.53,
+          "end": 47.16,
+          "en": "and therefore here in App Vue,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 47.16,
+          "end": 49.88,
+          "en": "I'm adding add and delete user these two components.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 49.88,
+          "end": 51.36,
+          "en": "And in these components,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 51.36,
+          "end": 55.24,
+          "en": "I have my alert component added as a local component,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 55.24,
+          "end": 57.69,
+          "en": "actually in both components,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 57.69,
+          "end": 60.28,
+          "en": "we could add it as a global component as well,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 60.28,
+          "end": 62.93,
+          "en": "but here I went for the same component,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 62.93,
+          "end": 67.01,
+          "en": "added as a local component into different components.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 67.01,
+          "end": 71,
+          "en": "And besides that add user and delete user are very similar.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 71,
+          "end": 73.43,
+          "en": "They've got pretty much the same logic in them,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 73.43,
+          "end": 75.88,
+          "en": "but they got a different template, of course,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 75.88,
+          "end": 79.17,
+          "en": "because that is where these components differ.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 79.17,
+          "end": 81.6,
+          "en": "And that already brings us to the core topic",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 81.6,
+          "end": 85.32,
+          "en": "of this module, reusing logic and code.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 85.32,
+          "end": 87.33,
+          "en": "And for that, let's start simple.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 87.33,
+          "end": 91.03999999999999,
+          "en": "What can we reuse in a Vue application",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 91.03999999999999,
+          "end": 94.713,
+          "en": "or in any web application, if we think about it?",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 95.96000000000001,
+          "end": 100.03999999999999,
+          "en": "Well, for one that's of course our HTML structure",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 100.03999999999999,
+          "end": 102.83,
+          "en": "and styling, this is something",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 102.83,
+          "end": 104.92,
+          "en": "which we often reuse on our page.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 104.92,
+          "end": 108.09,
+          "en": "We often have different parts on our page,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 108.09,
+          "end": 112.35,
+          "en": "which actually use the same HTML structure and styling.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 112.35,
+          "end": 115.88300000000001,
+          "en": "Think about list items where every list item looks the same,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 117,
+          "end": 120.58,
+          "en": "but we also often want to reuse logic and events,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 120.58,
+          "end": 122.29,
+          "en": "which we might want to handle.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 122.29,
+          "end": 126.38,
+          "en": "And that's exactly why we have this components concept with",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 126.38,
+          "end": 129.25,
+          "en": "this core concept built into Vue,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 129.25,
+          "end": 133.28,
+          "en": "we have a powerful way of encapsulating structure,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 133.28,
+          "end": 135.89,
+          "en": "styling and logic into a component,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 135.89,
+          "end": 139.56,
+          "en": "and then using that component wherever we needed on",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 139.56,
+          "end": 143.48,
+          "en": "the page, and thanks to props and slots,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 143.48,
+          "end": 147.363,
+          "en": "we can still customize this component to a certain extent.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 148.65,
+          "end": 149.483,
+          "en": "And in the end,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 149.483,
+          "end": 152.72,
+          "en": "that's what I'm doing in this mini app here as well.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 152.72,
+          "end": 157.02,
+          "en": "The user alerts component is a reusable component,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 157.02,
+          "end": 160.78,
+          "en": "which defines the structure and styling for a backdrop",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 160.78,
+          "end": 162.27,
+          "en": "and the overlay.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 162.27,
+          "end": 166.3,
+          "en": "And then I'm using this component in both the delete user,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 166.3,
+          "end": 168.683,
+          "en": "as well as the add user component.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 169.66,
+          "end": 171.82,
+          "en": "And these components themselves, of course,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 171.82,
+          "end": 176.07,
+          "en": "are also encapsulated pieces of HTML code",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 176.07,
+          "end": 178.203,
+          "en": "and logic attached to it.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 179.12,
+          "end": 182.32,
+          "en": "And that is really the idea of components.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 182.32,
+          "end": 186.5,
+          "en": "We have HTML structure, styling",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 186.5,
+          "end": 189.14,
+          "en": "and possibly also some logic like here",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 189.14,
+          "end": 193.06,
+          "en": "for emitting this close event in the user alert component,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 193.06,
+          "end": 197.163,
+          "en": "which is all encapsulated into one reusable building block.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 198.24,
+          "end": 199.87,
+          "en": "Now that's nothing new though.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 199.87,
+          "end": 204.42000000000002,
+          "en": "We worked with components for hours and hours already at",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 204.42000000000002,
+          "end": 206.49,
+          "en": "this point in the course and they offered",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 206.49,
+          "end": 207.56,
+          "en": "that's nothing new,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 207.56,
+          "end": 210.59,
+          "en": "but it is the core concept when it comes",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 210.59,
+          "end": 213.163,
+          "en": "to re usability in Vue.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 214.47,
+          "end": 216.55,
+          "en": "But, it doesn't stop there.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 216.55,
+          "end": 218.48,
+          "en": "That is something we learnt thus far.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 218.48,
+          "end": 222.07,
+          "en": "Now here's the new part, even with components,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 222.07,
+          "end": 224.87,
+          "en": "which are great for having an encapsulated template",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 224.87,
+          "end": 227.8,
+          "en": "and logic, customization options with props",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 227.8,
+          "end": 231.32,
+          "en": "and custom events and slots, even with those components.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 231.32,
+          "end": 233.6,
+          "en": "And even with this powerful concept,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 233.6,
+          "end": 236.61,
+          "en": "we sometimes are left with some code,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 236.61,
+          "end": 238.6,
+          "en": "which we would want to reuse,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 238.6,
+          "end": 241.58,
+          "en": "but which be conscientious as easily.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 241.58,
+          "end": 244.75,
+          "en": "Because what if we have queue components",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 244.75,
+          "end": 249.34,
+          "en": "that have related or similar logic in them, for example,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 249.34,
+          "end": 252.36,
+          "en": "the user list component with a search method,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 252.36,
+          "end": 256.1,
+          "en": "data related to search and a Watcher related to search.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 256.1,
+          "end": 259.11,
+          "en": "And then we have to same logic in another component",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 260.33,
+          "end": 263.83,
+          "en": "in such cases, creating a new component,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 263.83,
+          "end": 268.44,
+          "en": "which has this combined logic might not always be possible",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 268.44,
+          "end": 271.4,
+          "en": "and therefore when using the options API,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 271.4,
+          "end": 273.86,
+          "en": "you have a concept called mixins,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 273.86,
+          "end": 277.63,
+          "en": "which basically allows you to share data, methods,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 277.63,
+          "end": 281.27,
+          "en": "computed properties, Watchers, lifecycle hooks,",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 281.27,
+          "end": 285.94,
+          "en": "whichever configuration you might need across components.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 285.94,
+          "end": 288.445,
+          "en": "So therefore let's explore mixins",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 288.445,
+          "end": 290.48,
+          "en": "and let's see how they can help us here",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 290.48,
+          "end": 292.523,
+          "en": "in this example project.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "21880364",
+      "title": "Module Introduction",
+      "lectureOrder": 310,
+      "videoOrder": 276,
+      "sourceHash": "f4e79810f15b7a5236075250bc1c50b9502bf0b9a99c4c75d9a90a12935d7742",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.15,
+          "end": 3.33,
+          "en": "In this module,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.33,
+          "end": 6.45,
+          "en": "let's dive into another advanced concept,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.45,
+          "end": 8.36,
+          "en": "and that would be mixins",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.36,
+          "end": 11.35,
+          "en": "and custom composition functions,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.35,
+          "end": 14.52,
+          "en": "or to be precise, the general topic",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.52,
+          "end": 18.61,
+          "en": "and idea of reusing code, both with the options",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.61,
+          "end": 21.24,
+          "en": "as well as the composition API,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 21.24,
+          "end": 23.66,
+          "en": "because the bigger your projects get,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 23.66,
+          "end": 26.54,
+          "en": "the more components you have in your projects,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 26.54,
+          "end": 29.61,
+          "en": "the more often you'll face scenarios",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 29.61,
+          "end": 33.6,
+          "en": "where there is some code duplication across components",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 33.6,
+          "end": 38.09,
+          "en": "and you would wish for a solution to reuse code,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 38.09,
+          "end": 40.64,
+          "en": "to share code across components.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 40.64,
+          "end": 43.15,
+          "en": "That will be the focus of this module.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 43.15,
+          "end": 46.97,
+          "en": "To be precise, we'll dive into a general overview",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 46.97,
+          "end": 49.38,
+          "en": "of reusing things in Vue apps",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 49.38,
+          "end": 53.16,
+          "en": "and which different concepts we have when it comes to that.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 53.16,
+          "end": 56.53,
+          "en": "And we'll then explore two main strategies",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 56.53,
+          "end": 59.44,
+          "en": "for reusing code across components,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 59.44,
+          "end": 63.59,
+          "en": "and that will be mixins for the options API",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 63.59,
+          "end": 68.02,
+          "en": "and custom functions or custom composition functions",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 68.02,
+          "end": 70.82,
+          "en": "when using the composition API.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 70.82,
+          "end": 74.463,
+          "en": "So let's dive in and let's explore our options here.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "21880358",
+      "title": "Summary",
+      "lectureOrder": 308,
+      "videoOrder": 275,
+      "sourceHash": "b093112173a641b9746944390a5e374a1d825f7e8cfdebe4b20f79327b2b8772",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.24,
+          "end": 3.64,
+          "en": "Now that's it for",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.64,
+          "end": 5.32,
+          "en": "this very thorough introduction",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.32,
+          "end": 7.02,
+          "en": "to the Composition API.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.02,
+          "end": 8.18,
+          "en": "We're going to see more of it",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 8.18,
+          "end": 9.68,
+          "en": "throughout the rest of the course",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 9.68,
+          "end": 11.43,
+          "en": "but with this module you should have",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 11.43,
+          "end": 16.31,
+          "en": "a first thorough idea of what the Composition API is about.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 16.31,
+          "end": 19.28,
+          "en": "Well, and what is it about, and why do we have it?",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 19.28,
+          "end": 21.41,
+          "en": "First of all, as I emphasized many times,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 21.41,
+          "end": 22.35,
+          "en": "throughout the module,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 22.35,
+          "end": 24.68,
+          "en": "it's an alternative to the Options API.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 24.68,
+          "end": 26.92,
+          "en": "You don't have to use it if you don't like it",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 26.92,
+          "end": 29.87,
+          "en": "or if it just doesn't make sense for your project",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 29.87,
+          "end": 31.26,
+          "en": "but you can use it,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 31.26,
+          "end": 34.31,
+          "en": "and then you will use the setup method, which you saw,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 34.31,
+          "end": 37.72,
+          "en": "to expose logic and data to the template",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 37.72,
+          "end": 40.25,
+          "en": "and the idea behind the Composition API",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 40.25,
+          "end": 42.27,
+          "en": "is that it's function based.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 42.27,
+          "end": 45.14,
+          "en": "You have all those functions you import from Vue,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 45.14,
+          "end": 48.04,
+          "en": "like ref, react, compute, and so on.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 48.04,
+          "end": 50.16,
+          "en": "All used in that setup method,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 50.16,
+          "end": 52.44,
+          "en": "and that this allows you to keep code",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 52.44,
+          "end": 55.79,
+          "en": "that is related logically to gather in one place",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 55.79,
+          "end": 58.793,
+          "en": "instead of splitting it across multiple options.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 59.75,
+          "end": 61.61,
+          "en": "Data and reactivity of course,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 61.61,
+          "end": 64.66,
+          "en": "is an important concept in Vue in general",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 64.66,
+          "end": 68.4,
+          "en": "and of course, they are found also in the Composition API",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 68.4,
+          "end": 71.25,
+          "en": "and here we can manage data as refs.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 71.25,
+          "end": 74.97,
+          "en": "So as individual values or in object which is in ref,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 74.97,
+          "end": 77.16,
+          "en": "or we use the reactive function",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 77.16,
+          "end": 79.34,
+          "en": "to create reactive objects.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 79.34,
+          "end": 80.99,
+          "en": "I talked about the differences",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 80.99,
+          "end": 82.58,
+          "en": "and how to work with these values",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 82.58,
+          "end": 85.113,
+          "en": "in great depth throughout this module.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 86.14,
+          "end": 88.41,
+          "en": "Reactivity is a key concept",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 88.41,
+          "end": 90.57,
+          "en": "and one of the most important takeaways",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 90.57,
+          "end": 94.465,
+          "en": "really is that you can create reactive refs or objects",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 94.465,
+          "end": 97.37,
+          "en": "but that their nested properties",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 97.37,
+          "end": 99.87,
+          "en": "are not necessarily reactive.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 99.87,
+          "end": 102.743,
+          "en": "As I also emphasized throughout this module.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 104.83,
+          "end": 106.93,
+          "en": "Now data and reactivity is a key concept",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 106.93,
+          "end": 108.35,
+          "en": "but of course, not everything.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 108.35,
+          "end": 111.06,
+          "en": "We also have methods, computed and watchers,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 111.06,
+          "end": 113,
+          "en": "when using the Options API,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 113,
+          "end": 114.61,
+          "en": "and in the Composition API,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 114.61,
+          "end": 116.7,
+          "en": "methods become regular functions",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 116.7,
+          "end": 118.55,
+          "en": "which you define in the setup method",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 118.55,
+          "end": 120.77,
+          "en": "and which you then may expose to the template",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 120.77,
+          "end": 123.466,
+          "en": "by returning it in that object which you return",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 123.466,
+          "end": 125.64,
+          "en": "in the setup method,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 125.64,
+          "end": 128.77,
+          "en": "and then you also have computed properties and watchers",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 128.77,
+          "end": 132.02,
+          "en": "which are defined with these imported functions",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 132.02,
+          "end": 134.123,
+          "en": "which you import from the Vue framework.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 135.43,
+          "end": 138.78,
+          "en": "Now if we have a closer look at this setup function",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 138.78,
+          "end": 141.34,
+          "en": "or setup method which we define in",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 141.34,
+          "end": 143.652,
+          "en": "our component conflict object,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 143.652,
+          "end": 146.85,
+          "en": "this setup function, or this setup method,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 146.85,
+          "end": 150.4,
+          "en": "is called by Vue, when the component is created,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 150.4,
+          "end": 154,
+          "en": "and in there you define all the data and logic",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 154,
+          "end": 155.23,
+          "en": "for this component,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 155.23,
+          "end": 157.91,
+          "en": "and most importantly for the template.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 157.91,
+          "end": 159.66,
+          "en": "So what you return in setup",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 159.66,
+          "end": 162.82999999999998,
+          "en": "is available in the template as you learned.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 162.82999999999998,
+          "end": 165.82999999999998,
+          "en": "In setup itself all the receives two arguments",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 165.82999999999998,
+          "end": 168.46,
+          "en": "which are passed and automatically by Vue",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 168.46,
+          "end": 170.63,
+          "en": "when it calls setup for you,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 170.63,
+          "end": 173.72,
+          "en": "and that is the reactive props object",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 173.72,
+          "end": 176.64,
+          "en": "with all the props you're getting for this component",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 176.64,
+          "end": 180.45,
+          "en": "and this context object with the fall through props,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 180.45,
+          "end": 183.55,
+          "en": "those attributes, with slot data,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 183.55,
+          "end": 185.32,
+          "en": "and with this emit function",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 185.32,
+          "end": 187.933,
+          "en": "which you can use for emitting a custom event.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "21880356",
+      "title": "Using Vuex with the Composition API",
+      "lectureOrder": 307,
+      "videoOrder": 274,
+      "sourceHash": "6deb046e3ab3111303a2eb695de11e4aa52a5cfdd190f9b29ab04ba47a938de9",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.12,
+          "end": 4.37,
+          "en": "Now we know how we can use routing",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.37,
+          "end": 6.04,
+          "en": "with the composition API.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.04,
+          "end": 7.58,
+          "en": "What about Vuex?",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.58,
+          "end": 10.9,
+          "en": "How can we use that with the composition API?",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.9,
+          "end": 12.73,
+          "en": "For this, attached you find another",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 12.73,
+          "end": 15.05,
+          "en": "very simple dummy project.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 15.05,
+          "end": 16.5,
+          "en": "We've got a counter there and a button,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 16.5,
+          "end": 18.43,
+          "en": "which currently does nothing,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 18.43,
+          "end": 20.87,
+          "en": "but this is built with the composition API.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 20.87,
+          "end": 22.95,
+          "en": "I mean, these are very simple components,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 22.95,
+          "end": 26.21,
+          "en": "but I plan on using the composition API there.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 26.21,
+          "end": 29.87,
+          "en": "The App.vue file is pretty straightforward and simple,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 29.87,
+          "end": 32.05,
+          "en": "just a couple of local components here.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 32.05,
+          "end": 34.62,
+          "en": "And then in the counter, I output the counter,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 34.62,
+          "end": 38.39,
+          "en": "but I plan on getting the counter with the composition API.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 38.39,
+          "end": 40.9,
+          "en": "At the moment I just have a dummy counter here,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 40.9,
+          "end": 42.61,
+          "en": "which does never change.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 42.61,
+          "end": 44.43,
+          "en": "And in the control center,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 44.43,
+          "end": 47.3,
+          "en": "I also plan on defining this function with the composition",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 47.3,
+          "end": 51.25,
+          "en": "API, but at the moment, it's does nothing.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 51.25,
+          "end": 53.367,
+          "en": "Now, obviously we don't need Vuex",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 53.367,
+          "end": 55.44,
+          "en": "for this simple of an application.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 55.44,
+          "end": 57.56,
+          "en": "We don't need Vuex for this demo,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 57.56,
+          "end": 61.366,
+          "en": "but I want to show you how you can utilize Vuex with the",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 61.366,
+          "end": 64.52,
+          "en": "composition API in case you're building more complex",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 64.52,
+          "end": 66.93,
+          "en": "projects where you need Vuex.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 66.93,
+          "end": 68.75,
+          "en": "So how does this work?",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 68.75,
+          "end": 72.32,
+          "en": "In main JS, I already set up a store with createStore,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 72.32,
+          "end": 74.65,
+          "en": "as you learned in the Vuex module.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 74.65,
+          "end": 78.87,
+          "en": "I have a state, mutations, an action and a getter.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 78.87,
+          "end": 80.97,
+          "en": "And how can we now utilize that store,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 80.97,
+          "end": 84.98,
+          "en": "which I'm already using in my app, in these components?",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 84.98,
+          "end": 86.9,
+          "en": "Well, just as the router,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 86.9,
+          "end": 91.61,
+          "en": "the Vue router offered us a custom composition function,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 91.61,
+          "end": 94.81,
+          "en": "which we could call inside of our setup method",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 94.81,
+          "end": 96.63,
+          "en": "to use routing features.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 96.63,
+          "end": 99.92,
+          "en": "Just as the router did this, the Vuex package has",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 99.92,
+          "end": 101.89,
+          "en": "something similar in store.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 101.89,
+          "end": 103.64,
+          "en": "So in the control center,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 103.64,
+          "end": 107.45,
+          "en": "where I in the end want to dispatch the increment action.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 107.45,
+          "end": 112.44,
+          "en": "I can import something from Vuex.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 113.66,
+          "end": 117.87,
+          "en": "And that something, is the useStore hook,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 117.87,
+          "end": 120.14,
+          "en": "or the useStore composable.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 120.14,
+          "end": 123.41,
+          "en": "The useStore custom composition function,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 123.41,
+          "end": 127.93,
+          "en": "which is meant to be executed inside of the setup method.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 127.93,
+          "end": 130.91,
+          "en": "Here we can then call useStore,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 130.91,
+          "end": 133.46,
+          "en": "and what we get as a result is access to the...",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 133.46,
+          "end": 135.23,
+          "en": "well to the Vuex store,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 135.23,
+          "end": 137.78,
+          "en": "which we have attached to this application.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 137.78,
+          "end": 142.78,
+          "en": "So the Vuex store, we are using with Use here on our app.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 143.53,
+          "end": 146.55,
+          "en": "We get access to that store by calling useStore",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 146.55,
+          "end": 147.623,
+          "en": "inside of setup.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 148.53,
+          "end": 151.99,
+          "en": "Well, and once we got access it'll of course be simple.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 151.99,
+          "end": 154.48,
+          "en": "We can just use store, dispatch",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 154.48,
+          "end": 157.23,
+          "en": "and then dispatch the action.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 157.23,
+          "end": 159.82999999999998,
+          "en": "So dispatch any action, like in this case,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 159.82999999999998,
+          "end": 164.07,
+          "en": "the increment action, which we registered on this store.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 164.07,
+          "end": 167.22,
+          "en": "And you can then use any Vuex feature you learn about.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 167.22,
+          "end": 170.32999999999998,
+          "en": "Modules, namespacing... all of that is available.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 170.32999999999998,
+          "end": 174.31,
+          "en": "And you just use useStore to get access to the store,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 174.31,
+          "end": 177.01,
+          "en": "instead of using this dollar sign store,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 177.01,
+          "end": 179.3,
+          "en": "which you would use if you would be",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 179.3,
+          "end": 181.223,
+          "en": "working with the options API.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 182.3,
+          "end": 184.87,
+          "en": "Well, and therefore it's the same here in the counter,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 184.87,
+          "end": 188.74,
+          "en": "where I want to get access to some data stored in the store.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 188.74,
+          "end": 193.74,
+          "en": "I can simply import useStore from Vuex.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 195.03,
+          "end": 199.353,
+          "en": "Then, get access to the store by calling useStore.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 200.35,
+          "end": 203.61,
+          "en": "And thereafter when we want to get a counter that",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 203.61,
+          "end": 206.07999999999998,
+          "en": "depends on a getter in the store,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 206.07999999999998,
+          "end": 208.62,
+          "en": "we just need to create a computed variable,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 208.62,
+          "end": 213.27,
+          "en": "a computed value just as we do it in the options API world.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 213.27,
+          "end": 218.04,
+          "en": "So therefore we import computed from Vue,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 218.04,
+          "end": 221.59,
+          "en": "and then counter should be a computed value,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 221.59,
+          "end": 223.25,
+          "en": "by calling computed,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 223.25,
+          "end": 226.68,
+          "en": "where we provide a function that will be executed whenever",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 226.68,
+          "end": 228.69,
+          "en": "one of its dependencies changed.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 228.69,
+          "end": 230.24,
+          "en": "And here in this function,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 230.24,
+          "end": 234.74,
+          "en": "we returned store.getters.counter,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 234.74,
+          "end": 238.883,
+          "en": "because counter is the getter name I defined here.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 240.7,
+          "end": 243.64,
+          "en": "And whenever the counter changes, Vue will detect this",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 243.64,
+          "end": 246.677,
+          "en": "in the end and recalculate this computed value,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 246.677,
+          "end": 249.21,
+          "en": "which we then expose to the template.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 249.21,
+          "end": 252.52,
+          "en": "And since you learned that computed values are refs,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 252.52,
+          "end": 254.3,
+          "en": "whatever the counter does change,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 254.3,
+          "end": 257.42,
+          "en": "Vue will notice this and it will update the template",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 257.42,
+          "end": 259.713,
+          "en": "in the place where we use the counter.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 260.7,
+          "end": 262.37,
+          "en": "With that we can save that,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 262.37,
+          "end": 266.053,
+          "en": "and now if I reload, you see this works.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 267.66,
+          "end": 270.12,
+          "en": "And that's how easy it is to use Vuex,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 270.12,
+          "end": 271.743,
+          "en": "with the composition API.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

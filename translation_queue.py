@@ -7,7 +7,8 @@ from pathlib import Path
 from prepare_batches import load, verify
 
 ROOT = Path(__file__).resolve().parent
-LEDGER = ROOT / "data/translation-progress.json"
+COURSE = ROOT / "data/courses/1362070"
+LEDGER = COURSE / "translation-progress.json"
 
 
 def save(value):
@@ -52,7 +53,8 @@ def main():
             raise ValueError("Result must contain exactly the requested lecture")
         order = int(item["lectureOrder"])
         start = (order - 1) // 50 * 50 + 1
-        target = ROOT / f"data/tw-{start:03d}-{start + 49:03d}.json"
+        target = COURSE / "translations" / f"tw-{start:03d}-{start + 49:03d}.json"
+        target.parent.mkdir(parents=True, exist_ok=True)
         bundle = load(target) if target.exists() else {"version": 1, "courseId": 1362070,
             "sourceLanguage": "en", "targetLanguage": "zh-TW", "lectures": [], "errors": []}
         lecture = translated["lectures"][0]

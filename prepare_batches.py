@@ -4,9 +4,37 @@ import copy
 import json
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parent
+
+
+def resolve_source(path):
+    """Allow a saved React checkpoint to read a file moved into its course folder."""
+    target = Path(path)
+    if target.exists():
+        return target
+    try:
+        relative = target.resolve().relative_to(ROOT / "data")
+    except ValueError:
+        return target
+    course = ROOT / "data/courses/1362070"
+    if relative.parts[0] in ("lecture-queue", "chatgpt-batches"):
+        return course / relative
+    if len(relative.parts) == 1:
+        if target.name.startswith("tw-"):
+            return course / "translations" / target.name
+        if target.name.startswith("ChatGPT-"):
+            return course / "translations/lectures" / target.name
+        if target.name == "English-38345146.json":
+            return course / "english-exports" / target.name
+        if target.name == "curriculum-1362070.json":
+            return course / "curriculum.json"
+        if target.name in ("English-course-1362070.json", "translation-progress.json"):
+            return course / target.name
+    return target
+
 
 def load(path):
-    return json.loads(Path(path).read_text(encoding="utf-8"))
+    return json.loads(resolve_source(path).read_text(encoding="utf-8"))
 
 
 def verify(source, translated):
@@ -41,7 +69,7 @@ def main():
     parser.add_argument("--split", metavar="DIRECTORY")
     parser.add_argument("--max-cues", type=int, default=800)
     parser.add_argument("--translations", nargs="+")
-    parser.add_argument("--output", default="data/ChatGPT-verified.json")
+    parser.add_argument("--output", help="Default: data/courses/COURSE_ID/translations/ChatGPT-verified.json")
     args = parser.parse_args()
     source = load(args.source)
     if args.split:
@@ -80,7 +108,10 @@ def main():
         result = copy.deepcopy(source)
         result["lectures"] = merged
         result["translationProvider"] = "ChatGPT online"
-        target = Path(args.output)
+        course_id = source.get("courseId")
+        if not args.output and (type(course_id) is not int or course_id <= 0):
+            raise ValueError("A valid courseId is required to choose the course output folder")
+        target = Path(args.output) if args.output else ROOT / f"data/courses/{course_id}/translations/ChatGPT-verified.json"
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"Verified {len(merged)}/{len(source['lectures'])} lectures; {sum(len(x['cues']) for x in merged)} translated cues")

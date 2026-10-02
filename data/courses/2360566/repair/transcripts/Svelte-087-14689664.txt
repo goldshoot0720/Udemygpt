@@ -1,0 +1,84 @@
+Now with all these bindings you hopefully got an overview of how you can work with Svelte
+and its bindings to conveniently get access to foreign values and using two-way binding here
+really is extremely helpful and you'll often use it when working with forms.
+There is another way of getting access to any element on the page though, so besides using
+two-way binding and also not limited to inputs.
+let me first demonstrate it with the help of an input though let's say here we have an input and
+we have a button and i only need to value once i clicked that button so here in on click i'll
+trigger save data which is a function i have yet to add so let's do that quickly here we have
+save data and i'm not accepting any event object in here because that would be my
+click event and I'm not interested in that but I do want to get the text that was entered into
+this input. Of course we could set up two-way binding with bind value and then storing that
+data which is in that input in some variable. But if I only need this in a read-only way and I never
+set the value anywhere else I could do it and it would not be wrong and in most cases you will
+probably do it with two-way binding but you can actually also simply read the value from the input.
+So of course, what we could do here is we could console.log, document, query, selector,
+and then maybe give this some ID, username.
+So hashtag username selects by ID.
+Let's now give this here the ID, username, so that this is selected.
+And now we get access to this element.
+And since it's input element, this will have a value property.
+And if we do that and we save that all,
+and I enter super or whatever you want here,
+and I click save, you see that being printed.
+This is not the svelte-ish way of doing it though.
+This is vanilla JavaScript code, which you can use,
+but there's a more elegant solution.
+And you might remember that I used a similar approach
+earlier in the course where I also used query selector
+because I had no better tool for the job.
+Now, actually, there is a better tool.
+You can use binding, but a special form of binding.
+So instead of relying on selecting this by ID,
+you can instead add bind,
+but now you don't bind to value
+because I don't want two-way binding,
+but to this,
+which is simply a special syntax understood by Svelte.
+This thing here is not a normal attribute
+you could add to an input.
+This is simply understood by the Svelte compiler.
+And by binding to this,
+you can store a reference to that element here,
+a pointer to that element in a variable of your choice.
+So now we can add a new variable,
+username input, for example.
+And this is the variable which I'll use down there,
+username input.
+So now a pointer at this HTML element
+or at this DOM element, to be precise,
+is stored in username input.
+And therefore here in save data,
+I can now console.log username input.value
+because this points at this HTML element.
+And hence now if I enter super here and I click save,
+you see that still works,
+but of course that's way shorter
+than manually selecting this with query selector.
+And we also don't have to add the ID.
+We can remove that
+because now this reference and connection
+is set up behind the scenes by Svelte.
+Now this is not two-way binding.
+This is really just a pointer at the full element.
+We're not restricted to reading its value.
+We can do whatever we want.
+We can manipulate it, though I would not recommend that.
+You shouldn't change it programmatically.
+You should always change your DOM through Svelte
+by the instructions you place down there.
+But you can read any data you want.
+You can check out the CSS classes on the element.
+You can do whatever you want because if we log it,
+you'll see it's just a full element.
+So if a console log this here, and I press save again,
+it's the full input.
+way if you want to inspect it here you can use console dir and now you get a inspectable javascript
+object so this is really the full dom element and this does not just work with html input elements
+it works with any html element and your own components as well so we can also use a div
+instead and bind this to some div which of course is a variable i have yet to add so here is
+some div and now for simplicity when we click save data i can now also console there there
+some div so it's the same button as before but now i'm binding this here this div to the sum div
+variable and therefore i can now interact with the div and inspect it and do whatever i want
+again changing something there is not recommended you should always do that with the help of swells
+normal syntax, but reading values from it can be really useful.
