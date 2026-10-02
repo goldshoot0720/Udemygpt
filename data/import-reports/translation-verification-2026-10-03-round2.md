@@ -21,7 +21,7 @@
 
 本輪已將 108 個 `tw-*.json` 的 `zh` 還原為 `49e1473` 版本（提交 `76a9985`）。
 
-> ⚠️ `scripts/fix_all_translation_issues.py`、`fix_simplified_chars.py`、`fix_term_translations.py` 會無差別替換子字串（例如「制→製」「進程→行程」「用戶→使用者」），**請勿再執行**。
+> ⚠️ 這些無差別替換子字串的腳本（`fix_all_translation_issues.py`、`fix_simplified_chars.py`、`fix_term_translations.py`），連同 ef88a62 的 108 個 `.backup` 檔與宣稱「已完成」的說明文件，已在後續提交中移除（仍可從 git 歷史取回）。請勿再以子字串替換修改中文。
 
 ## 二、合併外部修正 patch
 
