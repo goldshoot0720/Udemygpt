@@ -14,7 +14,7 @@
 | [Remix.js - The Practical Guide](4958062/README.md) | 4958062 | 106 | 106（全部完成） | [查看譯文](4958062/translations/README.md) |
 | [Angular - The Complete Guide](756150/README.md) | 756150 | 701 | 106 | [查看譯文](756150/translations/README.md) |
 | [Next.js & React - The Complete Guide](3873464/README.md) | 3873464 | 417 | 90 | [查看譯文](3873464/translations/README.md) |
-| [Vue - The Complete Guide (incl. Router & Composition API)](995016/README.md) | 995016 | 294 | 180 | [查看譯文](995016/translations/README.md) |
+| [Vue - The Complete Guide (incl. Router & Composition API)](995016/README.md) | 995016 | 294 | 240 | [查看譯文](995016/translations/README.md) |
 | [Ionic - Build iOS, Android & Web Apps with Ionic & Angular](1070124/README.md) | 1070124 | 242 | 242（全部完成） | [查看譯文](1070124/translations/README.md) |
 | [JavaScript - The Complete Guide (Beginner + Advanced)](2508942/README.md) | 2508942 | 540 | 90 | [查看譯文](2508942/translations/README.md) |
 
