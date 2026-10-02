@@ -1,0 +1,4043 @@
+{
+  "version": 1,
+  "courseId": 3873464,
+  "courseSlug": "nextjs-react-the-complete-guide",
+  "courseTitle": "Next.js & React - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "43340956",
+      "title": "Setting Up Request Memoization For Custom Data Sources",
+      "lectureOrder": 189,
+      "videoOrder": 175,
+      "sourceHash": "7145d11346b2110b7cb54381e44963a08bb4338e08b8ddd4e53c147b354be98b",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.33,
+          "end": 2.1,
+          "en": "So at this point,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 2.1,
+          "end": 5.13,
+          "en": "we've seen in detail",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.13,
+          "end": 6.87,
+          "en": "how we can manage caching",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 6.87,
+          "end": 10.65,
+          "en": "when sending requests to external APIs.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.65,
+          "end": 12.81,
+          "en": "But of course, in the previous sections,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 12.81,
+          "end": 14.76,
+          "en": "we also learned that often",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 14.76,
+          "end": 16.56,
+          "en": "you might not need to communicate",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 16.56,
+          "end": 18,
+          "en": "with external APIs.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 18,
+          "end": 20.98,
+          "en": "You might not be using this fetch function",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 21.87,
+          "end": 24.09,
+          "en": "and therefore, in this and the next lectures,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 24.09,
+          "end": 27.51,
+          "en": "I'll show you how you can still take advantage of caching",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 27.51,
+          "end": 31.23,
+          "en": "and control caching when using another data source",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 31.23,
+          "end": 34.29,
+          "en": "like a database to which you directly reach out",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 34.29,
+          "end": 36.543,
+          "en": "from inside your next application.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 37.41,
+          "end": 38.79,
+          "en": "Therefore, to get started,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 38.79,
+          "end": 42.31,
+          "en": "I'll comment out this code where I sent this fetch request",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 43.26,
+          "end": 48.26,
+          "en": "and instead, I will call getMessages here",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 48.42,
+          "end": 50.1,
+          "en": "in my MessagesPage",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 50.1,
+          "end": 53.82,
+          "en": "and getMessages is a function from the lib folder.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 53.82,
+          "end": 56.91,
+          "en": "So this folder and this file in there.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 56.91,
+          "end": 61.17,
+          "en": "And in there, I'm managing a simple SQLite database.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 61.17,
+          "end": 63.24,
+          "en": "I got a function for inserting messages",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 63.24,
+          "end": 67.56,
+          "en": "and I got a function for getting data from the database.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 67.56,
+          "end": 71.01,
+          "en": "And these are indeed synchronous functions right now",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 71.01,
+          "end": 73.56,
+          "en": "because this better-sqlite free package,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 73.56,
+          "end": 76.47,
+          "en": "which I'm using for interacting with the database,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 76.47,
+          "end": 78.9,
+          "en": "indeed does not need promises,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 78.9,
+          "end": 81.09,
+          "en": "does not need asynchronous code,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 81.09,
+          "end": 83.4,
+          "en": "and therefore there is no async here.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 83.4,
+          "end": 86.58,
+          "en": "And hence, we actually also don't have to await this here.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 86.58,
+          "end": 88.38,
+          "en": "We can even remove async here",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 88.38,
+          "end": 90.663,
+          "en": "if we want to on this component.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 92.52000000000001,
+          "end": 94.71000000000001,
+          "en": "So with that, we'll then get our messages here,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 94.71000000000001,
+          "end": 98.49000000000001,
+          "en": "which we can output and I can do the same",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 98.49000000000001,
+          "end": 99.75,
+          "en": "in my layout.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 99.75,
+          "end": 104.61,
+          "en": "There, I also no longer wanna fetch my messages like this.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 104.61,
+          "end": 107.4,
+          "en": "Instead, we can remove async here as well",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 107.4,
+          "end": 111.53999999999999,
+          "en": "and get the messages by calling getMessages,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 111.53999999999999,
+          "end": 114.423,
+          "en": "which is that same function from the lib folder.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 116.72999999999999,
+          "end": 117.57,
+          "en": "Now with that,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 117.57,
+          "end": 121.11,
+          "en": "if I saved it and reload, I got no messages right now,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 121.11,
+          "end": 124.47,
+          "en": "but that's why I have this addMessage function here.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 124.47,
+          "end": 127.08,
+          "en": "And I now want to call this function again",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 127.08,
+          "end": 131.28,
+          "en": "from inside this server action in the NewMessages page",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 131.28,
+          "end": 133.38,
+          "en": "and pass the message that has been entered",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 133.38,
+          "end": 135.12,
+          "en": "by the user to addMessage.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 135.12,
+          "end": 136.893,
+          "en": "And that should add a new message.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 139.71,
+          "end": 142.62,
+          "en": "And therefore, with this re-added to the code,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 142.62,
+          "end": 146.25,
+          "en": "if I go here and add a new message like test,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 146.25,
+          "end": 148.26,
+          "en": "it shows up on that messages page.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 148.26,
+          "end": 151.53300000000002,
+          "en": "If I add test two, that also shows up here.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 152.91,
+          "end": 154.44,
+          "en": "And the fact",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 154.44,
+          "end": 158.01,
+          "en": "that these messages show up here proves",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 158.01,
+          "end": 162.09,
+          "en": "that there seems to be no caching going on here,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 162.09,
+          "end": 164.28,
+          "en": "though that's not entirely true.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 164.28,
+          "end": 168.63,
+          "en": "If you recall, once we start building this application",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 168.63,
+          "end": 171.24,
+          "en": "for production by npm run build,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 171.24,
+          "end": 174.78,
+          "en": "we do get that page pre-rendering again",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 174.78,
+          "end": 178.35,
+          "en": "and we get that full route cache",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 178.35,
+          "end": 181.8,
+          "en": "unless you set one of these settings here",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 181.8,
+          "end": 185.16,
+          "en": "and force this page to be dynamic, for example.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 185.16,
+          "end": 187.62,
+          "en": "But otherwise, we get this full route cache",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 187.62,
+          "end": 190.41,
+          "en": "and therefore, when building this for production,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 190.41,
+          "end": 194.49,
+          "en": "we indeed have the problem that we see any messages,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 194.49,
+          "end": 197.16,
+          "en": "any data that existed at build time,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 197.16,
+          "end": 199.5,
+          "en": "but if we add a new message thereafter,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 199.5,
+          "end": 201.573,
+          "en": "that indeed does now not show up.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 202.44,
+          "end": 204.57,
+          "en": "So we do have some caching here,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 204.57,
+          "end": 206.91,
+          "en": "we have that full route cache,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 206.91,
+          "end": 209.31,
+          "en": "but we don't have that data cache.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 209.31,
+          "end": 213.18,
+          "en": "We don't have the request deduplication",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 213.18,
+          "end": 216.063,
+          "en": "when using our own custom data source.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 216.96,
+          "end": 219.11,
+          "en": "Now we'll fix that problem here",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 219.11,
+          "end": 221.52,
+          "en": "of the updated data not appearing",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 221.52,
+          "end": 223.89,
+          "en": "due to the full route cache later.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 223.89,
+          "end": 226.95,
+          "en": "For now, I'll go back to my development server",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 226.95,
+          "end": 230.49,
+          "en": "and I'll focus on the request deduplication.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 230.49,
+          "end": 232.983,
+          "en": "And on that full route cache first.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 233.91,
+          "end": 236.673,
+          "en": "We can also stop that backend server here, by the way.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 237.84,
+          "end": 241.05,
+          "en": "So my Next.js development server is running again,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 241.05,
+          "end": 242.19,
+          "en": "and that indeed means",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 242.19,
+          "end": 243.78,
+          "en": "that with the development server,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 243.78,
+          "end": 245.79,
+          "en": "we see all the updated data",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 245.79,
+          "end": 248.313,
+          "en": "because we don't have that full route cache here.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 249.36,
+          "end": 252.93,
+          "en": "But it also means if we take a look at the logs here,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 252.93,
+          "end": 256.17,
+          "en": "that we actually hit the database every time",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 256.17,
+          "end": 258.06,
+          "en": "I reload this page,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 258.06,
+          "end": 260.76,
+          "en": "and we indeed always hit it twice",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 260.76,
+          "end": 263.4,
+          "en": "because I'm fetching the same messages",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 263.4,
+          "end": 266.76,
+          "en": "both from inside the page and the layout.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 266.76,
+          "end": 269.49,
+          "en": "It's the same request which triggers",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 269.49,
+          "end": 271.74,
+          "en": "the same SQL command here,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 271.74,
+          "end": 273,
+          "en": "the same query,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 273,
+          "end": 275.58,
+          "en": "but we run this twice because we send it",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 275.58,
+          "end": 276.87,
+          "en": "in two different places.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 276.87,
+          "end": 280.53,
+          "en": "We got no request deduplication going on here",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 280.53,
+          "end": 282.65999999999997,
+          "en": "because we're not using the fetch function",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 282.65999999999997,
+          "end": 284.04,
+          "en": "and out of the box,",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 284.04,
+          "end": 287.733,
+          "en": "Next.js only supports that for the next function.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 288.87,
+          "end": 292.26,
+          "en": "But we can make this request deduplication work",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 292.26,
+          "end": 294.33,
+          "en": "for our own data fetching code",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 294.33,
+          "end": 296.64,
+          "en": "that uses our own data source",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 296.64,
+          "end": 298.38,
+          "en": "with help of another function",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 298.38,
+          "end": 300.96,
+          "en": "that can be imported from React.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 300.96,
+          "end": 305.04,
+          "en": "So not from Next, but from React.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 305.04,
+          "end": 306.96,
+          "en": "And from that React library,",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 306.96,
+          "end": 309.843,
+          "en": "we can import a cache function.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 312.15,
+          "end": 315.66,
+          "en": "Now, this cache function is meant to be wrapped",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 315.66,
+          "end": 317.76,
+          "en": "around one of your functions",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 317.76,
+          "end": 322.5,
+          "en": "for which request deduplication should then occur.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 322.5,
+          "end": 325.47,
+          "en": "And you can easily use that cache function",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 325.47,
+          "end": 329.58,
+          "en": "by wrapping it around getMessages, like this.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 329.58,
+          "end": 331.2,
+          "en": "Now, this is now not valid code.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 331.2,
+          "end": 333.57,
+          "en": "So what we should do here is we should create",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 333.57,
+          "end": 335.79,
+          "en": "a new constant call getMessages",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 335.79,
+          "end": 338.52,
+          "en": "and set that equal to that cached function,",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 338.52,
+          "end": 339.933,
+          "en": "and that's now valid again.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 341.58,
+          "end": 343.23,
+          "en": "Now, if you do that",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 343.23,
+          "end": 348.03,
+          "en": "and you reload this page, everything works as before.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 348.03,
+          "end": 352.53,
+          "en": "But what you'll notice is that now, if I clear that here",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 352.53,
+          "end": 355.023,
+          "en": "and rerun my development server,",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 356.4,
+          "end": 358.86,
+          "en": "if I reload this messages page,",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 358.86,
+          "end": 362.103,
+          "en": "there is just one request to the database.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 363.81,
+          "end": 368.16,
+          "en": "Now we see that one request for every reload I perform,",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 368.16,
+          "end": 372.36,
+          "en": "but it's just one request per page reload instead of two,",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 372.36,
+          "end": 374.13,
+          "en": "because this cache function,",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 374.13,
+          "end": 375.81,
+          "en": "which is provided by React,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 375.81,
+          "end": 378.291,
+          "en": "when wrapped around one of our functions,",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 378.291,
+          "end": 381.63,
+          "en": "indeed make sure that under the hood,",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 381.63,
+          "end": 384.24,
+          "en": "React cache is the data returned",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 384.24,
+          "end": 386.82,
+          "en": "by that function when it's called the first time",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 386.82,
+          "end": 388.53,
+          "en": "anywhere in our application,",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 388.53,
+          "end": 391.5,
+          "en": "inside of one single request cycle.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 391.5,
+          "end": 393.12,
+          "en": "And then the response",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 393.12,
+          "end": 396.42,
+          "en": "by that function is reused in all the places",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 396.42,
+          "end": 398.25,
+          "en": "that also call that function",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 398.25,
+          "end": 401.313,
+          "en": "in that same single request cycle.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 402.27,
+          "end": 403.53,
+          "en": "So if I reload the page",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 403.53,
+          "end": 405.27,
+          "en": "and therefore both the layout component",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 405.27,
+          "end": 408.45,
+          "en": "and the page component are executed in the end",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 408.45,
+          "end": 409.8,
+          "en": "during development,",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 409.8,
+          "end": 412.92,
+          "en": "I make two calls to the getMessages function.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 412.92,
+          "end": 415.44,
+          "en": "But thanks to this cache function,",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 415.44,
+          "end": 417.54,
+          "en": "only one call is executed",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 417.54,
+          "end": 420.51,
+          "en": "and then the response or the result of the call",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 420.51,
+          "end": 424.08,
+          "en": "is stored and reused for the second call.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 424.08,
+          "end": 427.8,
+          "en": "So we can therefore enable request deduplication",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 427.8,
+          "end": 429.24,
+          "en": "with our own data source",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 429.24,
+          "end": 432.15,
+          "en": "and our own functions with help of the cache function",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 432.15,
+          "end": 433.563,
+          "en": "provided by React.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "43340962",
+      "title": "Setting Up Data Caching For Custom Data Sources",
+      "lectureOrder": 190,
+      "videoOrder": 176,
+      "sourceHash": "2435978bd3f6fe4931f6bb4df325cb6a3e77bb4d2820796ede8b797046a666af",
+      "cues": [
+        {
+          "id": 1,
+          "start": 1.02,
+          "end": 4.56,
+          "en": "So having that request deduplication is nice.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.56,
+          "end": 7.17,
+          "en": "It would also be nice to have",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.17,
+          "end": 10.08,
+          "en": "that data cache functionality though,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.08,
+          "end": 12.03,
+          "en": "which we also get out of the box",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.03,
+          "end": 13.623,
+          "en": "when using the fetch function.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.55,
+          "end": 18.72,
+          "en": "Now for our own functions and our own data sources,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.72,
+          "end": 23.55,
+          "en": "we can enable caching by importing another function,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 23.55,
+          "end": 28.55,
+          "en": "this time, a function that must be imported from next/cache.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 30.57,
+          "end": 33.63,
+          "en": "And here it's the unstable_cache function.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 33.63,
+          "end": 35.94,
+          "en": "So another function called cache,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 35.94,
+          "end": 40.02,
+          "en": "though just as with the unstable_no_store function,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 40.02,
+          "end": 43.08,
+          "en": "at the point of time where you are viewing this,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 43.08,
+          "end": 45.96,
+          "en": "this might no longer be marked as unstable",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 45.96,
+          "end": 49.2,
+          "en": "and it might therefore just be called cache.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 49.2,
+          "end": 50.91,
+          "en": "And then to avoid name clashes,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 50.91,
+          "end": 54.093,
+          "en": "you might want to assign an alias here.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 55.29,
+          "end": 58.23,
+          "en": "Now, at the point of time where I'm recording this,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 58.23,
+          "end": 60.72,
+          "en": "it's still is marked as unstable.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 60.72,
+          "end": 63.72,
+          "en": "I'll still assign that alias here though,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 63.72,
+          "end": 65.35,
+          "en": "but we can still use it",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 66.57,
+          "end": 69.03,
+          "en": "and we use it in a kind of similar way",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 69.03,
+          "end": 73.11,
+          "en": "as we used this cache function provided by React.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 73.11,
+          "end": 77.28,
+          "en": "You wrap this unstable_cache function,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 77.28,
+          "end": 80.223,
+          "en": "or in my case since I renamed it nextCache,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 82.14,
+          "end": 86.07,
+          "en": "you wrap that around the function that should be cached,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 86.07,
+          "end": 89.01,
+          "en": "which can be a function that's already wrapped by cache,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 89.01,
+          "end": 90.66,
+          "en": "that's fine.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 90.66,
+          "end": 93.72,
+          "en": "So now I got multiple layers of wrapping going on here,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 93.72,
+          "end": 96.47999999999999,
+          "en": "but the inner cache wrapping here",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 96.47999999999999,
+          "end": 98.75999999999999,
+          "en": "is for a request deduplication.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 98.75999999999999,
+          "end": 100.35,
+          "en": "The outer wrapping,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 100.35,
+          "end": 102.21000000000001,
+          "en": "the nextCache function here,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 102.21000000000001,
+          "end": 106.8,
+          "en": "is for making this data that's returned by that function",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 106.8,
+          "end": 109.803,
+          "en": "cacheable by NextJS in its data cache.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 110.7,
+          "end": 114.3,
+          "en": "And with nextCache wrapped around this function,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 114.3,
+          "end": 117.21000000000001,
+          "en": "I will now get an error",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 117.21000000000001,
+          "end": 120.33,
+          "en": "when trying to load the messages page.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 120.33,
+          "end": 121.65,
+          "en": "The reason for that is",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 121.65,
+          "end": 126.06,
+          "en": "that nextCache actually always returns a promise.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 126.06,
+          "end": 128.04,
+          "en": "So it returns to cached data,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 128.04,
+          "end": 129.813,
+          "en": "but wrapped in a promise.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 131.25,
+          "end": 134.01,
+          "en": "Previously, get messages did not yield a promise.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 134.01,
+          "end": 136.98,
+          "en": "Now, because I wrapped it with nextCache.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 136.98,
+          "end": 139.92000000000002,
+          "en": "So with unstable_cache, it does,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 139.92000000000002,
+          "end": 144.03,
+          "en": "and hence we must bring back the async keyword here",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 144.03,
+          "end": 146.34,
+          "en": "on the components that use get messages",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 146.34,
+          "end": 147.903,
+          "en": "and add await here,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 149.76,
+          "end": 152.37,
+          "en": "and also do that in the layout",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 152.37,
+          "end": 154.653,
+          "en": "and have async await here as well.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 156.66,
+          "end": 159.153,
+          "en": "With that added, the application works again,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 160.07999999999998,
+          "end": 163.86,
+          "en": "and now you'll see that if I clear this",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 163.86,
+          "end": 165.93,
+          "en": "and restart the development server,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 165.93,
+          "end": 170.883,
+          "en": "that if I reload this messages page, I got no log here.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 171.93,
+          "end": 176.07,
+          "en": "So this log where I log that I'm fetching messages from",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 176.07,
+          "end": 178.92000000000002,
+          "en": "the database, I don't see that here",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 178.92000000000002,
+          "end": 180.93,
+          "en": "no matter how often I reload",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 180.93,
+          "end": 183.12,
+          "en": "because now indeed the data",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 183.12,
+          "end": 185.13,
+          "en": "that was retrieved from the database",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 185.13,
+          "end": 187.083,
+          "en": "is cached and is reused.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 188.22,
+          "end": 193.17,
+          "en": "Now the nextCache function actually has another argument,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 193.17,
+          "end": 196.53,
+          "en": "a second argument, which you should also specify,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 196.53,
+          "end": 200.01,
+          "en": "and that's an array of cache keys,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 200.01,
+          "end": 204,
+          "en": "which is then used internally to identify cached data.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 204,
+          "end": 206.343,
+          "en": "For example, messages, it's up to you.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 207.32999999999998,
+          "end": 210.87,
+          "en": "This is not to be confused with the tags you can assign.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 210.87,
+          "end": 212.64,
+          "en": "You will see how to assign tags",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 212.64,
+          "end": 214.62,
+          "en": "to your own cached data later.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 214.62,
+          "end": 217.02,
+          "en": "This is just used internally,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 217.02,
+          "end": 220.68,
+          "en": "but with that, you can then make NextJS cache data",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 220.68,
+          "end": 222.153,
+          "en": "from your own data source.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "43340966",
+      "title": "Invalidating Custom Data Source Data",
+      "lectureOrder": 191,
+      "videoOrder": 177,
+      "sourceHash": "f8d451a5b1e64d1ddbc5a0a4ebd4531d154bbcc12da8a2f3173557fcb4aa9204",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.6,
+          "end": 2.13,
+          "en": "So you did now learn",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 2.13,
+          "end": 6.57,
+          "en": "how you can cache data from your own data source.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.57,
+          "end": 8.61,
+          "en": "However, now that we added this caching,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.61,
+          "end": 11.16,
+          "en": "we'll face a problem even during development.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.16,
+          "end": 15.78,
+          "en": "If I now add a new fourth message, it doesn't appear here.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.78,
+          "end": 19.14,
+          "en": "A problem we previously only faced in production",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 19.14,
+          "end": 21.87,
+          "en": "due to that full route cache.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 21.87,
+          "end": 24.57,
+          "en": "Now, since we set up this cache here,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 24.57,
+          "end": 28.23,
+          "en": "and hence we got this data cache, we got the same problem,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 28.23,
+          "end": 31.53,
+          "en": "if you want to call it like this, during development.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 31.53,
+          "end": 32.91,
+          "en": "But it's not actually a problem.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 32.91,
+          "end": 37.08,
+          "en": "Instead, it's the behavior NextJS has out of the box,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 37.08,
+          "end": 39.66,
+          "en": "it caches aggressively.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 39.66,
+          "end": 42.39,
+          "en": "What we have to do to see our data again,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 42.39,
+          "end": 44.82,
+          "en": "is we have to tell NextJS",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 44.82,
+          "end": 48.24,
+          "en": "that the data that's cached here did change.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 48.24,
+          "end": 50.97,
+          "en": "And how can we tell NextJS?",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 50.97,
+          "end": 54.66,
+          "en": "Well, there are essentially two main ways.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 54.66,
+          "end": 57.51,
+          "en": "In the place where we create that new data",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 57.51,
+          "end": 61.02,
+          "en": "we can call that revalidatePath function again,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 61.02,
+          "end": 63.033,
+          "en": "and we saw that function before already.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 63.9,
+          "end": 65.07,
+          "en": "And I can, for example,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 65.07,
+          "end": 68.55,
+          "en": "revalidate the data on /messages.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 68.55,
+          "end": 71.31,
+          "en": "With that any cached data used on this page",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 71.31,
+          "end": 73.86,
+          "en": "will be thrown away and will be re-fetched",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 73.86,
+          "end": 76.47,
+          "en": "whenever this function here was called.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 76.47,
+          "end": 78.66,
+          "en": "So right after adding a new message,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 78.66,
+          "end": 81.63,
+          "en": "I'm calling this function to tell NextJS",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 81.63,
+          "end": 84.36,
+          "en": "that any data and the full route cache",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 84.36,
+          "end": 87.72,
+          "en": "of the /messages page should be thrown away",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 87.72,
+          "end": 89.4,
+          "en": "and the data should be re-fetched",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 89.4,
+          "end": 91.95,
+          "en": "and the page should be re-rendered.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 91.95,
+          "end": 93.9,
+          "en": "Therefore, with this added,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 93.9,
+          "end": 96,
+          "en": "I still don't see the message if I reload,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 96,
+          "end": 98.31,
+          "en": "but now for every new message we add,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 98.31,
+          "end": 99.78,
+          "en": "the cache will be cleared",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 99.78,
+          "end": 103.768,
+          "en": "and hence, any new messages now will show up here.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 103.768,
+          "end": 105.75,
+          "en": "As you can tell.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 105.75,
+          "end": 108.24000000000001,
+          "en": "So that's one way.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 108.24000000000001,
+          "end": 111.96000000000001,
+          "en": "Now, an alternative to calling revalidatePath",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 111.96000000000001,
+          "end": 114.47999999999999,
+          "en": "and revalidate the data that's attached",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 114.47999999999999,
+          "end": 118.68,
+          "en": "to a specific page is to instead call revalidateTag",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 118.68,
+          "end": 121.563,
+          "en": "and add a tag to the cached data.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 122.4,
+          "end": 125.31,
+          "en": "And you can add a tag to cached data",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 125.31,
+          "end": 127.11,
+          "en": "when using unstable_cache,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 127.11,
+          "end": 130.5,
+          "en": "which I renamed to nextCache here in my case,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 130.5,
+          "end": 132.51,
+          "en": "by passing a third argument",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 132.51,
+          "end": 135.21,
+          "en": "to this unstable_cache function.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 135.21,
+          "end": 138.72,
+          "en": "And that third argument is a configuration object,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 138.72,
+          "end": 142.14,
+          "en": "which allows you to set up two different settings.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 142.14,
+          "end": 145.95,
+          "en": "With revalidate, you could set up a time period,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 145.95,
+          "end": 148.2,
+          "en": "in seconds again, after which the cache",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 148.2,
+          "end": 150.18,
+          "en": "would always be re-validate.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 150.18,
+          "end": 152.82,
+          "en": "So that would be another way of re-setting it",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 152.82,
+          "end": 157.2,
+          "en": "or re-fetching. But here I'm looking for the tags setting.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 157.2,
+          "end": 159.54,
+          "en": "And this then takes an array of tags,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 159.54,
+          "end": 161.57999999999998,
+          "en": "which are totally up to you.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 161.57999999999998,
+          "end": 163.77,
+          "en": "So you can add as many tags as you want",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 163.77,
+          "end": 166.44299999999998,
+          "en": "and any tag values of your choice.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 167.73,
+          "end": 172.2,
+          "en": "That will then add those tags to this cached data.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 172.2,
+          "end": 176.37,
+          "en": "And if you then call revalidateTag with one of these tags,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 176.37,
+          "end": 178.26,
+          "en": "that data will be thrown away",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 178.26,
+          "end": 181.17,
+          "en": "and any place in your NextJS application,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 181.17,
+          "end": 184.86,
+          "en": "any page layout or component that fetches data",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 184.86,
+          "end": 187.92,
+          "en": "from that data source with that tag",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 187.92,
+          "end": 191.34,
+          "en": "will be re-executed and the respective page",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 191.34,
+          "end": 194.16,
+          "en": "and component will be re-rendered.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 194.16,
+          "end": 195.9,
+          "en": "So with this setup,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 195.9,
+          "end": 199.5,
+          "en": "if I now add a new message here like this,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 199.5,
+          "end": 201.188,
+          "en": "that message also shows up here",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 201.188,
+          "end": 203.853,
+          "en": "because we're using revalidateTag.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 204.99,
+          "end": 208.23,
+          "en": "And that's how you can invalidate the cache data",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 208.23,
+          "end": 210.393,
+          "en": "when managing the cache on your own.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "43357064",
+      "title": "Module Summary",
+      "lectureOrder": 192,
+      "videoOrder": 178,
+      "sourceHash": "5fd075cf771a4555b8314f737d3277e23c185ac8d77947dac398ec57864c83a6",
+      "cues": [
+        {
+          "id": 1,
+          "start": 1.08,
+          "end": 4.47,
+          "en": "And that's now it for this section.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.47,
+          "end": 6.6,
+          "en": "In this section, you learned a lot about",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.6,
+          "end": 11.58,
+          "en": "the behind-the-scenes work NextJS does when it comes",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.58,
+          "end": 16.58,
+          "en": "to caching data and avoiding unnecessary requests.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 16.59,
+          "end": 19.65,
+          "en": "You learned that there is a lot of built-in functionality",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.65,
+          "end": 21.24,
+          "en": "when using the fetch function",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 21.24,
+          "end": 24.3,
+          "en": "to get data from an external API.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 24.3,
+          "end": 27.15,
+          "en": "And you learned how you can control how that data",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 27.15,
+          "end": 30.78,
+          "en": "will be revalidated and when the cache will be revalidated,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 30.78,
+          "end": 35.49,
+          "en": "and pages that use cache data will be rerendered there for.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 35.49,
+          "end": 38.31,
+          "en": "But you also learned how to manage your own cache",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 38.31,
+          "end": 40.8,
+          "en": "and how to enable request deduplication",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 40.8,
+          "end": 42.66,
+          "en": "when using your own data source,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 42.66,
+          "end": 44.94,
+          "en": "like here, where I'm using a database.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 44.94,
+          "end": 47.82,
+          "en": "With help of the cache function provided by React",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 47.82,
+          "end": 50.28,
+          "en": "for request deduplication,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 50.28,
+          "end": 52.83,
+          "en": "and with help of the unstable cache function",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 52.83,
+          "end": 56.82,
+          "en": "provided by Next to cache data in the data cache,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 56.82,
+          "end": 58.95,
+          "en": "and therefore, also allow NextJS",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 58.95,
+          "end": 60.75,
+          "en": "to perform aggressive caching",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 60.75,
+          "end": 63,
+          "en": "when using your own data source.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 63,
+          "end": 66.75,
+          "en": "And you also learned how to revalidate that cache data,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 66.75,
+          "end": 71.25,
+          "en": "either with revalidate path or revalidate tag.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 71.25,
+          "end": 73.86,
+          "en": "Now, as mentioned at the beginning of this section,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 73.86,
+          "end": 77.94,
+          "en": "you can dive deeper into caching and all the details",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 77.94,
+          "end": 80.85,
+          "en": "and all the behind-the-scenes stuff if you wanna learn",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 80.85,
+          "end": 84.12,
+          "en": "all about it with help of the official documentation.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 84.12,
+          "end": 85.2,
+          "en": "But you don't need to do that.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 85.2,
+          "end": 86.58,
+          "en": "You just should know",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 86.58,
+          "end": 89.67,
+          "en": "that NextJS does perform aggressive caching.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 89.67,
+          "end": 92.85,
+          "en": "And you should know which tools and options you have",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 92.85,
+          "end": 95.72999999999999,
+          "en": "for making sure that data is refetched",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 95.72999999999999,
+          "end": 99.96000000000001,
+          "en": "and pages are rerendered when you need them to be rerendered",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 99.96000000000001,
+          "end": 102.693,
+          "en": "and when you need the data to be refetched.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "43340994",
+      "title": "Module Introduction",
+      "lectureOrder": 193,
+      "videoOrder": 179,
+      "sourceHash": "13afc3d9a426e698820fba58fad64cb7ce23e22ef52fb0cfe6f94aa228a22237",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.45,
+          "end": 3.21,
+          "en": "In this course section here,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.21,
+          "end": 4.884,
+          "en": "we are going to dive into",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 4.884,
+          "end": 8.52,
+          "en": "optimizing NextJS applications.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.52,
+          "end": 9.75,
+          "en": "To be precise,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 9.75,
+          "end": 13.644,
+          "en": "we'll dive into two very important",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 13.644,
+          "end": 16.65,
+          "en": "optimization opportunities you have",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 16.65,
+          "end": 19.29,
+          "en": "in every NextJS application,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 19.29,
+          "end": 22.86,
+          "en": "which you typically wanna grasp and implement.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 22.86,
+          "end": 26.52,
+          "en": "We'll take a look at optimizing images",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 26.52,
+          "end": 28.74,
+          "en": "because as it'll turn out,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 28.74,
+          "end": 31.47,
+          "en": "NextJS can help you with that.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 31.47,
+          "end": 35.76,
+          "en": "And we'll take a look at improving the search",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 35.76,
+          "end": 38.67,
+          "en": "engine visibility of your site",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 38.67,
+          "end": 41.19,
+          "en": "by adding page metadata,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 41.19,
+          "end": 43.38,
+          "en": "which of course is not all it takes",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 43.38,
+          "end": 46.92,
+          "en": "to perform search engine optimization,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 46.92,
+          "end": 50.37,
+          "en": "but which is a crucial aspect.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 50.37,
+          "end": 52.23,
+          "en": "Now, I will say that",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 52.23,
+          "end": 55.32,
+          "en": "in the official NextJS documentation,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 55.32,
+          "end": 58.44,
+          "en": "there also is an entire area dedicated",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 58.44,
+          "end": 61.86,
+          "en": "to optimizing NextJS applications.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 61.86,
+          "end": 64.35,
+          "en": "Though some of these items here",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 64.35,
+          "end": 69.33,
+          "en": "are really very specific for specific use cases.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 69.33,
+          "end": 72.284,
+          "en": "For example, for pages that include videos",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 72.284,
+          "end": 74.78999999999999,
+          "en": "or for advanced techniques,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 74.78999999999999,
+          "end": 77.28,
+          "en": "if you want to analyze the bundle size",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 77.28,
+          "end": 79.23,
+          "en": "of your application.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 79.23,
+          "end": 81.15,
+          "en": "In this section as mentioned,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 81.15,
+          "end": 83.94,
+          "en": "we'll focus on optimizing images",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 83.94,
+          "end": 85.92,
+          "en": "and optimizing the metadata",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 85.92,
+          "end": 90.33,
+          "en": "or setting metadata on our NextJS pages.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 90.33,
+          "end": 92.55,
+          "en": "And for this section,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 92.55,
+          "end": 95.43,
+          "en": "I'm using one of those project snapshots",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 95.43,
+          "end": 97.53,
+          "en": "from an earlier section",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 97.53,
+          "end": 100.77000000000001,
+          "en": "and you find this project snapshot attached.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 100.77000000000001,
+          "end": 102.42,
+          "en": "Though I will say right away",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 102.42,
+          "end": 104.28,
+          "en": "that this is a snapshot",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 104.28,
+          "end": 106.426,
+          "en": "where we are using Cloudinary",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 106.426,
+          "end": 110.122,
+          "en": "for uploading and storing images.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 110.122,
+          "end": 112.86,
+          "en": "So if you wanna follow along",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 112.86,
+          "end": 114.42,
+          "en": "and use this snapshot,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 114.42,
+          "end": 117,
+          "en": "you'll need a Cloudinary account",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 117,
+          "end": 119.6,
+          "en": "and you'll need to enter your Cloudinary cloud name,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 120.866,
+          "end": 123.57,
+          "en": "API Key and API Secret here",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 123.57,
+          "end": 125.91,
+          "en": "in this .env.local file,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 125.91,
+          "end": 128.28,
+          "en": "which you should also add to your project",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 128.28,
+          "end": 131.79,
+          "en": "because it's not part of that starting project.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 131.79,
+          "end": 133.68,
+          "en": "So you'll need to add such a file",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 133.68,
+          "end": 136.23,
+          "en": "with the appropriate values to your project",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 136.23,
+          "end": 140.28,
+          "en": "just as we did it in an earlier course section.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 140.28,
+          "end": 143.04,
+          "en": "So that's the project I'll work with.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 143.04,
+          "end": 144.69,
+          "en": "And in this project here,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 144.69,
+          "end": 146.22,
+          "en": "I have a starting page",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 146.22,
+          "end": 148.98,
+          "en": "where I see some posts from users.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 148.98,
+          "end": 152.22,
+          "en": "I have a feed page where I see more posts,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 152.22,
+          "end": 155.4,
+          "en": "and I have that \"New Post\" button,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 155.4,
+          "end": 158.34,
+          "en": "which allows me to add a new post.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 158.34,
+          "end": 162.18,
+          "en": "And I now wanna start by optimizing the images",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 162.18,
+          "end": 165.27,
+          "en": "that are displayed on this website here",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 165.27,
+          "end": 168.418,
+          "en": "in this basic NextJS demo application.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 168.418,
+          "end": 169.59,
+          "en": "And with that,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 169.59,
+          "end": 172.74,
+          "en": "I mean both images like this one in the header,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 172.74,
+          "end": 175.26,
+          "en": "which are part of the overall page,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 175.26,
+          "end": 177.534,
+          "en": "and images like these ones here,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 177.534,
+          "end": 180.15,
+          "en": "which are user generated images.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 180.15,
+          "end": 183.57,
+          "en": "So both kinds of images should be optimized",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 183.57,
+          "end": 185.13,
+          "en": "and as it turns out,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 185.13,
+          "end": 186.843,
+          "en": "NextJS can help us with that.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "43340996",
+      "title": "Using the NextJS Image Component",
+      "lectureOrder": 194,
+      "videoOrder": 180,
+      "sourceHash": "0cc89ef2318bb2e8ed2daa9bb576cf408488a1e7eca3883be76d5127cf83ddb7",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.6,
+          "end": 3.53,
+          "en": "So how can NextJS help us",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.53,
+          "end": 6.84,
+          "en": "with optimizing images?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.84,
+          "end": 11.55,
+          "en": "Well, it helps us by giving us a specific image component,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.55,
+          "end": 15.84,
+          "en": "which we can import from the NextJS package,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.84,
+          "end": 20.67,
+          "en": "which allows us to display images in an optimized way.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 20.67,
+          "end": 24.21,
+          "en": "Specifically, when using that image component",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 24.21,
+          "end": 26.16,
+          "en": "provided by NextJS.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 26.16,
+          "end": 30.15,
+          "en": "NextJS will automatically optimize the size",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 30.15,
+          "end": 31.53,
+          "en": "of the loaded image file",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 31.53,
+          "end": 35.193,
+          "en": "to serve smaller files in optimal formats.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 36.33,
+          "end": 39.99,
+          "en": "It can also help us with visual stability, as you see here,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 39.99,
+          "end": 42.66,
+          "en": "so that it prevents shifting layouts",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 42.66,
+          "end": 46.02,
+          "en": "or layouts that jump around as the page is loaded,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 46.02,
+          "end": 49.59,
+          "en": "and therefore overall, it can speed up the page load time,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 49.59,
+          "end": 51.15,
+          "en": "also because it, for example,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 51.15,
+          "end": 54.388,
+          "en": "makes sure that images are only loaded and displayed",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 54.388,
+          "end": 58.02,
+          "en": "when they're actually visible, so that overall,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 58.02,
+          "end": 61.32,
+          "en": "the performance and the speed of your site improves.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 61.32,
+          "end": 64.98,
+          "en": "That's the idea behind using this image component.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 64.98,
+          "end": 67.494,
+          "en": "And as you can see, there's a lot you can learn",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 67.494,
+          "end": 69.66,
+          "en": "about this image component,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 69.66,
+          "end": 72.57,
+          "en": "a lot you can configure about this image component,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 72.57,
+          "end": 75.16,
+          "en": "but we'll, of course, dive into the most important settings",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 75.16,
+          "end": 78.12,
+          "en": "and the crucial essentials you'll need to know",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 78.12,
+          "end": 80.28,
+          "en": "in this section here.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 80.28,
+          "end": 83.61,
+          "en": "So how can we optimize images?",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 83.61,
+          "end": 87.36,
+          "en": "For that, I wanna start with this image in the header here,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 87.36,
+          "end": 89.672,
+          "en": "and what's special about this image here",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 89.672,
+          "end": 92.72999999999999,
+          "en": "is that it's not user-generated,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 92.72999999999999,
+          "end": 94.92,
+          "en": "but instead, it's part of my project,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 94.92,
+          "end": 98.13,
+          "en": "it's part of my codebase, so to say,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 98.13,
+          "end": 100.08,
+          "en": "and it'll always be on the page,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 100.08,
+          "end": 105.08,
+          "en": "and I'm importing it locally from my local file system,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 105.21000000000001,
+          "end": 109.89,
+          "en": "whereas those user-generated files are stored on Cloudinary.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 109.89,
+          "end": 112.557,
+          "en": "So therefore, I, of course, know things",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 112.557,
+          "end": 115.32,
+          "en": "about this image here, about this logo,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 115.32,
+          "end": 117.03,
+          "en": "which I don't know in advance",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 117.03,
+          "end": 119.34,
+          "en": "about the user-generated images.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 119.34,
+          "end": 122.37,
+          "en": "I, for example, know its size in advance",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 122.37,
+          "end": 127.37,
+          "en": "because the image file is stored right here in this project,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 127.41,
+          "end": 129.123,
+          "en": "and this will become important.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 130.05,
+          "end": 131.929,
+          "en": "So where am I using this logo?",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 131.929,
+          "end": 135.633,
+          "en": "Well, I'm using it in the header.js file.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 136.47,
+          "end": 139.29,
+          "en": "There, I'm displaying this logo",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 139.29,
+          "end": 141.96,
+          "en": "here to the left of my navigation,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 141.96,
+          "end": 143.43,
+          "en": "and I'm, of course, displaying it",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 143.43,
+          "end": 147.21,
+          "en": "with the regular built-in native image element,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 147.21,
+          "end": 150.3,
+          "en": "so not the image element coming from NextJS,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 150.3,
+          "end": 153.99,
+          "en": "but instead, the one that's usable on any website,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 153.99,
+          "end": 157.323,
+          "en": "the standard image HTML tag.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 158.52,
+          "end": 160.56,
+          "en": "And that's what we'll change now,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 160.56,
+          "end": 162.27,
+          "en": "because as I mentioned before,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 162.27,
+          "end": 164.513,
+          "en": "you can import the image component",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 164.513,
+          "end": 169.07999999999998,
+          "en": "from next/image like this.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 169.07999999999998,
+          "end": 172.8,
+          "en": "You can add this import to any component file,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 172.8,
+          "end": 177.12,
+          "en": "not just to page components, but to any component file,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 177.12,
+          "end": 181.08,
+          "en": "and you can then use this image component provided by Next",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 181.08,
+          "end": 185.37,
+          "en": "instead of the standard built-in IMG element here,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 185.37,
+          "end": 188.97,
+          "en": "just like that in the end.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 188.97,
+          "end": 191.97,
+          "en": "And with that, we will use this component",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 191.97,
+          "end": 193.35,
+          "en": "to display the image,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 193.35,
+          "end": 197.46,
+          "en": "and this component then also takes an SRC prop",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 197.46,
+          "end": 199.11,
+          "en": "to set the source of the image",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 199.11,
+          "end": 202.053,
+          "en": "and an alt prop to set the alt text.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 203.55,
+          "end": 207.75,
+          "en": "Now, out of the box, when using a locally imported image,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 207.75,
+          "end": 211.62,
+          "en": "as I'm doing it here, so when importing an image like this",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 211.62,
+          "end": 213.63,
+          "en": "from the local file system,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 213.63,
+          "end": 216.21,
+          "en": "you don't need to add any other props.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 216.21,
+          "end": 218.1,
+          "en": "Instead, you can leave it like this,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 218.1,
+          "end": 221.973,
+          "en": "and you'll be greeted with an error.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "43341008",
+      "title": "Understanding the NextJS Image Component",
+      "lectureOrder": 195,
+      "videoOrder": 181,
+      "sourceHash": "bce217531c743629a0ad5219303f9656603eaa3f366a02980cd1f95c688b2926",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.51,
+          "end": 2.13,
+          "en": "And you'll be greeted with an error",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 2.13,
+          "end": 6.9,
+          "en": "because previously, when I used the built-in img element,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.9,
+          "end": 9.18,
+          "en": "instead of the next image element,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.18,
+          "end": 14.18,
+          "en": "I set the source by accessing the imported thing.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.69,
+          "end": 19.59,
+          "en": "So the thing that's actually stored in this logo variable",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.59,
+          "end": 20.97,
+          "en": "in this file here,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 20.97,
+          "end": 23.61,
+          "en": "and by then accessing the source property",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 23.61,
+          "end": 26.16,
+          "en": "on that imported thing.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 26.16,
+          "end": 29.85,
+          "en": "So that logo thing I'm importing here seems to be an object",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 29.85,
+          "end": 32.04,
+          "en": "that has a src property,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 32.04,
+          "end": 35.73,
+          "en": "and I'm using the value stored in that src property",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 35.73,
+          "end": 38.61,
+          "en": "as a value for the src prop,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 38.61,
+          "end": 42.693,
+          "en": "at least that is what worked when I used the built-in image.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 43.8,
+          "end": 45.93,
+          "en": "Now, with the next image being used,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 45.93,
+          "end": 48.33,
+          "en": "that needs to change though.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 48.33,
+          "end": 51.9,
+          "en": "You now need to set the entire logo object",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 51.9,
+          "end": 55.38,
+          "en": "that describes this image file to which we're linking",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 55.38,
+          "end": 57.063,
+          "en": "as a value for src.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 58.08,
+          "end": 60.96,
+          "en": "So you no longer access the src property,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 60.96,
+          "end": 64.32,
+          "en": "but you set the entire logo image object here",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 64.32,
+          "end": 66.633,
+          "en": "as a value for the src prop.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 67.68,
+          "end": 68.97,
+          "en": "And if you do that",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 68.97,
+          "end": 71.52,
+          "en": "and save everything, you'll notice",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 71.52,
+          "end": 75.033,
+          "en": "that everything works again and the error is gone.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 75.87,
+          "end": 79.02,
+          "en": "Now, why do we need to make this change though?",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 79.02,
+          "end": 81.12,
+          "en": "Well, we need to make this change",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 81.12,
+          "end": 86.1,
+          "en": "because this logo thing here is actually not a path",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 86.1,
+          "end": 88.62,
+          "en": "to the image or anything like that.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 88.62,
+          "end": 92.19,
+          "en": "Instead, we can console.log logo here",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 92.19,
+          "end": 95.37,
+          "en": "to look into it and see what's stored in there",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 95.37,
+          "end": 97.38,
+          "en": "and what exactly gets generated",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 97.38,
+          "end": 100.113,
+          "en": "by Next.js when we add this import.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 101.4,
+          "end": 103.41,
+          "en": "And what we'll see is that we'll have an object",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 103.41,
+          "end": 105.75,
+          "en": "that looks something like this,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 105.75,
+          "end": 108.47999999999999,
+          "en": "which includes some path to the image.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 108.47999999999999,
+          "end": 112.32,
+          "en": "It's not the actual path to this logo PNG file,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 112.32,
+          "end": 116.13,
+          "en": "but instead a path that will work after deployment",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 116.13,
+          "end": 118.68,
+          "en": "or also already during development.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 118.68,
+          "end": 120.36,
+          "en": "But in the end, it's a path to the image",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 120.36,
+          "end": 122.73,
+          "en": "that has already been processed",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 122.73,
+          "end": 126.69,
+          "en": "by the Next.js build process or development server,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 126.69,
+          "end": 129.45,
+          "en": "and that has been copied into a different location,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 129.45,
+          "end": 131.97,
+          "en": "as you can tell, but it's not just that.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 131.97,
+          "end": 133.77,
+          "en": "Instead, this object",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 133.77,
+          "end": 136.62,
+          "en": "that's generated when we import the image here",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 136.62,
+          "end": 139.825,
+          "en": "actually also contains height and width information",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 139.825,
+          "end": 141.96,
+          "en": "about the image,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 141.96,
+          "end": 145.74,
+          "en": "and that's important for this image component,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 145.74,
+          "end": 149.4,
+          "en": "as you can also learn in this image component documentation",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 149.4,
+          "end": 152.223,
+          "en": "in the official Next.js docs,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 153.3,
+          "end": 154.47,
+          "en": "because this height",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 154.47,
+          "end": 158.07,
+          "en": "and width information is needed by Next.js to determine",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 158.07,
+          "end": 160.89,
+          "en": "how exactly that image should be displayed",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 160.89,
+          "end": 162.29,
+          "en": "and how it should be loaded.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 163.44,
+          "end": 167.79,
+          "en": "Because if we now inspect that image on the rendered page,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 167.79,
+          "end": 170.85,
+          "en": "you will see that this Next.js image component",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 170.85,
+          "end": 173.7,
+          "en": "does in the end still render the standard image element,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 173.7,
+          "end": 176.79,
+          "en": "but it renders this image element with a lot",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 176.79,
+          "end": 178.54,
+          "en": "of settings on it, as you can tell.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 179.55,
+          "end": 181.8,
+          "en": "For example, it sets loading to lazy,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 181.8,
+          "end": 184.11,
+          "en": "which makes sure that the image is only loaded",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 184.11,
+          "end": 187.08,
+          "en": "and displayed if it's actually visible on the screen.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 187.08,
+          "end": 189.99,
+          "en": "That's a mechanism built into the browser,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 189.99,
+          "end": 192.66,
+          "en": "but it, for example, also sets the width and height,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 192.66,
+          "end": 195.48,
+          "en": "and that's the width and height as it was determined",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 195.48,
+          "end": 198.09,
+          "en": "from that file we were importing.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 198.09,
+          "end": 199.59,
+          "en": "And this width",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 199.59,
+          "end": 203.34,
+          "en": "and height information is required by Next.js",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 203.34,
+          "end": 207.39,
+          "en": "to avoid layout shift where the layout",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 207.39,
+          "end": 209.79,
+          "en": "and the elements on the screen jump around",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 209.79,
+          "end": 212.04,
+          "en": "after an image is loaded.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 212.04,
+          "end": 213.42000000000002,
+          "en": "By setting this width",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 213.42000000000002,
+          "end": 216.12,
+          "en": "and height here, NextJS makes sure",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 216.12,
+          "end": 219.66,
+          "en": "that the appropriate space for that image is reserved",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 219.66,
+          "end": 222.81,
+          "en": "so that it doesn't suddenly move elements around",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 222.81,
+          "end": 224.28300000000002,
+          "en": "as it's being displayed.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 225.69,
+          "end": 227.49,
+          "en": "In addition, this width",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 227.49,
+          "end": 229.47,
+          "en": "and height information also helps",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 229.47,
+          "end": 232.77,
+          "en": "with serving different image files",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 232.77,
+          "end": 237.66,
+          "en": "with different sizes for different screen densities.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 237.66,
+          "end": 241.14,
+          "en": "That's something Next.js does out of the box here,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 241.14,
+          "end": 245.76,
+          "en": "and that's what this srcset attribute here is all about.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 245.76,
+          "end": 249.66,
+          "en": "This was also added automatically by Next.js,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 249.66,
+          "end": 252.93,
+          "en": "and this srcset attribute in the end",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 252.93,
+          "end": 256.38,
+          "en": "tells the browser to load different images",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 256.38,
+          "end": 259.743,
+          "en": "for different screen resolution densities.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 260.67,
+          "end": 264.36,
+          "en": "And you can see that this srcset attribute points",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 264.36,
+          "end": 269.19,
+          "en": "at different image URLs, which are almost exactly the same,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 269.19,
+          "end": 272.7,
+          "en": "but which have this different query parameter here",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 272.7,
+          "end": 277.7,
+          "en": "inside of it where some width is set in the end",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 278.01,
+          "end": 282.15,
+          "en": "and images with those widths are in the end generated",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 282.15,
+          "end": 286.14,
+          "en": "dynamically, you could say, by Next.js,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 286.14,
+          "end": 289.77,
+          "en": "as the image is served on different screens",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 289.77,
+          "end": 292.83,
+          "en": "of different resolutions.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 292.83,
+          "end": 295.23,
+          "en": "So the Next.js image component renders",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 295.23,
+          "end": 298.2,
+          "en": "such a native image element, and as I mentioned,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 298.2,
+          "end": 300.63,
+          "en": "this width and height setting here is important",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 300.63,
+          "end": 302.61,
+          "en": "to know for Next.js,",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 302.61,
+          "end": 305.31,
+          "en": "but that is determined automatically",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 305.31,
+          "end": 307.17,
+          "en": "when you're importing a file locally.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 307.17,
+          "end": 310.44,
+          "en": "However, you can override the width",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 310.44,
+          "end": 313.263,
+          "en": "and height that's assumed by Next.js.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
