@@ -6,5 +6,5 @@
 
 目前的譯文檔案：
 
-- [tw-001-050.json](tw-001-050.json)：已驗證 17 堂影片。本區間尚未滿 50 堂。
-- [ChatGPT-Svelte-supplement-2360566.zh-TW.json](ChatGPT-Svelte-supplement-2360566.zh-TW.json)：3 堂音訊補件譯文。合計前 20 堂影片已完成（1,334 段）。
+- [tw-001-050.json](tw-001-050.json)：已驗證 27 堂影片。本區間尚未滿 50 堂。
+- [ChatGPT-Svelte-supplement-2360566.zh-TW.json](ChatGPT-Svelte-supplement-2360566.zh-TW.json)：3 堂音訊補件譯文。合計前 30 堂影片已完成（1,950 段）。
