@@ -14,11 +14,11 @@
 | [Remix.js - The Practical Guide](4958062/README.md) | 4958062 | 106 | 69 | [查看譯文](4958062/translations/README.md) |
 | [Angular - The Complete Guide](756150/README.md) | 756150 | 701 | 40 | [查看譯文](756150/translations/README.md) |
 | [Next.js & React - The Complete Guide](3873464/README.md) | 3873464 | 417 | 40 | [查看譯文](3873464/translations/README.md) |
-| [Vue - The Complete Guide (incl. Router & Composition API)](995016/README.md) | 995016 | 294 | 50 | [查看譯文](995016/translations/README.md) |
+| [Vue - The Complete Guide (incl. Router & Composition API)](995016/README.md) | 995016 | 294 | 60 | [查看譯文](995016/translations/README.md) |
 | [Ionic - Build iOS, Android & Web Apps with Ionic & Angular](1070124/README.md) | 1070124 | 242 | 40 | [查看譯文](1070124/translations/README.md) |
 | [JavaScript - The Complete Guide (Beginner + Advanced)](2508942/README.md) | 2508942 | 540 | 40 | [查看譯文](2508942/translations/README.md) |
 
-13 門課影片講座合計 4,672 堂（不含文章與測驗）。React 優先處理、678 堂已全部完成（每 25 堂自動提交）。Remix 已完成前 75 堂；Svelte、NativeScript 與 Vue 已完成前 50 堂。Ionic、CSS、React Native、Flutter、Next.js、NodeJS、JavaScript 與 Angular 已完成前 40 堂；Svelte 含 3 堂音訊補件譯文。下一輪從 Remix 繼續。
+13 門課影片講座合計 4,672 堂（不含文章與測驗）。React 優先處理、678 堂已全部完成（每 25 堂自動提交）。Remix 已完成前 75 堂；Svelte 與 NativeScript 已完成前 50 堂。Vue 已完成前 60 堂。Ionic、CSS、React Native、Flutter、Next.js、NodeJS、JavaScript 與 Angular 已完成前 40 堂；Svelte 含 3 堂音訊補件譯文。下一輪從 Remix 繼續。
 
 每課分類：
 
