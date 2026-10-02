@@ -1,0 +1,3409 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "12097928",
+      "title": "Connecting Posts & Users",
+      "lectureOrder": 394,
+      "videoOrder": 350,
+      "sourceHash": "467afce82ee63aa73e5174b951a54e30e999e936e5df12f927737faae4894785",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.36,
+          "end": 7.16,
+          "en": "Let's connect posts and users. For this in my backend code,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.16,
+          "end": 11.85,
+          "en": "first of all I'll go to my post model and there we have that creator object,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 11.9,
+          "end": 12.45,
+          "en": "right.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.65,
+          "end": 17.1,
+          "en": "Well that was like an intermediate solution,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.18,
+          "end": 25.71,
+          "en": "now that we know users in our application, creator will no longer be of type object type schema types",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 26.06,
+          "end": 35.45,
+          "en": "object ID because I will store a reference to a user, so this will now be a reference to a user here,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 35.45,
+          "end": 37.46,
+          "en": "this will also be require true and",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 37.55,
+          "end": 41.01,
+          "en": "not required string, what I had before, this was a mistake of course.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 41.03,
+          "end": 44.61,
+          "en": "So now we have a relation between posts and users,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 44.66,
+          "end": 50.63,
+          "en": "we store the creator of a post in every post we create and on the user model, we add the post to the",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 50.63,
+          "end": 52.45,
+          "en": "list of posts for that user.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 52.64,
+          "end": 58.97,
+          "en": "That of course means we now need to adjust our feed controller in the place where we do create new posts.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 61.12,
+          "end": 66.86,
+          "en": "There in create post, the validation which we do at the beginning still is",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 66.88,
+          "end": 73.12,
+          "en": "all right but then before I create the post, I should get my user ID.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 73.31,
+          "end": 78.95,
+          "en": "Now I remember in my isAuth middleware, I do actually store that in the request object,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 78.95,
+          "end": 80.95,
+          "en": "I get it from the decoded token,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 81.14,
+          "end": 84.05,
+          "en": "so we have that user ID available here.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 84.05,
+          "end": 92.52000000000001,
+          "en": "Now with that information, I'll set creator equal to request user ID, that will be a string not an object",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 92.52000000000001,
+          "end": 92.82,
+          "en": "ID",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 92.85,
+          "end": 95.78999999999999,
+          "en": "but mongoose will take care about that and convert it,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 95.82,
+          "end": 100.35,
+          "en": "so now we create a new post assigned to that user.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 100.44,
+          "end": 104.67,
+          "en": "Now once I save the post, I'll not immediately send the response though,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 104.78999999999999,
+          "end": 110.5,
+          "en": "instead I now also want to add that post to the list of posts for the given user.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 110.5,
+          "end": 115.49000000000001,
+          "en": "Therefore I'll import my user model into that feed.js",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 115.5,
+          "end": 116.03,
+          "en": ".",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 116.07,
+          "end": 120.47,
+          "en": "file by requiring it from the models folder of course",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 121.6,
+          "end": 123.51,
+          "en": "and in create post",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 123.57,
+          "end": 131.46,
+          "en": "once we did save the post, I'll use that user model to find the user by ID for the request user ID,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 131.46,
+          "end": 139.03,
+          "en": "so for that user id I extracted from the token. Then I'll return this and close this",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 139.07999999999998,
+          "end": 141.75,
+          "en": "then block and add a new then block",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 142.26,
+          "end": 152.05,
+          "en": "where I now get that user that was created. Now in this second then block here, I now have a user, so",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 152.13,
+          "end": 155.3,
+          "en": "not the user which was created but the user which was found,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 155.31,
+          "end": 163.07999999999998,
+          "en": "I have that user which is the currently logged in user and now I can take that user object which is",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 163.29,
+          "end": 167.82,
+          "en": "a mongoose model here in the end and I can access the post of this user,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 167.82,
+          "end": 176.02,
+          "en": "keep in mind the user model has a posts property. I can access this post and I can push the newly",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 176.02,
+          "end": 177.63,
+          "en": "created post,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 177.7,
+          "end": 184.63,
+          "en": "so this post here, I can push that posts object to that user and mongoose will do all the heavy lifting",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 184.75,
+          "end": 191.75,
+          "en": "of pulling out the post ID and adding that to the user actually.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 191.76,
+          "end": 198.6,
+          "en": "Now I'll also add a new variable at the top which I'll name creator which is uninitialized",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 198.81,
+          "end": 203.82,
+          "en": "and once I found a user, I'll store the user in that creator variable.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 203.82,
+          "end": 205.37,
+          "en": "Now what do I need that for?",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 205.5,
+          "end": 209.19,
+          "en": "Well I do update my user here,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 209.28,
+          "end": 216.18,
+          "en": "that means that here I will also call user save and I will return that and hence we need another",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 216.21,
+          "end": 219.92000000000002,
+          "en": "then block where I get the result of this operation.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 220.02,
+          "end": 226.77,
+          "en": "Now in this next block, I'll send my response and there I will not just send the post but I also want",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 226.77,
+          "end": 229.66,
+          "en": "to send information about the creator,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 229.68,
+          "end": 236.43,
+          "en": "so here I'll add a creator key and that will be let's say some object with an ID _id",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 236.85,
+          "end": 243.61,
+          "en": "of creator _id and name which is creator name.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 243.63,
+          "end": 246.67,
+          "en": "So I'm just passing this extra information with the response",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 246.68,
+          "end": 249.39,
+          "en": "and if I want to do that, I have to do it through a variable.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 252.45,
+          "end": 258.65,
+          "en": "So now posts get saved and get connected to users in both directions,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 258.65,
+          "end": 260.09,
+          "en": "let's try that out.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 260.12,
+          "end": 265.16,
+          "en": "Let's save this code, go back to the frontend and there",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 265.17,
+          "end": 267.05,
+          "en": "let's create a new post.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 267.12,
+          "end": 268.86,
+          "en": "Good old duck again,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 269.13,
+          "end": 273.4,
+          "en": "let's add a duck image, a duck,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 273.43,
+          "end": 275.11,
+          "en": "how lovely,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 275.2,
+          "end": 276.47,
+          "en": "click accept here",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 277.35,
+          "end": 279.40999999999997,
+          "en": "and I get an error.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 279.69,
+          "end": 281.34000000000003,
+          "en": "Let's see what's going wrong,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 281.73,
+          "end": 284.15999999999997,
+          "en": "I do get back a response with a post",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 284.62,
+          "end": 291.2,
+          "en": "and the problem is that post holds my user data actually which is a mistake",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 291.21,
+          "end": 297.03,
+          "en": "on my side of course. The post I am sending back here is not the result, the result here is the user which",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 297.03,
+          "end": 300.91,
+          "en": "I updated. Here post should be the post model,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 300.93,
+          "end": 303.47,
+          "en": "the post object I created up there,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 303.63,
+          "end": 304.69,
+          "en": "so that's my mistake.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 304.8,
+          "end": 307.22,
+          "en": "I do create a post there, I store it in a constant,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 307.29,
+          "end": 312.58,
+          "en": "I can reuse that constant down there to send data about that create post back to the client.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 312.76,
+          "end": 314.79,
+          "en": "So let me save that, now",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 314.85,
+          "end": 318.96,
+          "en": "still what we'll see is in the database, if I go to the post collection,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 319.02,
+          "end": 324.45,
+          "en": "it was created though because it only failed when it came to sending back the correct data",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 324.45,
+          "end": 329.26,
+          "en": "and there we see that it's also connected to a user which ends with ABC.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 329.46,
+          "end": 335.79,
+          "en": "If you have a look at the users, this is this user and there in posts, we also find the ID of the post which",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 335.79,
+          "end": 337.61,
+          "en": "ends with 6E5,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 338.04,
+          "end": 339.8,
+          "en": "yes that is correct.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 339.84000000000003,
+          "end": 341.11,
+          "en": "So this worked, now",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 341.15999999999997,
+          "end": 344.44,
+          "en": "only a minor mistake here regarding the data I send back.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 344.58,
+          "end": 346.37,
+          "en": "Let's simply give this a try again,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 346.45,
+          "end": 347.86,
+          "en": "here's our post,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 347.94,
+          "end": 353.23,
+          "en": "let's add a cup like this,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 354.24,
+          "end": 358.9,
+          "en": "superhot and now this works without an error.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 359.09000000000003,
+          "end": 362.88,
+          "en": "So now we are able to connect posts and users,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 362.99,
+          "end": 368.99,
+          "en": "let's now take it a step further and make sure that editing and deleting is only possible for posts",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 369.14,
+          "end": 371.21,
+          "en": "that belong to the currently logged in user.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12097932",
+      "title": "Adding Authorization Checks",
+      "lectureOrder": 395,
+      "videoOrder": 351,
+      "sourceHash": "1bd231711a0a46b3af47e72b04e488db9f24a0313585b86d0edb72ae3db886e2",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.31,
+          "end": 9.82,
+          "en": "To check whether a user tries to edit or delete a post which does not belong to him, we should go to",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 9.82,
+          "end": 11.59,
+          "en": "on the node, rest",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 11.61,
+          "end": 17.85,
+          "en": "API project, we should go to our feed controller and there, find our update and delete methods of",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 17.85,
+          "end": 18.48,
+          "en": "course.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 18.48,
+          "end": 22.08,
+          "en": "Let's start with updating a post. In there,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 23,
+          "end": 30.7,
+          "en": "we find a post by ID which is all right of course and we should keep in mind that for a post, the creator",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 30.7,
+          "end": 35.42,
+          "en": "will be the ID of the user who created that.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 35.43,
+          "end": 42.69,
+          "en": "So even if we do have a post here, we want to check whether that creator ID is equal to the ID of the currently",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 42.69,
+          "end": 47.1,
+          "en": "logged in user so of the ID that belongs to the token we received.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 47.1,
+          "end": 56.55,
+          "en": "So here I'll check if post creator is equal to, excuse me, creator toString to convert this to a string, is",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 56.55,
+          "end": 58.02,
+          "en": "equal to request",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 59.91,
+          "end": 68.51,
+          "en": "user ID, so to the user ID I got from my token. If that is equal, I'm allowed to continue, if it is not equal",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 68.52,
+          "end": 70.95,
+          "en": "hence we need a exclamation mark here,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 71.06,
+          "end": 75.03999999999999,
+          "en": "I'll throw an error. So here I'll create a new error,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 75.27,
+          "end": 78.17,
+          "en": "not authorized,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 78.34,
+          "end": 84.34,
+          "en": "set the status code to 403 which is a good status code for authorization issues",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 84.55,
+          "end": 86.4,
+          "en": "and I'll throw that error.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 86.86,
+          "end": 90.23,
+          "en": "Now if I save that, let's check that,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 90.31,
+          "end": 93.7,
+          "en": "first of all let's delete a post which we are allowed to delete,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 93.82,
+          "end": 94.62,
+          "en": "like that duck.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 94.63,
+          "end": 101.17,
+          "en": "If I delete that, now deleting obviously works because we never added any logic to prevent this.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 101.44,
+          "end": 103.78,
+          "en": "Now let me logout and create a new user,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 103.78,
+          "end": 105.62,
+          "en": "we need a different email address,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 105.64,
+          "end": 107.50999999999999,
+          "en": "well let's first of all try the same one,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 107.53,
+          "end": 113.72,
+          "en": "it should fail so here I'll just use Max and it fails.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 113.72,
+          "end": 120.16,
+          "en": "Now let's use an unused e-mail address and it succeeds,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 120.16,
+          "end": 123.66,
+          "en": "let's now login with that newly created user,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 123.67,
+          "end": 129.34,
+          "en": "now let's try editing because that is where we did add protection, the cup which was not created by that",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 129.34,
+          "end": 134.1,
+          "en": "user. This failed with a 403 error,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 134.33,
+          "end": 142.97,
+          "en": "let's now login with the user who did create it and let's now try editing with this user and this now",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 142.98,
+          "end": 143.99,
+          "en": "succeeds.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 144.05,
+          "end": 146.98,
+          "en": "So now we have this first check in place.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 146.99,
+          "end": 151.76,
+          "en": "Let's now also add it to our delete post logic there. There",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 151.78,
+          "end": 158.56,
+          "en": "I find my post at the beginning and before we continue, here I basically want to implement that same",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 158.56,
+          "end": 159.51,
+          "en": "check.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 159.52,
+          "end": 165.16,
+          "en": "I'll check the creator which is the ID of the user and compare it to the user ID extracted from the",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 165.16,
+          "end": 168.53,
+          "en": "token and if they're not equal, I will throw an error,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 168.55,
+          "end": 174.09,
+          "en": "so now only authorized users should be able to delete the post of course.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 174.15,
+          "end": 176.64,
+          "en": "Make sure to do that before you clear the image.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 176.97,
+          "end": 182.6,
+          "en": "Now after saving this, let's go back and delete this and it succeeds because this was the right user.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 182.7,
+          "end": 186.68,
+          "en": "Let's logout, let's login with this user let's say",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 187.56,
+          "end": 190.56,
+          "en": "and create a new post, a duck",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 193.33,
+          "end": 199.81,
+          "en": "with the image and some content and let's logout and login with the other user, the user who did",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 199.81,
+          "end": 205.75,
+          "en": "not create it and let's delete that there and you see that fails.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 205.75,
+          "end": 207.69,
+          "en": "Now I didn't implement an error message there",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 207.7,
+          "end": 212.23,
+          "en": "and of course you could also tweak the frontend to not even show these buttons if you're not allowed",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 212.23,
+          "end": 213.07,
+          "en": "to edit",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 213.1,
+          "end": 217.26,
+          "en": "but my idea here is to show you how you can protect this on the backend",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 217.32999999999998,
+          "end": 219.32,
+          "en": "since of course this is a node course.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 219.37,
+          "end": 225.39,
+          "en": "Therefore I deliberately let you do that so that you can see that we can prevent this on the backend",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 225.52,
+          "end": 227.32999999999998,
+          "en": "and indeed we can't delete this now",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 227.41,
+          "end": 228.4,
+          "en": "with the wrong user.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12097936",
+      "title": "Clearing Post-User Relations",
+      "lectureOrder": 396,
+      "videoOrder": 352,
+      "sourceHash": "6125b5967623e56ead363cc9433c4cc3283d77b3fdbf576774503fb0e7e738dd",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.42,
+          "end": 8.87,
+          "en": "Now talking about deleting, there's one more thing we should do in case we do succeed. We should clear",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.93,
+          "end": 11.83,
+          "en": "the relation of posts and users.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 11.84,
+          "end": 15.88,
+          "en": "If we refresh the post collection, we only have one item there",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.19,
+          "end": 21.04,
+          "en": "but if I have a look at my users there now, the first user has a couple of posts",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 21.08,
+          "end": 26.29,
+          "en": "and the second user has so too because right now we have no logic to clear posts",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 26.33,
+          "end": 31.46,
+          "en": "when I delete them, to clear relations and we should of course do that.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 31.7,
+          "end": 38.47,
+          "en": "Now how can we get rid of a relation? Well we delete the post anyways, so there's nothing we need to do",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 38.47,
+          "end": 38.96,
+          "en": "there",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 38.98,
+          "end": 46.6,
+          "en": "but on the user, we need to pull our reference. To do that we should find the user after we deleted a post",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 46.6,
+          "end": 52.36,
+          "en": "let's say, so here I'll find a user by ID and I can use my request",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 52.36,
+          "end": 53.51,
+          "en": "user ID here",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 54.91,
+          "end": 57.44,
+          "en": "and I will return that user object in there.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 57.57,
+          "end": 59.92,
+          "en": "Well let's grab that code and add another",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 59.92,
+          "end": 65.81,
+          "en": "then block where I will have that user mongoose model fetched from my database.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 66.31,
+          "end": 68.09,
+          "en": "Now in there,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 68.21000000000001,
+          "end": 75.5,
+          "en": "I will use my user model and there, the posts array and then there is a pull method mongoose gives me,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 76.16,
+          "end": 79.96000000000001,
+          "en": "there I need to pass the ID of the post I want to remove.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 80.15,
+          "end": 86.78,
+          "en": "Now I deleted the post already here but the post ID is still available of course, so I can pass post",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 86.78,
+          "end": 88.21000000000001,
+          "en": "ID here.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 88.25,
+          "end": 95.53999999999999,
+          "en": "Now I can call save here to save that updated user and return that, grab the response one more time and",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 95.57,
+          "end": 96.47,
+          "en": "add another",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 96.5,
+          "end": 100.00999999999999,
+          "en": "then block with the result of that operation",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 100.1,
+          "end": 103.47,
+          "en": "and here, I'm done with clearing the relation.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 103.62,
+          "end": 105.03999999999999,
+          "en": "Now to see that in action,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 105.12,
+          "end": 110.83,
+          "en": "let me actually get rid of all users manually by using mongodb compass,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 110.85,
+          "end": 120.2,
+          "en": "also get rid of all posts and logout here and let's create a brand new user because we cleared all",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 120.2,
+          "end": 120.71,
+          "en": "users,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 123.72,
+          "end": 125.52,
+          "en": "like this.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 125.64,
+          "end": 137.57,
+          "en": "Let's login with that user and let's create a new post, a duck, use that duck image, it ducks around for sure and",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 138.09,
+          "end": 139.31,
+          "en": "click accept",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 139.66,
+          "end": 145.45,
+          "en": "and before we do anything, let's go back to mongoose, to mongodb compass I mean, there we can see that",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 145.72,
+          "end": 149.32,
+          "en": "this post has this creator and this user",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 149.32,
+          "end": 154.14,
+          "en": "more importantly has this post in his posts array.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 154.5,
+          "end": 158.23,
+          "en": "Now I'm logged in with the right user, let's click delete.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 158.4,
+          "end": 165.79,
+          "en": "This worked and now if I refresh posts, we got no posts in there because I deleted the only post we had",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 166.25,
+          "end": 169.63,
+          "en": "and in users, this array is now also empty,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 169.73,
+          "end": 172.16,
+          "en": "so now we're clearing this as well.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12097940",
+      "title": "Wrap Up",
+      "lectureOrder": 397,
+      "videoOrder": 353,
+      "sourceHash": "5010af90794b38b85bf16345c4eb16753d5dfea7742f15f63f0c0d6cc3bf00b9",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.11,
+          "end": 9.13,
+          "en": "That's it for this module. You learned that when moving from a classic node application which I don't",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 9.13,
+          "end": 14.83,
+          "en": "mean in the sense of how you built it in the past, so simply just an application where you render",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 14.83,
+          "end": 19.46,
+          "en": "the views in the server, that is a classic application because it is what we started with in this course.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 19.72,
+          "end": 25.54,
+          "en": "So if you move from such a node application to a rest API, you'll learn that most of the server side",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 25.54,
+          "end": 27.38,
+          "en": "code does not change,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 27.41,
+          "end": 33.95,
+          "en": "you work with validation files and so on in exactly the same way as you did with",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 33.97,
+          "end": 39.79,
+          "en": "well the classic approach. Only request and response data changes because there you send json data,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 39.94,
+          "end": 41.95,
+          "en": "you don't render any views.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 41.95,
+          "end": 50.17,
+          "en": "You also got more http methods available which you can use to construct your endpoints, your API endpoints",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 50.38,
+          "end": 56.83,
+          "en": "and the most important takeaway is that the rest API server does not care about the client.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 56.95,
+          "end": 59.23,
+          "en": "The requests are handled in isolation,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 59.29,
+          "end": 63.75,
+          "en": "so every request is treated as if it would arrive for the first time.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 63.79,
+          "end": 66.94,
+          "en": "So we don't use sessions, the server, the rest",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 66.94,
+          "end": 69.53,
+          "en": "API does not store any sessions,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 69.55,
+          "end": 72.67,
+          "en": "it does not store any client data.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 72.88,
+          "end": 78.55,
+          "en": "Now that has important implications for authentication. Due to no sessions being used,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 78.58,
+          "end": 80.35,
+          "en": "the authentication works differently.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 80.35,
+          "end": 87.01,
+          "en": "Each request needs to be able to send some piece of data that proves that the request is authenticated",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 87.43,
+          "end": 93.09,
+          "en": "and that is this json web token which we generated and worked with in this module.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 93.1,
+          "end": 100.99000000000001,
+          "en": "It's a common way of storing some authentication information in a token, a piece of data which you send",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 100.99000000000001,
+          "end": 107.02000000000001,
+          "en": "to the client, which you store on the client and then which then gets attached to every outgoing request",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 107.25999999999999,
+          "end": 109.39,
+          "en": "to a protected resource.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 109.69,
+          "end": 115.42,
+          "en": "Json web tokens are signed by the server and only the server can validate them by using a private",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 115.45,
+          "end": 117.94,
+          "en": "key which is only known to the server,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 117.97,
+          "end": 124.88,
+          "en": "hence you can't fake or manipulate tokens on the client and that's it for this module.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 124.89,
+          "end": 127.64,
+          "en": "We now had a detailed look at building rest",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 127.64,
+          "end": 134.66,
+          "en": "APIs, a common form of node application which you need and a lot of scenarios and now you have already",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 134.81,
+          "end": 142.75,
+          "en": "a very broad toolset which allows you to build extremely versatile and powerful node applications.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 142.88,
+          "end": 144.82999999999998,
+          "en": "We're still not done with the course though,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 144.87,
+          "end": 145.87,
+          "en": "there's more to come.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12167076",
+      "title": "Module Introduction",
+      "lectureOrder": 399,
+      "videoOrder": 354,
+      "sourceHash": "ee4621b5cd0607c3336240724771933e85a0e4dd54dab2cde8579209c1878b83",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.34,
+          "end": 9.75,
+          "en": "You learned about a brand new type of backend application you can build with nodejs and restful API",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 10.2,
+          "end": 16.77,
+          "en": "and you learned that it's not that far off from the server side rendered node application we built before,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 16.89,
+          "end": 20.6,
+          "en": "the only major difference is how you handle requests and response data,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 20.76,
+          "end": 23.94,
+          "en": "you send json data. Now with that out of the way,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 23.97,
+          "end": 30.87,
+          "en": "I want to dive into something totally different which is applicable to any node application, not just",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 30.87,
+          "end": 32.39,
+          "en": "to restful APIs.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.67,
+          "end": 39.96,
+          "en": "I want to dive into the async await keywords which is a relatively new javascript language feature which",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 39.96,
+          "end": 43.24,
+          "en": "you can use again in any place in your nodejs",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 43.25,
+          "end": 50.7,
+          "en": "code, this does not have to be used in a restful API, you can or can not use it anywhere.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 50.73,
+          "end": 56.14,
+          "en": "Now I will explain what's up with these two keywords, how you use them and why you would use them.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12167078",
+      "title": "What is Async Await All About?",
+      "lectureOrder": 400,
+      "videoOrder": 355,
+      "sourceHash": "0274a70cb0fe49ffaa254c5b8ac866814ed86639f2e1389608467eda544ba749",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.68,
+          "end": 11.26,
+          "en": "So what is async await all about? Async and await are two keywords which are part of the core",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 11.35,
+          "end": 12.64,
+          "en": "javascript language,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 12.67,
+          "end": 16.02,
+          "en": "they're not an exclusive part of the nodejs runtime,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.1,
+          "end": 21.16,
+          "en": "they are also available in modern browsers or in frontend projects,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 21.18,
+          "end": 25.76,
+          "en": "they're not part of nodejs but you can use them in nodejs projects.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 25.78,
+          "end": 29.09,
+          "en": "The question of course is what do these two keywords do?",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 29.67,
+          "end": 36.31,
+          "en": "Async and await allows you to write asynchronous requests, so requests where you have some operation",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 36.31,
+          "end": 43,
+          "en": "that takes a little while and comes back later in a synchronous way and you see there is an asterisk",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 43.07,
+          "end": 48.76,
+          "en": "after synchronous way because async and await allows you to write asynchronous statements in a",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 48.76,
+          "end": 53.59,
+          "en": "way that looks synchronous but it still isn't a synchronous request.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 53.59,
+          "end": 55.96,
+          "en": "Now this is of course very abstract,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 55.96,
+          "end": 59.17,
+          "en": "so let's simply dive into our existing nodejs code",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 59.17,
+          "end": 64.81,
+          "en": "and let me show you which parts of it you could change to use async and await and then it will become",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 64.81,
+          "end": 66.83,
+          "en": "very clear what it does.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 66.85,
+          "end": 68.3,
+          "en": "I'm back in my nodejs",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 68.32,
+          "end": 70.73,
+          "en": "backend application here",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 70.84,
+          "end": 77.27,
+          "en": "and let me point out that as I mentioned, you could also use async await in the react application",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 77.38,
+          "end": 79.06,
+          "en": "but this is no react course",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 79.06,
+          "end": 84.6,
+          "en": "so I will leave this code untouched and I will go back to my node application.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 84.73,
+          "end": 86.78,
+          "en": "Now how can we use async",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 86.8,
+          "end": 87.64,
+          "en": "and await?",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 87.97,
+          "end": 94.64,
+          "en": "Well if you go into your feed controller, you'll see that there we have an asynchronous operation, post",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 94.69,
+          "end": 100.68,
+          "en": "find. How can you see or how can you identify asynchronous operations?",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 100.69,
+          "end": 102.57,
+          "en": "Well for example when you're using",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 102.57,
+          "end": 109.45,
+          "en": "promises. Promises are a typical construct that help you deal with asynchronous code because promises",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 109.45,
+          "end": 116.32,
+          "en": "work like that. Post find gets executed and count documents also gets executed immediately",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 116.32,
+          "end": 123.46,
+          "en": "but then this actually, count documents returns a promise or a promise-like object and you then use",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 123.58,
+          "end": 126.95,
+          "en": "then to define a function that should be executed",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 127.03,
+          "end": 133.5,
+          "en": "once this operation here is done and since we access the database here, this typically takes a bit longer.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 133.51,
+          "end": 135.32,
+          "en": "We're talking about milliseconds here",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 135.37,
+          "end": 138.15,
+          "en": "but still it doesn't happen instantly.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 138.31,
+          "end": 144.34,
+          "en": "On the opposite, this line and this line get executed after each other instantly, this operation does",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 144.34,
+          "end": 147.8,
+          "en": "essentially not take any time at all, it's so fast",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 147.85,
+          "end": 152.42000000000002,
+          "en": "javascript can wait for it to complete and move onto the next step right away. Here",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 152.5,
+          "end": 154.69,
+          "en": "it will not wait for that to complete",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 154.69,
+          "end": 160.86,
+          "en": "and that is why after this statement, javascript would actually move on with the next statement inline,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 160.9,
+          "end": 166.94,
+          "en": "so if we had another statement on the same level as post find, we would continue with that.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 166.96,
+          "end": 171.63,
+          "en": "Now in this case we got none but if we would have some code there, like a console log or anything, this",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 171.63,
+          "end": 180.06,
+          "en": "would execute right away, probably or very likely before this or this code or this code was executed and",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 180.07,
+          "end": 186.73,
+          "en": "the reason for that is that with then, we define code snippets or we define functions that should run",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 186.82,
+          "end": 187.93,
+          "en": "in the future",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 187.98,
+          "end": 195.52,
+          "en": "once this longer taking asynchronous operation is done and it's called asynchronous because it doesn't",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 195.52,
+          "end": 201.88,
+          "en": "happen instantly but it takes a little while. Callbacks which we used earlier in the course are another",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 201.88,
+          "end": 204.46,
+          "en": "way of working with asynchronous code,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 204.49,
+          "end": 207.34,
+          "en": "so here too for count documents,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 207.34,
+          "end": 212.68,
+          "en": "you could actually and you see that here in the documentation that pops up, you could define a callback",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 212.68,
+          "end": 213.55,
+          "en": "function.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 213.55,
+          "end": 218.6,
+          "en": "So here you could define a function that gets executed once it's done instead of then",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 218.74,
+          "end": 221.81,
+          "en": "and we don't use callbacks because in there,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 221.81,
+          "end": 227.53,
+          "en": "we would use that code and then we would need a callback here in the find function and we would",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 227.53,
+          "end": 231.76,
+          "en": "nest all these callbacks leading to very unreadable code.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 231.76,
+          "end": 237.19,
+          "en": "That is why you often prefer promises even though you could do it with callbacks because there, you have",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 237.22,
+          "end": 240.88,
+          "en": "one then block after each other and it's very readable.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 240.88,
+          "end": 243.92,
+          "en": "Still it can get more readable with async and await",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 244.09,
+          "end": 246.24,
+          "en": "and that is what I want to show you in the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12167272",
+      "title": "Transforming \"Then Catch\" to \"Async Await\"",
+      "lectureOrder": 401,
+      "videoOrder": 356,
+      "sourceHash": "3e5b19072593080b55fa6b54232847cf1f583952593c3b30ba6c4eb6874362a2",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.34,
+          "end": 8.48,
+          "en": "So now that we had a brief look at how asynchronous code can be identified and what is important about asynchronous",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.48,
+          "end": 14.18,
+          "en": "code and that you can use callbacks and promises to handle asynchronous code, now that we learned all",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 14.18,
+          "end": 15.07,
+          "en": "that,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 15.08,
+          "end": 22.82,
+          "en": "let me introduce you to async await. To use that, you first of all have to prepend the async keyword",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 23.06,
+          "end": 26.87,
+          "en": "in front of a function, like this arrow function here,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 26.9,
+          "end": 31.97,
+          "en": "so this function where you plan to use the await keyword,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 31.97,
+          "end": 37.92,
+          "en": "so where you want to use these two keywords, they always are used together, async in front of the function",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 38.33,
+          "end": 41.49,
+          "en": "and then you can tweak this syntax,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 41.6,
+          "end": 46.25,
+          "en": "you can write this syntax almost as if it would run synchronously.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 46.25,
+          "end": 53.65,
+          "en": "You can get your count, a new constant or variable you create by awaiting post",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 53.66,
+          "end": 59.79,
+          "en": "find count documents and then you would get rid of this then block here,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 60.08,
+          "end": 66.34,
+          "en": "you would instead continue here or you directly store your total items here to be precise,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 66.38,
+          "end": 70.41,
+          "en": "you can get rid of this line now and you get rid of this return statement and",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 70.59,
+          "end": 73.03,
+          "en": "instead you continue with the next line,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 73.06,
+          "end": 74.38,
+          "en": "post find limit,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 74.45,
+          "end": 77.05,
+          "en": "this gives you back a list of posts,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 77.06,
+          "end": 81.75,
+          "en": "so what you currently have in that then block and you again write it like this,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 81.84,
+          "end": 90.57,
+          "en": "post await, post find and then this whole statement that in the end would be followed by a then block.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 90.58,
+          "end": 93.42,
+          "en": "If you now get rid of the then block like this,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 93.46000000000001,
+          "end": 94.36,
+          "en": "let's comment out",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 94.37,
+          "end": 98.5,
+          "en": "catch because that is something we'll care about in a second",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 98.56,
+          "end": 103.1,
+          "en": "and now if I reformat this, this is our adjusted code, this is using async await and",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 103.17,
+          "end": 110.65,
+          "en": "this now looks like the normal javascript code we write but behind the scenes, async await takes",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 110.65,
+          "end": 115.53,
+          "en": "your code and transforms it into the old then-like structure we used.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 115.53999999999999,
+          "end": 119.28999999999999,
+          "en": "So it uses then behind the scenes, we just can't see it",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 119.38,
+          "end": 123.82,
+          "en": "and we have this more convenient way of writing our asynchronous code.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 123.94,
+          "end": 130.12,
+          "en": "Now I haven't used this in this course thus far because I think that if you're relatively new to javascript",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 130.15,
+          "end": 137.29,
+          "en": "or node, this can quickly lead you to think that this works just like the other code langs and indeed it doesn't.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 137.82999999999998,
+          "end": 143.86,
+          "en": "Always keep in mind, await just does some behind the scenes transformation of your code,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 143.92000000000002,
+          "end": 151.3,
+          "en": "it takes your code and adds then after it gets the result of that operation and then stores it in total",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 151.3,
+          "end": 158.68,
+          "en": "items and then moves onto the next line, executes that inside of that then block it creates here implicitly,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 158.68,
+          "end": 164.59,
+          "en": "so basically the exact same code we had before, this is done by async await behind the scenes.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 164.68,
+          "end": 170.57999999999998,
+          "en": "But if you know, if you understand this, then this can be a syntax you might prefer,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 170.59,
+          "end": 171.62,
+          "en": "you don't have to,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 171.64,
+          "end": 177,
+          "en": "you can absolutely use the other one with then and catch but you might prefer this one.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 177.01,
+          "end": 178.7,
+          "en": "Now back to catching,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 178.81,
+          "end": 181.09,
+          "en": "how do we handle errors now?",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 181.36,
+          "end": 187.58,
+          "en": "Well since this now runs almost like asynchronous code, we use try and catch.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 187.6,
+          "end": 199.69,
+          "en": "So we try something, we try some code, this code here to be precise and we then catch an error,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 203.23,
+          "end": 210.46,
+          "en": "like this which we then handle in there with the code we previously had inside of catch, like this and",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 212.77,
+          "end": 213.82,
+          "en": "therefore you still have to",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 213.82,
+          "end": 219.25,
+          "en": "next an error here because keep in mind, behind the scenes this gets converted to then and catch",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 219.25,
+          "end": 219.49,
+          "en": "as",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 219.49,
+          "end": 228.48,
+          "en": "we used it before. But now with that, we have transformed this first snippet where we used promises to",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 228.61,
+          "end": 235.96,
+          "en": "async await and we can see that. If I now save that and I go back to my running application, let me quickly",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 235.96,
+          "end": 241.03,
+          "en": "log in and open the developer tools to see if we get any errors",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 241.03,
+          "end": 246.49,
+          "en": "and I currently got no posts so I'll quickly create one, a test post.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 246.62,
+          "end": 248.63,
+          "en": "We'll take that duck again,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 248.88,
+          "end": 250.77,
+          "en": "this is just a test,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 250.8,
+          "end": 253.86,
+          "en": "let me hit accept here and this looks good.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 253.86,
+          "end": 254.95,
+          "en": "Now if I refresh,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 254.97,
+          "end": 256.45,
+          "en": "we definitely fetched a post",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 256.5,
+          "end": 257.67,
+          "en": "and this still works.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 257.67,
+          "end": 259.35,
+          "en": "So all that code still works,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 259.35,
+          "end": 261.94,
+          "en": "we also get no error here on the backend",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 261.99,
+          "end": 264.15,
+          "en": "and now we transform this to async await.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "19934158",
+      "title": "Top-level \"await\"",
+      "lectureOrder": 402,
+      "videoOrder": 357,
+      "sourceHash": "9d57d78d79f86ed5fe72a4fe6fcfb075edfb0344a9f8d67485d83f8926024235",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.09,
+          "end": 8.9,
+          "en": "Now, Max, from the future here in the last lecture we added async await and I explained all about",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.9,
+          "end": 9.15,
+          "en": "it.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.17,
+          "end": 11.63,
+          "en": "Now what I explained here is all correct.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.63,
+          "end": 15.32,
+          "en": "But there is one important addition I want to make here.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.59,
+          "end": 23.6,
+          "en": "Starting with version 14.3, which when I recorded this video was just released, starting with that",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 23.6,
+          "end": 25.34,
+          "en": "version of Node.js.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 25.37,
+          "end": 31.38,
+          "en": "You can actually use the a wait keyword also outside of asynchronous function.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 31.4,
+          "end": 34.37,
+          "en": "This is a feature called Top Level Await.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 34.4,
+          "end": 40.64,
+          "en": "You would be able to await a promise which you have here in the top level of your script.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 40.64,
+          "end": 45.89,
+          "en": "So which is not inside of a function you can now also use await here.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 45.92,
+          "end": 48.2,
+          "en": "Previously this was not really possible.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 48.2,
+          "end": 51.17,
+          "en": "You always needed a async function around await.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 51.2,
+          "end": 56.96,
+          "en": "Now you can use a weight on the top level if you are using it instead of a function.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 56.96,
+          "end": 62.06,
+          "en": "As we are doing it here though, you still should add async, so that hasn't changed.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 62.06,
+          "end": 67.34,
+          "en": "It's just this extra addition that you could now also use await on the top level.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 67.37,
+          "end": 73.43,
+          "en": "And I just found this important to mention because it is part of Node.js and it is related to a single",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 73.43,
+          "end": 76.03999999999999,
+          "en": "weight or to just a weight then I guess.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12167276",
+      "title": "Wrap Up",
+      "lectureOrder": 404,
+      "videoOrder": 358,
+      "sourceHash": "8821636ec2d20a007086062c75c898dceae0d8d64019ea6e9ec2b5ec9b75a7a5",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.21,
+          "end": 4.72,
+          "en": "So we are using async await everywhere now",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.85,
+          "end": 10.52,
+          "en": "and there's one important thing I want to highlight here. For all these mongoose operations which is",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.52,
+          "end": 17.27,
+          "en": "the primary thing where we use async await, you have to understand that mongoose actually with operations",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 17.27,
+          "end": 23.9,
+          "en": "like count documents or find does not return a real promise but a promise-like object where you can",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 23.9,
+          "end": 29.84,
+          "en": "use then and catch and also async await, that is supported by mongoose even though behind the scenes",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 29.84,
+          "end": 31.99,
+          "en": "it's not a real promise.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.06,
+          "end": 37.22,
+          "en": "Doesn't matter too much for you to be honest because you use async and await in exactly the same",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 37.22,
+          "end": 39.8,
+          "en": "way you would use it on a real promise",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 39.8,
+          "end": 42.89,
+          "en": "but I also don't want to hide that fact from you.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 42.95,
+          "end": 45.82,
+          "en": "You could use a real promise by chaining exec",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 45.98,
+          "end": 51.55,
+          "en": "after all these mongoose operations, so after find, after count documents.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 51.74,
+          "end": 54.86,
+          "en": "If you do that, then you get back a real promise,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 54.86,
+          "end": 60.89,
+          "en": "we don't really need that here because, well that promise-like object behaves in exactly the way we want. You",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 60.89,
+          "end": 67.22,
+          "en": "do have a real promise with the bcrypt library though, when we hash our password, here we get a",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 67.22,
+          "end": 68.3,
+          "en": "real promise",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 68.36,
+          "end": 73.35,
+          "en": "and as you can see, well you see nothing, you see no difference in the way we use await",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 73.4,
+          "end": 75.1,
+          "en": "and you also had no difference",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 75.17,
+          "end": 77.48,
+          "en": "you previously used then and catch.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 77.6,
+          "end": 80.8,
+          "en": "So that is what I mean, you don't need to care too much about that,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 80.81,
+          "end": 82.86,
+          "en": "I still did want to mention it.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 83.18,
+          "end": 89.88,
+          "en": "More importantly, I want you to take away that async await is a nice alternative to using then",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 90.08,
+          "end": 93.47,
+          "en": "and catch. It's not better, it's not faster,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 93.47,
+          "end": 96.25999999999999,
+          "en": "behind the scenes it's basically the same code.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 96.32,
+          "end": 103.94,
+          "en": "It can be more readable to you but you must never forget that these still are asynchronous steps,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 104.12,
+          "end": 108.72999999999999,
+          "en": "the javascript code execution behavior doesn't change because of that.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 109.00999999999999,
+          "end": 111.68,
+          "en": "It does not block execution,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 111.68,
+          "end": 116.59,
+          "en": "it simply wraps all the code after an await statement in the then block",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 116.6,
+          "end": 118.19,
+          "en": "you would have to write otherwise,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 118.31,
+          "end": 121.54,
+          "en": "so this runs inside of the implicit then block",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 121.55,
+          "end": 123.14,
+          "en": "this statement creates,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 123.2,
+          "end": 125.05,
+          "en": "this is how you have to think about that.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 125.06,
+          "end": 131.27,
+          "en": "So never forget that these are asynchronous operations because that is really important to understand.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 131.81,
+          "end": 135.77,
+          "en": "And you can absolutely go with the then and catch block we used before,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 135.83,
+          "end": 143.72,
+          "en": "so with the old promise style if you prefer that, I like it for teaching because it's clearer that we have",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 143.72,
+          "end": 150.68,
+          "en": "some operation to wait for and that the line after that would execute first, here this is less clear",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 150.82999999999998,
+          "end": 157.49,
+          "en": "but if you are aware of how async code works, this can simply be a nicer syntax to look at and it's up",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 157.49,
+          "end": 161.18,
+          "en": "to you which syntax you'll use. For the rest of the course,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 161.18,
+          "end": 163.86,
+          "en": "I'll write new promises or I'll stick to that",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 163.92000000000002,
+          "end": 169.07,
+          "en": "async and await syntax for my node application, for the react application",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 169.07,
+          "end": 172.68,
+          "en": "I'll leave the code as it is with then and catch.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 172.76,
+          "end": 175.01,
+          "en": "You could use async and await there too",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 175.04,
+          "end": 180.98,
+          "en": "but again this is no react course so I will leave it there as it is, for node we'll go with async await.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12167284",
+      "title": "Module Introduction",
+      "lectureOrder": 406,
+      "videoOrder": 359,
+      "sourceHash": "8b07ad2358d22cb460f9441b629b76d5fda7d5b5fb15d0bac07a66313a4d8c80",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.16,
+          "end": 8.73,
+          "en": "A lot of exciting things were covered in the last modules. Rest APIs, async await and we'll continue",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.73,
+          "end": 9.54,
+          "en": "on that road,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.63,
+          "end": 16.8,
+          "en": "we'll dive into a very exciting technology that you can use in node applications, web sockets. Web sockets",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.95,
+          "end": 24.21,
+          "en": "are a nice way, a protocol essentially which allows us to build real time web services.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 24.21,
+          "end": 27.29,
+          "en": "Now what exactly does that mean and how does that work?",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 27.3,
+          "end": 29.64,
+          "en": "That is what we'll cover in this module.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 29.64,
+          "end": 36.06,
+          "en": "You'll learn why you would want to use real time web services and what that actually is and we'll see",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 36.06,
+          "end": 43.59,
+          "en": "how we add real time communication to our node app or to any node app of course. We'll use a certain library",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 43.59,
+          "end": 49.95,
+          "en": "for that, socket.io and I will teach you everything you need to know about why to use that, how it works,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 50.1,
+          "end": 53.24,
+          "en": "what you can do with that and how you use it in your project.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12167286",
+      "title": "What Are Websockets & Why Would You Use Them?",
+      "lectureOrder": 407,
+      "videoOrder": 360,
+      "sourceHash": "76074ea263da880d2c6fbf79b6ea8b305276d9162a1769106f877b11b55b6a9e",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.18,
+          "end": 7.46,
+          "en": "Let's start with the status quo, how does our application we build thus far work",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.67,
+          "end": 13.37,
+          "en": "and with that, I'm not just referring to the rest API but to the shop we built before that",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 13.38,
+          "end": 18.63,
+          "en": "too. How do typical node or node express applications work like?",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 19.1,
+          "end": 24.89,
+          "en": "We got our client, we got our server. The client would be our browser, mobile phone or something like that,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 24.95,
+          "end": 29.53,
+          "en": "the server is of course essentially what we build, our node application.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 29.54,
+          "end": 32.62,
+          "en": "Now thus far, we always send a request from the client,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.75,
+          "end": 34.77,
+          "en": "we waited for this request on the server,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 34.79,
+          "end": 38.17,
+          "en": "we set up some routes to handle different kinds of requests",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 38.36,
+          "end": 43.46,
+          "en": "and once we're done doing something on the server, for example reach out to a database, we send back a",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 43.46,
+          "end": 44.99,
+          "en": "response to the client.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 45.02,
+          "end": 48.47,
+          "en": "So first request then response.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 48.47,
+          "end": 51.7,
+          "en": "Now that is how our application works thus far",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 51.7,
+          "end": 53.96,
+          "en": "and this is how most web applications work",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 53.99,
+          "end": 58.58,
+          "en": "and by the way, we're now not going to replace this with something totally new which we'll then use all",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 58.58,
+          "end": 59.27,
+          "en": "the time,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 59.3,
+          "end": 67.6,
+          "en": "this is a fine pattern because a lot of resources on the Internet should be available by this pull approach.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 67.7,
+          "end": 74.03999999999999,
+          "en": "So you pull information from the client, you tell the server that you want something,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 74.21000000000001,
+          "end": 77.7,
+          "en": "this is a typical approach and is a fine approach",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 77.93,
+          "end": 80.95,
+          "en": "but sometimes you have a different requirement.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 81.14,
+          "end": 86.45,
+          "en": "What if you want to send something from the server to the client, so what if something happens and you",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 86.45,
+          "end": 88.01,
+          "en": "want to inform the client?",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 88.4,
+          "end": 97.19,
+          "en": "Let's say you're building a chat application, user A on PC A or on his mobile phone sends a message",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 97.19,
+          "end": 98.69,
+          "en": "to user B.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 99.08,
+          "end": 101.85,
+          "en": "Now obviously they're not sharing the same device,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 101.9,
+          "end": 105.2,
+          "en": "they might be in two totally different places on the world.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 105.38,
+          "end": 111.83,
+          "en": "Now user A sends a request to the server that contains the message and the server stores the message",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 111.83,
+          "end": 115.88,
+          "en": "in the database and the server can return a response to user A",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 116.06,
+          "end": 123.67,
+          "en": "but user B, the person with whom user A chats does not send a request to the server asking for the message",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 123.92,
+          "end": 126.38,
+          "en": "or at least that is unlikely to happen.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 126.38,
+          "end": 131.51,
+          "en": "You could certainly use some patterns where you send a request every second to see if there are new",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 131.51,
+          "end": 132.31,
+          "en": "messages",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 132.44,
+          "end": 139.59,
+          "en": "but you'll then hammer your server with requests where most requests will not yield new messages.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 139.61,
+          "end": 146.12,
+          "en": "So instead it would be nice to have some push way of informing user B about the new message",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 146.12,
+          "end": 149.3,
+          "en": "and that is exactly the scenario we're looking at here.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 149.45,
+          "end": 156.38,
+          "en": "What if something changed on the server and we actively want to inform a client? Well then we can use",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 156.38,
+          "end": 159.07999999999998,
+          "en": "web sockets instead of http.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 159.2,
+          "end": 162.11,
+          "en": "Now http is the protocol we used thus far",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 162.23,
+          "end": 164.6,
+          "en": "where we send a request and we get a response.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 164.84,
+          "end": 168.05,
+          "en": "Web sockets build up on http,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 168.07999999999998,
+          "end": 170.42000000000002,
+          "en": "they are established via http,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 170.54,
+          "end": 177.95,
+          "en": "they use a so-called http handshake to upgrade the http protocol to the web sockets protocol and the web",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 177.95,
+          "end": 181.67,
+          "en": "sockets protocol, that simply talks about how data is exchanged,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 181.67,
+          "end": 181.91,
+          "en": "right.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 181.91,
+          "end": 184.71,
+          "en": "So this protocol is something you don't have to manage",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 184.72,
+          "end": 192.98,
+          "en": "actively, the browser and the server communicate through a protocol and the used protocol defines how the communication",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 192.98,
+          "end": 198.87,
+          "en": "can happen. With http, it's request response, with web sockets,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 198.92000000000002,
+          "end": 202.6,
+          "en": "it is push data or actually it's both.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 202.61,
+          "end": 205.89,
+          "en": "We can also send data from the client to the server, this is still included",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 205.94,
+          "end": 209.48,
+          "en": "but most importantly and that's the feature I really want to highlight here,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 209.57,
+          "end": 216.5,
+          "en": "we can push data from the server to the client. And you can and you typically will use both together in",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 216.5,
+          "end": 217.67000000000002,
+          "en": "one and the same node app,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 217.79,
+          "end": 224.32999999999998,
+          "en": "so it's not like you have to decide, do I build an app with web sockets or do a build one with http.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 224.57,
+          "end": 229.18,
+          "en": "You still have a lot of places where you want to use that request response pattern,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 229.19,
+          "end": 233.81,
+          "en": "for example if you are sending a message or if you're creating a user,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 234.02,
+          "end": 239.32,
+          "en": "these are operations where you do send some information from the browser to the server.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 239.32999999999998,
+          "end": 243.36,
+          "en": "So there, the request response scenario makes perfect sense",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 243.5,
+          "end": 249.29,
+          "en": "but if you have some active notification you want to get to your users, then you also want to integrate",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 249.29,
+          "end": 250.64,
+          "en": "web sockets.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 250.64,
+          "end": 255.04,
+          "en": "Now let me show you how to add web sockets to your project in the next lectures.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12169456",
+      "title": "Websocket Solutions - An Overview",
+      "lectureOrder": 408,
+      "videoOrder": 361,
+      "sourceHash": "f27cc375944831b09bd662b26adfb2478b4434c8ffe0f8b614bd59f6ba06165f",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.18,
+          "end": 7.61,
+          "en": "Now for adding web sockets, you've got a broad variety of methods to use.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.61,
+          "end": 14.33,
+          "en": "If you google for node web sockets or node express web sockets, you'll find a lot of articles and packages",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 14.33,
+          "end": 15.56,
+          "en": "you can use.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 15.68,
+          "end": 24.75,
+          "en": "One of the most popular packages however is socket.io. Socket.io is a package that uses web sockets",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 24.93,
+          "end": 30.21,
+          "en": "and gives you a lot of convenience features around that protocol that make it very easy to set up a",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 30.21,
+          "end": 31.28,
+          "en": "web socket channel",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 31.29,
+          "end": 37.08,
+          "en": "but with a client in the server and to use that channel. You can learn all about it here in the official",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 37.08,
+          "end": 37.82,
+          "en": "docs,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 37.95,
+          "end": 42.98,
+          "en": "this is no socket.io course so we'll not cover every single feature it offers",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 43.17,
+          "end": 48.51,
+          "en": "but I will show you how to add it to a project and how to set up some basic communication.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 48.9,
+          "end": 55.05,
+          "en": "So socket.io is what we'll use and socket.io and that is the key thing I want you to understand does",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 55.05,
+          "end": 61.57,
+          "en": "use the web socket technology, the web socket protocol and sets it up behind the scenes for you.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 61.77,
+          "end": 67.68,
+          "en": "You don't have to use socket.io to use web sockets though, you could use one of the other options I showed",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 67.68,
+          "end": 74.78999999999999,
+          "en": "you on Google before. There are packages that give you a more raw approach with less convenience features",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 75,
+          "end": 78.7,
+          "en": "and that might be what you're looking for for specific operations.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 78.84,
+          "end": 84.53999999999999,
+          "en": "We'll go with the convenient solution of socket.io here though and I strongly recommend diving into",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 84.53999999999999,
+          "end": 91.2,
+          "en": "some advanced resources if you want to learn all about web sockets or socket.io specifically.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 91.2,
+          "end": 93.67,
+          "en": "So how can we add it to our project now?",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

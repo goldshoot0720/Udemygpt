@@ -8,6 +8,5463 @@
   "errors": [],
   "lectures": [
     {
+      "id": "16477318",
+      "title": "Cross-Site Scripting Attacks (XSS)",
+      "lectureOrder": 501,
+      "videoOrder": 438,
+      "sourceHash": "b1b011278a8dfe1046d798b5bbf0788e74314e302fbdd5438b95f38b713aba1f",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.14,
+          "end": 6.67,
+          "en": "So don't put important information into your frontend code.",
+          "zh": "所以，不要把重要資訊放進前端程式碼。"
+        },
+        {
+          "id": 2,
+          "start": 6.67,
+          "end": 11.86,
+          "en": "Now let's move on to the next attack which is the most dangerous attack or the most dangerous attack",
+          "zh": "現在我們來看下一種攻擊，這是最危險的攻擊，或最危險的攻擊，"
+        },
+        {
+          "id": 3,
+          "start": 11.86,
+          "end": 19.78,
+          "en": "pattern you can expose in your client side Javascript code and I'm specifically talking about the client",
+          "zh": "模式，可能是你的用戶端 JavaScript 程式碼所暴露出的漏洞。我特別指的是用戶，"
+        },
+        {
+          "id": 4,
+          "start": 19.78,
+          "end": 26.68,
+          "en": "side, so about the side which runs in the browser because the server side by default is way more secure",
+          "zh": "端，也就是在瀏覽器中執行的部分，因為伺服器端預設安全得多，"
+        },
+        {
+          "id": 5,
+          "start": 26.68,
+          "end": 33.55,
+          "en": "and when we talk about server side attack patterns, they are not specific to Javascript, whereas cross",
+          "zh": "而談到伺服器端攻擊模式，它們並非 JavaScript 特有的；相較之下，跨網站，"
+        },
+        {
+          "id": 6,
+          "start": 33.55,
+          "end": 37.07,
+          "en": "site scripting and exposing security details is.",
+          "zh": "指令碼攻擊，以及暴露安全相關資訊，則是相關的問題。"
+        },
+        {
+          "id": 7,
+          "start": 37.18,
+          "end": 41.39,
+          "en": "So for the server side, there is a different range of potential attacks,",
+          "zh": "所以在伺服器端，有另一類潛在攻擊，"
+        },
+        {
+          "id": 8,
+          "start": 41.44,
+          "end": 47.35,
+          "en": "one of them being CSRF attacks, others being SQL injection for example if you use a SQL database",
+          "zh": "其中一種是 CSRF 攻擊，其他還有 SQL 注入，例如當你使用 SQL 資料庫時，"
+        },
+        {
+          "id": 9,
+          "start": 47.77,
+          "end": 53.87,
+          "en": "and I'm not talking about them here because they're not primarily related to Javascript. In my Node.js",
+          "zh": "我不會在這裡討論它們，因為它們主要不是與 JavaScript 相關的。在我的 Node.js，"
+        },
+        {
+          "id": 10,
+          "start": 53.88,
+          "end": 58.15,
+          "en": "course which talks way more about server side code writing and so on,",
+          "zh": "課程中，會更深入探討如何撰寫伺服器端程式碼等等，"
+        },
+        {
+          "id": 11,
+          "start": 58.39,
+          "end": 60.51,
+          "en": "I do talk about more security holes",
+          "zh": "我也會談到更多安全漏洞，"
+        },
+        {
+          "id": 12,
+          "start": 60.61,
+          "end": 62.95,
+          "en": "you could expose on a server in general.",
+          "zh": "也就是一般來說你可能在伺服器上暴露的漏洞。"
+        },
+        {
+          "id": 13,
+          "start": 62.95,
+          "end": 68.86,
+          "en": "So back to the Javascript specific ones and there, to cross site scripting attacks, also shortened or",
+          "zh": "現在回到 JavaScript 相關的問題，也就是跨網站指令碼攻擊，通常簡稱或，"
+        },
+        {
+          "id": 14,
+          "start": 68.86,
+          "end": 71.24,
+          "en": "abbreviated with XSS.",
+          "zh": "縮寫為 XSS。"
+        },
+        {
+          "id": 15,
+          "start": 71.44,
+          "end": 78.07,
+          "en": "This is an attack pattern where malicious Javascript code gets injected into your application and is",
+          "zh": "這種攻擊模式，是把惡意 JavaScript 程式碼注入應用程式，並在，"
+        },
+        {
+          "id": 16,
+          "start": 78.13,
+          "end": 78.94,
+          "en": "executed there.",
+          "zh": "裡面執行。"
+        },
+        {
+          "id": 17,
+          "start": 78.94,
+          "end": 84.52,
+          "en": "Now I'll show you an example for this because it can sound abstract at first but this is really a dangerous",
+          "zh": "我會展示一個例子，因為乍聽之下可能有點抽象，但這真的是一種危險的，"
+        },
+        {
+          "id": 18,
+          "start": 84.52,
+          "end": 85.84,
+          "en": "attack pattern,",
+          "zh": "攻擊模式，"
+        },
+        {
+          "id": 19,
+          "start": 85.84,
+          "end": 93.58,
+          "en": "you have to imagine if people are able to add code to your application which all users of your application",
+          "zh": "想像一下，如果有人能把程式碼加入你的應用程式，而所有使用者，"
+        },
+        {
+          "id": 20,
+          "start": 93.58,
+          "end": 99.15,
+          "en": "therefore execute, they are effectively executing code on the behalf of these users",
+          "zh": "都會執行它，那他們實際上就是以這些使用者的身分執行程式碼，"
+        },
+        {
+          "id": 21,
+          "start": 99.16,
+          "end": 104.56,
+          "en": "and at the same time on the behalf of your application on the machines of those users and your code",
+          "zh": "同時也以你的應用程式身分，在那些使用者的電腦上執行，而這些程式碼，"
+        },
+        {
+          "id": 22,
+          "start": 104.56,
+          "end": 107.89,
+          "en": "can do anything the code you write could do as well,",
+          "zh": "能做你自己撰寫的程式碼所能做的任何事情，"
+        },
+        {
+          "id": 23,
+          "start": 107.89,
+          "end": 114.78999999999999,
+          "en": "so your code could send requests to certain domains which might allow access by your application with",
+          "zh": "所以程式碼可以向特定網域發送請求，而那些網域可能透過，"
+        },
+        {
+          "id": 24,
+          "start": 114.78999999999999,
+          "end": 116.44,
+          "en": "the right CORS headers,",
+          "zh": "正確的 CORS 標頭，允許你的應用程式存取，"
+        },
+        {
+          "id": 25,
+          "start": 116.44,
+          "end": 122.5,
+          "en": "the code might read the local browser storage of the user and send that to some server of the malicious",
+          "zh": "程式碼可能讀取使用者的本機瀏覽器儲存空間，再把資料傳給注入程式碼的惡意，"
+        },
+        {
+          "id": 26,
+          "start": 122.5,
+          "end": 125.56,
+          "en": "user who injected the code and much more.",
+          "zh": "使用者所控制的伺服器，還能做更多事情。"
+        },
+        {
+          "id": 27,
+          "start": 125.56,
+          "end": 131.65,
+          "en": "If you're able to inject Javascript code into another page so that it runs for every visitor of that",
+          "zh": "如果你能把 JavaScript 程式碼注入另一個網頁，讓那個網頁的每位訪客，"
+        },
+        {
+          "id": 28,
+          "start": 131.65,
+          "end": 138.64,
+          "en": "page, you're able to gather a lot of data about these visitors, potential security relevant data included",
+          "zh": "都執行它，就能蒐集大量關於訪客的資料，包含可能與安全相關的資料，"
+        },
+        {
+          "id": 29,
+          "start": 139,
+          "end": 144.76,
+          "en": "and you're also able to fake a lot of things and send a lot of requests, maybe to your own malicious",
+          "zh": "也能偽造很多事情、發送大量請求，可能是向你自己的惡意，"
+        },
+        {
+          "id": 30,
+          "start": 144.76,
+          "end": 152.4,
+          "en": "pages on the behalf of the application and only the behalf of the users visiting that application where you",
+          "zh": "網頁發送，並以應用程式，以及造訪被你注入程式碼的應用程式的使用者，"
+        },
+        {
+          "id": 31,
+          "start": 152.41,
+          "end": 158.26,
+          "en": "injected your code into so that's really dangerous. You've got full behind the scenes control if you",
+          "zh": "身分執行，所以這真的很危險。如果你，"
+        },
+        {
+          "id": 32,
+          "start": 158.26,
+          "end": 164.92000000000002,
+          "en": "inject code into another page. An example for that would be unchecked user generated content and I want",
+          "zh": "把程式碼注入另一個網頁，就能在背後完全控制它。未經檢查的使用者產生內容，就是一個例子。我想，"
+        },
+        {
+          "id": 33,
+          "start": 164.92000000000002,
+          "end": 172,
+          "en": "to show you that example so that you understand what the problem is. When we talk about cross site scripting",
+          "zh": "展示這個例子，讓你了解問題所在。談到跨網站指令碼，"
+        },
+        {
+          "id": 34,
+          "start": 172,
+          "end": 179.38,
+          "en": "attacks, let's go back to our application here, to this share a place application and there let's generate",
+          "zh": "攻擊，我們回到這裡的應用程式，也就是分享位置應用程式，先產生，"
+        },
+        {
+          "id": 35,
+          "start": 180.22,
+          "end": 181.17,
+          "en": "an address,",
+          "zh": "一個地址，"
+        },
+        {
+          "id": 36,
+          "start": 181.24,
+          "end": 186.39,
+          "en": "6th Avenue, find that place and then we have this shareable link here.",
+          "zh": "6th Avenue，找到那個地點，接著這裡就有可以分享的連結。"
+        },
+        {
+          "id": 37,
+          "start": 186.43,
+          "end": 191.56,
+          "en": "This is the link which does not use our backend code with a database but which encodes all information",
+          "zh": "這個連結沒有使用搭配資料庫的後端程式碼，而是把所有資訊編碼，"
+        },
+        {
+          "id": 38,
+          "start": 191.59,
+          "end": 197.44,
+          "en": "into that URL, this attack pattern would also work with a backend database though",
+          "zh": "放進 URL。不過，這種攻擊模式也適用於有後端資料庫的情況，"
+        },
+        {
+          "id": 39,
+          "start": 197.44,
+          "end": 199.03,
+          "en": "and I will come back to that in a second.",
+          "zh": "我等一下會再談這點。"
+        },
+        {
+          "id": 40,
+          "start": 199.03,
+          "end": 203.41,
+          "en": "So here we have this link, we can visit this page and we see this page here,",
+          "zh": "所以這裡有這個連結，我們可以造訪這個頁面，看到這裡的畫面，"
+        },
+        {
+          "id": 41,
+          "start": 203.41,
+          "end": 205.66,
+          "en": "so that's of course not too fancy,",
+          "zh": "它當然沒什麼特別的，"
+        },
+        {
+          "id": 42,
+          "start": 205.66,
+          "end": 207.8,
+          "en": "how could this be insecure?",
+          "zh": "這怎麼會不安全呢？"
+        },
+        {
+          "id": 43,
+          "start": 207.94,
+          "end": 211.78,
+          "en": "Now if we have a look at our code, there we have the my-place.js file and",
+          "zh": "如果看看程式碼，裡面有 my-place.js 檔案，而，"
+        },
+        {
+          "id": 44,
+          "start": 211.78,
+          "end": 218.44,
+          "en": "this is the file responsible for displaying the page and this title here on this page once we visit",
+          "zh": "這個檔案負責在我們造訪，"
+        },
+        {
+          "id": 45,
+          "start": 218.44,
+          "end": 225.93,
+          "en": "this link with the encoded information, specifically there we set the title text content to our address.",
+          "zh": "包含編碼資訊的連結時，顯示頁面及這裡的標題。具體來說，我們把標題的 textContent 設為地址。"
+        },
+        {
+          "id": 46,
+          "start": 225.94,
+          "end": 232.6,
+          "en": "Now what if we would set, not the text content here which just sets the text node but in an HTML,",
+          "zh": "如果我們不是設定這裡只會設定文字節點的 textContent，而是設定 innerHTML 呢？"
+        },
+        {
+          "id": 47,
+          "start": 232.96,
+          "end": 239.71,
+          "en": "eother as a mistake or because we actually do expect address to be more than just a plain string which",
+          "zh": "可能是失誤，也可能是我們真的預期地址不只是一個純字串，"
+        },
+        {
+          "id": 48,
+          "start": 239.71,
+          "end": 244.78,
+          "en": "it is in application but which it might not be in all applications and therefore since this might be",
+          "zh": "在我們的應用程式裡它確實是純字串，但並非所有應用程式都是如此，所以它可能是，"
+        },
+        {
+          "id": 49,
+          "start": 244.81,
+          "end": 251.02,
+          "en": "HTML code we want to output, we want to set innerHTML to not just render a text node but all the HTML",
+          "zh": "我們想要輸出的 HTML 程式碼，因此我們想設定 innerHTML，不只呈現文字節點，也呈現所有，"
+        },
+        {
+          "id": 50,
+          "start": 251.02,
+          "end": 253.08,
+          "en": "code which is inside of address.",
+          "zh": "address 裡面的 HTML 程式碼。"
+        },
+        {
+          "id": 51,
+          "start": 253.45,
+          "end": 258.3,
+          "en": "If we do that and I save that and reload, we get the same output as before,",
+          "zh": "如果這樣做，儲存並重新載入，輸出結果會和之前一樣，"
+        },
+        {
+          "id": 52,
+          "start": 258.31,
+          "end": 264.28,
+          "en": "however if we inspect this in the developer tools, keep in mind we're setting the innerHTML code of the",
+          "zh": "不過，如果在開發者工具中檢查，記得我們設定的是，"
+        },
+        {
+          "id": 53,
+          "start": 264.28,
+          "end": 265.29,
+          "en": "h1 tag",
+          "zh": "h1 標籤的 innerHTML，"
+        },
+        {
+          "id": 54,
+          "start": 265.3,
+          "end": 271.14,
+          "en": "and what we set there is the end what we send to address which is currently this part of the URL.",
+          "zh": "而設定的內容，最後就是我們傳給 address 的內容，目前是 URL 的這個部分。"
+        },
+        {
+          "id": 55,
+          "start": 271.24,
+          "end": 274.18,
+          "en": "Now what if this part were actually a script",
+          "zh": "但如果這個部分其實是一段指令碼，"
+        },
+        {
+          "id": 56,
+          "start": 274.18,
+          "end": 280.81,
+          "en": "however? What if I prepared a URL which I want to share with other users which contains a script",
+          "zh": "會怎樣呢？如果我準備了一個要分享給其他使用者的 URL，裡面包含指令碼，"
+        },
+        {
+          "id": 57,
+          "start": 281.2,
+          "end": 285.4,
+          "en": "as the address and not every user might carefully look at that",
+          "zh": "以它作為地址，而不是每位使用者都會仔細查看這個，"
+        },
+        {
+          "id": 58,
+          "start": 285.49,
+          "end": 290.95,
+          "en": "URL and therefore this might not be seen by all users who visit this page with whom I shared this",
+          "zh": "URL，因此不是所有透過我分享的連結造訪這個頁面的使用者，都會注意到，"
+        },
+        {
+          "id": 59,
+          "start": 290.95,
+          "end": 292.06,
+          "en": "link.",
+          "zh": "這件事。"
+        },
+        {
+          "id": 60,
+          "start": 292.06,
+          "end": 298.76,
+          "en": "So there, I could try to run an alert where I say hi there and hit enter,",
+          "zh": "所以我可以在這裡嘗試執行 alert，顯示 hi there，再按 Enter，"
+        },
+        {
+          "id": 61,
+          "start": 298.84000000000003,
+          "end": 301.37,
+          "en": "now what you see is now this is injected here,",
+          "zh": "現在你可以看到，這個內容已被注入這裡，"
+        },
+        {
+          "id": 62,
+          "start": 301.39,
+          "end": 303.04,
+          "en": "now we don't see a title here,",
+          "zh": "現在這裡看不到標題，"
+        },
+        {
+          "id": 63,
+          "start": 303.04,
+          "end": 308.61,
+          "en": "instead we see the script was indeed added here because I'm rendering this as innerHTML.",
+          "zh": "而是可以看到指令碼確實被加進來了，因為我把它當作 innerHTML 呈現。"
+        },
+        {
+          "id": 64,
+          "start": 308.71,
+          "end": 313.6,
+          "en": "Now you also see it doesn't seem to execute though because actually modern browsers have a security",
+          "zh": "不過，你也會看到它似乎沒有執行，因為現代瀏覽器其實有一種安全，"
+        },
+        {
+          "id": 65,
+          "start": 313.6,
+          "end": 320.92,
+          "en": "mechanism where they don't execute script tags which are output with the help of innerHTML because",
+          "zh": "機制，不會執行透過 innerHTML 輸出的 script 標籤，原因，"
+        },
+        {
+          "id": 66,
+          "start": 320.92,
+          "end": 327.79,
+          "en": "of this exact scenario that you try or that someone tries to abuse a security hole in your application",
+          "zh": "正是這種情境：你或其他人試圖利用應用程式的安全漏洞，"
+        },
+        {
+          "id": 67,
+          "start": 328.15,
+          "end": 336.83,
+          "en": "and inject Javascript code which executes on your behalf, also keep in mind that normal visitors",
+          "zh": "注入以你的身分執行的 JavaScript 程式碼。另外也要記得，一般的，"
+        },
+        {
+          "id": 68,
+          "start": 336.83,
+          "end": 339.21,
+          "en": "off the page of course would probably not see that.",
+          "zh": "網頁訪客，當然很可能看不到這件事。"
+        },
+        {
+          "id": 69,
+          "start": 339.32,
+          "end": 343.85,
+          "en": "They might wonder why they don't see a title but they don't typically check the developer tools to see",
+          "zh": "他們可能會疑惑為什麼看不到標題，但通常不會檢查開發者工具，看看，"
+        },
+        {
+          "id": 70,
+          "start": 343.85,
+          "end": 344.65999999999997,
+          "en": "what's in there,",
+          "zh": "裡面有什麼，"
+        },
+        {
+          "id": 71,
+          "start": 344.75,
+          "end": 346.11,
+          "en": "so they might not see that.",
+          "zh": "所以他們可能不會注意到。"
+        },
+        {
+          "id": 72,
+          "start": 346.15999999999997,
+          "end": 348.85,
+          "en": "Now still, this doesn't really seem to hurt us,",
+          "zh": "但目前這似乎沒有真的傷害我們，"
+        },
+        {
+          "id": 73,
+          "start": 348.86,
+          "end": 354.64,
+          "en": "it's certainly unexpected but since the browser doesn't execute that script, we're fine, right?",
+          "zh": "這當然出乎預料，但因為瀏覽器不會執行那段指令碼，所以我們是安全的，對吧？"
+        },
+        {
+          "id": 74,
+          "start": 354.65,
+          "end": 360.08,
+          "en": "Well turns out there's more than one way of executing script code, besides these script tags which indeed",
+          "zh": "其實，執行指令碼不只有一種方法，除了那些確實被瀏覽器，"
+        },
+        {
+          "id": 75,
+          "start": 360.17,
+          "end": 362.36,
+          "en": "are prevented by the browser to execute,",
+          "zh": "阻止執行的 script 標籤以外，"
+        },
+        {
+          "id": 76,
+          "start": 362.54,
+          "end": 371.12,
+          "en": "what if we added an image here with a source that does not exist and then add an onError handler where",
+          "zh": "如果我們在這裡新增圖片，來源是一個不存在的位置，再加上 onerror 處理函式，"
+        },
+        {
+          "id": 77,
+          "start": 371.12,
+          "end": 376.26,
+          "en": "we then instead execute our Javascript code,",
+          "zh": "改在裡面執行 JavaScript 程式碼呢？"
+        },
+        {
+          "id": 78,
+          "start": 376.29,
+          "end": 378.74,
+          "en": "this is a valid HTML element.",
+          "zh": "這是有效的 HTML 元素。"
+        },
+        {
+          "id": 79,
+          "start": 378.89,
+          "end": 384.48,
+          "en": "Now the source is not found, therefore onError should trigger and we can add this kind of event listener",
+          "zh": "現在找不到來源，因此應該觸發 onerror，而我們可以把這種事件監聽器，"
+        },
+        {
+          "id": 80,
+          "start": 384.48,
+          "end": 385.62,
+          "en": "to our elements,",
+          "zh": "加到元素上，"
+        },
+        {
+          "id": 81,
+          "start": 385.62,
+          "end": 389.49,
+          "en": "we as a developer don't want to do that because it's not really a good way of writing code",
+          "zh": "身為開發者，我們不想這樣做，因為這並不是很好的程式碼寫法，"
+        },
+        {
+          "id": 82,
+          "start": 389.52,
+          "end": 395.63,
+          "en": "but as an attacker it's great, we can add Javascript code that executes right on a HTML element.",
+          "zh": "但對攻擊者來說，這很棒，我們能直接在 HTML 元素上加入會執行的 JavaScript 程式碼。"
+        },
+        {
+          "id": 83,
+          "start": 395.97,
+          "end": 400.04,
+          "en": "If I now hit enter, indeed we should see hi there, in Chrome at least",
+          "zh": "如果我現在按 Enter，確實應該會看到 hi there，至少在 Chrome 中會，"
+        },
+        {
+          "id": 84,
+          "start": 400.2,
+          "end": 404.88,
+          "en": "and we see that here because this HTML code is injected here,",
+          "zh": "我們在這裡看到了，因為這段 HTML 程式碼被注入這裡，"
+        },
+        {
+          "id": 85,
+          "start": 404.90999999999997,
+          "end": 408.09000000000003,
+          "en": "This image tag is injected here, the source is not found",
+          "zh": "這個 img 標籤被注入，而找不到來源，"
+        },
+        {
+          "id": 86,
+          "start": 408.12,
+          "end": 414.69,
+          "en": "so the onError handler executes and therefore this script, this alert executes. Now this alert of course",
+          "zh": "所以 onerror 處理函式會執行，因此這段指令碼，也就是這個 alert，會執行。這個 alert 當然，"
+        },
+        {
+          "id": 87,
+          "start": 414.69,
+          "end": 420.42,
+          "en": "is just annoying but keep in mind I can share this link with anyone, I can post it in a Facebook group",
+          "zh": "只是令人煩躁，但記得，我可以把這個連結分享給任何人，也可以貼到 Facebook 社團，"
+        },
+        {
+          "id": 88,
+          "start": 420.87,
+          "end": 422.44,
+          "en": "for people to visit it",
+          "zh": "讓其他人造訪，"
+        },
+        {
+          "id": 89,
+          "start": 422.58,
+          "end": 426.6,
+          "en": "and of course an alert is not that dangerous, it's just annoying and unexpected",
+          "zh": "當然，alert 沒那麼危險，只是煩人又出乎預料，"
+        },
+        {
+          "id": 90,
+          "start": 426.6,
+          "end": 428.49,
+          "en": "but here we could be doing other stuff too,",
+          "zh": "但我們也能在這裡做其他事情，"
+        },
+        {
+          "id": 91,
+          "start": 428.49,
+          "end": 432.35,
+          "en": "we could be doing anything which might be security relevant.",
+          "zh": "任何可能與安全相關的事情都能做。"
+        },
+        {
+          "id": 92,
+          "start": 432.63,
+          "end": 437.85,
+          "en": "I could write a script in here and yes, we can write a longer script in here simply by separating our",
+          "zh": "我可以在這裡寫一段指令碼，沒錯，也可以寫更長的指令碼，只要用分號分隔，"
+        },
+        {
+          "id": 93,
+          "start": 437.85,
+          "end": 445.41,
+          "en": "lines of semicolons, where I access the local storage, read data from it or read data from the local cookies",
+          "zh": "各行，就能存取 localStorage、讀取裡面的資料，或讀取本機 Cookie 的資料，"
+        },
+        {
+          "id": 94,
+          "start": 445.59,
+          "end": 452.01,
+          "en": "and send that to my own malicious server for example. Visitors of the page will not see anything there,",
+          "zh": "再傳給我自己的惡意伺服器。例如，網頁訪客不會看到任何東西，"
+        },
+        {
+          "id": 95,
+          "start": 452.01,
+          "end": 453.05,
+          "en": "they don't get an alert,",
+          "zh": "他們不會看到 alert，"
+        },
+        {
+          "id": 96,
+          "start": 453.06,
+          "end": 454.47,
+          "en": "they don't get an error,",
+          "zh": "也不會看到錯誤，"
+        },
+        {
+          "id": 97,
+          "start": 454.56,
+          "end": 467.7,
+          "en": "I could even if I'm really bad in addition render a h2 tag here with 6th Avenue and then people might",
+          "zh": "如果我真的很壞，甚至可以另外在這裡呈現一個 h2 標籤，內容是 6th Avenue，這樣人們可能，"
+        },
+        {
+          "id": 98,
+          "start": 467.7,
+          "end": 470.08,
+          "en": "not see anything. If I now hit enter here,",
+          "zh": "完全看不出異常。如果我現在在這裡按 Enter，"
+        },
+        {
+          "id": 99,
+          "start": 470.13,
+          "end": 471.23,
+          "en": "you don't get an error,",
+          "zh": "你不會看到錯誤，"
+        },
+        {
+          "id": 100,
+          "start": 471.27,
+          "end": 471.53,
+          "en": "okay I",
+          "zh": "好，我，"
+        },
+        {
+          "id": 101,
+          "start": 471.54,
+          "end": 476.52,
+          "en": "didn't format this, probably I should fix that but other than that, the page works as it should",
+          "zh": "沒有設定這裡的格式，大概應該修正一下，但除此之外，頁面運作一切正常，"
+        },
+        {
+          "id": 102,
+          "start": 476.52,
+          "end": 481.5,
+          "en": "and here in the onError handler, in this script we can do whatever we want as an attacker. We can steal",
+          "zh": "而在這裡的 onerror 處理函式中，在這段指令碼裡，身為攻擊者，我們可以做任何事，可以竊取，"
+        },
+        {
+          "id": 103,
+          "start": 481.5,
+          "end": 483.94,
+          "en": "confidential data from browser storage,",
+          "zh": "瀏覽器儲存空間中的機密資料，"
+        },
+        {
+          "id": 104,
+          "start": 484.08,
+          "end": 491.22,
+          "en": "we can send requests on behalf of the user who visit this page with this link to any backend we want",
+          "zh": "也可以以透過這個連結造訪網頁的使用者身分，向任何我們想要的後端發送請求，"
+        },
+        {
+          "id": 105,
+          "start": 491.58,
+          "end": 495.59,
+          "en": "and that is therefore really dangerous. Here,",
+          "zh": "所以這真的很危險。在這裡，"
+        },
+        {
+          "id": 106,
+          "start": 495.6,
+          "end": 500.61,
+          "en": "this is a security hole we have in this application, we have this hole because here, we're outputting",
+          "zh": "我們的應用程式有安全漏洞，之所以有這個漏洞，是因為我們在這裡輸出，"
+        },
+        {
+          "id": 107,
+          "start": 500.79,
+          "end": 501.72,
+          "en": "innerHTML.",
+          "zh": "innerHTML。"
+        },
+        {
+          "id": 108,
+          "start": 501.75,
+          "end": 503.6,
+          "en": "Now how can we fix that?",
+          "zh": "那要如何修正呢？"
+        },
+        {
+          "id": 109,
+          "start": 503.73,
+          "end": 510.3,
+          "en": "One solution to fix this XSS security hole we have here is to use text continents instead of",
+          "zh": "修正這個 XSS 安全漏洞的一個方法，就是使用 textContent，取代，"
+        },
+        {
+          "id": 110,
+          "start": 510.47,
+          "end": 511.06,
+          "en": "innerHTML.",
+          "zh": "innerHTML。"
+        },
+        {
+          "id": 111,
+          "start": 511.14,
+          "end": 517.71,
+          "en": "If we do that and we visit this, you'll see now the code which previously was executed and rendered as",
+          "zh": "如果這樣做，再造訪這個頁面，你會看到原本被執行並呈現為，"
+        },
+        {
+          "id": 112,
+          "start": 517.71,
+          "end": 524.13,
+          "en": "HTML is now output as text and therefore if we had any Javascript code in here, like for example our",
+          "zh": "HTML 的程式碼，現在以文字輸出，因此如果裡面有任何 JavaScript 程式碼，例如再次加入，"
+        },
+        {
+          "id": 113,
+          "start": 524.19,
+          "end": 525.06,
+          "en": "alert again",
+          "zh": "我們的 alert，"
+        },
+        {
+          "id": 114,
+          "start": 529.37,
+          "end": 532.05,
+          "en": "where I say hi would not execute.",
+          "zh": "讓它顯示 hi，它也不會執行。"
+        },
+        {
+          "id": 115,
+          "start": 532.07,
+          "end": 537.46,
+          "en": "So now we automatically are not vulnerable to cross site scripting attack and if you never use",
+          "zh": "所以我們現在就不會受到這種跨網站指令碼攻擊。如果你在程式碼中的任何地方都不使用，"
+        },
+        {
+          "id": 116,
+          "start": 537.47,
+          "end": 543.83,
+          "en": "innerHTML anywhere in your code, you of course rule out a lot of potential attack patterns",
+          "zh": "innerHTML，當然就能排除很多潛在的攻擊模式，"
+        },
+        {
+          "id": 117,
+          "start": 543.89,
+          "end": 547.15,
+          "en": "but with that alone you're not totally safe yet.",
+          "zh": "但光是這樣，還不能讓你完全安全。"
+        },
+        {
+          "id": 118,
+          "start": 547.3,
+          "end": 549.99,
+          "en": "For one, sometimes you might need innerHTML,",
+          "zh": "首先，有時候你可能需要 innerHTML，"
+        },
+        {
+          "id": 119,
+          "start": 550.04,
+          "end": 556.67,
+          "en": "so then you need a way around potential malicious code and in addition, it's not just innerHTML.",
+          "zh": "所以需要一種方式避開潛在的惡意程式碼，而且不只有 innerHTML 會造成問題。"
+        },
+        {
+          "id": 120,
+          "start": 556.91,
+          "end": 564.47,
+          "en": "If you're for some reason setting the onError handler of some HTML element dynamically to some user",
+          "zh": "如果你因為某個原因，把某個 HTML 元素的 onerror 處理函式，動態設定成某種使用者，"
+        },
+        {
+          "id": 121,
+          "start": 564.47,
+          "end": 566.51,
+          "en": "generated content in some way,",
+          "zh": "產生的內容，"
+        },
+        {
+          "id": 122,
+          "start": 566.69,
+          "end": 571.27,
+          "en": "Maybe you just want to have a user generated text which is output in here,",
+          "zh": "也許你只是想讓使用者產生的文字顯示在這裡，"
+        },
+        {
+          "id": 123,
+          "start": 571.28,
+          "end": 577.79,
+          "en": "well still then whenever you inject any user generated code anywhere into the DOM, this could be",
+          "zh": "但只要把使用者產生的程式碼注入 DOM 的任何地方，這就可能是，"
+        },
+        {
+          "id": 124,
+          "start": 577.79,
+          "end": 584.24,
+          "en": "a potential issue so you always want to make sure you either inject it as only text with text content",
+          "zh": "潛在的問題，所以你總是要確保，使用 textContent，只把它當作純文字注入，"
+        },
+        {
+          "id": 125,
+          "start": 584.24,
+          "end": 590.69,
+          "en": "or if you set some other attribute of an element to some user generated content and potentially Javascript",
+          "zh": "或者，如果你把元素的其他屬性設定成使用者產生的內容，而那裡可能執行 JavaScript，"
+        },
+        {
+          "id": 126,
+          "start": 590.69,
+          "end": 593.27,
+          "en": "code could execute there, like with these onError",
+          "zh": "程式碼，例如這些 onerror，"
+        },
+        {
+          "id": 127,
+          "start": 593.27,
+          "end": 599.85,
+          "en": "and so on handlers, then you want to sanitize user generated content before you output it.",
+          "zh": "之類的處理函式，就要在輸出前先清理使用者產生的內容。"
+        },
+        {
+          "id": 128,
+          "start": 599.87,
+          "end": 606.98,
+          "en": "So for example here, if if we really needed to use innerHTML, we want to sanitize the content before",
+          "zh": "例如這裡，如果真的需要使用 innerHTML，就要先清理內容，"
+        },
+        {
+          "id": 129,
+          "start": 607.13,
+          "end": 608.79,
+          "en": "we output it here.",
+          "zh": "再把它輸出到這裡。"
+        },
+        {
+          "id": 130,
+          "start": 608.86,
+          "end": 616.25,
+          "en": "Now sanitizing means that we strip away any Javascript syntax we might have in there, that starts with",
+          "zh": "清理的意思，就是去除裡面可能存在的 JavaScript 語法，從，"
+        },
+        {
+          "id": 131,
+          "start": 616.25,
+          "end": 622.22,
+          "en": "simple script tags but should also include common keywords like alert and so on.",
+          "zh": "簡單的 script 標籤開始，但也應包含常見的關鍵字，例如 alert 等等。"
+        },
+        {
+          "id": 132,
+          "start": 622.22,
+          "end": 628.01,
+          "en": "Now how can you work around the problem that you might need to inject user generated content somewhere",
+          "zh": "如果你需要把使用者產生的內容注入某個，"
+        },
+        {
+          "id": 133,
+          "start": 628.04,
+          "end": 630,
+          "en": "where Javascript could execute?",
+          "zh": "可能執行 JavaScript 的地方，要如何解決這個問題呢？"
+        },
+        {
+          "id": 134,
+          "start": 630.14,
+          "end": 633.08,
+          "en": "So you have no way of using a text content",
+          "zh": "例如你無法在這裡使用 textContent，"
+        },
+        {
+          "id": 135,
+          "start": 633.29,
+          "end": 638.09,
+          "en": "node here for example and you still want to make sure that the user generated data you're getting here",
+          "zh": "文字節點，但仍然要確保收到的使用者資料，"
+        },
+        {
+          "id": 136,
+          "start": 638.39,
+          "end": 641.23,
+          "en": "is secure and doesn't contain any scripts that execute?",
+          "zh": "是安全的，而且不包含會執行的指令碼？"
+        },
+        {
+          "id": 137,
+          "start": 641.39,
+          "end": 645.15,
+          "en": "You can use packages like sanitize-html.",
+          "zh": "你可以使用 sanitize-html 這類套件。"
+        },
+        {
+          "id": 138,
+          "start": 645.26,
+          "end": 652.28,
+          "en": "This is a package which basically helps you sanitize text and remove any unwanted tags in there so that",
+          "zh": "這個套件基本上會協助你清理文字，移除裡面任何不想要的標籤，讓，"
+        },
+        {
+          "id": 139,
+          "start": 652.34,
+          "end": 654.98,
+          "en": "invalid code doesn't execute in there.",
+          "zh": "不合法的程式碼不會在裡面執行。"
+        },
+        {
+          "id": 140,
+          "start": 655.01,
+          "end": 658.7,
+          "en": "Now one import note can be found here in the description right away,",
+          "zh": "這裡的說明一開始就有一個重要提醒，"
+        },
+        {
+          "id": 141,
+          "start": 658.7,
+          "end": 663.83,
+          "en": "this sanitization actually should be done on the server if possible,",
+          "zh": "如果可以，這種清理實際上應該在伺服器上完成，"
+        },
+        {
+          "id": 142,
+          "start": 663.83,
+          "end": 670.52,
+          "en": "that simply means that if we were in our Node.js application here, we might want to store any user input",
+          "zh": "也就是說，如果我們現在使用的是 Node.js 應用程式，可能會想儲存收到的使用者輸入，"
+        },
+        {
+          "id": 143,
+          "start": 670.52,
+          "end": 671.11,
+          "en": "we get,",
+          "zh": "內容，"
+        },
+        {
+          "id": 144,
+          "start": 671.12,
+          "end": 676.58,
+          "en": "so in our case the address, before we put it into the database. So we sanitize it with this package for",
+          "zh": "在我們的例子中就是地址，在把它放進資料庫之前，先處理它。例如使用這個套件，"
+        },
+        {
+          "id": 145,
+          "start": 676.58,
+          "end": 682.64,
+          "en": "example on the server-side before we store it so that the sanitized code is stored in a database because",
+          "zh": "在伺服器端儲存前先清理，讓資料庫中儲存的是清理過的程式碼。因為，"
+        },
+        {
+          "id": 146,
+          "start": 682.67,
+          "end": 687.56,
+          "en": "that's also something I mentioned, this attack pattern does not only exist if you can inject it into the",
+          "zh": "這也是我提過的事情，這種攻擊不只發生在能把內容注入，"
+        },
+        {
+          "id": 147,
+          "start": 687.56,
+          "end": 694.94,
+          "en": "URL, it also exists of course if you store something in the database because here, I could be entering",
+          "zh": "URL 的情況，把內容儲存到資料庫時當然也可能發生，因為在這裡，我可以輸入，"
+        },
+        {
+          "id": 148,
+          "start": 694.94,
+          "end": 699.54,
+          "en": "my malicious code, like this,",
+          "zh": "我的惡意程式碼，像這樣，"
+        },
+        {
+          "id": 149,
+          "start": 699.73,
+          "end": 706.15,
+          "en": "click find place and find place triggers our server to store this in a database,",
+          "zh": "點擊 Find place，而 Find place 會觸發伺服器把它儲存到資料庫，"
+        },
+        {
+          "id": 150,
+          "start": 706.15,
+          "end": 707.4,
+          "en": "then we have a problem.",
+          "zh": "這時我們就有問題了。"
+        },
+        {
+          "id": 151,
+          "start": 707.68,
+          "end": 713.98,
+          "en": "So I want to make sure that whatever I send here is validated on this server before it's stored in a",
+          "zh": "所以我要確保，這裡發送的任何內容，都會在儲存到，"
+        },
+        {
+          "id": 152,
+          "start": 713.98,
+          "end": 718.06,
+          "en": "database and you can do this with sanitize-html as well.",
+          "zh": "資料庫前，先在伺服器上驗證，而你也可以用 sanitize-html 做到這點。"
+        },
+        {
+          "id": 153,
+          "start": 718.06,
+          "end": 722.49,
+          "en": "You can also use this in the browser but that is a bit too late,",
+          "zh": "你也可以在瀏覽器中使用它，但這樣稍微晚了一點，"
+        },
+        {
+          "id": 154,
+          "start": 722.5,
+          "end": 728.71,
+          "en": "it's not it's not too late from a security perspective but you still might have hacked or adjusted code",
+          "zh": "從安全角度來看，不是說已經太晚，但資料庫中仍可能有被竄改或調整過的程式碼，"
+        },
+        {
+          "id": 155,
+          "start": 728.71,
+          "end": 730.81,
+          "en": "in your database which you also don't want,",
+          "zh": "這也是你不希望發生的，"
+        },
+        {
+          "id": 156,
+          "start": 730.81,
+          "end": 734.28,
+          "en": "it doesn't do any harm in there but it's not ideal,",
+          "zh": "它在資料庫裡不會造成傷害，但並不理想，"
+        },
+        {
+          "id": 157,
+          "start": 734.35,
+          "end": 740.59,
+          "en": "if you ever forget to sanitize a browser, you then have an issue. So try to sanitize on the server not",
+          "zh": "如果哪次忘記在瀏覽器中清理，就會出問題。所以盡量在伺服器上清理，而不是，"
+        },
+        {
+          "id": 158,
+          "start": 740.68,
+          "end": 742.18,
+          "en": "on the browser.",
+          "zh": "在瀏覽器中。"
+        },
+        {
+          "id": 159,
+          "start": 742.18,
+          "end": 747.61,
+          "en": "Anyways if you wanted to sanitize then, well then you would just need to make sure you have this package",
+          "zh": "總之，如果你想清理內容，只要確保已經安裝這個套件，"
+        },
+        {
+          "id": 160,
+          "start": 747.61,
+          "end": 751.66,
+          "en": "installed and you then can run the sanitize-html function,",
+          "zh": "接著就能執行 sanitize-html 函式，"
+        },
+        {
+          "id": 161,
+          "start": 751.78,
+          "end": 758.66,
+          "en": "pass your user generated content so that variable which holds the content the user has to sanitize-html",
+          "zh": "把使用者產生的內容，也就是存放使用者內容的變數，傳給 sanitize-html，"
+        },
+        {
+          "id": 162,
+          "start": 758.68,
+          "end": 764.83,
+          "en": "and then it will strip away things like that, it will ensure that this is not part of the output,",
+          "zh": "它就會去除這類東西，確保這些內容不會成為輸出的一部分，"
+        },
+        {
+          "id": 163,
+          "start": 764.83,
+          "end": 769.54,
+          "en": "that instead you are able to render HTML but only secure HTML,",
+          "zh": "讓你仍然能呈現 HTML，但只呈現安全的 HTML，"
+        },
+        {
+          "id": 164,
+          "start": 769.54,
+          "end": 772.41,
+          "en": "this is what sanitize-html does.",
+          "zh": "這就是 sanitize-html 的用途。"
+        },
+        {
+          "id": 165,
+          "start": 772.42,
+          "end": 773.93,
+          "en": "Now how do you use that package?",
+          "zh": "那這個套件要怎麼使用呢？"
+        },
+        {
+          "id": 166,
+          "start": 774.22,
+          "end": 780.34,
+          "en": "Well you can actually use the Node.js recommendation here, run this command here in your project so",
+          "zh": "你其實可以使用這裡建議的 Node.js 方式，在專案中執行這個指令，所以，"
+        },
+        {
+          "id": 167,
+          "start": 780.34,
+          "end": 785.26,
+          "en": "I quit my dev server and run npm install sanitize-html with the --save flag",
+          "zh": "我先停止開發伺服器，然後執行 npm install sanitize-html，搭配 --save 旗標，"
+        },
+        {
+          "id": 168,
+          "start": 790.36,
+          "end": 797.68,
+          "en": "Now this will install it here as a dependency and in my-place.js, we can now import sanitize-html",
+          "zh": "這會把它安裝為相依套件，現在我們可以在 my-place.js 中匯入 sanitizeHtml，"
+        },
+        {
+          "id": 169,
+          "start": 797.8,
+          "end": 801.75,
+          "en": "from sanitize-html",
+          "zh": "來源是 sanitize-html，"
+        },
+        {
+          "id": 170,
+          "start": 801.76,
+          "end": 808.11,
+          "en": "and now here, whenever we want to output or inject some user generated content into an innerHTML tag",
+          "zh": "接著，只要我們想把使用者產生的內容輸出或注入 innerHTML，"
+        },
+        {
+          "id": 171,
+          "start": 808.39,
+          "end": 814.1,
+          "en": "or into another place where Javascript could execute, we run sanitizeHtml address",
+          "zh": "或任何其他可能執行 JavaScript 的地方，就執行 sanitizeHtml(address)，"
+        },
+        {
+          "id": 172,
+          "start": 814.15,
+          "end": 815.24,
+          "en": "in this case here.",
+          "zh": "在這個例子中就是這樣。"
+        },
+        {
+          "id": 173,
+          "start": 815.39,
+          "end": 821.68,
+          "en": "And if I do that and then we restart the development server here, with this added and the file saved,",
+          "zh": "如果我這樣做，加入這個處理並儲存檔案，再重新啟動開發伺服器，"
+        },
+        {
+          "id": 174,
+          "start": 823.33,
+          "end": 823.93,
+          "en": "you will see that",
+          "zh": "你會看到，"
+        },
+        {
+          "id": 175,
+          "start": 823.93,
+          "end": 829.49,
+          "en": "now if I reload this page here, the alert is not thrown,",
+          "zh": "現在如果重新載入這個頁面，alert 不會再出現，"
+        },
+        {
+          "id": 176,
+          "start": 829.63,
+          "end": 832.73,
+          "en": "instead now I just have my header here",
+          "zh": "我現在只會看到標題，"
+        },
+        {
+          "id": 177,
+          "start": 832.87,
+          "end": 839.32,
+          "en": "even though I still have my dangerous code in there but that was stripped away by sanitize-html. So",
+          "zh": "即使裡面還有危險的程式碼，也已經被 sanitize-html 移除了。所以，"
+        },
+        {
+          "id": 178,
+          "start": 839.32,
+          "end": 844.87,
+          "en": "just to show this again, if I remove that and we reload it, we get the alert,",
+          "zh": "再展示一次，如果我移除這個處理，重新載入，就會看到 alert，"
+        },
+        {
+          "id": 179,
+          "start": 845.08,
+          "end": 849.44,
+          "en": "if we add it again and I save it, we don't get the alert.",
+          "zh": "如果再次加入並儲存，就不會看到 alert。"
+        },
+        {
+          "id": 180,
+          "start": 849.44,
+          "end": 853.21,
+          "en": "So now we protect ourselves against cross site scripting attacks.",
+          "zh": "所以現在我們能防範跨網站指令碼攻擊。"
+        },
+        {
+          "id": 181,
+          "start": 853.28,
+          "end": 857.41,
+          "en": "Again this is best done on the server before it's stored in a database",
+          "zh": "同樣地，最好在伺服器上，在資料儲存到資料庫前完成這件事，"
+        },
+        {
+          "id": 182,
+          "start": 857.48,
+          "end": 862.79,
+          "en": "but in this example here, in this app where I don't have a server side, where it's all client side code,",
+          "zh": "但這個例子中的應用程式沒有伺服器端，全部都是用戶端程式碼，"
+        },
+        {
+          "id": 183,
+          "start": 863.09,
+          "end": 869.48,
+          "en": "where it's just data that's part of URL, then of course our only chance is to do that sanitization",
+          "zh": "資料也只是 URL 的一部分，因此我們唯一的選擇，當然就是在，"
+        },
+        {
+          "id": 184,
+          "start": 869.48,
+          "end": 871.83,
+          "en": "in the browser and then we can do it like this",
+          "zh": "瀏覽器中清理，可以像這樣處理，"
+        },
+        {
+          "id": 185,
+          "start": 871.88,
+          "end": 876.95,
+          "en": "and we're now making sure that this specific cross site scripting attack hole is fixed.",
+          "zh": "現在就能確保這個特定的跨網站指令碼攻擊漏洞已經修補。"
+        }
+      ]
+    },
+    {
+      "id": "16477320",
+      "title": "Third-Party Libraries & XSS",
+      "lectureOrder": 502,
+      "videoOrder": 439,
+      "sourceHash": "546b839970d9cbf158f72ad330ca7f5157c1e4b0bc4203dd432fedae7e012146",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.14,
+          "end": 7.66,
+          "en": "So I talked a lot about cross site scripting attacks but this is an important and very dangerous attack",
+          "zh": "我已經花很多時間談跨網站指令碼攻擊，但這是一種重要且非常危險的攻擊，"
+        },
+        {
+          "id": 2,
+          "start": 7.66,
+          "end": 8.82,
+          "en": "pattern.",
+          "zh": "模式。"
+        },
+        {
+          "id": 3,
+          "start": 8.86,
+          "end": 14.8,
+          "en": "There also is another way of launching cross site scripting attacks which is also important to be aware of",
+          "zh": "還有另一種發動跨網站指令碼攻擊的方式，你也應該了解，"
+        },
+        {
+          "id": 4,
+          "start": 14.8,
+          "end": 16.2,
+          "en": "and to keep in mind.",
+          "zh": "並牢記在心。"
+        },
+        {
+          "id": 5,
+          "start": 16.36,
+          "end": 23.98,
+          "en": "Let's say you fixed all your holes in your code by either using text content or in places where you",
+          "zh": "假設你已經修補程式碼中的所有漏洞，方法是使用 textContent，或在，"
+        },
+        {
+          "id": 6,
+          "start": 23.98,
+          "end": 30.1,
+          "en": "need to render HTML code by using sanitize-html or something comparable.",
+          "zh": "需要呈現 HTML 程式碼的地方，使用 sanitize-html 或類似工具。"
+        },
+        {
+          "id": 7,
+          "start": 30.1,
+          "end": 35.41,
+          "en": "Now you still might be vulnerable to cross site scripting attacks and do you have any idea where they",
+          "zh": "但你仍然可能受到跨網站指令碼攻擊，你知道它們可能，"
+        },
+        {
+          "id": 8,
+          "start": 35.41,
+          "end": 36.54,
+          "en": "might be coming from?",
+          "zh": "來自哪裡嗎？"
+        },
+        {
+          "id": 9,
+          "start": 36.55,
+          "end": 44.47,
+          "en": "How could someone still get Javascript code into your page which then executes when users load your",
+          "zh": "有人怎麼還能把 JavaScript 程式碼放進你的網頁，讓使用者載入，"
+        },
+        {
+          "id": 10,
+          "start": 44.47,
+          "end": 45.41,
+          "en": "page?",
+          "zh": "網頁時執行呢？"
+        },
+        {
+          "id": 11,
+          "start": 45.49,
+          "end": 49.87,
+          "en": "Let's say you fixed all these holes where you output user generated content which is the number one",
+          "zh": "假設你已修補輸出使用者產生內容的所有漏洞，這原本是最主要的，"
+        },
+        {
+          "id": 12,
+          "start": 49.87,
+          "end": 55.37,
+          "en": "hole, well how about third-party packages? In this project,",
+          "zh": "漏洞，那麼第三方套件呢？在這個專案中，"
+        },
+        {
+          "id": 13,
+          "start": 55.37,
+          "end": 60.07,
+          "en": "I'm using the Google Maps Javascript SDK for example, I do have this import here",
+          "zh": "例如，我使用了 Google Maps JavaScript SDK，這裡有這個匯入，"
+        },
+        {
+          "id": 14,
+          "start": 60.26,
+          "end": 66.92,
+          "en": "and what this does is it downloads a script written by a team at Google which then also of course runs",
+          "zh": "它會下載由 Google 團隊撰寫的指令碼，這個指令碼當然也會在，"
+        },
+        {
+          "id": 15,
+          "start": 67.28,
+          "end": 69.27,
+          "en": "on the machines of my users,",
+          "zh": "我的使用者電腦上執行，"
+        },
+        {
+          "id": 16,
+          "start": 69.53,
+          "end": 76.07,
+          "en": "Any third-party Javascript package you add to your project executes code when your app runs because",
+          "zh": "你加入專案的任何第三方 JavaScript 套件，都會在應用程式執行時執行程式碼，因為，"
+        },
+        {
+          "id": 17,
+          "start": 76.07,
+          "end": 78.02,
+          "en": "you use the code of that package,",
+          "zh": "你使用了那個套件的程式碼，"
+        },
+        {
+          "id": 18,
+          "start": 78.02,
+          "end": 84.11,
+          "en": "in the case of Google Maps, we use it in the map.js file There we use that new Google Maps map thing,",
+          "zh": "以 Google Maps 為例，我們在 map.js 檔案中使用它，在那裡用 new 建立 Google Maps 地圖，"
+        },
+        {
+          "id": 19,
+          "start": 84.41,
+          "end": 89.15,
+          "en": "where do you think is this coming from? It's coming from the Google Maps Javascript SDK,",
+          "zh": "你覺得這來自哪裡？它來自 Google Maps JavaScript SDK，"
+        },
+        {
+          "id": 20,
+          "start": 89.15,
+          "end": 94.12,
+          "en": "so it is based on the Javascript code we import from Google's servers.",
+          "zh": "所以它是以我們從 Google 伺服器匯入的 JavaScript 程式碼為基礎。"
+        },
+        {
+          "id": 21,
+          "start": 94.28,
+          "end": 98.88,
+          "en": "So we trust Google that the code is secure because if it weren't,",
+          "zh": "我們相信 Google 提供的程式碼是安全的，因為如果不安全，"
+        },
+        {
+          "id": 22,
+          "start": 98.99000000000001,
+          "end": 105.53,
+          "en": "since this runs on the machines of our users, this of course would also be able to execute malicious",
+          "zh": "由於它會在使用者的電腦上執行，當然也能在那裡執行惡意，"
+        },
+        {
+          "id": 23,
+          "start": 105.53,
+          "end": 106.65,
+          "en": "code there.",
+          "zh": "程式碼。"
+        },
+        {
+          "id": 24,
+          "start": 106.67,
+          "end": 112.24000000000001,
+          "en": "So when adding third-party libraries, you want to make sure that it's from parties whom you trust,",
+          "zh": "所以加入第三方函式庫時，你要確保它來自可信任的來源，"
+        },
+        {
+          "id": 25,
+          "start": 112.25,
+          "end": 119.57,
+          "en": "for example Google is quite trustworthy of course but you also of course need to be sure or very sure",
+          "zh": "例如 Google 當然相當值得信任，但你也必須確定，至少非常有把握，"
+        },
+        {
+          "id": 26,
+          "start": 119.57,
+          "end": 128.75,
+          "en": "at least that these companies or library authors protect themselves against being compromised.",
+          "zh": "這些公司或函式庫作者會保護自己，避免遭到入侵。"
+        },
+        {
+          "id": 27,
+          "start": 128.75,
+          "end": 135.89,
+          "en": "You might trust Google but if someone gets access to this code on their servers which sounds unlikely",
+          "zh": "你可能信任 Google，但如果有人取得它們伺服器上這段程式碼的存取權，雖然聽起來不太可能，"
+        },
+        {
+          "id": 28,
+          "start": 135.92,
+          "end": 143.6,
+          "en": "but if this is done by a frustrated Google engineer let's say, then this person can of course rewrite",
+          "zh": "但假設是一個心懷不滿的 Google 工程師做了這件事，那這個人當然可以改寫，"
+        },
+        {
+          "id": 29,
+          "start": 143.63,
+          "end": 149.66,
+          "en": "this code which you import such that it still works but that in addition to working, it does something",
+          "zh": "你匯入的這段程式碼，讓它仍然能正常運作，但除了正常功能之外，也執行某些，"
+        },
+        {
+          "id": 30,
+          "start": 149.66,
+          "end": 150.95,
+          "en": "malicious.",
+          "zh": "惡意操作。"
+        },
+        {
+          "id": 31,
+          "start": 150.95,
+          "end": 157.34,
+          "en": "So third-party libraries of course also can be hacked and if they are, the malicious code that's injected",
+          "zh": "所以第三方函式庫當然也可能遭到入侵，如果真的發生，被注入函式庫中的惡意程式碼，"
+        },
+        {
+          "id": 32,
+          "start": 157.34,
+          "end": 162.78,
+          "en": "into the library runs in your app and on the machines of your users.",
+          "zh": "就會在你的應用程式，以及使用者的電腦上執行。"
+        },
+        {
+          "id": 33,
+          "start": 162.82999999999998,
+          "end": 168.95,
+          "en": "So you need to be sure that the libraries you're using are secure, that they're trustworthy and that",
+          "zh": "因此，你需要確定使用的函式庫是安全、值得信任的，而且，"
+        },
+        {
+          "id": 34,
+          "start": 168.95,
+          "end": 172.19,
+          "en": "they are also defending against being hacked.",
+          "zh": "它們也有防範入侵。"
+        },
+        {
+          "id": 35,
+          "start": 172.19,
+          "end": 178.43,
+          "en": "So you want to make sure you're working with third-party libraries which are actively maintained so",
+          "zh": "所以你要確保使用的第三方函式庫有人積極維護，讓，"
+        },
+        {
+          "id": 36,
+          "start": 178.43,
+          "end": 184.46,
+          "en": "that security holes in the libraries are fixed but at the same time, where contributions which in the",
+          "zh": "函式庫中的安全漏洞能獲得修補，但同時，也要確保外部貢獻，"
+        },
+        {
+          "id": 37,
+          "start": 184.46,
+          "end": 190.46,
+          "en": "case of open source libraries which most libraries are can be made by anyone, that contributions are",
+          "zh": "對於開放原始碼函式庫而言，大部分函式庫都是如此，任何人都能提交貢獻，而這些貢獻會，"
+        },
+        {
+          "id": 38,
+          "start": 190.46,
+          "end": 191.36,
+          "en": "checked.",
+          "zh": "經過檢查。"
+        },
+        {
+          "id": 39,
+          "start": 191.39,
+          "end": 194.96,
+          "en": "Of course you can check the source code of the third-party library as well",
+          "zh": "當然，你也可以檢查第三方函式庫的原始碼，"
+        },
+        {
+          "id": 40,
+          "start": 195.02,
+          "end": 201.02,
+          "en": "and if it's a relatively straightforward simple library, it might be worth scanning over that code and",
+          "zh": "如果它是相對直觀、簡單的函式庫，可能值得瀏覽一下程式碼，"
+        },
+        {
+          "id": 41,
+          "start": 201.02,
+          "end": 203.11,
+          "en": "looking for anything strange.",
+          "zh": "看看有沒有奇怪的東西。"
+        },
+        {
+          "id": 42,
+          "start": 203.12,
+          "end": 205.39,
+          "en": "Does it try to access browser storage?",
+          "zh": "它會嘗試存取瀏覽器儲存空間嗎？"
+        },
+        {
+          "id": 43,
+          "start": 205.4,
+          "end": 210.59,
+          "en": "Does it try to send HttpRequests even though it's a library that shouldn't do that?",
+          "zh": "它明明是不應該發送 HTTP 請求的函式庫，卻嘗試這樣做嗎？"
+        },
+        {
+          "id": 44,
+          "start": 210.59,
+          "end": 213.5,
+          "en": "Have a look at that and analyze that code.",
+          "zh": "看看這些行為，並分析程式碼。"
+        },
+        {
+          "id": 45,
+          "start": 213.5,
+          "end": 219.68,
+          "en": "It might sound dumb but this is a potential security issue, so you want to make sure you protect yourself",
+          "zh": "這可能聽起來很笨，但它確實是潛在的安全問題，所以你要確保能保護自己，"
+        },
+        {
+          "id": 46,
+          "start": 219.92000000000002,
+          "end": 221.48,
+          "en": "against it.",
+          "zh": "免受影響。"
+        },
+        {
+          "id": 47,
+          "start": 221.69,
+          "end": 225.34,
+          "en": "If you install something through npm, you also get a little hint.",
+          "zh": "如果透過 npm 安裝套件，也會得到一點提示。"
+        },
+        {
+          "id": 48,
+          "start": 225.44,
+          "end": 231.11,
+          "en": "If I run npm install here to install all the third-party packages we're executing here, you'll see that once",
+          "zh": "如果我在這裡執行 npm install，安裝我們使用的所有第三方套件，你會看到，"
+        },
+        {
+          "id": 49,
+          "start": 231.11,
+          "end": 233.8,
+          "en": "this is done, we get a little output here,",
+          "zh": "完成後，這裡會顯示一些輸出，"
+        },
+        {
+          "id": 50,
+          "start": 233.9,
+          "end": 240.53,
+          "en": "all these packages and found zero vulnerabilities. Not every vulnerability it finds here",
+          "zh": "列出所有套件，以及找到零個漏洞。不過，它在這裡找到的每個漏洞，"
+        },
+        {
+          "id": 51,
+          "start": 240.8,
+          "end": 245.95,
+          "en": "is an issue though and for some projects, it will find quite a lot of vulnerabilities.",
+          "zh": "不一定都是問題，而有些專案會找到相當多的漏洞。"
+        },
+        {
+          "id": 52,
+          "start": 246.02,
+          "end": 251.66,
+          "en": "It just means that there are potential security holes which might also not be related to the code which",
+          "zh": "這只代表有潛在的安全漏洞，而且可能與提供給使用者的程式碼，"
+        },
+        {
+          "id": 53,
+          "start": 251.66,
+          "end": 253.01,
+          "en": "is output to your users",
+          "zh": "沒有關係，"
+        },
+        {
+          "id": 54,
+          "start": 253.13,
+          "end": 258.29,
+          "en": "but all these build tools which run on your machine and only on your machine as a developer and therefore",
+          "zh": "而是來自這些建置工具，它們只會在你身為開發者的電腦上執行，因此，"
+        },
+        {
+          "id": 55,
+          "start": 258.29,
+          "end": 264.14,
+          "en": "might not be as dangerous but still, it just shows you that if there are vulnerabilities, you might want",
+          "zh": "可能沒那麼危險。不過這仍然提醒你，如果存在漏洞，你可能會想，"
+        },
+        {
+          "id": 56,
+          "start": 264.14,
+          "end": 268.08,
+          "en": "to check the versions of packages you're using and consider updating.",
+          "zh": "檢查使用的套件版本，並考慮更新。"
+        },
+        {
+          "id": 57,
+          "start": 268.1,
+          "end": 273.98,
+          "en": "Now again, you shouldn't freak out just because you find some vulnerabilities here because most packages",
+          "zh": "同樣地，你不該只是因為在這裡找到一些漏洞，就驚慌失措，因為，"
+        },
+        {
+          "id": 58,
+          "start": 273.98,
+          "end": 277.31,
+          "en": "you use in modern projects only run on your machine",
+          "zh": "現代專案中使用的大部分套件，都只會在你的電腦上執行，"
+        },
+        {
+          "id": 59,
+          "start": 277.31,
+          "end": 279.86,
+          "en": "and of course this is also not what you want,",
+          "zh": "當然，你也不希望，"
+        },
+        {
+          "id": 60,
+          "start": 279.87,
+          "end": 285.11,
+          "en": "that you have a potential security hole there but at least you're not sharing this code with all users",
+          "zh": "那裡有潛在的安全漏洞，但至少你沒有把這些程式碼交給網頁的所有，"
+        },
+        {
+          "id": 61,
+          "start": 285.11,
+          "end": 288.05,
+          "en": "of your web page, so therefore this might not matter as much",
+          "zh": "使用者，所以它的影響可能沒那麼大，"
+        },
+        {
+          "id": 62,
+          "start": 288.17,
+          "end": 293.65999999999997,
+          "en": "and a lot of vulnerabilities are really just that, a vulnerability, not necessarily one which is getting",
+          "zh": "而許多漏洞確實只是漏洞，不一定是目前正遭到，"
+        },
+        {
+          "id": 63,
+          "start": 293.65999999999997,
+          "end": 299.75,
+          "en": "abused at this point of time. Still having a green zero here is nice to have but even more important",
+          "zh": "濫用的漏洞。這裡有綠色的零當然很好，但更重要的是，"
+        },
+        {
+          "id": 64,
+          "start": 299.75,
+          "end": 306.62,
+          "en": "is that any packages you use that end up in your code, like the Google Maps package here, that these packages",
+          "zh": "任何最後會出現在你程式碼中的套件，例如這裡的 Google Maps 套件，都要，"
+        },
+        {
+          "id": 65,
+          "start": 306.62,
+          "end": 309.23,
+          "en": "are also trustworthy and secure.",
+          "zh": "值得信任，而且安全。"
+        },
+        {
+          "id": 66,
+          "start": 309.26,
+          "end": 315.14,
+          "en": "You never have 100% security but you should of course aim for as much security as possible.",
+          "zh": "安全永遠無法達到百分之百，但你當然應該盡可能提高安全性。"
+        }
+      ]
+    },
+    {
+      "id": "16477328",
+      "title": "CSRF Attacks (Cross Site Request Forgery)",
+      "lectureOrder": 503,
+      "videoOrder": 440,
+      "sourceHash": "cf4c69076d85878011b0711996e27eff5119c35a143306a9ce44402e36cee045",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.35,
+          "end": 4.93,
+          "en": "So that were cross site scripting attacks,",
+          "zh": "剛才介紹的是跨網站指令碼攻擊，"
+        },
+        {
+          "id": 2,
+          "start": 4.99,
+          "end": 12.22,
+          "en": "the most dangerous attack pattern when we talk about Javascript code. They only affect browser side Javascript",
+          "zh": "這是談到 JavaScript 程式碼時，最危險的攻擊模式。它們只影響瀏覽器端的 JavaScript，"
+        },
+        {
+          "id": 3,
+          "start": 12.22,
+          "end": 12.63,
+          "en": "code",
+          "zh": "程式碼，"
+        },
+        {
+          "id": 4,
+          "start": 12.67,
+          "end": 18.46,
+          "en": "but since this is the part where you typically run a lot of Javascript code, it is a thing you definitely",
+          "zh": "但因為你通常會在這一端執行大量 JavaScript 程式碼，所以這是你絕對，"
+        },
+        {
+          "id": 5,
+          "start": 18.46,
+          "end": 21.58,
+          "en": "have to watch out for it and you have to be aware of. Now with that",
+          "zh": "必須留意並了解的事情。不過，了解這點之後，"
+        },
+        {
+          "id": 6,
+          "start": 21.58,
+          "end": 25.09,
+          "en": "however, let's move on to cross site request forgery.",
+          "zh": "我們接著來談跨網站請求偽造。"
+        },
+        {
+          "id": 7,
+          "start": 25.09,
+          "end": 26.44,
+          "en": "What is this attack?",
+          "zh": "這是什麼攻擊？"
+        },
+        {
+          "id": 8,
+          "start": 26.47,
+          "end": 32.11,
+          "en": "It can be related to cross site scripting attacks but it doesn't have to be. The idea behind cross site",
+          "zh": "它可能與跨網站指令碼攻擊有關，但不一定。跨網站，"
+        },
+        {
+          "id": 9,
+          "start": 32.11,
+          "end": 38.98,
+          "en": "request forgery is that people trick you into clicking on a link that leads to a prepared page where",
+          "zh": "請求偽造背後的概念，是有人誘騙你點擊連結，前往事先準備好的頁面，"
+        },
+        {
+          "id": 10,
+          "start": 38.98,
+          "end": 45.27,
+          "en": "they abuse your local cookies to then send a request to the page you would normally talk to as well,",
+          "zh": "在那裡濫用你本機的 Cookie，向你平常也會互動的網站發送請求，"
+        },
+        {
+          "id": 11,
+          "start": 45.31,
+          "end": 47.47,
+          "en": "let's say your online banking backend",
+          "zh": "例如你的網路銀行後端，"
+        },
+        {
+          "id": 12,
+          "start": 47.92,
+          "end": 52.96,
+          "en": "but since you are coming from a prepared page, you then do something there automatically without you",
+          "zh": "但因為你是從事先準備好的頁面過去，就會在那裡自動做某些事情，而你，"
+        },
+        {
+          "id": 13,
+          "start": 52.96,
+          "end": 58.74,
+          "en": "recognizing that you don't want to do, for example send money to someone you don't want to send,",
+          "zh": "並沒有察覺，而且那不是你想做的，例如匯款給你不想匯款的對象，"
+        },
+        {
+          "id": 14,
+          "start": 58.75,
+          "end": 63.34,
+          "en": "maybe that even as possible to happen behind the scenes without you noticing.",
+          "zh": "甚至可能在背後發生，讓你完全沒有察覺。"
+        },
+        {
+          "id": 15,
+          "start": 63.34,
+          "end": 69.19,
+          "en": "So this attack pattern also depends on injected content, so injected Javascript code but it can",
+          "zh": "所以這種攻擊模式也可能依靠注入的內容，也就是注入的 JavaScript 程式碼，但它，"
+        },
+        {
+          "id": 16,
+          "start": 69.19,
+          "end": 74.05,
+          "en": "also be just HTML content which submits a form to the trusted server,",
+          "zh": "也可能只是 HTML 內容，向受信任的伺服器提交表單，"
+        },
+        {
+          "id": 17,
+          "start": 74.05,
+          "end": 79.51,
+          "en": "the problem is that the form is part of an untrusted page which you might not recognize if the URL",
+          "zh": "問題是，這個表單位於不可信任的網頁，如果 URL，"
+        },
+        {
+          "id": 18,
+          "start": 79.51,
+          "end": 80.92,
+          "en": "look similar",
+          "zh": "看起來很相似，你可能沒有察覺，"
+        },
+        {
+          "id": 19,
+          "start": 80.92,
+          "end": 86.16,
+          "en": "and then requests on your behalf with your cookies can be made to the trustworthy server,",
+          "zh": "接著就能以你的身分，帶著你的 Cookie，向可信任的伺服器發送請求，"
+        },
+        {
+          "id": 20,
+          "start": 86.26,
+          "end": 90.98,
+          "en": "so the only danger and the only problem is that this is all happening from a malicious site.",
+          "zh": "所以真正的危險和問題，就是這一切都來自惡意網站。"
+        },
+        {
+          "id": 21,
+          "start": 91.24,
+          "end": 98.11,
+          "en": "So actions might be executed on the trustworthy page with your data without you knowing that it happens",
+          "zh": "因此，可信任的網站可能會使用你的資料執行操作，而你完全不知道，"
+        },
+        {
+          "id": 22,
+          "start": 98.62,
+          "end": 101.87,
+          "en": "and therefore you might want to protect against that.",
+          "zh": "所以你可能會想防範這件事。"
+        },
+        {
+          "id": 23,
+          "start": 101.89,
+          "end": 106.63,
+          "en": "Let's have a closer look at this pattern, though I do talk about it in more detail and also how to prevent",
+          "zh": "我們來更仔細看看這種模式，不過我在 Node.js 課程中會更詳細地談到它，以及如何防範，"
+        },
+        {
+          "id": 24,
+          "start": 106.63,
+          "end": 106.91,
+          "en": "it",
+          "zh": "這種攻擊，"
+        },
+        {
+          "id": 25,
+          "start": 107.05,
+          "end": 111.37,
+          "en": "in my Node.js course because this is more a server side issue.",
+          "zh": "因為這比較屬於伺服器端的問題。"
+        },
+        {
+          "id": 26,
+          "start": 111.37,
+          "end": 118.89,
+          "en": "You need to protect against CSRF attacks on the server side by using a mechanism which is a CSRF token",
+          "zh": "你需要在伺服器端使用 CSRF token 這種機制，防範 CSRF 攻擊，"
+        },
+        {
+          "id": 27,
+          "start": 118.96000000000001,
+          "end": 125.08,
+          "en": "and again I do discuss this in my Node.js course where we work on the server side on the backend all",
+          "zh": "同樣地，我會在 Node.js 課程中討論這件事，因為那門課一直都在開發伺服器端，也就是後端，"
+        },
+        {
+          "id": 28,
+          "start": 125.08,
+          "end": 126.07,
+          "en": "the time.",
+          "zh": "程式碼。"
+        },
+        {
+          "id": 29,
+          "start": 126.07,
+          "end": 129.41,
+          "en": "So CSRF stands for cross site request forgery",
+          "zh": "所以 CSRF 是 cross-site request forgery，也就是跨網站請求偽造的縮寫，"
+        },
+        {
+          "id": 30,
+          "start": 129.43,
+          "end": 134.35,
+          "en": "and the idea is that if you're the user of a web app and you have some backend, let's say the online",
+          "zh": "概念是，如果你是網頁應用程式的使用者，而它有某個後端，例如網路，"
+        },
+        {
+          "id": 31,
+          "start": 134.35,
+          "end": 138.44,
+          "en": "banking site which uses Node.js or any other programming language,",
+          "zh": "銀行網站，它使用 Node.js 或任何其他程式語言，"
+        },
+        {
+          "id": 32,
+          "start": 138.46,
+          "end": 145.39,
+          "en": "this is not exclusive to Javascript, uses any programming language and it talks to database, the server.",
+          "zh": "這並非 JavaScript 專屬，可以用任何程式語言，而伺服器會與資料庫互動。"
+        },
+        {
+          "id": 33,
+          "start": 145.39,
+          "end": 148.54,
+          "en": "Now you are visiting the frontend of this page,",
+          "zh": "現在你造訪這個網站的前端，"
+        },
+        {
+          "id": 34,
+          "start": 148.54,
+          "end": 154.45,
+          "en": "let's say that the user interface of your online banking site and now when you have such a setup, typically",
+          "zh": "例如你的網路銀行使用者介面。通常在這樣的架構中，"
+        },
+        {
+          "id": 35,
+          "start": 154.45,
+          "end": 158.59,
+          "en": "the server-side application identifies you with a so-called session,",
+          "zh": "伺服器端應用程式會使用所謂的工作階段，也就是 session，來識別你，"
+        },
+        {
+          "id": 36,
+          "start": 158.59,
+          "end": 164.17000000000002,
+          "en": "so you logged in and then the server side generates this session object, stores session data on the",
+          "zh": "也就是你登入後，伺服器端產生這個 session 物件，將工作階段資料儲存在，"
+        },
+        {
+          "id": 37,
+          "start": 164.17000000000002,
+          "end": 167.95,
+          "en": "server and sends you the session ID which is stored in a cookie,",
+          "zh": "伺服器上，再把 session ID 傳給你，並存在 Cookie 中，"
+        },
+        {
+          "id": 38,
+          "start": 167.95,
+          "end": 174.8,
+          "en": "that's a typical authentication setup you have in web pages where frontend and backend work together.",
+          "zh": "這是前端與後端共同運作的網站中，典型的身分驗證架構。"
+        },
+        {
+          "id": 39,
+          "start": 174.82,
+          "end": 180.56,
+          "en": "Now then you might be sending an intended request, for example to send money to be and all is good.",
+          "zh": "接著你可能發送自己想要的請求，例如匯款給 B，一切都沒問題。"
+        },
+        {
+          "id": 40,
+          "start": 180.58,
+          "end": 186.58,
+          "en": "The problem is that if you now visit a fake site because someone sends you a link to it, which looks",
+          "zh": "問題是，如果現在有人傳給你一個連結，讓你造訪假的網站，它看起來，"
+        },
+        {
+          "id": 41,
+          "start": 186.58,
+          "end": 195.31,
+          "en": "like the trustworthy site but which isn't, then you visit this page and there, people send a request to",
+          "zh": "像可信任的網站，其實不是。你造訪這個頁面後，有人會向，"
+        },
+        {
+          "id": 42,
+          "start": 195.31,
+          "end": 201.7,
+          "en": "the trustworthy backend, therefore the browser attaches cookies that belong to this trustworthy backend",
+          "zh": "可信任的後端發送請求，因此瀏覽器會附上屬於這個可信任後端的 Cookie，"
+        },
+        {
+          "id": 43,
+          "start": 201.85,
+          "end": 205.48,
+          "en": "which is your session ID for example and everything works.",
+          "zh": "例如你的 session ID，所有流程都正常運作。"
+        },
+        {
+          "id": 44,
+          "start": 205.48,
+          "end": 211.6,
+          "en": "The problem just is since you're on a fake site, the request might be one that is intended by the fake site",
+          "zh": "問題只是，因為你在假網站上，這個請求可能是假網站想發出的，"
+        },
+        {
+          "id": 45,
+          "start": 211.63,
+          "end": 218.62,
+          "en": "but not by you, for example to send money to C and this request will succeed because you sent the right",
+          "zh": "而不是你的意願，例如匯款給 C。這個請求會成功，因為你傳送了正確的，"
+        },
+        {
+          "id": 46,
+          "start": 218.62,
+          "end": 222.88,
+          "en": "cookie, the right session ID and you sent it through the right backend.",
+          "zh": "Cookie、正確的 session ID，也把它傳給了正確的後端。"
+        },
+        {
+          "id": 47,
+          "start": 222.91,
+          "end": 225.84,
+          "en": "So again more details can be found in a Node.js course",
+          "zh": "同樣地，更多細節可以在 Node.js 課程中找到，"
+        },
+        {
+          "id": 48,
+          "start": 225.85,
+          "end": 231.07,
+          "en": "but this is also a potential tech pattern but not directly linked to Javascript.",
+          "zh": "但這也是一種可能的攻擊模式，只是與 JavaScript 沒有直接關聯。"
+        },
+        {
+          "id": 49,
+          "start": 231.07,
+          "end": 236.53,
+          "en": "It can be implemented with cross site scripting attacks but it can also be implemented by using such",
+          "zh": "它可以透過跨網站指令碼攻擊來實作，也可以使用這種，"
+        },
+        {
+          "id": 50,
+          "start": 236.53,
+          "end": 240.29,
+          "en": "a fake site which does not require cross site scripting attacks.",
+          "zh": "不需要跨網站指令碼攻擊的假網站來實作。"
+        },
+        {
+          "id": 51,
+          "start": 240.37,
+          "end": 244.53,
+          "en": "So therefore this is not really a Javascript security thing,",
+          "zh": "因此，這其實不算 JavaScript 的安全問題，"
+        },
+        {
+          "id": 52,
+          "start": 244.6,
+          "end": 248.44,
+          "en": "it's more a server side or general web application security thing",
+          "zh": "而是比較偏向伺服器端，或一般網頁應用程式的安全問題，"
+        },
+        {
+          "id": 53,
+          "start": 248.44,
+          "end": 253.6,
+          "en": "and therefore I do discuss it in more detail in my Node.js course where we write a lot of server side",
+          "zh": "所以我會在 Node.js 課程中更詳細地討論，因為我們會撰寫大量伺服器端，"
+        },
+        {
+          "id": 54,
+          "start": 253.6,
+          "end": 253.99,
+          "en": "code.",
+          "zh": "程式碼。"
+        }
+      ]
+    },
+    {
+      "id": "16477334",
+      "title": "CORS (Cross Origin Resource Sharing)",
+      "lectureOrder": 504,
+      "videoOrder": 441,
+      "sourceHash": "c86ee11956ddfd621b6aa007fc6648095ea5cf652425f098dcc91ad35cdae794",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.68,
+          "end": 5.31,
+          "en": "The last security hole you should be aware of",
+          "zh": "最後一個你應該知道的安全漏洞，"
+        },
+        {
+          "id": 2,
+          "start": 5.35,
+          "end": 8.14,
+          "en": "or the last security relevant concept you should be aware of",
+          "zh": "或者說，最後一個應該知道的安全相關概念，"
+        },
+        {
+          "id": 3,
+          "start": 8.14,
+          "end": 13.82,
+          "en": "to be precise is cross origin resource sharing and I did talk about this earlier already.",
+          "zh": "精確地說，就是跨來源資源共用，我之前已經談過這件事。"
+        },
+        {
+          "id": 4,
+          "start": 13.87,
+          "end": 17.26,
+          "en": "It's not really an attack pattern but a security concept.",
+          "zh": "它其實不是一種攻擊模式，而是一個安全概念。"
+        },
+        {
+          "id": 5,
+          "start": 17.26,
+          "end": 24.01,
+          "en": "The idea here is that requests from your browser side application can only be made to a backend, so to",
+          "zh": "這裡的概念是，瀏覽器端應用程式發出的請求，只能傳給後端，也就是，"
+        },
+        {
+          "id": 6,
+          "start": 24.01,
+          "end": 29.32,
+          "en": "a server side that runs on the same server, so that the HTML page and the script that executes there",
+          "zh": "執行於同一台伺服器上的伺服器端。也就是說，HTML 頁面和其中執行的指令碼，"
+        },
+        {
+          "id": 7,
+          "start": 29.47,
+          "end": 31.3,
+          "en": "was served by the same server",
+          "zh": "必須由同一台伺服器提供，"
+        },
+        {
+          "id": 8,
+          "start": 31.33,
+          "end": 32.98,
+          "en": "you're trying to send the request to,",
+          "zh": "也就是你嘗試發送請求的目標伺服器，"
+        },
+        {
+          "id": 9,
+          "start": 33.01,
+          "end": 37,
+          "en": "that's how browsers by default work with your pages,",
+          "zh": "這就是瀏覽器預設處理網頁的方式，"
+        },
+        {
+          "id": 10,
+          "start": 37,
+          "end": 39.28,
+          "en": "this is what they allow by default.",
+          "zh": "也是它們預設允許的行為。"
+        },
+        {
+          "id": 11,
+          "start": 39.28,
+          "end": 45.1,
+          "en": "Now in modern web applications, you often need to send requests to other servers though, so a server which",
+          "zh": "但在現代網頁應用程式中，你經常需要向其他伺服器發送請求，也就是，"
+        },
+        {
+          "id": 12,
+          "start": 45.1,
+          "end": 51.05,
+          "en": "did not serve the running HTML and Javascript code but which only provides some API endpoints,",
+          "zh": "並未提供目前執行的 HTML 和 JavaScript 程式碼，而只提供一些 API 端點的伺服器，"
+        },
+        {
+          "id": 13,
+          "start": 51.07,
+          "end": 54.88,
+          "en": "some URLs to which you can send data, to store data or to fetch data,",
+          "zh": "也就是一些 URL，你可以向它們傳送資料，以儲存或取得資料，"
+        },
+        {
+          "id": 14,
+          "start": 54.88,
+          "end": 58.57,
+          "en": "this is something we had to look at in the Node.js module.",
+          "zh": "這是我們在 Node.js 單元中探討過的事情。"
+        },
+        {
+          "id": 15,
+          "start": 58.57,
+          "end": 64.96,
+          "en": "Then you can control via server side headers and only via server side response headers",
+          "zh": "這時，你可以透過伺服器端標頭，而且只能透過伺服器端的回應標頭，"
+        },
+        {
+          "id": 16,
+          "start": 64.97,
+          "end": 71.02,
+          "en": "whether this request, this incoming request is allowed and you send back a valid response or not.",
+          "zh": "控制是否允許這個傳入的請求，以及是否傳回有效的回應。"
+        },
+        {
+          "id": 17,
+          "start": 71.02,
+          "end": 76.42,
+          "en": "So this is a concept where by default browsers would not allow you to reach out to some other server",
+          "zh": "所以，按照這個概念，瀏覽器預設不允許你連線到其他伺服器，"
+        },
+        {
+          "id": 18,
+          "start": 76.84,
+          "end": 80.38,
+          "en": "but with the right server side headers, you can override this.",
+          "zh": "但透過正確的伺服器端標頭，你可以改變這個行為。"
+        },
+        {
+          "id": 19,
+          "start": 80.47,
+          "end": 85.69,
+          "en": "So it's a concept which in the end should secure servers so that not everyone can access their resources,",
+          "zh": "它最終是用來保護伺服器的概念，讓不是所有人都能存取資源，"
+        },
+        {
+          "id": 20,
+          "start": 85.69,
+          "end": 91.36,
+          "en": "not every page can access their resources at least but with the right headers on the server side, you can",
+          "zh": "至少不是每個網頁都能存取資源，但使用正確的伺服器端標頭，就能，"
+        },
+        {
+          "id": 21,
+          "start": 91.36,
+          "end": 95.22999999999999,
+          "en": "allow this and an example for that actually would be Javascript modules.",
+          "zh": "允許這種存取，而 JavaScript 模組其實就是一個例子。"
+        },
+        {
+          "id": 22,
+          "start": 95.28999999999999,
+          "end": 102.25999999999999,
+          "en": "This built-in Javascript concept also required a development server if you remember and it required",
+          "zh": "如果你還記得，這個 JavaScript 內建概念也需要開發伺服器，而且之所以需要，"
+        },
+        {
+          "id": 23,
+          "start": 102.25999999999999,
+          "end": 108.31,
+          "en": "a development server because Javascript modules, so Javascript files you import into another file",
+          "zh": "開發伺服器，是因為 JavaScript 模組，也就是匯入到另一個檔案中的 JavaScript 檔案，"
+        },
+        {
+          "id": 24,
+          "start": 108.85,
+          "end": 111.7,
+          "en": "are only allowed if they're from the same server.",
+          "zh": "只有來自同一台伺服器時才被允許。"
+        },
+        {
+          "id": 25,
+          "start": 111.82,
+          "end": 117.78999999999999,
+          "en": "So I'm only used to importing another Javascript file which sits on the same server which is served by the",
+          "zh": "所以我只能匯入位於同一台伺服器，由同一台，"
+        },
+        {
+          "id": 26,
+          "start": 117.78999999999999,
+          "end": 118.89,
+          "en": "same server",
+          "zh": "伺服器提供的另一個 JavaScript 檔案，"
+        },
+        {
+          "id": 27,
+          "start": 118.93,
+          "end": 123.79,
+          "en": "and here we have no real way of changing this because that's a built-in security mechanism by browsers",
+          "zh": "而這裡我們實際上無法改變這點，因為這是瀏覽器內建的安全機制，"
+        },
+        {
+          "id": 28,
+          "start": 124,
+          "end": 126.97,
+          "en": "specifically for this Javascript feature.",
+          "zh": "專門針對這項 JavaScript 功能。"
+        },
+        {
+          "id": 29,
+          "start": 126.97,
+          "end": 130.6,
+          "en": "Another example though would be the Node.js application we worked on.",
+          "zh": "另一個例子，就是我們先前開發的 Node.js 應用程式。"
+        },
+        {
+          "id": 30,
+          "start": 130.84,
+          "end": 137.32,
+          "en": "There, we have our different routes which we handle on the backend, like add location and the request",
+          "zh": "我們在後端處理不同的路由，例如新增位置，而傳到那裡的請求，"
+        },
+        {
+          "id": 31,
+          "start": 137.32,
+          "end": 142.93,
+          "en": "which is sent there is not sent from some page that is served by the same server, it's sent by a page",
+          "zh": "並不是由同一台伺服器提供的網頁發送，而是由一個，"
+        },
+        {
+          "id": 32,
+          "start": 142.93,
+          "end": 148.81,
+          "en": "that runs on a different domain, on a different server and still it works because here, I set these right",
+          "zh": "執行於不同網域、不同伺服器的網頁發送，但它仍能運作，因為我在這裡設定了正確的，"
+        },
+        {
+          "id": 33,
+          "start": 149.02,
+          "end": 151.81,
+          "en": "CORS headers which tell the browser",
+          "zh": "CORS 標頭，告訴瀏覽器，"
+        },
+        {
+          "id": 34,
+          "start": 151.81,
+          "end": 157.66,
+          "en": "that's okay, this page which sends the request is allowed to get the data and therefore the browser won't",
+          "zh": "這沒有問題，發送請求的網頁可以取得資料，所以瀏覽器不會，"
+        },
+        {
+          "id": 35,
+          "start": 157.66,
+          "end": 158.52,
+          "en": "block it.",
+          "zh": "阻擋它。"
+        },
+        {
+          "id": 36,
+          "start": 158.71,
+          "end": 166.27,
+          "en": "So it's a security mechanism which you can use or disable or configure to your needs based on your requirements.",
+          "zh": "因此，這是一種安全機制，你可以依照需求使用、停用，或加以設定。"
+        },
+        {
+          "id": 37,
+          "start": 166.27,
+          "end": 168.32999999999998,
+          "en": "That's the idea behind CORS,",
+          "zh": "這就是 CORS 背後的概念，"
+        },
+        {
+          "id": 38,
+          "start": 168.34,
+          "end": 170.89,
+          "en": "this cross origin resource sharing concept.",
+          "zh": "也就是跨來源資源共用。"
+        }
+      ]
+    },
+    {
+      "id": "16477338",
+      "title": "Wrap Up",
+      "lectureOrder": 505,
+      "videoOrder": 442,
+      "sourceHash": "9576bc1fd520bebcd39129f9842713e42bf7598a64002006db266381866eb096",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.39,
+          "end": 4.39,
+          "en": "This is it for this module,",
+          "zh": "這個單元就到這裡，"
+        },
+        {
+          "id": 2,
+          "start": 4.4,
+          "end": 10.73,
+          "en": "the two most important attack patterns or vulnerabilities I want you to take away from it are these",
+          "zh": "我希望你從這個單元記住的兩種最重要的攻擊模式或漏洞，就是這，"
+        },
+        {
+          "id": 3,
+          "start": 10.73,
+          "end": 16.38,
+          "en": "two - security details in your code which you expose accidentally and cross site scripting attacks.",
+          "zh": "兩種：意外暴露在程式碼中的安全相關資訊，以及跨網站指令碼攻擊。"
+        },
+        {
+          "id": 4,
+          "start": 16.4,
+          "end": 23.18,
+          "en": "These are the Javascript specific attack patterns whereas the CSRF pattern works with any language",
+          "zh": "這些是 JavaScript 特有的攻擊模式，而 CSRF 攻擊可以針對使用任何語言的，"
+        },
+        {
+          "id": 5,
+          "start": 23.18,
+          "end": 29.23,
+          "en": "on the backend and with no Javascript code in the frontend and causes a general security concept but",
+          "zh": "後端，即使前端沒有 JavaScript 程式碼也能發生，屬於一般的安全概念。不過，"
+        },
+        {
+          "id": 6,
+          "start": 29.24,
+          "end": 35.84,
+          "en": "two leftmost holes, security holes are the important ones you might have in your application.",
+          "zh": "最左邊的這兩個安全漏洞，才是你的應用程式中可能存在的重要問題。"
+        },
+        {
+          "id": 7,
+          "start": 35.84,
+          "end": 40.64,
+          "en": "If you expose code there, all your Javascript code is always readable by anyone,",
+          "zh": "如果在那裡公開程式碼，你所有的 JavaScript 程式碼，任何人都隨時能閱讀，"
+        },
+        {
+          "id": 8,
+          "start": 40.67,
+          "end": 42.52,
+          "en": "that's something you have to keep in mind,",
+          "zh": "這是你必須記住的，"
+        },
+        {
+          "id": 9,
+          "start": 42.59,
+          "end": 49.13,
+          "en": "exposing important information in your Javascript code allows anyone to read and abuse it and cross",
+          "zh": "把重要資訊放在 JavaScript 程式碼中公開，會讓任何人都能讀取並濫用它。而跨網站，"
+        },
+        {
+          "id": 10,
+          "start": 49.13,
+          "end": 55.85,
+          "en": "site scripting attacks allows users to prepare data or prepare links which all visitors of your page",
+          "zh": "指令碼攻擊讓使用者能準備資料或連結，你網頁的所有訪客，"
+        },
+        {
+          "id": 11,
+          "start": 55.85,
+          "end": 58.19,
+          "en": "might then see and if that data,",
+          "zh": "之後都可能看到，而如果那些資料，"
+        },
+        {
+          "id": 12,
+          "start": 58.19,
+          "end": 64.43,
+          "en": "this prepared data, contains scripts that executes, then for all visitors of your page, these scripts",
+          "zh": "也就是事先準備好的資料，包含能執行的指令碼，那麼網頁的所有訪客，"
+        },
+        {
+          "id": 13,
+          "start": 64.49,
+          "end": 72.38,
+          "en": "will execute and can do dangerous stuff, like read personal data, send malicious requests with user data",
+          "zh": "都會執行這些指令碼，進而發生危險的操作，例如讀取個人資料、將帶有使用者資料的惡意請求，"
+        },
+        {
+          "id": 14,
+          "start": 72.41,
+          "end": 75.2,
+          "en": "to some malicious servers and so on,",
+          "zh": "發送到惡意伺服器等等，"
+        },
+        {
+          "id": 15,
+          "start": 75.2,
+          "end": 79.07,
+          "en": "so you definitely need to protect against these two security holes,",
+          "zh": "所以你絕對需要防範這兩個安全漏洞，"
+        },
+        {
+          "id": 16,
+          "start": 79.07,
+          "end": 85.82,
+          "en": "for example by sanitizing output by using text content instead of innerHTML and by not leaving any",
+          "zh": "例如清理輸出內容，使用 textContent 取代 innerHTML，以及不要把任何，"
+        },
+        {
+          "id": 17,
+          "start": 85.82,
+          "end": 88.43,
+          "en": "important data in your Javascript code.",
+          "zh": "重要資料留在 JavaScript 程式碼中。"
+        }
+      ]
+    },
+    {
+      "id": "16477348",
+      "title": "Module Introduction",
+      "lectureOrder": 507,
+      "videoOrder": 443,
+      "sourceHash": "d4e7330d34eded8151b0d604fe5746ffe656b7296c5824b21129c4834117d309",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.19,
+          "end": 3.93,
+          "en": "We worked on our application,",
+          "zh": "我們已經開發了應用程式，"
+        },
+        {
+          "id": 2,
+          "start": 3.96,
+          "end": 9.21,
+          "en": "we tested it thoroughly, we're happy with the web page we created and with the Javascript code that runs",
+          "zh": "也徹底測試過，對建立的網頁，以及在上面執行的 JavaScript 程式碼，"
+        },
+        {
+          "id": 3,
+          "start": 9.21,
+          "end": 15.93,
+          "en": "on it, no matter if we just wrote some client side Javascript or if we built a whole server side application",
+          "zh": "都很滿意。不管我們只寫了用戶端 JavaScript，還是建立了完整的伺服器端應用程式，"
+        },
+        {
+          "id": 4,
+          "start": 15.93,
+          "end": 17.38,
+          "en": "with Node.js.",
+          "zh": "使用的是 Node.js，"
+        },
+        {
+          "id": 5,
+          "start": 17.4,
+          "end": 20.23,
+          "en": "Now the goal is to deploy that application,",
+          "zh": "現在的目標就是部署這個應用程式，"
+        },
+        {
+          "id": 6,
+          "start": 20.28,
+          "end": 25.11,
+          "en": "you want to make sure it does not just run locally on your machine where you're test it but you want",
+          "zh": "你要確保它不只在你用來測試的本機電腦上執行，而是要，"
+        },
+        {
+          "id": 7,
+          "start": 25.11,
+          "end": 31.14,
+          "en": "to put it on some server, on some computer in the web which has its own domain connected to it, its own",
+          "zh": "把它放到某個伺服器，也就是網路上的某台電腦，有連結到它的專屬網域，以及自己的，"
+        },
+        {
+          "id": 8,
+          "start": 31.14,
+          "end": 36.15,
+          "en": "IP address which is reachable by anyone which your local machine thankfully isn't,",
+          "zh": "IP 位址，任何人都能連線，而幸好你的本機電腦不是這樣，"
+        },
+        {
+          "id": 9,
+          "start": 36.15,
+          "end": 42.11,
+          "en": "so that all users that are interested can start using your web application.",
+          "zh": "如此一來，所有有興趣的使用者都能開始使用你的網頁應用程式。"
+        },
+        {
+          "id": 10,
+          "start": 42.12,
+          "end": 43.64,
+          "en": "This is ultimately the goal",
+          "zh": "這最終就是目標，"
+        },
+        {
+          "id": 11,
+          "start": 43.65,
+          "end": 49.47,
+          "en": "once you're done with development right and this is exactly what we'll have a look at in this module.",
+          "zh": "當你完成開發之後，對吧？這正是我們在這個單元中要探討的內容。"
+        },
+        {
+          "id": 12,
+          "start": 50.07,
+          "end": 57.24,
+          "en": "We'll have a look at deploying both a web page which only consists of HTML, Javascript and CSS, so which",
+          "zh": "我們會看看如何部署只包含 HTML、JavaScript 和 CSS 的網頁，也就是，"
+        },
+        {
+          "id": 13,
+          "start": 57.24,
+          "end": 63.87,
+          "en": "has no server side code attached and we'll also have a look at how you would deploy a Node.js application",
+          "zh": "沒有伺服器端程式碼的網頁，也會看看如何部署 Node.js 應用程式，"
+        },
+        {
+          "id": 14,
+          "start": 64.17,
+          "end": 68.55,
+          "en": "where you of course have Javascript code that needs to run on a server.",
+          "zh": "其中當然有需要在伺服器上執行的 JavaScript 程式碼。"
+        }
+      ]
+    },
+    {
+      "id": "16477350",
+      "title": "Deployment Steps",
+      "lectureOrder": 508,
+      "videoOrder": 444,
+      "sourceHash": "8068b40cdeceaa8e5961a87a71f1eb6da663ea2b1cb1361b987f239fa14b9d5a",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.15,
+          "end": 4.22,
+          "en": "So let's dive into some theory first,",
+          "zh": "我們先來了解一些理論，"
+        },
+        {
+          "id": 2,
+          "start": 4.23,
+          "end": 9.75,
+          "en": "it's important to understand that there are two main kinds of web applications web sites you could be",
+          "zh": "有一點很重要，你要了解，你可能建立的網頁應用程式或網站，主要有兩種，"
+        },
+        {
+          "id": 3,
+          "start": 9.75,
+          "end": 10.79,
+          "en": "building.",
+          "zh": "類型。"
+        },
+        {
+          "id": 4,
+          "start": 10.8,
+          "end": 17.98,
+          "en": "One is a web site that only consists of a bunch of HTML files, some Javascript and some CSS,",
+          "zh": "一種是只包含一些 HTML 檔案、JavaScript 和 CSS 的網站，"
+        },
+        {
+          "id": 5,
+          "start": 18.03,
+          "end": 21.62,
+          "en": "this is what we actually worked on for the majority of the course.",
+          "zh": "這就是我們在課程大部分時間實際開發的內容。"
+        },
+        {
+          "id": 6,
+          "start": 21.69,
+          "end": 27.99,
+          "en": "We didn't have any server side code there, any code that needs to be executed outside of the browser",
+          "zh": "當時我們沒有任何伺服器端程式碼，也就是需要在使用者瀏覽器之外，"
+        },
+        {
+          "id": 7,
+          "start": 27.99,
+          "end": 29.09,
+          "en": "of the user",
+          "zh": "執行的程式碼，"
+        },
+        {
+          "id": 8,
+          "start": 29.25,
+          "end": 35.19,
+          "en": "but in the Node.js module we did have a look at that because Node.js is a Javascript runtime which",
+          "zh": "但在 Node.js 單元中，我們確實探討過，因為 Node.js 是 JavaScript 執行環境，"
+        },
+        {
+          "id": 9,
+          "start": 35.19,
+          "end": 39.6,
+          "en": "allows us to run Javascript anywhere including on a server,",
+          "zh": "讓我們能在任何地方執行 JavaScript，包括伺服器，"
+        },
+        {
+          "id": 10,
+          "start": 39.6,
+          "end": 45.63,
+          "en": "so on a computer which runs somewhere in the web, which users can send request to but where they don't",
+          "zh": "也就是網路上某個地方的一台電腦，使用者能向它發送請求，但無法，"
+        },
+        {
+          "id": 11,
+          "start": 45.75,
+          "end": 46.7,
+          "en": "see the code,",
+          "zh": "看到程式碼，"
+        },
+        {
+          "id": 12,
+          "start": 46.74,
+          "end": 52.08,
+          "en": "so not code that runs in the browser and therefore on the machines of our end users but code that runs",
+          "zh": "所以不是在瀏覽器中，也就是最終使用者電腦上執行的程式碼，而是執行於，"
+        },
+        {
+          "id": 13,
+          "start": 52.2,
+          "end": 56.35,
+          "en": "on a server we rent, we pay and we put our code on.",
+          "zh": "我們租用、付費，並放置程式碼的伺服器上的程式碼。"
+        },
+        {
+          "id": 14,
+          "start": 56.46,
+          "end": 61.53,
+          "en": "Now for server side code, Node.js is not our only solution or our only alternative,",
+          "zh": "對於伺服器端程式碼，Node.js 不是唯一的解法或選擇，"
+        },
+        {
+          "id": 15,
+          "start": 61.59,
+          "end": 64.17,
+          "en": "we could write this code with PHP and so on",
+          "zh": "我們也可以用 PHP 等語言撰寫，"
+        },
+        {
+          "id": 16,
+          "start": 64.17,
+          "end": 68.67,
+          "en": "but since this course is about Javascript and Node.js is a runtime for Javascript,",
+          "zh": "但因為這門課介紹 JavaScript，而 Node.js 是 JavaScript 的執行環境，"
+        },
+        {
+          "id": 17,
+          "start": 68.67,
+          "end": 71.08,
+          "en": "I of course picked Node.js here.",
+          "zh": "所以我當然在這裡選擇 Node.js。"
+        },
+        {
+          "id": 18,
+          "start": 71.19,
+          "end": 76.41,
+          "en": "So these are the two kinds of applications we have - one which only has client side code and one which",
+          "zh": "這就是兩種應用程式：一種只有用戶端程式碼，另一種，"
+        },
+        {
+          "id": 19,
+          "start": 76.5,
+          "end": 82.35,
+          "en": "might also have client side code but which also has code that needs to run on a server, like in this Node.js",
+          "zh": "可能也有用戶端程式碼，但同時也有需要在伺服器上執行的程式碼，就像這個 Node.js，"
+        },
+        {
+          "id": 20,
+          "start": 82.35,
+          "end": 84.1,
+          "en": "example.",
+          "zh": "範例。"
+        },
+        {
+          "id": 21,
+          "start": 84.27,
+          "end": 90.96000000000001,
+          "en": "Now in the client side code in the left case here, all we need to serve this web site to our users is",
+          "zh": "對於左邊這種用戶端程式碼，要把網站提供給使用者，只需要，"
+        },
+        {
+          "id": 22,
+          "start": 90.96000000000001,
+          "end": 93.03999999999999,
+          "en": "a so-called static host",
+          "zh": "所謂的靜態託管服務。"
+        },
+        {
+          "id": 23,
+          "start": 93.09,
+          "end": 101.4,
+          "en": "This is a host, this is a web server, a computer configured such that for incoming HttpRequests, it returns",
+          "zh": "這是一個託管主機，也就是網頁伺服器，一台經過設定的電腦，收到 HTTP 請求時，會回傳，"
+        },
+        {
+          "id": 24,
+          "start": 101.4,
+          "end": 107.58,
+          "en": "the HTML files and the Javascript and the CSS files and maybe any images you're using but that it",
+          "zh": "HTML 檔案、JavaScript 和 CSS 檔案，以及可能用到的圖片，但它，"
+        },
+        {
+          "id": 25,
+          "start": 107.58,
+          "end": 113.61,
+          "en": "does not run any Javascript code or any server side code on itself,",
+          "zh": "本身不會執行任何 JavaScript 程式碼或伺服器端程式碼，"
+        },
+        {
+          "id": 26,
+          "start": 113.64,
+          "end": 119.28,
+          "en": "so put in other words, it's a machine, it's a computer somewhere in the Internet with its own IP address",
+          "zh": "換句話說，它是網際網路上某處的一台機器、一台電腦，有自己的 IP 位址，"
+        },
+        {
+          "id": 27,
+          "start": 119.28,
+          "end": 125.18,
+          "en": "attached to it and connected to a domain maybe which simply does not have Node.js installed on it,",
+          "zh": "也可能連結到某個網域，但就是沒有安裝 Node.js，"
+        },
+        {
+          "id": 28,
+          "start": 125.19,
+          "end": 131.97,
+          "en": "instead you just put your files onto that server, configure it briefly to return these files for the",
+          "zh": "你只要把檔案放上伺服器，簡單設定，讓它針對，"
+        },
+        {
+          "id": 29,
+          "start": 131.97,
+          "end": 134.2,
+          "en": "incoming requests and you're done.",
+          "zh": "傳入的請求回傳檔案，就完成了。"
+        },
+        {
+          "id": 30,
+          "start": 134.22,
+          "end": 138.75,
+          "en": "Now you could configure such a computer all on your own but typically you would use certain services",
+          "zh": "你可以自行設定這樣的電腦，但通常會使用特定服務，"
+        },
+        {
+          "id": 31,
+          "start": 138.75,
+          "end": 143.07,
+          "en": "for that which makes this configuration and so on way easier and more secure",
+          "zh": "讓設定等工作更容易，也更安全，"
+        },
+        {
+          "id": 32,
+          "start": 143.13,
+          "end": 144.86,
+          "en": "and you simply pay for these services then",
+          "zh": "然後只要支付這些服務的費用，"
+        },
+        {
+          "id": 33,
+          "start": 145.02,
+          "end": 150.03,
+          "en": "and I will show you examples for both deployment scenarios, static and non-static",
+          "zh": "而我會在這個單元中，展示兩種部署情境，也就是靜態與非靜態的，"
+        },
+        {
+          "id": 34,
+          "start": 150.03,
+          "end": 156.32999999999998,
+          "en": "in this module. Speaking about non-static, you could also call this dynamic, you need a dynamic host. You",
+          "zh": "範例。說到非靜態，也可以稱為動態，你需要動態託管服務。你，"
+        },
+        {
+          "id": 35,
+          "start": 156.32999999999998,
+          "end": 161.76,
+          "en": "need a computer somewhere in the Internet connected to the Internet in both directions so that it also",
+          "zh": "需要網際網路上某處的一台電腦，雙向連接網際網路，讓它也，"
+        },
+        {
+          "id": 36,
+          "start": 161.76,
+          "end": 167.57999999999998,
+          "en": "is able to handle incoming requests which has, in our case here, Node.js installed on it",
+          "zh": "能處理傳入的請求，而且在我們這個例子中，需要安裝 Node.js，"
+        },
+        {
+          "id": 37,
+          "start": 167.67000000000002,
+          "end": 173.16,
+          "en": "so that on this computer, you can execute Javascript code which is not possible in the left scenario",
+          "zh": "如此一來，就能在這台電腦上執行 JavaScript 程式碼，左邊的情境做不到這件事，"
+        },
+        {
+          "id": 38,
+          "start": 173.34,
+          "end": 180.39,
+          "en": "but in the right scenario, the server side code scenario, we have a web server which does not just return",
+          "zh": "但右邊這種伺服器端程式碼情境中，我們有網頁伺服器，它不只把，"
+        },
+        {
+          "id": 39,
+          "start": 180.42,
+          "end": 187.32,
+          "en": "HTML, CSS and Javascript files to the users, so that the files are then handled locally on these user's",
+          "zh": "HTML、CSS 和 JavaScript 檔案回傳給使用者，讓這些檔案在使用者的，"
+        },
+        {
+          "id": 40,
+          "start": 187.32,
+          "end": 193.87,
+          "en": "machines but which in addition to that, also is capable of running, in our case Javascript code, on the",
+          "zh": "電腦上本機處理，除此之外，它也能在，"
+        },
+        {
+          "id": 41,
+          "start": 193.87,
+          "end": 197.94,
+          "en": "server itself by simply installing Node.js there in the end",
+          "zh": "伺服器本身執行程式碼，在這裡就是 JavaScript，最後只要在上面安裝 Node.js，"
+        },
+        {
+          "id": 42,
+          "start": 197.96,
+          "end": 200.16,
+          "en": "and by of course configuring it correctly.",
+          "zh": "當然也要正確設定。"
+        },
+        {
+          "id": 43,
+          "start": 200.16,
+          "end": 205.98,
+          "en": "Now just like in the static scenario, you could theoretically setup such a machine all from scratch on",
+          "zh": "和靜態情境一樣，理論上你可以自行從零開始，"
+        },
+        {
+          "id": 44,
+          "start": 205.98,
+          "end": 213.18,
+          "en": "your own but you need advanced server administration knowledge for that to do that in a secure and scalable",
+          "zh": "設定這樣的機器，但要以安全且可擴展的方式完成，你需要進階的伺服器管理，"
+        },
+        {
+          "id": 45,
+          "start": 213.18,
+          "end": 213.82999999999998,
+          "en": "way,",
+          "zh": "知識，"
+        },
+        {
+          "id": 46,
+          "start": 213.84,
+          "end": 219.81,
+          "en": "therefore in both scenarios, you would typically use certain services for that - paid services which do",
+          "zh": "所以這兩種情境中，你通常都會使用特定服務，也就是付費服務，"
+        },
+        {
+          "id": 47,
+          "start": 219.81,
+          "end": 225.75,
+          "en": "the heavy lifting for you and allow you to simply put your files there, write some basic configuration",
+          "zh": "由它們替你處理繁重的工作，讓你只需要把檔案放上去，寫一些基本設定，"
+        },
+        {
+          "id": 48,
+          "start": 225.75,
+          "end": 226.68,
+          "en": "and be done for it.",
+          "zh": "就完成了。"
+        },
+        {
+          "id": 49,
+          "start": 227.88,
+          "end": 234.36,
+          "en": "So these are the two options - a server that just needs to host and provide these static assets, there example",
+          "zh": "所以有兩種選擇：只需要託管並提供這些靜態資源的伺服器，這類，"
+        },
+        {
+          "id": 50,
+          "start": 234.36,
+          "end": 241.98,
+          "en": "hosting services would be S3 by AWS, so by Amazon Web Services, Firebase hosting and many more.",
+          "zh": "託管服務的例子有 AWS，也就是 Amazon Web Services 的 S3，以及 Firebase Hosting 等等。"
+        },
+        {
+          "id": 51,
+          "start": 241.98,
+          "end": 247.73,
+          "en": "If you google for static web hosting and so on, you will find plenty of results, in the right scenario",
+          "zh": "如果用 Google 搜尋靜態網站託管等關鍵字，會找到很多結果。右邊的情境中，"
+        },
+        {
+          "id": 52,
+          "start": 247.73,
+          "end": 253.77,
+          "en": "we need a server which is able to execute our files or our scripts on the server, our server side scripts",
+          "zh": "我們需要能在伺服器上執行檔案或指令碼的伺服器，至少要能執行伺服器端，"
+        },
+        {
+          "id": 53,
+          "start": 253.77,
+          "end": 254.56,
+          "en": "at least",
+          "zh": "指令碼，"
+        },
+        {
+          "id": 54,
+          "start": 254.7,
+          "end": 261.17,
+          "en": "and there example services would be AWS Elastic Beanstalk which is a service by Amazon Web Services,",
+          "zh": "這類服務的例子有 AWS Elastic Beanstalk，它是 Amazon Web Services 的服務，"
+        },
+        {
+          "id": 55,
+          "start": 261.24,
+          "end": 265.31,
+          "en": "Heroku and again other services as well.",
+          "zh": "還有 Heroku，以及其他服務。"
+        },
+        {
+          "id": 56,
+          "start": 265.31,
+          "end": 266.45,
+          "en": "Now this is the overview,",
+          "zh": "這就是整體概覽，"
+        },
+        {
+          "id": 57,
+          "start": 266.46,
+          "end": 274.17,
+          "en": "we'll have a look at both approaches in this module. Before we move on to the concrete deployment with",
+          "zh": "我們會在這個單元中探討兩種方式。在進入具體的部署之前，也就是使用，"
+        },
+        {
+          "id": 58,
+          "start": 274.17,
+          "end": 280.53,
+          "en": "the example services I picked for this module, I have first of all want to walk through the general deployment",
+          "zh": "我為這個單元選擇的範例服務之前，我想先帶你看一般的部署，"
+        },
+        {
+          "id": 59,
+          "start": 280.53,
+          "end": 281.78,
+          "en": "steps though.",
+          "zh": "步驟。"
+        },
+        {
+          "id": 60,
+          "start": 281.90999999999997,
+          "end": 284.06,
+          "en": "So what's the deployment process?",
+          "zh": "所以部署流程是什麼？"
+        },
+        {
+          "id": 61,
+          "start": 284.07,
+          "end": 288.25,
+          "en": "Of course it all starts with us developing, with us writing our code,",
+          "zh": "當然，第一步是開發，也就是撰寫程式碼，"
+        },
+        {
+          "id": 62,
+          "start": 288.27,
+          "end": 291.17,
+          "en": "that's what we did so far throughout the course.",
+          "zh": "這就是我們在課程中到目前為止所做的。"
+        },
+        {
+          "id": 63,
+          "start": 291.21,
+          "end": 292.74,
+          "en": "We also want to test our code,",
+          "zh": "我們也要測試程式碼，"
+        },
+        {
+          "id": 64,
+          "start": 292.74,
+          "end": 294.72,
+          "en": "we want to make sure it's error free,",
+          "zh": "確保它沒有錯誤，"
+        },
+        {
+          "id": 65,
+          "start": 294.75,
+          "end": 295.62,
+          "en": "it's secure,",
+          "zh": "它是安全的，"
+        },
+        {
+          "id": 66,
+          "start": 295.62,
+          "end": 296.81,
+          "en": "it has no bugs,",
+          "zh": "沒有程式缺陷，"
+        },
+        {
+          "id": 67,
+          "start": 296.85,
+          "end": 302.16,
+          "en": "that's also what we did throughout this course, we continuously went back into the browser and tested",
+          "zh": "我們在課程中也一直這樣做，不斷回到瀏覽器，測試，"
+        },
+        {
+          "id": 68,
+          "start": 302.16,
+          "end": 303.21,
+          "en": "our code there.",
+          "zh": "程式碼。"
+        },
+        {
+          "id": 69,
+          "start": 303.21,
+          "end": 305.71,
+          "en": "So this is also an iterative process here,",
+          "zh": "所以這也是一個反覆進行的流程，"
+        },
+        {
+          "id": 70,
+          "start": 305.73,
+          "end": 307.26,
+          "en": "we write code, we test it,",
+          "zh": "我們寫程式碼、測試，"
+        },
+        {
+          "id": 71,
+          "start": 307.26,
+          "end": 309.87,
+          "en": "we go back, fix bugs and so on.",
+          "zh": "再回去修正錯誤等等。"
+        },
+        {
+          "id": 72,
+          "start": 309.89,
+          "end": 313.04,
+          "en": "Now once we're done with all of that, we can do some optimizations,",
+          "zh": "完成這些之後，可以進行一些最佳化，"
+        },
+        {
+          "id": 73,
+          "start": 313.17,
+          "end": 316.9,
+          "en": "we can write fallbacks to offer a good browser support,",
+          "zh": "可以撰寫備援程式碼，提供良好的瀏覽器支援，"
+        },
+        {
+          "id": 74,
+          "start": 316.92,
+          "end": 319.65,
+          "en": "we want to look up the browser support we need.",
+          "zh": "也要查明需要支援哪些瀏覽器。"
+        },
+        {
+          "id": 75,
+          "start": 319.65,
+          "end": 326.46,
+          "en": "We also use build tools like Babel together with webpack to optimize and shrink our code and add potential",
+          "zh": "我們也會使用 Babel 搭配 webpack 這類建置工具，最佳化、縮小程式碼，並加入可能，"
+        },
+        {
+          "id": 76,
+          "start": 326.46,
+          "end": 330.87,
+          "en": "polyfills which we need. Then we can build for production, typically",
+          "zh": "需要的 polyfill。接著就可以建置正式環境版本，通常，"
+        },
+        {
+          "id": 77,
+          "start": 330.87,
+          "end": 337.8,
+          "en": "also with the help of webpack which then shrinks our code even more, which shortens the function names",
+          "zh": "也會藉助 webpack，進一步縮小程式碼，縮短輸出程式碼中的函式，"
+        },
+        {
+          "id": 78,
+          "start": 337.83,
+          "end": 339.24,
+          "en": "in the code it outputs",
+          "zh": "名稱，"
+        },
+        {
+          "id": 79,
+          "start": 339.24,
+          "end": 345.72,
+          "en": "so that we ship and deploy as small of a code package as possible. For the code that runs in the browsers",
+          "zh": "如此一來，要交付及部署的程式碼套件就能盡可能小。對於在使用者，"
+        },
+        {
+          "id": 80,
+          "start": 345.72,
+          "end": 346.53,
+          "en": "of our users,",
+          "zh": "瀏覽器中執行的程式碼，"
+        },
+        {
+          "id": 81,
+          "start": 346.53,
+          "end": 351.78,
+          "en": "that's important so that the application there is able to start up as quick as possible, so that the",
+          "zh": "這很重要，能讓應用程式盡快啟動，也讓，"
+        },
+        {
+          "id": 82,
+          "start": 351.78,
+          "end": 357.65,
+          "en": "code there is loaded as quick as possible and we're not causing any unnecessary delays and therefore",
+          "zh": "程式碼盡快載入，避免造成不必要的延遲，進而，"
+        },
+        {
+          "id": 83,
+          "start": 357.67,
+          "end": 359.49,
+          "en": "a bad user experience.",
+          "zh": "影響使用體驗。"
+        },
+        {
+          "id": 84,
+          "start": 359.49,
+          "end": 365.16,
+          "en": "Now this is also an iterative process you could say because you might want to optimize your code, optimize",
+          "zh": "你也可以說這是反覆進行的流程，因為你可能想最佳化程式碼、提升，"
+        },
+        {
+          "id": 85,
+          "start": 365.16,
+          "end": 370.68,
+          "en": "performance, something we'll have a look at the performance optimization module and then you want to",
+          "zh": "效能，我們會在效能最佳化單元中探討，接著你會想，"
+        },
+        {
+          "id": 86,
+          "start": 370.71,
+          "end": 377.13,
+          "en": "test it again in production, so build your code for production, test it locally on a server and so on",
+          "zh": "再次測試正式環境版本，也就是建置正式環境程式碼，在本機伺服器上測試等等，"
+        },
+        {
+          "id": 87,
+          "start": 377.13,
+          "end": 381.67,
+          "en": "and once you're fully happy with the result, you deploy the output,",
+          "zh": "等你對結果完全滿意，就部署輸出檔案，"
+        },
+        {
+          "id": 88,
+          "start": 381.69,
+          "end": 386.48,
+          "en": "so the built and optimized code, you now take that and put it onto a server.",
+          "zh": "也就是把建置並最佳化的程式碼放到伺服器上。"
+        },
+        {
+          "id": 89,
+          "start": 386.64,
+          "end": 392.97,
+          "en": "Now important, this here all applies to the scenario where we have client side Javascript code,",
+          "zh": "重要的是，這裡的所有內容都適用於有用戶端 JavaScript 程式碼的情境，"
+        },
+        {
+          "id": 90,
+          "start": 393.03,
+          "end": 398.34000000000003,
+          "en": "so code that runs in the browser. For our server side, our Node.js code,",
+          "zh": "也就是在瀏覽器中執行的程式碼。至於伺服器端，也就是 Node.js 程式碼，"
+        },
+        {
+          "id": 91,
+          "start": 398.52,
+          "end": 403.89,
+          "en": "you could actually say that the optimization and build for production part is not that important because",
+          "zh": "其實可以說，最佳化與建置正式環境版本的部分，沒那麼重要，因為，"
+        },
+        {
+          "id": 92,
+          "start": 403.89,
+          "end": 410.01,
+          "en": "since you ship it on your server and users never will download this code, it doesn't need to be as small",
+          "zh": "程式碼放在你的伺服器上，使用者從來不會下載它，所以它不需要盡可能，"
+        },
+        {
+          "id": 93,
+          "start": 410.01,
+          "end": 411.06,
+          "en": "as possible,",
+          "zh": "小，"
+        },
+        {
+          "id": 94,
+          "start": 411.09000000000003,
+          "end": 416.51,
+          "en": "it can be bigger, it doesn't have to be optimized because it's just running on your server which is super",
+          "zh": "它可以大一點，不一定要最佳化，因為它只會在你的伺服器上執行，而伺服器通常非常，"
+        },
+        {
+          "id": 95,
+          "start": 416.51,
+          "end": 421.3,
+          "en": "fast typically and you save the time where the code would need to be downloaded.",
+          "zh": "快，也省去了下載程式碼所需的時間。"
+        },
+        {
+          "id": 96,
+          "start": 421.32,
+          "end": 427.56,
+          "en": "So this all applies to the code which runs on a client, not all of that, specifically not the optimization",
+          "zh": "所以這些步驟適用於在用戶端執行的程式碼，並非全部，特別是最佳化，"
+        },
+        {
+          "id": 97,
+          "start": 427.56,
+          "end": 433.1,
+          "en": "and build for production part applies to server side code, at least not to the same extent.",
+          "zh": "與建置正式環境版本的部分，都適用於伺服器端程式碼，至少重要程度不一樣。"
+        },
+        {
+          "id": 98,
+          "start": 433.11,
+          "end": 439.17,
+          "en": "So now with that, let's have a look at that process in practice by having a look at both deployment scenarios -",
+          "zh": "了解這些後，我們透過兩種部署情境，來看看實際流程，"
+        },
+        {
+          "id": 99,
+          "start": 439.92,
+          "end": 441.32,
+          "en": "deploying a static app,",
+          "zh": "包括部署靜態應用程式，"
+        },
+        {
+          "id": 100,
+          "start": 441.33,
+          "end": 447.09,
+          "en": "so this left case and deploying app with server side code, this right scenario here.",
+          "zh": "也就是左邊的情況，以及部署含伺服器端程式碼的應用程式，也就是右邊的情境。"
+        }
+      ]
+    },
+    {
+      "id": "16477356",
+      "title": "Example: Static Host Deployment (no Server-side Code)",
+      "lectureOrder": 510,
+      "videoOrder": 445,
+      "sourceHash": "40711d993203c0677648fee70f3d96948fe68166d411f06bbb052fe4cd507da5",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.28,
+          "end": 8.88,
+          "en": "So let's dive into this deployment process, starting with a web application, a web site which has no server",
+          "zh": "我們來深入看看部署流程，先從網頁應用程式開始，也就是沒有伺服器"
+        },
+        {
+          "id": 2,
+          "start": 8.88,
+          "end": 15.36,
+          "en": "side code which is only powered by HTML, Javascript and CSS and which therefore needs a static host.",
+          "zh": "端程式碼、只使用 HTML、JavaScript 和 CSS，因此需要靜態託管服務的網站。"
+        },
+        {
+          "id": 3,
+          "start": 15.36,
+          "end": 21.03,
+          "en": "Now we clearly wrote our code, we tested it throughout this course and if you're working on your own",
+          "zh": "我們已經寫好了程式碼，也在課程中持續測試。如果你正在開發自己的"
+        },
+        {
+          "id": 4,
+          "start": 21.03,
+          "end": 23.91,
+          "en": "application, you of course also at some point tested it,",
+          "zh": "應用程式，當然也會在某個階段測試它，"
+        },
+        {
+          "id": 5,
+          "start": 23.91,
+          "end": 26.75,
+          "en": "now we need to optimize it and build it for production and",
+          "zh": "現在需要把它最佳化，並建置正式環境版本，"
+        },
+        {
+          "id": 6,
+          "start": 26.75,
+          "end": 29.4,
+          "en": "then we can deploy the output.",
+          "zh": "接著就能部署輸出的檔案。"
+        },
+        {
+          "id": 7,
+          "start": 29.4,
+          "end": 34.72,
+          "en": "Here's this practice app we worked on and we wrote the code, we tested that,",
+          "zh": "這裡是我們先前開發的練習應用程式，我們寫好了程式碼，也做過測試，"
+        },
+        {
+          "id": 8,
+          "start": 34.8,
+          "end": 40.59,
+          "en": "now regarding the optimization and producing the deployment output and so on, for that we've got webpack,",
+          "zh": "至於最佳化、產生部署輸出檔案等等，我們有 webpack 可以處理，"
+        },
+        {
+          "id": 9,
+          "start": 40.62,
+          "end": 46.62,
+          "en": "we got our webpack configuration, both a production configuration and a development configuration for",
+          "zh": "我們有 webpack 設定，包括正式環境設定和開發環境設定，"
+        },
+        {
+          "id": 10,
+          "start": 46.62,
+          "end": 52.89,
+          "en": "testing this, for bundling this and for production, for also optimizing this which webpack will do automatically",
+          "zh": "用來測試、打包，以及在正式環境中進行最佳化。如果模式設為 production，webpack 就會自動"
+        },
+        {
+          "id": 11,
+          "start": 52.89,
+          "end": 55.05,
+          "en": "if the mode is production.",
+          "zh": "進行最佳化。"
+        },
+        {
+          "id": 12,
+          "start": 55.05,
+          "end": 60.54,
+          "en": "So here in package.json, we got this build prod script and now we can simply run this,",
+          "zh": "在 package.json 中，我們有這個 build:prod 指令稿，現在直接執行即可，"
+        },
+        {
+          "id": 13,
+          "start": 60.56,
+          "end": 63.31,
+          "en": "we can run npm run build: prod",
+          "zh": "我們可以執行 npm run build:prod，"
+        },
+        {
+          "id": 14,
+          "start": 63.39,
+          "end": 71.01,
+          "en": "and what this will give us is an output which we can ship to a web server to then host it there, to a static",
+          "zh": "這會產生能交給網頁伺服器託管的輸出檔案，更精確地說，是交給靜態"
+        },
+        {
+          "id": 15,
+          "start": 71.07,
+          "end": 72.53999999999999,
+          "en": "web server to be precise.",
+          "zh": "網頁伺服器。"
+        },
+        {
+          "id": 16,
+          "start": 73.28999999999999,
+          "end": 79.83,
+          "en": "So here, we got our dist folder and in the end we just need to take that entire dist folder content and",
+          "zh": "所以這裡有 dist 資料夾，最後只需要取出整個 dist 資料夾的內容，"
+        },
+        {
+          "id": 17,
+          "start": 79.83,
+          "end": 80.81,
+          "en": "deploy that.",
+          "zh": "並部署它。"
+        },
+        {
+          "id": 18,
+          "start": 80.85,
+          "end": 86.37,
+          "en": "Now the only adjustment we specifically need to do here is our output, our Javascript files of course",
+          "zh": "這裡唯一需要特別調整的是輸出檔案，JavaScript 檔案當然"
+        },
+        {
+          "id": 19,
+          "start": 86.37,
+          "end": 90.75,
+          "en": "have this random hash in there and we should respect this in our imports.",
+          "zh": "有這個隨機雜湊值，所以在匯入時應該配合它。"
+        },
+        {
+          "id": 20,
+          "start": 90.75,
+          "end": 97.89,
+          "en": "So on these Javascript files in the end, you can copy that file name and take the my-place file and replace",
+          "zh": "你可以複製這些 JavaScript 檔案的名稱，取用 my-place 檔案的名稱，並替換"
+        },
+        {
+          "id": 21,
+          "start": 97.89,
+          "end": 106.14,
+          "en": "this import here in assets index.html with this name here and do the same for share place.",
+          "zh": "assets 中 index.html 的這個匯入名稱，再對 share-place 做同樣的處理。"
+        },
+        {
+          "id": 22,
+          "start": 106.14,
+          "end": 112.32,
+          "en": "Now you can also set up more elaborate build workflows, where the HTML file is automatically adjusted",
+          "zh": "你也可以設定更完善的建置流程，讓 HTML 檔案自動調整，"
+        },
+        {
+          "id": 23,
+          "start": 112.74000000000001,
+          "end": 117.81,
+          "en": "but this requires advanced webpack knowledge and so on and therefore we'll take this manual approach",
+          "zh": "但這需要進階的 webpack 知識等等，所以這裡我們採用手動方式，"
+        },
+        {
+          "id": 24,
+          "start": 117.81,
+          "end": 118.94,
+          "en": "here.",
+          "zh": "來處理。"
+        },
+        {
+          "id": 25,
+          "start": 119.00999999999999,
+          "end": 126.75,
+          "en": "Now once you did that, once you prepared these script imports in the two HTML files and you have your",
+          "zh": "完成之後，準備好這兩個 HTML 檔案中的指令碼匯入設定，以及這裡的"
+        },
+        {
+          "id": 26,
+          "start": 127.26,
+          "end": 134.19,
+          "en": "optimized script outputs here, you're ready to go and you're ready to upload it to a web server. We can",
+          "zh": "最佳化指令碼輸出檔案，就可以上傳到網頁伺服器了。我們可以，"
+        },
+        {
+          "id": 27,
+          "start": 134.19,
+          "end": 139.82999999999998,
+          "en": "ignore this warning here by the way, it basically warns us that our my-place output is pretty big,",
+          "zh": "順帶一提，忽略這裡的警告，它基本上是在提醒我們 my-place 輸出檔案很大，"
+        },
+        {
+          "id": 28,
+          "start": 139.86,
+          "end": 144.87,
+          "en": "well that's the case because I'm importing the sanitize-HTML library there which is rather big,",
+          "zh": "這是因為我在裡面匯入了 sanitize-html 函式庫，它的體積相當大，"
+        },
+        {
+          "id": 29,
+          "start": 144.87,
+          "end": 149.7,
+          "en": "another reason for why you should do this on the server side and not on the client side by the way",
+          "zh": "順帶一提，這也是應該在伺服器端，而不是用戶端處理這件事的另一個原因，"
+        },
+        {
+          "id": 30,
+          "start": 149.91,
+          "end": 154.56,
+          "en": "but we have it here for a good reason because in this app, we have no server side code, so we have to",
+          "zh": "但這裡使用它有充分的理由，因為這個應用程式沒有伺服器端程式碼，所以我們必須"
+        },
+        {
+          "id": 31,
+          "start": 154.56,
+          "end": 156.92000000000002,
+          "en": "live with that.",
+          "zh": "接受這個情況。"
+        },
+        {
+          "id": 32,
+          "start": 156.96,
+          "end": 161.92000000000002,
+          "en": "Now once we adjusted everything, we built everything, we're ready to ship this onto a static host.",
+          "zh": "調整並建置好所有內容後，我們就可以把它交給靜態託管服務。"
+        },
+        {
+          "id": 33,
+          "start": 161.91,
+          "end": 167.91,
+          "en": "Now as I mentioned you could set up your own computer, connect it to the Internet, allow incoming requests",
+          "zh": "如我所說，你可以自行架設電腦，連線到網際網路，也允許傳入的請求，"
+        },
+        {
+          "id": 34,
+          "start": 167.91,
+          "end": 170.39,
+          "en": "as well and configure everything on your own,",
+          "zh": "並自行設定一切，"
+        },
+        {
+          "id": 35,
+          "start": 170.4,
+          "end": 172.78,
+          "en": "well this however is not easy to do.",
+          "zh": "但這並不容易。"
+        },
+        {
+          "id": 36,
+          "start": 172.8,
+          "end": 178.41,
+          "en": "It's easy to do in a wrong and an insecure way so that your server could easily get compromised and even",
+          "zh": "很容易用錯誤且不安全的方式設定，讓你的伺服器容易遭到入侵，而且即使"
+        },
+        {
+          "id": 37,
+          "start": 178.41,
+          "end": 184.23,
+          "en": "in that way, it still requires some network knowledge to set up such a computer and connect it to the Internet,",
+          "zh": "只是這樣做，設定電腦並連上網際網路仍然需要一些網路知識，"
+        },
+        {
+          "id": 38,
+          "start": 184.23,
+          "end": 189.12,
+          "en": "therefore what you would typically do is you would go for paid hosting.",
+          "zh": "因此通常你會選擇付費的託管服務。"
+        },
+        {
+          "id": 39,
+          "start": 189.21,
+          "end": 194.26,
+          "en": "You can search for a static web hosting for example and you'll find a couple of services, both in the",
+          "zh": "例如，你可以搜尋靜態網站託管，會找到一些服務，無論是"
+        },
+        {
+          "id": 40,
+          "start": 194.27,
+          "end": 200.28,
+          "en": "advertisements as well as in the real search results which help you host a static web site, for example",
+          "zh": "廣告或真正的搜尋結果，都有能協助你託管靜態網站的服務，例如"
+        },
+        {
+          "id": 41,
+          "start": 200.34,
+          "end": 205.71,
+          "en": "AWS, the Amazon Web Services have a service that makes that easy, the S3 service.",
+          "zh": "AWS，也就是 Amazon Web Services，就有能讓這件事變簡單的 S3 服務。"
+        },
+        {
+          "id": 42,
+          "start": 205.89,
+          "end": 207.3,
+          "en": "There are other services as well",
+          "zh": "也還有其他服務，"
+        },
+        {
+          "id": 43,
+          "start": 207.3,
+          "end": 213.21,
+          "en": "and one service I like because it's really easy to get started with is Firebase hosting. Firebase is",
+          "zh": "其中一個我喜歡的服務是 Firebase Hosting，因為很容易開始使用。Firebase 是"
+        },
+        {
+          "id": 44,
+          "start": 213.21,
+          "end": 215.79,
+          "en": "a Google service which offers more than just the hosting",
+          "zh": "Google 的服務，除了託管以外，也提供其他功能，"
+        },
+        {
+          "id": 45,
+          "start": 216.06,
+          "end": 221.79,
+          "en": "but here we just need the hosting so we can use that. You can click on that Firebase hosting search result",
+          "zh": "但這裡我們只需要託管功能，所以可以使用它。你可以點擊這裡的 Firebase Hosting 搜尋結果，"
+        },
+        {
+          "id": 46,
+          "start": 221.79,
+          "end": 227.12,
+          "en": "here and it takes you to the Firebase documentation where you can learn more about Firebase, Firebase",
+          "zh": "它會帶你前往 Firebase 文件，在那裡可以進一步了解 Firebase、Firebase"
+        },
+        {
+          "id": 47,
+          "start": 227.16,
+          "end": 228.66,
+          "en": "hosting and how to use it",
+          "zh": "Hosting，以及如何使用它，"
+        },
+        {
+          "id": 48,
+          "start": 228.72,
+          "end": 233.97,
+          "en": "and of course here you can also learn more about the other Firebase services in case you should be interested.",
+          "zh": "當然，如果你有興趣，也可以在這裡進一步了解其他 Firebase 服務。"
+        },
+        {
+          "id": 49,
+          "start": 233.97,
+          "end": 238.31,
+          "en": "Now one important word about pricing, Firebase is free to get started with",
+          "zh": "現在有一個關於價格的重要提醒，Firebase 可以免費開始使用，"
+        },
+        {
+          "id": 50,
+          "start": 238.32,
+          "end": 245.2,
+          "en": "but it does have paid parts or paid services or certain usage limits after which it is no longer free",
+          "zh": "但有些部分或服務需要付費，也有使用量限制，超過後就不再免費，"
+        },
+        {
+          "id": 51,
+          "start": 245.31,
+          "end": 249.29,
+          "en": "and you can check the Firebase pricing pages to learn more about the pricing,",
+          "zh": "你可以查看 Firebase 的價格頁面，進一步了解價格，"
+        },
+        {
+          "id": 52,
+          "start": 249.39,
+          "end": 254.04,
+          "en": "you can get started for free without a credit card though and it will basically tell you when you need",
+          "zh": "不過你可以不用信用卡就免費開始使用，它基本上會告訴你何時需要"
+        },
+        {
+          "id": 53,
+          "start": 254.04,
+          "end": 254.81,
+          "en": "to upgrade",
+          "zh": "升級，"
+        },
+        {
+          "id": 54,
+          "start": 254.91,
+          "end": 258.99,
+          "en": "but be aware that not everything is free there, of course you will have to pay for the more advanced",
+          "zh": "但請記得，不是所有東西都免費，更進階的"
+        },
+        {
+          "id": 55,
+          "start": 259.29,
+          "end": 263.25,
+          "en": "services or more heavy usage but getting started is free.",
+          "zh": "服務或更大的使用量當然需要付費，不過開始使用是免費的。"
+        },
+        {
+          "id": 56,
+          "start": 263.25,
+          "end": 268.53,
+          "en": "Now here, what we can do is we can simply click on get started here and we'll learn how we can get started",
+          "zh": "現在我們可以直接點擊這裡的 Get started，了解如何開始使用"
+        },
+        {
+          "id": 57,
+          "start": 268.53,
+          "end": 275.15999999999997,
+          "en": "with Firebase hosting and it all starts with installing the Firebase CLI for which you can click on",
+          "zh": "Firebase Hosting。首先要安裝 Firebase CLI，你可以點擊"
+        },
+        {
+          "id": 58,
+          "start": 275.15999999999997,
+          "end": 281.67,
+          "en": "this link here to be taken to a page where the installation is explained and you can simply download an installer",
+          "zh": "這個連結，前往說明安裝方式的頁面，也可以直接下載安裝程式，"
+        },
+        {
+          "id": 59,
+          "start": 281.7,
+          "end": 288.03,
+          "en": "here, an alternative to downloading an installer here is that you simply use npm for the installation",
+          "zh": "另一種方式是不用下載安裝程式，直接用 npm 安裝，"
+        },
+        {
+          "id": 60,
+          "start": 288.24,
+          "end": 291.78,
+          "en": "and you run this command here on your machine anywhere.",
+          "zh": "在你的電腦上任何地方執行這個指令。"
+        },
+        {
+          "id": 61,
+          "start": 291.78,
+          "end": 297.15,
+          "en": "So here I'll run it in this built-in terminal but that really doesn't matter. On Linux and Mac, you might",
+          "zh": "我在這裡會用內建終端機執行，但在哪裡執行其實沒有差別。在 Linux 和 Mac 上，你可能"
+        },
+        {
+          "id": 62,
+          "start": 297.15,
+          "end": 300.83,
+          "en": "need to add sudo in front of this command to get the right permissions, on Windows",
+          "zh": "需要在指令前加上 sudo，取得適當權限，而在 Windows 上，"
+        },
+        {
+          "id": 63,
+          "start": 300.9,
+          "end": 302.4,
+          "en": "this is not required.",
+          "zh": "不需要這樣做。"
+        },
+        {
+          "id": 64,
+          "start": 302.4,
+          "end": 307.5,
+          "en": "So after you hit enter, you might be prompted for a password and thereafter this Firebase package",
+          "zh": "按下 Enter 後，可能會要求輸入密碼，接著這個 Firebase 套件，"
+        },
+        {
+          "id": 65,
+          "start": 307.5,
+          "end": 313.55,
+          "en": "will be installed globally on your system and we'll need that package to then deploy our application.",
+          "zh": "就會全域安裝到你的系統上，之後部署應用程式時會需要它。"
+        },
+        {
+          "id": 66,
+          "start": 313.59,
+          "end": 322.52,
+          "en": "So let's wait for this to finish and once this is finished, we can run Firebase init here in our project",
+          "zh": "先等安裝完成，完成後就可以在專案"
+        },
+        {
+          "id": 67,
+          "start": 322.52,
+          "end": 323.02,
+          "en": "folder,",
+          "zh": "資料夾裡執行 firebase init，"
+        },
+        {
+          "id": 68,
+          "start": 323.03,
+          "end": 328.3,
+          "en": "so make sure you navigate into your project folder or you use the built-in terminal in the Visual Studio",
+          "zh": "所以請確認你切換到專案資料夾，或使用 Visual Studio"
+        },
+        {
+          "id": 69,
+          "start": 328.31,
+          "end": 335.57,
+          "en": "Code which is automatically navigated into the project folder. Once you run init here, you might be prompted",
+          "zh": "Code 的內建終端機，它會自動位於專案資料夾。在這裡執行 init 後，可能會要求你"
+        },
+        {
+          "id": 70,
+          "start": 335.6,
+          "end": 342.09000000000003,
+          "en": "to log in first, so simply go back to Firebase and create an account there,",
+          "zh": "先登入，所以直接回到 Firebase，在那裡建立帳號，"
+        },
+        {
+          "id": 71,
+          "start": 342.09000000000003,
+          "end": 346.99,
+          "en": "you don't need to pay anything, it's free, just create an account or log in with your Google account",
+          "zh": "你不需要付任何費用，這是免費的，只要建立帳號，或用 Google 帳號登入，"
+        },
+        {
+          "id": 72,
+          "start": 347.25,
+          "end": 352.75,
+          "en": "and once you do have an account, log in here in the console by entering your email address and thereafter",
+          "zh": "有了帳號後，就在主控台登入，輸入電子郵件地址，接著在要求時，"
+        },
+        {
+          "id": 73,
+          "start": 352.86,
+          "end": 355.65999999999997,
+          "en": "your password when you're being prompted for it.",
+          "zh": "輸入密碼。"
+        },
+        {
+          "id": 74,
+          "start": 355.86,
+          "end": 362.59,
+          "en": "Once you did log in, you should see this menu here where you can choose from a variety of Firebase",
+          "zh": "登入之後，應該會看到這個選單，讓你從各種 Firebase"
+        },
+        {
+          "id": 75,
+          "start": 362.6,
+          "end": 364.7,
+          "en": "services and we need the hosting service,",
+          "zh": "服務中選擇，我們需要的是 Hosting 服務，"
+        },
+        {
+          "id": 76,
+          "start": 364.74,
+          "end": 369.83,
+          "en": "so navigate there and press space to select it and thereafter press enter.",
+          "zh": "所以移到那裡，按空白鍵選取，再按 Enter。"
+        },
+        {
+          "id": 77,
+          "start": 369.87,
+          "end": 372.29,
+          "en": "Now you can choose your option here and here",
+          "zh": "現在可以在這裡選擇選項，而這裡，"
+        },
+        {
+          "id": 78,
+          "start": 372.3,
+          "end": 374.21,
+          "en": "I want to create a new project,",
+          "zh": "我想建立新的專案，"
+        },
+        {
+          "id": 79,
+          "start": 374.25,
+          "end": 380.49,
+          "en": "this talks about Firebase projects which are created on Firebase servers and we don't have one yet",
+          "zh": "這裡指的是建立在 Firebase 伺服器上的 Firebase 專案，我們還沒有這樣的專案，"
+        },
+        {
+          "id": 80,
+          "start": 380.49,
+          "end": 381.8,
+          "en": "and you can enter any name here,",
+          "zh": "你可以在這裡輸入任何名稱，"
+        },
+        {
+          "id": 81,
+          "start": 381.84,
+          "end": 386.46,
+          "en": "I'll name it js-static-hosting,",
+          "zh": "我把它命名為 js-static-hosting，"
+        },
+        {
+          "id": 82,
+          "start": 386.46,
+          "end": 388.72,
+          "en": "you can choose any name you want here.",
+          "zh": "你可以自行選擇想要的名稱。"
+        },
+        {
+          "id": 83,
+          "start": 388.88,
+          "end": 393.09000000000003,
+          "en": "Now this actually was the project ID, now you can choose a project name which can be the same though",
+          "zh": "剛才輸入的其實是專案 ID，現在可以選擇專案名稱，也可以使用同樣的名稱，"
+        },
+        {
+          "id": 84,
+          "start": 393.12,
+          "end": 397.09000000000003,
+          "en": "so I'll go with the default and just hit enter and not provide a different name",
+          "zh": "所以我會使用預設值，直接按 Enter，不另外提供名稱，"
+        },
+        {
+          "id": 85,
+          "start": 397.2,
+          "end": 402.57,
+          "en": "and now this will set up this Google Cloud Platform, which behind the scenes powers Firebase project",
+          "zh": "現在它會設定 Google Cloud Platform，也就是在背後支援 Firebase 專案的服務，"
+        },
+        {
+          "id": 86,
+          "start": 403.02,
+          "end": 406.7,
+          "en": "and make sure that this is all configured on Firebase servers.",
+          "zh": "並確認 Firebase 伺服器上的所有設定都完成了。"
+        },
+        {
+          "id": 87,
+          "start": 406.71,
+          "end": 413.47,
+          "en": "So let's wait for that to finish and once this finished, you're prompted to tell Firebase what your public",
+          "zh": "先等它完成，完成後會要求你告訴 Firebase，你的公開"
+        },
+        {
+          "id": 88,
+          "start": 413.47,
+          "end": 414.23,
+          "en": "directory is",
+          "zh": "目錄是哪個，"
+        },
+        {
+          "id": 89,
+          "start": 414.26,
+          "end": 419.82,
+          "en": "which in the end means which is the directory where your deployable files is seated and in my case that's not",
+          "zh": "也就是可部署檔案所在的目錄。在我的例子裡，它不是"
+        },
+        {
+          "id": 90,
+          "start": 419.82,
+          "end": 420.46,
+          "en": "the default,",
+          "zh": "預設的，"
+        },
+        {
+          "id": 91,
+          "start": 420.46,
+          "end": 421.85,
+          "en": "a folder named public",
+          "zh": "名為 public 的資料夾，"
+        },
+        {
+          "id": 92,
+          "start": 421.9,
+          "end": 423.55,
+          "en": "but instead it's this dist folder.",
+          "zh": "而是這個 dist 資料夾。"
+        },
+        {
+          "id": 93,
+          "start": 423.55,
+          "end": 429.04,
+          "en": "So we should write this here to make it clear that the dist folder is the folder we wanted deploy.",
+          "zh": "所以我們應該在這裡輸入 dist，明確表示這就是要部署的資料夾。"
+        },
+        {
+          "id": 94,
+          "start": 429.73,
+          "end": 431.17,
+          "en": "Now once you hit enter, you're asked",
+          "zh": "按下 Enter 後，它會詢問，"
+        },
+        {
+          "id": 95,
+          "start": 431.17,
+          "end": 436.44,
+          "en": "if you want to configure this as a single page app, which means that anything the user enters in the URL",
+          "zh": "是否要設定為單頁應用程式，也就是使用者在 URL 輸入任何內容，"
+        },
+        {
+          "id": 96,
+          "start": 436.44,
+          "end": 441.48,
+          "en": "is redirected to the root index.html file and here I don't want to do that,",
+          "zh": "都會重新導向根目錄的 index.html 檔案，而這裡我不想這樣做，"
+        },
+        {
+          "id": 97,
+          "start": 441.49,
+          "end": 446.88,
+          "en": "so I'll enter no here, an n because we have different folders with different HTML files,",
+          "zh": "所以我會輸入 no，也就是 n，因為我們有不同的資料夾，裡面有不同的 HTML 檔案，"
+        },
+        {
+          "id": 98,
+          "start": 446.89,
+          "end": 451.16,
+          "en": "I don't want to redirect all requests to this top level index.html file.",
+          "zh": "我不想把所有請求都重新導向到這個最上層的 index.html 檔案。"
+        },
+        {
+          "id": 99,
+          "start": 451.3,
+          "end": 457.49,
+          "en": "So enter n here and hit enter, you will also get a 404.html file now which is a default error",
+          "zh": "所以在這裡輸入 n，並按 Enter，現在也會產生一個 404.html 檔案，它是預設的錯誤"
+        },
+        {
+          "id": 100,
+          "start": 457.49,
+          "end": 462.9,
+          "en": "page which you of course can customize in case the user enters an invalid URL and when you're",
+          "zh": "頁面，使用者輸入無效 URL 時就會顯示，你當然也可以自訂它。而當你，"
+        },
+        {
+          "id": 101,
+          "start": 462.92,
+          "end": 467.09000000000003,
+          "en": "asked if you want to override this index.html, you should choose no of course because we want to",
+          "zh": "被問到是否要覆寫這個 index.html 時，當然應該選 no，因為我們想要，"
+        },
+        {
+          "id": 102,
+          "start": 467.09000000000003,
+          "end": 472.07,
+          "en": "keep the existing index.html file in there and with that, we're done.",
+          "zh": "保留原本的 index.html 檔案，這樣就完成了。"
+        },
+        {
+          "id": 103,
+          "start": 472.07,
+          "end": 479.6,
+          "en": "Now you can run Firebase deploy here and it will go ahead and deploy this project which was just configured",
+          "zh": "現在可以在這裡執行 firebase deploy，它會把剛才設定好的專案部署到，"
+        },
+        {
+          "id": 104,
+          "start": 479.87,
+          "end": 486.17,
+          "en": "to Firebase servers, which means it uploads your files in the dist folder to Firebase servers and configures",
+          "zh": "Firebase 伺服器，也就是把 dist 資料夾中的檔案上傳到 Firebase 伺服器，並完成，"
+        },
+        {
+          "id": 105,
+          "start": 486.17,
+          "end": 488.03,
+          "en": "everything you need there and",
+          "zh": "那裡所有需要的設定，而，"
+        },
+        {
+          "id": 106,
+          "start": 488.06,
+          "end": 492.51,
+          "en": "once this is done, it gives you the URL where where you can find your application.",
+          "zh": "完成後，它會提供能找到應用程式的 URL。"
+        },
+        {
+          "id": 107,
+          "start": 492.53,
+          "end": 499.65,
+          "en": "So now here if we enter a new tab, we can visit our application here, also check the console,",
+          "zh": "現在我們開啟新的分頁，就可以在這裡造訪應用程式，也檢查一下主控台，"
+        },
+        {
+          "id": 108,
+          "start": 499.65,
+          "end": 502.77,
+          "en": "the only error I'm getting there is the favicon which is not found and",
+          "zh": "我這裡唯一的錯誤是找不到 favicon，"
+        },
+        {
+          "id": 109,
+          "start": 502.77,
+          "end": 508.5,
+          "en": "that's OK and now in here if I try to get my current location, I can allow this and check whether",
+          "zh": "這沒有關係。現在如果我嘗試取得目前位置，可以允許存取，並檢查，"
+        },
+        {
+          "id": 110,
+          "start": 508.5,
+          "end": 511.53,
+          "en": "that works, whether I am being located here,",
+          "zh": "它是否正常運作，是否能在這裡定位到我，"
+        },
+        {
+          "id": 111,
+          "start": 511.53,
+          "end": 520.46,
+          "en": "yes that works. I can click share place and enter my shared place URL here to see this page.",
+          "zh": "可以，這能正常運作。我可以點擊 Share place，並在這裡輸入分享位置的 URL，查看這個頁面。"
+        },
+        {
+          "id": 112,
+          "start": 521.03,
+          "end": 522.35,
+          "en": "So this all works,",
+          "zh": "所以這一切都正常運作，"
+        },
+        {
+          "id": 113,
+          "start": 522.35,
+          "end": 524.16,
+          "en": "this is our deployed project,",
+          "zh": "這就是我們部署的專案，"
+        },
+        {
+          "id": 114,
+          "start": 524.18,
+          "end": 530.3,
+          "en": "our deployed static project I should say which only consists of HTML, Javascript and CSS files",
+          "zh": "應該說是已部署的靜態專案，它只包含 HTML、JavaScript 和 CSS 檔案，"
+        },
+        {
+          "id": 115,
+          "start": 530.66,
+          "end": 535.03,
+          "en": "which we now deployed to Firebase and of course the exact deployment steps,",
+          "zh": "我們現在已經把它部署到 Firebase。當然，具體的部署步驟，"
+        },
+        {
+          "id": 116,
+          "start": 535.03,
+          "end": 539.99,
+          "en": "for example the command line tool which we used here will differ from host to host,",
+          "zh": "例如這裡使用的命令列工具，會因託管服務不同而有所差異，"
+        },
+        {
+          "id": 117,
+          "start": 539.99,
+          "end": 545.63,
+          "en": "the general idea regarding the fact that you deploy everything in this dist folder and so on will always",
+          "zh": "但整體概念，例如部署 dist 資料夾裡所有內容等等，總是，"
+        },
+        {
+          "id": 118,
+          "start": 545.63,
+          "end": 546.65,
+          "en": "be the same though,",
+          "zh": "一樣的，"
+        },
+        {
+          "id": 119,
+          "start": 546.71,
+          "end": 549.44,
+          "en": "so that's something which does not change.",
+          "zh": "所以這一點不會改變。"
+        },
+        {
+          "id": 120,
+          "start": 549.47,
+          "end": 555.41,
+          "en": "Also worth noting, in Firebase case you get a firebaserc and a firebase.json file which allows",
+          "zh": "另外也要注意，使用 Firebase 時，會產生 .firebaserc 和 firebase.json 檔案，讓你，"
+        },
+        {
+          "id": 121,
+          "start": 555.41,
+          "end": 560.63,
+          "en": "you to configure the exact hosting setup and you learned more about the available options there,",
+          "zh": "設定確切的託管配置。你可以進一步了解可用的選項，"
+        },
+        {
+          "id": 122,
+          "start": 560.66,
+          "end": 564.14,
+          "en": "of course in the official documentation in case you're interested.",
+          "zh": "如果有興趣，當然可以查閱官方文件。"
+        },
+        {
+          "id": 123,
+          "start": 564.29,
+          "end": 569.72,
+          "en": "So check this documentation out if you plan on using Firebase, if you plan on using a different service",
+          "zh": "所以如果打算使用 Firebase，請查看這份文件；如果打算用其他服務，"
+        },
+        {
+          "id": 124,
+          "start": 569.78,
+          "end": 570.95,
+          "en": "which of course is fine too,",
+          "zh": "當然也沒問題，"
+        },
+        {
+          "id": 125,
+          "start": 570.95,
+          "end": 572.53,
+          "en": "there are many great services,",
+          "zh": "有很多很棒的服務，"
+        },
+        {
+          "id": 126,
+          "start": 572.63,
+          "end": 578.6,
+          "en": "check out this services documentation to learn about the exact steps you need to execute to get",
+          "zh": "請查看那項服務的文件，了解需要執行哪些具體步驟，才能把，"
+        },
+        {
+          "id": 127,
+          "start": 578.6,
+          "end": 580.9,
+          "en": "your code onto this services",
+          "zh": "程式碼放到那項服務的，"
+        },
+        {
+          "id": 128,
+          "start": 580.91,
+          "end": 581.48,
+          "en": "servers.",
+          "zh": "伺服器上。"
+        }
+      ]
+    },
+    {
+      "id": "16477360",
+      "title": "Example: Dynamic Page Deployment (with Server-side Code)",
+      "lectureOrder": 512,
+      "videoOrder": 446,
+      "sourceHash": "ee3c8f136f9b1bffee56234bbac08ff3c4e8f6e3ef8564c49de2fc9f85ad72eb",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.14,
+          "end": 9.11,
+          "en": "So we deployed our static page with HTML, Javascript and CSS, what about our Node.js application",
+          "zh": "我們已經部署了包含 HTML、JavaScript 和 CSS 的靜態頁面，那我們的 Node.js 應用程式"
+        },
+        {
+          "id": 2,
+          "start": 9.11,
+          "end": 9.5,
+          "en": "now?",
+          "zh": "現在該怎麼辦呢？"
+        },
+        {
+          "id": 3,
+          "start": 9.52,
+          "end": 13.99,
+          "en": "Here we have code that needs to execute on the server, not in the client,",
+          "zh": "這裡的程式碼需要在伺服器上執行，而不是在用戶端執行，"
+        },
+        {
+          "id": 4,
+          "start": 13.99,
+          "end": 16.76,
+          "en": "therefore this is not a static application,",
+          "zh": "因此這不是靜態應用程式，"
+        },
+        {
+          "id": 5,
+          "start": 16.79,
+          "end": 22.87,
+          "en": "it's a dynamic application because we have code that needs to execute directly on the server and by",
+          "zh": "它是動態應用程式，因為有程式碼需要直接在伺服器上執行。順帶"
+        },
+        {
+          "id": 6,
+          "start": 22.87,
+          "end": 28.12,
+          "en": "the way, it does not matter if you have an application which produces HTML files and returns those",
+          "zh": "一提，不管你的應用程式會產生 HTML 檔案並回傳它們，"
+        },
+        {
+          "id": 7,
+          "start": 28.51,
+          "end": 31.75,
+          "en": "as we set it up at the beginning of the Node.js module",
+          "zh": "就像我們在 Node.js 單元一開始設定的那樣，"
+        },
+        {
+          "id": 8,
+          "start": 31.75,
+          "end": 37.42,
+          "en": "or if you have an application which just has a couple of routes and exchanges JSON data, that does not",
+          "zh": "還是你的應用程式只有幾個路由，用來交換 JSON 資料，這都沒有"
+        },
+        {
+          "id": 9,
+          "start": 37.42,
+          "end": 38.15,
+          "en": "matter,",
+          "zh": "差別，"
+        },
+        {
+          "id": 10,
+          "start": 38.2,
+          "end": 41.1,
+          "en": "you need to execute Node.js code on the server,",
+          "zh": "你需要在伺服器上執行 Node.js 程式碼，"
+        },
+        {
+          "id": 11,
+          "start": 41.1,
+          "end": 43.03,
+          "en": "That is what matters.",
+          "zh": "這才是重點。"
+        },
+        {
+          "id": 12,
+          "start": 43.03,
+          "end": 47.53,
+          "en": "So now we need a host that supports this and Firebase is not such a host.",
+          "zh": "所以現在我們需要支援這種功能的託管服務，而 Firebase 並不是這樣的服務。"
+        },
+        {
+          "id": 13,
+          "start": 47.53,
+          "end": 53.83,
+          "en": "Well they do have some cloud function service which actually allows you to execute code on the server",
+          "zh": "它們確實有雲端函式服務，讓你能在伺服器上執行程式碼，"
+        },
+        {
+          "id": 14,
+          "start": 54.34,
+          "end": 55.9,
+          "en": "but it's a little bit different,",
+          "zh": "但那稍微不一樣，"
+        },
+        {
+          "id": 15,
+          "start": 55.9,
+          "end": 61.54,
+          "en": "it's not really meant for this kind of deployment, even though technically there are ways of making it",
+          "zh": "它並不是專門用來做這類部署的，雖然技術上有方法能讓它"
+        },
+        {
+          "id": 16,
+          "start": 61.54,
+          "end": 62.21,
+          "en": "work.",
+          "zh": "運作。"
+        },
+        {
+          "id": 17,
+          "start": 62.26,
+          "end": 64.7,
+          "en": "However it's not what we will use here,",
+          "zh": "不過，這裡我們不會使用它，"
+        },
+        {
+          "id": 18,
+          "start": 64.81,
+          "end": 70.5,
+          "en": "instead if you for example Google for Node.js hosting, then you will find a couple of advertisements",
+          "zh": "如果你用 Google 搜尋 Node.js hosting，就會找到一些廣告，"
+        },
+        {
+          "id": 19,
+          "start": 70.51,
+          "end": 75.39,
+          "en": "and of course also real results that guide you towards Node.js hosting services",
+          "zh": "當然也會找到真正的搜尋結果，帶你找到 Node.js 託管服務，"
+        },
+        {
+          "id": 20,
+          "start": 75.43,
+          "end": 80.47,
+          "en": "and of course you can perform a similar research for other languages like PHP as well.",
+          "zh": "而其他語言，例如 PHP，當然也可以用類似的方式查詢。"
+        },
+        {
+          "id": 21,
+          "start": 80.47,
+          "end": 86.03,
+          "en": "Now one popular service for hosting Node.js applications is actually Heroku.",
+          "zh": "託管 Node.js 應用程式的一個熱門服務就是 Heroku。"
+        },
+        {
+          "id": 22,
+          "start": 86.32,
+          "end": 88.42,
+          "en": "It's of course again not the only one,",
+          "zh": "當然，它也不是唯一的選擇，"
+        },
+        {
+          "id": 23,
+          "start": 88.47,
+          "end": 94.93,
+          "en": "AWS also has services for example but Heroku allows you to get started for free without a credit",
+          "zh": "例如 AWS 也有相關服務，但 Heroku 讓你不用信用"
+        },
+        {
+          "id": 24,
+          "start": 94.93,
+          "end": 95.22,
+          "en": "card",
+          "zh": "卡就能免費開始使用，"
+        },
+        {
+          "id": 25,
+          "start": 95.22999999999999,
+          "end": 98.53999999999999,
+          "en": "just like Firebase and that of course is very convenient.",
+          "zh": "就像 Firebase 一樣，這當然非常方便。"
+        },
+        {
+          "id": 26,
+          "start": 98.53999999999999,
+          "end": 99.88,
+          "en": "Now just as Firebase,",
+          "zh": "和 Firebase 一樣，"
+        },
+        {
+          "id": 27,
+          "start": 99.91,
+          "end": 105.47,
+          "en": "it also does have paid services and you should check the pricing pages there to learn more about that",
+          "zh": "它也有付費服務，你應該查看價格頁面，進一步了解，"
+        },
+        {
+          "id": 28,
+          "start": 105.58,
+          "end": 111.25,
+          "en": "but what I'm about to show you and these basic hosting demos, they all can be implemented for free there.",
+          "zh": "但我接下來要展示的內容，以及這些基本的託管示範，都可以在那裡免費完成。"
+        },
+        {
+          "id": 29,
+          "start": 111.97,
+          "end": 118.21000000000001,
+          "en": "So we can simply visit the Heroku page there and it all starts with signing up, which you should do to",
+          "zh": "我們可以直接造訪 Heroku 的網站，第一步就是註冊，你應該先做這件事，"
+        },
+        {
+          "id": 30,
+          "start": 118.21000000000001,
+          "end": 123.92,
+          "en": "create a new Heroku account which you will need to then get started hosting your application there.",
+          "zh": "建立新的 Heroku 帳號，之後才能開始在那裡託管應用程式。"
+        },
+        {
+          "id": 31,
+          "start": 123.94,
+          "end": 126.1,
+          "en": "As I mentioned, you can get started for free,",
+          "zh": "如我所說，你可以免費開始使用，"
+        },
+        {
+          "id": 32,
+          "start": 126.13,
+          "end": 132.25,
+          "en": "you should check the pricing page to learn what cost you money though and up to which point it is free",
+          "zh": "不過應該查看價格頁面，了解哪些項目要付費、免費使用到什麼程度，"
+        },
+        {
+          "id": 33,
+          "start": 132.25,
+          "end": 134.32,
+          "en": "and which limitations you have in a free account.",
+          "zh": "以及免費帳號有哪些限制。"
+        },
+        {
+          "id": 34,
+          "start": 135.66,
+          "end": 140.52,
+          "en": "So here I did login now and if you signed up, you should see the same screen in the end and we can click",
+          "zh": "我現在已經登入了，如果你註冊完成，最後應該也會看到同樣的畫面。我們可以點擊"
+        },
+        {
+          "id": 35,
+          "start": 140.52,
+          "end": 146.04,
+          "en": "on create new app here and again, every hosting service of course differs regarding the exact steps you",
+          "zh": "這裡的 Create new app。當然，各託管服務需要執行的具體步驟，"
+        },
+        {
+          "id": 36,
+          "start": 146.04,
+          "end": 151.11,
+          "en": "need to perform but the documentation of the hosting service you chose will be the place to go to learn",
+          "zh": "都不一樣，但你選擇的託管服務文件，就是你應該查閱的地方，"
+        },
+        {
+          "id": 37,
+          "start": 151.11,
+          "end": 154.52,
+          "en": "how to get your application to run on that service then.",
+          "zh": "用來了解如何讓應用程式在那項服務上執行。"
+        },
+        {
+          "id": 38,
+          "start": 154.86,
+          "end": 161.49,
+          "en": "Here I'll again name this jsnodejs-deployment, any name you want, choose a region where it will be",
+          "zh": "這裡我同樣把它命名為 jsnodejs-deployment，名稱可以自行決定，再選擇要"
+        },
+        {
+          "id": 39,
+          "start": 161.49,
+          "end": 161.97,
+          "en": "deployed,",
+          "zh": "部署的地區，"
+        },
+        {
+          "id": 40,
+          "start": 161.97,
+          "end": 164.75,
+          "en": "I'll go for United States, create app,",
+          "zh": "我會選 United States，然後按 Create app，"
+        },
+        {
+          "id": 41,
+          "start": 164.76,
+          "end": 166.67000000000002,
+          "en": "you don't need to do anything with that pipeline.",
+          "zh": "pipeline 不需要做任何設定。"
+        },
+        {
+          "id": 42,
+          "start": 167.75,
+          "end": 172.25,
+          "en": "Now you've got a couple of options here regarding how you want to deploy, you should go for Heroku",
+          "zh": "現在這裡有幾種部署方式可供選擇，你應該選擇 Heroku"
+        },
+        {
+          "id": 43,
+          "start": 172.34,
+          "end": 176.25,
+          "en": "Git here for which you need to have Git installed.",
+          "zh": "Git，而這需要先安裝 Git。"
+        },
+        {
+          "id": 44,
+          "start": 176.25,
+          "end": 183.47,
+          "en": "If you google for Git, you'll find that gitscm.com page, Git is a version control tool which allows",
+          "zh": "如果用 Google 搜尋 Git，就會找到 gitscm.com 這個網站。Git 是版本控制工具，讓你"
+        },
+        {
+          "id": 45,
+          "start": 183.47,
+          "end": 189.17,
+          "en": "you to create multiple snapshots of your code whilst you are developing, it also can help you push",
+          "zh": "在開發時建立程式碼的多個快照，也能協助你把"
+        },
+        {
+          "id": 46,
+          "start": 189.17,
+          "end": 195.95,
+          "en": "your code to remote repositories where you can store it or in the case of Heroku to Heroku's servers",
+          "zh": "程式碼推送到遠端儲存庫保存，或像 Heroku 這樣，推送到 Heroku 的伺服器，"
+        },
+        {
+          "id": 47,
+          "start": 196.34,
+          "end": 201.15,
+          "en": "and you can simply download Git from this Git page. Simply choose download here,",
+          "zh": "你可以直接從 Git 的網站下載 Git。只要在這裡選 Download，"
+        },
+        {
+          "id": 48,
+          "start": 201.17000000000002,
+          "end": 206.48,
+          "en": "it should automatically select your operating system, otherwise you can select it from down there and",
+          "zh": "它應該會自動選擇你的作業系統，否則你也可以從下方選擇，然後"
+        },
+        {
+          "id": 49,
+          "start": 206.48,
+          "end": 211.91,
+          "en": "walk through the installer that gives you, this will install Git on your system. Attached you also find a link",
+          "zh": "依照安裝程式的步驟操作，就會把 Git 安裝到你的系統上。附件中也有連結，"
+        },
+        {
+          "id": 50,
+          "start": 212.18,
+          "end": 216.77,
+          "en": "where you can learn more about Git and get started with it, though here we won't need to do too much",
+          "zh": "讓你進一步了解 Git 並開始使用它，但這裡我們不需要對它做太多"
+        },
+        {
+          "id": 51,
+          "start": 216.77,
+          "end": 217.45,
+          "en": "with it.",
+          "zh": "操作。"
+        },
+        {
+          "id": 52,
+          "start": 217.57999999999998,
+          "end": 223.28,
+          "en": "Instead let's go back to Heroku's page here and make sure you also download the Heroku CLI or",
+          "zh": "我們先回到 Heroku 的頁面，確認你也下載了 Heroku CLI，或是"
+        },
+        {
+          "id": 53,
+          "start": 223.28,
+          "end": 225.5,
+          "en": "you install the Heroku CLI.",
+          "zh": "安裝了 Heroku CLI。"
+        },
+        {
+          "id": 54,
+          "start": 226,
+          "end": 231.23,
+          "en": "Now for that, if you scroll down to download and install, there are various ways of installing it and you can",
+          "zh": "要做到這點，往下捲到下載與安裝的部分，這裡有多種安裝方法，你可以"
+        },
+        {
+          "id": 55,
+          "start": 231.23,
+          "end": 237.11,
+          "en": "follow the instructions given here using the Windows installer or using this command here on Mac for example",
+          "zh": "依照這裡的說明，使用 Windows 安裝程式，或例如在 Mac 上使用這個指令，"
+        },
+        {
+          "id": 56,
+          "start": 237.17000000000002,
+          "end": 241.46,
+          "en": "or using the Mac installer if you can't use that command here and so on.",
+          "zh": "如果不能使用這個指令，也可以用 Mac 安裝程式等等。"
+        },
+        {
+          "id": 57,
+          "start": 241.46,
+          "end": 246.68,
+          "en": "You can also use other installation methods here as you see, so in the end you should be able to get this",
+          "zh": "如你所見，也可以使用這裡其他的安裝方法，所以最後你應該能把這個"
+        },
+        {
+          "id": 58,
+          "start": 246.68,
+          "end": 253.88,
+          "en": "Heroku CLI onto your system. Now once you got the Heroku CLI installed, you can run Heroku login,",
+          "zh": "Heroku CLI 安裝到系統上。安裝完成後，就可以執行 heroku login，"
+        },
+        {
+          "id": 59,
+          "start": 253.91,
+          "end": 259.85,
+          "en": "so here I'll copy that in my project folder and now you need to enter or confirm if you already were",
+          "zh": "我在這裡把它複製到專案資料夾中。現在你需要輸入電子郵件，或如果之前已經"
+        },
+        {
+          "id": 60,
+          "start": 259.85,
+          "end": 264.97,
+          "en": "logged in, your email and then enter your password.",
+          "zh": "登入，就確認電子郵件，接著輸入密碼。"
+        },
+        {
+          "id": 61,
+          "start": 265.13,
+          "end": 268.73,
+          "en": "Now once you are logged in, you can continue with these steps here,",
+          "zh": "登入後，就可以繼續執行這裡的步驟，"
+        },
+        {
+          "id": 62,
+          "start": 268.76,
+          "end": 274.93,
+          "en": "if you installed Git which you need to have installed, you now have a git command available which you",
+          "zh": "如果你安裝了必要的 Git，現在就有 git 指令可以"
+        },
+        {
+          "id": 63,
+          "start": 274.93,
+          "end": 275.62,
+          "en": "can run,",
+          "zh": "執行，"
+        },
+        {
+          "id": 64,
+          "start": 275.62,
+          "end": 280.87,
+          "en": "so make sure you navigate into your project folder, which you already are here with built-in terminal,",
+          "zh": "所以請確認你已經切換到專案資料夾，在這裡的內建終端機中，我們已經在該資料夾了，"
+        },
+        {
+          "id": 65,
+          "start": 281.23,
+          "end": 281.59000000000003,
+          "en": "and run",
+          "zh": "然後執行"
+        },
+        {
+          "id": 66,
+          "start": 281.59000000000003,
+          "end": 287.14,
+          "en": "git init unless you already are managing this folder with GIt, which I am doing here and you might or",
+          "zh": "git init，除非你已經用 Git 管理這個資料夾。我這裡已經在用，你可能也"
+        },
+        {
+          "id": 67,
+          "start": 287.14,
+          "end": 288.63,
+          "en": "might not be doing that already.",
+          "zh": "已經在用，或者還沒有。"
+        },
+        {
+          "id": 68,
+          "start": 288.64,
+          "end": 291.14,
+          "en": "So otherwise if you've never used git before,",
+          "zh": "所以如果你之前從來沒用過 Git，"
+        },
+        {
+          "id": 69,
+          "start": 291.15999999999997,
+          "end": 299.65,
+          "en": "simply run git init in your project folder now. Thereafter, you can copy this command here and simply",
+          "zh": "現在只要在專案資料夾中執行 git init。之後可以複製這個指令，直接"
+        },
+        {
+          "id": 70,
+          "start": 299.65,
+          "end": 303.22,
+          "en": "paste it in here in your project terminal and hit enter.",
+          "zh": "貼到專案的終端機中，再按 Enter。"
+        },
+        {
+          "id": 71,
+          "start": 303.22,
+          "end": 308.5,
+          "en": "This will now basically configure your project here to be deployed as a Node.js application to this",
+          "zh": "這基本上會設定你的專案，讓它以 Node.js 應用程式的形式部署到"
+        },
+        {
+          "id": 72,
+          "start": 308.52,
+          "end": 311.24,
+          "en": "Heroku application you just created.",
+          "zh": "你剛才建立的 Heroku 應用程式。"
+        },
+        {
+          "id": 73,
+          "start": 311.38,
+          "end": 318.25,
+          "en": "So once you did that, these are three commands which you now need to execute to get your code onto your",
+          "zh": "完成之後，你需要執行這三個指令，把程式碼放到網頁上這個"
+        },
+        {
+          "id": 74,
+          "start": 318.25,
+          "end": 320.14,
+          "en": "Heroku app in the web here,",
+          "zh": "Heroku 應用程式中，"
+        },
+        {
+          "id": 75,
+          "start": 320.14,
+          "end": 322.69,
+          "en": "so to basically deploy your files.",
+          "zh": "基本上就是部署你的檔案。"
+        },
+        {
+          "id": 76,
+          "start": 322.87,
+          "end": 328.39,
+          "en": "Now I already added files and created a so-called commit which is basically a snapshot in code, so I will",
+          "zh": "我已經加入了檔案，也建立了所謂的 commit，基本上就是程式碼的快照，所以我會"
+        },
+        {
+          "id": 77,
+          "start": 328.39,
+          "end": 333.25,
+          "en": "just move on right away to this git push heroku master comment and execute this",
+          "zh": "直接進到 git push heroku master 這個指令並執行它，"
+        },
+        {
+          "id": 78,
+          "start": 333.25,
+          "end": 338.02,
+          "en": "and what this does is it now takes my latest snapshot which you created with the add command and the",
+          "zh": "它會取用最新的快照，也就是你透過 add 指令以及"
+        },
+        {
+          "id": 79,
+          "start": 338.02,
+          "end": 343.84000000000003,
+          "en": "commit command and try to push that to Heroku's servers. Now here,",
+          "zh": "commit 指令建立的快照，嘗試把它推送到 Heroku 的伺服器。現在這裡，"
+        },
+        {
+          "id": 80,
+          "start": 343.85,
+          "end": 350.39,
+          "en": "it actually failed with an error message that no default language could be detected for this app,",
+          "zh": "操作失敗了，錯誤訊息說無法偵測到這個應用程式的預設語言，"
+        },
+        {
+          "id": 81,
+          "start": 350.51,
+          "end": 354.32,
+          "en": "so with that, a programming language is meant. To fix this,",
+          "zh": "這裡指的是程式語言。要修正這個問題，"
+        },
+        {
+          "id": 82,
+          "start": 354.32,
+          "end": 361.58,
+          "en": "go to your package.json file and add a new script there, you name it start and then simply write",
+          "zh": "前往 package.json 檔案，新增一個指令稿，命名為 start，然後直接寫上"
+        },
+        {
+          "id": 83,
+          "start": 361.61,
+          "end": 369.07,
+          "en": "node app.js here, this in the end will tell the server how it then starts your server. So with this script",
+          "zh": "node app.js。這最終會告訴伺服器，要如何啟動你的伺服器程式。加入這個指令稿"
+        },
+        {
+          "id": 84,
+          "start": 369.13,
+          "end": 369.43,
+          "en": "added,",
+          "zh": "之後，"
+        },
+        {
+          "id": 85,
+          "start": 369.43,
+          "end": 378.15,
+          "en": "now let's create a new snapshot with git add . and git commit -m \"added entry",
+          "zh": "現在用 git add . 和 git commit -m \"added entry"
+        },
+        {
+          "id": 86,
+          "start": 378.34,
+          "end": 378.91,
+          "en": "script\"",
+          "zh": "script\" 建立新的快照，"
+        },
+        {
+          "id": 87,
+          "start": 382.21,
+          "end": 387.66,
+          "en": "and thereafter repeat repeat that git push heroku master command which failed before.",
+          "zh": "接著再次執行先前失敗的 git push heroku master 指令。"
+        },
+        {
+          "id": 88,
+          "start": 387.82,
+          "end": 390.58,
+          "en": "If it still fails like it does for me here,",
+          "zh": "如果它還是失敗，就像我這裡一樣，"
+        },
+        {
+          "id": 89,
+          "start": 390.58,
+          "end": 395.13,
+          "en": "create a new file in your project, a proc file, simply name it like this,",
+          "zh": "在專案裡建立新的 Procfile 檔案，直接用這個名稱，"
+        },
+        {
+          "id": 90,
+          "start": 395.17,
+          "end": 397.86,
+          "en": "no file extension and add this line into it,",
+          "zh": "不要副檔名，然後在裡面加入這一行，"
+        },
+        {
+          "id": 91,
+          "start": 397.9,
+          "end": 401.67,
+          "en": "web: node app.js,",
+          "zh": "web: node app.js，"
+        },
+        {
+          "id": 92,
+          "start": 401.68,
+          "end": 402.96,
+          "en": "so this is then your start",
+          "zh": "這就會是你的啟動"
+        },
+        {
+          "id": 93,
+          "start": 402.95,
+          "end": 407.4,
+          "en": "command here and a proc file is a file Heroku specifically looks for.",
+          "zh": "指令，而 Procfile 是 Heroku 會特別尋找的檔案。"
+        },
+        {
+          "id": 94,
+          "start": 407.44,
+          "end": 416.26,
+          "en": "So then let's again run git add, git commit  -m \"added proc file\" and thereafter repeat that push command",
+          "zh": "接著再次執行 git add、git commit -m \"added proc file\"，之後重複執行推送指令，"
+        },
+        {
+          "id": 95,
+          "start": 416.32,
+          "end": 420.6,
+          "en": "and at this point it should certainly succeed. If it succeeded earlier,",
+          "zh": "到這一步應該一定會成功。如果更早就成功了，"
+        },
+        {
+          "id": 96,
+          "start": 420.6,
+          "end": 422.39,
+          "en": "that's of course also fine.",
+          "zh": "當然也沒有問題。"
+        },
+        {
+          "id": 97,
+          "start": 422.67,
+          "end": 426.34,
+          "en": "Now with that, you can go back to Heroku and there, click on open app",
+          "zh": "現在可以回到 Heroku，在那裡點擊 Open app，"
+        },
+        {
+          "id": 98,
+          "start": 426.51,
+          "end": 430.65,
+          "en": "and this now is our server for this application.",
+          "zh": "這就是這個應用程式的伺服器。"
+        },
+        {
+          "id": 99,
+          "start": 430.71,
+          "end": 435.75,
+          "en": "Now of course, the application we deployed here is a node application which doesn't return any HTML",
+          "zh": "當然，我們部署的應用程式是 Node 應用程式，它已經不再回傳任何 HTML"
+        },
+        {
+          "id": 100,
+          "start": 435.75,
+          "end": 436.63,
+          "en": "code anymore,",
+          "zh": "程式碼，"
+        },
+        {
+          "id": 101,
+          "start": 436.65,
+          "end": 442.47,
+          "en": "instead this connects it to a database and gets data from there and allows us to add data there.",
+          "zh": "而是連線到資料庫，從中取得資料，並讓我們新增資料。"
+        },
+        {
+          "id": 102,
+          "start": 442.47,
+          "end": 450.29,
+          "en": "So for example we can send a request this URL here and replace our location ID here with some ID",
+          "zh": "例如，我們可以向這裡的 URL 發送請求，把這裡的位置 ID 換成某個"
+        },
+        {
+          "id": 103,
+          "start": 450.29,
+          "end": 456.87,
+          "en": "we might have or with some random text and if we now open the console or go to the network tab to",
+          "zh": "我們已有的 ID，或隨意的文字。如果現在開啟主控台，精確地說，是前往 Network 分頁，"
+        },
+        {
+          "id": 104,
+          "start": 456.87,
+          "end": 460.93,
+          "en": "be precise and reload this, we of course see that this request fails.",
+          "zh": "並重新載入，當然會看到這個請求失敗了。"
+        },
+        {
+          "id": 105,
+          "start": 460.99,
+          "end": 466.29,
+          "en": "Now obviously it fails because this server will actually not successfully connect to our cloud database",
+          "zh": "它失敗的原因很明顯，這個伺服器其實無法成功連線到我們的雲端資料庫，"
+        },
+        {
+          "id": 106,
+          "start": 466.29,
+          "end": 472.46,
+          "en": "here, to a MongoDB database because there we haven't whitelisted the Heroku server yet.",
+          "zh": "也就是這裡的 MongoDB 資料庫，因為我們還沒把 Heroku 伺服器加入允許清單。"
+        },
+        {
+          "id": 107,
+          "start": 473.44,
+          "end": 480.31,
+          "en": "So here you would have to go to network access and actually make sure that all IP addresses, so asked from",
+          "zh": "所以你需要前往 Network Access，確認所有 IP 位址，也就是來自"
+        },
+        {
+          "id": 108,
+          "start": 480.37,
+          "end": 481.54,
+          "en": "anywhere, is allowed,",
+          "zh": "任何地方的存取，都獲得允許，"
+        },
+        {
+          "id": 109,
+          "start": 481.54,
+          "end": 486.88,
+          "en": "people still need your username and your password but now we're not restricting this to our local IP",
+          "zh": "使用者仍然需要你的使用者名稱和密碼，但我們現在不再把存取範圍限制為本機 IP"
+        },
+        {
+          "id": 110,
+          "start": 486.88,
+          "end": 487.96,
+          "en": "address anymore",
+          "zh": "位址，"
+        },
+        {
+          "id": 111,
+          "start": 487.96,
+          "end": 493.24,
+          "en": "and since Heroku in the free setting at least always assigns a new IP address, we want to allow all IP",
+          "zh": "而且 Heroku 至少在免費方案中，每次都會分配新的 IP 位址，所以我們希望允許所有 IP"
+        },
+        {
+          "id": 112,
+          "start": 493.24,
+          "end": 499.12,
+          "en": "addresses to be flexible there because we won't have a fixed IP address. So we'll have to do that to",
+          "zh": "位址，以保持彈性，因為我們不會有固定 IP 位址。我們必須這樣做，"
+        },
+        {
+          "id": 113,
+          "start": 499.12,
+          "end": 507.41,
+          "en": "make sure that Heroku is actually able to connect our Node.js application or with our application to",
+          "zh": "確保 Heroku 確實能讓我們的 Node.js 應用程式，也就是我們的應用程式，連線到"
+        },
+        {
+          "id": 114,
+          "start": 507.41,
+          "end": 508.67,
+          "en": "this database.",
+          "zh": "這個資料庫。"
+        },
+        {
+          "id": 115,
+          "start": 508.67,
+          "end": 516.17,
+          "en": "So let's wait for this to update here and with that completed, go back to your Heroku management page",
+          "zh": "先等這裡更新完成，然後回到 Heroku 的管理頁面，"
+        },
+        {
+          "id": 116,
+          "start": 516.17,
+          "end": 521.87,
+          "en": "here and under more, restart all diners which basically means restart your server, which we want to do",
+          "zh": "在 More 下選擇 Restart all dynos，基本上就是重新啟動伺服器。我們要這樣做，"
+        },
+        {
+          "id": 117,
+          "start": 521.87,
+          "end": 527.99,
+          "en": "here to make sure that it cleanly restarts again because it will have crashed before. You can go back",
+          "zh": "確保它重新順利啟動，因為它先前已經當掉了。你可以回到"
+        },
+        {
+          "id": 118,
+          "start": 527.99,
+          "end": 535.78,
+          "en": "to your web console and click on open app, now this will open your deployed application here in the browser.",
+          "zh": "網頁管理主控台，點擊 Open app，這會在瀏覽器裡開啟你部署的應用程式。"
+        },
+        {
+          "id": 119,
+          "start": 535.79,
+          "end": 540.23,
+          "en": "Now of course for this default route, it will not find anything because in the application we deployed,",
+          "zh": "當然，這個預設路由找不到任何東西，因為在我們部署的應用程式中，"
+        },
+        {
+          "id": 120,
+          "start": 540.56,
+          "end": 544.13,
+          "en": "we only have two supported routes set up in location.js file",
+          "zh": "只有在 location.js 檔案裡設定的兩個支援路由，"
+        },
+        {
+          "id": 121,
+          "start": 544.28,
+          "end": 549.17,
+          "en": "and by the way it does of course not matter whether you have a page that returns HTML or you have",
+          "zh": "順帶一提，無論你的頁面回傳 HTML，還是像我們這樣，"
+        },
+        {
+          "id": 122,
+          "start": 549.17,
+          "end": 551.48,
+          "en": "a page that exchanges JSON like ours,",
+          "zh": "交換 JSON 資料，當然都沒有差別，"
+        },
+        {
+          "id": 123,
+          "start": 551.57,
+          "end": 556.34,
+          "en": "you need to visit a route that exists, unless you have a general fallback route which we here haven't,",
+          "zh": "你需要造訪存在的路由，除非有通用的備援路由，而這裡沒有，"
+        },
+        {
+          "id": 124,
+          "start": 556.52,
+          "end": 559.35,
+          "en": "we have no 404 fallback route.",
+          "zh": "我們沒有 404 備援路由。"
+        },
+        {
+          "id": 125,
+          "start": 559.43,
+          "end": 565.07,
+          "en": "So now we can for example enter this URL though, of course enter something here instead of that",
+          "zh": "不過現在我們可以輸入這個 URL，當然要在這裡填入實際的內容，取代"
+        },
+        {
+          "id": 126,
+          "start": 565.61,
+          "end": 573.73,
+          "en": "dummy placeholder for the ID and hit enter. Now chances are that this will take very long and/or",
+          "zh": "ID 的範例預留位置，再按 Enter。這時很可能需要等待很久，或者"
+        },
+        {
+          "id": 127,
+          "start": 573.73,
+          "end": 575.72,
+          "en": "crash at some point.",
+          "zh": "在某個時間點當掉。"
+        },
+        {
+          "id": 128,
+          "start": 575.86,
+          "end": 582.88,
+          "en": "The reason for that simply is that this is an invalid string to be used as an ID and therefore here",
+          "zh": "原因很簡單，這個字串不是有效的 ID，因此在這裡，"
+        },
+        {
+          "id": 129,
+          "start": 582.94,
+          "end": 587.86,
+          "en": "when we try to convert this to an object ID, this will actually fail, cause an error and since we",
+          "zh": "當我們嘗試把它轉成 ObjectId 時，就會失敗並產生錯誤，而因為我們"
+        },
+        {
+          "id": 130,
+          "start": 587.86,
+          "end": 594.09,
+          "en": "have no proper error handling here which you of course would learn about in my Node.js course, this crashes.",
+          "zh": "這裡沒有妥善處理錯誤，這是你會在我的 Node.js 課程中學到的，所以它就當掉了。"
+        },
+        {
+          "id": 131,
+          "start": 594.16,
+          "end": 599.2,
+          "en": "Now again, I do cover error handling in great detail in my Node.js course of course, since that's not",
+          "zh": "同樣地，我在 Node.js 課程中當然有非常詳細地介紹錯誤處理，因為那不是"
+        },
+        {
+          "id": 132,
+          "start": 599.2,
+          "end": 600.39,
+          "en": "the focus of this course,",
+          "zh": "這門課的重點，"
+        },
+        {
+          "id": 133,
+          "start": 600.46,
+          "end": 605.69,
+          "en": "I decided not to dive deeply into it. Here the problem is that we have an unhandled error and therefore",
+          "zh": "所以我決定不深入探討。這裡的問題是有未處理的錯誤，因此"
+        },
+        {
+          "id": 134,
+          "start": 605.71,
+          "end": 608.27,
+          "en": "our server crashes after some time.",
+          "zh": "伺服器會在一段時間後當掉。"
+        },
+        {
+          "id": 135,
+          "start": 608.32,
+          "end": 612.42,
+          "en": "Theoretically though, it would work and just to prove this,",
+          "zh": "不過，理論上它應該可以運作，為了證明這點，"
+        },
+        {
+          "id": 136,
+          "start": 612.46,
+          "end": 618.34,
+          "en": "I searched for the ID which we use in the past which we created in an earlier module, I'll restart",
+          "zh": "我找出先前使用的 ID，也就是更早的單元中建立的 ID。我會在這裡重新啟動"
+        },
+        {
+          "id": 137,
+          "start": 618.46,
+          "end": 624.16,
+          "en": "my server here because it crashed and of course therefore you should have error handling in a real application",
+          "zh": "伺服器，因為它當掉了，這也正是在實際應用程式中應該處理錯誤的原因，"
+        },
+        {
+          "id": 138,
+          "start": 624.4,
+          "end": 630.04,
+          "en": "but here I'll restart it and I'll try to fetch data for my valid location ID here.",
+          "zh": "但這裡我會重新啟動它，並嘗試取得這個有效位置 ID 的資料。"
+        },
+        {
+          "id": 139,
+          "start": 630.04,
+          "end": 634.89,
+          "en": "So this alone won't do the trick though, it will still fail and the reason for that is quite trivial,",
+          "zh": "不過，光是這樣還不夠，它仍然會失敗，原因其實很簡單，"
+        },
+        {
+          "id": 140,
+          "start": 634.9,
+          "end": 639.77,
+          "en": "one preparation was missing, in app.js I'm listening to port 3000.",
+          "zh": "我們漏了一項準備工作：在 app.js 中，我監聽的是連接埠 3000。"
+        },
+        {
+          "id": 141,
+          "start": 639.85,
+          "end": 644.83,
+          "en": "Now actually when we plan on deploying this to a real server, we don't want to use this dummy port which",
+          "zh": "實際上，當我們要部署到真正的伺服器時，不應該使用這個範例連接埠，"
+        },
+        {
+          "id": 142,
+          "start": 644.83,
+          "end": 645.95,
+          "en": "we only use locally,",
+          "zh": "它只用於本機，"
+        },
+        {
+          "id": 143,
+          "start": 645.97,
+          "end": 653.53,
+          "en": "instead we want to use the port the server we push this to assigns to us and we can tell Node.js",
+          "zh": "而應該使用部署目標伺服器分配給我們的連接埠。我們可以告訴 Node.js，"
+        },
+        {
+          "id": 144,
+          "start": 653.53,
+          "end": 654.88,
+          "en": "to do that,",
+          "zh": "讓它這樣做，"
+        },
+        {
+          "id": 145,
+          "start": 654.88,
+          "end": 660.43,
+          "en": "we need define the 3000 as an alternative here by adding two pipe symbols in front of it and",
+          "zh": "需要在 3000 前面加上兩個直線符號，把它定義為備用值，"
+        },
+        {
+          "id": 146,
+          "start": 660.43,
+          "end": 664.84,
+          "en": "instead refer to process.env.port here as a main value.",
+          "zh": "並改用這裡的 process.env.port 作為主要值。"
+        },
+        {
+          "id": 147,
+          "start": 664.85,
+          "end": 669.97,
+          "en": "Now what does this do? This looks strange at first but this uses a system built into Node.js called",
+          "zh": "這有什麼作用呢？乍看有點奇怪，但這使用的是 Node.js 內建的系統，叫做"
+        },
+        {
+          "id": 148,
+          "start": 670.03,
+          "end": 671.44,
+          "en": "environment variables.",
+          "zh": "環境變數。"
+        },
+        {
+          "id": 149,
+          "start": 671.44,
+          "end": 676.75,
+          "en": "This in the end is a placeholder where the concrete value will be injected dynamically by the environment",
+          "zh": "它最終是一個預留位置，具體的值會由執行指令碼的環境，"
+        },
+        {
+          "id": 150,
+          "start": 676.75,
+          "end": 678.69,
+          "en": "that runs our script.",
+          "zh": "動態填入。"
+        },
+        {
+          "id": 151,
+          "start": 678.7,
+          "end": 684.88,
+          "en": "Now if it's not provided, for example during development when we start the script, we'll fall back to 3000.",
+          "zh": "如果沒有提供，例如開發時啟動指令碼，就會退回使用 3000。"
+        },
+        {
+          "id": 152,
+          "start": 685,
+          "end": 689.68,
+          "en": "If it is provided however and Heroku will provide a value for this port variable,",
+          "zh": "如果有提供，而 Heroku 會為這個 port 變數提供一個值，"
+        },
+        {
+          "id": 153,
+          "start": 689.68,
+          "end": 692.32,
+          "en": "this provided data will be used instead,",
+          "zh": "就會改用提供的資料，"
+        },
+        {
+          "id": 154,
+          "start": 692.35,
+          "end": 698.12,
+          "en": "so Heroku can provide its own port where we want to listen instead of that 3000 port which is just",
+          "zh": "因此 Heroku 可以提供它自己的連接埠，讓我們監聽，取代這個只是"
+        },
+        {
+          "id": 155,
+          "start": 698.12,
+          "end": 699.69,
+          "en": "there for development.",
+          "zh": "為開發準備的 3000 連接埠。"
+        },
+        {
+          "id": 156,
+          "start": 699.94,
+          "end": 702.77,
+          "en": "So now with that, we just have to add this change here,",
+          "zh": "現在我們只需要加入這項變更，"
+        },
+        {
+          "id": 157,
+          "start": 705.23,
+          "end": 713.31,
+          "en": "added port-env and then again push this to Heroku and there wait for the installation and the build",
+          "zh": "用 added port-env 作為提交訊息，再次推送到 Heroku，在那裡等待安裝、建置"
+        },
+        {
+          "id": 158,
+          "start": 713.31,
+          "end": 719.36,
+          "en": "process and the startup to finish and thereafter we should be able to visit and run our application.",
+          "zh": "以及啟動流程完成，之後應該就能造訪並執行我們的應用程式。"
+        },
+        {
+          "id": 159,
+          "start": 720.81,
+          "end": 728.3,
+          "en": "So let's wait for that to finish up and thereafter once you revisit this page, you should get your location",
+          "zh": "我們先等它完成，之後再次造訪這個頁面，應該就會取得位置"
+        },
+        {
+          "id": 160,
+          "start": 728.3,
+          "end": 729.28,
+          "en": "data.",
+          "zh": "資料。"
+        },
+        {
+          "id": 161,
+          "start": 729.38,
+          "end": 735.14,
+          "en": "So this is how you could deploy a Node.js application to Heroku, of course Heroku is just one of many",
+          "zh": "這就是把 Node.js 應用程式部署到 Heroku 的方式，當然 Heroku 只是眾多"
+        },
+        {
+          "id": 162,
+          "start": 735.14,
+          "end": 740.84,
+          "en": "hosts, a couple of steps are always the same though like providing this environment variable, catching",
+          "zh": "託管服務之一。不過有些步驟總是一樣，例如提供這個環境變數，以及捕捉"
+        },
+        {
+          "id": 163,
+          "start": 740.84,
+          "end": 744.58,
+          "en": "errors is a good idea which you might consider implementing,",
+          "zh": "錯誤，這是你可以考慮實作的好做法，"
+        },
+        {
+          "id": 164,
+          "start": 744.65,
+          "end": 749.69,
+          "en": "you'll also want to make sure that you whitelist the IP address of the server where your application",
+          "zh": "你也應該確保把應用程式所在伺服器的 IP 位址，"
+        },
+        {
+          "id": 165,
+          "start": 749.69,
+          "end": 755.39,
+          "en": "runs or if you don't know the IP or if it changes frequently, you whitelist all IPs as we did it here",
+          "zh": "加入允許清單，或者如果不知道 IP、或 IP 經常變動，就像這裡一樣允許所有 IP，"
+        },
+        {
+          "id": 166,
+          "start": 755.89,
+          "end": 763.07,
+          "en": "and with that, you're able to also deploy applications that use Javascript on the server, namely Node.js",
+          "zh": "如此一來，你也能部署在伺服器上使用 JavaScript 的應用程式，也就是 Node.js 應用程式。"
+        }
+      ]
+    },
+    {
       "id": "16477430",
       "title": "Module Introduction",
       "lectureOrder": 514,

@@ -1,0 +1,4458 @@
+{
+  "version": 1,
+  "courseId": 2508942,
+  "courseSlug": "javascript-the-complete-guide-2020-beginner-advanced",
+  "courseTitle": "JavaScript - The Complete Guide (Beginner + Advanced)",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "errors": [],
+  "lectures": [
+    {
+      "id": "16477270",
+      "title": "Adding Basic REST Routes",
+      "lectureOrder": 491,
+      "videoOrder": 430,
+      "sourceHash": "eb6a36ad9b23e1be0673f0d648d75b2e5f829f735a5d9643fe3803a43f7b8eee",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.1,
+          "end": 6.39,
+          "en": "To implement this new approach, we could delete the view folder but we can also just ignore it.",
+          "zh": "要實作這個新方式，可以刪除 views 資料夾，也可以直接忽略它。"
+        },
+        {
+          "id": 2,
+          "start": 6.66,
+          "end": 13.07,
+          "en": "I will comment out these two lines because we won't send back any HTML rendered templates anymore,",
+          "zh": "我會把這兩行註解掉，因為不再傳回呈現好的 HTML 樣板，"
+        },
+        {
+          "id": 3,
+          "start": 13.29,
+          "end": 16.38,
+          "en": "instead now I want to exchange JSON data.",
+          "zh": "現在想改成交換 JSON 資料。"
+        },
+        {
+          "id": 4,
+          "start": 16.38,
+          "end": 18.4,
+          "en": "So for that, we can also comment out",
+          "zh": "為此，也可以把，"
+        },
+        {
+          "id": 5,
+          "start": 18.42,
+          "end": 26.49,
+          "en": "these middlewares here and when we parse incoming data for our API which we're now building, I also don't",
+          "zh": "這些中介軟體註解掉。解析正在建立的 API 所收到的資料時，我也不再，"
+        },
+        {
+          "id": 6,
+          "start": 26.49,
+          "end": 30,
+          "en": "expect form data anymore but I expect JSON data,",
+          "zh": "預期收到表單資料，而是 JSON 資料，"
+        },
+        {
+          "id": 7,
+          "start": 30.03,
+          "end": 33.53,
+          "en": "so I will try to parse incoming JSON data here.",
+          "zh": "所以這裡會嘗試解析傳入的 JSON 資料。"
+        },
+        {
+          "id": 8,
+          "start": 33.6,
+          "end": 41.51,
+          "en": "Now I want to set up two routes, two URLs which I handle here on this backend Node.js server,",
+          "zh": "現在我要設定兩個路由，也就是這個後端 Node.js 伺服器會處理的兩個 URL，"
+        },
+        {
+          "id": 9,
+          "start": 41.76,
+          "end": 44.95,
+          "en": "one URL which can be triggered from share place,",
+          "zh": "其中一個 URL 可以從 SharePlace 觸發，"
+        },
+        {
+          "id": 10,
+          "start": 45.03,
+          "end": 52.98,
+          "en": "basically when we select a place here, I want to send the request to this backend server with the chosen",
+          "zh": "基本上，當我們在這裡選擇地點時，我想把請求傳到後端伺服器，帶上選擇的，"
+        },
+        {
+          "id": 11,
+          "start": 53.07,
+          "end": 58.59,
+          "en": "address and the chosen coordinates, so that on the backend we can store that in a database and create",
+          "zh": "地址和座標，讓後端能把資料存進資料庫，並建立，"
+        },
+        {
+          "id": 12,
+          "start": 58.62,
+          "end": 64.81,
+          "en": "a unique ID for that which we then send back to the frontend and the second URL I want is reached",
+          "zh": "唯一的 ID，再傳回前端。第二個 URL 則是從，"
+        },
+        {
+          "id": 13,
+          "start": 64.81,
+          "end": 71.23,
+          "en": "from my-place.js where we extract an ID from the URL and then request the data for that place",
+          "zh": "my-place.js 存取，我們從 URL 擷取 ID，再向伺服器請求這個地點的資料，"
+        },
+        {
+          "id": 14,
+          "start": 71.56,
+          "end": 73.9,
+          "en": "here from our server as well.",
+          "zh": "同樣從這裡的伺服器取得。"
+        },
+        {
+          "id": 15,
+          "start": 74.02,
+          "end": 79.53999999999999,
+          "en": "Now to split our code a bit more and have a clearer structure, I'll create a new folder, routes which",
+          "zh": "為了進一步拆分程式碼，讓結構更清楚，我會建立新的 routes 資料夾，"
+        },
+        {
+          "id": 16,
+          "start": 79.53999999999999,
+          "end": 84.91,
+          "en": "should hold these routes so that in app.js, we just have the general setup like this body parsing which",
+          "zh": "存放這些路由，讓 app.js 只保留一般設定，例如我已設定的，"
+        },
+        {
+          "id": 17,
+          "start": 84.91,
+          "end": 90.73,
+          "en": "I set up and then we have our routes, so the specific different paths which we want to support and the",
+          "zh": "請求主體解析，接著把路由，也就是要支援的不同路徑，以及，"
+        },
+        {
+          "id": 18,
+          "start": 90.73,
+          "end": 97.53999999999999,
+          "en": "logic for that in a separate file. So for that, let's go into the routes folder and here, I will add",
+          "zh": "對應邏輯放在獨立檔案。為此，進入 routes 資料夾，在這裡加入，"
+        },
+        {
+          "id": 19,
+          "start": 97.53999999999999,
+          "end": 98.53,
+          "en": "my-location.js",
+          "zh": "my-location.js，"
+        },
+        {
+          "id": 20,
+          "start": 98.68,
+          "end": 99.37,
+          "en": "file,",
+          "zh": "檔案，"
+        },
+        {
+          "id": 21,
+          "start": 99.37,
+          "end": 101.91,
+          "en": "you can name this however you want of course and there",
+          "zh": "名稱當然可以自行決定。在裡面，"
+        },
+        {
+          "id": 22,
+          "start": 101.92,
+          "end": 105.69,
+          "en": "we also need to import Express by requiring Expressy",
+          "zh": "也需要透過 require('express') 匯入 Express，"
+        },
+        {
+          "id": 23,
+          "start": 105.78999999999999,
+          "end": 108.68,
+          "en": "You need to import this in any file where you want to use it.",
+          "zh": "任何要使用 Express 的檔案，都需要匯入它。"
+        },
+        {
+          "id": 24,
+          "start": 108.82,
+          "end": 113.55,
+          "en": "Here I won't create a new Express app, so we'll not execute it like this,",
+          "zh": "這裡不會建立新的 Express 應用程式，所以不會像這樣執行它，"
+        },
+        {
+          "id": 25,
+          "start": 113.56,
+          "end": 119.2,
+          "en": "instead we can use another feature which is part of the Express package and that's the Express router.",
+          "zh": "而是使用 Express 套件的另一項功能，也就是 Express Router。"
+        },
+        {
+          "id": 26,
+          "start": 120.18,
+          "end": 125.04,
+          "en": "We can execute this as a as a function here and store it in a constant,",
+          "zh": "可以把它當作函式執行，再存進常數，"
+        },
+        {
+          "id": 27,
+          "start": 125.04,
+          "end": 133.5,
+          "en": "the router makes it easy for us to register different routes. You can simply specify the kind of HTTP",
+          "zh": "Router 讓我們很容易註冊不同路由，只要指定想支援的 HTTP，"
+        },
+        {
+          "id": 28,
+          "start": 133.5,
+          "end": 134.95,
+          "en": "method you want to support,",
+          "zh": "方法類型，"
+        },
+        {
+          "id": 29,
+          "start": 134.97,
+          "end": 142.98,
+          "en": "for example a post method and then any incoming post request to the path which you specify as the first",
+          "zh": "例如 POST，接著任何傳入的 POST 請求，只要路徑符合第一個，"
+        },
+        {
+          "id": 30,
+          "start": 142.98,
+          "end": 150.78,
+          "en": "argument, for example slash nothing or /add-location, whatever you want, will then be handled",
+          "zh": "引數指定的值，例如 /，或 /add-location，隨你決定，就會由，"
+        },
+        {
+          "id": 31,
+          "start": 151.07999999999998,
+          "end": 157.98,
+          "en": "by the function you specify as a second argument which receives a request, a response and the next function",
+          "zh": "第二個引數指定的函式處理，它會接收 request、response，以及 next 函式，"
+        },
+        {
+          "id": 32,
+          "start": 157.98,
+          "end": 158.7,
+          "en": "here.",
+          "zh": "就在這裡。"
+        },
+        {
+          "id": 33,
+          "start": 158.73,
+          "end": 166.8,
+          "en": "So it's like a middleware but filtered for a path and a specific HTTP method and only incoming post requests",
+          "zh": "所以它像中介軟體，但會針對路徑與特定 HTTP 方法篩選，只有傳入這個，"
+        },
+        {
+          "id": 34,
+          "start": 166.98,
+          "end": 170.48,
+          "en": "to this address here will make it into this",
+          "zh": "地址的 POST 請求，才能進入這個，"
+        },
+        {
+          "id": 35,
+          "start": 170.5,
+          "end": 173.75,
+          "en": "function. Now that's one of the two routes we need,",
+          "zh": "函式。這就是所需的兩個路由之一，"
+        },
+        {
+          "id": 36,
+          "start": 173.75,
+          "end": 177.2,
+          "en": "the other route will be a get route because we want to get data,",
+          "zh": "另一個是 GET 路由，因為我們想取得資料，"
+        },
+        {
+          "id": 37,
+          "start": 177.41,
+          "end": 183.62,
+          "en": "we want to get let's say a specific location for a specific ID and I'll come back to how that works",
+          "zh": "例如根據特定 ID 取得特定位置，這如何運作，"
+        },
+        {
+          "id": 38,
+          "start": 183.62,
+          "end": 190.34,
+          "en": "later, for now let's focus on the post route. So here on the post route, the idea now is that we get some",
+          "zh": "稍後再談。目前先專注在 POST 路由，它的概念是，我們收到一些，"
+        },
+        {
+          "id": 39,
+          "start": 190.34,
+          "end": 193.41,
+          "en": "data and keep in mind that we parsed data here,",
+          "zh": "資料，而記得我們已經在這裡解析資料，"
+        },
+        {
+          "id": 40,
+          "start": 193.43,
+          "end": 199.52,
+          "en": "so we got it already extracted and stored in this body property of the request object and the data we",
+          "zh": "所以資料已經擷取出來，存進 request 物件的 body 屬性，而我們，"
+        },
+        {
+          "id": 41,
+          "start": 199.52,
+          "end": 205.01,
+          "en": "get there are the coordinates and the address and then we want to store that in a database.",
+          "zh": "收到的是座標與地址，接著想把它們存進資料庫。"
+        },
+        {
+          "id": 42,
+          "start": 205.01,
+          "end": 210.92000000000002,
+          "en": "Now let's add the database later, for now here I'll just use an in-memory storage which will basically",
+          "zh": "資料庫稍後再加，目前我只會使用記憶體儲存空間，基本上，"
+        },
+        {
+          "id": 43,
+          "start": 211.16,
+          "end": 215.66,
+          "en": "live as long as our server lives but whenever we shut down the server, it will be lost,",
+          "zh": "只要伺服器還在執行，它就存在，但每次關閉伺服器，資料就會遺失，"
+        },
+        {
+          "id": 44,
+          "start": 215.69,
+          "end": 221.09,
+          "en": "so it's not a great permanent storage but here to get started it's fine and there I'll have my location",
+          "zh": "所以這不是很好的永久儲存方式，但這裡剛開始使用沒有問題。我會建立 locationStorage，"
+        },
+        {
+          "id": 45,
+          "start": 221.09,
+          "end": 227.42000000000002,
+          "en": "storage which simply is let's say a Javascript object and there I have my locations which is an array",
+          "zh": "它就是一個 JavaScript 物件，裡面的 locations 是陣列，"
+        },
+        {
+          "id": 46,
+          "start": 227.91,
+          "end": 234.89,
+          "en": "and now here when we got an incoming request, I'll reach out to location storage.locations and I push a",
+          "zh": "現在收到傳入的請求時，我會存取 locationStorage.locations，把，"
+        },
+        {
+          "id": 47,
+          "start": 234.89,
+          "end": 240.38,
+          "en": "new location in there and this new location will receive an ID which I want to generate on the fly.",
+          "zh": "新位置推入其中，並替這個新位置即時產生 ID。"
+        },
+        {
+          "id": 48,
+          "start": 241.2,
+          "end": 247.4,
+          "en": "For that, we can for example use math random which is not perfectly unique but for now it will do, later",
+          "zh": "為此，例如可以使用 Math.random()，它不保證完全唯一，但目前夠用，稍後，"
+        },
+        {
+          "id": 49,
+          "start": 247.4,
+          "end": 254.03,
+          "en": "we'll have a better ID and then I will have my address which we get from the request body, request",
+          "zh": "會有更好的 ID。接著加入地址，從請求主體取得，也就是 request，"
+        },
+        {
+          "id": 50,
+          "start": 254.03,
+          "end": 255.05,
+          "en": "body.address",
+          "zh": "的 body.address，"
+        },
+        {
+          "id": 51,
+          "start": 255.05,
+          "end": 261.56,
+          "en": "let's say, we expect an address field on the incoming request body and the coords, the coordinates which",
+          "zh": "我們預期傳入的請求主體有 address 欄位，以及 coords，也就是座標，"
+        },
+        {
+          "id": 52,
+          "start": 261.56,
+          "end": 266.76,
+          "en": "could be a nested object with a lat key which we get from request.body.lat",
+          "zh": "它可以是巢狀物件，其中 lat 鍵的值來自 request.body.lat，"
+        },
+        {
+          "id": 53,
+          "start": 266.8,
+          "end": 272.15999999999997,
+          "en": "let's say and a lng key which we get from request.body.lng.",
+          "zh": "例如這樣，而 lng 鍵的值來自 request.body.lng。"
+        },
+        {
+          "id": 54,
+          "start": 272.3,
+          "end": 278.42,
+          "en": "Of course it will be our duty to make sure that when we sent this request, we do provide this address",
+          "zh": "當然，我們必須確保，發送這個請求時，確實在請求主體提供 address，"
+        },
+        {
+          "id": 55,
+          "start": 278.42,
+          "end": 284.42,
+          "en": "field on the body of the request and this lat and lng fields on the request body",
+          "zh": "欄位，以及 lat 和 lng 欄位，"
+        },
+        {
+          "id": 56,
+          "start": 284.69,
+          "end": 288.51,
+          "en": "and with that we should add this to our location storage.",
+          "zh": "如此一來，就能把它加入位置儲存空間。"
+        },
+        {
+          "id": 57,
+          "start": 288.74,
+          "end": 294.83,
+          "en": "Now sending back a response would also be nice so that we basically provide some answer to the client",
+          "zh": "現在如果能傳回回應也不錯，基本上就是給發送資料的用戶端，"
+        },
+        {
+          "id": 58,
+          "start": 294.86,
+          "end": 296.37,
+          "en": "who sent us this data",
+          "zh": "一些答覆，"
+        },
+        {
+          "id": 59,
+          "start": 296.57,
+          "end": 300.71,
+          "en": "and here we can use the JSON method to send back a JSON response.",
+          "zh": "這裡可以使用 json 方法，傳回 JSON 回應。"
+        },
+        {
+          "id": 60,
+          "start": 300.71,
+          "end": 305.12,
+          "en": "It's like using send and setting the content type to JSON manually,",
+          "zh": "這就像使用 send，再手動把 Content-Type 設定為 JSON，"
+        },
+        {
+          "id": 61,
+          "start": 305.12,
+          "end": 311.06,
+          "en": "here we can simply abbreviate this and just send back JSON data, we can send back an object which",
+          "zh": "但這裡可以用簡寫，直接傳回 JSON 資料。我們可以傳回物件，"
+        },
+        {
+          "id": 62,
+          "start": 311.06,
+          "end": 316.94,
+          "en": "will be converted to JSON automatically by Express.js and there we could have a message maybe where",
+          "zh": "Express.js 會自動把它轉為 JSON，裡面也許可以有 message，"
+        },
+        {
+          "id": 63,
+          "start": 316.94,
+          "end": 323.84,
+          "en": "we say stored location or whatever you want to send back. You could always add an extra validation",
+          "zh": "內容是 stored location，或任何想傳回的訊息。你也可以額外加入驗證，"
+        },
+        {
+          "id": 64,
+          "start": 323.9,
+          "end": 328.64,
+          "en": "where you first of all check whether you got valid coordinates and you may be send back an error if",
+          "zh": "先檢查收到的座標是否有效，如果，"
+        },
+        {
+          "id": 65,
+          "start": 328.64,
+          "end": 329.84,
+          "en": "that's not the case",
+          "zh": "無效，可能就傳回錯誤，"
+        },
+        {
+          "id": 66,
+          "start": 330.05,
+          "end": 333.22,
+          "en": "but to not dive too deeply into that right now, let's ignore that and",
+          "zh": "但為了現在不要深入太多，我們先忽略這點，"
+        },
+        {
+          "id": 67,
+          "start": 333.26,
+          "end": 341.17,
+          "en": "let's just assume we get valid data here. With all of that, we got our first routes set up but it lives",
+          "zh": "假設收到的資料有效。完成之後，第一個路由已設定好，但它位於，"
+        },
+        {
+          "id": 68,
+          "start": 341.17,
+          "end": 349.3,
+          "en": "in the location.js file. Right now nowhere in this application we tell Javascript or Node or Express",
+          "zh": "location.js 檔案中。目前應用程式沒有任何地方告訴 JavaScript、Node 或 Express，"
+        },
+        {
+          "id": 69,
+          "start": 349.3,
+          "end": 351.25,
+          "en": "that we're interested in this file.",
+          "zh": "我們要使用這個檔案。"
+        },
+        {
+          "id": 70,
+          "start": 351.25,
+          "end": 356.53,
+          "en": "So back to app.js which is the file we actually will execute with Node with this command here in the",
+          "zh": "所以回到 app.js，這是實際透過終端機中的這個指令，由 Node 執行的檔案，"
+        },
+        {
+          "id": 71,
+          "start": 356.53,
+          "end": 363.61,
+          "en": "terminal, here we should import this location.js file or the routes set up there to be precise and",
+          "zh": "我們應該在這裡匯入 location.js，精確地說，是匯入裡面設定的路由，"
+        },
+        {
+          "id": 72,
+          "start": 363.61,
+          "end": 369.04,
+          "en": "we should then also tell Express.js that it should consider these routes when it funnels the request",
+          "zh": "也應該告訴 Express.js，當它把請求依序傳過所有中介軟體時，"
+        },
+        {
+          "id": 73,
+          "start": 369.04,
+          "end": 374.47,
+          "en": "through all the middlewares. Now to import something from that file, we first of all need to export",
+          "zh": "要納入這些路由。現在，要從這個檔案匯入內容，首先需要匯出，"
+        },
+        {
+          "id": 74,
+          "start": 374.47,
+          "end": 380.11,
+          "en": "something here and here Node.js has its own export syntax, you don't have an export keyword as you",
+          "zh": "某些東西。Node.js 有自己的匯出語法，不像，"
+        },
+        {
+          "id": 75,
+          "start": 380.11,
+          "end": 386.8,
+          "en": "have it in client side Javascript, instead you export with module.exports. This by the way might look",
+          "zh": "用戶端 JavaScript 使用 export 關鍵字，而是透過 module.exports 匯出。順帶一提，它看起來可能，"
+        },
+        {
+          "id": 76,
+          "start": 386.8,
+          "end": 392.71,
+          "en": "familiar to you, it is what we had here in the webpack config earlier because I mentioned that this",
+          "zh": "很熟悉，因為之前的 webpack 設定就是這樣，我當時提過，"
+        },
+        {
+          "id": 77,
+          "start": 392.71,
+          "end": 394.2,
+          "en": "would be handled by Node.js,",
+          "zh": "它會由 Node.js 處理，"
+        },
+        {
+          "id": 78,
+          "start": 394.33,
+          "end": 400.18,
+          "en": "well here is how we export something in a Node.js file. We then point at the something which should",
+          "zh": "這就是在 Node.js 檔案中匯出內容的方式。接著指向應該，"
+        },
+        {
+          "id": 79,
+          "start": 400.18,
+          "end": 406.38,
+          "en": "be exported and here, that's the router with these registered routes that are added to it.",
+          "zh": "匯出的內容，這裡就是已加入註冊路由的 Router。"
+        },
+        {
+          "id": 80,
+          "start": 406.45,
+          "end": 413.56,
+          "en": "So here we export this configured Express router and now we can import it into another file and we do",
+          "zh": "所以這裡匯出設定好的 Express Router，現在就能匯入另一個檔案，我們會，"
+        },
+        {
+          "id": 81,
+          "start": 413.56,
+          "end": 420.07,
+          "en": "import with the syntax you see up there. We can import our routes here, however you want to name it, by",
+          "zh": "使用上方的語法匯入。可以在這裡匯入路由，名稱自行決定，透過，"
+        },
+        {
+          "id": 82,
+          "start": 420.07,
+          "end": 426.7,
+          "en": "requiring this file where we store them, so ./routes to go to the routes folder and then",
+          "zh": "require 載入存放它們的檔案，也就是 ./routes，先進入 routes 資料夾，接著，"
+        },
+        {
+          "id": 83,
+          "start": 426.7,
+          "end": 434.07,
+          "en": "location, maybe name it location routes therefore but the name is up to you. Here we have a relative",
+          "zh": "指定 location。因此也許把它命名為 locationRoutes，但名稱由你決定。這裡使用相對，"
+        },
+        {
+          "id": 84,
+          "start": 434.07,
+          "end": 439.08,
+          "en": "path, before we just had the package names but now we're not working with a package but with one of our",
+          "zh": "路徑，先前只使用套件名稱，但現在不是套件，而是我們，"
+        },
+        {
+          "id": 85,
+          "start": 439.08,
+          "end": 444.02,
+          "en": "own files and therefore we have to specify a relative path here and also important,",
+          "zh": "自己的檔案，所以必須指定相對路徑。另外也很重要，"
+        },
+        {
+          "id": 86,
+          "start": 444.03,
+          "end": 446.85,
+          "en": "you can and should omit the file extension here,",
+          "zh": "這裡可以，而且應該省略副檔名，"
+        },
+        {
+          "id": 87,
+          "start": 446.91,
+          "end": 450.42,
+          "en": "Node.js will add it for you automatically when it looks up this file,",
+          "zh": "Node.js 查找檔案時會自動加上，"
+        },
+        {
+          "id": 88,
+          "start": 450.42,
+          "end": 454.01,
+          "en": "it will look for a Javascript file in there after all.",
+          "zh": "它畢竟會在那裡尋找 JavaScript 檔案。"
+        },
+        {
+          "id": 89,
+          "start": 454.02,
+          "end": 460.08,
+          "en": "Now we just have to tell Express.js that it should consider these location routes and for that, after",
+          "zh": "現在只要告訴 Express.js，要把這些位置路由納入處理。為此，在，"
+        },
+        {
+          "id": 90,
+          "start": 460.2,
+          "end": 461.19,
+          "en": "parsing the body",
+          "zh": "解析請求主體之後，"
+        },
+        {
+          "id": 91,
+          "start": 461.22,
+          "end": 468.09000000000003,
+          "en": "but before you listen, you want to register a new middleware here and that should just be the location",
+          "zh": "但開始監聽之前，要註冊新的中介軟體，它就是這裡的 locationRoutes，"
+        },
+        {
+          "id": 92,
+          "start": 468.64,
+          "end": 473.79,
+          "en": "routes here because it turns out the Express router is actually a middleware",
+          "zh": "因為 Express Router 其實是一個中介軟體，"
+        },
+        {
+          "id": 93,
+          "start": 473.82,
+          "end": 480.27,
+          "en": "you can register in your Express application and now Express knows that it should funnel incoming requests",
+          "zh": "可以註冊到 Express 應用程式中，現在 Express 就知道，傳入的請求，"
+        },
+        {
+          "id": 94,
+          "start": 480.42,
+          "end": 482.13,
+          "en": "through these routes as well",
+          "zh": "也要經過這些路由，"
+        },
+        {
+          "id": 95,
+          "start": 482.13,
+          "end": 488.49,
+          "en": "and there, we have our filtering logic by HTTP method and by path to then execute these functions",
+          "zh": "而這裡有根據 HTTP 方法與路徑篩選的邏輯，接著執行這些函式，"
+        },
+        {
+          "id": 96,
+          "start": 488.76,
+          "end": 495.32,
+          "en": "which in the end are also just like middleware functions you could say. So that was a lot of talking,",
+          "zh": "它們最終也可以說就是中介軟體函式。剛才說了很多，"
+        },
+        {
+          "id": 97,
+          "start": 495.32,
+          "end": 499.37,
+          "en": "now if we start our server, let's see if it works. Server is running,",
+          "zh": "現在啟動伺服器，看看是否能運作。伺服器正在執行，"
+        },
+        {
+          "id": 98,
+          "start": 499.37,
+          "end": 504.62,
+          "en": "now we need to work on the client side and make sure that in share place, once we got coordinates and",
+          "zh": "接著需要處理用戶端，確保在 SharePlace 中，取得座標與，"
+        },
+        {
+          "id": 99,
+          "start": 504.62,
+          "end": 514.62,
+          "en": "address, we send a request to our backend. Now the backend is running on port 3000, the frontend",
+          "zh": "地址後，向後端發送請求。後端在連接埠 3000 執行，前端，"
+        },
+        {
+          "id": 100,
+          "start": 514.62,
+          "end": 520.02,
+          "en": "by default has port 8080, the webpack dev server takes this. So we have no clash here,",
+          "zh": "預設使用連接埠 8080，webpack 開發伺服器會用它，所以沒有衝突，"
+        },
+        {
+          "id": 101,
+          "start": 520.02,
+          "end": 525.39,
+          "en": "we have to use different ports because these are two totally different servers as if they were running",
+          "zh": "我們必須使用不同連接埠，因為這是兩台完全不同的伺服器，就像它們執行在，"
+        },
+        {
+          "id": 102,
+          "start": 525.42,
+          "end": 531.51,
+          "en": "on different domains and therefore now here, we can use fetch for example to send the request to HTTP",
+          "zh": "不同網域。因此現在這裡可以使用 fetch，例如向 HTTP，"
+        },
+        {
+          "id": 103,
+          "start": 531.55,
+          "end": 537.18,
+          "en": "localhost:3000 for now because we're running this locally",
+          "zh": "localhost:3000 發送請求，目前如此，因為我們在本機執行，"
+        },
+        {
+          "id": 104,
+          "start": 537.2,
+          "end": 539.17,
+          "en": "but again this is like a separate server,",
+          "zh": "但同樣地，它就像獨立的伺服器，"
+        },
+        {
+          "id": 105,
+          "start": 539.19,
+          "end": 546.6,
+          "en": "it is technically a separate server and then here, we want to send the request to /add-location",
+          "zh": "技術上確實是獨立伺服器，接著要向 /add-location 發送請求，"
+        },
+        {
+          "id": 106,
+          "start": 546.9,
+          "end": 553.7,
+          "en": "because that's the path we're filtering out with a post request here. So send this to /add-location",
+          "zh": "因為這是我們在這裡用 POST 請求篩選的路徑。所以傳送到 /add-location，"
+        },
+        {
+          "id": 107,
+          "start": 554.03,
+          "end": 558.62,
+          "en": "and now configure this request because as I just said it should be a post request,",
+          "zh": "現在設定這個請求，因為如我剛才所說，它應該是 POST 請求，"
+        },
+        {
+          "id": 108,
+          "start": 558.71,
+          "end": 564.59,
+          "en": "so we want to add the method here and set this to post and add a body to this request and this body",
+          "zh": "所以加入 method，設為 POST，並加入請求主體，而這個主體，"
+        },
+        {
+          "id": 109,
+          "start": 564.59,
+          "end": 567.77,
+          "en": "should be the coordinates and the address.",
+          "zh": "應該包含座標與地址。"
+        },
+        {
+          "id": 110,
+          "start": 567.77,
+          "end": 573.98,
+          "en": "So for that, we can call json.stringify because we need to provide some JSON content here and",
+          "zh": "為此，可以呼叫 JSON.stringify，因為需要在這裡提供 JSON 內容，"
+        },
+        {
+          "id": 111,
+          "start": 574.01,
+          "end": 578.35,
+          "en": "json. stringify object and now it's important that we pass the right keys here,",
+          "zh": "用 JSON.stringify 處理物件。現在，傳入正確的鍵很重要，"
+        },
+        {
+          "id": 112,
+          "start": 578.48,
+          "end": 583.02,
+          "en": "we have to pass the keys which we tried to extract on the backend. There",
+          "zh": "必須傳入我們在後端嘗試擷取的鍵。在那裡，"
+        },
+        {
+          "id": 113,
+          "start": 583.04,
+          "end": 589.34,
+          "en": "we're looking for an address key, for a lat key and for an lng key, so we should provide exactly these",
+          "zh": "我們尋找 address、lat 和 lng 這三個鍵，所以這裡也應該提供完全相同的，"
+        },
+        {
+          "id": 114,
+          "start": 589.34,
+          "end": 591.14,
+          "en": "keys here as well,",
+          "zh": "鍵，"
+        },
+        {
+          "id": 115,
+          "start": 591.38,
+          "end": 599.47,
+          "en": "an address key which holds the address we're getting here and then a lat key which holds",
+          "zh": "address 存放這裡取得的地址，接著 lat 鍵存放，"
+        },
+        {
+          "id": 116,
+          "start": 599.47,
+          "end": 600.16,
+          "en": "coordinates.latitude",
+          "zh": "coordinates.latitude，"
+        },
+        {
+          "id": 117,
+          "start": 600.47,
+          "end": 606.71,
+          "en": "and then a lng key which holds coordinates.lng",
+          "zh": "再讓 lng 鍵存放 coordinates.lng，"
+        },
+        {
+          "id": 118,
+          "start": 606.86,
+          "end": 610.24,
+          "en": "and this should now be a valid body for our request.",
+          "zh": "這樣應該就是有效的請求主體。"
+        },
+        {
+          "id": 119,
+          "start": 611.73,
+          "end": 616.56,
+          "en": "Now let's also provide some headers here to tell the backend that we're sending some JSON data,",
+          "zh": "現在也提供一些標頭，告訴後端我們正在傳送 JSON 資料，"
+        },
+        {
+          "id": 120,
+          "start": 616.68,
+          "end": 618.42,
+          "en": "so here I will add my headers,",
+          "zh": "所以在這裡加入 headers，"
+        },
+        {
+          "id": 121,
+          "start": 618.45,
+          "end": 624.81,
+          "en": "I will add the content-type header and set this to application/json to tell the backend",
+          "zh": "加入 Content-Type 標頭，設為 application/json，告訴後端，"
+        },
+        {
+          "id": 122,
+          "start": 624.84,
+          "end": 630.6,
+          "en": "that we're sending some JSON data so that body parser and app.js which is watching for JSON data",
+          "zh": "我們傳送的是 JSON 資料，讓 app.js 中監聽 JSON 資料的 body-parser，"
+        },
+        {
+          "id": 123,
+          "start": 630.69,
+          "end": 635.74,
+          "en": "knows that this is a request where it should parse its body.",
+          "zh": "知道這是一個應該解析主體的請求。"
+        },
+        {
+          "id": 124,
+          "start": 635.76,
+          "end": 637.44,
+          "en": "So now we're trying to send this,",
+          "zh": "現在我們嘗試傳送，"
+        },
+        {
+          "id": 125,
+          "start": 638.07,
+          "end": 641.52,
+          "en": "then we get back a response here in the end,",
+          "zh": "最後在這裡收到回應，"
+        },
+        {
+          "id": 126,
+          "start": 641.52,
+          "end": 648.09,
+          "en": "so we might want to parse that JSON data in there and return that, as you learned this returns a new",
+          "zh": "所以可能想解析其中的 JSON 資料，再回傳它。正如你學過的，這會回傳新的，"
+        },
+        {
+          "id": 127,
+          "start": 648.09,
+          "end": 649.44,
+          "en": "promise",
+          "zh": "Promise，"
+        },
+        {
+          "id": 128,
+          "start": 649.44,
+          "end": 656.93,
+          "en": "and thereafter we got the data and our response which we for now can just log here on the client. You",
+          "zh": "之後取得資料與回應，目前可以直接在用戶端記錄它。你，"
+        },
+        {
+          "id": 129,
+          "start": 656.93,
+          "end": 659.3,
+          "en": "could of course also use async await if you wanted to,",
+          "zh": "當然也可以使用 async、await，"
+        },
+        {
+          "id": 130,
+          "start": 659.3,
+          "end": 661.55,
+          "en": "here I'll go for two then blocks.",
+          "zh": "這裡我會用兩個 then 區塊。"
+        },
+        {
+          "id": 131,
+          "start": 661.61,
+          "end": 666.96,
+          "en": "Now in reality, you might also want to check if the status code is ok, if you've got any errors",
+          "zh": "實際上，你也可能想檢查狀態碼是否正常，是否收到錯誤，"
+        },
+        {
+          "id": 132,
+          "start": 667.04,
+          "end": 671.96,
+          "en": "but on our server, we're not setting any other status codes than the default 200 code",
+          "zh": "但我們的伺服器沒有設定預設 200 以外的其他狀態碼，"
+        },
+        {
+          "id": 133,
+          "start": 671.96,
+          "end": 675.52,
+          "en": "and we're also not throwing any errors unless we have a bug in there,",
+          "zh": "也不會拋出任何錯誤，除非裡面有程式缺陷，"
+        },
+        {
+          "id": 134,
+          "start": 675.53,
+          "end": 677.21,
+          "en": "so for now we can leave it as it is,",
+          "zh": "所以目前可以保持原樣，"
+        },
+        {
+          "id": 135,
+          "start": 677.3,
+          "end": 683.16,
+          "en": "it's just there so that we can have a look at how this generally works. So with all of that, let's save",
+          "zh": "這只是為了看看整體如何運作。完成之後，儲存，"
+        },
+        {
+          "id": 136,
+          "start": 683.15,
+          "end": 684.5,
+          "en": "the client side code",
+          "zh": "用戶端程式碼，"
+        },
+        {
+          "id": 137,
+          "start": 684.66,
+          "end": 689.13,
+          "en": "and then here, make sure you've got all packages installed which I'll do again here because I deleted",
+          "zh": "接著在這裡確認所有套件都已安裝，我會再安裝一次，因為在不同影片之間，"
+        },
+        {
+          "id": 138,
+          "start": 689.13,
+          "end": 693.99,
+          "en": "node modules in this project in between the different videos and with dependencies installed,",
+          "zh": "我刪除了這個專案的 node_modules。相依套件安裝好之後，"
+        },
+        {
+          "id": 139,
+          "start": 693.99,
+          "end": 700.17,
+          "en": "let's run npm run build: dev to bring up that development server, looking good, running on localhost:8080",
+          "zh": "執行 npm run build:dev，啟動開發伺服器，看起來不錯，它在 localhost:8080 執行，"
+        },
+        {
+          "id": 140,
+          "start": 700.17,
+          "end": 702.12,
+          "en": "as you can see.",
+          "zh": "如你所見。"
+        },
+        {
+          "id": 141,
+          "start": 702.15,
+          "end": 710.49,
+          "en": "So now here if you visit localhost:8080, this works, let's open a console to see if it really works",
+          "zh": "現在造訪 localhost:8080，可以正常開啟。我們打開主控台，看看是否真的能運作，"
+        },
+        {
+          "id": 142,
+          "start": 711.93,
+          "end": 719.5,
+          "en": "and now here I will find a place, maybe also enter a correct one, 6th avenue, find place.",
+          "zh": "現在我在這裡尋找地點，也許輸入正確的地址，6th Avenue，再按 Find place。"
+        },
+        {
+          "id": 143,
+          "start": 719.52,
+          "end": 724.74,
+          "en": "Now this works but we got an error here and it's coming from our server and it's complaining about some",
+          "zh": "這個操作能執行，但這裡出現錯誤，它來自伺服器，抱怨某個，"
+        },
+        {
+          "id": 144,
+          "start": 724.74,
+          "end": 726.32,
+          "en": "CORS thing,",
+          "zh": "CORS 的問題，"
+        },
+        {
+          "id": 145,
+          "start": 726.33,
+          "end": 727.02,
+          "en": "now what's that?",
+          "zh": "那是什麼呢？"
+        }
+      ]
+    },
+    {
+      "id": "16477272",
+      "title": "Understanding CORS (Cross Origin Resource Sharing)",
+      "lectureOrder": 492,
+      "videoOrder": 431,
+      "sourceHash": "e6923adedd2decac30117c71809b878aa2605577920a00aa196f0cb58f9c95f2",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.16,
+          "end": 6.17,
+          "en": "CORS stands for a cross origin resource sharing.",
+          "zh": "CORS 是 cross-origin resource sharing，也就是跨來源資源共用的縮寫。"
+        },
+        {
+          "id": 2,
+          "start": 6.26,
+          "end": 8.11,
+          "en": "Now the idea beyond CORS is simple,",
+          "zh": "CORS 背後的概念很簡單，"
+        },
+        {
+          "id": 3,
+          "start": 8.13,
+          "end": 10.95,
+          "en": "you have some applications, some web site running on yourpage.com,",
+          "zh": "你有某個應用程式，也就是執行在 yourpage.com 的網站，"
+        },
+        {
+          "id": 4,
+          "start": 10.95,
+          "end": 16.98,
+          "en": "for example our find a place application where we see something on the screen and pick a location",
+          "zh": "例如我們的尋找位置應用程式，可以在畫面上看到內容，並選擇位置，"
+        },
+        {
+          "id": 5,
+          "start": 18,
+          "end": 19.73,
+          "en": "and then we have another server,",
+          "zh": "接著我們有另一台伺服器，"
+        },
+        {
+          "id": 6,
+          "start": 19.8,
+          "end": 26.76,
+          "en": "for example our backend with these two routes we added, othersite.com which you want to talk to from",
+          "zh": "例如我們加入了這兩個路由的後端 othersite.com，你想從，"
+        },
+        {
+          "id": 7,
+          "start": 26.76,
+          "end": 28.15,
+          "en": "your first page.",
+          "zh": "第一個網頁與它互動。"
+        },
+        {
+          "id": 8,
+          "start": 28.41,
+          "end": 34.8,
+          "en": "So we get these two applications, maybe we build both of them but they're running on different servers",
+          "zh": "所以有這兩個應用程式，也許兩個都是我們建立的，但執行於不同伺服器，"
+        },
+        {
+          "id": 9,
+          "start": 35.22,
+          "end": 36.6,
+          "en": "as it is the case for us,",
+          "zh": "就像我們現在的情況，"
+        },
+        {
+          "id": 10,
+          "start": 36.6,
+          "end": 41.58,
+          "en": "one is running on localhost:3000, the other on localhost:8080 and these are technically two",
+          "zh": "一個在 localhost:3000，另一個在 localhost:8080，技術上它們是兩台，"
+        },
+        {
+          "id": 11,
+          "start": 41.58,
+          "end": 43.41,
+          "en": "different servers.",
+          "zh": "不同的伺服器。"
+        },
+        {
+          "id": 12,
+          "start": 43.41,
+          "end": 48.84,
+          "en": "Now we might want to exchange some resources, that could be a script which we want to fetch from the",
+          "zh": "我們可能想交換資源，例如想從另一端取得某個，"
+        },
+        {
+          "id": 13,
+          "start": 48.84,
+          "end": 49.58,
+          "en": "other side,",
+          "zh": "指令碼，"
+        },
+        {
+          "id": 14,
+          "start": 49.65,
+          "end": 54.96,
+          "en": "we can send a request and get it but it could also be a request which we want to send to the other",
+          "zh": "可以發送請求並取得它，也可能是想向另一端發送，"
+        },
+        {
+          "id": 15,
+          "start": 54.96,
+          "end": 64.26,
+          "en": "side. And now by default, browsers block such cross origin requests, only requests to the same origin, so",
+          "zh": "某個請求。而瀏覽器預設會阻擋這種跨來源請求，只允許向相同來源，"
+        },
+        {
+          "id": 16,
+          "start": 64.26,
+          "end": 66.15,
+          "en": "to the same domain, are allowed,",
+          "zh": "也就是相同網域發送請求，"
+        },
+        {
+          "id": 17,
+          "start": 66.15,
+          "end": 72.92,
+          "en": "so on yourpage.com, we could only communicate with any routes that are registered on the same server,",
+          "zh": "所以在 yourpage.com，我們只能與同一台伺服器上註冊的路由互動，"
+        },
+        {
+          "id": 18,
+          "start": 72.93,
+          "end": 74.86,
+          "en": "not on a different server.",
+          "zh": "不能與不同伺服器互動。"
+        },
+        {
+          "id": 19,
+          "start": 74.88,
+          "end": 79.13,
+          "en": "Now this exists for a good reason because by default, you of course want to protect resources,",
+          "zh": "這有充分的理由，因為預設情況下，當然要保護資源，"
+        },
+        {
+          "id": 20,
+          "start": 79.23,
+          "end": 86.34,
+          "en": "you shouldn't be able to fetch any data from any server but in the modern web, where this setup of having",
+          "zh": "你不應該能從任何伺服器取得任何資料。但在現代網路中，使用，"
+        },
+        {
+          "id": 21,
+          "start": 86.34,
+          "end": 89.9,
+          "en": "standalone API servers is quite common,",
+          "zh": "獨立 API 伺服器的架構相當常見，"
+        },
+        {
+          "id": 22,
+          "start": 89.91,
+          "end": 92.84,
+          "en": "you of course want to be able to eject from this default,",
+          "zh": "所以你當然希望能改變這個預設行為，"
+        },
+        {
+          "id": 23,
+          "start": 92.85,
+          "end": 99.47999999999999,
+          "en": "you want to tell the browser that this access is OK. So in our example here, on the backend, so on the",
+          "zh": "告訴瀏覽器，這種存取沒有問題。所以在我們的例子中，在後端，也就是，"
+        },
+        {
+          "id": 24,
+          "start": 99.47999999999999,
+          "end": 106.89,
+          "en": "Node.js server and always on the backend when you have CORS issues, we have to set some extra headers",
+          "zh": "Node.js 伺服器上，而且遇到 CORS 問題時，總是要在後端設定一些額外標頭，"
+        },
+        {
+          "id": 25,
+          "start": 107.28,
+          "end": 113.82,
+          "en": "that signal to the browser that this is fine, that this access is fine, that we're allowing this access",
+          "zh": "向瀏覽器表示這沒有問題，這種存取是允許的，我們允許，"
+        },
+        {
+          "id": 26,
+          "start": 113.94,
+          "end": 115.14,
+          "en": "from this other page,",
+          "zh": "來自另一個網頁的存取，"
+        },
+        {
+          "id": 27,
+          "start": 115.32,
+          "end": 118.92,
+          "en": "so we want to grant access to our post route and our get route",
+          "zh": "所以我們想開放 POST 路由和 GET 路由，"
+        },
+        {
+          "id": 28,
+          "start": 118.92,
+          "end": 125.52,
+          "en": "for example and we do so by going to app.js and by adding some extra headers. We can add these",
+          "zh": "例如就是這兩個。做法是前往 app.js，加入額外標頭。我們可以在，"
+        },
+        {
+          "id": 29,
+          "start": 125.52,
+          "end": 131.7,
+          "en": "headers here before we reach our routes where we do send the response, simply with a middleware function",
+          "zh": "進入會傳送回應的路由之前加入這些標頭，只要使用中介軟體函式，"
+        },
+        {
+          "id": 30,
+          "start": 131.7,
+          "end": 137.85,
+          "en": "here where we get the request, get the response and get this next function and there on the response,",
+          "zh": "在這裡取得請求、回應和 next 函式，接著在回應上，"
+        },
+        {
+          "id": 31,
+          "start": 137.88,
+          "end": 147.8,
+          "en": "we want to add a couple of headers. The headers we need to add there are access-control-allow-origin,",
+          "zh": "加入幾個標頭。需要加入的是 Access-Control-Allow-Origin，"
+        },
+        {
+          "id": 32,
+          "start": 147.92000000000002,
+          "end": 155.54,
+          "en": "the value for that can be a star or the URL from what you want to allow access,",
+          "zh": "它的值可以是星號，或你想允許存取的來源 URL，"
+        },
+        {
+          "id": 33,
+          "start": 155.57,
+          "end": 161.48,
+          "en": "so we could also specify localhost:3000 there but I'll add a star which means any other server",
+          "zh": "所以也可以在那裡指定 localhost:3000，但我會加上星號，代表任何其他伺服器，"
+        },
+        {
+          "id": 34,
+          "start": 161.51,
+          "end": 163.43,
+          "en": "can send me a request.",
+          "zh": "都能向我發送請求。"
+        },
+        {
+          "id": 35,
+          "start": 163.43,
+          "end": 169.37,
+          "en": "We also should add another header here, allow methods, here we can restrict the HTTP methods we",
+          "zh": "也應該加入另一個標頭 Access-Control-Allow-Methods，這裡可以限制我們，"
+        },
+        {
+          "id": 36,
+          "start": 169.37,
+          "end": 175.34,
+          "en": "want to support and since I only have post and get routes which I want to expose to the public, we can",
+          "zh": "想支援的 HTTP 方法。因為只有 POST 和 GET 路由要對外開放，我們可以，"
+        },
+        {
+          "id": 37,
+          "start": 175.34,
+          "end": 177.71,
+          "en": "write post, get here,",
+          "zh": "在這裡寫 POST、GET，"
+        },
+        {
+          "id": 38,
+          "start": 177.77,
+          "end": 183.08,
+          "en": "so if you send me a put request you would still not be allowed access but these two methods are allowed",
+          "zh": "所以如果向我發送 PUT 請求，仍然不允許存取，但這兩個方法是允許的，"
+        },
+        {
+          "id": 39,
+          "start": 183.47,
+          "end": 190.39,
+          "en": "and you can also add other headers to restrict the usage of your API, of your backend server here. Attached",
+          "zh": "你也可以加入其他標頭，限制 API，也就是後端伺服器的使用方式。附件中，"
+        },
+        {
+          "id": 40,
+          "start": 190.39,
+          "end": 194.45,
+          "en": "you find a link where you can learn more about CORS and which headers you can set there,",
+          "zh": "有連結，讓你進一步了解 CORS，以及可以設定哪些標頭，"
+        },
+        {
+          "id": 41,
+          "start": 194.45,
+          "end": 200.72,
+          "en": "these two are all the headers we need however. We thereafter should call next here so that the request",
+          "zh": "不過，目前我們只需要這兩個標頭。接著應該在這裡呼叫 next，讓請求，"
+        },
+        {
+          "id": 42,
+          "start": 200.72,
+          "end": 206.79,
+          "en": "is able to continue to our routes and with that we can save this and restart our backend server.",
+          "zh": "能繼續進到路由，然後儲存並重新啟動後端伺服器。"
+        },
+        {
+          "id": 43,
+          "start": 206.87,
+          "end": 208.7,
+          "en": "Now back to the application,",
+          "zh": "現在回到應用程式，"
+        },
+        {
+          "id": 44,
+          "start": 208.91,
+          "end": 210.38,
+          "en": "let's try this again.",
+          "zh": "再試一次，"
+        },
+        {
+          "id": 45,
+          "start": 210.41,
+          "end": 211.96,
+          "en": "You don't even need to reload this page,",
+          "zh": "甚至不需要重新載入頁面，"
+        },
+        {
+          "id": 46,
+          "start": 211.97,
+          "end": 219.42000000000002,
+          "en": "we can just clear the error here to see if we get a new one, click find place again and still fail. The reason",
+          "zh": "只要清除這裡的錯誤，看看是否出現新的錯誤，再按 Find place，仍然失敗。原因，"
+        },
+        {
+          "id": 47,
+          "start": 219.42000000000002,
+          "end": 225.65,
+          "en": "for that can be really tricky to understand but for post requests, browsers actually also send another",
+          "zh": "可能很難理解，但對於 POST 請求，瀏覽器其實也會先發送另一個，"
+        },
+        {
+          "id": 48,
+          "start": 225.66,
+          "end": 227.07,
+          "en": "request first",
+          "zh": "請求，"
+        },
+        {
+          "id": 49,
+          "start": 227.19,
+          "end": 230.49,
+          "en": "where they try to find out whether the post request is allowed.",
+          "zh": "試著確認是否允許 POST 請求。"
+        },
+        {
+          "id": 50,
+          "start": 230.49,
+          "end": 233.13,
+          "en": "You can see this in the network tab actually,",
+          "zh": "其實可以在 Network 分頁看到，"
+        },
+        {
+          "id": 51,
+          "start": 233.13,
+          "end": 237.42000000000002,
+          "en": "here this add location request has a method of options.",
+          "zh": "這裡的 add-location 請求使用的是 OPTIONS 方法。"
+        },
+        {
+          "id": 52,
+          "start": 237.6,
+          "end": 243.79,
+          "en": "We never send an options request here in our code but the browser does this automatically for some HTTP",
+          "zh": "我們的程式碼從來沒有發送 OPTIONS 請求，但瀏覽器會對某些 HTTP，"
+        },
+        {
+          "id": 53,
+          "start": 243.81,
+          "end": 247.1,
+          "en": "methods, for example for post requests.",
+          "zh": "方法自動這樣做，例如 POST 請求。"
+        },
+        {
+          "id": 54,
+          "start": 247.23,
+          "end": 253.71,
+          "en": "So on the server side, we need to allow options requests as well by simply adding this to the allowed",
+          "zh": "所以在伺服器端，也需要允許 OPTIONS 請求，只要把它加進允許的，"
+        },
+        {
+          "id": 55,
+          "start": 253.71,
+          "end": 260.07,
+          "en": "methods and now actually one more thing we should also do is add one extra header here and that's the",
+          "zh": "方法。現在還有一件應該做的事，就是再加一個額外標頭，也就是，"
+        },
+        {
+          "id": 56,
+          "start": 260.07,
+          "end": 267.72,
+          "en": "access-control-allow-headers option where we defined which headers the client might",
+          "zh": "Access-Control-Allow-Headers，用來定義用戶端可以，"
+        },
+        {
+          "id": 57,
+          "start": 267.72,
+          "end": 270.56,
+          "en": "send to us, which special headers and there",
+          "zh": "向我們傳送哪些標頭，哪些特殊的標頭。在這裡，"
+        },
+        {
+          "id": 58,
+          "start": 270.57,
+          "end": 276,
+          "en": "I want to allow the content type header because we're setting this in the client side code as well.",
+          "zh": "我想允許 Content-Type 標頭，因為用戶端程式碼中也有設定它。"
+        },
+        {
+          "id": 59,
+          "start": 276.18,
+          "end": 278.6,
+          "en": "And now with that, we can restart the server,",
+          "zh": "完成之後，可以重新啟動伺服器，"
+        },
+        {
+          "id": 60,
+          "start": 280.06,
+          "end": 283.26,
+          "en": "clear our errors here on the client, click find place again",
+          "zh": "清除用戶端這裡的錯誤，再按 Find place，"
+        },
+        {
+          "id": 61,
+          "start": 283.39,
+          "end": 286.6,
+          "en": "and now it works and we get back our success response there.",
+          "zh": "現在就能運作，而且在那裡收到成功回應。"
+        },
+        {
+          "id": 62,
+          "start": 287.29,
+          "end": 292.18,
+          "en": "So this is now how we can send a post request from a different server, from our client side server",
+          "zh": "所以這就是從另一台伺服器，也就是用戶端伺服器，發送 POST 請求的方式，"
+        },
+        {
+          "id": 63,
+          "start": 292.21,
+          "end": 298.48,
+          "en": "which has this static application, which has some client side Javascript running on it to our Node.js",
+          "zh": "它有這個靜態應用程式，以及用戶端 JavaScript，請求會送到 Node.js，"
+        },
+        {
+          "id": 64,
+          "start": 298.49,
+          "end": 305.35,
+          "en": "backend application which also uses Javascript but in the Node.js context and which now communicates",
+          "zh": "後端應用程式，它也使用 JavaScript，但在 Node.js 環境中執行，並以，"
+        },
+        {
+          "id": 65,
+          "start": 305.47,
+          "end": 311.41,
+          "en": "as REST API with this client side project and that's quite a typical setup actually.",
+          "zh": "REST API 與這個用戶端專案互動，這其實是相當典型的架構。"
+        }
+      ]
+    },
+    {
+      "id": "16477282",
+      "title": "Sending the Location ID to the Frontend",
+      "lectureOrder": 493,
+      "videoOrder": 432,
+      "sourceHash": "f5cbb7c820e248cf8c46cbc33ed11fe8d55b838454bbc819ce8dcd8e29cd448d",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.13,
+          "end": 5.23,
+          "en": "Now let's make sure the other route now also works.",
+          "zh": "現在我們來確認另一個路由也能運作。"
+        },
+        {
+          "id": 2,
+          "start": 5.25,
+          "end": 12.82,
+          "en": "My goal is that users now actually get a link here which does not include all this information but just",
+          "zh": "我的目標是讓使用者在這裡取得的連結，不再包含所有資訊，而只有，"
+        },
+        {
+          "id": 3,
+          "start": 12.82,
+          "end": 18.76,
+          "en": "the ID which we generate on the server and then we output this link here with the ID and when we",
+          "zh": "伺服器產生的 ID。接著在這裡輸出包含 ID 的連結，當我們，"
+        },
+        {
+          "id": 4,
+          "start": 18.76,
+          "end": 22.52,
+          "en": "click the link or when we use the link, we reach that other route",
+          "zh": "點擊或使用這個連結時，就會連到另一個路由，"
+        },
+        {
+          "id": 5,
+          "start": 22.54,
+          "end": 26.13,
+          "en": "we defined here, this get route to then load this data for the ID.",
+          "zh": "也就是這裡定義的 GET 路由，再根據 ID 載入資料。"
+        },
+        {
+          "id": 6,
+          "start": 26.41,
+          "end": 28.26,
+          "en": "Now two things we need to do for that,",
+          "zh": "為此需要做兩件事，"
+        },
+        {
+          "id": 7,
+          "start": 28.27,
+          "end": 33.87,
+          "en": "for one we should send back the ID to the client so that on the client, we can encode it in the URL.",
+          "zh": "首先，應該把 ID 傳回用戶端，讓用戶端能把它編碼進 URL。"
+        },
+        {
+          "id": 8,
+          "start": 33.88,
+          "end": 40.63,
+          "en": "So here I'll generate my ID here and store it in a constant and then refer to this ID constant here",
+          "zh": "所以我在這裡產生 ID，存進常數，再在這裡使用 ID 常數，"
+        },
+        {
+          "id": 9,
+          "start": 41.05,
+          "end": 47.49,
+          "en": "and also send it back, maybe in a location or log ID field here in our response,",
+          "zh": "也把它傳回去，例如放在回應的 location ID 或 locId 欄位中，"
+        },
+        {
+          "id": 10,
+          "start": 47.5,
+          "end": 48.31,
+          "en": "that's important",
+          "zh": "這很重要，"
+        },
+        {
+          "id": 11,
+          "start": 48.49,
+          "end": 53.29,
+          "en": "otherwise on the client, we can't generate a link with the ID in it.",
+          "zh": "否則用戶端無法產生包含 ID 的連結。"
+        },
+        {
+          "id": 12,
+          "start": 53.29,
+          "end": 60.49,
+          "en": "Then back to the client, we should take all this code which disables the button and so on into this then",
+          "zh": "接著回到用戶端，應該把這些停用按鈕等操作的程式碼，放進這個 then，"
+        },
+        {
+          "id": 13,
+          "start": 60.49,
+          "end": 66.52,
+          "en": "block so that this only happens once the data was sent to the server and we got a response",
+          "zh": "區塊，讓這些操作只有在資料傳送到伺服器，而且我們收到回應後才發生，"
+        },
+        {
+          "id": 14,
+          "start": 66.52,
+          "end": 72.78999999999999,
+          "en": "and now here from data we need to get that ID, the location ID we get this from data.locId,",
+          "zh": "現在需要從 data 取得 ID，也就是位置 ID，我們從 data.locId 取得，"
+        },
+        {
+          "id": 15,
+          "start": 73.21000000000001,
+          "end": 74.81,
+          "en": "why locId?",
+          "zh": "為什麼是 locId？"
+        },
+        {
+          "id": 16,
+          "start": 74.83,
+          "end": 78.43,
+          "en": "Well because on the response, we're sending this locId field,",
+          "zh": "因為回應裡傳送的是這個 locId 欄位，"
+        },
+        {
+          "id": 17,
+          "start": 78.49,
+          "end": 81.61,
+          "en": "that's part of our JSON response, on the client",
+          "zh": "它是 JSON 回應的一部分。在用戶端，"
+        },
+        {
+          "id": 18,
+          "start": 81.61,
+          "end": 87.94,
+          "en": "we're parsing this JSON data, so we get an object which will have this locId field and now the location",
+          "zh": "我們解析這份 JSON 資料，所以會取得有 locId 欄位的物件，而現在位置，"
+        },
+        {
+          "id": 19,
+          "start": 87.94,
+          "end": 89.4,
+          "en": "ID should be part of that",
+          "zh": "ID 應該成為這個，"
+        },
+        {
+          "id": 20,
+          "start": 89.44,
+          "end": 90.19,
+          "en": "URL.",
+          "zh": "URL 的一部分。"
+        },
+        {
+          "id": 21,
+          "start": 90.61,
+          "end": 97.93,
+          "en": "So we replace this part here with locId or location equals",
+          "zh": "所以把這裡的部分換成 locId，或者說 location=，"
+        },
+        {
+          "id": 22,
+          "start": 98.05,
+          "end": 105.82,
+          "en": "and now we inject the location ID here, so that now the link contains the ID instead of the full",
+          "zh": "接著把位置 ID 放進這裡，讓連結包含 ID，而不是完整的，"
+        },
+        {
+          "id": 23,
+          "start": 105.88,
+          "end": 107.85,
+          "en": "address data.",
+          "zh": "地址資料。"
+        },
+        {
+          "id": 24,
+          "start": 107.85,
+          "end": 114.12,
+          "en": "So with that, we should restart our server side server so that we take our changes here into account",
+          "zh": "完成之後，應該重新啟動後端伺服器，讓這裡的變更生效，"
+        },
+        {
+          "id": 25,
+          "start": 114.75,
+          "end": 121.29,
+          "en": "and then go to the running frontend application, maybe search for a 6th avenue again, find that place",
+          "zh": "接著回到正在執行的前端應用程式，例如再次搜尋 6th Avenue，找到那個地點，"
+        },
+        {
+          "id": 26,
+          "start": 121.29,
+          "end": 126,
+          "en": "and now you'll see we got this link with our location ID here.",
+          "zh": "現在你會看到，我們取得的連結包含這裡的位置 ID。"
+        },
+        {
+          "id": 27,
+          "start": 126,
+          "end": 130.08,
+          "en": "Now let's make sure we also fetch that location by that ID",
+          "zh": "接下來確認也能根據這個 ID 取得位置，"
+        },
+        {
+          "id": 28,
+          "start": 130.23,
+          "end": 133.95,
+          "en": "with this URL, with this path on our backend server.",
+          "zh": "透過這個 URL，也就是後端伺服器上的這個路徑。"
+        }
+      ]
+    },
+    {
+      "id": "16477286",
+      "title": "Adding the GET Location Route",
+      "lectureOrder": 494,
+      "videoOrder": 433,
+      "sourceHash": "4bdbf46f26c08e52522a415d6ba14925721134ce92d3c09594173fa6a28e2d33",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.29,
+          "end": 4,
+          "en": "So let's work on this",
+          "zh": "我們來處理這個，"
+        },
+        {
+          "id": 2,
+          "start": 4,
+          "end": 6.51,
+          "en": "URL here or on this path",
+          "zh": "URL，或是這個路徑，"
+        },
+        {
+          "id": 3,
+          "start": 6.94,
+          "end": 11.52,
+          "en": "and here we now want to retrieve the data for a given ID",
+          "zh": "現在想在這裡取得指定 ID 的資料，"
+        },
+        {
+          "id": 4,
+          "start": 11.59,
+          "end": 18.4,
+          "en": "because the idea is that on the frontend, on my-place.js, we now no longer parse the coordinates and",
+          "zh": "因為我們的想法是，在前端 my-place.js 中，不再從 URL 參數解析座標，"
+        },
+        {
+          "id": 5,
+          "start": 18.4,
+          "end": 24.66,
+          "en": "the address from the URL params, instead on the query params,",
+          "zh": "與地址，而是在查詢參數中，"
+        },
+        {
+          "id": 6,
+          "start": 24.82,
+          "end": 31.09,
+          "en": "we will of course find such a location key and that will hold the location ID which we want to look",
+          "zh": "找到 location 這個鍵，它會存放位置 ID，讓我們能在，"
+        },
+        {
+          "id": 7,
+          "start": 31.09,
+          "end": 33.36,
+          "en": "up on our backend server.",
+          "zh": "後端伺服器上查詢。"
+        },
+        {
+          "id": 8,
+          "start": 33.37,
+          "end": 40.17,
+          "en": "So here, we get our locId by using query params get location,",
+          "zh": "所以這裡透過 queryParams.get('location') 取得 locId，"
+        },
+        {
+          "id": 9,
+          "start": 40.18,
+          "end": 41.87,
+          "en": "that's the key name we use there",
+          "zh": "這就是我們使用的鍵名，"
+        },
+        {
+          "id": 10,
+          "start": 42.16,
+          "end": 50.71,
+          "en": "and then we want to send a fetch request here to http://localhost:3000 in this case,",
+          "zh": "接著想在這裡用 fetch 發送請求，這個例子的目標是 http://localhost:3000，"
+        },
+        {
+          "id": 11,
+          "start": 52.39,
+          "end": 53.23,
+          "en": "/location,",
+          "zh": "加上 /location，"
+        },
+        {
+          "id": 12,
+          "start": 53.29,
+          "end": 56.13,
+          "en": "that's the path we're setting up here on the backend,",
+          "zh": "這是我們正在後端設定的路徑，"
+        },
+        {
+          "id": 13,
+          "start": 56.32,
+          "end": 65.19,
+          "en": "so slash location and then here, I want to add this ID somehow to the URL. Now we could add",
+          "zh": "所以是 /location，接著我想用某種方式把 ID 加進 URL。我們可以加入，"
+        },
+        {
+          "id": 14,
+          "start": 65.19,
+          "end": 71.64,
+          "en": "a query parameter but we actually can also add it as an extra path segment, we can add extra slash here",
+          "zh": "查詢參數，但其實也可以把它加成額外的路徑區段，在這裡多加一個斜線，"
+        },
+        {
+          "id": 15,
+          "start": 71.91,
+          "end": 73.78999999999999,
+          "en": "and then append locId.",
+          "zh": "再附加 locId。"
+        },
+        {
+          "id": 16,
+          "start": 74.25,
+          "end": 79.69,
+          "en": "Now we're sending a get request to this URL where the ID is actually part of the URL,",
+          "zh": "現在我們向這個 URL 發送 GET 請求，ID 實際上是 URL 的一部分，"
+        },
+        {
+          "id": 17,
+          "start": 79.83,
+          "end": 86.55,
+          "en": "so this will be something like this URL and then some random ID thereafter. Now",
+          "zh": "所以它會像這個 URL，後面再加上一個隨機 ID。接著，"
+        },
+        {
+          "id": 18,
+          "start": 86.8,
+          "end": 88.99,
+          "en": "then we'll get back some response",
+          "zh": "我們會收到回應，"
+        },
+        {
+          "id": 19,
+          "start": 88.99,
+          "end": 97.12,
+          "en": "and just as before, we should return the parsed response, the JSON data, the parsed JSON data",
+          "zh": "和之前一樣，應該回傳解析後的回應，也就是 JSON 資料，解析後的 JSON 資料，"
+        },
+        {
+          "id": 20,
+          "start": 97.12,
+          "end": 106.03999999999999,
+          "en": "and then we get the ultimate data in here in this second then block. It's then here where I want to create",
+          "zh": "接著在第二個 then 區塊中取得最終資料。我想在這裡，"
+        },
+        {
+          "id": 21,
+          "start": 106.03999999999999,
+          "end": 111.92,
+          "en": "my new loaded place with that extracted data and we'll have to see how we extract that as soon as",
+          "zh": "用擷取出來的資料建立新的 LoadedPlace，而取得資料的方式，要等我們，"
+        },
+        {
+          "id": 22,
+          "start": 111.92,
+          "end": 113.78,
+          "en": "we know what we send back.",
+          "zh": "知道傳回什麼內容之後再看。"
+        },
+        {
+          "id": 23,
+          "start": 113.78,
+          "end": 119.39,
+          "en": "Let's now go back to the backend though, there we will get a URL which contains the ID as part",
+          "zh": "現在先回到後端，我們會收到 URL，其中包含作為，"
+        },
+        {
+          "id": 24,
+          "start": 119.45,
+          "end": 127.31,
+          "en": "of the URL. Express.js is able to handle this, we can add an extra segment here to the path for which",
+          "zh": "URL 一部分的 ID。Express.js 可以處理這種情況，我們可以在要篩選的路徑上多加一個區段，"
+        },
+        {
+          "id": 25,
+          "start": 127.31,
+          "end": 133.4,
+          "en": "we filter where we tell Express.js that we have a dynamic segment, so one which is not always the",
+          "zh": "告訴 Express.js，我們有一個動態區段，也就是它並不是一直，"
+        },
+        {
+          "id": 26,
+          "start": 133.4,
+          "end": 139.64,
+          "en": "same value but which changes. We do that by adding a colon here and then any identifier of your choice,",
+          "zh": "使用相同的值，而是會變動。做法是在這裡加上冒號，再加上自訂的識別字，"
+        },
+        {
+          "id": 27,
+          "start": 139.91,
+          "end": 145.73,
+          "en": "for example lid for location ID but again, you can name this however you want, the colon is important",
+          "zh": "例如用 lid 代表 location ID，但同樣地，名稱可以自行決定，不過冒號，"
+        },
+        {
+          "id": 28,
+          "start": 145.73,
+          "end": 146.81,
+          "en": "though.",
+          "zh": "很重要。"
+        },
+        {
+          "id": 29,
+          "start": 146.81,
+          "end": 155.06,
+          "en": "Now this tells Express that we filter for get requests to /location/something and now in",
+          "zh": "這會告訴 Express，我們要篩選發送到 /location/某個值 的 GET 請求。現在在，"
+        },
+        {
+          "id": 30,
+          "start": 155.06,
+          "end": 163.32999999999998,
+          "en": "here, we can retrieve that location ID by going to request.params, there is a params object in",
+          "zh": "這裡，可以透過 request.params 取得位置 ID，裡面有 params 物件，"
+        },
+        {
+          "id": 31,
+          "start": 163.32999999999998,
+          "end": 169.15,
+          "en": "there, Express.js provides this to you and this will now have a lid key because I have lid up there,",
+          "zh": "這是 Express.js 提供的，而現在它會有 lid 這個鍵，因為我在上方使用 lid，"
+        },
+        {
+          "id": 32,
+          "start": 169.27,
+          "end": 173.32999999999998,
+          "en": "if you chose a different identifier here, you have to extract the different one down there,",
+          "zh": "如果這裡選了其他識別字，就必須在下方擷取對應的名稱，"
+        },
+        {
+          "id": 33,
+          "start": 173.5,
+          "end": 179.44,
+          "en": "this will be the data which is part of the URL, this segment which is part of the URL. With that",
+          "zh": "這就是 URL 中的資料，也就是 URL 的這個區段。如此一來，"
+        },
+        {
+          "id": 34,
+          "start": 179.44,
+          "end": 185.11,
+          "en": "we can now go to our location storage which will not be cleared as long as we don't restart the server",
+          "zh": "現在可以到位置儲存空間中，依 ID 取得位置，只要不重新啟動伺服器，"
+        },
+        {
+          "id": 35,
+          "start": 185.35,
+          "end": 193,
+          "en": "or we're running out of memory, to get our location by that ID. So in there, we have math random as ID",
+          "zh": "或記憶體不足，它就不會被清空。裡面使用 Math.random() 作為 ID，"
+        },
+        {
+          "id": 36,
+          "start": 193.06,
+          "end": 198.16,
+          "en": "which is a number, what we get here will be a string because whatever you encode in the URL will be",
+          "zh": "它是數字，但這裡取得的是字串，因為編碼在 URL 中的任何內容都是，"
+        },
+        {
+          "id": 37,
+          "start": 198.16,
+          "end": 203.41,
+          "en": "a string, so we'll actually convert it to a number by adding a plus here and then we can find this here",
+          "zh": "字串，所以我們在這裡加上加號，轉成數字，再到這裡的，"
+        },
+        {
+          "id": 38,
+          "start": 203.53,
+          "end": 211.74,
+          "en": "in our locations array. So the location can be found by reaching out to location storage.locations and",
+          "zh": "locations 陣列尋找。因此，可以透過 locationStorage.locations 找到位置，"
+        },
+        {
+          "id": 39,
+          "start": 211.75,
+          "end": 217.66,
+          "en": "then we can use the find method which exists on arrays in Node.js just as it does on the client side",
+          "zh": "接著使用陣列的 find 方法，它在 Node.js 中也和用戶端一樣存在，"
+        },
+        {
+          "id": 40,
+          "start": 218.94,
+          "end": 221.28,
+          "en": "and here we learned how that works,",
+          "zh": "我們已經學過它如何運作，"
+        },
+        {
+          "id": 41,
+          "start": 221.28,
+          "end": 226.21,
+          "en": "this runs on every item in the array, so on every location",
+          "zh": "它會針對陣列的每個項目，也就是每個位置執行，"
+        },
+        {
+          "id": 42,
+          "start": 226.21,
+          "end": 229.04,
+          "en": "and I want to return true if we found the right location,",
+          "zh": "如果找到正確的位置，我就想回傳 true，"
+        },
+        {
+          "id": 43,
+          "start": 229.07999999999998,
+          "end": 234.87,
+          "en": "so I want to return true if loc.Id is equal to location ID, then I know I have the right location",
+          "zh": "所以當 loc.id 等於 locationId 時回傳 true，這樣就知道找到了正確位置，"
+        },
+        {
+          "id": 44,
+          "start": 235.11,
+          "end": 236.99,
+          "en": "and we store this here in this location",
+          "zh": "再把它存進這裡的 location，"
+        },
+        {
+          "id": 45,
+          "start": 237,
+          "end": 244.64,
+          "en": "object. Now if location is falsy and this also works just as on the client side because this is",
+          "zh": "物件。現在，如果 location 是 falsy，這也和用戶端的行為一樣，因為，"
+        },
+        {
+          "id": 46,
+          "start": 244.64,
+          "end": 250.77,
+          "en": "a default Javascript feature, this whole falsy, truthy if check thing, so we can check for falseness,",
+          "zh": "整個 falsy、truthy 與 if 檢查都是 JavaScript 的基本功能，所以可以檢查是否為假值，"
+        },
+        {
+          "id": 47,
+          "start": 250.79,
+          "end": 258.65,
+          "en": "If that's the case then I actually want to send back a JSON response where I set my own status code,",
+          "zh": "如果是，我就想傳回 JSON 回應，並設定自己的狀態碼，"
+        },
+        {
+          "id": 48,
+          "start": 259.46,
+          "end": 262.55,
+          "en": "status code with the status method of 404,",
+          "zh": "透過 status 方法，把狀態碼設為 404，"
+        },
+        {
+          "id": 49,
+          "start": 262.55,
+          "end": 264.23,
+          "en": "we can simply chain these two methods",
+          "zh": "可以直接把這兩個方法串接起來，"
+        },
+        {
+          "id": 50,
+          "start": 264.26,
+          "end": 269.21,
+          "en": "and with that we first set a status code and then we can add some extra data where we maybe add",
+          "zh": "先設定狀態碼，再加入一些額外資料，例如加入，"
+        },
+        {
+          "id": 51,
+          "start": 269.21,
+          "end": 271.79,
+          "en": "a message of not found.",
+          "zh": "not found 這個訊息。"
+        },
+        {
+          "id": 52,
+          "start": 271.79,
+          "end": 277.79,
+          "en": "So with that, we return an error response to the frontend and then we can do whatever we want with that",
+          "zh": "如此一來，我們就會向前端回傳錯誤回應，然後在那裡對這些，"
+        },
+        {
+          "id": 53,
+          "start": 277.79,
+          "end": 278.82,
+          "en": "information there,",
+          "zh": "資訊做我們想做的處理，"
+        },
+        {
+          "id": 54,
+          "start": 278.96,
+          "end": 284.99,
+          "en": "I just want to set this extra status code with the status method so that we have a chance to find out",
+          "zh": "我只想用 status 方法設定這個額外的狀態碼，讓我們有機會在前端判斷，"
+        },
+        {
+          "id": 55,
+          "start": 284.99,
+          "end": 287.87,
+          "en": "whether we succeeded or not on the frontend",
+          "zh": "是否成功，"
+        },
+        {
+          "id": 56,
+          "start": 288.23,
+          "end": 289.78,
+          "en": "and I will return this",
+          "zh": "而我會回傳這個回應，"
+        },
+        {
+          "id": 57,
+          "start": 289.79,
+          "end": 292.39,
+          "en": "so that we execute no code after this",
+          "zh": "這樣就不會執行後面的程式碼，"
+        },
+        {
+          "id": 58,
+          "start": 292.58,
+          "end": 294.26,
+          "en": "because after this if check,",
+          "zh": "因為在這個 if 檢查之後，"
+        },
+        {
+          "id": 59,
+          "start": 294.35,
+          "end": 296.18,
+          "en": "I want to run the code which we run",
+          "zh": "我想執行的是，"
+        },
+        {
+          "id": 60,
+          "start": 296.18,
+          "end": 303.16,
+          "en": "if we found a location and in this case, I want to send the response with the JSON method.",
+          "zh": "找到位置時才執行的程式碼，這時我想用 json 方法傳送回應。"
+        },
+        {
+          "id": 61,
+          "start": 303.23,
+          "end": 308.78,
+          "en": "We could add a status code here as well but 200 is the status code, the default status code anyways so",
+          "zh": "這裡也可以加上狀態碼，但預設狀態碼本來就是 200，所以，"
+        },
+        {
+          "id": 62,
+          "start": 308.78,
+          "end": 310.3,
+          "en": "we don't have to do that",
+          "zh": "不需要這樣做，"
+        },
+        {
+          "id": 63,
+          "start": 310.37,
+          "end": 317.24,
+          "en": "and here of course I want to provide my location data so we can set an address here by accessing location.address",
+          "zh": "這裡當然要提供位置資料，所以可以透過 location.address 設定 address，"
+        },
+        {
+          "id": 64,
+          "start": 317.24,
+          "end": 323.69,
+          "en": "because when we store a location here, we store an object which has the address field and",
+          "zh": "因為儲存位置時，我們存的是有 address 欄位，以及，"
+        },
+        {
+          "id": 65,
+          "start": 323.69,
+          "end": 325.17,
+          "en": "a coords field,",
+          "zh": "coords 欄位的物件，"
+        },
+        {
+          "id": 66,
+          "start": 325.28,
+          "end": 330.92,
+          "en": "so we send back an address and then maybe coordinates where we refer to location.coords,",
+          "zh": "所以傳回 address，以及可能叫做 coordinates 的欄位，它的值來自 location.coords，"
+        },
+        {
+          "id": 67,
+          "start": 330.92,
+          "end": 337.99,
+          "en": "so to this coords field we're storing up there and now this is sent back to the client,",
+          "zh": "也就是上方儲存的 coords 欄位，現在這些資料會傳回用戶端，"
+        },
+        {
+          "id": 68,
+          "start": 338,
+          "end": 343.85,
+          "en": "now let's restart our Node server here and on the client side, we now can also tweak this code a little",
+          "zh": "現在重新啟動 Node 伺服器，在用戶端，我們也能稍微調整這段，"
+        },
+        {
+          "id": 69,
+          "start": 343.85,
+          "end": 350.63,
+          "en": "bit and to provide the coords to the loaded place, we can access data.coordinates because we will",
+          "zh": "程式碼。要把 coords 提供給 LoadedPlace，可以存取 data.coordinates，因為我們會，"
+        },
+        {
+          "id": 70,
+          "start": 350.63,
+          "end": 356.37,
+          "en": "send back a coordinates key here which holds an object with lat and lng which is just what we need,",
+          "zh": "傳回 coordinates 這個鍵，它包含有 lat 和 lng 的物件，正是我們需要的，"
+        },
+        {
+          "id": 71,
+          "start": 356.48,
+          "end": 362.48,
+          "en": "so we access coordinates on the return data and data.address for the address.",
+          "zh": "所以從回傳的資料存取 coordinates，再用 data.address 取得地址。"
+        },
+        {
+          "id": 72,
+          "start": 362.48,
+          "end": 367.69,
+          "en": "Now we might get a status code which is 404 if we have no place,",
+          "zh": "如果沒有找到地點，我們可能會收到 404 狀態碼，"
+        },
+        {
+          "id": 73,
+          "start": 367.73,
+          "end": 374.24,
+          "en": "so in this case here I want to check if response.status is equal to 404, in which case I know we",
+          "zh": "所以在這裡要檢查 response.status 是否等於 404，如果是，就知道，"
+        },
+        {
+          "id": 74,
+          "start": 374.24,
+          "end": 380.24,
+          "en": "didn't find a location and in that case I want to throw a new error here where I say could not find",
+          "zh": "沒有找到位置。在這種情況下，我要拋出新的錯誤，訊息是 could not find，"
+        },
+        {
+          "id": 75,
+          "start": 380.36,
+          "end": 384.71,
+          "en": "location and then add a catch block after the last",
+          "zh": "location，接著在最後一個，"
+        },
+        {
+          "id": 76,
+          "start": 384.71,
+          "end": 390.92,
+          "en": "then block where I catch any errors like this one, where I simply show an alert with that error message",
+          "zh": "then 區塊後面加入 catch 區塊，捕捉像這樣的錯誤，直接用 alert 把錯誤訊息，"
+        },
+        {
+          "id": 77,
+          "start": 390.92,
+          "end": 391.57,
+          "en": "to the user.",
+          "zh": "顯示給使用者。"
+        },
+        {
+          "id": 78,
+          "start": 393.07,
+          "end": 400.15,
+          "en": "Now with all of that, let's save that and first of all store a new place because I restarted the node",
+          "zh": "完成這些之後，儲存，先存一個新的地點，因為我重新啟動了 Node，"
+        },
+        {
+          "id": 79,
+          "start": 400.15,
+          "end": 405.37,
+          "en": "server, so our old place will be lost for now. Find that place",
+          "zh": "伺服器，所以原本的地點目前已經遺失。找到這個地點，"
+        },
+        {
+          "id": 80,
+          "start": 405.76,
+          "end": 407.8,
+          "en": "and now let's share that place,",
+          "zh": "現在分享它，"
+        },
+        {
+          "id": 81,
+          "start": 407.8,
+          "end": 413.95,
+          "en": "let's copy the URL and enter this here and that looks pretty good to me and it's coming from a",
+          "zh": "複製 URL，貼到這裡，看起來相當不錯，而且資料來自，"
+        },
+        {
+          "id": 82,
+          "start": 413.95,
+          "end": 414.7,
+          "en": "server",
+          "zh": "伺服器，"
+        },
+        {
+          "id": 83,
+          "start": 414.81,
+          "end": 419.49,
+          "en": "and if we enter an invalid ID here, we get could not find a location.",
+          "zh": "如果在這裡輸入無效的 ID，就會出現找不到位置的訊息。"
+        },
+        {
+          "id": 84,
+          "start": 419.71,
+          "end": 427.39,
+          "en": "So that is working as it should with our basic REST API here where we send requests to the backend and",
+          "zh": "所以這裡的基本 REST API 能正常運作，我們向後端發送請求，"
+        },
+        {
+          "id": 85,
+          "start": 427.39,
+          "end": 433.78,
+          "en": "we handle them there with different routes for the moment to then just store them in our temporary memory",
+          "zh": "目前透過不同路由處理，再把資料存到這裡的暫存記憶體，"
+        },
+        {
+          "id": 86,
+          "start": 433.78,
+          "end": 434.47,
+          "en": "storage here.",
+          "zh": "儲存空間中。"
+        }
+      ]
+    },
+    {
+      "id": "16477292",
+      "title": "Introducing MongoDB (Database)",
+      "lectureOrder": 495,
+      "videoOrder": 434,
+      "sourceHash": "fd9068b8a2d818ba38242dd5a87c3e544a0dd597c27a8557b21228aa9b977638",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.16,
+          "end": 3.86,
+          "en": "Now to come to an end,",
+          "zh": "現在，為了把這個部分告一段落，"
+        },
+        {
+          "id": 2,
+          "start": 3.93,
+          "end": 7.52,
+          "en": "I now also want to add a little database to this whole thing",
+          "zh": "我也想替整個應用程式加入一個小型資料庫，"
+        },
+        {
+          "id": 3,
+          "start": 7.56,
+          "end": 12.9,
+          "en": "so that we don't store the data just in our in-memory storage which will be lost whenever we restart",
+          "zh": "讓我們不只把資料存放在記憶體儲存空間中，因為每次重新啟動，"
+        },
+        {
+          "id": 4,
+          "start": 12.93,
+          "end": 18.93,
+          "en": "the server or when we're running out of memory and our server needs to free up some memory, instead",
+          "zh": "伺服器，或記憶體不足、伺服器需要釋放一些記憶體時，資料就會遺失。相反地，"
+        },
+        {
+          "id": 5,
+          "start": 18.93,
+          "end": 25.44,
+          "en": "I now want to use a real database and of course you can spend hours or a complete course on just databases",
+          "zh": "我現在想使用真正的資料庫。當然，光是資料庫就能花幾個小時，甚至用一整門課來介紹，"
+        },
+        {
+          "id": 6,
+          "start": 25.62,
+          "end": 30.09,
+          "en": "and indeed I have a complete guide on MongoDB which is a database",
+          "zh": "而我確實有一門 MongoDB 完整指南課程，MongoDB 是一種資料庫，"
+        },
+        {
+          "id": 7,
+          "start": 30.24,
+          "end": 34.68,
+          "en": "in case you're interested in that as well besides my Node.js course. So definitely check out these two",
+          "zh": "如果除了 Node.js 課程之外，你對它也有興趣，可以參考。所以一定要看看這兩門，"
+        },
+        {
+          "id": 8,
+          "start": 34.68,
+          "end": 40.53,
+          "en": "courses if you want to learn more about Node.js or MongoDB which is a very popular database engine",
+          "zh": "課程，如果想進一步了解 Node.js 或 MongoDB。MongoDB 是很熱門的資料庫引擎，"
+        },
+        {
+          "id": 9,
+          "start": 40.83,
+          "end": 44.54,
+          "en": "that works together with Node.js as particularly well",
+          "zh": "特別適合搭配 Node.js 使用，"
+        },
+        {
+          "id": 10,
+          "start": 44.88,
+          "end": 48.22,
+          "en": "and indeed it's this MongoDB thing which we will try out now.",
+          "zh": "而我們現在要嘗試的，正是 MongoDB。"
+        },
+        {
+          "id": 11,
+          "start": 48.3,
+          "end": 53.97,
+          "en": "You can visit mongodb.com to learn more about it and get started and what we will use here is",
+          "zh": "你可以造訪 mongodb.com，進一步了解並開始使用。我們在這裡會使用，"
+        },
+        {
+          "id": 12,
+          "start": 53.97,
+          "end": 60.36,
+          "en": "a cloud service they offer so that we don't have to install and administer a local database which is",
+          "zh": "它們提供的雲端服務，這樣就不必安裝、管理本機資料庫，因為那，"
+        },
+        {
+          "id": 13,
+          "start": 60.36,
+          "end": 64.72,
+          "en": "a lot of work. For that you should sign in here or try free to create an account,",
+          "zh": "需要很多工作。你可以在這裡登入，或選擇 Try free 建立帳號，"
+        },
+        {
+          "id": 14,
+          "start": 64.83,
+          "end": 66.02,
+          "en": "it doesn't cost you anything,",
+          "zh": "這不需要任何費用，"
+        },
+        {
+          "id": 15,
+          "start": 66.03,
+          "end": 67.93,
+          "en": "you just need to create an account here",
+          "zh": "只需要在這裡建立帳號，"
+        },
+        {
+          "id": 16,
+          "start": 68.03999999999999,
+          "end": 73.77,
+          "en": "and once you did create such an account and you did sign in, you will either end up on a screen like this",
+          "zh": "建立帳號並登入之後，可能會看到這樣的畫面，"
+        },
+        {
+          "id": 17,
+          "start": 73.86,
+          "end": 77.49,
+          "en": "or on a welcome screen where you can build your own new cluster.",
+          "zh": "或是歡迎畫面，讓你建立新的叢集。"
+        },
+        {
+          "id": 18,
+          "start": 77.49,
+          "end": 84.24,
+          "en": "You can simply walk through all that cluster configuration then and pick the AWS option here, pick",
+          "zh": "接著依序完成叢集設定，在這裡選擇 AWS，選擇，"
+        },
+        {
+          "id": 19,
+          "start": 84.24,
+          "end": 88.92,
+          "en": "something where you see free tier available so that it doesn't cost you anything to get started,",
+          "zh": "標示有免費方案的選項，這樣開始使用就不需要費用，"
+        },
+        {
+          "id": 20,
+          "start": 88.98,
+          "end": 94.4,
+          "en": "leave all the other default settings here but double check down there for the cluster here that you're",
+          "zh": "其他設定保持預設，但再次確認下方的叢集設定，選的是，"
+        },
+        {
+          "id": 21,
+          "start": 94.41,
+          "end": 98.53,
+          "en": "going with one which is free tier eligible,",
+          "zh": "符合免費方案資格的選項，"
+        },
+        {
+          "id": 22,
+          "start": 98.67,
+          "end": 104.1,
+          "en": "that would be this M0 sandbox which I can't choose here because I already created a cluster based on that,",
+          "zh": "也就是這個 M0 Sandbox。我在這裡無法選擇，因為已經用它建立過叢集，"
+        },
+        {
+          "id": 23,
+          "start": 104.1,
+          "end": 107.53999999999999,
+          "en": "you should be able to choose that and then leave all the other settings,",
+          "zh": "你應該可以選擇，然後讓其他設定保持原樣，"
+        },
+        {
+          "id": 24,
+          "start": 107.64,
+          "end": 110.15,
+          "en": "give it any name you want and create that cluster.",
+          "zh": "取個你想要的名稱，再建立叢集。"
+        },
+        {
+          "id": 25,
+          "start": 110.14,
+          "end": 111.63,
+          "en": "Now I already did that here,",
+          "zh": "我在這裡已經完成了，"
+        },
+        {
+          "id": 26,
+          "start": 111.63,
+          "end": 116.09,
+          "en": "I do have such a cluster here and this is just a cluster for multiple databases",
+          "zh": "已經有這樣的叢集，它就是一個可以加入多個資料庫的叢集，"
+        },
+        {
+          "id": 27,
+          "start": 116.13,
+          "end": 122.71,
+          "en": "you can add. Now click on connect thereafter to learn how you can connect and there on connect your application",
+          "zh": "你可以新增資料庫。接著點擊 Connect，了解如何連線，再選 Connect your application，"
+        },
+        {
+          "id": 28,
+          "start": 122.71,
+          "end": 126.37,
+          "en": "and there, this URL will become important later.",
+          "zh": "這裡的 URL 等一下就會派上用場。"
+        },
+        {
+          "id": 29,
+          "start": 126.4,
+          "end": 134.29,
+          "en": "Now actually before we do that however, go to database access and there you can create a new user with",
+          "zh": "不過，實際操作前，先前往 Database Access，在那裡建立新使用者，"
+        },
+        {
+          "id": 30,
+          "start": 134.29,
+          "end": 141.39,
+          "en": "any password of your choice which needs to have at least read and write access to your database. Also",
+          "zh": "密碼可以自行選擇，但使用者至少需要對資料庫有讀取及寫入權限。另外，"
+        },
+        {
+          "id": 31,
+          "start": 141.42000000000002,
+          "end": 145.45,
+          "en": "go to network access and there under IP whitelist,",
+          "zh": "也前往 Network Access，在 IP 允許清單中，"
+        },
+        {
+          "id": 32,
+          "start": 145.51,
+          "end": 150.67000000000002,
+          "en": "click on add IP address and make sure you add your local IP address, you should see this option here",
+          "zh": "點擊 Add IP Address，確認加入本機的 IP 位址，你應該會看到這個選項，"
+        },
+        {
+          "id": 33,
+          "start": 150.79,
+          "end": 153.09,
+          "en": "if you haven't added it already as I did,",
+          "zh": "如果你還沒有像我一樣先加入的話，"
+        },
+        {
+          "id": 34,
+          "start": 153.13,
+          "end": 157.78,
+          "en": "so your local IP address should be added here. With that you can go back to clusters",
+          "zh": "所以這裡應該要加入你的本機 IP 位址。完成後可以回到 Clusters，"
+        },
+        {
+          "id": 35,
+          "start": 157.9,
+          "end": 164.71,
+          "en": "and now we can connect our application to this. The question of course is, how do we now use this URL",
+          "zh": "現在我們就能讓應用程式連線到這個叢集。當然，問題是如何使用這裡的 URL，"
+        },
+        {
+          "id": 36,
+          "start": 164.76,
+          "end": 171.52,
+          "en": "here? How do we now connect to this database? And for that you can search for Node.js MongoDB driver",
+          "zh": "要如何連線到資料庫呢？你可以搜尋 Node.js MongoDB driver，"
+        },
+        {
+          "id": 37,
+          "start": 171.91,
+          "end": 176.95,
+          "en": "and you should find this page here, where you can learn more about the MongoDB driver which",
+          "zh": "應該會找到這個頁面，讓你進一步了解 MongoDB 驅動程式，"
+        },
+        {
+          "id": 38,
+          "start": 176.95,
+          "end": 182.44,
+          "en": "is simply a third-party package for Node.js that makes working with MongoDB and sending requests",
+          "zh": "它就是 Node.js 的第三方套件，讓你很容易操作 MongoDB，並向，"
+        },
+        {
+          "id": 39,
+          "start": 182.47,
+          "end": 188.67,
+          "en": "to it very easy. You just need to run this command here, npm install mongodb --save,",
+          "zh": "它發送請求。只需要執行這個指令：npm install mongodb --save，"
+        },
+        {
+          "id": 40,
+          "start": 188.86,
+          "end": 194.89,
+          "en": "so let's do that in our Node.js application, not on the frontend, you won't communicate directly to",
+          "zh": "我們在 Node.js 應用程式中執行，不是在前端執行，你不會從前端直接與，"
+        },
+        {
+          "id": 41,
+          "start": 194.89,
+          "end": 195.91,
+          "en": "the database from there,",
+          "zh": "資料庫互動，"
+        },
+        {
+          "id": 42,
+          "start": 195.97,
+          "end": 197.97,
+          "en": "we do that from our backend",
+          "zh": "我們會從後端做這件事，"
+        },
+        {
+          "id": 43,
+          "start": 198.04,
+          "end": 201.49,
+          "en": "and with that done, we can start using that driver.",
+          "zh": "完成後，就能開始使用這個驅動程式。"
+        },
+        {
+          "id": 44,
+          "start": 201.54,
+          "end": 206.59,
+          "en": "Now of course you can learn all about the driver here in the documentation here, by clicking on reference",
+          "zh": "當然，你可以在這裡的文件中了解驅動程式的各種細節，例如點擊 Reference，"
+        },
+        {
+          "id": 45,
+          "start": 206.59,
+          "end": 211.41,
+          "en": "here for example, you can learn more about installing the driver and how to use it",
+          "zh": "進一步了解如何安裝及使用驅動程式，"
+        },
+        {
+          "id": 46,
+          "start": 211.54,
+          "end": 217.27,
+          "en": "and we're interested in the CRUD operations, which stands for Create Read Update and Delete because we",
+          "zh": "我們要看的是 CRUD 操作，也就是 Create、Read、Update、Delete，因為我們，"
+        },
+        {
+          "id": 47,
+          "start": 217.27,
+          "end": 220.12,
+          "en": "want to add data, we want to read data,",
+          "zh": "想新增資料，也想讀取資料，"
+        },
+        {
+          "id": 48,
+          "start": 220.12,
+          "end": 221.94,
+          "en": "these are two things we want to do here.",
+          "zh": "這就是我們在這裡要做的兩件事。"
+        },
+        {
+          "id": 49,
+          "start": 221.95,
+          "end": 225.95,
+          "en": "Again if you want to learn more about MongoDB and Node.js and how they work together,",
+          "zh": "同樣地，如果想進一步了解 MongoDB、Node.js，以及如何搭配使用，"
+        },
+        {
+          "id": 50,
+          "start": 225.97,
+          "end": 232.75,
+          "en": "my Node.js course and my MongoDB course are great to dive in because in both I cover MongoDB",
+          "zh": "我的 Node.js 和 MongoDB 課程都是深入學習的好選擇，因為兩門課都介紹 MongoDB，"
+        },
+        {
+          "id": 51,
+          "start": 232.75,
+          "end": 234.34,
+          "en": "and in both",
+          "zh": "而且兩門課中，"
+        },
+        {
+          "id": 52,
+          "start": 234.34,
+          "end": 240.24,
+          "en": "I also cover a bit of Node.js of course with the different focuses depending on the course title.",
+          "zh": "當然也都有介紹一些 Node.js，只是依照課程主題有不同的重點。"
+        },
+        {
+          "id": 53,
+          "start": 240.25,
+          "end": 242.74,
+          "en": "Now here you see quite good examples though,",
+          "zh": "不過，這裡也有相當好的範例，"
+        },
+        {
+          "id": 54,
+          "start": 242.77,
+          "end": 248.26,
+          "en": "for example for how you add something to the database and therefore we'll build up on that.",
+          "zh": "例如如何把資料加入資料庫，所以我們會以它為基礎來實作。"
+        },
+        {
+          "id": 55,
+          "start": 248.35,
+          "end": 254.65,
+          "en": "It all starts by importing this Mongo client, so let's copy that code, go to our location.js file in",
+          "zh": "第一步是匯入 MongoClient，所以複製這段程式碼，前往，"
+        },
+        {
+          "id": 56,
+          "start": 254.65,
+          "end": 263.34,
+          "en": "the routers folder and import this here and then we want to perform in such an insert operation when we",
+          "zh": "routers 資料夾中的 location.js 檔案，在這裡匯入。接著，當我們，"
+        },
+        {
+          "id": 57,
+          "start": 263.34,
+          "end": 264.94,
+          "en": "get a new location.",
+          "zh": "收到新位置時，就要執行這種插入操作。"
+        },
+        {
+          "id": 58,
+          "start": 264.96,
+          "end": 272.9,
+          "en": "Now we need our connection URL, so we can copy that and set this up globally here in location.js",
+          "zh": "現在需要連線 URL，可以複製它，並在 location.js 中設定在全域，"
+        },
+        {
+          "id": 59,
+          "start": 272.9,
+          "end": 276.05,
+          "en": "as well outside of our middleware functions",
+          "zh": "也就是放在中介軟體函式之外，"
+        },
+        {
+          "id": 60,
+          "start": 276.15999999999997,
+          "end": 282.52,
+          "en": "and this URL here of course should be the URL you find on your cluster, so you can just copy",
+          "zh": "當然，這裡的 URL 應該是你叢集提供的 URL，你可以直接複製，"
+        },
+        {
+          "id": 61,
+          "start": 282.52,
+          "end": 289.47,
+          "en": "that URL and enter this here and now replace user name with the name of the user you created and",
+          "zh": "貼到這裡，再把使用者名稱換成你建立的使用者名稱，"
+        },
+        {
+          "id": 62,
+          "start": 289.48,
+          "end": 291.1,
+          "en": "the password as well,",
+          "zh": "密碼也要替換，"
+        },
+        {
+          "id": 63,
+          "start": 291.1,
+          "end": 299.18,
+          "en": "so in my case I'm working with Maximilian as a user here and I am using a password which by the time",
+          "zh": "在我的例子中，我使用 Maximilian 這個使用者，以及一組密碼，而等到，"
+        },
+        {
+          "id": 64,
+          "start": 299.18,
+          "end": 304.72,
+          "en": "you're watching this of course will have been changed already. Now in this connection string here, this",
+          "zh": "你觀看這段影片時，密碼當然已經改掉了。現在在這個連線字串中，這個，"
+        },
+        {
+          "id": 65,
+          "start": 304.78,
+          "end": 309.57,
+          "en": "/test thing, that's the database you want to connect to and you can specify any name you want here,",
+          "zh": "/test 就是要連線的資料庫，你可以在這裡指定任何名稱，"
+        },
+        {
+          "id": 66,
+          "start": 309.61,
+          "end": 314.67,
+          "en": "if it doesn't exist yet it will be created on the fly and I'll name it locations and you'll leave to",
+          "zh": "如果還不存在，就會即時建立。我把它命名為 locations，然後讓，"
+        },
+        {
+          "id": 67,
+          "start": 314.67,
+          "end": 320.87,
+          "en": "the rest as it is. Now back to this CRUD operations description here,",
+          "zh": "其餘部分保持原樣。現在回到這裡的 CRUD 操作說明，"
+        },
+        {
+          "id": 68,
+          "start": 321.06,
+          "end": 327.45,
+          "en": "now we need to create a Mongo client here based on this Mongo client we're importing and we can just",
+          "zh": "我們需要根據匯入的 MongoClient，建立 MongoClient 實例，可以直接，"
+        },
+        {
+          "id": 69,
+          "start": 327.45,
+          "end": 334.49,
+          "en": "call client like this and pass in this connection URL and then we need to call client connect,",
+          "zh": "像這樣建立 client，傳入連線 URL，再呼叫 client.connect，"
+        },
+        {
+          "id": 70,
+          "start": 334.75,
+          "end": 339.74,
+          "en": "use this callback function which we pass to it and inside of that callback function where we get access",
+          "zh": "並使用傳給它的這個回呼函式。在回呼函式中，我們能存取，"
+        },
+        {
+          "id": 71,
+          "start": 339.74,
+          "end": 346.64,
+          "en": "to the connected client, we can then use that client to run queries against it. So we can copy this here,",
+          "zh": "已連線的 client，接著就能用它執行查詢。所以可以複製這裡，"
+        },
+        {
+          "id": 72,
+          "start": 347.36,
+          "end": 357.44,
+          "en": "this entire code and move that into our post route here, using this client here with that callback",
+          "zh": "整段程式碼，把它移到 POST 路由中，使用這個 client 和回呼，"
+        },
+        {
+          "id": 73,
+          "start": 357.44,
+          "end": 359.72,
+          "en": "function, remove these assert statements,",
+          "zh": "函式，再移除這些 assert 敘述，"
+        },
+        {
+          "id": 74,
+          "start": 359.72,
+          "end": 361.08,
+          "en": "we don't need to do that here,",
+          "zh": "我們這裡不需要那些檢查，"
+        },
+        {
+          "id": 75,
+          "start": 361.1,
+          "end": 363.3,
+          "en": "you can remove the console logs here,",
+          "zh": "也可以移除這些 console.log，"
+        },
+        {
+          "id": 76,
+          "start": 363.39,
+          "end": 369.78,
+          "en": "we should leave that line here where we get access to the database which we connected to on this client",
+          "zh": "但應該保留這一行，讓我們透過 client 存取已連線的資料庫，"
+        },
+        {
+          "id": 77,
+          "start": 370.38,
+          "end": 375.45,
+          "en": "and then MongoDB works with so-called collections and documents.",
+          "zh": "接著，MongoDB 使用的是所謂的集合與文件。"
+        },
+        {
+          "id": 78,
+          "start": 375.45,
+          "end": 381.66,
+          "en": "You have a collection which is like a table of records and you have a document which is like a simple",
+          "zh": "集合就像一個儲存記錄的資料表，而文件就像，"
+        },
+        {
+          "id": 79,
+          "start": 381.72,
+          "end": 383.79,
+          "en": "row in that table.",
+          "zh": "資料表裡簡單的一列。"
+        },
+        {
+          "id": 80,
+          "start": 383.85,
+          "end": 390.33,
+          "en": "So we have a collection here which I'll name user locations, user-locations and with insert one.",
+          "zh": "所以這裡有集合，我把它命名為 user-locations，然後使用 insertOne，"
+        },
+        {
+          "id": 81,
+          "start": 390.33,
+          "end": 392.75,
+          "en": "you can insert one new document there,",
+          "zh": "就能插入一份新的文件，"
+        },
+        {
+          "id": 82,
+          "start": 392.83,
+          "end": 399.63,
+          "en": "the document I want to insert here should have the same format as what I inserted here in my local memory",
+          "zh": "我在這裡要插入的文件，應該和先前存進本機記憶體，"
+        },
+        {
+          "id": 83,
+          "start": 399.63,
+          "end": 400.38,
+          "en": "storage.",
+          "zh": "儲存空間的內容有相同格式。"
+        },
+        {
+          "id": 84,
+          "start": 400.40999999999997,
+          "end": 404.98,
+          "en": "We can comment out this code now but I copied the object structure first,",
+          "zh": "現在可以把這段程式碼註解掉，但我先複製了物件結構，"
+        },
+        {
+          "id": 85,
+          "start": 405,
+          "end": 409.26,
+          "en": "the one thing that differs is the ID. You don't need to add an ID field anymore,",
+          "zh": "唯一不同的是 ID，你不再需要加入 ID 欄位，"
+        },
+        {
+          "id": 86,
+          "start": 409.29,
+          "end": 412.98,
+          "en": "MongoDB will create an ID for you automatically.",
+          "zh": "MongoDB 會自動替你建立 ID。"
+        },
+        {
+          "id": 87,
+          "start": 412.98,
+          "end": 415.31,
+          "en": "Now insert one does not just take this argument,",
+          "zh": "insertOne 不只接收這個引數，"
+        },
+        {
+          "id": 88,
+          "start": 415.32,
+          "end": 420.09,
+          "en": "it also takes a function which will fire as soon as it is done with this operation,",
+          "zh": "它也接收一個函式，在操作完成時觸發，"
+        },
+        {
+          "id": 89,
+          "start": 420.09,
+          "end": 427.14,
+          "en": "this gives you either an error or the result of that operation and here we can get rid of this",
+          "zh": "這個函式會收到錯誤，或操作的結果。而這裡可以移除，"
+        },
+        {
+          "id": 90,
+          "start": 427.14,
+          "end": 430.44,
+          "en": "other dummy code with insert many, we don't do that here.",
+          "zh": "另一段使用 insertMany 的範例程式碼，這裡不需要它。"
+        },
+        {
+          "id": 91,
+          "start": 430.62,
+          "end": 431.61,
+          "en": "So we're good like that,",
+          "zh": "這樣就可以了，"
+        },
+        {
+          "id": 92,
+          "start": 431.61,
+          "end": 436.65,
+          "en": "we now just want to make sure that here in this function which fires once we're done inserting this,",
+          "zh": "現在只要確認，在這個插入完成後觸發的函式中，"
+        },
+        {
+          "id": 93,
+          "start": 437.04,
+          "end": 438.68,
+          "en": "we send back our response.",
+          "zh": "我們會送出回應。"
+        },
+        {
+          "id": 94,
+          "start": 438.69,
+          "end": 444.87,
+          "en": "So we grab this response code and only send this once this function executes again for all these asynchronous",
+          "zh": "所以取用這段回應程式碼，只有在這個函式執行時才傳送。同樣地，對所有這類非同步，"
+        },
+        {
+          "id": 95,
+          "start": 444.87,
+          "end": 448.52,
+          "en": "code logic where this will run at a later point of time",
+          "zh": "程式碼邏輯而言，這裡會在稍後的時間點執行，"
+        },
+        {
+          "id": 96,
+          "start": 448.53,
+          "end": 451.04,
+          "en": "basically once this operation completed.",
+          "zh": "基本上就是在操作完成後。"
+        },
+        {
+          "id": 97,
+          "start": 451.17,
+          "end": 455.52,
+          "en": "Now theoretically, we should also check for errors here and send back a different response if we got",
+          "zh": "理論上，我們也應該在這裡檢查錯誤，如果出現錯誤，就回傳不同的，"
+        },
+        {
+          "id": 98,
+          "start": 455.52,
+          "end": 456.15,
+          "en": "one",
+          "zh": "回應，"
+        },
+        {
+          "id": 99,
+          "start": 456.15,
+          "end": 461.28,
+          "en": "but to save some time here and not make this overly complicated, for now we'll just assume that this",
+          "zh": "但為了節省時間，也避免把這裡變得太複雜，目前先假設這個操作，"
+        },
+        {
+          "id": 100,
+          "start": 461.28,
+          "end": 462.12,
+          "en": "always works,",
+          "zh": "總是能成功，"
+        },
+        {
+          "id": 101,
+          "start": 462.18,
+          "end": 467.42,
+          "en": "again more detailed error handling and so on is covered in the dedicated courses.",
+          "zh": "同樣地，更詳細的錯誤處理等內容，會在專門的課程中介紹。"
+        },
+        {
+          "id": 102,
+          "start": 467.52,
+          "end": 469.62,
+          "en": "So now here we're storing this,",
+          "zh": "所以現在我們會把這些資料儲存起來，"
+        },
+        {
+          "id": 103,
+          "start": 469.62,
+          "end": 474.06,
+          "en": "the ID I want to send back has to be retrieved from that result we get here",
+          "zh": "不過，我想傳回的 ID，必須從這裡收到的結果中，"
+        },
+        {
+          "id": 104,
+          "start": 474.06,
+          "end": 474.63,
+          "en": "however.",
+          "zh": "取得。"
+        },
+        {
+          "id": 105,
+          "start": 474.84000000000003,
+          "end": 482.55,
+          "en": "So for that let's console log r so that we see what's in there when we store something and with that,",
+          "zh": "為此，我們用 console.log 輸出 r，看看儲存資料時裡面有什麼。接著，"
+        },
+        {
+          "id": 106,
+          "start": 482.87,
+          "end": 487.22,
+          "en": "let's restart our node application here and let's give this a try.",
+          "zh": "重新啟動 Node 應用程式，試試看。"
+        },
+        {
+          "id": 107,
+          "start": 488.14,
+          "end": 492.37,
+          "en": "When we find a place here, that's generally looking good",
+          "zh": "在這裡尋找地點時，看起來大致不錯，"
+        },
+        {
+          "id": 108,
+          "start": 492.37,
+          "end": 494.24,
+          "en": "okay now we got an error here,",
+          "zh": "好，現在出現錯誤了，"
+        },
+        {
+          "id": 109,
+          "start": 494.27,
+          "end": 500.86,
+          "en": "now let's see what went wrong here on the backend by expanding this log and we cannot read DB of",
+          "zh": "我們展開這個記錄，看看後端哪裡出了問題。這裡的問題是無法讀取 null 的 db，"
+        },
+        {
+          "id": 110,
+          "start": 500.86,
+          "end": 503.14,
+          "en": "null is the problem here,",
+          "zh": "屬性，"
+        },
+        {
+          "id": 111,
+          "start": 503.17,
+          "end": 505.72,
+          "en": "yes because DB name here of course does not exist,",
+          "zh": "對，因為這裡的 dbName 當然不存在，"
+        },
+        {
+          "id": 112,
+          "start": 505.72,
+          "end": 512.8,
+          "en": "I don't have such a variable. My DB name is locations, so we should just enter locations here,",
+          "zh": "我沒有這個變數。資料庫名稱是 locations，所以應該直接在這裡輸入 locations，"
+        },
+        {
+          "id": 113,
+          "start": 512.8,
+          "end": 517.57,
+          "en": "I remove that DB name constant from the example or didn't add it to be precise.",
+          "zh": "我從範例移除了 dbName 常數，精確地說，是沒有加入它。"
+        },
+        {
+          "id": 114,
+          "start": 517.57,
+          "end": 522.94,
+          "en": "So we want to connect to the locations database or use the locations database to which we connect here",
+          "zh": "所以我們想連線到 locations 資料庫，或使用這裡連線的 locations 資料庫，"
+        },
+        {
+          "id": 115,
+          "start": 523.73,
+          "end": 529.37,
+          "en": "and now with that changed, let's restart this backend server and",
+          "zh": "修改完成後，重新啟動後端伺服器，"
+        },
+        {
+          "id": 116,
+          "start": 529.37,
+          "end": 535.56,
+          "en": "let's give this another try by again finding a new place here and now this didn't throw a new error,",
+          "zh": "再試一次，在這裡尋找新的地點，現在沒有出現新的錯誤，"
+        },
+        {
+          "id": 117,
+          "start": 535.59,
+          "end": 536.69,
+          "en": "if I cleared the errors,",
+          "zh": "如果我先清除錯誤，"
+        },
+        {
+          "id": 118,
+          "start": 536.7,
+          "end": 541.98,
+          "en": "we don't see a new error here and indeed here we get a success response and this is the object we get",
+          "zh": "這裡就看不到新的錯誤，而且確實收到成功回應。這就是 MongoDB 傳回的，"
+        },
+        {
+          "id": 119,
+          "start": 541.98,
+          "end": 548.55,
+          "en": "back by MongoDB, quite a complex object. In the end what it will have though is an inserted ID property",
+          "zh": "物件，相當複雜。不過，它最終會有 insertedId 屬性，"
+        },
+        {
+          "id": 120,
+          "start": 548.55,
+          "end": 550.48,
+          "en": "which is just what we need here.",
+          "zh": "正是我們需要的。"
+        },
+        {
+          "id": 121,
+          "start": 550.5,
+          "end": 559.04,
+          "en": "So we send back here not ID but r.insertedId, that's what I want to send back to the client",
+          "zh": "所以這裡傳回的不是 ID，而是 r.insertedId，這才是我想傳回給用戶端的，"
+        },
+        {
+          "id": 122,
+          "start": 559.81,
+          "end": 564.02,
+          "en": "and now we don't need to generate our own ID here anymore. With that",
+          "zh": "現在也不需要再自行產生 ID。如此一來，"
+        },
+        {
+          "id": 123,
+          "start": 564.03,
+          "end": 568.2,
+          "en": "if we now restart this and we find a new place,",
+          "zh": "如果重新啟動，再找一個新地點，"
+        },
+        {
+          "id": 124,
+          "start": 569.34,
+          "end": 573.98,
+          "en": "now you see here we got this ID which is generated on the backend.",
+          "zh": "現在你會看到，這裡取得了由後端產生的 ID。"
+        },
+        {
+          "id": 125,
+          "start": 574.23,
+          "end": 581.31,
+          "en": "So with that we're storing data in MongoDB, now retrieving it would also be nice when we send the get request",
+          "zh": "所以我們已經能把資料存進 MongoDB，現在如果能在這個頁面發送 GET 請求時，"
+        },
+        {
+          "id": 126,
+          "start": 581.94,
+          "end": 586.55,
+          "en": "from this page because right now of course we fail here because we have no logic to retrieve our data",
+          "zh": "取得資料，也會很不錯。目前這裡當然會失敗，因為沒有取得資料的邏輯，"
+        },
+        {
+          "id": 127,
+          "start": 587.07,
+          "end": 590.39,
+          "en": "but the MongoDB driver docs got us covered. Here",
+          "zh": "但 MongoDB 驅動程式的文件可以協助我們。在這裡，"
+        },
+        {
+          "id": 128,
+          "start": 590.4,
+          "end": 598.14,
+          "en": "if we scroll down, we find more functions we can execute, for example for updating and for deleting documents",
+          "zh": "往下捲動，可以找到更多可執行的函式，例如更新或刪除文件，"
+        },
+        {
+          "id": 129,
+          "start": 598.16,
+          "end": 602.19,
+          "en": "but I want to find a document,",
+          "zh": "但我想找出一份文件，"
+        },
+        {
+          "id": 130,
+          "start": 602.19,
+          "end": 605.88,
+          "en": "so we want to have a look at the read methods here and there,",
+          "zh": "所以要看看這裡的讀取方法，在那裡，"
+        },
+        {
+          "id": 131,
+          "start": 605.88,
+          "end": 612.51,
+          "en": "again we have all the logic for connecting. In the end, what we can do here is we can just copy this code",
+          "zh": "同樣有完整的連線邏輯。最後，我們可以直接把這段程式碼，"
+        },
+        {
+          "id": 132,
+          "start": 612.51,
+          "end": 620.22,
+          "en": "here from our add-location route into this get route here",
+          "zh": "從 add-location 路由複製到這裡的 GET 路由，"
+        },
+        {
+          "id": 133,
+          "start": 620.4,
+          "end": 626.31,
+          "en": "after we retrieved the location ID, effectively replacing this code where we use the memory database",
+          "zh": "放在取得位置 ID 之後，實際上就是取代原本使用記憶體資料庫的程式碼，"
+        },
+        {
+          "id": 134,
+          "start": 627.12,
+          "end": 633.39,
+          "en": "and I still want to connect to my client here, reach out to the database and reach out to the user",
+          "zh": "我仍然要在這裡連線到 client，存取資料庫，再存取 user-locations，"
+        },
+        {
+          "id": 135,
+          "start": 633.39,
+          "end": 639.36,
+          "en": "locations collection but now of course I don't want to insert one, I want to find one document instead",
+          "zh": "集合，但現在當然不是要 insertOne，而是要找出一份文件，"
+        },
+        {
+          "id": 136,
+          "start": 639.36,
+          "end": 646.23,
+          "en": "and you still pass an object to find one but here, you specify the criteria for finding a document and",
+          "zh": "你仍然會把物件傳給 findOne，但在這裡指定的是尋找文件的條件，"
+        },
+        {
+          "id": 137,
+          "start": 646.23,
+          "end": 648.73,
+          "en": "you can find a document by ID here.",
+          "zh": "你可以透過 ID 尋找文件。"
+        },
+        {
+          "id": 138,
+          "start": 648.99,
+          "end": 655.53,
+          "en": "The ID is actually stored on an _id field in MongoDB, so we can use _id here",
+          "zh": "MongoDB 的 ID 實際上存放在 _id 欄位，所以這裡可以使用 _id，"
+        },
+        {
+          "id": 139,
+          "start": 656.04,
+          "end": 661.34,
+          "en": "and then use the extracted location ID which no longer should be a number,",
+          "zh": "再使用擷取出來的位置 ID，它現在不應該是數字，"
+        },
+        {
+          "id": 140,
+          "start": 661.35,
+          "end": 664.49,
+          "en": "so let's remove the plus here as a value.",
+          "zh": "所以移除這裡的加號，再把它作為值。"
+        },
+        {
+          "id": 141,
+          "start": 664.53,
+          "end": 670.89,
+          "en": "So now we will try to find a document where the ID is equal to that location ID as a string which",
+          "zh": "現在我們會嘗試尋找文件，它的 ID 等於字串形式的位置 ID，而這個 ID，"
+        },
+        {
+          "id": 142,
+          "start": 670.89,
+          "end": 673.63,
+          "en": "we retrieved from the URL.",
+          "zh": "是從 URL 取得的。"
+        },
+        {
+          "id": 143,
+          "start": 673.74,
+          "end": 678.63,
+          "en": "Now we have to pass a second argument to find one which is this function which executes once this operation",
+          "zh": "接著必須傳入第二個引數給 findOne，就是這個函式，會在操作，"
+        },
+        {
+          "id": 144,
+          "start": 678.63,
+          "end": 679.38,
+          "en": "is done,",
+          "zh": "完成後執行，"
+        },
+        {
+          "id": 145,
+          "start": 679.47,
+          "end": 684.07,
+          "en": "we either get an error or we get the document which we are looking for",
+          "zh": "我們會收到錯誤，或正在尋找的文件，"
+        },
+        {
+          "id": 146,
+          "start": 684.18,
+          "end": 686.57,
+          "en": "and here I expect to get the document,",
+          "zh": "而我在這裡預期會取得文件，"
+        },
+        {
+          "id": 147,
+          "start": 686.61,
+          "end": 692.58,
+          "en": "so when we return something here, I of course want to use this logic from before.",
+          "zh": "所以在這裡回傳資料時，當然想使用先前的邏輯。"
+        },
+        {
+          "id": 148,
+          "start": 692.64,
+          "end": 699.54,
+          "en": "I'll cut that code and add it here and check if we don't have a document for some reason, in which case",
+          "zh": "我會剪下那段程式碼，貼到這裡，檢查是否因為某個原因沒有找到文件，如果是，"
+        },
+        {
+          "id": 149,
+          "start": 699.54,
+          "end": 706.48,
+          "en": "I still return the not found error but if we did find one, then I wouldn't return a response where the",
+          "zh": "仍然回傳找不到的錯誤；但如果找到，就回傳回應，而，"
+        },
+        {
+          "id": 150,
+          "start": 706.48,
+          "end": 710.13,
+          "en": "address can be found on the document,",
+          "zh": "地址可以從文件中取得，"
+        },
+        {
+          "id": 151,
+          "start": 710.23,
+          "end": 718.86,
+          "en": "there it is stored such that we have an address property and also get the coords from the document and",
+          "zh": "它儲存在 address 屬性中，也從文件取得 coords，"
+        },
+        {
+          "id": 152,
+          "start": 718.86,
+          "end": 723.4,
+          "en": "the rest should be able to stay as it is. So let's give it a try,",
+          "zh": "其餘部分應該能保持不變。我們來試試看，"
+        },
+        {
+          "id": 153,
+          "start": 723.43,
+          "end": 732.61,
+          "en": "let's save that and rerun the server here and now let's reload this place. Now I still get could not",
+          "zh": "儲存，重新執行伺服器，再重新載入這個地點。現在仍然出現無法，"
+        },
+        {
+          "id": 154,
+          "start": 732.61,
+          "end": 738.54,
+          "en": "find location and the reason for data is something MongoDB specific,",
+          "zh": "找到位置的訊息，原因與 MongoDB 本身有關，"
+        },
+        {
+          "id": 155,
+          "start": 738.54,
+          "end": 744.79,
+          "en": "the ID of an element which is added to the database is not actually a string,",
+          "zh": "加入資料庫的元素，其 ID 實際上不是字串，"
+        },
+        {
+          "id": 156,
+          "start": 744.87,
+          "end": 750.66,
+          "en": "it's a special data type MongoDB uses internally, it's an object ID which is not a Javascript",
+          "zh": "而是 MongoDB 內部使用的特殊資料型別，叫做 ObjectId，它不是 JavaScript，"
+        },
+        {
+          "id": 157,
+          "start": 750.66,
+          "end": 755.97,
+          "en": "data type but a MongoDB specific one. Now when you query for an ID here, you therefore have",
+          "zh": "的資料型別，而是 MongoDB 特有的。因此在這裡查詢 ID 時，你必須，"
+        },
+        {
+          "id": 158,
+          "start": 755.97,
+          "end": 764.64,
+          "en": "to look for a such an object ID data type. You can do so by using that Mongo client, thankfully it's",
+          "zh": "尋找這種 ObjectId 資料型別。你可以透過 MongoClient 來處理，幸好，"
+        },
+        {
+          "id": 159,
+          "start": 764.64,
+          "end": 771.07,
+          "en": "not too hard to do that however. When we import our MongoDB package here, we can not just reach out",
+          "zh": "操作並不太難。在這裡匯入 mongodb 套件時，我們不只能取得，"
+        },
+        {
+          "id": 160,
+          "start": 771.07,
+          "end": 772.44,
+          "en": "to the Mongo client here,",
+          "zh": "MongoClient，"
+        },
+        {
+          "id": 161,
+          "start": 772.86,
+          "end": 781.73,
+          "en": "let's restructure this a bit and import MongoDB here just from MongoDB and get the client then from",
+          "zh": "我們稍微重組一下，從 mongodb 匯入 mongodb，再從，"
+        },
+        {
+          "id": 162,
+          "start": 782.36,
+          "end": 788.27,
+          "en": "MongoDB.client so that we can get other things out of MongoDB as well because the other things",
+          "zh": "mongodb 取得 client，這樣也能從 mongodb 取得其他東西，因為，"
+        },
+        {
+          "id": 163,
+          "start": 788.27,
+          "end": 795.71,
+          "en": "I'm interested in in this case here is this object ID constructor. We can use MongoDB object ID",
+          "zh": "這個例子中我想用的另一項功能，就是 ObjectId 建構函式。我們可以使用 mongodb.ObjectId，"
+        },
+        {
+          "id": 164,
+          "start": 795.71,
+          "end": 801.26,
+          "en": "here and call new in front of it because this actually is basically a class which you can construct",
+          "zh": "並在前面加上 new，因為它基本上是可以建立實例的類別，"
+        },
+        {
+          "id": 165,
+          "start": 801.74,
+          "end": 804.58,
+          "en": "and to that, you pass your ID as a string,",
+          "zh": "接著把字串形式的 ID 傳入，"
+        },
+        {
+          "id": 166,
+          "start": 804.62,
+          "end": 810.62,
+          "en": "so in our case location ID and it will wrap this in its own data structure which now can be used in",
+          "zh": "在我們的例子中就是 locationId，它會把 ID 包裝成自己的資料結構，這樣就能用於，"
+        },
+        {
+          "id": 167,
+          "start": 810.62,
+          "end": 815.23,
+          "en": "a query and with that change made, we restart that server,",
+          "zh": "查詢。修改完成後，我們重新啟動伺服器，"
+        },
+        {
+          "id": 168,
+          "start": 816.79,
+          "end": 822.5,
+          "en": "we can go back here, reload this place and we get this place here and that's it.",
+          "zh": "回到這裡，重新載入這個地點，就能取得地點資料，就是這樣。"
+        },
+        {
+          "id": 169,
+          "start": 822.52,
+          "end": 824.95,
+          "en": "Now this is by no means a finished server,",
+          "zh": "當然，這遠遠不是完成的伺服器，"
+        },
+        {
+          "id": 170,
+          "start": 824.98,
+          "end": 834.01,
+          "en": "we could do far more on this server, improve error handling, add more scenarios, make this code more reusable",
+          "zh": "我們還能做很多事情，例如改善錯誤處理、加入更多情境、提高程式碼的重用性，"
+        },
+        {
+          "id": 171,
+          "start": 834.04,
+          "end": 839.7,
+          "en": "and not always create a new connection here but this is just there to get you started with Node.js",
+          "zh": "而不是每次都建立新連線，但這裡只是為了帶你開始使用 Node.js，"
+        },
+        {
+          "id": 172,
+          "start": 839.7,
+          "end": 844.3,
+          "en": "and even MongoDB which is not directly related to Javascript after all",
+          "zh": "甚至 MongoDB，它畢竟與 JavaScript 沒有直接關聯，"
+        },
+        {
+          "id": 173,
+          "start": 844.3,
+          "end": 849.01,
+          "en": "and it's there to show you how Javascript is able to run in different environments and how you generally",
+          "zh": "這是為了展示 JavaScript 如何在不同環境中執行，以及通常如何，"
+        },
+        {
+          "id": 174,
+          "start": 849.01,
+          "end": 856.2,
+          "en": "have the same syntax but still can do very different things with it and that's therefore it for this module.",
+          "zh": "使用相同的語法，卻能完成截然不同的事情。這個單元就到這裡。"
+        },
+        {
+          "id": 175,
+          "start": 856.39,
+          "end": 862.18,
+          "en": "As I mentioned multiple times, if you want to learn more about Node.js and/or MongoDB, I got dedicated",
+          "zh": "如我多次提過的，如果想進一步了解 Node.js 或 MongoDB，我有專門的，"
+        },
+        {
+          "id": 176,
+          "start": 862.18,
+          "end": 868,
+          "en": "courses for that, in my Node.js course for example, I also spend a lot of time on MongoDB diving way",
+          "zh": "課程。例如 Node.js 課程中，我也花了很多時間介紹 MongoDB，深入，"
+        },
+        {
+          "id": 177,
+          "start": 868,
+          "end": 873.94,
+          "en": "deeper into it and showing you how you can connect it to Node.js in various different ways and therefore",
+          "zh": "探討，並展示如何用各種不同方式與 Node.js 連線，所以，"
+        },
+        {
+          "id": 178,
+          "start": 873.94,
+          "end": 877.19,
+          "en": "these are the resources you want to dive in if you want to learn more,",
+          "zh": "如果想進一步學習，這些就是可以深入閱讀的資源，"
+        },
+        {
+          "id": 179,
+          "start": 877.21,
+          "end": 882.76,
+          "en": "this hopefully still gives you a great overview of what you can generally do there and how that works.",
+          "zh": "希望這裡仍然能讓你全面了解，大致能做哪些事情，以及如何運作。"
+        }
+      ]
+    },
+    {
+      "id": "16477296",
+      "title": "Wrap Up",
+      "lectureOrder": 497,
+      "videoOrder": 435,
+      "sourceHash": "266d54a7289ba37fb7b83be11230d702260eee4e7f7ea8522dbb19aaef933f33",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.37,
+          "end": 4.29,
+          "en": "So this is it with this module.",
+          "zh": "這個單元就到這裡。"
+        },
+        {
+          "id": 2,
+          "start": 4.32,
+          "end": 11.07,
+          "en": "We learned a lot about Node.js, that it uses regular Javascript syntax but adds its own APIs, like",
+          "zh": "我們學到了許多 Node.js 的知識，它使用一般的 JavaScript 語法，但加入自己的 API，例如，"
+        },
+        {
+          "id": 3,
+          "start": 11.07,
+          "end": 17.64,
+          "en": "the filesystem, its own packages we can use and does of course not support the browser default APIs",
+          "zh": "檔案系統，以及我們可以使用的套件。當然，它不支援瀏覽器預設提供的 API，"
+        },
+        {
+          "id": 4,
+          "start": 17.64,
+          "end": 24.09,
+          "en": "like the DOM or browser storage because it doesn't run in the browser but that instead we run Javascript",
+          "zh": "例如 DOM 或瀏覽器儲存空間，因為它不是在瀏覽器中執行，而是讓我們在，"
+        },
+        {
+          "id": 5,
+          "start": 24.18,
+          "end": 30.62,
+          "en": "in a different environment, on our machine or on any machine where Node.js is installed.",
+          "zh": "不同的環境執行 JavaScript，可以是在自己的電腦，或任何安裝了 Node.js 的電腦上。"
+        },
+        {
+          "id": 6,
+          "start": 30.66,
+          "end": 36.25,
+          "en": "We can also not just use Node.js to run utility scripts like this one, we can use it to set up a HTTP",
+          "zh": "我們不只能用 Node.js 執行這類工具指令碼，也能用它架設 HTTP，"
+        },
+        {
+          "id": 7,
+          "start": 36.3,
+          "end": 42.99,
+          "en": "server, either by doing everything on our own or by tapping into the rich ecosystem that exists",
+          "zh": "伺服器，可以完全自行處理，也可以運用，"
+        },
+        {
+          "id": 8,
+          "start": 42.99,
+          "end": 49.17,
+          "en": "around Node.js, where we have packages and frameworks like Express and other packages together with",
+          "zh": "Node.js 周邊豐富的生態系，其中有 Express 這類套件和框架，以及搭配，"
+        },
+        {
+          "id": 9,
+          "start": 49.17,
+          "end": 54.72,
+          "en": "Express.js, that allow us to focus on our core business logic and where we don't have to worry about",
+          "zh": "Express.js 的其他套件，讓我們專注在核心業務邏輯，而不必擔心，"
+        },
+        {
+          "id": 10,
+          "start": 54.72,
+          "end": 56.18,
+          "en": "parsing data and so on.",
+          "zh": "解析資料等等。"
+        },
+        {
+          "id": 11,
+          "start": 56.79,
+          "end": 62.82,
+          "en": "And there you learned how you can set up a server which returns some server side rendered HTML files",
+          "zh": "你也學到了如何架設伺服器，回傳伺服器端呈現的 HTML 檔案，"
+        },
+        {
+          "id": 12,
+          "start": 63.33,
+          "end": 70.44,
+          "en": "or how you can create a so-called REST API, where you have various endpoints, various URLs you",
+          "zh": "或如何建立所謂的 REST API，其中有各種端點，也就是伺服器，"
+        },
+        {
+          "id": 13,
+          "start": 70.44,
+          "end": 78.27,
+          "en": "support on that server that do different tasks depending on the HTTP method path combination that reaches",
+          "zh": "支援的不同 URL，根據傳入伺服器的 HTTP 方法與路徑組合，執行不同，"
+        },
+        {
+          "id": 14,
+          "start": 78.27,
+          "end": 79.38,
+          "en": "your server.",
+          "zh": "任務。"
+        },
+        {
+          "id": 15,
+          "start": 79.38,
+          "end": 83.37,
+          "en": "You even learned how to store data in a database and get it from there",
+          "zh": "你甚至學到了如何把資料儲存在資料庫，以及從中取得資料，"
+        },
+        {
+          "id": 16,
+          "start": 83.46000000000001,
+          "end": 89.75,
+          "en": "and with that you should have a good idea of which problem Node.js solves, how it generally works, that",
+          "zh": "了解這些後，你應該很清楚 Node.js 解決什麼問題，以及大致如何運作，"
+        },
+        {
+          "id": 17,
+          "start": 89.75,
+          "end": 96.47999999999999,
+          "en": "it's just Javascript in the end but with a totally different purpose or giving you totally different",
+          "zh": "它最終只是 JavaScript，但用途完全不同，或是提供完全不同的，"
+        },
+        {
+          "id": 18,
+          "start": 96.57,
+          "end": 98.68,
+          "en": "options of what you can do with it",
+          "zh": "操作選擇，"
+        },
+        {
+          "id": 19,
+          "start": 98.91,
+          "end": 105.63,
+          "en": "and therefore now you really have a broad overview of Javascript and what you can do with it and where",
+          "zh": "所以你現在真的已經對 JavaScript 有全面的了解，知道能用它做什麼，以及能在哪裡，"
+        },
+        {
+          "id": 20,
+          "start": 105.63,
+          "end": 108.75,
+          "en": "you can run it and what that means for your applications.",
+          "zh": "執行，還有這對你的應用程式代表什麼。"
+        }
+      ]
+    },
+    {
+      "id": "16477302",
+      "title": "Module Introduction",
+      "lectureOrder": 499,
+      "videoOrder": 436,
+      "sourceHash": "ca98bec71c420f98ea1ea51800a8f6a23bdb6ad93de04cf655257e393db87c8d",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.36,
+          "end": 8.33,
+          "en": "You learned a lot about the Javascript syntax, the core Javascript features and how to write amazing",
+          "zh": "你已經學到許多 JavaScript 語法、核心功能，以及如何撰寫出色的，"
+        },
+        {
+          "id": 2,
+          "start": 8.33,
+          "end": 12.25,
+          "en": "Javascript driven applications, both on the frontend",
+          "zh": "JavaScript 應用程式，既可以在前端，"
+        },
+        {
+          "id": 3,
+          "start": 12.26,
+          "end": 16.66,
+          "en": "so in the browser, as well as with Node.js on the server side.",
+          "zh": "也就是瀏覽器中執行，也可以透過 Node.js 在伺服器端執行。"
+        },
+        {
+          "id": 4,
+          "start": 16.67,
+          "end": 23.48,
+          "en": "Now one topic we haven't really touched on thus far or haven't read talked too much about is security",
+          "zh": "不過，到目前為止，有個主題我們還沒有真正接觸，或沒有談太多，那就是安全，"
+        },
+        {
+          "id": 5,
+          "start": 23.48,
+          "end": 27.11,
+          "en": "and of course security matters. In this module,",
+          "zh": "安全當然很重要。在這個單元中，"
+        },
+        {
+          "id": 6,
+          "start": 27.11,
+          "end": 34.25,
+          "en": "I want to highlight what you should watch out for when writing Javascript code and some common pitfalls",
+          "zh": "我想指出，撰寫 JavaScript 程式碼時應該注意哪些事，以及一些常見陷阱，"
+        },
+        {
+          "id": 7,
+          "start": 34.28,
+          "end": 36.94,
+          "en": "or some important things you need to keep in mind",
+          "zh": "或你必須記住的重要事項，"
+        },
+        {
+          "id": 8,
+          "start": 37.07,
+          "end": 44.78,
+          "en": "to ensure that your code is secure and you're not exposing security relevant data or anything like that",
+          "zh": "確保程式碼安全，不會把安全相關資料或類似資訊暴露，"
+        },
+        {
+          "id": 9,
+          "start": 44.78,
+          "end": 51.5,
+          "en": "in your scripts and so on. Specifically, we'll have a look at potential security holes and things to watch",
+          "zh": "在指令碼等地方。具體來說，我們會看看潛在的安全漏洞，以及撰寫，"
+        },
+        {
+          "id": 10,
+          "start": 51.5,
+          "end": 57.62,
+          "en": "out for when writing Javascript code, I'll of course also let you know how you can protect your code",
+          "zh": "JavaScript 程式碼時要注意的事情，當然也會告訴你如何保護程式碼，"
+        },
+        {
+          "id": 11,
+          "start": 57.62,
+          "end": 61.44,
+          "en": "or which steps you can take to ensure your code is protected.",
+          "zh": "或可以採取哪些步驟，確保程式碼受到保護。"
+        },
+        {
+          "id": 12,
+          "start": 61.46,
+          "end": 68.78,
+          "en": "We'll have a look at some common attack patterns or security concepts like CORS which I already talked",
+          "zh": "我們會看看一些常見的攻擊模式或安全概念，例如 CORS，我之前已經談過，"
+        },
+        {
+          "id": 13,
+          "start": 68.78,
+          "end": 70.81,
+          "en": "about but which I will repeat here,",
+          "zh": "但會在這裡再次說明，"
+        },
+        {
+          "id": 14,
+          "start": 70.88,
+          "end": 78.26,
+          "en": "CSRF and most importantly XSS which stands for cross site scripting attacks and I'll also have",
+          "zh": "還有 CSRF，以及最重要的 XSS，也就是跨網站指令碼攻擊。我也會，"
+        },
+        {
+          "id": 15,
+          "start": 78.26,
+          "end": 85.67,
+          "en": "a look at npm packages or third-party libraries in general again because these as it turns out can also",
+          "zh": "再次看看 npm 套件，或一般的第三方函式庫，因為它們其實也可能，"
+        },
+        {
+          "id": 16,
+          "start": 85.67,
+          "end": 87.71000000000001,
+          "en": "lead to security issues.",
+          "zh": "導致安全問題。"
+        },
+        {
+          "id": 17,
+          "start": 87.71000000000001,
+          "end": 89.48,
+          "en": "So now let's not waste any time and",
+          "zh": "現在就別浪費時間了，"
+        },
+        {
+          "id": 18,
+          "start": 89.52,
+          "end": 93.38,
+          "en": "let's have a look at what you should be aware of and how you can secure your code.",
+          "zh": "我們來看看你應該注意哪些事情，以及如何保護程式碼。"
+        }
+      ]
+    },
+    {
+      "id": "16477314",
+      "title": "Security Hole Overview & Exposing Data in your Code",
+      "lectureOrder": 500,
+      "videoOrder": 437,
+      "sourceHash": "24d468e84741da4ee3d369a9cf45c6d60aadc49a9e6652c7deaedd3759bc5269",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.42,
+          "end": 9.8,
+          "en": "So what could go wrong when we write Javascript code or when we expose our Javascript code? For that,",
+          "zh": "撰寫 JavaScript 程式碼，或公開 JavaScript 程式碼時，可能出什麼問題呢？為了了解這點，"
+        },
+        {
+          "id": 2,
+          "start": 9.81,
+          "end": 15.41,
+          "en": "we also have to differ between writing code that runs in the browser and writing code that runs on the",
+          "zh": "我們也必須區分在瀏覽器中執行的程式碼，以及在，"
+        },
+        {
+          "id": 3,
+          "start": 15.41,
+          "end": 16.28,
+          "en": "server",
+          "zh": "伺服器上執行的程式碼，"
+        },
+        {
+          "id": 4,
+          "start": 16.55,
+          "end": 23.63,
+          "en": "and I will start with something that is only relevant if you're writing browser side Javascript code",
+          "zh": "我會先從一個只有撰寫瀏覽器端 JavaScript 程式碼時才相關的問題開始，"
+        },
+        {
+          "id": 5,
+          "start": 23.63,
+          "end": 30.94,
+          "en": "and that would be security details in your code or private information in your Javascript code.",
+          "zh": "那就是程式碼中的安全相關資訊，或 JavaScript 程式碼中的私人資訊。"
+        },
+        {
+          "id": 6,
+          "start": 31.34,
+          "end": 36.62,
+          "en": "We'll also have a look at cross site scripting attacks though which is also relevant for browser",
+          "zh": "不過，我們也會看看跨網站指令碼攻擊，這同樣與瀏覽器，"
+        },
+        {
+          "id": 7,
+          "start": 36.62,
+          "end": 38.54,
+          "en": "side Javascript code.",
+          "zh": "端 JavaScript 程式碼有關。"
+        },
+        {
+          "id": 8,
+          "start": 38.54,
+          "end": 46.07,
+          "en": "I'll briefly touch on cross site request forgery or CSRF attacks which is related to both frontend",
+          "zh": "我會簡單介紹跨網站請求偽造，也就是 CSRF 攻擊，它與前端，"
+        },
+        {
+          "id": 9,
+          "start": 46.07,
+          "end": 51.53,
+          "en": "backend code but which only works or only is a thing if you have some backend you're sending data",
+          "zh": "和後端程式碼都有關，但只有在你有某個後端，並向它傳送資料，"
+        },
+        {
+          "id": 10,
+          "start": 51.53,
+          "end": 57.32,
+          "en": "to and therefore I'll briefly talk about that as well and I'll revisit this concept of cross origin",
+          "zh": "時才會發生，所以我也會簡單談一下，並再次探討跨來源，"
+        },
+        {
+          "id": 11,
+          "start": 57.32,
+          "end": 59.78,
+          "en": "resource sharing we already talked about earlier.",
+          "zh": "資源共用這個之前已經談過的概念。"
+        },
+        {
+          "id": 12,
+          "start": 60.41,
+          "end": 62.9,
+          "en": "So let's start with the security details in your code,",
+          "zh": "先從程式碼中的安全相關資訊開始，"
+        },
+        {
+          "id": 13,
+          "start": 62.9,
+          "end": 64.72,
+          "en": "what do I mean with that?",
+          "zh": "我指的是什麼呢？"
+        },
+        {
+          "id": 14,
+          "start": 64.79,
+          "end": 71.39,
+          "en": "The important thing to understand about Javascript in the browser is that your Javascript code is part",
+          "zh": "對於瀏覽器中的 JavaScript，有一點很重要：你的 JavaScript 程式碼是，"
+        },
+        {
+          "id": 15,
+          "start": 71.48,
+          "end": 76.07,
+          "en": "of what the browser downloads and runs in the browser,",
+          "zh": "瀏覽器下載並在瀏覽器中執行的內容之一，"
+        },
+        {
+          "id": 16,
+          "start": 76.16,
+          "end": 82.73,
+          "en": "so all your code runs on the machine of your page visitors and it's important to understand that your",
+          "zh": "所以所有程式碼都會在網頁訪客的電腦上執行，而你必須了解，你的，"
+        },
+        {
+          "id": 17,
+          "start": 82.73,
+          "end": 85.76,
+          "en": "Javascript code can be read by them,",
+          "zh": "JavaScript 程式碼可以被他們閱讀，"
+        },
+        {
+          "id": 18,
+          "start": 85.78999999999999,
+          "end": 91.41,
+          "en": "anyone who is visiting your page can read your Javascript code that runs on this page,",
+          "zh": "任何造訪網頁的人，都能閱讀這個頁面上執行的 JavaScript 程式碼，"
+        },
+        {
+          "id": 19,
+          "start": 91.46000000000001,
+          "end": 96.1,
+          "en": "it's not hidden, it's not compiled to some unreadable machine code,",
+          "zh": "它沒有隱藏，也沒有被編譯成無法閱讀的機器碼，"
+        },
+        {
+          "id": 20,
+          "start": 96.17,
+          "end": 101.68,
+          "en": "it's totally available to anyone visiting your page and that is super important.",
+          "zh": "任何造訪網頁的人都能完整取得它，這點非常重要。"
+        },
+        {
+          "id": 21,
+          "start": 101.7,
+          "end": 105.37,
+          "en": "Therefore any security relevant details you have in there,",
+          "zh": "因此，任何放在裡面的安全相關資訊，"
+        },
+        {
+          "id": 22,
+          "start": 105.44,
+          "end": 112.67,
+          "en": "any confidential data you have in there is exposed to your users and therefore it should not be in there,",
+          "zh": "以及任何機密資料，都會暴露給使用者，所以它們不應該放在裡面，"
+        },
+        {
+          "id": 23,
+          "start": 112.7,
+          "end": 119.81,
+          "en": "you should not have security relevant information or confident data in your client side, in your browser",
+          "zh": "你不應該把安全相關資訊或機密資料放在用戶端，也就是瀏覽器，"
+        },
+        {
+          "id": 24,
+          "start": 119.81,
+          "end": 124.92,
+          "en": "side Javascript code because attackers may be able to abuse that exposed data,",
+          "zh": "端 JavaScript 程式碼中，因為攻擊者可能濫用這些公開的資料，"
+        },
+        {
+          "id": 25,
+          "start": 125,
+          "end": 130.25,
+          "en": "for example if you have your database credentials in there, attackers could read them and could connect",
+          "zh": "例如，如果裡面有資料庫的登入憑證，攻擊者可以讀取它們，並連線，"
+        },
+        {
+          "id": 26,
+          "start": 130.25,
+          "end": 135.74,
+          "en": "to your database to then read your data, change your data or do whatever they want to do or if you're",
+          "zh": "到資料庫，讀取資料、修改資料，或做任何想做的事。或者如果你，"
+        },
+        {
+          "id": 27,
+          "start": 135.74,
+          "end": 138.47,
+          "en": "storing some client related data,",
+          "zh": "存放了與客戶相關的資料，"
+        },
+        {
+          "id": 28,
+          "start": 138.5,
+          "end": 144.29,
+          "en": "so about all your users, not just this user who's visiting your page but all users of your page,",
+          "zh": "也就是所有使用者的資料，不只是正在造訪網頁的這位使用者，而是網站的全部使用者，"
+        },
+        {
+          "id": 29,
+          "start": 144.41,
+          "end": 149.57,
+          "en": "if you have something like this in your browser side Javascript code, well then anyone can read it and",
+          "zh": "如果你把這類資料放在瀏覽器端 JavaScript 程式碼中，任何人都能讀取，"
+        },
+        {
+          "id": 30,
+          "start": 149.57,
+          "end": 154.55,
+          "en": "you might expose information about other people to all users.",
+          "zh": "你可能會把其他人的資訊暴露給所有使用者。"
+        },
+        {
+          "id": 31,
+          "start": 154.76,
+          "end": 160.76,
+          "en": "So therefore because of this database example or any other data that might be confidential, you should",
+          "zh": "所以，無論是這個資料庫的例子，或任何其他可能是機密的資料，你應該，"
+        },
+        {
+          "id": 32,
+          "start": 160.76,
+          "end": 163.19,
+          "en": "ensure that such does not end up in there",
+          "zh": "確保這類資料不會出現在裡面，"
+        },
+        {
+          "id": 33,
+          "start": 163.19,
+          "end": 168.6,
+          "en": "and let me show you what I mean. I'm back in our practice application we wrote,",
+          "zh": "我來展示一下我的意思。現在回到我們先前寫的練習應用程式，"
+        },
+        {
+          "id": 34,
+          "start": 168.6,
+          "end": 174.38,
+          "en": "so this application and you might remember that in the debugging section, we had a look at the sources",
+          "zh": "也就是這個應用程式。你可能還記得，在除錯單元中，我們看過 Sources，"
+        },
+        {
+          "id": 35,
+          "start": 174.39,
+          "end": 180.63,
+          "en": "tab and there we actually could read the source code of this page, here in the assets scripts folder,",
+          "zh": "分頁，在那裡其實可以閱讀這個頁面的原始碼，就在 assets 的 scripts 資料夾裡，"
+        },
+        {
+          "id": 36,
+          "start": 180.63,
+          "end": 181.73,
+          "en": "there it is.",
+          "zh": "就在那裡。"
+        },
+        {
+          "id": 37,
+          "start": 181.86,
+          "end": 186.91,
+          "en": "Now of course here, we're seeing the code after webpack worked on it.",
+          "zh": "當然，這裡看到的是 webpack 處理過的程式碼。"
+        },
+        {
+          "id": 38,
+          "start": 186.93,
+          "end": 192.12,
+          "en": "This is the code in development mode and therefore if you scroll enough at some point, you will find your",
+          "zh": "這是開發模式的程式碼，所以只要往下捲得夠多，就會找到，"
+        },
+        {
+          "id": 39,
+          "start": 192.12,
+          "end": 198.24,
+          "en": "actual code and it will be quite readable because it's not minified because it's not optimized",
+          "zh": "真正的程式碼，而且相當容易閱讀，因為沒有壓縮，也沒有進行任何，"
+        },
+        {
+          "id": 40,
+          "start": 198.27,
+          "end": 199.2,
+          "en": "at all.",
+          "zh": "最佳化。"
+        },
+        {
+          "id": 41,
+          "start": 199.23,
+          "end": 206.55,
+          "en": "So all of this actually will be quite accessible and quite readable if you scroll down far enough and",
+          "zh": "所以只要往下捲得夠遠，所有內容其實都很容易取得，也很容易閱讀，"
+        },
+        {
+          "id": 42,
+          "start": 206.77,
+          "end": 208.92000000000002,
+          "en": "therefore anything you have in there is exposed,",
+          "zh": "因此你放在裡面的任何東西，都會公開，"
+        },
+        {
+          "id": 43,
+          "start": 208.92000000000002,
+          "end": 214.32,
+          "en": "for example if I scroll also the bottom where our script code should actually be found,",
+          "zh": "例如，我捲到最下方，這裡應該能找到我們的指令碼，"
+        },
+        {
+          "id": 44,
+          "start": 214.56,
+          "end": 220.62,
+          "en": "we see here it's hinting at location.js and if we scroll to the right, we actually find our code in",
+          "zh": "我們看到這裡指出 location.js，如果往右捲動，就會找到程式碼，"
+        },
+        {
+          "id": 45,
+          "start": 220.62,
+          "end": 221.39,
+          "en": "here,",
+          "zh": "就在這裡，"
+        },
+        {
+          "id": 46,
+          "start": 221.43,
+          "end": 222.74,
+          "en": "this all inline code,",
+          "zh": "這些都是內嵌的程式碼，"
+        },
+        {
+          "id": 47,
+          "start": 222.75,
+          "end": 228.4,
+          "en": "that's our code, it's of course a bit hard to read but it is readable and it's not just us who can read",
+          "zh": "這是我們的程式碼，當然稍微難讀一點，但仍能閱讀，而且不只是我們能讀，"
+        },
+        {
+          "id": 48,
+          "start": 228.4,
+          "end": 231.44,
+          "en": "that, anyone visiting our page can read that.",
+          "zh": "任何造訪網頁的人都能讀。"
+        },
+        {
+          "id": 49,
+          "start": 231.45,
+          "end": 236.82,
+          "en": "Now once you build for production, this will be optimized and it will be more unreadable",
+          "zh": "當你建置正式環境版本時，它會經過最佳化，變得更難閱讀，"
+        },
+        {
+          "id": 50,
+          "start": 236.82,
+          "end": 241.16,
+          "en": "Bbut there are tools to make it a bit more readable, actually built here in the dev tools",
+          "zh": "但有工具能讓它稍微容易讀一些，開發者工具中其實就內建了，"
+        },
+        {
+          "id": 51,
+          "start": 241.17,
+          "end": 245.31,
+          "en": "if you click on pretty print, this code is formatted such that it's a bit easier to read",
+          "zh": "如果點擊 Pretty print，就會把程式碼格式化，讓它比較容易閱讀，"
+        },
+        {
+          "id": 52,
+          "start": 245.37,
+          "end": 250.77,
+          "en": "if it were minified and besides that if someone is really interested in getting your data, there",
+          "zh": "即使程式碼被壓縮過也一樣。此外，如果有人真的想取得你的資料，有，"
+        },
+        {
+          "id": 53,
+          "start": 250.77,
+          "end": 256.65,
+          "en": "are certain pieces of data, like your database connection string and your password which is just a string",
+          "zh": "某些資料，例如資料庫連線字串與密碼，本身就是字串，"
+        },
+        {
+          "id": 54,
+          "start": 256.71,
+          "end": 261.38,
+          "en": "which of course will always be the same string, no matter if the other code is minified or not,",
+          "zh": "無論其他程式碼是否被壓縮，當然都會是同樣的字串，"
+        },
+        {
+          "id": 55,
+          "start": 261.39,
+          "end": 264.08,
+          "en": "so such data can be found and can be used.",
+          "zh": "所以這類資料可以被找出並使用。"
+        },
+        {
+          "id": 56,
+          "start": 264.21,
+          "end": 270.81,
+          "en": "So any data which could be abused by other people should not go in there, should not go into your client",
+          "zh": "因此，任何可能被其他人濫用的資料，都不該放在裡面，不該放進用戶，"
+        },
+        {
+          "id": 57,
+          "start": 270.81,
+          "end": 272.84000000000003,
+          "en": "side Javascript code.",
+          "zh": "端 JavaScript 程式碼。"
+        },
+        {
+          "id": 58,
+          "start": 272.85,
+          "end": 278.9,
+          "en": "Now in this project specifically, you might be wondering about things like our Google API key, isn't that",
+          "zh": "在這個專案中，你可能特別疑惑，像我們的 Google API 金鑰，難道那不是，"
+        },
+        {
+          "id": 59,
+          "start": 278.90999999999997,
+          "end": 281.64,
+          "en": "for example a security relevant detail?",
+          "zh": "安全相關資訊嗎？"
+        },
+        {
+          "id": 60,
+          "start": 281.64,
+          "end": 288.39,
+          "en": "Well it could be but in Google's case or in the Google API key case here, you can actually restrict",
+          "zh": "它可能是，但在 Google 的情況，或者說這裡的 Google API 金鑰，你其實能限制，"
+        },
+        {
+          "id": 61,
+          "start": 288.42,
+          "end": 291.85,
+          "en": "the usage of that key in your Google developer console,",
+          "zh": "那個金鑰的使用方式，在 Google 開發者主控台中設定，"
+        },
+        {
+          "id": 62,
+          "start": 291.96,
+          "end": 298.08,
+          "en": "there you could restrict that only certain IP addresses can use that key so that only the IP address",
+          "zh": "你可以限制只有特定 IP 位址能使用金鑰，讓只有，"
+        },
+        {
+          "id": 63,
+          "start": 298.08,
+          "end": 302.94,
+          "en": "where you are hosting your application can really send requests with that help of that key",
+          "zh": "託管應用程式所在的 IP 位址，能透過那個金鑰發送請求，"
+        },
+        {
+          "id": 64,
+          "start": 302.94,
+          "end": 309.95,
+          "en": "and if anyone steals that key and tries to use it, Google will block requests by that person's IP address.",
+          "zh": "如果有人偷走金鑰並嘗試使用，Google 就會阻擋來自那個人 IP 位址的請求。"
+        },
+        {
+          "id": 65,
+          "start": 309.96,
+          "end": 316.57,
+          "en": "So this is some security mechanism which a lot of APIs offer if you use their API keys and therefore",
+          "zh": "這是很多 API 在你使用 API 金鑰時提供的安全機制，因此，"
+        },
+        {
+          "id": 66,
+          "start": 316.57,
+          "end": 323.49,
+          "en": "this is not a security relevant detail. That would be a different thing though if we would expose data",
+          "zh": "在這種情況下，它不是敏感的安全資訊。不過，如果我們暴露了，"
+        },
+        {
+          "id": 67,
+          "start": 323.58,
+          "end": 326.4,
+          "en": "from our backend, from this Node.js application.",
+          "zh": "後端，也就是這個 Node.js 應用程式中的資料，情況就不同了。"
+        },
+        {
+          "id": 68,
+          "start": 326.4,
+          "end": 331.59,
+          "en": "Now keep in mind here, I loaded a different project, this is the Node.js application we wrote and there",
+          "zh": "記得，這裡我載入了另一個專案，就是我們寫的 Node.js 應用程式，在裡面，"
+        },
+        {
+          "id": 69,
+          "start": 331.59,
+          "end": 338.07,
+          "en": "for example in the location.js file, we are connecting to the MongoDB database, here I got my password",
+          "zh": "例如 location.js 檔案中，我們連線到 MongoDB 資料庫，這裡有我的密碼，"
+        },
+        {
+          "id": 70,
+          "start": 338.07,
+          "end": 339.98,
+          "en": "and my user name I use there.",
+          "zh": "以及使用的使用者名稱。"
+        },
+        {
+          "id": 71,
+          "start": 340.05,
+          "end": 345.72,
+          "en": "Now this is data which is not exposed to our users because this is now actually only running on the",
+          "zh": "這些資料不會暴露給使用者，因為現在這段程式碼其實只會透過 Node.js 在，"
+        },
+        {
+          "id": 72,
+          "start": 345.72,
+          "end": 347.21,
+          "en": "server through Node.js,",
+          "zh": "伺服器上執行，"
+        },
+        {
+          "id": 73,
+          "start": 347.22,
+          "end": 353.82,
+          "en": "this runs on a machine and the user will never be able to see that code because this Javascript code is never",
+          "zh": "它在一台電腦上執行，使用者永遠無法看到這段程式碼，因為這些 JavaScript 程式碼從來不會，"
+        },
+        {
+          "id": 74,
+          "start": 353.82,
+          "end": 355.03,
+          "en": "sent to the user,",
+          "zh": "傳送給使用者，"
+        },
+        {
+          "id": 75,
+          "start": 355.11,
+          "end": 357.98,
+          "en": "it's never attached to the outgoing HTML page,",
+          "zh": "也從來不會附加在傳出的 HTML 頁面中，"
+        },
+        {
+          "id": 76,
+          "start": 358.02,
+          "end": 360.75,
+          "en": "it's not loaded by any outgoing HTML page.",
+          "zh": "不會被任何傳出的 HTML 頁面載入。"
+        },
+        {
+          "id": 77,
+          "start": 360.78,
+          "end": 367.23,
+          "en": "So this code here is secure, it runs on a server and unless users can access our server, which of course",
+          "zh": "所以這裡的程式碼是安全的，它在伺服器上執行，除非使用者能存取伺服器，而這當然，"
+        },
+        {
+          "id": 78,
+          "start": 367.23,
+          "end": 371.4,
+          "en": "requires them to effectively hack our server, they can't read that code,",
+          "zh": "需要他們真的入侵伺服器，否則就無法閱讀程式碼，"
+        },
+        {
+          "id": 79,
+          "start": 371.4,
+          "end": 377.52,
+          "en": "so this code is secure but if this code here were in our client side Javascript code,",
+          "zh": "所以這些程式碼是安全的。但如果這段程式碼放在用戶端 JavaScript 程式碼中，"
+        },
+        {
+          "id": 80,
+          "start": 377.58,
+          "end": 383.88,
+          "en": "so in the code which is loaded by the browser and which the user can see, then users could see that data",
+          "zh": "也就是瀏覽器載入、使用者能看到的程式碼，那使用者就能看到這些資料，"
+        },
+        {
+          "id": 81,
+          "start": 384.06,
+          "end": 385.29,
+          "en": "and abuse it.",
+          "zh": "並濫用它。"
+        },
+        {
+          "id": 82,
+          "start": 385.29,
+          "end": 391.76,
+          "en": "So long story short, don't put any important, confident information into your client side code,",
+          "zh": "所以簡單來說，不要把任何重要的機密資訊放進用戶端程式碼，"
+        },
+        {
+          "id": 83,
+          "start": 391.77,
+          "end": 398.04,
+          "en": "users can read it and there is absolutely no way for you to avoid that. You can make that code harder",
+          "zh": "使用者可以閱讀它，而且你完全無法阻止。你可以讓程式碼更難，"
+        },
+        {
+          "id": 84,
+          "start": 398.04,
+          "end": 403.23,
+          "en": "to read, you can minify it and so on but it will always be readable and people can therefore read it.",
+          "zh": "閱讀，可以壓縮等等，但它永遠能被閱讀，因此其他人也就能讀到。"
+        }
+      ]
+    }
+  ]
+}

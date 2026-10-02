@@ -1,0 +1,3293 @@
+{
+  "version": 1,
+  "courseId": 1879018,
+  "courseSlug": "nodejs-the-complete-guide",
+  "courseTitle": "NodeJS - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "12025864",
+      "title": "Downloading Files with Authentication",
+      "lectureOrder": 328,
+      "videoOrder": 292,
+      "sourceHash": "3110d0e6cd9a55906420f7f9085e03b9b54a092984de70a36f4c484c187fc46b",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.33,
+          "end": 9.87,
+          "en": "So serving images statically is fine but we don't want to serve only images or only public files,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 9.9,
+          "end": 15.28,
+          "en": "I want to serve an invoice and that invoice should only be available to me.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 16.44,
+          "end": 22.04,
+          "en": "Now for that, let's start with a dummy invoice and I'll create a new folder for that,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 23.47,
+          "end": 25.84,
+          "en": "I'll name it invoices.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 26.31,
+          "end": 32.52,
+          "en": "You could of course put all images and invoices and so on into a parent folder, like data to not have them",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 32.55,
+          "end": 35.4,
+          "en": "all as root level folders,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 35.4,
+          "end": 39.96,
+          "en": "that might be something you want to do. I'll move the invoices in there, images is kind of like a special",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 39.96,
+          "end": 43.68,
+          "en": "case but my private data should be maybe somewhere else,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 43.68,
+          "end": 46.97,
+          "en": "so I'll put it into the data folder which was redundant until now,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 46.98,
+          "end": 48.14,
+          "en": "now it's not anymore",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 48.42,
+          "end": 52.09,
+          "en": "and I prepared a simple pdf which I'll move in there.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 52.13,
+          "end": 53.78,
+          "en": "Now this is a really simple pdf,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 54.15,
+          "end": 56.31,
+          "en": "you can write it on your own,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 56.4,
+          "end": 60.54,
+          "en": "it's just holding some text looking like this.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 60.54,
+          "end": 64.5,
+          "en": "So here is my invoice, that is the pdf file I'm serving now,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 64.5,
+          "end": 66.87,
+          "en": "later we'll also generate this dynamically,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 66.87,
+          "end": 67.99,
+          "en": "now we won't,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 68.08,
+          "end": 70.06,
+          "en": "now I just want to show you how to serve that.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 70.12,
+          "end": 77.4,
+          "en": "Now obviously, we could make our invoices folder here statically accessible but that's not what I want to do.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 77.4,
+          "end": 82.44,
+          "en": "Now first of all let me work on the orders view to make sure we have a link to get that invoice.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 83.7,
+          "end": 91.46000000000001,
+          "en": "So for each order, this list item here which we have, let's maybe add a dash in the list item and in there,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 91.46000000000001,
+          "end": 98.21000000000001,
+          "en": "let's add an anchor tag which says invoice and then it should be pointing at the invoice.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 98.21000000000001,
+          "end": 103.31,
+          "en": "So now if I reload this page we have invoice here as a link,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 103.31,
+          "end": 105.95,
+          "en": "now I want to be able to click this and download the invoice,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 105.97999999999999,
+          "end": 107.99000000000001,
+          "en": "how can we do that?",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 108.02000000000001,
+          "end": 115.19,
+          "en": "Well since I want to handle this privately, I need to set up my own route for working with invoices because",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 115.19,
+          "end": 120.48,
+          "en": "that will then allow me to check for things like is the user authenticated and so on.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 120.5,
+          "end": 126.06,
+          "en": "So let me go to the routes folder and in there under",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 126.06,
+          "end": 134.16,
+          "en": "shop because this is a customer feature, not admin related, under shop here I'll add a new route,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 135.74,
+          "end": 136.72,
+          "en": "orders",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 136.85,
+          "end": 145.15,
+          "en": "and then maybe invoice ID or order ID maybe because the invoice let's say will have a name of that order",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 145.15,
+          "end": 145.53,
+          "en": "ID",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 145.55,
+          "end": 146.21,
+          "en": "ultimately,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 148.85,
+          "end": 154.4,
+          "en": "we could name this file differently, we can name it invoice and then let me quickly look up my order",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 154.4,
+          "end": 157.28,
+          "en": "ID to make this all work correctly.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 158.13,
+          "end": 166.15,
+          "en": "Got a bunch of orders in there but this is my latest order which I just placed, so let's grab",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 166.15,
+          "end": 167.47,
+          "en": "that text ID here",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 170.03,
+          "end": 174.35,
+          "en": "and add that to the invoice name here,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 174.44,
+          "end": 177.4,
+          "en": "maybe after a dash we have the order ID, something like this.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 177.62,
+          "end": 184.88,
+          "en": "So this is my invoice and I'm getting the order ID in this route, I should be protected, authenticated",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 184.88,
+          "end": 190.53,
+          "en": "to see tha, so I'll protect this route and then I'll use my shop controller and there, I get invoice controller",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 190.56,
+          "end": 192.8,
+          "en": "action which I have yet to add.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 192.95,
+          "end": 196.12,
+          "en": "So that's why it crashed here because I don't have that action yet.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 196.34,
+          "end": 204.62,
+          "en": "In the shop controller at the bottom maybe, let's export get invoice here and that will be our default",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 204.65,
+          "end": 208.07,
+          "en": "middleware function with request response and next",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 208.43,
+          "end": 212.32999999999998,
+          "en": "and in here, I now want to return that file.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 212.32999999999998,
+          "end": 221.95,
+          "en": "First of all, I need the invoice ID for that, the order ID, excuse me, order ID will be a request and then it's",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 221.95,
+          "end": 229.78,
+          "en": "encoded in the url, so it's params and then order ID, that is what I specified here in my routes",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 229.93,
+          "end": 235.84,
+          "en": "file, order ID that's the name and therefore I have to retrieve it by that name in my controller,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 235.84,
+          "end": 237.84,
+          "en": "so order ID here.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 238.09,
+          "end": 247.69,
+          "en": "Now I have that order ID, the file name or the invoice name we'll be looking therefore will be invoice- and then my order",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 248.38,
+          "end": 251.63,
+          "en": "ID and then .pdf right,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 251.65,
+          "end": 255.56,
+          "en": "that is the format in which all our invoices are stored let's say.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 255.61,
+          "end": 261.28,
+          "en": "So now we need to retrieve that file and we can retrieve files with nodes file system.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 261.28,
+          "end": 263.56,
+          "en": "We use that before in the course already,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 263.59,
+          "end": 265.22,
+          "en": "so let's start using it again,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 265.27,
+          "end": 272.92,
+          "en": "let's import it, file system by requiring file system, this is a core node module if you remember,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 272.98,
+          "end": 278.59000000000003,
+          "en": "you don't need to install a package it's already included in node and the file system allows you to do things",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 278.59000000000003,
+          "end": 283.63,
+          "en": "like read files which sounds like a thing that makes sense here.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 283.75,
+          "end": 287.83,
+          "en": "So let's use the file system and read a file,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 287.83,
+          "end": 290.57,
+          "en": "we know it will be found in the data folder,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 290.58,
+          "end": 297.04,
+          "en": "now the path here should be constructed with the path core module so that it works on all operating",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 297.04,
+          "end": 298.09000000000003,
+          "en": "systems.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 298.12,
+          "end": 306.61,
+          "en": "So let's also import path by requiring path, another core node module, the path module and let's construct",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 306.67,
+          "end": 316.62,
+          "en": "that path to the invoice, so here I'll have my invoice path and I'll create it with path join and I'll be looking",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 316.86,
+          "end": 318.94,
+          "en": "for the data folder,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 318.99,
+          "end": 321.03,
+          "en": "that's the first element,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 321.03,
+          "end": 326.73,
+          "en": "then the invoices folder and then the invoice name, the file name.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 326.75,
+          "end": 329.65,
+          "en": "So this is the path which I want to read,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 329.69,
+          "end": 335.98,
+          "en": "so I'll pass that invoice path to read file, read file then gives me a callback,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 336.05,
+          "end": 342.58,
+          "en": "so a function which it will execute once it's done reading that file,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 342.58,
+          "end": 351.35,
+          "en": "so here I will either get an error or the data. Now data will be in the form of a buffer.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 351.36,
+          "end": 354,
+          "en": "Now of course we should check if we have an error",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 354.03,
+          "end": 360.15,
+          "en": "and if that is the case, well then we simply next it so that the default error handling function can",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 360.15,
+          "end": 364.03,
+          "en": "take over otherwise if we don't have an error,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 365.29,
+          "end": 368.28,
+          "en": "here I'll return by the way so that the other code won't execute.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 368.29,
+          "end": 373.11,
+          "en": "So if we don't have an error, then data should be my my file right,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 373.12,
+          "end": 376.13,
+          "en": "so then I can call res send",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 376.3,
+          "end": 381.81,
+          "en": "which is a function provided by the express middleware, my data.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 381.82,
+          "end": 384.46,
+          "en": "Now theoretically that should be the file,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 384.46,
+          "end": 385.76,
+          "en": "now let's see if that works",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 385.78,
+          "end": 391.95,
+          "en": "and to make it work, we have to use this route in our anchor tag.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 392.29,
+          "end": 401.81,
+          "en": "So in orders.ejs, in this anchor tag we'll be looking for /orders/",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 401.99,
+          "end": 406.64,
+          "en": "and now we need to output something dynamic with ejs and that is the order ID because that's what",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 406.64,
+          "end": 408.86,
+          "en": "we're looking for in the route,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 408.86,
+          "end": 415.43,
+          "en": "so the order ID is simply order_id which we use up there already.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 415.48,
+          "end": 417.3,
+          "en": "So let's output that here,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 417.89,
+          "end": 423.1,
+          "en": "let's save that and reload that page and now",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 423.11,
+          "end": 424.64,
+          "en": "let's click this invoice here",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 424.66,
+          "end": 431.88,
+          "en": "and I do get my download option here. Let me save that and try to open that file",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 432.13,
+          "end": 438.1,
+          "en": "and indeed, it should open as a pdf or you should be able to open it as a pdf but of course it was",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 438.1,
+          "end": 441.06,
+          "en": "not the most convenient way of downloading this.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 441.1,
+          "end": 443.46,
+          "en": "We had a strange filename right,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 443.5,
+          "end": 447.61,
+          "en": "this strange cryptic name, we don't have the pdf extension and all of that.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 447.85,
+          "end": 449.74,
+          "en": "So we can certainly improve that,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 449.74,
+          "end": 451.61,
+          "en": "let's do that in the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12025868",
+      "title": "Setting File Type Headers",
+      "lectureOrder": 329,
+      "videoOrder": 293,
+      "sourceHash": "c0d1375e7d8898041fb28a9e5cb6a549100bfb8b22a5fbbe9b8ba5e329305332",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.46,
+          "end": 9.14,
+          "en": "We have our code for downloading a file and this file is now only available if we are logged in.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 9.19,
+          "end": 15.4,
+          "en": "Now we can improve the way we return this however, we can pass some extra information to the browser",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 15.61,
+          "end": 22.15,
+          "en": "so that it uses a different file name and also with the right extension. For this we'll set some headers,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 23.61,
+          "end": 25.46,
+          "en": "so we can use set header for that",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 25.56,
+          "end": 31.5,
+          "en": "and first of all we can set the content type to application/pdf because that is what it is here, whoops,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 31.84,
+          "end": 33.66,
+          "en": "like this.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 33.66,
+          "end": 34.91,
+          "en": "Let's see what this does,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 35.01,
+          "end": 40.48,
+          "en": "if I save it like that and I now click this button, now I open it in the browser.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 40.5,
+          "end": 42.45,
+          "en": "So this already changes the behavior,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 42.45,
+          "end": 47.45,
+          "en": "it already gives the browser some information which allows the browser to handle this in a better way",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 47.51,
+          "end": 51.11,
+          "en": "and for pdfs, most browsers simply open them inline,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 51.12,
+          "end": 56.62,
+          "en": "so in the browser. So that's great but we can pass more information.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 56.64,
+          "end": 65.08,
+          "en": "We can also set another header and that is the contents-thisposition,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 65.12,
+          "end": 71.8,
+          "en": "this allows us to define how this content should be served to the client.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 71.91,
+          "end": 78.62,
+          "en": "We can set this to inline to still tell the browser to open it inline for example, so if I change it",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 78.62,
+          "end": 88.22,
+          "en": "like this, nothing changes but we can also for example add a file name here. So we can add semi-colon",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 88.34,
+          "end": 96.02000000000001,
+          "en": "and then file name and set this equal to in double quotation marks the file name you want to serve,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 96.02000000000001,
+          "end": 98.93,
+          "en": "so in my case it would be the invoice name right.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 98.93,
+          "end": 107.47,
+          "en": "So we can also set file name equal to double quotation marks plus invoice name plus closing double",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 107.59,
+          "end": 116.58,
+          "en": "quotation mark contained between single quotation marks. If I now save this and I click this button,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 116.67,
+          "end": 122.13,
+          "en": "now we don't see a difference with the file name when opening it inline because it's open in the browser",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 122.14,
+          "end": 122.73,
+          "en": "anyways",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 122.94,
+          "end": 126.72,
+          "en": "but we can change inline to attachment for example.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 126.9,
+          "end": 131.72,
+          "en": "Now with that adjusted, if we click on invoice, the download menu opens again",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 131.76,
+          "end": 135.51,
+          "en": "and now here we have the proper file name with the proper extension",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 135.72,
+          "end": 139.79,
+          "en": "and this is how you can control how the browser should handle the incoming data.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 139.92000000000002,
+          "end": 143.95,
+          "en": "Should it automatically open it, should it instead let you download it?",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 143.95,
+          "end": 145.22,
+          "en": "So I'll switch this back to inline",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 145.23,
+          "end": 146.62,
+          "en": "but keep this file name here",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 146.82,
+          "end": 152.57999999999998,
+          "en": "and now I have a set up where only authenticated users can request this invoice. We can still improve",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 152.6,
+          "end": 152.85,
+          "en": "that.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12025870",
+      "title": "Restricting File Access",
+      "lectureOrder": 330,
+      "videoOrder": 294,
+      "sourceHash": "0d7fb39af4b71f6dc1215cb12c33a4123a97646f60eaffd55ca4f9f9cbd068fd",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.26,
+          "end": 5.45,
+          "en": "Now how can we improve this serving of the data?",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.53,
+          "end": 13.03,
+          "en": "Well first of all, right now this is only available to authenticated users because on my route here, I",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 13.03,
+          "end": 16.7,
+          "en": "have the isAuth middleware but every user could view that,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.81,
+          "end": 22.1,
+          "en": "I don't have to be the user who placed that order. However for that order,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 22.12,
+          "end": 24.56,
+          "en": "I of course know which user belongs to it,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 24.58,
+          "end": 31.81,
+          "en": "I have the user id here. So we can add an extra check in our middleware, in our controller action here",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.26,
+          "end": 38.09,
+          "en": "to see if for this order, the user is eligible of downloading it.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 38.09,
+          "end": 46.52,
+          "en": "Now how do we do that? Well we use the order mongoose model, find that order by that ID in the database",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 46.91,
+          "end": 52.6,
+          "en": "and then check if the order user ID is equal to the ID of the currently logged in user.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 52.94,
+          "end": 62.4,
+          "en": "So here I can check order and then find by ID and I pass in my order ID, I have then and catch here.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 62.44,
+          "end": 68.85,
+          "en": "Now as you know, in here we can simply next an error to use the default error handling function",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 69.01,
+          "end": 75.64,
+          "en": "and here we'll have our order element though that could be undefined if no order for this ID is found,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 75.64,
+          "end": 86.78999999999999,
+          "en": "so if no order is found, then I will also return next with new error maybe, no order found, whatever",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 86.81,
+          "end": 88.6,
+          "en": "you want, you can handle this differently.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 88.73,
+          "end": 94.07,
+          "en": "If we do have an order however, I want to check if the order is from that user who's logged in.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 94.07,
+          "end": 103.42,
+          "en": "So then I can check if order user and then keep in mind, in the user object we have user ID field, so",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 103.42,
+          "end": 114.57,
+          "en": "if that user ID toString, if that is equal to request user_id, so if the currently logged in",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 114.57,
+          "end": 120.47,
+          "en": "user toString, if that is equal I am allowed to access this, if it's not,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 120.51,
+          "end": 127.1,
+          "en": "so if I'm checking the opposite, if it's not equal then I will return a new error",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 128.23,
+          "end": 130.79,
+          "en": "unauthorized, something like this.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 133.7,
+          "end": 139.8,
+          "en": "And only if I make it past these two if checks, only in this case I want to read that file",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 142.39,
+          "end": 143.07,
+          "en": "and output it.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 145.94,
+          "end": 148.86,
+          "en": "So if I now save this and I access this,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 149.09,
+          "end": 152.11,
+          "en": "it works, if I change the three here to a two,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 152.41,
+          "end": 159.07999999999998,
+          "en": "I get my error because now it's an invalid url and if I copy that original url which was correct",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 159.29,
+          "end": 164.12,
+          "en": "and I do log out and I try to access this whilst I'm logged out,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 164.12,
+          "end": 170.92000000000002,
+          "en": "I have to log in and if I log in with a different user or let me quickly create that user",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 177.07999999999998,
+          "end": 181.53,
+          "en": "and I then log in and I now try to access this order,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 181.58,
+          "end": 182.72,
+          "en": "I also get an error,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 182.93,
+          "end": 184.57,
+          "en": "I have to be the correct user.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 184.58,
+          "end": 188.92,
+          "en": "Now of course you could show a different error message but that is always something you can tweak,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 188.93,
+          "end": 194.68,
+          "en": "I only want to show you how you can protect this and that you have this option of controlling that access.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 194.72,
+          "end": 197.13,
+          "en": "So here, this all works just fine.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12025876",
+      "title": "Streaming Data vs Preloading Data",
+      "lectureOrder": 331,
+      "videoOrder": 295,
+      "sourceHash": "4d3e152fe47c2980409d470097eb84d1e80c634f6ed67ee2d8b8d07c3ce741dd",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.53,
+          "end": 6.77,
+          "en": "So we added authorization to our download option here.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.85,
+          "end": 8.81,
+          "en": "Now that's not all we can improve,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.92,
+          "end": 15.57,
+          "en": "we can also improve the way we are serving that file because right now, I'm simply reading that file",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 15.58,
+          "end": 18.25,
+          "en": "and once I read it, I return it.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 18.25,
+          "end": 21.12,
+          "en": "Now for small files this is probably fine",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 21.25,
+          "end": 23.8,
+          "en": "but you should be aware of one important fact,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 23.8,
+          "end": 30.1,
+          "en": "if you read a file like this, node will first of all access that file, read the entire content into memory",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 30.22,
+          "end": 32.47,
+          "en": "and then return it with the response.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 32.47,
+          "end": 38.53,
+          "en": "This means that for bigger files, this will take very long before a response is sent and your memory",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 38.65,
+          "end": 44.14,
+          "en": "on the server might actually overflow at some point for many incoming requests because it has to read",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 44.17,
+          "end": 47.46,
+          "en": "all the data into memory which of course is limited.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 47.5,
+          "end": 54.85,
+          "en": "So reading file data into memory to serve it as a response is not really a good practice, for tiny files",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 54.85,
+          "end": 58.24,
+          "en": "it might be ok but for bigger files, it certainly is not,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 58.24,
+          "end": 62.91,
+          "en": "instead you should be streaming your response data and that is what I will do now.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 62.98,
+          "end": 70.98,
+          "en": "So I'll comment out this code where I read my file and instead here, I will now start streaming it.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 71.13,
+          "end": 78.4,
+          "en": "For that I'll create a new constant, I'll name it file and I will use the file system and create a read stream",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 78.4,
+          "end": 80.39,
+          "en": "because I want to read some data in.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 80.86,
+          "end": 87.16,
+          "en": "Now I want to read in data at a specific path and the path hasn't changed, it's the invoice path,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 87.58,
+          "end": 93.31,
+          "en": "so now I have to read read stream and node will be able to use that to read in the file step by step",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 93.43,
+          "end": 94.71000000000001,
+          "en": "in different chunks.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 96.3,
+          "end": 99.68,
+          "en": "I will then take my response code here where I set the headers,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 99.69,
+          "end": 102.84,
+          "en": "I still do that on the response object",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 102.84,
+          "end": 109.77000000000001,
+          "en": "and then here, I will use that file read stream and call the pipe method to forward the data that is",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 109.77000000000001,
+          "end": 117.16,
+          "en": "read in with that stream to my response because the response object is a writable stream actually",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 117.42,
+          "end": 123.54,
+          "en": "and you can use readable streams to pipe their output into a writable stream,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 123.57,
+          "end": 127.52,
+          "en": "not every object is a writable stream but the response happens to be one.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 127.65,
+          "end": 133.23,
+          "en": "So we can pipe our readable stream, the file stream into the response and that means that the response will",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 133.23,
+          "end": 139.11,
+          "en": "be streamed to the browser and will contain the data and the data will basically be downloaded by the",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 139.11,
+          "end": 139.65,
+          "en": "browser",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 139.68,
+          "end": 142.2,
+          "en": "step by step and for large files,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 142.29,
+          "end": 149.25,
+          "en": "this is a huge advantage because node never has to pre-load all the data into memory but just streams",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 149.25,
+          "end": 151.22,
+          "en": "it to the client on the fly",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 151.35,
+          "end": 154.65,
+          "en": "and the most it has to store is one chunk of data.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 154.65,
+          "end": 156.9,
+          "en": "Again we're back to the streams and the buffers,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 156.99,
+          "end": 159.17000000000002,
+          "en": "the chunks are what we work with, the buffers",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 159.18,
+          "end": 161.49,
+          "en": "basically gives us access to these chunks",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 161.49,
+          "end": 167.37,
+          "en": "and here we don't wait for all the chunks to come together and concatenate them into one object,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 167.37,
+          "end": 173.85,
+          "en": "instead we forward them to the browser which then is also able to concatenate the incoming data pieces",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 174.09,
+          "end": 176.22,
+          "en": "into the final file.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 176.22,
+          "end": 177.78,
+          "en": "So with this setup here,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 181.06,
+          "end": 181.96,
+          "en": "let's try this again,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 181.96,
+          "end": 188.05,
+          "en": "click on orders, click on the invoice and again we see the invoice as before but now this is actually",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 188.05,
+          "end": 194.92,
+          "en": "streamed data created with that create read stream thing which is the recommended way of getting your",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 194.92,
+          "end": 197.82,
+          "en": "file data especially for bigger files.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12025882",
+      "title": "Using PDFKit for .pdf Generation",
+      "lectureOrder": 332,
+      "videoOrder": 296,
+      "sourceHash": "f1dd5d051895d349e0824a0ea42fd8920b26d2e67fdbd99542eb5b6b5f22a681",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.97,
+          "end": 8.39,
+          "en": "Now that we learned how to save files and how to return them in different ways statically",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.52,
+          "end": 15.21,
+          "en": "as one big file or as a streamed response, let me show you a little bonus so to say where we can create",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 15.21,
+          "end": 18.23,
+          "en": "a pdf on the fly on the server,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 18.33,
+          "end": 21.7,
+          "en": "instead of serving that hardcoded pdf here,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 21.93,
+          "end": 24.27,
+          "en": "let me create it on the fly instead.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 24.54,
+          "end": 31.27,
+          "en": "So I will delete my invoice here and instead when we get the invoice for an order, I don't want to serve",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 31.27,
+          "end": 38.45,
+          "en": "a file that already exists but I want to generate that file based on the real order data. For that",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 38.46,
+          "end": 43.57,
+          "en": "I first of all will still check if we have that order and if the user is allowed to access it",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 43.77,
+          "end": 45.69,
+          "en": "but of course this will now change,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 45.69,
+          "end": 49.07,
+          "en": "well actually the name will be the same and I will store it in the same way",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 49.14,
+          "end": 51.38,
+          "en": "but I now can't read the file,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 51.42,
+          "end": 52.7,
+          "en": "I need to create it",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 52.86,
+          "end": 55.01,
+          "en": "and how can we create a pdf?",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 55.44,
+          "end": 62.67,
+          "en": "Well there are third party packages which we can use which make it a lot easier and pdfkit is a very",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 62.82,
+          "end": 67.84,
+          "en": "prominent or popular package for creating pdfs on a nodejs server.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 67.89,
+          "end": 73.5,
+          "en": "I strongly recommend checking out their documentation to learn more about all its many options because",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 73.5,
+          "end": 79.59,
+          "en": "it's super powerful, it can do a lot of stuff, so definitely worth having a look at this and we will use",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 79.59,
+          "end": 83.97,
+          "en": "it to create a very simple pdf in this course here.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 84.24,
+          "end": 89.7,
+          "en": "Now for documentation, it's important to know that this documentation uses coffee script which is like",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 89.85,
+          "end": 91.43,
+          "en": "a superset to javascript,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 91.45,
+          "end": 93.21000000000001,
+          "en": "it's not supported by node,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 93.45,
+          "end": 96.56,
+          "en": "it's just a tooling for writing your code,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 96.57,
+          "end": 102.33,
+          "en": "it's compiled back to a normal javascript and therefore this documentation can be a bit hard to read.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 102.39,
+          "end": 109.34,
+          "en": "In the end you could say something like this new pdf document, here we would have curly braces after it,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 109.72,
+          "end": 114.87,
+          "en": "require would be using curly braces so some stuff here looks a bit different but I will show you how",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 114.87,
+          "end": 121.59,
+          "en": "to use it in this module, in this lecture actually. Let's start by installing it, so I will simply run",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 121.77,
+          "end": 124.62,
+          "en": "npm install --save pdfkit,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 124.74,
+          "end": 126.31,
+          "en": "that's the name of the package,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 126.44,
+          "end": 132.75,
+          "en": "you'll also find these instructions on the official page, npm install pdfkit and then we can start using",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 132.75,
+          "end": 132.96,
+          "en": "it",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 132.96,
+          "end": 136.95,
+          "en": "once it's installed. So let me start that server again",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 139.26,
+          "end": 141.44,
+          "en": "and up there in my shop.js",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 141.53,
+          "end": 147.67000000000002,
+          "en": "controller file, I'll import pdfkit by requiring pdfkit,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 147.9,
+          "end": 155.04,
+          "en": "so this package we just installed. Actually pdfkit exposes a pdf document constructor,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 155.07999999999998,
+          "end": 156.61,
+          "en": "so let's maybe name it like this,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 156.71,
+          "end": 158.44,
+          "en": "so pdf document,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 158.48,
+          "end": 163.87,
+          "en": "the name is up to you but this is closer to what this package really exposes.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 163.88,
+          "end": 166,
+          "en": "Now I want to create a new pdf document",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 166.04,
+          "end": 170.23,
+          "en": "when we get an invoice at this point here.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 170.42000000000002,
+          "end": 178.23,
+          "en": "So let's create a new pdf doc, whatever you want to name it by calling new pdf document and that's",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 178.23,
+          "end": 178.7,
+          "en": "what I meant,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 178.74,
+          "end": 183.19,
+          "en": "you need to add normal parentheses as we always did for all constructors.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 183.6,
+          "end": 185.79,
+          "en": "So now we have a new pdf document.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 188.42,
+          "end": 194.09,
+          "en": "This actually also turns out to be a readable stream,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 194.14,
+          "end": 197.97,
+          "en": "therefore what we can do here is we can use the pdf document and",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 197.99,
+          "end": 199.49,
+          "en": "we can do two things.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 199.57,
+          "end": 205.76,
+          "en": "First of all we pipe this output into a writable file stream,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 205.78,
+          "end": 211.69,
+          "en": "so create write stream is a function we can call on the file system package and to that we pass a path",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 211.77,
+          "end": 214.23,
+          "en": "where we want to write it to, the invoice path",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 214.24,
+          "end": 221.23,
+          "en": "in my case and this ensures that the pdf we generate here also gets stored on the server and not just serve",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 221.23,
+          "end": 222.25,
+          "en": "to the client.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 222.46,
+          "end": 229.94,
+          "en": "So we create that and of course I also want to return it to the client,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 229.99,
+          "end": 234.23,
+          "en": "so I also pipe the output into my response, just as before,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 234.25,
+          "end": 240.43,
+          "en": "the response is a writable read stream, pdf doc is a readable one so we can do that.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 240.55,
+          "end": 246.4,
+          "en": "Now we have this set up and now whatever we add to the document will be forwarded into this file which",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 246.4,
+          "end": 250.55,
+          "en": "gets generated on the fly and into our response.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 250.56,
+          "end": 257.13,
+          "en": "Now let's start simple and let's now use pdf doc and let's call the text method which exists there,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 257.19,
+          "end": 262.06,
+          "en": "this allows us to add a single line of text into the pdf document.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 262.09,
+          "end": 265.97,
+          "en": "So here let's add hello world maybe",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 266.23,
+          "end": 271.9,
+          "en": "and then you have to call pdf doc to tell node when you're done writing to that stream because you",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 271.9,
+          "end": 273.65,
+          "en": "have to be done at some point, right.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 273.67,
+          "end": 276.15999999999997,
+          "en": "So here you simply call end",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 276.4,
+          "end": 283.39,
+          "en": "and when you call end, these writable streams for creating the file and for sending the response will be closed",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 283.39,
+          "end": 288.49,
+          "en": "so to say or will know that you are done writing and therefore the file will be saved and the response",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 288.49,
+          "end": 290.17,
+          "en": "will be sent.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 290.29,
+          "end": 296.21,
+          "en": "And now with that saved, just make sure you also change your setup down there at the bottom.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 296.23,
+          "end": 302.82,
+          "en": "I will keep the headers but I will not pipe any file because we now, well pipe the file up there",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 302.83,
+          "end": 303.8,
+          "en": "when we create it",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 303.88,
+          "end": 307.18,
+          "en": "and I just need to make sure that I set my response headers accordingly.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 307.54,
+          "end": 313.39,
+          "en": "Now with that if you save that and you click on that invoice link, you should get a pdf with hello",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 313.39,
+          "end": 317.26,
+          "en": "world in there and this pdf also can be found here.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 318.1,
+          "end": 322.73,
+          "en": "Now it might look a bit strange here but you can open it with a normal pdf reader and it should look like",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 322.73,
+          "end": 323.55,
+          "en": "a pdf.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 323.84,
+          "end": 326.44,
+          "en": "So this is how you can create a pdf on the fly,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 326.55,
+          "end": 329.63,
+          "en": "now in the next lecture let's actually populate it with some order data.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12025896",
+      "title": "Generating .pdf Files with Order Data",
+      "lectureOrder": 333,
+      "videoOrder": 297,
+      "sourceHash": "c6377826860fa00ccd064837119d4ab864c16983cddff46b22fb5b3c4d8ce1f9",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.36,
+          "end": 4.9,
+          "en": "So let's create a more useful pdf now.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.91,
+          "end": 10.09,
+          "en": "Now you can configure a lot and the official docs of pdf kit are the place to go to learn more about",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.09,
+          "end": 10.54,
+          "en": "that",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.83,
+          "end": 17.53,
+          "en": "but let me show you how you can generate some nicely looking pdf in little time.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.54,
+          "end": 24.04,
+          "en": "For example, let's set a font size here of 26 and then add some text and",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 24.08,
+          "end": 29.53,
+          "en": "this text will now have this font size and this will have text of invoice.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 29.96,
+          "end": 30.87,
+          "en": "If I now save this",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 34.15,
+          "end": 36.99,
+          "en": "and I reload this page, we get invoice written like this,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 38.85,
+          "end": 42.51,
+          "en": "we can also pass an object as a second argument here and configure this,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 42.51,
+          "end": 49.1,
+          "en": "for example you can set underline to true here on the text and now if I reload this,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 49.31,
+          "end": 51.33,
+          "en": "we have the underlined text.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 51.46,
+          "end": 55.79,
+          "en": "So of course you can style way more, you can even add images and all that stuff.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 56.04,
+          "end": 58.29,
+          "en": "Now I'm happy with that title,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 59.17,
+          "end": 64.76,
+          "en": "I'll simply add some dashes as the next line here",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 68.18,
+          "end": 71.23,
+          "en": "and then thereafter, I want to have my different items.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 71.63,
+          "end": 75.78999999999999,
+          "en": "So now I have to loop through all the items that are part of the order, in this order",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 75.8,
+          "end": 84.99,
+          "en": "I only have one product but I might have more products and actually we can of course do that. If I go to products,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 87.77,
+          "end": 98.2,
+          "en": "I can add this product to the cart twice and I can quickly create a new product, prod2 and boring",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 98.2,
+          "end": 104.38,
+          "en": "as I am I'll use the same image for 29 bucks, product 2,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 104.62,
+          "end": 111.38,
+          "en": "let's quickly create that product and then after we created it, I can add that to my cart as well",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 111.49000000000001,
+          "end": 118.39,
+          "en": "and then I could order this and now I've got a brand new order. Now by the way, I should place that invoice link next",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 118.39,
+          "end": 120.07,
+          "en": "to the order not next to the product",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 120.07,
+          "end": 123.7,
+          "en": "now that I have a look at it but it doesn't matter, we can change this later.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 123.85,
+          "end": 127.42,
+          "en": "For now this will always lead to the same invoice so it does not matter too much,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 127.42,
+          "end": 132.79,
+          "en": "now I have multiple products in there and I should loop through them when creating the output. So I can",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 132.79,
+          "end": 136.84,
+          "en": "add a for loop or simply access,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 136.84,
+          "end": 141.55,
+          "en": "keep in mind we already have access to the order here since we fetched it from the database,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 141.55,
+          "end": 151.04,
+          "en": "I can access order products and products is an array because we store this products in a database,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 151.04,
+          "end": 157.37,
+          "en": "it will be an array of objects where each object has a quantity and then a product key with more detailed",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 157.37,
+          "end": 158.96,
+          "en": "information.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 159.19,
+          "end": 165.07,
+          "en": "So I can loop through my products for example with the forEach method which is a built-in method provided",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 165.07,
+          "end": 166.6,
+          "en": "by javascript,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 166.6,
+          "end": 175.97,
+          "en": "I'll then get information about my product and I can now output some text where I print",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 176.16,
+          "end": 176.98,
+          "en": "the prod,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 177.18,
+          "end": 187.5,
+          "en": "product is then the detail object and in that product, we have the title for example, so I can output the",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 187.5,
+          "end": 189.32,
+          "en": "title here,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 189.48,
+          "end": 198.92000000000002,
+          "en": "then let's say we add a blank and a dash and a blank and then I have prod quantity right because we",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 198.92000000000002,
+          "end": 202.56,
+          "en": "have the quantity key directly on the product itself",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 205.64,
+          "end": 212.25,
+          "en": "and then I add let's say a times character and then we want to output the price,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 212.3,
+          "end": 215.57,
+          "en": "so I'll have let's say a dollar sign",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 216.69,
+          "end": 222.45,
+          "en": "and then last but not least, I'll have the product price,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 222.76,
+          "end": 230.47,
+          "en": "so this field here. Now of course you could also use the next gen javascript syntax with back ticks to make this",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 230.47,
+          "end": 232.36,
+          "en": "a bit easier to read,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 232.6,
+          "end": 238.69,
+          "en": "I think it's maybe easier to understand how we are concatenating this from hardcoded values and dynamic",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 238.69,
+          "end": 239.38,
+          "en": "values",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 239.53,
+          "end": 244.42,
+          "en": "and now we should be outputting a line of data for each product in that order.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 244.42,
+          "end": 250.52,
+          "en": "Now let's also add a sum at the bottom and we can calculate that on the fly here,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 250.54,
+          "end": 257.47,
+          "en": "let's total price start at zero and if we are looping through all the products anyways, we can use that",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 257.5,
+          "end": 266.6,
+          "en": "to also update our total price because total price will then be the old total price plus the product",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 266.6,
+          "end": 272.69,
+          "en": "quantity times the prod product price.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 272.69,
+          "end": 279.59000000000003,
+          "en": "So basically what we print here is text, we'll then also add it to our total price here, by the way this",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 279.59000000000003,
+          "end": 282.94,
+          "en": "can be written in a shortcut with this operator,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 282.95,
+          "end": 287.81,
+          "en": "now this will always add the result of this calculation to the old total price",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 287.81,
+          "end": 295.09000000000003,
+          "en": "and then here outside of the loop once we are done calculating the total price, I'll access my pdf doc,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 295.12,
+          "end": 305.66,
+          "en": "output some text here and that text will be total price dollar sign and then simply total price, like this.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 305.66,
+          "end": 308.09,
+          "en": "With all that let's save that",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 308.24,
+          "end": 312.08,
+          "en": "and let's click on invoice for the second order",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 312.2,
+          "end": 318.67,
+          "en": "and here I get my invoice which looks like this.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 318.69,
+          "end": 321.03,
+          "en": "Now of course we can also revert the font size",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 324.18,
+          "end": 332.22,
+          "en": "here by setting font size to let's say 14, so that we don't use that super big font for all our text, so",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 332.35,
+          "end": 334.47,
+          "en": "now by adding this line inside our loop,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 338.3,
+          "end": 340.38,
+          "en": "I am sure that this looks like that",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 340.4,
+          "end": 345.48,
+          "en": "and then maybe just some stylistic thing, though it will not become super pretty.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 345.98,
+          "end": 353.76,
+          "en": "I can add maybe some more dashes here to separate the list from the total price and set the font",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 353.76,
+          "end": 365.28,
+          "en": "size of that total price a bit bigger, to maybe 20. Save that, reload and here it is. Now",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 365.34,
+          "end": 371.34,
+          "en": "obviously, this is not the most beautiful invoice we ever saw and you can learn way more about how you",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 371.34,
+          "end": 374.36,
+          "en": "may style that in your official docs of pdf kit.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 374.49,
+          "end": 377.37,
+          "en": "The important thing is the data in there is correct,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 377.4,
+          "end": 379.38,
+          "en": "so the data does look correct,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 379.38,
+          "end": 384.81,
+          "en": "the total price is correct and this is how you can generate data on the fly and how you can then return",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 384.81,
+          "end": 391.5,
+          "en": "it in a response and also save it in a file because that is important too. We do both at the same step",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 391.71,
+          "end": 395.7,
+          "en": "and I believe its very interesting to see which power nodejs has and",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 395.75,
+          "end": 401.46,
+          "en": "what you can do with it especially when also playing around with the features of writable and readable",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 401.46,
+          "end": 407.49,
+          "en": "streams, like here where we are creating a pdf on the fly and we were streaming it both into a file and",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 407.49,
+          "end": 408.45,
+          "en": "back to the client.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12025900",
+      "title": "Deleting Files",
+      "lectureOrder": 334,
+      "videoOrder": 298,
+      "sourceHash": "44c4244ac2f0aa50000c1ead0aff398717644f825c43c4a8801d1e2d9d8d5364",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.24,
+          "end": 3.92,
+          "en": "Now in this module we covered a lot",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.92,
+          "end": 5.51,
+          "en": "and we work with files a lot.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.51,
+          "end": 11.87,
+          "en": "Now one thing you might notice is that whenever we for example change an image or when we delete a product,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.13,
+          "end": 17.36,
+          "en": "the file belonging to that product, the image belonging to the product sticks around.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.36,
+          "end": 22.79,
+          "en": "Now obviously you can always delete files with the file system package,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.91,
+          "end": 25.7,
+          "en": "there you also got options for deleting files.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 25.97,
+          "end": 33.47,
+          "en": "You could delete files whenever you added a product when you override the image,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 33.47,
+          "end": 37.63,
+          "en": "so here if you are inside that if block and we set a new image url,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 37.64,
+          "end": 43.34,
+          "en": "then we could also kick off a function that goes ahead and deletes the old image by fetching that",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 43.43,
+          "end": 48.05,
+          "en": "from the product first because we're fetching the product here, so we can get access to the old image",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 48.05,
+          "end": 54.02,
+          "en": "path by fetching that path and then using the file system to delete that old image and we can of course",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 54.02,
+          "end": 57.59,
+          "en": "also delete an image when we delete the product.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 57.83,
+          "end": 66.35,
+          "en": "So let's add this functionality as a last step now and for that, I will go to my util folder",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 70.5,
+          "end": 76.18,
+          "en": "and add a file, js file where I will add some helper functionality.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 76.19,
+          "end": 83.09,
+          "en": "There I'll import the file system, so the file system is imported here and I'll have a constant which",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 83.09,
+          "end": 92.27000000000001,
+          "en": "holds a function which I'll name delete file. This function should accept the file path and that's it",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 92.28,
+          "end": 99.32,
+          "en": "let's say. In here I can use the file system package and there,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 99.36,
+          "end": 105.69,
+          "en": "you'll have the unlink method, it deletes the name and the file that is connected to the name, so it deletes",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 105.75,
+          "end": 107.06,
+          "en": "a file at this path.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 107.22,
+          "end": 116.64,
+          "en": "So here I pass file path and then this has the callback we know with an error if it fails and in here,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 116.64,
+          "end": 118.86,
+          "en": "we can simply check if we got an error and",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 118.86,
+          "end": 124.92,
+          "en": "then I want to throw it again and then it should bubble up in our default express error handler should",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 124.92,
+          "end": 126.09,
+          "en": "be able to take over",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 126.31,
+          "end": 128.2,
+          "en": "otherwise I'll not do anything here.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 128.28,
+          "end": 129.68,
+          "en": "So it's like a method",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 129.69,
+          "end": 133.66,
+          "en": "I can always call to pass in a file path and delete that file.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 134.01,
+          "end": 136.82,
+          "en": "And now we can use that in our admin controller,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 137.97,
+          "end": 150.86,
+          "en": "so let me import my file helper here by requiring it from the util folder and there the file, file and",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 150.88,
+          "end": 152.41,
+          "en": "now I can use that file helper",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 152.49,
+          "end": 160.78,
+          "en": "for example in the place where we added a product. If we are in this if block and we know we'll replace",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 160.78,
+          "end": 161.96,
+          "en": "the image url,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 162.09,
+          "end": 170.65,
+          "en": "then before I do so, I will use file helper and I call my function there, for that",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 170.66,
+          "end": 172.17000000000002,
+          "en": "I need to export it though.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 172.5,
+          "end": 177.53,
+          "en": "So in here I want to export delete file,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 177.53,
+          "end": 180,
+          "en": "this will hold my delete file constant,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 180.05,
+          "end": 183.68,
+          "en": "so this function and now in the admin.js controller,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 183.68,
+          "end": 190.36,
+          "en": "here I can call file helper delete file and I pass in product image",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 190.37,
+          "end": 196.59,
+          "en": "url, so that path to that file and now this should fire.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 196.59,
+          "end": 198.77,
+          "en": "I'm not waiting for this to complete,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 198.81,
+          "end": 201.03,
+          "en": "I continue with my other operations,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 201.03,
+          "end": 204.15,
+          "en": "I'm doing this in a fire and forget manner, so",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 204.15,
+          "end": 207.21,
+          "en": "I'm firing this function and I don't care about the result.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 207.21,
+          "end": 212.91,
+          "en": "If I wanted to, I would have to pass my callback here, so a function which then continues with the rest",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 212.91,
+          "end": 214.07,
+          "en": "in this function here",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 214.2,
+          "end": 220.14,
+          "en": "but I simply fire it like this and I will do the same when we delete a product.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 220.21,
+          "end": 231.07999999999998,
+          "en": "So in there when we do delete it, here I also want to delete the respective image",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 231.22,
+          "end": 237,
+          "en": "and for that, I first of all need to fetch my product of course, so I will have find by ID in here,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 237.95,
+          "end": 239.71,
+          "en": "find it by prod ID",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 240.04,
+          "end": 249.16,
+          "en": "and then here I have then and catch. In catch I can next any error I get and in the then block, I will have",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 249.16,
+          "end": 251.55,
+          "en": "access to my product,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 251.83,
+          "end": 256,
+          "en": "so here I can then execute my file helper.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 256.34,
+          "end": 263.03,
+          "en": "I should of course also check if product is not set in which case I'll also return next with a new",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 263.96,
+          "end": 266.4,
+          "en": "error product not found",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 268.21,
+          "end": 274.79,
+          "en": "and otherwise I delete that and I should only trigger delete one here after I found this",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 274.87,
+          "end": 279.37,
+          "en": "otherwise we have a race condition where deleting could finish before finding is finished and that would",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 279.37,
+          "end": 287.98,
+          "en": "be bad. So we'll grab that delete one code, move that in here and return it to return the promise returned by",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 287.98,
+          "end": 291.72,
+          "en": "delete one",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 291.95,
+          "end": 296.27,
+          "en": "and then I can actually replace that catch block with my old then and catch block and this will catch",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 296.27,
+          "end": 303.02,
+          "en": "errors in any of the then blocks and it will also make sure that I first find the product and once I",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 303.02,
+          "end": 304,
+          "en": "found it,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 304.27,
+          "end": 309.15,
+          "en": "I delete the image and I simultaneously start deleting the product itself.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 309.49,
+          "end": 312.13,
+          "en": "Let's save all of that and let's see if that works.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 312.19,
+          "end": 324.62,
+          "en": "If I go back to admin products here and I delete product one, this is cleared and here I also have one",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 324.7,
+          "end": 331.53,
+          "en": "image less, if I delete the second product, it's only three images, so this works.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 331.53,
+          "end": 336.65,
+          "en": "The other images are still sticking around because previously when I started deleting products and so",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 336.65,
+          "end": 340.52,
+          "en": "on, I did not have that logic in place but now this works.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 341.73,
+          "end": 345.1,
+          "en": "Fetching my invoice or generating it on the fly works",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 345.3,
+          "end": 348.48,
+          "en": "and thanks to the fact that we store a snapshot of that in the database,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 348.48,
+          "end": 350.67,
+          "en": "it even works after the product was deleted",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 350.7,
+          "end": 352.7,
+          "en": "which is of course the way we want it to work and",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 352.71,
+          "end": 354.81,
+          "en": "with that, we have a really nice setup here.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12025906",
+      "title": "Fixing Invoice Links",
+      "lectureOrder": 335,
+      "videoOrder": 299,
+      "sourceHash": "48e7be2636461e35603a9fbce6322f8d21c94d75f0ee7539d445f8916f7b7930",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.37,
+          "end": 11.16,
+          "en": "Now one last adjustment I want to make is that I want to go into my views real quick and fix the placement",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 11.22,
+          "end": 13.57,
+          "en": "of my invoice link in the orders.ejs",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 13.58,
+          "end": 19.36,
+          "en": "file. There I have that invoice link next to every product and that is incorrect of course,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 19.47,
+          "end": 21.01,
+          "en": "it should be next to the order",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 21.03,
+          "end": 28.05,
+          "en": "so next to the order ID, I will have my invoice link so that now if I reload that orders page, I have that",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 28.05,
+          "end": 32.76,
+          "en": "link up there which makes more sense logically but the behavior of course didn't change.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12025908",
+      "title": "Wrap Up",
+      "lectureOrder": 336,
+      "videoOrder": 300,
+      "sourceHash": "0d71084eba7350152cb0a68ce9014e0c59195bd5c57685440c6499e2eb324bd3",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.66,
+          "end": 5.92,
+          "en": "That's it for this module, you learned a lot about files,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.95,
+          "end": 12.28,
+          "en": "you learned how to add file upload functionality, both in the form and then most importantly on the",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 12.28,
+          "end": 19.48,
+          "en": "backend by using multer, this nice middleware which automatically extracts files from incoming requests",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 19.54,
+          "end": 26.3,
+          "en": "and stores them as specified by us and which also is able to filter out certain file types if we want",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 26.31,
+          "end": 26.96,
+          "en": "to.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 27.12,
+          "end": 32.23,
+          "en": "You learned how to store files, both for adding and editing items,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.23,
+          "end": 39.49,
+          "en": "so how to manage that and you of course also learned how to download files, how to serve them statically",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 39.67,
+          "end": 45.04,
+          "en": "with the help of that static middleware expressjs ships with and how to make sure that this uses",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 45.04,
+          "end": 46.43,
+          "en": "the right path",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 46.43,
+          "end": 53.62,
+          "en": "and alternatively or depending on your requirements, how you can serve files as a response in a route,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 53.95,
+          "end": 61.09,
+          "en": "like with get order here in the shop.js controller where we saw multiple different options of serving",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 61.18,
+          "end": 66.14,
+          "en": "a file that already existed, for example by loading it into memory and then returning it",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 66.43,
+          "end": 69.76,
+          "en": "or that you could stream such a file instead",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 70,
+          "end": 76.57,
+          "en": "or that you can even generate files on the fly if required, depending on what your application requirements",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 76.63,
+          "end": 83.23,
+          "en": "are. With that you learned a lot of things about how to work with files, with streams, with responses and",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 83.23,
+          "end": 88.89,
+          "en": "this hopefully helps you implement file related features into your next application.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "12025922",
+      "title": "Module Introduction",
+      "lectureOrder": 338,
+      "videoOrder": 301,
+      "sourceHash": "c205d1c9ed60ad404f1dd92669e38adb20041e2e7f760f886e8923a8aaaeece3",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.14,
+          "end": 7.69,
+          "en": "I'm really happy with the shape our course application is taking and we're diving into many exciting",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.69,
+          "end": 8.23,
+          "en": "features",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.23,
+          "end": 14.74,
+          "en": "we can build with node and express as you see. Now that we're able to work with files and even generate",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 14.74,
+          "end": 17.13,
+          "en": "them on the fly on the server,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.29,
+          "end": 24.83,
+          "en": "let's dive back into some work with our database or interactions with our database. There right now",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 24.85,
+          "end": 31.9,
+          "en": "we always fetch all products when we display the product page. In this module, we'll dive into a technique",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 31.93,
+          "end": 38.59,
+          "en": "called pagination which allows us to split our data across multiple pages, something you typically want",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 38.59,
+          "end": 41.37,
+          "en": "to do when you work with a lot of data.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 41.38,
+          "end": 46.53,
+          "en": "So let me show you how this can be implemented with our application in this module.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
