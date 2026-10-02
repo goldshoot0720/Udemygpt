@@ -71,7 +71,10 @@ def main():
     if args.action == "next":
         order = [x for x in courses() if not args.course or str(x["courseId"]) == args.course]
         for course in order:
-            item = next((x for x in load(ledger_path(course["courseId"]))["lectures"]
+            ledger = load(ledger_path(course["courseId"]))
+            lectures = sorted(ledger["lectures"], key=lambda x: int(x["lectureOrder"]),
+                              reverse=ledger.get("processingDirection") == "descending")
+            item = next((x for x in lectures
                          if x["status"] in ("pending", "translating")), None)
             if item:
                 print(json.dumps({"courseId": course["courseId"], "courseTitle": course["title"], **item},
