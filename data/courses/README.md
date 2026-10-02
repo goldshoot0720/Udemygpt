@@ -2,7 +2,7 @@
 
 所有課程以課程 ID 分開保存。點選課程名稱可查看該課的英文來源、中文譯文與進度。
 
-> 「全部完成」代表譯文覆蓋完成；全量語意校對尚未完成。品質結果與已修正問題見 [翻譯品質檢查](../import-reports/translation-quality-review.md)；覆蓋、術語、**段落錯位**的完整核查、以及 15 堂已確認錯位講座的修正紀錄，見 [課程翻譯驗證報告 2026-10-03](../import-reports/translation-verification-2026-10-03.md)。
+> 「全部完成」代表譯文覆蓋完成；全量語意校對尚未完成。品質結果與已修正問題見 [翻譯品質檢查](../import-reports/translation-quality-review.md)；覆蓋、術語、**段落錯位**的完整核查、以及 15 堂已確認錯位講座的修正紀錄，見 [課程翻譯驗證報告 2026-10-03](../import-reports/translation-verification-2026-10-03.md)；第二輪（還原 ef88a62 錯字、全庫錯位／重複／誤譯修正）見 [第二輪報告](../import-reports/translation-verification-2026-10-03-round2.md)。
 
 
 | 課程 | 課程 ID | 總堂數 | 已完成譯文 | 繁體中文譯文 |
