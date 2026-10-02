@@ -8,6 +8,6968 @@
   "errors": [],
   "lectures": [
     {
+      "id": "14466442",
+      "title": "Adding Logout",
+      "lectureOrder": 628,
+      "videoOrder": 579,
+      "sourceHash": "2d60d0c928d37a44ef95cb72ca758f3f7cfea3ce2f060b4f350e0dbd03b9d009",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.1,
+          "end": 5.01,
+          "en": "-: Before we move forward and make sure we also store",
+          "zh": "在我們繼續前進，並確保也把"
+        },
+        {
+          "id": 2,
+          "start": 5.01,
+          "end": 9.66,
+          "en": "the token in our persistent way on our computer,",
+          "zh": "token 以持久的方式儲存在電腦上，"
+        },
+        {
+          "id": 3,
+          "start": 9.66,
+          "end": 12.99,
+          "en": "so that it is also there if the app reloads.",
+          "zh": "讓它在應用程式重新載入時仍然存在之前，"
+        },
+        {
+          "id": 4,
+          "start": 12.99,
+          "end": 15.75,
+          "en": "Because at the moment, reloading means we lose our state",
+          "zh": "因為目前重新載入就表示我們會失去狀態，"
+        },
+        {
+          "id": 5,
+          "start": 15.75,
+          "end": 17.22,
+          "en": "and we're logged out again.",
+          "zh": "並再次被登出。"
+        },
+        {
+          "id": 6,
+          "start": 17.22,
+          "end": 19.17,
+          "en": "So before we take care about that,",
+          "zh": "所以在處理這個問題之前，"
+        },
+        {
+          "id": 7,
+          "start": 19.17,
+          "end": 22.23,
+          "en": "and before we then also protect certain routes,",
+          "zh": "也在保護某些路由之前，"
+        },
+        {
+          "id": 8,
+          "start": 22.23,
+          "end": 25.02,
+          "en": "so that we can't even visit /recipes",
+          "zh": "讓我們在沒有登入時"
+        },
+        {
+          "id": 9,
+          "start": 25.02,
+          "end": 26.28,
+          "en": "if we're not logged in.",
+          "zh": "甚至無法造訪 /recipes。"
+        },
+        {
+          "id": 10,
+          "start": 26.28,
+          "end": 29.67,
+          "en": "Before all of that happens, let me make sure",
+          "zh": "在這一切發生之前，讓我先確保"
+        },
+        {
+          "id": 11,
+          "start": 29.67,
+          "end": 33.03,
+          "en": "that logging out works so that if I am logged in,",
+          "zh": "登出功能能運作，也就是當我登入時，"
+        },
+        {
+          "id": 12,
+          "start": 33.03,
+          "end": 36.45,
+          "en": "clicking the logout button here does log us out.",
+          "zh": "點擊這裡的登出按鈕確實會讓我們登出。"
+        },
+        {
+          "id": 13,
+          "start": 36.45,
+          "end": 39.39,
+          "en": "And for that, let's go back to the authService.",
+          "zh": "為此，我們回到 authService。"
+        },
+        {
+          "id": 14,
+          "start": 39.39,
+          "end": 41.76,
+          "en": "And in there where we have signup and login,",
+          "zh": "在有 signup 和 login 的地方，"
+        },
+        {
+          "id": 15,
+          "start": 41.76,
+          "end": 44.31,
+          "en": "let's add a logout method.",
+          "zh": "我們加入一個 logout 方法。"
+        },
+        {
+          "id": 16,
+          "start": 44.31,
+          "end": 46.53,
+          "en": "And logging out is super simple.",
+          "zh": "而登出非常簡單。"
+        },
+        {
+          "id": 17,
+          "start": 46.53,
+          "end": 49.89,
+          "en": "In the end we just use our user subject",
+          "zh": "說到底，我們只要使用 user subject，"
+        },
+        {
+          "id": 18,
+          "start": 49.89,
+          "end": 54.75,
+          "en": "and we call next and we pass null to set our user to null.",
+          "zh": "呼叫 next 並傳入 null，把使用者設為 null。"
+        },
+        {
+          "id": 19,
+          "start": 54.75,
+          "end": 57.9,
+          "en": "That's our initial state and that's now the state again.",
+          "zh": "那是我們的初始狀態，而現在又回到那個狀態了。"
+        },
+        {
+          "id": 20,
+          "start": 57.9,
+          "end": 60.78,
+          "en": "This will make sure that our entire application",
+          "zh": "這會確保我們整個應用程式"
+        },
+        {
+          "id": 21,
+          "start": 60.78,
+          "end": 62.85,
+          "en": "treats the user as unauthenticated",
+          "zh": "都把使用者視為未經驗證，"
+        },
+        {
+          "id": 22,
+          "start": 62.85,
+          "end": 65.13,
+          "en": "because that's the logic we used everywhere.",
+          "zh": "因為這就是我們在各處使用的邏輯。"
+        },
+        {
+          "id": 23,
+          "start": 65.13,
+          "end": 68.64,
+          "en": "And therefore, now we should update our UI",
+          "zh": "因此，現在我們應該會更新 UI，"
+        },
+        {
+          "id": 24,
+          "start": 68.64,
+          "end": 71.82,
+          "en": "and all our inter setters will not work correctly anymore",
+          "zh": "而所有的攔截器對於需要驗證的請求"
+        },
+        {
+          "id": 25,
+          "start": 71.82,
+          "end": 74.13,
+          "en": "for requests that require authentication.",
+          "zh": "都將無法再正確運作。"
+        },
+        {
+          "id": 26,
+          "start": 74.13,
+          "end": 76.08,
+          "en": "Which is exactly the behavior we want",
+          "zh": "這正是我們想要的行為，"
+        },
+        {
+          "id": 27,
+          "start": 76.08,
+          "end": 79.26,
+          "en": "because we can't authenticate ourselves anymore.",
+          "zh": "因為我們已經無法再驗證自己的身分了。"
+        },
+        {
+          "id": 28,
+          "start": 79.26,
+          "end": 80.91,
+          "en": "The missing piece of course now just is",
+          "zh": "當然，現在缺少的部分只是"
+        },
+        {
+          "id": 29,
+          "start": 80.91,
+          "end": 84.21000000000001,
+          "en": "that we link this log out method to our header.",
+          "zh": "把這個 logout 方法連結到我們的 header。"
+        },
+        {
+          "id": 30,
+          "start": 84.21000000000001,
+          "end": 87.57,
+          "en": "There, we have that logout button.",
+          "zh": "在那裡，我們有那個登出按鈕。"
+        },
+        {
+          "id": 31,
+          "start": 87.57,
+          "end": 89.67,
+          "en": "Let's now add a click listener there",
+          "zh": "我們現在在那裡加入一個點擊監聽器，"
+        },
+        {
+          "id": 32,
+          "start": 89.67,
+          "end": 92.1,
+          "en": "and call onLogout maybe.",
+          "zh": "也許呼叫 onLogout。"
+        },
+        {
+          "id": 33,
+          "start": 92.1,
+          "end": 94.83,
+          "en": "And in the header component TypeScript file,",
+          "zh": "而在 header 元件的 TypeScript 檔案中，"
+        },
+        {
+          "id": 34,
+          "start": 94.83,
+          "end": 99.83,
+          "en": "we can add onLogout here and use the authService",
+          "zh": "我們可以在這裡加入 onLogout，並使用"
+        },
+        {
+          "id": 35,
+          "start": 100.86,
+          "end": 104.61,
+          "en": "which we're already injecting to call logout.",
+          "zh": "已經注入的 authService 來呼叫 logout。"
+        },
+        {
+          "id": 36,
+          "start": 104.61,
+          "end": 106.71000000000001,
+          "en": "And now let's give this a quick try.",
+          "zh": "現在我們快速試一下。"
+        },
+        {
+          "id": 37,
+          "start": 106.71000000000001,
+          "end": 107.943,
+          "en": "Let's authenticate.",
+          "zh": "進行驗證。"
+        },
+        {
+          "id": 38,
+          "start": 109.28999999999999,
+          "end": 110.67,
+          "en": "Log in.",
+          "zh": "登入。"
+        },
+        {
+          "id": 39,
+          "start": 110.67,
+          "end": 113.72999999999999,
+          "en": "And if I now click logout, this works.",
+          "zh": "而如果我現在點擊登出，這樣能運作。"
+        },
+        {
+          "id": 40,
+          "start": 113.72999999999999,
+          "end": 116.46000000000001,
+          "en": "One nice thing would be that we are redirected",
+          "zh": "如果能被重新導向就更好了，"
+        },
+        {
+          "id": 41,
+          "start": 116.46000000000001,
+          "end": 118.28999999999999,
+          "en": "and now here I'll not do it",
+          "zh": "而在這裡，我不會在元件中這樣做，"
+        },
+        {
+          "id": 42,
+          "start": 118.28999999999999,
+          "end": 121.2,
+          "en": "in the component but in my service",
+          "zh": "而是在 service 中做，"
+        },
+        {
+          "id": 43,
+          "start": 121.2,
+          "end": 124.38,
+          "en": "because whilst I only have one place for logging in",
+          "zh": "因為雖然在我的應用程式中，"
+        },
+        {
+          "id": 44,
+          "start": 124.38,
+          "end": 127.23,
+          "en": "in my application, which is the auth component,",
+          "zh": "只有一個地方可以登入，也就是 auth 元件，"
+        },
+        {
+          "id": 45,
+          "start": 127.23,
+          "end": 129.36,
+          "en": "there are multiple possible sources",
+          "zh": "但可能導致登出的來源"
+        },
+        {
+          "id": 46,
+          "start": 129.36,
+          "end": 130.95,
+          "en": "which could lead to a log out.",
+          "zh": "卻有好幾個。"
+        },
+        {
+          "id": 47,
+          "start": 130.95,
+          "end": 132.87,
+          "en": "It's not just the header component.",
+          "zh": "不只是 header 元件。"
+        },
+        {
+          "id": 48,
+          "start": 132.87,
+          "end": 135.72,
+          "en": "We will also add logic to automatically log us out",
+          "zh": "我們很快也會加入一些邏輯，"
+        },
+        {
+          "id": 49,
+          "start": 135.72,
+          "end": 137.34,
+          "en": "once the token expired soon.",
+          "zh": "在 token 過期時自動讓我們登出。"
+        },
+        {
+          "id": 50,
+          "start": 137.34,
+          "end": 140.97,
+          "en": "And therefore, I wanna redirect here in the logout method",
+          "zh": "因此，我想在這裡的 logout 方法中重新導向，"
+        },
+        {
+          "id": 51,
+          "start": 140.97,
+          "end": 145.89,
+          "en": "in my service, in this method here and not in a component.",
+          "zh": "也就是在 service 的這個方法中，而不是在元件中。"
+        },
+        {
+          "id": 52,
+          "start": 145.89,
+          "end": 150.66,
+          "en": "So therefore, let me now inject the router here",
+          "zh": "所以，我現在把路由器注入到"
+        },
+        {
+          "id": 53,
+          "start": 150.66,
+          "end": 153.09,
+          "en": "into that authService router.",
+          "zh": "這個 authService 中。"
+        },
+        {
+          "id": 54,
+          "start": 153.09,
+          "end": 156.57,
+          "en": "As always needs to be imported from @angular router.",
+          "zh": "一如往常，Router 需要從 @angular/router 匯入。"
+        },
+        {
+          "id": 55,
+          "start": 156.57,
+          "end": 160.5,
+          "en": "And with the router injected, we can redirect here",
+          "zh": "注入路由器之後，我們可以在"
+        },
+        {
+          "id": 56,
+          "start": 160.5,
+          "end": 162.93,
+          "en": "in the logout method again to make sure",
+          "zh": "這裡的 logout 方法中重新導向，以確保"
+        },
+        {
+          "id": 57,
+          "start": 162.93,
+          "end": 164.91,
+          "en": "that no matter how we're logged out,",
+          "zh": "無論我們是如何被登出的，"
+        },
+        {
+          "id": 58,
+          "start": 164.91,
+          "end": 167.43,
+          "en": "we always redirect the user and we're not stuck",
+          "zh": "都總是會重新導向使用者，而不會卡在"
+        },
+        {
+          "id": 59,
+          "start": 167.43,
+          "end": 169.56,
+          "en": "on some component on some page",
+          "zh": "某個頁面上的某個元件中，"
+        },
+        {
+          "id": 60,
+          "start": 169.56,
+          "end": 171.51,
+          "en": "where we can't do anything anymore.",
+          "zh": "在那裡再也無法做任何事。"
+        },
+        {
+          "id": 61,
+          "start": 171.51,
+          "end": 173.85,
+          "en": "So there, let's redirect to /auth.",
+          "zh": "所以在那裡，我們重新導向到 /auth。"
+        },
+        {
+          "id": 62,
+          "start": 173.85,
+          "end": 176.313,
+          "en": "I guess this makes sense once we're logged out.",
+          "zh": "我想在登出之後這樣做是合理的。"
+        },
+        {
+          "id": 63,
+          "start": 179.4,
+          "end": 182.16,
+          "en": "Let's give as a final test.",
+          "zh": "我們做最後一次測試。"
+        },
+        {
+          "id": 64,
+          "start": 182.16,
+          "end": 187.16,
+          "en": "If I do log in here and I log out, I'm back on authenticate.",
+          "zh": "如果我在這裡登入然後登出，就會回到 authenticate 頁面。"
+        },
+        {
+          "id": 65,
+          "start": 187.77,
+          "end": 189.06,
+          "en": "So, that is all working.",
+          "zh": "所以，一切都能運作。"
+        },
+        {
+          "id": 66,
+          "start": 189.06,
+          "end": 190.17,
+          "en": "That is all nice.",
+          "zh": "一切都很好。"
+        },
+        {
+          "id": 67,
+          "start": 190.17,
+          "end": 193.29,
+          "en": "The next mission will be to persist the token",
+          "zh": "下一個任務是把 token 持久保存，"
+        },
+        {
+          "id": 68,
+          "start": 193.29,
+          "end": 196.833,
+          "en": "so that it is still there once we do reload the app.",
+          "zh": "讓它在我們重新載入應用程式後仍然存在。"
+        }
+      ]
+    },
+    {
+      "id": "14466444",
+      "title": "Adding Auto-Login",
+      "lectureOrder": 629,
+      "videoOrder": 580,
+      "sourceHash": "2849c1e06442cece7bb41a9dc2b6dea7c08c882b118db393ac14bd351308e681",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.19,
+          "end": 4.95,
+          "en": "Instructor: We got the general authentication flow",
+          "zh": "講師：我們已經讓一般的驗證流程"
+        },
+        {
+          "id": 2,
+          "start": 4.95,
+          "end": 5.79,
+          "en": "up and running.",
+          "zh": "順利運作了。"
+        },
+        {
+          "id": 3,
+          "start": 5.79,
+          "end": 8.653,
+          "en": "While we're not protecting unauthenticated access",
+          "zh": "雖然我們還沒有防止未經驗證的使用者"
+        },
+        {
+          "id": 4,
+          "start": 8.653,
+          "end": 11.85,
+          "en": "to the recipes route, we'll do so soon.",
+          "zh": "存取 recipes 路由，但我們很快就會處理。"
+        },
+        {
+          "id": 5,
+          "start": 11.85,
+          "end": 13.44,
+          "en": "First of all though, I wanna make sure",
+          "zh": "不過首先，我想確保"
+        },
+        {
+          "id": 6,
+          "start": 13.44,
+          "end": 15.66,
+          "en": "that once we are authenticated",
+          "zh": "一旦我們通過驗證，"
+        },
+        {
+          "id": 7,
+          "start": 15.66,
+          "end": 17.37,
+          "en": "we don't just keep that status",
+          "zh": "不只是在應用程式中四處導覽時"
+        },
+        {
+          "id": 8,
+          "start": 17.37,
+          "end": 20.73,
+          "en": "as long as we're navigating around in the app,",
+          "zh": "保持那個狀態，"
+        },
+        {
+          "id": 9,
+          "start": 20.73,
+          "end": 23.82,
+          "en": "but that we also keep that status, that we also keep",
+          "zh": "而是在重新載入頁面時，也能保持"
+        },
+        {
+          "id": 10,
+          "start": 23.82,
+          "end": 26.19,
+          "en": "that token, which we have once",
+          "zh": "那個狀態，也保留"
+        },
+        {
+          "id": 11,
+          "start": 26.19,
+          "end": 27.72,
+          "en": "we reload the page.",
+          "zh": "我們擁有的那個 token。"
+        },
+        {
+          "id": 12,
+          "start": 27.72,
+          "end": 29.58,
+          "en": "Because at the moment, when we reload the page,",
+          "zh": "因為目前，當我們重新載入頁面時，"
+        },
+        {
+          "id": 13,
+          "start": 29.58,
+          "end": 31.29,
+          "en": "we lose all that status.",
+          "zh": "就會失去所有的狀態。"
+        },
+        {
+          "id": 14,
+          "start": 31.29,
+          "end": 32.94,
+          "en": "Because when you reload the page,",
+          "zh": "因為當你重新載入頁面時，"
+        },
+        {
+          "id": 15,
+          "start": 32.94,
+          "end": 35.19,
+          "en": "your angle or application restarts.",
+          "zh": "你的 Angular 應用程式會重新啟動。"
+        },
+        {
+          "id": 16,
+          "start": 35.19,
+          "end": 37.737,
+          "en": "The old one is basically dumped.",
+          "zh": "舊的應用程式基本上就被丟棄了。"
+        },
+        {
+          "id": 17,
+          "start": 37.737,
+          "end": 41.28,
+          "en": "And since right now we're managing everything in memory,",
+          "zh": "而由於我們目前把所有東西都放在記憶體中管理，"
+        },
+        {
+          "id": 18,
+          "start": 41.28,
+          "end": 44.4,
+          "en": "remember that we're storing the token in a user model",
+          "zh": "請記得，我們把 token 存放在使用者模型中，"
+        },
+        {
+          "id": 19,
+          "start": 44.4,
+          "end": 46.993,
+          "en": "which happens in JavaScript only in which therefore happens",
+          "zh": "這只發生在 JavaScript 中，因此"
+        },
+        {
+          "id": 20,
+          "start": 46.993,
+          "end": 48.15,
+          "en": "in memory.",
+          "zh": "是在記憶體中發生的。"
+        },
+        {
+          "id": 21,
+          "start": 48.15,
+          "end": 48.983,
+          "en": "Since we managed it all in memory,",
+          "zh": "由於我們把所有東西都放在記憶體中管理，"
+        },
+        {
+          "id": 22,
+          "start": 48.983,
+          "end": 52.349,
+          "en": "we'll lose all that state whenever the application restarts",
+          "zh": "每當應用程式重新啟動時，就會失去所有的狀態，"
+        },
+        {
+          "id": 23,
+          "start": 52.349,
+          "end": 55.29,
+          "en": "because that memory gets cleared automatically.",
+          "zh": "因為那些記憶體會被自動清除。"
+        },
+        {
+          "id": 24,
+          "start": 55.29,
+          "end": 57.24,
+          "en": "There is no connection between the last time",
+          "zh": "上一次我們在這個網頁上執行這個 Angular 應用程式"
+        },
+        {
+          "id": 25,
+          "start": 57.24,
+          "end": 59.4,
+          "en": "we ran this Angular app on this webpage",
+          "zh": "與目前這一次之間，"
+        },
+        {
+          "id": 26,
+          "start": 59.4,
+          "end": 60.75,
+          "en": "and the current time.",
+          "zh": "沒有任何關聯。"
+        },
+        {
+          "id": 27,
+          "start": 60.75,
+          "end": 63.78,
+          "en": "So there is no connection and the memory is lost.",
+          "zh": "所以沒有任何關聯，記憶體也就不見了。"
+        },
+        {
+          "id": 28,
+          "start": 63.78,
+          "end": 65.58,
+          "en": "So if you wanna store that token,",
+          "zh": "所以如果你想儲存那個 token，"
+        },
+        {
+          "id": 29,
+          "start": 65.58,
+          "end": 68.163,
+          "en": "we have to store it somewhere else and not",
+          "zh": "我們就必須把它存在別的地方，而不是"
+        },
+        {
+          "id": 30,
+          "start": 68.163,
+          "end": 71.7,
+          "en": "in a JavaScript Variable or class property.",
+          "zh": "JavaScript 變數或類別屬性中。"
+        },
+        {
+          "id": 31,
+          "start": 71.7,
+          "end": 75.21000000000001,
+          "en": "We have to store it in a persistent storage",
+          "zh": "我們必須把它存在一個持久性的儲存空間中，"
+        },
+        {
+          "id": 32,
+          "start": 75.21000000000001,
+          "end": 79.17,
+          "en": "that survives page reloads and browser restarts,",
+          "zh": "它在頁面重新載入和瀏覽器重新啟動後仍然存在，"
+        },
+        {
+          "id": 33,
+          "start": 79.17,
+          "end": 82.47,
+          "en": "that we can write to and that we can fetch data from.",
+          "zh": "我們可以寫入資料，也可以從中取得資料。"
+        },
+        {
+          "id": 34,
+          "start": 82.47,
+          "end": 85.05,
+          "en": "Now what would be such a storage?",
+          "zh": "那麼，這樣的儲存空間會是什麼呢？"
+        },
+        {
+          "id": 35,
+          "start": 85.05,
+          "end": 87.27,
+          "en": "In a browser, you got different storages.",
+          "zh": "在瀏覽器中，你有不同的儲存空間。"
+        },
+        {
+          "id": 36,
+          "start": 87.27,
+          "end": 91.14,
+          "en": "You can't access the normal file system on your device,",
+          "zh": "你無法存取裝置上一般的檔案系統，"
+        },
+        {
+          "id": 37,
+          "start": 91.14,
+          "end": 95.58,
+          "en": "but you can work with cookies or with local storage,",
+          "zh": "但你可以使用 cookie 或 local storage，"
+        },
+        {
+          "id": 38,
+          "start": 95.58,
+          "end": 98.16,
+          "en": "which is an API exposed by the browser",
+          "zh": "它是瀏覽器提供的一個 API，"
+        },
+        {
+          "id": 39,
+          "start": 98.16,
+          "end": 102.27000000000001,
+          "en": "to store simple key value pairs basically",
+          "zh": "基本上用來在檔案系統上儲存簡單的鍵值對，"
+        },
+        {
+          "id": 40,
+          "start": 102.27000000000001,
+          "end": 105.36,
+          "en": "on the file system but controlled by the browser.",
+          "zh": "但由瀏覽器控制。"
+        },
+        {
+          "id": 41,
+          "start": 105.36,
+          "end": 110.22,
+          "en": "And we will use local storage here to store that token.",
+          "zh": "而我們會在這裡使用 local storage 來儲存那個 token。"
+        },
+        {
+          "id": 42,
+          "start": 110.22,
+          "end": 112.10499999999999,
+          "en": "To do that, let's go to the",
+          "zh": "為此，我們前往"
+        },
+        {
+          "id": 43,
+          "start": 112.10499999999999,
+          "end": 114.27000000000001,
+          "en": "handle authentication method",
+          "zh": "auth service 中的"
+        },
+        {
+          "id": 44,
+          "start": 114.27000000000001,
+          "end": 116.94,
+          "en": "in the off service, which is where we do create",
+          "zh": "handleAuthentication 方法，我們就是在那裡"
+        },
+        {
+          "id": 45,
+          "start": 116.94,
+          "end": 120.33,
+          "en": "our user object and emit it to our application.",
+          "zh": "建立使用者物件並把它發送給應用程式的。"
+        },
+        {
+          "id": 46,
+          "start": 120.33,
+          "end": 123.66,
+          "en": "And there, besides emitting it to the application,",
+          "zh": "而在那裡，除了把它發送給應用程式之外，"
+        },
+        {
+          "id": 47,
+          "start": 123.66,
+          "end": 126.87,
+          "en": "we also wanna store it in our storage.",
+          "zh": "我們也想把它存到儲存空間中。"
+        },
+        {
+          "id": 48,
+          "start": 126.87,
+          "end": 131.49,
+          "en": "And for that, you can simply use local storage",
+          "zh": "為此，你只要使用 localStorage"
+        },
+        {
+          "id": 49,
+          "start": 131.49,
+          "end": 134.46,
+          "en": "and call set item.",
+          "zh": "並呼叫 setItem。"
+        },
+        {
+          "id": 50,
+          "start": 134.46,
+          "end": 138.21,
+          "en": "This allows you to write an item to the local storage",
+          "zh": "這讓你能把一個項目寫入 local storage，"
+        },
+        {
+          "id": 51,
+          "start": 138.21,
+          "end": 140.37,
+          "en": "and to store data there.",
+          "zh": "並在那裡儲存資料。"
+        },
+        {
+          "id": 52,
+          "start": 140.37,
+          "end": 143.37,
+          "en": "Now there, I will give this a name of user data.",
+          "zh": "在那裡，我會把它命名為 userData。"
+        },
+        {
+          "id": 53,
+          "start": 143.37,
+          "end": 144.81,
+          "en": "And this name is up to you.",
+          "zh": "這個名稱由你決定。"
+        },
+        {
+          "id": 54,
+          "start": 144.81,
+          "end": 146.57999999999998,
+          "en": "This is basically the key by which",
+          "zh": "這基本上就是你之後"
+        },
+        {
+          "id": 55,
+          "start": 146.57999999999998,
+          "end": 148.5,
+          "en": "you will be able to retrieve it later",
+          "zh": "用來取回它的鍵，"
+        },
+        {
+          "id": 56,
+          "start": 148.5,
+          "end": 152.4,
+          "en": "and then you have to write some data to that key.",
+          "zh": "然後你必須為那個鍵寫入一些資料。"
+        },
+        {
+          "id": 57,
+          "start": 152.4,
+          "end": 154.98,
+          "en": "You can store some data there.",
+          "zh": "你可以在那裡儲存一些資料。"
+        },
+        {
+          "id": 58,
+          "start": 154.98,
+          "end": 157.05,
+          "en": "Now the data I wanna store there",
+          "zh": "而我想在那裡儲存的資料"
+        },
+        {
+          "id": 59,
+          "start": 157.05,
+          "end": 158.97,
+          "en": "should just be that user object",
+          "zh": "就只是那個使用者物件，"
+        },
+        {
+          "id": 60,
+          "start": 158.97,
+          "end": 160.59,
+          "en": "because that contains all the data.",
+          "zh": "因為它包含了所有資料。"
+        },
+        {
+          "id": 61,
+          "start": 160.59,
+          "end": 161.43,
+          "en": "I want to save.",
+          "zh": "我想要儲存的資料。"
+        },
+        {
+          "id": 62,
+          "start": 161.43,
+          "end": 163.29,
+          "en": "The email, the user ID, the token,",
+          "zh": "email、使用者 ID、token，"
+        },
+        {
+          "id": 63,
+          "start": 163.29,
+          "end": 164.61,
+          "en": "and the expiration date,",
+          "zh": "以及過期日期，"
+        },
+        {
+          "id": 64,
+          "start": 164.61,
+          "end": 166.9,
+          "en": "these are the pieces of data I wanna store.",
+          "zh": "這些就是我想儲存的資料。"
+        },
+        {
+          "id": 65,
+          "start": 166.9,
+          "end": 170.22,
+          "en": "So we can write the user to the local storage,",
+          "zh": "所以我們可以把使用者寫入 local storage，"
+        },
+        {
+          "id": 66,
+          "start": 170.22,
+          "end": 171.69,
+          "en": "though not like that,",
+          "zh": "不過不是像那樣，"
+        },
+        {
+          "id": 67,
+          "start": 171.69,
+          "end": 173.64,
+          "en": "not as a JavaScript object.",
+          "zh": "不是以 JavaScript 物件的形式。"
+        },
+        {
+          "id": 68,
+          "start": 173.64,
+          "end": 176.76,
+          "en": "Instead, we have to convert it to a string.",
+          "zh": "相反地，我們必須把它轉換成字串。"
+        },
+        {
+          "id": 69,
+          "start": 176.76,
+          "end": 178.8,
+          "en": "We can do that with the JSON object",
+          "zh": "我們可以用 JavaScript 內建的 JSON 物件"
+        },
+        {
+          "id": 70,
+          "start": 178.8,
+          "end": 182.28,
+          "en": "and the stringify method that is built into JavaScript",
+          "zh": "和 stringify 方法來做到，"
+        },
+        {
+          "id": 71,
+          "start": 182.28,
+          "end": 185.61,
+          "en": "and it simply serializes a JavaScript object.",
+          "zh": "它只是把 JavaScript 物件序列化。"
+        },
+        {
+          "id": 72,
+          "start": 185.61,
+          "end": 187.65,
+          "en": "It converts a JavaScript object",
+          "zh": "可以說，它會把 JavaScript 物件"
+        },
+        {
+          "id": 73,
+          "start": 187.65,
+          "end": 191.97,
+          "en": "to a string version of it, so to say, so to text.",
+          "zh": "轉換成字串版本，也就是轉換成文字。"
+        },
+        {
+          "id": 74,
+          "start": 191.97,
+          "end": 195.42,
+          "en": "And that text is getting stored in the local storage.",
+          "zh": "而那段文字會被存放在 local storage 中。"
+        },
+        {
+          "id": 75,
+          "start": 195.42,
+          "end": 196.8,
+          "en": "Let me show you how this works.",
+          "zh": "讓我示範這是如何運作的。"
+        },
+        {
+          "id": 76,
+          "start": 196.8,
+          "end": 200.00900000000001,
+          "en": "If we save that, and the application therefore restarts.",
+          "zh": "如果我們儲存，應用程式因此重新啟動。"
+        },
+        {
+          "id": 77,
+          "start": 200.00900000000001,
+          "end": 203.583,
+          "en": "If we go to authenticate and we do log in here,",
+          "zh": "如果我們前往 authenticate 並在這裡登入，"
+        },
+        {
+          "id": 78,
+          "start": 204.81,
+          "end": 206.07,
+          "en": "it works as before.",
+          "zh": "它會像之前一樣運作。"
+        },
+        {
+          "id": 79,
+          "start": 206.07,
+          "end": 208.2,
+          "en": "But now in the Chrome DevTools,",
+          "zh": "但現在在 Chrome 開發者工具中，"
+        },
+        {
+          "id": 80,
+          "start": 208.2,
+          "end": 211.44,
+          "en": "if you go to the application tab there, you can go",
+          "zh": "如果你前往那裡的 Application 分頁，就可以前往"
+        },
+        {
+          "id": 81,
+          "start": 211.44,
+          "end": 216.12,
+          "en": "to local storage and expand this and there pick your storage",
+          "zh": "Local Storage，把它展開並選擇你的儲存空間，"
+        },
+        {
+          "id": 82,
+          "start": 216.12,
+          "end": 218.61,
+          "en": "and you should see that user data key there now.",
+          "zh": "現在你應該會在那裡看到那個 userData 鍵。"
+        },
+        {
+          "id": 83,
+          "start": 218.61,
+          "end": 220.95,
+          "en": "And in there, you find that data",
+          "zh": "而在其中，你會找到"
+        },
+        {
+          "id": 84,
+          "start": 220.95,
+          "end": 222.81,
+          "en": "you just saved to the storage.",
+          "zh": "你剛才存到儲存空間的資料。"
+        },
+        {
+          "id": 85,
+          "start": 222.81,
+          "end": 224.55,
+          "en": "And this is all text,",
+          "zh": "這些全都是文字，"
+        },
+        {
+          "id": 86,
+          "start": 224.55,
+          "end": 227.73,
+          "en": "it's the JavaScript object converted to a text.",
+          "zh": "是轉換成文字的 JavaScript 物件。"
+        },
+        {
+          "id": 87,
+          "start": 227.73,
+          "end": 231.36,
+          "en": "Hence you there see the email, you see the long token,",
+          "zh": "因此你在那裡會看到 email、很長的 token，"
+        },
+        {
+          "id": 88,
+          "start": 231.36,
+          "end": 233.25,
+          "en": "you see the token expiration date.",
+          "zh": "也會看到 token 的過期日期。"
+        },
+        {
+          "id": 89,
+          "start": 233.25,
+          "end": 236.7,
+          "en": "All of that is stored in there.",
+          "zh": "所有這些都存放在那裡。"
+        },
+        {
+          "id": 90,
+          "start": 236.7,
+          "end": 239.19,
+          "en": "Now, with all of that being stored in there,",
+          "zh": "既然所有這些都存放在那裡，"
+        },
+        {
+          "id": 91,
+          "start": 239.19,
+          "end": 241.26,
+          "en": "we can of course also retrieve it from there",
+          "zh": "我們當然也可以在應用程式重新啟動時"
+        },
+        {
+          "id": 92,
+          "start": 241.26,
+          "end": 243.63,
+          "en": "when our application restarts.",
+          "zh": "從那裡取回它。"
+        },
+        {
+          "id": 93,
+          "start": 243.63,
+          "end": 246.24,
+          "en": "For that, we can add a new method,",
+          "zh": "為此，我們可以加入一個新的方法，"
+        },
+        {
+          "id": 94,
+          "start": 246.24,
+          "end": 248.43,
+          "en": "which I will name auto login",
+          "zh": "我會把它命名為 autoLogin，"
+        },
+        {
+          "id": 95,
+          "start": 248.43,
+          "end": 250.59,
+          "en": "because it basically is a method that will try",
+          "zh": "因為它基本上是一個會在應用程式啟動時"
+        },
+        {
+          "id": 96,
+          "start": 250.59,
+          "end": 253.35,
+          "en": "to automatically set the user to log in",
+          "zh": "試著自動讓使用者登入的方法，"
+        },
+        {
+          "id": 97,
+          "start": 253.35,
+          "end": 255.84,
+          "en": "when the application starts and it will do so",
+          "zh": "而它的做法是"
+        },
+        {
+          "id": 98,
+          "start": 255.84,
+          "end": 257.79,
+          "en": "by looking into the storage and checking",
+          "zh": "查看儲存空間，檢查"
+        },
+        {
+          "id": 99,
+          "start": 257.79,
+          "end": 261.96,
+          "en": "whether there is an existing user snapshot stored.",
+          "zh": "是否有已經儲存的使用者快照。"
+        },
+        {
+          "id": 100,
+          "start": 261.96,
+          "end": 265.74,
+          "en": "So in auto login, the goal now will be to retrieve data",
+          "zh": "所以在 autoLogin 中，現在的目標是"
+        },
+        {
+          "id": 101,
+          "start": 265.74,
+          "end": 267.6,
+          "en": "from the local storage.",
+          "zh": "從 local storage 取回資料。"
+        },
+        {
+          "id": 102,
+          "start": 267.6,
+          "end": 269.65,
+          "en": "For that, we can access the local storage",
+          "zh": "為此，我們可以存取 localStorage，"
+        },
+        {
+          "id": 103,
+          "start": 270.677,
+          "end": 273.06,
+          "en": "and get our user data item.",
+          "zh": "取得我們的 userData 項目。"
+        },
+        {
+          "id": 104,
+          "start": 273.06,
+          "end": 276.3,
+          "en": "And that is a synchronous method which gives us",
+          "zh": "這是一個同步的方法，它會像這樣"
+        },
+        {
+          "id": 105,
+          "start": 276.3,
+          "end": 277.68,
+          "en": "our user data like that.",
+          "zh": "給我們使用者資料。"
+        },
+        {
+          "id": 106,
+          "start": 277.68,
+          "end": 278.97,
+          "en": "So we can retrieve user data",
+          "zh": "所以我們可以像這樣"
+        },
+        {
+          "id": 107,
+          "start": 278.97,
+          "end": 281.49,
+          "en": "from local storage just like this.",
+          "zh": "從 local storage 取回使用者資料。"
+        },
+        {
+          "id": 108,
+          "start": 281.49,
+          "end": 284.67,
+          "en": "The first thing which I'll do then is I will check",
+          "zh": "接著我要做的第一件事，是檢查"
+        },
+        {
+          "id": 109,
+          "start": 284.67,
+          "end": 286.02,
+          "en": "whether that exists.",
+          "zh": "它是否存在。"
+        },
+        {
+          "id": 110,
+          "start": 286.02,
+          "end": 288.06,
+          "en": "If we don't have user data,",
+          "zh": "如果我們沒有使用者資料，"
+        },
+        {
+          "id": 111,
+          "start": 288.06,
+          "end": 293.06,
+          "en": "so if this is false ish, we can return because in this case,",
+          "zh": "也就是它是 falsy 的，我們就可以直接 return，因為在這種情況下，"
+        },
+        {
+          "id": 112,
+          "start": 293.67,
+          "end": 295.44,
+          "en": "well, we can't lock the user in.",
+          "zh": "嗯，我們無法讓使用者登入。"
+        },
+        {
+          "id": 113,
+          "start": 295.44,
+          "end": 296.85,
+          "en": "There is no stored user data.",
+          "zh": "沒有已儲存的使用者資料。"
+        },
+        {
+          "id": 114,
+          "start": 296.85,
+          "end": 300.6,
+          "en": "So the user definitely needs to sign in on his own.",
+          "zh": "所以使用者肯定需要自己登入。"
+        },
+        {
+          "id": 115,
+          "start": 300.6,
+          "end": 304.86,
+          "en": "Otherwise, if we make it past this check, user data is set",
+          "zh": "否則，如果我們通過了這個檢查，表示使用者資料已設定，"
+        },
+        {
+          "id": 116,
+          "start": 304.86,
+          "end": 307.65,
+          "en": "and there is some snapshot we were able to retrieve",
+          "zh": "而且我們能從 local storage"
+        },
+        {
+          "id": 117,
+          "start": 307.65,
+          "end": 310.32,
+          "en": "from that local storage.",
+          "zh": "取回某個快照。"
+        },
+        {
+          "id": 118,
+          "start": 310.32,
+          "end": 312.69,
+          "en": "Now important, the snapshot we're retrieving here",
+          "zh": "重要的是，我們在這裡取回的快照"
+        },
+        {
+          "id": 119,
+          "start": 312.69,
+          "end": 314.73,
+          "en": "is also a string because we're saving it",
+          "zh": "也是一個字串，因為我們在下面"
+        },
+        {
+          "id": 120,
+          "start": 314.73,
+          "end": 316.02,
+          "en": "as a string down there.",
+          "zh": "是以字串的形式儲存它的。"
+        },
+        {
+          "id": 121,
+          "start": 316.02,
+          "end": 317.7,
+          "en": "And therefore, if we want to work",
+          "zh": "因此，如果我們想把它"
+        },
+        {
+          "id": 122,
+          "start": 317.7,
+          "end": 320.16,
+          "en": "with that as a normal JavaScript object",
+          "zh": "當作一般的 JavaScript 物件使用，"
+        },
+        {
+          "id": 123,
+          "start": 320.16,
+          "end": 324.3,
+          "en": "we have to convert it back by calling JSON parse here.",
+          "zh": "就必須在這裡呼叫 JSON.parse 把它轉換回來。"
+        },
+        {
+          "id": 124,
+          "start": 324.3,
+          "end": 326.88,
+          "en": "And this will simply just take the string",
+          "zh": "而這只會把"
+        },
+        {
+          "id": 125,
+          "start": 326.88,
+          "end": 328.8,
+          "en": "and JSON format and convert it back",
+          "zh": "JSON 格式的字串"
+        },
+        {
+          "id": 126,
+          "start": 328.8,
+          "end": 330.39,
+          "en": "into a JavaScript object.",
+          "zh": "轉換回一個 JavaScript 物件。"
+        },
+        {
+          "id": 127,
+          "start": 330.39,
+          "end": 332.28,
+          "en": "Not into our user model though,",
+          "zh": "不過不是轉換成我們的使用者模型，"
+        },
+        {
+          "id": 128,
+          "start": 332.28,
+          "end": 336.12,
+          "en": "it will not have this token gather, for example,",
+          "zh": "例如它不會有這個 token getter，"
+        },
+        {
+          "id": 129,
+          "start": 336.12,
+          "end": 337.98,
+          "en": "but into a simple object literal,",
+          "zh": "而是轉換成一個簡單的物件字面值，"
+        },
+        {
+          "id": 130,
+          "start": 337.98,
+          "end": 341.55,
+          "en": "which has all the keys that we stored in that storage.",
+          "zh": "擁有我們存在那個儲存空間中的所有鍵。"
+        },
+        {
+          "id": 131,
+          "start": 341.55,
+          "end": 344.43,
+          "en": "So basically, this stringer converted back",
+          "zh": "所以基本上，就是把這個字串轉換回"
+        },
+        {
+          "id": 132,
+          "start": 344.43,
+          "end": 347.61,
+          "en": "to a object literal in JavaScript.",
+          "zh": "JavaScript 中的物件字面值。"
+        },
+        {
+          "id": 133,
+          "start": 347.61,
+          "end": 351.21,
+          "en": "With that, here in auto login,",
+          "zh": "這樣一來，在 autoLogin 中，"
+        },
+        {
+          "id": 134,
+          "start": 351.21,
+          "end": 355.89,
+          "en": "we can create a new loaded user by calling new user.",
+          "zh": "我們可以藉由呼叫 new User 建立一個新的 loadedUser。"
+        },
+        {
+          "id": 135,
+          "start": 355.89,
+          "end": 357.75,
+          "en": "And there we now can pass",
+          "zh": "而在那裡，我們現在可以傳入"
+        },
+        {
+          "id": 136,
+          "start": 357.75,
+          "end": 360.81,
+          "en": "in data from that user snapshot we're loading.",
+          "zh": "從我們正在載入的使用者快照中取得的資料。"
+        },
+        {
+          "id": 137,
+          "start": 360.81,
+          "end": 364.32,
+          "en": "Now we can add a type annotation here to be more specific",
+          "zh": "我們可以在這裡加上型別註記，以更明確地"
+        },
+        {
+          "id": 138,
+          "start": 364.32,
+          "end": 367.5,
+          "en": "about which type of data we'll have in that snapshot.",
+          "zh": "說明那個快照中會有哪種類型的資料。"
+        },
+        {
+          "id": 139,
+          "start": 367.5,
+          "end": 370.53,
+          "en": "And that will have an email which is of type string.",
+          "zh": "它會有一個型別為字串的 email。"
+        },
+        {
+          "id": 140,
+          "start": 370.53,
+          "end": 372.75,
+          "en": "We'll have an ID which is of type string.",
+          "zh": "會有一個型別為字串的 id。"
+        },
+        {
+          "id": 141,
+          "start": 372.75,
+          "end": 375.39,
+          "en": "We'll have underscore token, which is a string",
+          "zh": "會有 _token，它是一個字串，"
+        },
+        {
+          "id": 142,
+          "start": 375.39,
+          "end": 380.13,
+          "en": "and we'll have underscore token expiration date,",
+          "zh": "還會有 _tokenExpirationDate，"
+        },
+        {
+          "id": 143,
+          "start": 382.719,
+          "end": 384,
+          "en": "is that what I named it?",
+          "zh": "我是這樣命名的嗎？"
+        },
+        {
+          "id": 144,
+          "start": 384,
+          "end": 387.3,
+          "en": "This key here will have that in here as well.",
+          "zh": "這裡的這個鍵也會出現在這裡。"
+        },
+        {
+          "id": 145,
+          "start": 387.3,
+          "end": 389.97,
+          "en": "And this will also be a string, not a data object.",
+          "zh": "而它同樣會是一個字串，不是 Date 物件。"
+        },
+        {
+          "id": 146,
+          "start": 389.97,
+          "end": 391.92,
+          "en": "We'll have to convert this manually.",
+          "zh": "我們必須手動轉換它。"
+        },
+        {
+          "id": 147,
+          "start": 391.92,
+          "end": 395.01,
+          "en": "So that's the data we're fetching from the local storage.",
+          "zh": "這就是我們從 local storage 取得的資料。"
+        },
+        {
+          "id": 148,
+          "start": 395.01,
+          "end": 397.29,
+          "en": "And therefore now, when we create a new user,",
+          "zh": "因此現在，當我們建立一個新的使用者時，"
+        },
+        {
+          "id": 149,
+          "start": 397.29,
+          "end": 402.29,
+          "en": "we can pass in user data email, we can pass in user data ID.",
+          "zh": "我們可以傳入 userData.email、userData.id。"
+        },
+        {
+          "id": 150,
+          "start": 402.42,
+          "end": 407.31,
+          "en": "We can pass in user data underscore token, underscore token",
+          "zh": "我們可以傳入 userData._token，是 _token，"
+        },
+        {
+          "id": 151,
+          "start": 407.31,
+          "end": 410.15999999999997,
+          "en": "because our token gatherer, as I mentioned",
+          "zh": "因為正如我提到的，我們的 token getter"
+        },
+        {
+          "id": 152,
+          "start": 410.15999999999997,
+          "end": 411.72,
+          "en": "is part of the user model.",
+          "zh": "是使用者模型的一部分。"
+        },
+        {
+          "id": 153,
+          "start": 411.72,
+          "end": 414.54,
+          "en": "But we can't save methods in adjacent snapshot",
+          "zh": "但我們無法在 JSON 快照中儲存方法，"
+        },
+        {
+          "id": 154,
+          "start": 414.54,
+          "end": 416.88,
+          "en": "and therefore it only contains the properties",
+          "zh": "因此它只包含我們在其中的屬性，"
+        },
+        {
+          "id": 155,
+          "start": 416.88,
+          "end": 419.439,
+          "en": "we had in there, which are these four properties.",
+          "zh": "也就是這四個屬性。"
+        },
+        {
+          "id": 156,
+          "start": 419.439,
+          "end": 422.55,
+          "en": "So we retrieved the underscore token",
+          "zh": "所以我們取回了 _token，"
+        },
+        {
+          "id": 157,
+          "start": 422.55,
+          "end": 424.47,
+          "en": "and also the expiration date.",
+          "zh": "還有過期日期。"
+        },
+        {
+          "id": 158,
+          "start": 424.47,
+          "end": 427.14,
+          "en": "We just need to convert this to a date object again",
+          "zh": "我們只需要把它再次轉換成 Date 物件，"
+        },
+        {
+          "id": 159,
+          "start": 427.14,
+          "end": 429.57,
+          "en": "which you can do with the built-in date constructor",
+          "zh": "你可以用內建的 Date 建構子來做到，"
+        },
+        {
+          "id": 160,
+          "start": 429.57,
+          "end": 433.32,
+          "en": "to which we simply pass our token expiration date string",
+          "zh": "只要把 token 過期日期字串傳給它即可，"
+        },
+        {
+          "id": 161,
+          "start": 433.32,
+          "end": 436.38,
+          "en": "because that string is basically a date format string.",
+          "zh": "因為那個字串基本上就是一個日期格式字串。"
+        },
+        {
+          "id": 162,
+          "start": 436.38,
+          "end": 438.48,
+          "en": "You can see it here at the bottom.",
+          "zh": "你可以在下面這裡看到。"
+        },
+        {
+          "id": 163,
+          "start": 438.48,
+          "end": 441.03,
+          "en": "And JavaScript is smart enough to convert this back",
+          "zh": "而 JavaScript 夠聰明，能把它轉換回"
+        },
+        {
+          "id": 164,
+          "start": 441.03,
+          "end": 442.77,
+          "en": "into a date object.",
+          "zh": "一個 Date 物件。"
+        },
+        {
+          "id": 165,
+          "start": 442.77,
+          "end": 446.19,
+          "en": "This is now the loaded user with whom we can interact.",
+          "zh": "這就是現在載入的使用者，我們可以與之互動。"
+        },
+        {
+          "id": 166,
+          "start": 446.19,
+          "end": 448.35,
+          "en": "And there we first of all need to check",
+          "zh": "在那裡，我們首先需要檢查"
+        },
+        {
+          "id": 167,
+          "start": 448.35,
+          "end": 451.92,
+          "en": "if this user has a valid token so we can simply check",
+          "zh": "這個使用者是否有有效的 token，所以我們只要檢查"
+        },
+        {
+          "id": 168,
+          "start": 451.92,
+          "end": 456.27,
+          "en": "if loaded user token if that is true ish.",
+          "zh": "loadedUser.token 是否為 truthy。"
+        },
+        {
+          "id": 169,
+          "start": 456.27,
+          "end": 458.61,
+          "en": "Now remember, token now is a getter",
+          "zh": "請記得，token 現在是一個 getter，"
+        },
+        {
+          "id": 170,
+          "start": 458.61,
+          "end": 460.95,
+          "en": "because now we're working with the model again.",
+          "zh": "因為我們現在又在使用模型了。"
+        },
+        {
+          "id": 171,
+          "start": 460.95,
+          "end": 463.68,
+          "en": "And in that token getter we are comparing the",
+          "zh": "而在那個 token getter 中，我們會比較"
+        },
+        {
+          "id": 172,
+          "start": 463.68,
+          "end": 466.92,
+          "en": "token expiration date that was stored with the current date.",
+          "zh": "儲存的 token 過期日期與目前的日期。"
+        },
+        {
+          "id": 173,
+          "start": 466.92,
+          "end": 470.34000000000003,
+          "en": "So this will return null, which is a false ish value",
+          "zh": "所以如果 token 無效，如果日期，"
+        },
+        {
+          "id": 174,
+          "start": 470.34000000000003,
+          "end": 474.09000000000003,
+          "en": "if there is an invalid token, if the date,",
+          "zh": "如果 token 過期日期已經過去，"
+        },
+        {
+          "id": 175,
+          "start": 474.09000000000003,
+          "end": 476.85,
+          "en": "if the token expiration date is in the past.",
+          "zh": "它就會回傳 null，也就是一個 falsy 的值。"
+        },
+        {
+          "id": 176,
+          "start": 476.85,
+          "end": 479.7,
+          "en": "So this will only be true ish if it is a valid token",
+          "zh": "所以只有當它是一個有效的 token，"
+        },
+        {
+          "id": 177,
+          "start": 479.7,
+          "end": 482.91,
+          "en": "which still has an expiration date in the future.",
+          "zh": "過期日期仍在未來時，它才會是 truthy 的。"
+        },
+        {
+          "id": 178,
+          "start": 482.91,
+          "end": 485.88,
+          "en": "And they offer only when we make it into this if check,",
+          "zh": "因此，只有當我們進入這個 if 判斷時，"
+        },
+        {
+          "id": 179,
+          "start": 485.88,
+          "end": 490.68,
+          "en": "we wanna emit this loaded user as the currently active user.",
+          "zh": "我們才想把這個載入的使用者作為目前有效的使用者發出。"
+        },
+        {
+          "id": 180,
+          "start": 490.68,
+          "end": 493.86,
+          "en": "So in here, we can then access this user",
+          "zh": "所以在這裡，我們可以存取 this.user，"
+        },
+        {
+          "id": 181,
+          "start": 493.86,
+          "end": 497.49,
+          "en": "our subject, call next, and forward the loaded user",
+          "zh": "也就是我們的 subject，呼叫 next，並把 loadedUser"
+        },
+        {
+          "id": 182,
+          "start": 497.49,
+          "end": 500.43,
+          "en": "as our new authenticated user because at this point",
+          "zh": "作為新的已驗證使用者轉發出去，因為在這個時間點，"
+        },
+        {
+          "id": 183,
+          "start": 500.43,
+          "end": 504.3,
+          "en": "of time we know we have a user with all the data we loaded",
+          "zh": "我們知道我們有一個使用者，擁有我們載入的所有資料，"
+        },
+        {
+          "id": 184,
+          "start": 504.3,
+          "end": 506.34,
+          "en": "and the token also still is valid.",
+          "zh": "而且 token 也仍然有效。"
+        },
+        {
+          "id": 185,
+          "start": 506.34,
+          "end": 508.323,
+          "en": "So this is our locked-in user.",
+          "zh": "所以這就是我們已登入的使用者。"
+        },
+        {
+          "id": 186,
+          "start": 510.84,
+          "end": 513.3,
+          "en": "This is the auto login function.",
+          "zh": "這就是 autoLogin 函式。"
+        },
+        {
+          "id": 187,
+          "start": 513.3,
+          "end": 514.53,
+          "en": "Now let's see if it works.",
+          "zh": "現在來看看它是否能運作。"
+        },
+        {
+          "id": 188,
+          "start": 514.53,
+          "end": 518.07,
+          "en": "Let's go to a place that runs early",
+          "zh": "我們前往一個在應用程式生命週期中"
+        },
+        {
+          "id": 189,
+          "start": 518.07,
+          "end": 519.87,
+          "en": "in our application life cycle.",
+          "zh": "很早就會執行的地方。"
+        },
+        {
+          "id": 190,
+          "start": 519.87,
+          "end": 521.34,
+          "en": "And that would be the app component.",
+          "zh": "那就是 app 元件。"
+        },
+        {
+          "id": 191,
+          "start": 521.34,
+          "end": 524.1,
+          "en": "Because this runs as soon as the app starts.",
+          "zh": "因為它在應用程式一啟動時就會執行。"
+        },
+        {
+          "id": 192,
+          "start": 524.1,
+          "end": 525.903,
+          "en": "Don't need these functions in there.",
+          "zh": "這裡面不需要這些函式。"
+        },
+        {
+          "id": 193,
+          "start": 525.903,
+          "end": 527.86,
+          "en": "Let's now implement",
+          "zh": "我們現在在這裡實作"
+        },
+        {
+          "id": 194,
+          "start": 528.72,
+          "end": 529.77,
+          "en": "on in it here",
+          "zh": "OnInit，"
+        },
+        {
+          "id": 195,
+          "start": 529.77,
+          "end": 532.803,
+          "en": "so that we are forced to add NG on in it,",
+          "zh": "這樣就必須加入 ngOnInit，"
+        },
+        {
+          "id": 196,
+          "start": 535.62,
+          "end": 537.9,
+          "en": "can also get rid of that feature selected part here,",
+          "zh": "順帶一提，也可以移除這裡的 featureSelected 部分，"
+        },
+        {
+          "id": 197,
+          "start": 537.9,
+          "end": 539.67,
+          "en": "the app header, by the way.",
+          "zh": "也就是 app-header 上的。"
+        },
+        {
+          "id": 198,
+          "start": 539.67,
+          "end": 541.53,
+          "en": "This is all something we don't need anymore.",
+          "zh": "這些全都是我們不再需要的東西。"
+        },
+        {
+          "id": 199,
+          "start": 541.53,
+          "end": 543.66,
+          "en": "We're not using that function anymore.",
+          "zh": "我們已經不再使用那個函式了。"
+        },
+        {
+          "id": 200,
+          "start": 543.66,
+          "end": 544.673,
+          "en": "So back to the app component.",
+          "zh": "回到 app 元件。"
+        },
+        {
+          "id": 201,
+          "start": 544.673,
+          "end": 546.648,
+          "en": "Here, and NG on in it.",
+          "zh": "在這裡的 ngOnInit 中。"
+        },
+        {
+          "id": 202,
+          "start": 546.648,
+          "end": 548.34,
+          "en": "In the app component,",
+          "zh": "在 app 元件中，"
+        },
+        {
+          "id": 203,
+          "start": 548.34,
+          "end": 552.55,
+          "en": "I wanna use the off service so it's time to inject it here",
+          "zh": "我想使用 auth service，所以是時候在這裡注入它了，"
+        },
+        {
+          "id": 204,
+          "start": 554.281,
+          "end": 555.75,
+          "en": "of service like that.",
+          "zh": "像這樣注入 AuthService。"
+        },
+        {
+          "id": 205,
+          "start": 555.75,
+          "end": 557.55,
+          "en": "Make sure to add the import path",
+          "zh": "請確保在最上方加上匯入路徑，"
+        },
+        {
+          "id": 206,
+          "start": 557.55,
+          "end": 560.253,
+          "en": "at the top so that this gets imported correctly.",
+          "zh": "讓它被正確匯入。"
+        },
+        {
+          "id": 207,
+          "start": 562.5,
+          "end": 565.02,
+          "en": "And with that injected an NG on in it,",
+          "zh": "注入之後，在 ngOnInit 中，"
+        },
+        {
+          "id": 208,
+          "start": 565.02,
+          "end": 569.73,
+          "en": "let's call this off service auto login",
+          "zh": "我們呼叫 this.authService.autoLogin，"
+        },
+        {
+          "id": 209,
+          "start": 569.73,
+          "end": 572.04,
+          "en": "to see whether that works.",
+          "zh": "看看它是否能運作。"
+        },
+        {
+          "id": 210,
+          "start": 572.04,
+          "end": 574.29,
+          "en": "And I'll save this, theoretically, we should lock",
+          "zh": "我儲存一下，理論上，我們應該會"
+        },
+        {
+          "id": 211,
+          "start": 574.29,
+          "end": 577.38,
+          "en": "the user in automatically because we have a saved snapshot.",
+          "zh": "自動讓使用者登入，因為我們有一個已儲存的快照。"
+        },
+        {
+          "id": 212,
+          "start": 577.38,
+          "end": 579.78,
+          "en": "And indeed, if I reload, this looks good,",
+          "zh": "確實，如果我重新載入，看起來不錯，"
+        },
+        {
+          "id": 213,
+          "start": 579.78,
+          "end": 581.46,
+          "en": "the entire user interface,",
+          "zh": "整個使用者介面，"
+        },
+        {
+          "id": 214,
+          "start": 581.46,
+          "end": 584.91,
+          "en": "the entire header signals that the user is logged in.",
+          "zh": "整個 header 都表示使用者已經登入了。"
+        },
+        {
+          "id": 215,
+          "start": 584.91,
+          "end": 587.49,
+          "en": "Otherwise, we would not be seeing the recipes page",
+          "zh": "否則，我們就不會在這裡看到 recipes 頁面"
+        },
+        {
+          "id": 216,
+          "start": 587.49,
+          "end": 590.76,
+          "en": "and the logout button here, so automatically logging",
+          "zh": "和登出按鈕，所以自動讓使用者登入"
+        },
+        {
+          "id": 217,
+          "start": 590.76,
+          "end": 593.043,
+          "en": "the user in seems to work correctly here.",
+          "zh": "在這裡似乎運作正常。"
+        }
+      ]
+    },
+    {
+      "id": "14466446",
+      "title": "Adding Auto-Logout",
+      "lectureOrder": 630,
+      "videoOrder": 581,
+      "sourceHash": "4ca5d3e2368239e8c67034e1732deb65e4a100c57ad9854fcacd4fa1ab421723",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.37,
+          "end": 4.752,
+          "en": "Presenter: Having the autoLogin in place is great,",
+          "zh": "講者：有了自動登入很棒，"
+        },
+        {
+          "id": 2,
+          "start": 4.752,
+          "end": 7.5,
+          "en": "but what about a autoLogout?",
+          "zh": "但自動登出呢？"
+        },
+        {
+          "id": 3,
+          "start": 7.5,
+          "end": 9.66,
+          "en": "Because our token will expire,",
+          "zh": "因為我們的 token 會過期，"
+        },
+        {
+          "id": 4,
+          "start": 9.66,
+          "end": 13.05,
+          "en": "it has an expiry time of one hour, once we get it.",
+          "zh": "一旦我們取得它，它的有效期限是一小時。"
+        },
+        {
+          "id": 5,
+          "start": 13.05,
+          "end": 15.81,
+          "en": "And therefore, right now, we have a bug in the app,",
+          "zh": "因此，目前我們的應用程式中有一個 bug，"
+        },
+        {
+          "id": 6,
+          "start": 15.81,
+          "end": 18.96,
+          "en": "because this token will never expire,",
+          "zh": "因為這個 token 永遠不會過期，"
+        },
+        {
+          "id": 7,
+          "start": 18.96,
+          "end": 20.46,
+          "en": "or the token will expire,",
+          "zh": "或者說 token 會過期，"
+        },
+        {
+          "id": 8,
+          "start": 20.46,
+          "end": 22.913,
+          "en": "but our application won't reflect that.",
+          "zh": "但我們的應用程式不會反映出來。"
+        },
+        {
+          "id": 9,
+          "start": 22.913,
+          "end": 25.83,
+          "en": "We'll automatically log the user in forever,",
+          "zh": "我們會永遠自動讓使用者登入，"
+        },
+        {
+          "id": 10,
+          "start": 25.83,
+          "end": 27.75,
+          "en": "because we now have that snapshot here,",
+          "zh": "因為我們現在在這裡有那個快照，"
+        },
+        {
+          "id": 11,
+          "start": 27.75,
+          "end": 29.61,
+          "en": "and we never clear that snapshot.",
+          "zh": "而且我們從來不清除那個快照。"
+        },
+        {
+          "id": 12,
+          "start": 29.61,
+          "end": 31.68,
+          "en": "And, sure, we could clear it when we log out,",
+          "zh": "當然，我們可以在登出時清除它，"
+        },
+        {
+          "id": 13,
+          "start": 31.68,
+          "end": 33.99,
+          "en": "and we should do that, and we will do that,",
+          "zh": "我們也應該這麼做，而且我們會這麼做，"
+        },
+        {
+          "id": 14,
+          "start": 33.99,
+          "end": 36.15,
+          "en": "but it will never clear automatically.",
+          "zh": "但它永遠不會自動清除。"
+        },
+        {
+          "id": 15,
+          "start": 36.15,
+          "end": 37.89,
+          "en": "If the token expired after one hour,",
+          "zh": "如果 token 在一小時後過期，"
+        },
+        {
+          "id": 16,
+          "start": 37.89,
+          "end": 39.81,
+          "en": "nothing changes in our application.",
+          "zh": "我們的應用程式中什麼都不會改變。"
+        },
+        {
+          "id": 17,
+          "start": 39.81,
+          "end": 42.182,
+          "en": "And that, of course, is something we have to change.",
+          "zh": "而這當然是我們必須改變的。"
+        },
+        {
+          "id": 18,
+          "start": 42.182,
+          "end": 45.18,
+          "en": "So first of all, in the auth service,",
+          "zh": "所以首先，在 auth service 中，"
+        },
+        {
+          "id": 19,
+          "start": 45.18,
+          "end": 46.44,
+          "en": "we should make sure that,",
+          "zh": "我們應該確保，"
+        },
+        {
+          "id": 20,
+          "start": 46.44,
+          "end": 48.918,
+          "en": "since we store a snapshot upon logging in,",
+          "zh": "既然我們在登入時儲存了一個快照，"
+        },
+        {
+          "id": 21,
+          "start": 48.918,
+          "end": 52.44,
+          "en": "we also clear that snapshot here in the logout function,",
+          "zh": "也要在這裡的 logout 函式中清除那個快照，"
+        },
+        {
+          "id": 22,
+          "start": 52.44,
+          "end": 53.64,
+          "en": "because if a user logs out,",
+          "zh": "因為如果使用者登出，"
+        },
+        {
+          "id": 23,
+          "start": 53.64,
+          "end": 56.52,
+          "en": "we certainly have to clear everything about that user",
+          "zh": "我們當然必須清除應用程式中"
+        },
+        {
+          "id": 24,
+          "start": 56.52,
+          "end": 57.6,
+          "en": "in our application.",
+          "zh": "與那個使用者有關的一切。"
+        },
+        {
+          "id": 25,
+          "start": 57.6,
+          "end": 59.73,
+          "en": "And that includes the local storage.",
+          "zh": "而這包括 local storage。"
+        },
+        {
+          "id": 26,
+          "start": 59.73,
+          "end": 61.55,
+          "en": "So, here, we should take our local storage,",
+          "zh": "所以在這裡，我們應該拿 local storage，"
+        },
+        {
+          "id": 27,
+          "start": 61.55,
+          "end": 63.153999999999996,
+          "en": "and we can simply call clear",
+          "zh": "直接呼叫 clear，"
+        },
+        {
+          "id": 28,
+          "start": 63.153999999999996,
+          "end": 65.554,
+          "en": "to clear all the data in the local storage.",
+          "zh": "清除 local storage 中的所有資料。"
+        },
+        {
+          "id": 29,
+          "start": 65.554,
+          "end": 67.458,
+          "en": "That, however, only makes sense",
+          "zh": "不過，只有在裡面沒有其他資料時，"
+        },
+        {
+          "id": 30,
+          "start": 67.458,
+          "end": 69.72,
+          "en": "if we have no other data in there.",
+          "zh": "這樣做才合理。"
+        },
+        {
+          "id": 31,
+          "start": 69.72,
+          "end": 71.7,
+          "en": "If we do have, then we clear that as well.",
+          "zh": "如果有的話，我們也會把那些清除掉。"
+        },
+        {
+          "id": 32,
+          "start": 71.7,
+          "end": 73.97,
+          "en": "So, it's better if we don't clear all the data,",
+          "zh": "所以比較好的做法是，不要清除所有資料，"
+        },
+        {
+          "id": 33,
+          "start": 73.97,
+          "end": 76.53,
+          "en": "but instead if we call remove item",
+          "zh": "而是呼叫 removeItem，"
+        },
+        {
+          "id": 34,
+          "start": 76.53,
+          "end": 79.17,
+          "en": "and we just remove that user data key",
+          "zh": "只移除那個 userData 鍵"
+        },
+        {
+          "id": 35,
+          "start": 79.17,
+          "end": 80.81,
+          "en": "and the data that's stored there.",
+          "zh": "以及存放在那裡的資料。"
+        },
+        {
+          "id": 36,
+          "start": 80.81,
+          "end": 83.989,
+          "en": "Now, that's step number one that we do actually",
+          "zh": "這是第一步，也就是我們確實會"
+        },
+        {
+          "id": 37,
+          "start": 83.989,
+          "end": 86.91,
+          "en": "clear the data when we log out.",
+          "zh": "在登出時清除資料。"
+        },
+        {
+          "id": 38,
+          "start": 86.91,
+          "end": 88.816,
+          "en": "But now, we also need to set a timer",
+          "zh": "但現在，我們也需要在儲存 token 時，"
+        },
+        {
+          "id": 39,
+          "start": 88.816,
+          "end": 93.589,
+          "en": "when the token is stored, or when we first get a token,",
+          "zh": "或者說第一次取得 token 時設定一個計時器，"
+        },
+        {
+          "id": 40,
+          "start": 93.589,
+          "end": 96.63,
+          "en": "so that we know when to invalidate that token",
+          "zh": "這樣我們就知道之後何時"
+        },
+        {
+          "id": 41,
+          "start": 96.63,
+          "end": 98.194,
+          "en": "at a later point of time.",
+          "zh": "要讓那個 token 失效。"
+        },
+        {
+          "id": 42,
+          "start": 98.194,
+          "end": 102.18,
+          "en": "And for this, I'll add yet another method here,",
+          "zh": "為此，我會在這裡再加入另一個方法，"
+        },
+        {
+          "id": 43,
+          "start": 102.18,
+          "end": 104.4,
+          "en": "which I'll call autoLogout.",
+          "zh": "我會把它叫做 autoLogout。"
+        },
+        {
+          "id": 44,
+          "start": 104.4,
+          "end": 107.78999999999999,
+          "en": "We have autoLogin for automatically retrieving user data",
+          "zh": "我們有 autoLogin，用來自動取得使用者資料"
+        },
+        {
+          "id": 45,
+          "start": 107.78999999999999,
+          "end": 108.99000000000001,
+          "en": "and logging the user in.",
+          "zh": "並讓使用者登入。"
+        },
+        {
+          "id": 46,
+          "start": 108.99000000000001,
+          "end": 111.6,
+          "en": "Now we need a method that sets a timer",
+          "zh": "現在我們需要一個方法來設定計時器，"
+        },
+        {
+          "id": 47,
+          "start": 111.6,
+          "end": 114.839,
+          "en": "and manages a timer for automatically logging the user out.",
+          "zh": "並管理自動登出使用者的計時器。"
+        },
+        {
+          "id": 48,
+          "start": 114.839,
+          "end": 119.839,
+          "en": "AutoLogout should get the expirationDuration here,",
+          "zh": "autoLogout 應該接收這裡的 expirationDuration，"
+        },
+        {
+          "id": 49,
+          "start": 121.35,
+          "end": 123.3,
+          "en": "which is a number, as an argument.",
+          "zh": "它是一個數字，作為引數。"
+        },
+        {
+          "id": 50,
+          "start": 123.3,
+          "end": 126.6,
+          "en": "So, this will be the amount of milliseconds we have",
+          "zh": "所以這會是距離 token 失效"
+        },
+        {
+          "id": 51,
+          "start": 126.6,
+          "end": 128.52,
+          "en": "until the token is invalid.",
+          "zh": "還剩下的毫秒數。"
+        },
+        {
+          "id": 52,
+          "start": 128.52,
+          "end": 130.62,
+          "en": "Let's say, of course, you could write this",
+          "zh": "當然，你也可以用"
+        },
+        {
+          "id": 53,
+          "start": 130.62,
+          "end": 133.02,
+          "en": "in a different logic, but I will go with milliseconds,",
+          "zh": "不同的邏輯來寫，但我會使用毫秒，"
+        },
+        {
+          "id": 54,
+          "start": 133.02,
+          "end": 134.668,
+          "en": "which we get as an argument here,",
+          "zh": "也就是我們在這裡作為引數接收的值，"
+        },
+        {
+          "id": 55,
+          "start": 134.668,
+          "end": 137.34,
+          "en": "and then we can use setTimeout in here",
+          "zh": "然後我們可以在這裡使用 setTimeout，"
+        },
+        {
+          "id": 56,
+          "start": 137.34,
+          "end": 141.688,
+          "en": "to set that to that duration.",
+          "zh": "把它設為那個持續時間。"
+        },
+        {
+          "id": 57,
+          "start": 141.688,
+          "end": 146.688,
+          "en": "And after that duration here, I want to call this logout.",
+          "zh": "而在那段持續時間之後，我想呼叫 this.logout。"
+        },
+        {
+          "id": 58,
+          "start": 147.61599999999999,
+          "end": 148.92000000000002,
+          "en": "So the logout function we have here",
+          "zh": "所以我們這裡的 logout 函式"
+        },
+        {
+          "id": 59,
+          "start": 148.92000000000002,
+          "end": 150.57,
+          "en": "should be called automatically",
+          "zh": "應該在 expirationDuration 之後"
+        },
+        {
+          "id": 60,
+          "start": 150.57,
+          "end": 152.788,
+          "en": "after our expirationDuration.",
+          "zh": "被自動呼叫。"
+        },
+        {
+          "id": 61,
+          "start": 152.788,
+          "end": 156.09,
+          "en": "Now, the important thing is that when we do log out,",
+          "zh": "重要的是，當我們登出時，"
+        },
+        {
+          "id": 62,
+          "start": 156.09,
+          "end": 159.45,
+          "en": "we clear that timer, because if we log out automatically,",
+          "zh": "要清除那個計時器，因為如果我們是自動登出，"
+        },
+        {
+          "id": 63,
+          "start": 159.45,
+          "end": 160.59,
+          "en": "then it's no problem.",
+          "zh": "那就沒有問題。"
+        },
+        {
+          "id": 64,
+          "start": 160.59,
+          "end": 161.848,
+          "en": "Then the timer expired.",
+          "zh": "那表示計時器已經到期了。"
+        },
+        {
+          "id": 65,
+          "start": 161.848,
+          "end": 164.892,
+          "en": "But if we log out manually, because this button is pressed,",
+          "zh": "但如果我們是手動登出，因為按下了這個按鈕，"
+        },
+        {
+          "id": 66,
+          "start": 164.892,
+          "end": 167.7,
+          "en": "we auto-call logout, and then we still have the timer",
+          "zh": "我們會自動呼叫 logout，然後背景中"
+        },
+        {
+          "id": 67,
+          "start": 167.7,
+          "end": 170.52,
+          "en": "in the background, which calls logout again",
+          "zh": "仍然有那個計時器，它會在之後"
+        },
+        {
+          "id": 68,
+          "start": 170.52,
+          "end": 172.02,
+          "en": "at a later point of time.",
+          "zh": "再次呼叫 logout。"
+        },
+        {
+          "id": 69,
+          "start": 172.02,
+          "end": 173.55,
+          "en": "Now, we don't want to do that.",
+          "zh": "我們不想這樣。"
+        },
+        {
+          "id": 70,
+          "start": 173.55,
+          "end": 175.23,
+          "en": "If a user logs out on his own,",
+          "zh": "如果使用者自己登出，"
+        },
+        {
+          "id": 71,
+          "start": 175.23,
+          "end": 177.69,
+          "en": "then the current session, so to say,",
+          "zh": "那麼可以說目前的工作階段，"
+        },
+        {
+          "id": 72,
+          "start": 177.69,
+          "end": 180.33,
+          "en": "the current lifetime of the token we have",
+          "zh": "也就是我們目前這個 token 的生命週期，"
+        },
+        {
+          "id": 73,
+          "start": 180.33,
+          "end": 182.55,
+          "en": "ends anyways, and therefore we should also",
+          "zh": "無論如何都結束了，因此我們在登出時"
+        },
+        {
+          "id": 74,
+          "start": 182.55,
+          "end": 185.891,
+          "en": "clear that token expiration timer when we log out.",
+          "zh": "也應該清除那個 token 過期計時器。"
+        },
+        {
+          "id": 75,
+          "start": 185.891,
+          "end": 188.67,
+          "en": "Now, clearing that timer is not too hard.",
+          "zh": "清除那個計時器並不難。"
+        },
+        {
+          "id": 76,
+          "start": 188.67,
+          "end": 191.37,
+          "en": "We simply store it in our property,",
+          "zh": "我們只要把它存放在一個屬性中，"
+        },
+        {
+          "id": 77,
+          "start": 191.37,
+          "end": 194.16,
+          "en": "which we can name tokenExpirationTimer,",
+          "zh": "可以把它命名為 tokenExpirationTimer，"
+        },
+        {
+          "id": 78,
+          "start": 194.16,
+          "end": 195.6,
+          "en": "but you can name this however you want,",
+          "zh": "不過你可以隨意命名，"
+        },
+        {
+          "id": 79,
+          "start": 195.6,
+          "end": 199.173,
+          "en": "and that this will actually be, I'll type any.",
+          "zh": "而它實際上會是，我把型別設為 any。"
+        },
+        {
+          "id": 80,
+          "start": 200.57999999999998,
+          "end": 203.49,
+          "en": "And now let's store our timer down there.",
+          "zh": "現在我們在下面存放計時器。"
+        },
+        {
+          "id": 81,
+          "start": 203.49,
+          "end": 206.73,
+          "en": "SetTimeout returns a reference to that timer,",
+          "zh": "setTimeout 會回傳一個指向那個計時器的參照，"
+        },
+        {
+          "id": 82,
+          "start": 206.73,
+          "end": 209.756,
+          "en": "so we can simply store that in tokenExpirationTimer.",
+          "zh": "所以我們只要把它存放在 tokenExpirationTimer 中。"
+        },
+        {
+          "id": 83,
+          "start": 209.756,
+          "end": 211.62,
+          "en": "And in the logout function,",
+          "zh": "而在 logout 函式中，"
+        },
+        {
+          "id": 84,
+          "start": 211.62,
+          "end": 213.66,
+          "en": "we now just have to clear that timer.",
+          "zh": "我們現在只需要清除那個計時器。"
+        },
+        {
+          "id": 85,
+          "start": 213.66,
+          "end": 217.32,
+          "en": "So in there, in logout, we should check",
+          "zh": "所以在 logout 中，我們應該檢查"
+        },
+        {
+          "id": 86,
+          "start": 217.32,
+          "end": 220.165,
+          "en": "if we do have an active timer, because maybe we don't.",
+          "zh": "是否有一個有效的計時器，因為也許沒有。"
+        },
+        {
+          "id": 87,
+          "start": 220.165,
+          "end": 223.315,
+          "en": "Maybe it expired anyways, then we can't clear it.",
+          "zh": "也許它反正已經到期了，那我們就無法清除它。"
+        },
+        {
+          "id": 88,
+          "start": 223.315,
+          "end": 226.763,
+          "en": "But if we do have an active one, so if this is true-ish,",
+          "zh": "但如果確實有一個有效的計時器，也就是它是 truthy 的，"
+        },
+        {
+          "id": 89,
+          "start": 226.763,
+          "end": 230.59300000000002,
+          "en": "then we should clear our Timeout here,",
+          "zh": "那我們就應該在這裡呼叫 clearTimeout，"
+        },
+        {
+          "id": 90,
+          "start": 230.59300000000002,
+          "end": 234.06,
+          "en": "and set this tokenExpriationTimer or",
+          "zh": "並把這個 tokenExpirationTimer"
+        },
+        {
+          "id": 91,
+          "start": 234.06,
+          "end": 237.42000000000002,
+          "en": "past this tokenExpirationTimer, into clearTimeout.",
+          "zh": "傳入 clearTimeout。"
+        },
+        {
+          "id": 92,
+          "start": 237.42000000000002,
+          "end": 240.84,
+          "en": "And this will, well, clear the tokenEpirationTimer,",
+          "zh": "而這會，嗯，清除 tokenExpirationTimer，"
+        },
+        {
+          "id": 93,
+          "start": 240.84,
+          "end": 243.15,
+          "en": "and thereafter reset tokenExpirationTimer",
+          "zh": "之後再手動把 tokenExpirationTimer"
+        },
+        {
+          "id": 94,
+          "start": 243.15,
+          "end": 244.753,
+          "en": "back to null manually.",
+          "zh": "重設為 null。"
+        },
+        {
+          "id": 95,
+          "start": 244.753,
+          "end": 247.585,
+          "en": "So now, we clear the timer when we log out,",
+          "zh": "所以現在，我們在登出時清除計時器，"
+        },
+        {
+          "id": 96,
+          "start": 247.585,
+          "end": 251.79,
+          "en": "and we also set it here.",
+          "zh": "也在這裡設定它。"
+        },
+        {
+          "id": 97,
+          "start": 251.79,
+          "end": 253.38,
+          "en": "Now, of course, we just have to make sure we do",
+          "zh": "當然，我們只需要確保我們確實會"
+        },
+        {
+          "id": 98,
+          "start": 253.38,
+          "end": 256.437,
+          "en": "call autoLogout, because currently we are doing that,",
+          "zh": "呼叫 autoLogout，因為目前我們並沒有這麼做，"
+        },
+        {
+          "id": 99,
+          "start": 256.437,
+          "end": 259.2,
+          "en": "and we need to call autoLogout to make sure",
+          "zh": "而我們需要呼叫 autoLogout，以確保"
+        },
+        {
+          "id": 100,
+          "start": 259.2,
+          "end": 261.33,
+          "en": "that this timer actually starts.",
+          "zh": "這個計時器真的會開始計時。"
+        },
+        {
+          "id": 101,
+          "start": 261.33,
+          "end": 263.816,
+          "en": "Now, where do we need to call that?",
+          "zh": "那麼，我們需要在哪裡呼叫它呢？"
+        },
+        {
+          "id": 102,
+          "start": 263.816,
+          "end": 267.99,
+          "en": "Basically, whenever we admit a new user to our application.",
+          "zh": "基本上，就是每當我們向應用程式發出新的使用者時。"
+        },
+        {
+          "id": 103,
+          "start": 267.99,
+          "end": 270.06,
+          "en": "So whenever we use our user subject.",
+          "zh": "也就是每當我們使用 user subject 的時候。"
+        },
+        {
+          "id": 104,
+          "start": 270.06,
+          "end": 271.47,
+          "en": "And that would be the case here,",
+          "zh": "而那就是這裡的情況，"
+        },
+        {
+          "id": 105,
+          "start": 271.47,
+          "end": 275.113,
+          "en": "in handleAuthentication, and also in autoLogin.",
+          "zh": "在 handleAuthentication 中，還有在 autoLogin 中。"
+        },
+        {
+          "id": 106,
+          "start": 275.113,
+          "end": 277.769,
+          "en": "Now let's start with handleAuthentication.",
+          "zh": "我們先從 handleAuthentication 開始。"
+        },
+        {
+          "id": 107,
+          "start": 277.769,
+          "end": 281.561,
+          "en": "There we do admit our user.",
+          "zh": "我們在那裡發出使用者。"
+        },
+        {
+          "id": 108,
+          "start": 281.561,
+          "end": 283.86,
+          "en": "Now, right after doing that,",
+          "zh": "就在那之後，"
+        },
+        {
+          "id": 109,
+          "start": 283.86,
+          "end": 285.611,
+          "en": "or right before doing that, doesn't matter,",
+          "zh": "或者就在那之前，都沒關係，"
+        },
+        {
+          "id": 110,
+          "start": 285.611,
+          "end": 288,
+          "en": "we should call autoLogout",
+          "zh": "我們應該呼叫 autoLogout，"
+        },
+        {
+          "id": 111,
+          "start": 288,
+          "end": 290.01,
+          "en": "and pass our current expiration time",
+          "zh": "並把目前的過期時間"
+        },
+        {
+          "id": 112,
+          "start": 290.01,
+          "end": 292.71,
+          "en": "into that autoLogout function.",
+          "zh": "傳入那個 autoLogout 函式。"
+        },
+        {
+          "id": 113,
+          "start": 292.71,
+          "end": 295.181,
+          "en": "Now, the current expiration time, of course,",
+          "zh": "當然，目前的過期時間"
+        },
+        {
+          "id": 114,
+          "start": 295.181,
+          "end": 298.601,
+          "en": "is our expiresIn value here, which is in seconds,",
+          "zh": "就是這裡的 expiresIn 值，它的單位是秒，"
+        },
+        {
+          "id": 115,
+          "start": 298.601,
+          "end": 300.87,
+          "en": "times 1000,",
+          "zh": "乘以 1000，"
+        },
+        {
+          "id": 116,
+          "start": 300.87,
+          "end": 303.66,
+          "en": "because we expect milliseconds in autoLogout.",
+          "zh": "因為我們在 autoLogout 中預期的是毫秒。"
+        },
+        {
+          "id": 117,
+          "start": 303.66,
+          "end": 305.58,
+          "en": "Since expiresIn is in seconds,",
+          "zh": "由於 expiresIn 的單位是秒，"
+        },
+        {
+          "id": 118,
+          "start": 305.58,
+          "end": 308.283,
+          "en": "times 1000 gives us the amount in milliseconds.",
+          "zh": "乘以 1000 就能得到毫秒數。"
+        },
+        {
+          "id": 119,
+          "start": 309.45,
+          "end": 311.52,
+          "en": "Now that's handle authentication.",
+          "zh": "這就是 handleAuthentication。"
+        },
+        {
+          "id": 120,
+          "start": 311.52,
+          "end": 315.21,
+          "en": "In autoLogin, it's a tiny bit more complex.",
+          "zh": "在 autoLogin 中，則稍微複雜一點。"
+        },
+        {
+          "id": 121,
+          "start": 315.21,
+          "end": 317.64,
+          "en": "Here, when we know that we do have a token,",
+          "zh": "在這裡，當我們知道確實有 token，"
+        },
+        {
+          "id": 122,
+          "start": 317.64,
+          "end": 320.293,
+          "en": "and we therefore admit our user to the application,",
+          "zh": "因此向應用程式發出使用者時，"
+        },
+        {
+          "id": 123,
+          "start": 320.293,
+          "end": 324.793,
+          "en": "There, we also want to call this autoLogout.",
+          "zh": "我們也想在那裡呼叫這個 autoLogout。"
+        },
+        {
+          "id": 124,
+          "start": 324.793,
+          "end": 328.842,
+          "en": "But here, we now have to calculate the remaining time.",
+          "zh": "但在這裡，我們現在必須計算剩餘的時間。"
+        },
+        {
+          "id": 125,
+          "start": 328.842,
+          "end": 331.661,
+          "en": "We do have our token expiration date, after all.",
+          "zh": "畢竟我們有 token 的過期日期。"
+        },
+        {
+          "id": 126,
+          "start": 331.661,
+          "end": 333.6,
+          "en": "And, of course, we can always find out",
+          "zh": "當然，我們隨時都能得知"
+        },
+        {
+          "id": 127,
+          "start": 333.6,
+          "end": 335.4,
+          "en": "what the current date is.",
+          "zh": "目前的日期是什麼。"
+        },
+        {
+          "id": 128,
+          "start": 335.4,
+          "end": 340.4,
+          "en": "So our expirationDuration is basically this timestamp here.",
+          "zh": "所以 expirationDuration 基本上就是這裡的這個時間戳記。"
+        },
+        {
+          "id": 129,
+          "start": 343.38,
+          "end": 346.38,
+          "en": "So the token expiration date wrapped",
+          "zh": "也就是把 token 過期日期包裝"
+        },
+        {
+          "id": 130,
+          "start": 346.38,
+          "end": 348.3,
+          "en": "into a date in milliseconds,",
+          "zh": "成以毫秒表示的日期，"
+        },
+        {
+          "id": 131,
+          "start": 348.3,
+          "end": 350.053,
+          "en": "which we get by calling getTime,",
+          "zh": "做法是呼叫 getTime，"
+        },
+        {
+          "id": 132,
+          "start": 350.053,
+          "end": 352.44,
+          "en": "minus the current timestamp,",
+          "zh": "再減去目前的時間戳記，"
+        },
+        {
+          "id": 133,
+          "start": 352.44,
+          "end": 356.34000000000003,
+          "en": "which we get with new Date in milliseconds with getTime.",
+          "zh": "也就是用 new Date 搭配 getTime 取得的毫秒數。"
+        },
+        {
+          "id": 134,
+          "start": 356.34000000000003,
+          "end": 361.34,
+          "en": "So future date, the token expiration in milliseconds,",
+          "zh": "所以未來的日期，也就是 token 過期的毫秒數，"
+        },
+        {
+          "id": 135,
+          "start": 361.74,
+          "end": 364.32,
+          "en": "minus current date in milliseconds",
+          "zh": "減去目前日期的毫秒數，"
+        },
+        {
+          "id": 136,
+          "start": 364.32,
+          "end": 366.57,
+          "en": "gives us the difference in milliseconds.",
+          "zh": "就能得到以毫秒表示的差值。"
+        },
+        {
+          "id": 137,
+          "start": 366.57,
+          "end": 368.49,
+          "en": "And that is the duration we have",
+          "zh": "而那就是距離"
+        },
+        {
+          "id": 138,
+          "start": 368.49,
+          "end": 370.882,
+          "en": "until, until the token expires,",
+          "zh": "token 過期還剩下的時間，"
+        },
+        {
+          "id": 139,
+          "start": 370.882,
+          "end": 373.763,
+          "en": "which should, which we should pass to autoLogout.",
+          "zh": "我們應該把它傳給 autoLogout。"
+        },
+        {
+          "id": 140,
+          "start": 373.763,
+          "end": 377.362,
+          "en": "Therefore, now, this reloads, we're locked in.",
+          "zh": "因此，現在重新載入後，我們已經登入了。"
+        },
+        {
+          "id": 141,
+          "start": 377.362,
+          "end": 381.03,
+          "en": "Now, if I call Logout, we wipe our data and application",
+          "zh": "如果我現在呼叫 logout，我們會清除資料和應用程式狀態，"
+        },
+        {
+          "id": 142,
+          "start": 381.03,
+          "end": 382.83,
+          "en": "and we are locked out of course.",
+          "zh": "當然我們也就被登出了。"
+        },
+        {
+          "id": 143,
+          "start": 382.83,
+          "end": 385.8,
+          "en": "And now, let's try, if our timer works correctly.",
+          "zh": "現在我們來試試看計時器是否正常運作。"
+        },
+        {
+          "id": 144,
+          "start": 385.8,
+          "end": 388.95,
+          "en": "And to simulate this, I'll manually set this",
+          "zh": "為了模擬這一點，我會暫時手動把這個"
+        },
+        {
+          "id": 145,
+          "start": 388.95,
+          "end": 393.84000000000003,
+          "en": "to 2000, only temporarily, so that this expires",
+          "zh": "設為 2000，讓它在兩秒後"
+        },
+        {
+          "id": 146,
+          "start": 393.84000000000003,
+          "end": 396.817,
+          "en": "after two seconds, so that we can really see if it works.",
+          "zh": "過期，這樣我們就能真正看出它是否運作。"
+        },
+        {
+          "id": 147,
+          "start": 396.817,
+          "end": 398.823,
+          "en": "Let's now log in.",
+          "zh": "我們現在登入。"
+        },
+        {
+          "id": 148,
+          "start": 400.95,
+          "end": 402.998,
+          "en": "We see our user data snapshot here on the right,",
+          "zh": "我們在右側這裡看到使用者資料快照，"
+        },
+        {
+          "id": 149,
+          "start": 402.998,
+          "end": 405.39,
+          "en": "and now it's gone, and we're redirected.",
+          "zh": "然後它現在消失了，我們也被重新導向了。"
+        },
+        {
+          "id": 150,
+          "start": 405.39,
+          "end": 408.21,
+          "en": "Because now, we logged out after two seconds.",
+          "zh": "因為我們現在在兩秒後就被登出了。"
+        },
+        {
+          "id": 151,
+          "start": 408.21,
+          "end": 409.989,
+          "en": "So autoLogout seems to work.",
+          "zh": "所以 autoLogout 似乎能運作。"
+        },
+        {
+          "id": 152,
+          "start": 409.989,
+          "end": 413.4,
+          "en": "Let me now reverse this to the expirationDuration,",
+          "zh": "我現在把它改回 expirationDuration，"
+        },
+        {
+          "id": 153,
+          "start": 413.4,
+          "end": 415.02,
+          "en": "which we of course want to have here.",
+          "zh": "這當然是我們在這裡想要的。"
+        },
+        {
+          "id": 154,
+          "start": 415.02,
+          "end": 417.593,
+          "en": "We don't want to have that extremely short horizon here.",
+          "zh": "我們不想在這裡設定如此極短的期限。"
+        },
+        {
+          "id": 155,
+          "start": 417.593,
+          "end": 420.36,
+          "en": "Instead, let's log the expirationDuration,",
+          "zh": "取而代之，我們把 expirationDuration 輸出出來，"
+        },
+        {
+          "id": 156,
+          "start": 420.36,
+          "end": 421.803,
+          "en": "and see what we get there.",
+          "zh": "看看我們會得到什麼。"
+        },
+        {
+          "id": 157,
+          "start": 422.76,
+          "end": 427.233,
+          "en": "If we do log in again, like this,",
+          "zh": "如果我們像這樣再次登入，"
+        },
+        {
+          "id": 158,
+          "start": 428.28,
+          "end": 432.09,
+          "en": "then we see, this here is one hour in milliseconds,",
+          "zh": "就會看到這裡是一小時的毫秒數，"
+        },
+        {
+          "id": 159,
+          "start": 432.09,
+          "end": 435.45,
+          "en": "and if I reload, you see now, it's a shorter value.",
+          "zh": "而如果我重新載入，你會看到現在是一個較短的值。"
+        },
+        {
+          "id": 160,
+          "start": 435.45,
+          "end": 437.25,
+          "en": "This comes from autoLogin,",
+          "zh": "這來自 autoLogin，"
+        },
+        {
+          "id": 161,
+          "start": 437.25,
+          "end": 440.04,
+          "en": "and that is the remaining duration we have.",
+          "zh": "也就是我們剩下的持續時間。"
+        },
+        {
+          "id": 162,
+          "start": 440.04,
+          "end": 441.99,
+          "en": "So, this doesn't look too bad.",
+          "zh": "所以這看起來還不錯。"
+        },
+        {
+          "id": 163,
+          "start": 441.99,
+          "end": 444.48,
+          "en": "This looks like it's working correctly.",
+          "zh": "看起來它運作正常。"
+        },
+        {
+          "id": 164,
+          "start": 444.48,
+          "end": 446.91,
+          "en": "Still, there are things we should improve.",
+          "zh": "不過，還是有一些地方我們應該改進。"
+        },
+        {
+          "id": 165,
+          "start": 446.91,
+          "end": 450.345,
+          "en": "For example, we can still visit the recipes route",
+          "zh": "例如，我們在沒有登入時"
+        },
+        {
+          "id": 166,
+          "start": 450.345,
+          "end": 452.1,
+          "en": "when we are not logged in.",
+          "zh": "仍然可以造訪 recipes 路由。"
+        },
+        {
+          "id": 167,
+          "start": 452.1,
+          "end": 453.18,
+          "en": "I can just type it here.",
+          "zh": "我可以直接在這裡輸入。"
+        },
+        {
+          "id": 168,
+          "start": 453.18,
+          "end": 454.29,
+          "en": "And here I am.",
+          "zh": "然後我就進來了。"
+        },
+        {
+          "id": 169,
+          "start": 454.29,
+          "end": 456.42,
+          "en": "This is something we definitely want to prevent",
+          "zh": "這絕對是我們想在應用程式中"
+        },
+        {
+          "id": 170,
+          "start": 456.42,
+          "end": 457.503,
+          "en": "in our application.",
+          "zh": "防止的事情。"
+        }
+      ]
+    },
+    {
+      "id": "14466448",
+      "title": "Adding an Auth Guard",
+      "lectureOrder": 631,
+      "videoOrder": 582,
+      "sourceHash": "c94bfa722966d561d651d90c00a4aef1a409aa2687c4ac14aa12338ea54bb266",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.58,
+          "end": 4.29,
+          "en": "Instructor: So how can we prevent",
+          "zh": "講師：那麼，我們要如何防止"
+        },
+        {
+          "id": 2,
+          "start": 4.29,
+          "end": 7.53,
+          "en": "that users can visit slash recipes",
+          "zh": "使用者在未經驗證的情況下"
+        },
+        {
+          "id": 3,
+          "start": 7.53,
+          "end": 10.74,
+          "en": "if they are not authenticated?",
+          "zh": "造訪 /recipes 呢？"
+        },
+        {
+          "id": 4,
+          "start": 10.74,
+          "end": 12.69,
+          "en": "Do you remember the routing section?",
+          "zh": "你還記得路由那個章節嗎？"
+        },
+        {
+          "id": 5,
+          "start": 12.69,
+          "end": 14.49,
+          "en": "There we had a look at route guards,",
+          "zh": "我們在那裡看過路由守衛，"
+        },
+        {
+          "id": 6,
+          "start": 14.49,
+          "end": 16.44,
+          "en": "and that is exactly what we need here.",
+          "zh": "而那正是我們這裡需要的。"
+        },
+        {
+          "id": 7,
+          "start": 16.44,
+          "end": 19.53,
+          "en": "A route guard allows us to run logic",
+          "zh": "路由守衛讓我們能在路由"
+        },
+        {
+          "id": 8,
+          "start": 19.53,
+          "end": 21.84,
+          "en": "right before a route is loaded,",
+          "zh": "被載入之前執行邏輯，"
+        },
+        {
+          "id": 9,
+          "start": 21.84,
+          "end": 25.23,
+          "en": "and we can deny access if a certain condition is not met.",
+          "zh": "並在某個條件不成立時拒絕存取。"
+        },
+        {
+          "id": 10,
+          "start": 25.23,
+          "end": 27.84,
+          "en": "And this is exactly what we need here.",
+          "zh": "而這正是我們這裡所需要的。"
+        },
+        {
+          "id": 11,
+          "start": 27.84,
+          "end": 30.6,
+          "en": "For that, in the auth folder, let's create a new file,",
+          "zh": "為此，我們在 auth 資料夾中建立一個新檔案，"
+        },
+        {
+          "id": 12,
+          "start": 30.6,
+          "end": 34.62,
+          "en": "and I'll name it auth.guard.ts and that will be my,",
+          "zh": "我會把它命名為 auth.guard.ts，它會是我的，"
+        },
+        {
+          "id": 13,
+          "start": 34.62,
+          "end": 38.493,
+          "en": "well as the name suggests, authentication guard.",
+          "zh": "嗯，顧名思義，驗證守衛。"
+        },
+        {
+          "id": 14,
+          "start": 39.33,
+          "end": 42.177,
+          "en": "And in there, let's export a class AuthGuard,",
+          "zh": "在其中，我們匯出一個 AuthGuard 類別，"
+        },
+        {
+          "id": 15,
+          "start": 43.68,
+          "end": 48.68,
+          "en": "which should implement the canActivate interface.",
+          "zh": "它應該實作 CanActivate 介面。"
+        },
+        {
+          "id": 16,
+          "start": 48.72,
+          "end": 51.03,
+          "en": "Now this is imported, not from this path,",
+          "zh": "這不是從這個路徑匯入，"
+        },
+        {
+          "id": 17,
+          "start": 51.03,
+          "end": 55.05,
+          "en": "but from @angular/router.",
+          "zh": "而是從 @angular/router 匯入的。"
+        },
+        {
+          "id": 18,
+          "start": 55.05,
+          "end": 57.21,
+          "en": "And since this technically is a service,",
+          "zh": "而由於它技術上是一個 service，"
+        },
+        {
+          "id": 19,
+          "start": 57.21,
+          "end": 58.29,
+          "en": "and of course you could name it",
+          "zh": "當然你也可以因此把它命名為"
+        },
+        {
+          "id": 20,
+          "start": 58.29,
+          "end": 61.29,
+          "en": "export class AuthGuard service therefore.",
+          "zh": "export class AuthGuardService。"
+        },
+        {
+          "id": 21,
+          "start": 61.29,
+          "end": 64.35,
+          "en": "Since this is a service, we need @Injectable here,",
+          "zh": "由於這是一個 service，我們需要在這裡加上 @Injectable，"
+        },
+        {
+          "id": 22,
+          "start": 64.35,
+          "end": 66.93,
+          "en": "whoops, injectable, like this,",
+          "zh": "哎呀，是 Injectable，像這樣，"
+        },
+        {
+          "id": 23,
+          "start": 66.93,
+          "end": 69.27,
+          "en": "which is imported from @angular/core.",
+          "zh": "它是從 @angular/core 匯入的。"
+        },
+        {
+          "id": 24,
+          "start": 69.27,
+          "end": 72.39,
+          "en": "And here you can use providedIn root",
+          "zh": "而在這裡，如果你想的話，可以使用 providedIn: 'root'"
+        },
+        {
+          "id": 25,
+          "start": 72.39,
+          "end": 74.82,
+          "en": "to provide this application wide if you want.",
+          "zh": "在整個應用程式中提供它。"
+        },
+        {
+          "id": 26,
+          "start": 74.82,
+          "end": 78.81,
+          "en": "Again, you could also add it to providers in the app module.",
+          "zh": "同樣地，你也可以把它加到 app 模組的 providers 中。"
+        },
+        {
+          "id": 27,
+          "start": 78.81,
+          "end": 80.73,
+          "en": "So that is the authGuard.",
+          "zh": "這就是 authGuard。"
+        },
+        {
+          "id": 28,
+          "start": 80.73,
+          "end": 83.73,
+          "en": "Since we add the canActivate interface here,",
+          "zh": "由於我們在這裡加入了 CanActivate 介面，"
+        },
+        {
+          "id": 29,
+          "start": 83.73,
+          "end": 86.55,
+          "en": "we now have to add the canActivate method.",
+          "zh": "現在必須加入 canActivate 方法。"
+        },
+        {
+          "id": 30,
+          "start": 86.55,
+          "end": 90.12,
+          "en": "The canActivate method has to be",
+          "zh": "canActivate 方法必須以"
+        },
+        {
+          "id": 31,
+          "start": 90.12,
+          "end": 92.31,
+          "en": "implemented in a certain way.",
+          "zh": "特定的方式實作。"
+        },
+        {
+          "id": 32,
+          "start": 92.31,
+          "end": 94.25999999999999,
+          "en": "It receives the currently active route,",
+          "zh": "它會接收目前啟用的路由，"
+        },
+        {
+          "id": 33,
+          "start": 94.25999999999999,
+          "end": 96.723,
+          "en": "which is of type ActivatedRouteSnapshot.",
+          "zh": "型別是 ActivatedRouteSnapshot。"
+        },
+        {
+          "id": 34,
+          "start": 97.83,
+          "end": 98.94,
+          "en": "And you can, by the way, see this",
+          "zh": "順帶一提，如果你按住 Command 或 Control"
+        },
+        {
+          "id": 35,
+          "start": 98.94,
+          "end": 102.53999999999999,
+          "en": "if you press command or control and click on the interface.",
+          "zh": "並點擊這個介面，就能看到這一點。"
+        },
+        {
+          "id": 36,
+          "start": 102.53999999999999,
+          "end": 104.49000000000001,
+          "en": "Then you can see the definition here.",
+          "zh": "然後你就能在這裡看到它的定義。"
+        },
+        {
+          "id": 37,
+          "start": 104.49000000000001,
+          "end": 105.75,
+          "en": "So we get two arguments,",
+          "zh": "所以我們會拿到兩個引數，"
+        },
+        {
+          "id": 38,
+          "start": 105.75,
+          "end": 110.34,
+          "en": "the ActivatedRouteSnapshot, and the RouterStateSnapshot.",
+          "zh": "ActivatedRouteSnapshot 和 RouterStateSnapshot。"
+        },
+        {
+          "id": 39,
+          "start": 110.34,
+          "end": 111.59899999999999,
+          "en": "So that's the second thing here,",
+          "zh": "也就是這裡的第二個東西，"
+        },
+        {
+          "id": 40,
+          "start": 111.59899999999999,
+          "end": 116.59899999999999,
+          "en": "RouterStateSnapshot, both imported from @angular/router.",
+          "zh": "RouterStateSnapshot，兩者都是從 @angular/router 匯入的。"
+        },
+        {
+          "id": 41,
+          "start": 119.52000000000001,
+          "end": 124.52,
+          "en": "And canActivate then has to return either a Boolean,",
+          "zh": "然後 canActivate 必須回傳一個布林值，"
+        },
+        {
+          "id": 42,
+          "start": 125.1,
+          "end": 129,
+          "en": "or a promise that eventually yields a Boolean,",
+          "zh": "或是一個最終會產生布林值的 promise，"
+        },
+        {
+          "id": 43,
+          "start": 129,
+          "end": 132.84,
+          "en": "expressed here by using this generic promise notation,",
+          "zh": "在這裡用這種泛型 promise 的寫法表示，"
+        },
+        {
+          "id": 44,
+          "start": 132.84,
+          "end": 137.64,
+          "en": "or an observable which eventually will yield a Boolean.",
+          "zh": "或是一個最終會產生布林值的 observable。"
+        },
+        {
+          "id": 45,
+          "start": 137.64,
+          "end": 141.753,
+          "en": "And for that you also need to import Observable from RXJS.",
+          "zh": "為此，你也需要從 RxJS 匯入 Observable。"
+        },
+        {
+          "id": 46,
+          "start": 143.13,
+          "end": 145.5,
+          "en": "This is how canActivate should look like,",
+          "zh": "這就是 canActivate 應該有的樣子，"
+        },
+        {
+          "id": 47,
+          "start": 145.5,
+          "end": 148.71,
+          "en": "and right now we're getting an error because",
+          "zh": "而我們現在遇到一個錯誤，因為"
+        },
+        {
+          "id": 48,
+          "start": 148.71,
+          "end": 151.29,
+          "en": "we are not returning anything when we are",
+          "zh": "在預期要回傳布林值、promise 或 observable 時，"
+        },
+        {
+          "id": 49,
+          "start": 151.29,
+          "end": 155.52,
+          "en": "expected to return a Boolean, a promise, or an observable.",
+          "zh": "我們什麼都沒有回傳。"
+        },
+        {
+          "id": 50,
+          "start": 155.52,
+          "end": 157.62,
+          "en": "Now what can we return here?",
+          "zh": "那麼，我們可以在這裡回傳什麼呢？"
+        },
+        {
+          "id": 51,
+          "start": 157.62,
+          "end": 160.86,
+          "en": "We wanna return the status as we can derive it",
+          "zh": "我們想回傳可以從 auth service"
+        },
+        {
+          "id": 52,
+          "start": 160.86,
+          "end": 165.03,
+          "en": "from our auth service.",
+          "zh": "推導出的狀態。"
+        },
+        {
+          "id": 53,
+          "start": 165.03,
+          "end": 170.03,
+          "en": "So here let's inject the authService,",
+          "zh": "所以在這裡，我們注入 authService，"
+        },
+        {
+          "id": 54,
+          "start": 170.31,
+          "end": 172.29,
+          "en": "which is of type authService in which you",
+          "zh": "它的型別是 AuthService，你需要"
+        },
+        {
+          "id": 55,
+          "start": 172.29,
+          "end": 175.23,
+          "en": "need to import from the authService file.",
+          "zh": "從 auth service 檔案匯入它。"
+        },
+        {
+          "id": 56,
+          "start": 175.23,
+          "end": 178.5,
+          "en": "And then in there we can find out whether",
+          "zh": "然後在那裡，我們可以藉由查看"
+        },
+        {
+          "id": 57,
+          "start": 178.5,
+          "end": 180.51,
+          "en": "the user is authenticated or not",
+          "zh": "那個 user BehaviorSubject，"
+        },
+        {
+          "id": 58,
+          "start": 180.51,
+          "end": 184.08,
+          "en": "by looking at that user behavior subject.",
+          "zh": "得知使用者是否已通過驗證。"
+        },
+        {
+          "id": 59,
+          "start": 184.08,
+          "end": 188.52,
+          "en": "So here we can access this authService user,",
+          "zh": "所以在這裡，我們可以存取 this.authService.user，"
+        },
+        {
+          "id": 60,
+          "start": 188.52,
+          "end": 191.52,
+          "en": "and now don't subscribe here, but return it instead",
+          "zh": "而現在不要在這裡訂閱，而是改為回傳它，"
+        },
+        {
+          "id": 61,
+          "start": 191.52,
+          "end": 194.28,
+          "en": "because this already is an observable.",
+          "zh": "因為它本來就是一個 observable。"
+        },
+        {
+          "id": 62,
+          "start": 194.28,
+          "end": 197.01,
+          "en": "It's a subject and therefore also an observable,",
+          "zh": "它是一個 subject，因此也是一個 observable，"
+        },
+        {
+          "id": 63,
+          "start": 197.01,
+          "end": 199.65,
+          "en": "however not an observable that returns a Boolean.",
+          "zh": "不過它不是一個回傳布林值的 observable。"
+        },
+        {
+          "id": 64,
+          "start": 199.65,
+          "end": 201.03,
+          "en": "Instead it is an observable",
+          "zh": "它是一個"
+        },
+        {
+          "id": 65,
+          "start": 201.03,
+          "end": 203.4,
+          "en": "that in the end returns a user object,",
+          "zh": "最終回傳使用者物件的 observable，"
+        },
+        {
+          "id": 66,
+          "start": 203.4,
+          "end": 205.74,
+          "en": "but this can be fixed easily.",
+          "zh": "但這很容易修正。"
+        },
+        {
+          "id": 67,
+          "start": 205.74,
+          "end": 209.73,
+          "en": "We just add pipe and use the map operator, which is imported",
+          "zh": "我們只要加上 pipe，並使用從 RxJS operators 匯入的"
+        },
+        {
+          "id": 68,
+          "start": 209.73,
+          "end": 214.71,
+          "en": "from RXJS operators, to transform the observable value here.",
+          "zh": "map 運算子，來轉換這個 observable 的值。"
+        },
+        {
+          "id": 69,
+          "start": 214.71,
+          "end": 218.16,
+          "en": "So we get our user, and we wanna return true or false,",
+          "zh": "所以我們拿到使用者，然後想回傳 true 或 false，"
+        },
+        {
+          "id": 70,
+          "start": 218.16,
+          "end": 219.27,
+          "en": "so we can simply return",
+          "zh": "因此我們可以直接回傳"
+        },
+        {
+          "id": 71,
+          "start": 219.27,
+          "end": 221.64,
+          "en": "exclamation mark exclamation mark user,",
+          "zh": "驚嘆號驚嘆號 user，"
+        },
+        {
+          "id": 72,
+          "start": 221.64,
+          "end": 223.41,
+          "en": "which is that trick which converts",
+          "zh": "這就是那個技巧，它會把"
+        },
+        {
+          "id": 73,
+          "start": 223.41,
+          "end": 226.56,
+          "en": "a true-ish value like a, object,",
+          "zh": "一個 truthy 的值，例如一個物件，"
+        },
+        {
+          "id": 74,
+          "start": 226.56,
+          "end": 228.66,
+          "en": "so anything that is not null or undefined,",
+          "zh": "也就是任何不是 null 或 undefined 的東西，"
+        },
+        {
+          "id": 75,
+          "start": 228.66,
+          "end": 231.12,
+          "en": "to true, so to a real Boolean,",
+          "zh": "轉換成 true，也就是真正的布林值，"
+        },
+        {
+          "id": 76,
+          "start": 231.12,
+          "end": 233.76,
+          "en": "or that converts a false-ish value",
+          "zh": "或者把一個 falsy 的值，"
+        },
+        {
+          "id": 77,
+          "start": 233.76,
+          "end": 236.76,
+          "en": "like null or undefined to a true Boolean,",
+          "zh": "例如 null 或 undefined，轉換成真正的布林值，"
+        },
+        {
+          "id": 78,
+          "start": 236.76,
+          "end": 238.68,
+          "en": "so to false in this case.",
+          "zh": "在這個例子中就是 false。"
+        },
+        {
+          "id": 79,
+          "start": 238.68,
+          "end": 241.44,
+          "en": "So now we have an observable that really will return",
+          "zh": "所以現在我們有一個真的會回傳"
+        },
+        {
+          "id": 80,
+          "start": 241.44,
+          "end": 243.87,
+          "en": "true or false, and that should allow us",
+          "zh": "true 或 false 的 observable，這應該讓我們"
+        },
+        {
+          "id": 81,
+          "start": 243.87,
+          "end": 245.64,
+          "en": "to use that activate guard",
+          "zh": "能在想要保護的路由前面"
+        },
+        {
+          "id": 82,
+          "start": 245.64,
+          "end": 248.493,
+          "en": "in front of the routes that we wanna protect.",
+          "zh": "使用這個 canActivate 守衛。"
+        },
+        {
+          "id": 83,
+          "start": 249.63,
+          "end": 252.243,
+          "en": "So now with canActivate added here,",
+          "zh": "所以在這裡加入 canActivate 之後，"
+        },
+        {
+          "id": 84,
+          "start": 253.08,
+          "end": 255.66,
+          "en": "let's go to the app routing module.",
+          "zh": "我們前往 app 路由模組。"
+        },
+        {
+          "id": 85,
+          "start": 255.66,
+          "end": 258.9,
+          "en": "And here of course it's this path here,",
+          "zh": "而在這裡，當然是這個路徑，"
+        },
+        {
+          "id": 86,
+          "start": 258.9,
+          "end": 261.78,
+          "en": "the recipes path, which I wanna protect.",
+          "zh": "也就是 recipes 路徑，是我想保護的。"
+        },
+        {
+          "id": 87,
+          "start": 261.78,
+          "end": 264.99,
+          "en": "So in there we can add the canActivate key,",
+          "zh": "所以在其中，我們可以加入 canActivate 鍵，"
+        },
+        {
+          "id": 88,
+          "start": 264.99,
+          "end": 267.69,
+          "en": "which is an array of all the can activate guards",
+          "zh": "它是一個陣列，包含你想為這個路由註冊的"
+        },
+        {
+          "id": 89,
+          "start": 267.69,
+          "end": 269.43,
+          "en": "you wanna register for this route,",
+          "zh": "所有 canActivate 守衛，"
+        },
+        {
+          "id": 90,
+          "start": 269.43,
+          "end": 272.22,
+          "en": "and here it's only one route, it's the auth,",
+          "zh": "而在這裡只有一個路由，是 auth，"
+        },
+        {
+          "id": 91,
+          "start": 272.22,
+          "end": 274.23,
+          "en": "only one guard it's the authGuard,",
+          "zh": "只有一個守衛，就是 authGuard，"
+        },
+        {
+          "id": 92,
+          "start": 274.23,
+          "end": 276.28,
+          "en": "which you also need to import, of course.",
+          "zh": "當然，你也需要匯入它。"
+        },
+        {
+          "id": 93,
+          "start": 278.1,
+          "end": 281.1,
+          "en": "With that change, let's save that and let's see if it works.",
+          "zh": "做了這項變更後，我們儲存並看看是否能運作。"
+        },
+        {
+          "id": 94,
+          "start": 282.3,
+          "end": 283.53,
+          "en": "That doesn't look too bad.",
+          "zh": "看起來還不錯。"
+        },
+        {
+          "id": 95,
+          "start": 283.53,
+          "end": 285.36,
+          "en": "We are kind of stranded here,",
+          "zh": "我們有點被困在這裡了，"
+        },
+        {
+          "id": 96,
+          "start": 285.36,
+          "end": 287.07,
+          "en": "and we should take care about that,",
+          "zh": "這是我們應該處理的，"
+        },
+        {
+          "id": 97,
+          "start": 287.07,
+          "end": 290.31,
+          "en": "but at least we can't access slash recipes.",
+          "zh": "但至少我們無法存取 /recipes。"
+        },
+        {
+          "id": 98,
+          "start": 290.31,
+          "end": 293.1,
+          "en": "Though, is this really the right behavior?",
+          "zh": "不過，這真的是正確的行為嗎？"
+        },
+        {
+          "id": 99,
+          "start": 293.1,
+          "end": 295.29,
+          "en": "Let's have a look at application.",
+          "zh": "我們來看看 Application。"
+        },
+        {
+          "id": 100,
+          "start": 295.29,
+          "end": 300.12,
+          "en": "This is empty, so let's try logging in now like this.",
+          "zh": "這裡是空的，所以我們現在試著像這樣登入。"
+        },
+        {
+          "id": 101,
+          "start": 300.12,
+          "end": 301.59,
+          "en": "And we can visit recipes.",
+          "zh": "然後我們可以造訪 recipes。"
+        },
+        {
+          "id": 102,
+          "start": 301.59,
+          "end": 304.53,
+          "en": "So here we are granted access, this looking good,",
+          "zh": "所以在這裡我們被授予存取權，看起來不錯，"
+        },
+        {
+          "id": 103,
+          "start": 304.53,
+          "end": 308.67,
+          "en": "and now let's reload the recipes page, and this also works.",
+          "zh": "現在我們重新載入 recipes 頁面，這也能運作。"
+        },
+        {
+          "id": 104,
+          "start": 308.67,
+          "end": 311.64,
+          "en": "So indeed this works and it gives us the right data.",
+          "zh": "所以這確實能運作，而且給了我們正確的資料。"
+        },
+        {
+          "id": 105,
+          "start": 311.64,
+          "end": 314.04,
+          "en": "The guard works correctly here.",
+          "zh": "守衛在這裡正確地運作。"
+        },
+        {
+          "id": 106,
+          "start": 314.04,
+          "end": 316.92,
+          "en": "What we should make sure though, is that when we log out,",
+          "zh": "不過我們應該確保的是，當我們登出，"
+        },
+        {
+          "id": 107,
+          "start": 316.92,
+          "end": 319.86,
+          "en": "and we manually try to go to slash recipes,",
+          "zh": "並手動試著前往 /recipes 時，"
+        },
+        {
+          "id": 108,
+          "start": 319.86,
+          "end": 322.62,
+          "en": "that we actually redirect the user to a page",
+          "zh": "我們實際上會把使用者重新導向到"
+        },
+        {
+          "id": 109,
+          "start": 322.62,
+          "end": 325.59,
+          "en": "where he can do something like the authenticate page.",
+          "zh": "一個他可以做些什麼的頁面，例如驗證頁面。"
+        },
+        {
+          "id": 110,
+          "start": 325.59,
+          "end": 328.86,
+          "en": "And to do that we can go back to the guard.",
+          "zh": "為此，我們可以回到守衛。"
+        },
+        {
+          "id": 111,
+          "start": 328.86,
+          "end": 333.57,
+          "en": "In there we are returning true or false.",
+          "zh": "在那裡，我們回傳 true 或 false。"
+        },
+        {
+          "id": 112,
+          "start": 333.57,
+          "end": 335.31,
+          "en": "But now if we have a closer look",
+          "zh": "但現在，如果我們藉由 Command 或 Control 點擊"
+        },
+        {
+          "id": 113,
+          "start": 335.31,
+          "end": 336.69,
+          "en": "at the canActivate interface,",
+          "zh": "CanActivate 介面，"
+        },
+        {
+          "id": 114,
+          "start": 336.69,
+          "end": 339.18,
+          "en": "by command or control clicking on it,",
+          "zh": "更仔細地查看它，"
+        },
+        {
+          "id": 115,
+          "start": 339.18,
+          "end": 340.486,
+          "en": "we see we can actually return more",
+          "zh": "會看到我們其實可以回傳的不只是"
+        },
+        {
+          "id": 116,
+          "start": 340.486,
+          "end": 343.95,
+          "en": "than just observables or promises or Booleans.",
+          "zh": "observable、promise 或布林值。"
+        },
+        {
+          "id": 117,
+          "start": 343.95,
+          "end": 347.15999999999997,
+          "en": "We can although return a URL tree,",
+          "zh": "我們也可以回傳 UrlTree，"
+        },
+        {
+          "id": 118,
+          "start": 347.15999999999997,
+          "end": 351.06,
+          "en": "or a promise, or an observable that yields a URL tree.",
+          "zh": "或是產生 UrlTree 的 promise 或 observable。"
+        },
+        {
+          "id": 119,
+          "start": 351.06,
+          "end": 353.94,
+          "en": "This is a relatively new feature and it was added",
+          "zh": "這是一項相對較新的功能，它基本上"
+        },
+        {
+          "id": 120,
+          "start": 353.94,
+          "end": 357.27,
+          "en": "basically for this exact use case, for authentication.",
+          "zh": "就是為了這個使用情境，也就是驗證，而加入的。"
+        },
+        {
+          "id": 121,
+          "start": 357.27,
+          "end": 360.42,
+          "en": "It was added so that you can redirect users",
+          "zh": "加入它是為了讓你能在使用者"
+        },
+        {
+          "id": 122,
+          "start": 360.42,
+          "end": 363.81,
+          "en": "when the URL they're trying to visit is blocked.",
+          "zh": "試圖造訪的 URL 被阻擋時重新導向使用者。"
+        },
+        {
+          "id": 123,
+          "start": 363.81,
+          "end": 365.73,
+          "en": "So for canActivate for this guard,",
+          "zh": "所以對於 canActivate 這個守衛，"
+        },
+        {
+          "id": 124,
+          "start": 365.73,
+          "end": 370.47,
+          "en": "which you often use in connection with authentication,",
+          "zh": "也就是你經常與驗證搭配使用的守衛，"
+        },
+        {
+          "id": 125,
+          "start": 370.47,
+          "end": 373.77,
+          "en": "you have now a more convenient way of redirecting users.",
+          "zh": "你現在有了一種更方便的方式來重新導向使用者。"
+        },
+        {
+          "id": 126,
+          "start": 373.77,
+          "end": 376.95,
+          "en": "In the past, with older angular versions,",
+          "zh": "在過去的舊版 Angular 中，"
+        },
+        {
+          "id": 127,
+          "start": 376.95,
+          "end": 378.84,
+          "en": "you had to manually redirect.",
+          "zh": "你必須手動重新導向。"
+        },
+        {
+          "id": 128,
+          "start": 378.84,
+          "end": 381.36,
+          "en": "So for example, here you would've added",
+          "zh": "例如，在這裡你會加入"
+        },
+        {
+          "id": 129,
+          "start": 381.36,
+          "end": 386.283,
+          "en": "a tap RSJX operator, which you need to import by the way.",
+          "zh": "一個 tap RxJS 運算子，順帶一提，你需要匯入它。"
+        },
+        {
+          "id": 130,
+          "start": 387.51,
+          "end": 390.36,
+          "en": "And there you would get that is of information",
+          "zh": "在那裡你會取得 isAuth 這個資訊，"
+        },
+        {
+          "id": 131,
+          "start": 390.36,
+          "end": 392.79,
+          "en": "because map gives us true or false,",
+          "zh": "因為 map 會給我們 true 或 false，"
+        },
+        {
+          "id": 132,
+          "start": 392.79,
+          "end": 394.65,
+          "en": "is the user authenticated or not?",
+          "zh": "也就是使用者是否已通過驗證？"
+        },
+        {
+          "id": 133,
+          "start": 394.65,
+          "end": 395.94,
+          "en": "And then here you could check",
+          "zh": "然後在這裡你可以檢查，"
+        },
+        {
+          "id": 134,
+          "start": 395.94,
+          "end": 399.87,
+          "en": "if not isAuth, you know, okay, I don't wanna grant access.",
+          "zh": "如果不是 isAuth，你就知道，好，我不想授予存取權。"
+        },
+        {
+          "id": 135,
+          "start": 399.87,
+          "end": 402.003,
+          "en": "Then you would inject the router.",
+          "zh": "接著你會注入路由器。"
+        },
+        {
+          "id": 136,
+          "start": 404.49,
+          "end": 409.263,
+          "en": "The router like this, from @angular/router, of course.",
+          "zh": "像這樣注入 Router，當然是從 @angular/router 匯入的。"
+        },
+        {
+          "id": 137,
+          "start": 410.22,
+          "end": 412.47,
+          "en": "And with the router injected in here,",
+          "zh": "在這裡注入路由器之後，"
+        },
+        {
+          "id": 138,
+          "start": 412.47,
+          "end": 415.17,
+          "en": "you would call this router navigate,",
+          "zh": "你會呼叫 this.router.navigate，"
+        },
+        {
+          "id": 139,
+          "start": 415.17,
+          "end": 417.27,
+          "en": "and go to slash auth, for example.",
+          "zh": "然後例如前往 /auth。"
+        },
+        {
+          "id": 140,
+          "start": 417.27,
+          "end": 419.90999999999997,
+          "en": "And this works if I save that and the app reloads.",
+          "zh": "如果我儲存並讓應用程式重新載入，這樣是能運作的。"
+        },
+        {
+          "id": 141,
+          "start": 419.90999999999997,
+          "end": 422.58,
+          "en": "You see if I type recipes here,",
+          "zh": "你會看到，如果我在這裡輸入 recipes，"
+        },
+        {
+          "id": 142,
+          "start": 422.58,
+          "end": 424.29,
+          "en": "I automatically go to auth.",
+          "zh": "就會自動前往 auth。"
+        },
+        {
+          "id": 143,
+          "start": 424.29,
+          "end": 425.82,
+          "en": "Nothing wrong with this,",
+          "zh": "這樣做沒有什麼不對，"
+        },
+        {
+          "id": 144,
+          "start": 425.82,
+          "end": 429.72,
+          "en": "but in some edge cases this could lead to race conditions",
+          "zh": "但在某些邊緣情況下，這可能會導致競爭條件，"
+        },
+        {
+          "id": 145,
+          "start": 429.72,
+          "end": 432.03,
+          "en": "with multiple redirects that kind of",
+          "zh": "多個重新導向會互相"
+        },
+        {
+          "id": 146,
+          "start": 432.03,
+          "end": 433.8,
+          "en": "interfere with each other.",
+          "zh": "干擾。"
+        },
+        {
+          "id": 147,
+          "start": 433.8,
+          "end": 437.52,
+          "en": "And therefore instead of using this approach,",
+          "zh": "因此，與其使用這種做法，"
+        },
+        {
+          "id": 148,
+          "start": 437.52,
+          "end": 439.8,
+          "en": "you can now also use a different one,",
+          "zh": "你現在也可以使用另一種做法，"
+        },
+        {
+          "id": 149,
+          "start": 439.8,
+          "end": 443.31,
+          "en": "and not return true or false here,",
+          "zh": "不在這裡回傳 true 或 false，"
+        },
+        {
+          "id": 150,
+          "start": 443.31,
+          "end": 445.65,
+          "en": "but return true if you want to grant access,",
+          "zh": "而是在想授予存取權時回傳 true，"
+        },
+        {
+          "id": 151,
+          "start": 445.65,
+          "end": 448.92,
+          "en": "but not false otherwise, but this URL tree.",
+          "zh": "否則不是回傳 false，而是回傳這個 UrlTree。"
+        },
+        {
+          "id": 152,
+          "start": 448.92,
+          "end": 451.8,
+          "en": "So here I'll store the result of my conversion",
+          "zh": "所以在這裡，我會把轉換的結果"
+        },
+        {
+          "id": 153,
+          "start": 451.8,
+          "end": 455.016,
+          "en": "here in isAuth and if we have isAuth,",
+          "zh": "存放在 isAuth 中，而如果 isAuth 成立，"
+        },
+        {
+          "id": 154,
+          "start": 455.016,
+          "end": 460.016,
+          "en": "so if this is true ish, then I will just return true.",
+          "zh": "也就是它是 truthy 的，我就直接回傳 true。"
+        },
+        {
+          "id": 155,
+          "start": 460.40999999999997,
+          "end": 463.2,
+          "en": "Otherwise I wanna return a URL tree.",
+          "zh": "否則，我想回傳一個 UrlTree。"
+        },
+        {
+          "id": 156,
+          "start": 463.2,
+          "end": 467.34000000000003,
+          "en": "And now such a URL tree can be created with the router,",
+          "zh": "而這樣一個 UrlTree 可以用路由器建立，"
+        },
+        {
+          "id": 157,
+          "start": 467.34000000000003,
+          "end": 469.44,
+          "en": "which you still need to inject there for,",
+          "zh": "因此你仍然需要注入它，"
+        },
+        {
+          "id": 158,
+          "start": 469.44,
+          "end": 471.49,
+          "en": "but there you can now call createUrlTree.",
+          "zh": "但在那裡，你現在可以呼叫 createUrlTree。"
+        },
+        {
+          "id": 159,
+          "start": 472.38,
+          "end": 474.21,
+          "en": "And there you can simply pass in your",
+          "zh": "然後在那裡，你只要傳入你"
+        },
+        {
+          "id": 160,
+          "start": 474.21,
+          "end": 476.49,
+          "en": "normal array of segments, of route segments",
+          "zh": "一般的路徑片段陣列，也就是"
+        },
+        {
+          "id": 161,
+          "start": 476.49,
+          "end": 479.763,
+          "en": "you wanna navigate to, so, for example, slash auth.",
+          "zh": "你想導覽到的路由片段，例如 /auth。"
+        },
+        {
+          "id": 162,
+          "start": 480.66,
+          "end": 481.68,
+          "en": "I'm getting an error here",
+          "zh": "我在這裡遇到一個錯誤，"
+        },
+        {
+          "id": 163,
+          "start": 481.68,
+          "end": 485.4,
+          "en": "because the types I added here don't include the URL tree.",
+          "zh": "因為我在這裡加入的型別不包含 UrlTree。"
+        },
+        {
+          "id": 164,
+          "start": 485.4,
+          "end": 487.11,
+          "en": "We just need to update this to meet",
+          "zh": "我們只需要更新它，以符合"
+        },
+        {
+          "id": 165,
+          "start": 487.11,
+          "end": 489.15,
+          "en": "the specification of the interface.",
+          "zh": "介面的規範。"
+        },
+        {
+          "id": 166,
+          "start": 489.15,
+          "end": 491.79,
+          "en": "And yes, a URL tree is allowed there,",
+          "zh": "是的，UrlTree 在那裡是允許的，"
+        },
+        {
+          "id": 167,
+          "start": 491.79,
+          "end": 495.12,
+          "en": "you just need to import that type from @angular/router,",
+          "zh": "你只需要從 @angular/router 匯入那個型別，"
+        },
+        {
+          "id": 168,
+          "start": 495.12,
+          "end": 499.56,
+          "en": "and then it is fine to return an observable",
+          "zh": "然後就可以回傳一個"
+        },
+        {
+          "id": 169,
+          "start": 499.56,
+          "end": 502.5,
+          "en": "that either yields a Boolean or an URL tree.",
+          "zh": "產生布林值或 UrlTree 的 observable。"
+        },
+        {
+          "id": 170,
+          "start": 502.5,
+          "end": 506.01,
+          "en": "The same for a promise and also instead of a normal Boolean.",
+          "zh": "promise 也一樣，一般的布林值也是。"
+        },
+        {
+          "id": 171,
+          "start": 506.01,
+          "end": 508.83,
+          "en": "So returning a URL tree, or promises,",
+          "zh": "所以回傳 UrlTree，或是產生 UrlTree 的"
+        },
+        {
+          "id": 172,
+          "start": 508.83,
+          "end": 511.122,
+          "en": "or observables that yield URL trees are okay.",
+          "zh": "promise 或 observable，都是可以的。"
+        },
+        {
+          "id": 173,
+          "start": 511.122,
+          "end": 515.31,
+          "en": "we're doing that here, and therefore now if we save that,",
+          "zh": "我們在這裡就是這樣做的，因此現在如果我們儲存，"
+        },
+        {
+          "id": 174,
+          "start": 515.31,
+          "end": 517.53,
+          "en": "we get the same behavior as before.",
+          "zh": "就會得到和之前一樣的行為。"
+        },
+        {
+          "id": 175,
+          "start": 517.53,
+          "end": 522.53,
+          "en": "If I visit slash recipes I'm forwarded to auth.",
+          "zh": "如果我造訪 /recipes，就會被轉到 auth。"
+        },
+        {
+          "id": 176,
+          "start": 522.69,
+          "end": 527.58,
+          "en": "If I just try to load local host 4,200, we also go to auth",
+          "zh": "如果我只是試著載入 localhost:4200，我們也會前往 auth，"
+        },
+        {
+          "id": 177,
+          "start": 527.58,
+          "end": 530.91,
+          "en": "because if we just try to load the page as it is there,",
+          "zh": "因為如果我們只是試著載入那裡原本的頁面，"
+        },
+        {
+          "id": 178,
+          "start": 530.91,
+          "end": 533.04,
+          "en": "first of all we get redirected to recipes,",
+          "zh": "首先我們會被重新導向到 recipes，"
+        },
+        {
+          "id": 179,
+          "start": 533.04,
+          "end": 534.42,
+          "en": "but there we then have the guard,",
+          "zh": "但在那裡我們接著遇到守衛，"
+        },
+        {
+          "id": 180,
+          "start": 534.42,
+          "end": 537.03,
+          "en": "which then continues redirecting us to auth.",
+          "zh": "它會繼續把我們重新導向到 auth。"
+        },
+        {
+          "id": 181,
+          "start": 537.03,
+          "end": 539.19,
+          "en": "So now we have a authGuard in place",
+          "zh": "所以現在我們有了一個 authGuard，"
+        },
+        {
+          "id": 182,
+          "start": 539.19,
+          "end": 542.52,
+          "en": "that should do its job and that makes sure that we really",
+          "zh": "它應該會做好它的工作，確保我們真的"
+        },
+        {
+          "id": 183,
+          "start": 542.52,
+          "end": 547.26,
+          "en": "can only reach the recipes page if we are logged in.",
+          "zh": "只有在登入時才能到達 recipes 頁面。"
+        },
+        {
+          "id": 184,
+          "start": 547.26,
+          "end": 549.24,
+          "en": "But there we can reach it without issues",
+          "zh": "而在登入時，即使我們重新載入應用程式，"
+        },
+        {
+          "id": 185,
+          "start": 549.24,
+          "end": 550.56,
+          "en": "even if we reload the app",
+          "zh": "也能毫無問題地到達那裡，"
+        },
+        {
+          "id": 186,
+          "start": 550.56,
+          "end": 553.74,
+          "en": "because we're using auto log in but also auto log out",
+          "zh": "因為我們使用了自動登入，也使用了自動登出，"
+        },
+        {
+          "id": 187,
+          "start": 553.74,
+          "end": 556.89,
+          "en": "to clear everything once our token expired.",
+          "zh": "在 token 過期後清除一切。"
+        },
+        {
+          "id": 188,
+          "start": 556.89,
+          "end": 560.16,
+          "en": "Now with that, we're almost done with the guard,",
+          "zh": "這樣一來，守衛的部分就差不多完成了，"
+        },
+        {
+          "id": 189,
+          "start": 560.16,
+          "end": 564,
+          "en": "but there's one thing I wanna edit in this authGuard.",
+          "zh": "但在這個 authGuard 中，還有一件事我想修改。"
+        },
+        {
+          "id": 190,
+          "start": 564,
+          "end": 567.09,
+          "en": "Right now we're subscribing to our user service here,",
+          "zh": "目前我們在這裡訂閱 user service，"
+        },
+        {
+          "id": 191,
+          "start": 567.09,
+          "end": 569.58,
+          "en": "we're mapping that value into true or false,",
+          "zh": "把那個值對應成 true 或 false，"
+        },
+        {
+          "id": 192,
+          "start": 569.58,
+          "end": 573.48,
+          "en": "and we are returning a URL tree if it is false,",
+          "zh": "然後如果它是 false，而且你想重新導向，"
+        },
+        {
+          "id": 193,
+          "start": 573.48,
+          "end": 575.4,
+          "en": "and if you want to redirect.",
+          "zh": "就回傳一個 UrlTree。"
+        },
+        {
+          "id": 194,
+          "start": 575.4,
+          "end": 578.07,
+          "en": "The one issue we have here is that we essentially",
+          "zh": "不過我們這裡的一個問題是，我們基本上"
+        },
+        {
+          "id": 195,
+          "start": 578.07,
+          "end": 580.65,
+          "en": "set up an ongoing subscription here, though.",
+          "zh": "在這裡建立了一個持續進行的訂閱。"
+        },
+        {
+          "id": 196,
+          "start": 580.65,
+          "end": 583.11,
+          "en": "This user subject of course can emit data",
+          "zh": "這個 user subject 當然可以"
+        },
+        {
+          "id": 197,
+          "start": 583.11,
+          "end": 585.75,
+          "en": "more than once, and I don't want that here.",
+          "zh": "發出資料不只一次，而我在這裡不想要那樣。"
+        },
+        {
+          "id": 198,
+          "start": 585.75,
+          "end": 588.87,
+          "en": "This can lead to strange side effects if our guard",
+          "zh": "如果我們的守衛持續監聽那個 subject，"
+        },
+        {
+          "id": 199,
+          "start": 588.87,
+          "end": 591.09,
+          "en": "keeps on listening to that subject.",
+          "zh": "可能會導致奇怪的副作用。"
+        },
+        {
+          "id": 200,
+          "start": 591.09,
+          "end": 593.43,
+          "en": "Instead, we wanna look into that user value",
+          "zh": "相反地，我們只想查看那個使用者值"
+        },
+        {
+          "id": 201,
+          "start": 593.43,
+          "end": 596.67,
+          "en": "for one time only and then not care about it anymore",
+          "zh": "一次，之後就不再在意它，"
+        },
+        {
+          "id": 202,
+          "start": 596.67,
+          "end": 598.59,
+          "en": "unless we run the guard again.",
+          "zh": "除非我們再次執行守衛。"
+        },
+        {
+          "id": 203,
+          "start": 598.59,
+          "end": 601.5,
+          "en": "And therefore here, just as in our places too,",
+          "zh": "因此在這裡，就像在其他地方一樣，"
+        },
+        {
+          "id": 204,
+          "start": 601.5,
+          "end": 605.13,
+          "en": "we should use take one to make sure",
+          "zh": "我們應該使用 take(1)，以確保"
+        },
+        {
+          "id": 205,
+          "start": 605.13,
+          "end": 608.16,
+          "en": "that we always just take the latest user value,",
+          "zh": "我們總是只取最新的使用者值，"
+        },
+        {
+          "id": 206,
+          "start": 608.16,
+          "end": 611.61,
+          "en": "and then unsubscribe for this guard execution,",
+          "zh": "然後在這次守衛執行後取消訂閱，"
+        },
+        {
+          "id": 207,
+          "start": 611.61,
+          "end": 614.64,
+          "en": "so that we don't have an ongoing listener to that",
+          "zh": "這樣我們就不會有一個持續進行的監聽器，"
+        },
+        {
+          "id": 208,
+          "start": 614.64,
+          "end": 616.89,
+          "en": "which we really don't need.",
+          "zh": "而那是我們真的不需要的。"
+        },
+        {
+          "id": 209,
+          "start": 616.89,
+          "end": 618.66,
+          "en": "And therefore here you need to import",
+          "zh": "因此在這裡，你需要匯入"
+        },
+        {
+          "id": 210,
+          "start": 618.66,
+          "end": 621.72,
+          "en": "the take operator, take RXJS operator,",
+          "zh": "take 運算子，也就是 take 這個 RxJS 運算子，"
+        },
+        {
+          "id": 211,
+          "start": 621.72,
+          "end": 623.52,
+          "en": "and add it here in front of map,",
+          "zh": "並把它加在這裡的 map 前面，"
+        },
+        {
+          "id": 212,
+          "start": 623.52,
+          "end": 626.486,
+          "en": "so that we don't have an ongoing user subscription.",
+          "zh": "這樣我們就不會有持續進行的使用者訂閱。"
+        },
+        {
+          "id": 213,
+          "start": 626.486,
+          "end": 628.8,
+          "en": "With that, if you save that,",
+          "zh": "這樣一來，如果你儲存，"
+        },
+        {
+          "id": 214,
+          "start": 628.8,
+          "end": 631.23,
+          "en": "you see I can still visit recipes here after reloading,",
+          "zh": "你會看到重新載入後我仍然可以造訪 recipes，"
+        },
+        {
+          "id": 215,
+          "start": 631.23,
+          "end": 633.9,
+          "en": "so the guard generally still seems to work.",
+          "zh": "所以守衛大致上似乎仍然能運作。"
+        },
+        {
+          "id": 216,
+          "start": 633.9,
+          "end": 635.16,
+          "en": "But now if I log out,",
+          "zh": "但現在如果我登出，"
+        },
+        {
+          "id": 217,
+          "start": 635.16,
+          "end": 640.02,
+          "en": "and I try to access recipes, we fail as we should.",
+          "zh": "並試著存取 recipes，就會如預期般失敗。"
+        },
+        {
+          "id": 218,
+          "start": 640.02,
+          "end": 642.6,
+          "en": "If I now log in again, we succeed.",
+          "zh": "如果我現在再次登入，就會成功。"
+        },
+        {
+          "id": 219,
+          "start": 642.6,
+          "end": 645.21,
+          "en": "So the guard now still works as before,",
+          "zh": "所以守衛現在仍然像之前一樣運作，"
+        },
+        {
+          "id": 220,
+          "start": 645.21,
+          "end": 648.57,
+          "en": "but now we avoid nasty bugs, which could occur",
+          "zh": "但現在我們避免了一些討厭的 bug，那些 bug 可能"
+        },
+        {
+          "id": 221,
+          "start": 648.57,
+          "end": 651.87,
+          "en": "due to us rerunning the logic in the guard",
+          "zh": "因為我們在真的不想重新執行守衛邏輯時"
+        },
+        {
+          "id": 222,
+          "start": 651.87,
+          "end": 654.243,
+          "en": "when we really don't want to rerun it.",
+          "zh": "卻重新執行了它而發生。"
+        }
+      ]
+    },
+    {
+      "id": "14466450",
+      "title": "Wrap Up",
+      "lectureOrder": 632,
+      "videoOrder": 583,
+      "sourceHash": "9298ad58277da07af33510b0b483c561181a0cb906c15223e2faa75fb3d03278",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.34,
+          "end": 5.01,
+          "en": "Instructor: That's it for authentication.",
+          "zh": "講師：驗證的部分就到這裡。"
+        },
+        {
+          "id": 2,
+          "start": 5.01,
+          "end": 7.53,
+          "en": "In this module, we added an off service",
+          "zh": "在這個單元中，我們為 Angular 應用程式"
+        },
+        {
+          "id": 3,
+          "start": 7.53,
+          "end": 8.91,
+          "en": "to our Angular application",
+          "zh": "加入了一個 auth service，"
+        },
+        {
+          "id": 4,
+          "start": 8.91,
+          "end": 13.08,
+          "en": "to manage the entire front end authentication logic we need.",
+          "zh": "來管理我們所需的整個前端驗證邏輯。"
+        },
+        {
+          "id": 5,
+          "start": 13.08,
+          "end": 16.38,
+          "en": "That includes signing user up and signing the user in,",
+          "zh": "這包括根據這裡表單中的輸入"
+        },
+        {
+          "id": 6,
+          "start": 16.38,
+          "end": 18.93,
+          "en": "based on the inputs in that form here.",
+          "zh": "讓使用者註冊和登入。"
+        },
+        {
+          "id": 7,
+          "start": 18.93,
+          "end": 20.28,
+          "en": "It also includes things like,",
+          "zh": "也包括像是"
+        },
+        {
+          "id": 8,
+          "start": 20.28,
+          "end": 22.53,
+          "en": "switching between sign up and sign in,",
+          "zh": "在註冊和登入之間切換、"
+        },
+        {
+          "id": 9,
+          "start": 22.53,
+          "end": 25.62,
+          "en": "showing error messages, and storing a token",
+          "zh": "顯示錯誤訊息，以及儲存"
+        },
+        {
+          "id": 10,
+          "start": 25.62,
+          "end": 28.8,
+          "en": "that we then get after a successful login.",
+          "zh": "成功登入後取得的 token。"
+        },
+        {
+          "id": 11,
+          "start": 28.8,
+          "end": 30.112,
+          "en": "We're also storing the token such",
+          "zh": "我們也把 token 儲存起來，"
+        },
+        {
+          "id": 12,
+          "start": 30.112,
+          "end": 32.88,
+          "en": "that it persists once we reload the page,",
+          "zh": "讓它在重新載入頁面後仍然保留，"
+        },
+        {
+          "id": 13,
+          "start": 32.88,
+          "end": 35.82,
+          "en": "and we can also use the token to then fetch data",
+          "zh": "而且我們也能使用這個 token，從現在受保護的"
+        },
+        {
+          "id": 14,
+          "start": 35.82,
+          "end": 39.87,
+          "en": "and save data from our now protected fire based backend.",
+          "zh": "Firebase 後端取得和儲存資料。"
+        },
+        {
+          "id": 15,
+          "start": 39.87,
+          "end": 42.63,
+          "en": "Again, as I stressed throughout this module already",
+          "zh": "同樣地，正如我在整個單元中一再強調的，"
+        },
+        {
+          "id": 16,
+          "start": 42.63,
+          "end": 44.67,
+          "en": "fire base is just one example here.",
+          "zh": "Firebase 在這裡只是一個例子。"
+        },
+        {
+          "id": 17,
+          "start": 44.67,
+          "end": 47.52,
+          "en": "The general logic of how you exchange tokens",
+          "zh": "交換 token 的一般邏輯"
+        },
+        {
+          "id": 18,
+          "start": 47.52,
+          "end": 49.38,
+          "en": "always is the same.",
+          "zh": "始終都是一樣的。"
+        },
+        {
+          "id": 19,
+          "start": 49.38,
+          "end": 51.27,
+          "en": "Now, you also learned that there is more",
+          "zh": "你也學到了，管理 token"
+        },
+        {
+          "id": 20,
+          "start": 51.27,
+          "end": 53.46,
+          "en": "to managing the token than just logging in",
+          "zh": "不只是登入"
+        },
+        {
+          "id": 21,
+          "start": 53.46,
+          "end": 54.69,
+          "en": "and getting a token.",
+          "zh": "並取得 token 而已。"
+        },
+        {
+          "id": 22,
+          "start": 54.69,
+          "end": 56.46,
+          "en": "You don't just wanna store it in memory",
+          "zh": "你不會只想把它存在記憶體中，"
+        },
+        {
+          "id": 23,
+          "start": 56.46,
+          "end": 59.79,
+          "en": "you wanna store it in a place that survives browser reloads,",
+          "zh": "而是想把它存在一個在瀏覽器重新載入後仍會保留的地方，"
+        },
+        {
+          "id": 24,
+          "start": 59.79,
+          "end": 61.53,
+          "en": "and you want to make sure that it is cleared",
+          "zh": "並且想確保它在過期後"
+        },
+        {
+          "id": 25,
+          "start": 61.53,
+          "end": 63.33,
+          "en": "once it did expire.",
+          "zh": "會被清除。"
+        },
+        {
+          "id": 26,
+          "start": 63.33,
+          "end": 65.88,
+          "en": "We also used a router guard,",
+          "zh": "我們也使用了路由守衛，"
+        },
+        {
+          "id": 27,
+          "start": 65.88,
+          "end": 68.37,
+          "en": "a routing guard, to protect a route",
+          "zh": "來保護某個路由，"
+        },
+        {
+          "id": 28,
+          "start": 68.37,
+          "end": 70.41,
+          "en": "against unauthenticated access,",
+          "zh": "防止未經驗證的存取，"
+        },
+        {
+          "id": 29,
+          "start": 70.41,
+          "end": 73.32,
+          "en": "our recipes area in this case,",
+          "zh": "在這個例子中是食譜區域，"
+        },
+        {
+          "id": 30,
+          "start": 73.32,
+          "end": 77.37,
+          "en": "with help of the off service and the logic we have in there.",
+          "zh": "藉由 auth service 以及其中的邏輯來達成。"
+        },
+        {
+          "id": 31,
+          "start": 77.37,
+          "end": 79.23,
+          "en": "Last but not least, we made sure",
+          "zh": "最後但同樣重要的是，我們確保了"
+        },
+        {
+          "id": 32,
+          "start": 79.23,
+          "end": 81.36,
+          "en": "that the header is updated correctly",
+          "zh": "header 會根據我們的驗證狀態"
+        },
+        {
+          "id": 33,
+          "start": 81.36,
+          "end": 83.49,
+          "en": "based on our authentication status,",
+          "zh": "正確地更新，"
+        },
+        {
+          "id": 34,
+          "start": 83.49,
+          "end": 86.58,
+          "en": "which in turn is derived from our off service",
+          "zh": "而驗證狀態又是從 auth service"
+        },
+        {
+          "id": 35,
+          "start": 86.58,
+          "end": 90.36,
+          "en": "and the user we're storing there in this behavior subject.",
+          "zh": "以及我們存放在這個 BehaviorSubject 中的使用者衍生而來的。"
+        },
+        {
+          "id": 36,
+          "start": 90.36,
+          "end": 93.3,
+          "en": "Behavior subject because unlike a normal subject,",
+          "zh": "之所以用 BehaviorSubject，是因為它與一般的 subject 不同，"
+        },
+        {
+          "id": 37,
+          "start": 93.3,
+          "end": 96.33,
+          "en": "this always gives us access to the previous value,",
+          "zh": "它總是讓我們能存取先前的值，"
+        },
+        {
+          "id": 38,
+          "start": 96.33,
+          "end": 98.22,
+          "en": "and that simply helps us ensure",
+          "zh": "而這能幫助我們確保"
+        },
+        {
+          "id": 39,
+          "start": 98.22,
+          "end": 100.25999999999999,
+          "en": "that we can get access to the user,",
+          "zh": "即使在應用程式中需要使用者的這個部分，"
+        },
+        {
+          "id": 40,
+          "start": 100.25999999999999,
+          "end": 103.2,
+          "en": "even if in this part of the application where we need it,",
+          "zh": "錯過了先前的使用者更新，"
+        },
+        {
+          "id": 41,
+          "start": 103.2,
+          "end": 105.53999999999999,
+          "en": "we missed the previous user update.",
+          "zh": "我們仍然能存取使用者。"
+        },
+        {
+          "id": 42,
+          "start": 105.53999999999999,
+          "end": 108.06,
+          "en": "And that's it for authentication.",
+          "zh": "驗證的部分就到這裡。"
+        },
+        {
+          "id": 43,
+          "start": 108.06,
+          "end": 109.53,
+          "en": "I hope you learned a lot here,",
+          "zh": "希望你在這裡學到很多，"
+        },
+        {
+          "id": 44,
+          "start": 109.53,
+          "end": 111.96000000000001,
+          "en": "and you now feel confident adding authentication",
+          "zh": "現在也有信心"
+        },
+        {
+          "id": 45,
+          "start": 111.96000000000001,
+          "end": 113.703,
+          "en": "to your applications as well.",
+          "zh": "為你的應用程式加入驗證功能。"
+        }
+      ]
+    },
+    {
+      "id": "14466460",
+      "title": "Module Introduction",
+      "lectureOrder": 634,
+      "videoOrder": 584,
+      "sourceHash": "83d3cce4ec72e456f18728713a44789b3ae82e213045d617ffc09f198f0c5f66",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.36,
+          "end": 9.59,
+          "en": "In this module, we'll have a look at components again but now, add dynamic components.",
+          "zh": "在這個單元中，我們會再次探討元件，不過這次是動態元件。"
+        },
+        {
+          "id": 2,
+          "start": 9.59,
+          "end": 17.18,
+          "en": "Now what are dynamic components? Dynamic components are essentially components which you create dynamically",
+          "zh": "那麼，什麼是動態元件？動態元件基本上就是你在執行階段"
+        },
+        {
+          "id": 3,
+          "start": 17.66,
+          "end": 18.59,
+          "en": "at runtime.",
+          "zh": "動態建立的元件。"
+        },
+        {
+          "id": 4,
+          "start": 18.62,
+          "end": 21.8,
+          "en": "So let's say you want to show an alert,",
+          "zh": "假設你想顯示一個警示，"
+        },
+        {
+          "id": 5,
+          "start": 21.8,
+          "end": 27.89,
+          "en": "you want to show a modal, some overlay which should only be loaded upon a certain action,",
+          "zh": "你想顯示一個對話框，某種只有在特定動作時才應該載入的覆蓋層，"
+        },
+        {
+          "id": 6,
+          "start": 27.89,
+          "end": 34.49,
+          "en": "for example you have an error and you want to not show that error box which we're currently showing",
+          "zh": "例如你遇到一個錯誤，而你不想顯示我們目前在課程專案中"
+        },
+        {
+          "id": 7,
+          "start": 34.49,
+          "end": 41.36,
+          "en": "in our course project but we want to show an overlay on the entire screen or something like that, that",
+          "zh": "顯示的那種錯誤框，而是想在整個畫面上顯示一個覆蓋層之類的東西，那就"
+        },
+        {
+          "id": 8,
+          "start": 41.36,
+          "end": 48.62,
+          "en": "could be done or could be implemented by using dynamic components. And dynamic components is not a",
+          "zh": "可以藉由動態元件來實現。而動態元件並不是一個"
+        },
+        {
+          "id": 9,
+          "start": 48.62,
+          "end": 55.7,
+          "en": "specific term, not a specific feature provided by Angular but we can simply add components that we load",
+          "zh": "特定的術語，也不是 Angular 提供的特定功能，我們只是加入"
+        },
+        {
+          "id": 10,
+          "start": 55.79,
+          "end": 61.43,
+          "en": "through our code and that's exactly what we'll do in this module. You will learn how to create such a",
+          "zh": "藉由程式碼載入的元件，而這正是我們在這個單元中要做的。你會學到如何建立這樣的"
+        },
+        {
+          "id": 11,
+          "start": 61.43,
+          "end": 67.24,
+          "en": "component and how to then load it on demand, how to communicate with it and also how to get rid of it.",
+          "zh": "元件，然後如何按需載入它、如何與它溝通，以及如何移除它。"
+        }
+      ]
+    },
+    {
+      "id": "14466462",
+      "title": "Adding an Alert Modal Component",
+      "lectureOrder": 635,
+      "videoOrder": 585,
+      "sourceHash": "e74b3b2886b43d6e0342de097ccf23376dc31e4c174c693822c3a99fabb131a3",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.22,
+          "end": 4.95,
+          "en": "Narrator: For that I'm back in a course project",
+          "zh": "旁白：為此，我回到了課程專案，"
+        },
+        {
+          "id": 2,
+          "start": 4.95,
+          "end": 6.93,
+          "en": "and the part I wanna handle",
+          "zh": "而我想用動態元件處理的部分，"
+        },
+        {
+          "id": 3,
+          "start": 6.93,
+          "end": 10.38,
+          "en": "with dynamic components is here on the login.",
+          "zh": "就是這裡的登入。"
+        },
+        {
+          "id": 4,
+          "start": 10.38,
+          "end": 13.41,
+          "en": "When I enter incorrect credentials, at the moment,",
+          "zh": "目前當我輸入不正確的憑證時，"
+        },
+        {
+          "id": 5,
+          "start": 13.41,
+          "end": 14.34,
+          "en": "we then have that spinner",
+          "zh": "我們會看到那個載入動畫，"
+        },
+        {
+          "id": 6,
+          "start": 14.34,
+          "end": 16.77,
+          "en": "and then we see that error message there.",
+          "zh": "然後在那裡看到錯誤訊息。"
+        },
+        {
+          "id": 7,
+          "start": 16.77,
+          "end": 20.04,
+          "en": "Now, nothing wrong with that way of displaying an error.",
+          "zh": "用那種方式顯示錯誤並沒有什麼不對。"
+        },
+        {
+          "id": 8,
+          "start": 20.04,
+          "end": 21.33,
+          "en": "It's perfectly fine.",
+          "zh": "它完全沒問題。"
+        },
+        {
+          "id": 9,
+          "start": 21.33,
+          "end": 22.954,
+          "en": "You don't have to change that.",
+          "zh": "你不必改變它。"
+        },
+        {
+          "id": 10,
+          "start": 22.954,
+          "end": 26.28,
+          "en": "But to demonstrate how you could load a component",
+          "zh": "但為了示範如何動態載入元件，"
+        },
+        {
+          "id": 11,
+          "start": 26.28,
+          "end": 28.59,
+          "en": "dynamically, I will change it.",
+          "zh": "我會改變它。"
+        },
+        {
+          "id": 12,
+          "start": 28.59,
+          "end": 31.41,
+          "en": "I will not use that box here.",
+          "zh": "我不會使用這裡的那個框。"
+        },
+        {
+          "id": 13,
+          "start": 31.41,
+          "end": 35.22,
+          "en": "But instead we'll build a very simple alert box",
+          "zh": "而是會打造一個非常簡單的警示框，"
+        },
+        {
+          "id": 14,
+          "start": 35.22,
+          "end": 38.28,
+          "en": "which is presented as an overlay here on the screen",
+          "zh": "以覆蓋層的形式呈現在畫面上，"
+        },
+        {
+          "id": 15,
+          "start": 38.28,
+          "end": 41.88,
+          "en": "with a nice backdrop that hides the background.",
+          "zh": "搭配一個好看的背景遮罩把背景蓋住。"
+        },
+        {
+          "id": 16,
+          "start": 41.88,
+          "end": 42.82,
+          "en": "And in that alert box we can",
+          "zh": "在那個警示框中，我們接著可以"
+        },
+        {
+          "id": 17,
+          "start": 42.82,
+          "end": 45.36,
+          "en": "then simply click okay to get rid of it",
+          "zh": "直接點擊確定把它關掉，"
+        },
+        {
+          "id": 18,
+          "start": 45.36,
+          "end": 47.34,
+          "en": "and have another try here.",
+          "zh": "然後在這裡再試一次。"
+        },
+        {
+          "id": 19,
+          "start": 47.34,
+          "end": 48.533,
+          "en": "So that's the idea.",
+          "zh": "這就是我的構想。"
+        },
+        {
+          "id": 20,
+          "start": 48.533,
+          "end": 51.346,
+          "en": "Let me now go back to code.",
+          "zh": "我現在回到程式碼。"
+        },
+        {
+          "id": 21,
+          "start": 51.346,
+          "end": 54.75,
+          "en": "And here the goal now is to, first of all,",
+          "zh": "在這裡，首先的目標是"
+        },
+        {
+          "id": 22,
+          "start": 54.75,
+          "end": 58.11,
+          "en": "build such an alert and I'll do that in a shared folder.",
+          "zh": "打造這樣一個警示，我會在 shared 資料夾中做。"
+        },
+        {
+          "id": 23,
+          "start": 58.11,
+          "end": 60.36,
+          "en": "I'll name that \"alert\" and",
+          "zh": "我會把它命名為 alert，"
+        },
+        {
+          "id": 24,
+          "start": 60.36,
+          "end": 64.59,
+          "en": "in there I'll create my alert.component.ts file.",
+          "zh": "並在其中建立 alert.component.ts 檔案。"
+        },
+        {
+          "id": 25,
+          "start": 64.59,
+          "end": 67.38,
+          "en": "Where well I wanna build that alert component.",
+          "zh": "嗯，我想在那裡打造 alert 元件。"
+        },
+        {
+          "id": 26,
+          "start": 67.38,
+          "end": 70.47,
+          "en": "Now my alert component here will be a simple box",
+          "zh": "我的 alert 元件會是一個簡單的框，"
+        },
+        {
+          "id": 27,
+          "start": 70.47,
+          "end": 75.12,
+          "en": "that, well, is loaded as an overlay on the entire screen.",
+          "zh": "嗯，它會以覆蓋整個畫面的方式載入。"
+        },
+        {
+          "id": 28,
+          "start": 75.12,
+          "end": 78.99,
+          "en": "And therefore let's here, export a class alert component,",
+          "zh": "因此，我們在這裡像這樣匯出一個 AlertComponent 類別，"
+        },
+        {
+          "id": 29,
+          "start": 78.99,
+          "end": 83.88,
+          "en": "like this and give it that at component decorator.",
+          "zh": "並為它加上 @Component 裝飾器。"
+        },
+        {
+          "id": 30,
+          "start": 83.88,
+          "end": 88.88,
+          "en": "Now in that decorator, I'll assign a selector, \"app alert\",",
+          "zh": "在那個裝飾器中，我會指定一個選擇器 app-alert，"
+        },
+        {
+          "id": 31,
+          "start": 89.4,
+          "end": 93.12,
+          "en": "and add the template URL where I wanna point",
+          "zh": "並加入 templateUrl，指向"
+        },
+        {
+          "id": 32,
+          "start": 93.12,
+          "end": 94.77000000000001,
+          "en": "at an external template",
+          "zh": "一個外部範本，"
+        },
+        {
+          "id": 33,
+          "start": 94.77000000000001,
+          "end": 98.75999999999999,
+          "en": "the alert.component.html file,",
+          "zh": "也就是 alert.component.html 檔案，"
+        },
+        {
+          "id": 34,
+          "start": 98.75999999999999,
+          "end": 101.00999999999999,
+          "en": "which we, therefore, also have to create in",
+          "zh": "因此我們也必須在同一個資料夾中"
+        },
+        {
+          "id": 35,
+          "start": 101.00999999999999,
+          "end": 102.18299999999999,
+          "en": "that same folder.",
+          "zh": "建立它。"
+        },
+        {
+          "id": 36,
+          "start": 103.38,
+          "end": 106.68,
+          "en": "And that is my basic component for now.",
+          "zh": "這就是我目前的基本元件。"
+        },
+        {
+          "id": 37,
+          "start": 106.68,
+          "end": 109.86,
+          "en": "Now the alert component here then receives,",
+          "zh": "接著，這裡的 alert 元件當然"
+        },
+        {
+          "id": 38,
+          "start": 109.86,
+          "end": 112.68,
+          "en": "of course, some markup.",
+          "zh": "會加上一些標記。"
+        },
+        {
+          "id": 39,
+          "start": 112.68,
+          "end": 115.438,
+          "en": "And here I will include both the backdrop",
+          "zh": "在這裡，我會把背景遮罩"
+        },
+        {
+          "id": 40,
+          "start": 115.438,
+          "end": 118.95,
+          "en": "and that overlay box in one of the same component.",
+          "zh": "和那個覆蓋框放在同一個元件中。"
+        },
+        {
+          "id": 41,
+          "start": 118.95,
+          "end": 120.39,
+          "en": "Of course, you could also split",
+          "zh": "當然，你也可以把它"
+        },
+        {
+          "id": 42,
+          "start": 120.39,
+          "end": 122.49,
+          "en": "this into multiple components.",
+          "zh": "拆分成多個元件。"
+        },
+        {
+          "id": 43,
+          "start": 122.49,
+          "end": 124.861,
+          "en": "So here we'll write some custom CSS actually,",
+          "zh": "所以在這裡，我們其實會寫一些自訂的 CSS，"
+        },
+        {
+          "id": 44,
+          "start": 124.861,
+          "end": 129.861,
+          "en": "and I'll add a div with a class of \"backdrop\".",
+          "zh": "我會加入一個 class 為 backdrop 的 div。"
+        },
+        {
+          "id": 45,
+          "start": 130.56,
+          "end": 132.09,
+          "en": "That will be the backdrop.",
+          "zh": "那就是背景遮罩。"
+        },
+        {
+          "id": 46,
+          "start": 132.09,
+          "end": 132.923,
+          "en": "So basically,",
+          "zh": "基本上，"
+        },
+        {
+          "id": 47,
+          "start": 132.923,
+          "end": 135.78,
+          "en": "that thing in the background that blocks access",
+          "zh": "就是背景中那個阻擋存取"
+        },
+        {
+          "id": 48,
+          "start": 135.78,
+          "end": 137.57999999999998,
+          "en": "to the rest of the page",
+          "zh": "頁面其他部分的東西，"
+        },
+        {
+          "id": 49,
+          "start": 137.57999999999998,
+          "end": 141.507,
+          "en": "and ensures that the focus is on the alert box.",
+          "zh": "確保焦點在警示框上。"
+        },
+        {
+          "id": 50,
+          "start": 141.507,
+          "end": 144.9,
+          "en": "And that box is the second div I'll add here,",
+          "zh": "而那個框就是我在這裡加入的第二個 div，"
+        },
+        {
+          "id": 51,
+          "start": 144.9,
+          "end": 148.02,
+          "en": "I'll give that a class of \"alert box\",",
+          "zh": "我會給它一個 class 叫 alert-box，"
+        },
+        {
+          "id": 52,
+          "start": 148.02,
+          "end": 149.79,
+          "en": "something like this to not interfere",
+          "zh": "像這樣命名，以免干擾"
+        },
+        {
+          "id": 53,
+          "start": 149.79,
+          "end": 151.65,
+          "en": "with the alert class provided",
+          "zh": "Bootstrap 提供的 alert 類別，"
+        },
+        {
+          "id": 54,
+          "start": 151.65,
+          "end": 153.72,
+          "en": "by bootstrap because I don't wanna use that.",
+          "zh": "因為我不想使用它。"
+        },
+        {
+          "id": 55,
+          "start": 153.72,
+          "end": 158.245,
+          "en": "And in that alert box here, I'll keep this really simple.",
+          "zh": "在這個警示框中，我會讓它保持非常簡單。"
+        },
+        {
+          "id": 56,
+          "start": 158.245,
+          "end": 162.317,
+          "en": "I'll just add a paragraph where we can output the,",
+          "zh": "我只會加入一個段落，在其中"
+        },
+        {
+          "id": 57,
+          "start": 162.317,
+          "end": 165.6,
+          "en": "the message with stringer compilation.",
+          "zh": "藉由字串插值輸出訊息。"
+        },
+        {
+          "id": 58,
+          "start": 165.6,
+          "end": 166.56,
+          "en": "And that is referring",
+          "zh": "而它參照的是"
+        },
+        {
+          "id": 59,
+          "start": 166.56,
+          "end": 169.74,
+          "en": "to a message property we haven't added yet to the component.",
+          "zh": "一個我們還沒加到元件中的 message 屬性。"
+        },
+        {
+          "id": 60,
+          "start": 169.74,
+          "end": 171.42000000000002,
+          "en": "We'll do that soon.",
+          "zh": "我們很快就會加上。"
+        },
+        {
+          "id": 61,
+          "start": 171.42000000000002,
+          "end": 175.503,
+          "en": "And I also want to have a button to close that alert,",
+          "zh": "我還想要一個按鈕來關閉那個警示，"
+        },
+        {
+          "id": 62,
+          "start": 176.7,
+          "end": 178.68,
+          "en": "therefore I'll add another div here,",
+          "zh": "因此我會在這裡再加入一個 div，"
+        },
+        {
+          "id": 63,
+          "start": 178.68,
+          "end": 182.4,
+          "en": "I'll name this \"alert box actions\".",
+          "zh": "我把它命名為 alert-box-actions。"
+        },
+        {
+          "id": 64,
+          "start": 182.4,
+          "end": 183.87,
+          "en": "So that's my class name here.",
+          "zh": "這就是我在這裡的類別名稱。"
+        },
+        {
+          "id": 65,
+          "start": 183.87,
+          "end": 185.7,
+          "en": "And in that div I'll add a button",
+          "zh": "在那個 div 中，我會加入一個按鈕，"
+        },
+        {
+          "id": 66,
+          "start": 185.7,
+          "end": 188.4,
+          "en": "with class button, \"button primary\".",
+          "zh": "class 為 btn btn-primary。"
+        },
+        {
+          "id": 67,
+          "start": 188.4,
+          "end": 191.22,
+          "en": "Now I'm using bootstrap classes here again to",
+          "zh": "我在這裡同樣使用 Bootstrap 類別，"
+        },
+        {
+          "id": 68,
+          "start": 191.22,
+          "end": 192.75,
+          "en": "get that button styling.",
+          "zh": "來取得按鈕的樣式。"
+        },
+        {
+          "id": 69,
+          "start": 192.75,
+          "end": 194.607,
+          "en": "And here we can just say \"close\".",
+          "zh": "在這裡，我們可以就寫 Close。"
+        },
+        {
+          "id": 70,
+          "start": 195.9,
+          "end": 199.65,
+          "en": "So this could be an alert box, it's missing some styling.",
+          "zh": "所以這可以是一個警示框，只是還缺少一些樣式。"
+        },
+        {
+          "id": 71,
+          "start": 199.65,
+          "end": 204.32999999999998,
+          "en": "So let me add an alert component.CSS file here as well.",
+          "zh": "所以我也在這裡加入一個 alert.component.css 檔案，"
+        },
+        {
+          "id": 72,
+          "start": 204.32999999999998,
+          "end": 208.32,
+          "en": "And point at that file in our component declaration here.",
+          "zh": "並在這裡的元件宣告中指向那個檔案。"
+        },
+        {
+          "id": 73,
+          "start": 208.32,
+          "end": 211.38,
+          "en": "So style URLs receives a pointer",
+          "zh": "所以 styleUrls 會接收一個指向"
+        },
+        {
+          "id": 74,
+          "start": 211.38,
+          "end": 214.56,
+          "en": "at alert.component.css.",
+          "zh": "alert.component.css 的指標。"
+        },
+        {
+          "id": 75,
+          "start": 214.56,
+          "end": 215.85,
+          "en": "So far so good.",
+          "zh": "到目前為止都很好。"
+        },
+        {
+          "id": 76,
+          "start": 215.85,
+          "end": 219.6,
+          "en": "Now in the alert component, I do have that message property,",
+          "zh": "在 alert 元件中，我有那個 message 屬性，"
+        },
+        {
+          "id": 77,
+          "start": 219.6,
+          "end": 220.68,
+          "en": "which I wanna output,",
+          "zh": "我想把它輸出，"
+        },
+        {
+          "id": 78,
+          "start": 220.68,
+          "end": 223.5,
+          "en": "and, therefore, any alert component types could file,",
+          "zh": "因此在 alert 元件的 TypeScript 檔案中，"
+        },
+        {
+          "id": 79,
+          "start": 223.5,
+          "end": 225.57,
+          "en": "we need that message property.",
+          "zh": "我們需要那個 message 屬性。"
+        },
+        {
+          "id": 80,
+          "start": 225.57,
+          "end": 226.92000000000002,
+          "en": "And that will be a string",
+          "zh": "它會是一個字串，"
+        },
+        {
+          "id": 81,
+          "start": 226.92000000000002,
+          "end": 229.5,
+          "en": "and it should be settable from outside.",
+          "zh": "而且應該可以從外部設定。"
+        },
+        {
+          "id": 82,
+          "start": 229.5,
+          "end": 233.43,
+          "en": "And therefore, you learn that we can add at input here",
+          "zh": "因此，你學過我們可以在這裡加上 @Input，"
+        },
+        {
+          "id": 83,
+          "start": 233.43,
+          "end": 234.96,
+          "en": "and input needs to be imported from",
+          "zh": "而 Input 需要從 @angular/core 匯入，"
+        },
+        {
+          "id": 84,
+          "start": 234.96,
+          "end": 237.855,
+          "en": "at angular core to make the settable from outside.",
+          "zh": "讓它可以從外部設定。"
+        },
+        {
+          "id": 85,
+          "start": 237.855,
+          "end": 241.68,
+          "en": "With that, the alert component is almost finished.",
+          "zh": "這樣一來，alert 元件就快完成了。"
+        },
+        {
+          "id": 86,
+          "start": 241.68,
+          "end": 244.8,
+          "en": "Let's now add it to the app module here.",
+          "zh": "我們現在把它加到這裡的 app 模組中。"
+        },
+        {
+          "id": 87,
+          "start": 244.8,
+          "end": 248.7,
+          "en": "Add it to the declaration there, the alert component.",
+          "zh": "把 alert 元件加到那裡的 declarations 中。"
+        },
+        {
+          "id": 88,
+          "start": 248.7,
+          "end": 250.62,
+          "en": "And now let's see how we could add it.",
+          "zh": "現在來看看我們可以如何加入它。"
+        },
+        {
+          "id": 89,
+          "start": 250.62,
+          "end": 253.28,
+          "en": "Well, we could go to our \"auth\" component,",
+          "zh": "嗯，我們當然可以前往 auth 元件，"
+        },
+        {
+          "id": 90,
+          "start": 258.09,
+          "end": 260.34,
+          "en": "to the template there, of course.",
+          "zh": "前往那裡的範本。"
+        },
+        {
+          "id": 91,
+          "start": 260.34,
+          "end": 263.28,
+          "en": "And there, right now, I do have that alert box",
+          "zh": "在那裡，我現在確實有一個警示框，"
+        },
+        {
+          "id": 92,
+          "start": 263.28,
+          "end": 266.04,
+          "en": "which is shown when we do have an error.",
+          "zh": "會在出現錯誤時顯示。"
+        },
+        {
+          "id": 93,
+          "start": 266.04,
+          "end": 267.51,
+          "en": "Now I'll comment that out",
+          "zh": "現在我會把它註解掉，"
+        },
+        {
+          "id": 94,
+          "start": 267.51,
+          "end": 270.33,
+          "en": "and instead use \"app alert\" here.",
+          "zh": "改為在這裡使用 app-alert。"
+        },
+        {
+          "id": 95,
+          "start": 270.33,
+          "end": 273.069,
+          "en": "And there we have to set the message property",
+          "zh": "在那裡，我們必須設定 message 屬性，"
+        },
+        {
+          "id": 96,
+          "start": 273.069,
+          "end": 275.73,
+          "en": "which we made bind-able with at input.",
+          "zh": "我們已經用 @Input 讓它可以被繫結。"
+        },
+        {
+          "id": 97,
+          "start": 275.73,
+          "end": 277.59000000000003,
+          "en": "And I'll set this to error",
+          "zh": "我會把它設為 error，"
+        },
+        {
+          "id": 98,
+          "start": 277.59000000000003,
+          "end": 280.29,
+          "en": "and I'll show the entire alert box here",
+          "zh": "並且只在有錯誤時，"
+        },
+        {
+          "id": 99,
+          "start": 280.29,
+          "end": 285.21,
+          "en": "with the app alert element only if we have an error.",
+          "zh": "才用 app-alert 元素顯示整個警示框。"
+        },
+        {
+          "id": 100,
+          "start": 285.21,
+          "end": 288.33,
+          "en": "So now we're simply just showing our own alert component.",
+          "zh": "所以現在我們只是在顯示我們自己的 alert 元件。"
+        },
+        {
+          "id": 101,
+          "start": 288.33,
+          "end": 291.24,
+          "en": "So far, nothing too fancy, of course.",
+          "zh": "到目前為止，當然沒什麼特別的。"
+        },
+        {
+          "id": 102,
+          "start": 291.24,
+          "end": 293.28,
+          "en": "Now, this custom alert component now",
+          "zh": "接下來，這個自訂的 alert 元件"
+        },
+        {
+          "id": 103,
+          "start": 293.28,
+          "end": 296.46,
+          "en": "will receive some styling and I'll start with the backdrop.",
+          "zh": "會加上一些樣式，我先從背景遮罩開始。"
+        },
+        {
+          "id": 104,
+          "start": 296.46,
+          "end": 298.71,
+          "en": "So that thing in the background,",
+          "zh": "也就是背景中的那個東西，"
+        },
+        {
+          "id": 105,
+          "start": 298.71,
+          "end": 300.75,
+          "en": "that will get a fixed position,",
+          "zh": "它會使用 fixed 定位，"
+        },
+        {
+          "id": 106,
+          "start": 300.75,
+          "end": 305.75,
+          "en": "top zero, left zero, a width of 100 VW actually,",
+          "zh": "top 為 0、left 為 0，寬度其實是 100vw，"
+        },
+        {
+          "id": 107,
+          "start": 309.144,
+          "end": 311.613,
+          "en": "which is the view port width.",
+          "zh": "也就是視窗寬度。"
+        },
+        {
+          "id": 108,
+          "start": 313.065,
+          "end": 315.81,
+          "en": "So not the, not percentage to not take the container width",
+          "zh": "所以不是百分比，以免取的是容器寬度，"
+        },
+        {
+          "id": 109,
+          "start": 315.81,
+          "end": 317.58,
+          "en": "but the entire view port width.",
+          "zh": "而是整個視窗的寬度。"
+        },
+        {
+          "id": 110,
+          "start": 317.58,
+          "end": 319.8,
+          "en": "A height of 100 VH to",
+          "zh": "高度為 100vh，"
+        },
+        {
+          "id": 111,
+          "start": 319.8,
+          "end": 322.71,
+          "en": "take the entire view port height, as well.",
+          "zh": "同樣占滿整個視窗高度。"
+        },
+        {
+          "id": 112,
+          "start": 322.71,
+          "end": 327.71,
+          "en": "Then background of RGBA zero 0.75, which is a slightly",
+          "zh": "然後 background 是 rgba(0, 0, 0, 0.75)，也就是"
+        },
+        {
+          "id": 113,
+          "start": 331.77,
+          "end": 334.44,
+          "en": "transparent black background color.",
+          "zh": "略微透明的黑色背景色。"
+        },
+        {
+          "id": 114,
+          "start": 334.44,
+          "end": 338.1,
+          "en": "A set index of, let's say, 50 to be above all the",
+          "zh": "z-index 比如說設為 50，"
+        },
+        {
+          "id": 115,
+          "start": 338.1,
+          "end": 340.47,
+          "en": "other elements that could be there.",
+          "zh": "讓它位於可能存在的所有其他元素之上。"
+        },
+        {
+          "id": 116,
+          "start": 340.47,
+          "end": 342.3,
+          "en": "And yeah, that should be it.",
+          "zh": "嗯，應該就是這樣了。"
+        },
+        {
+          "id": 117,
+          "start": 342.3,
+          "end": 345.72,
+          "en": "Now the alert box, this, the element we have should all get",
+          "zh": "至於警示框，也就是我們這個元素，也要加上"
+        },
+        {
+          "id": 118,
+          "start": 345.72,
+          "end": 346.92,
+          "en": "some styling.",
+          "zh": "一些樣式。"
+        },
+        {
+          "id": 119,
+          "start": 346.92,
+          "end": 350.523,
+          "en": "First of all, this will get a position of fixed, too.",
+          "zh": "首先，它同樣使用 fixed 定位。"
+        },
+        {
+          "id": 120,
+          "start": 351.45,
+          "end": 353.13,
+          "en": "Top here could be, let's say,",
+          "zh": "top 在這裡可以設為，比如說，"
+        },
+        {
+          "id": 121,
+          "start": 353.13,
+          "end": 358.13,
+          "en": "30 VH to have it 30% inside of the view port.",
+          "zh": "30vh，讓它位於視窗內 30% 的位置。"
+        },
+        {
+          "id": 122,
+          "start": 358.65,
+          "end": 361.383,
+          "en": "To not have it set right at the top of the view port.",
+          "zh": "這樣它就不會緊貼在視窗的最上方。"
+        },
+        {
+          "id": 123,
+          "start": 362.49,
+          "end": 367.393,
+          "en": "The left will actually be, let's say, 20 VW.",
+          "zh": "left 其實會設為，比如說，20vw。"
+        },
+        {
+          "id": 124,
+          "start": 368.49,
+          "end": 373.49,
+          "en": "The width of this thing here will then be 60 VW",
+          "zh": "然後這個東西的寬度會是 60vw，"
+        },
+        {
+          "id": 125,
+          "start": 373.92,
+          "end": 376.26,
+          "en": "because then we have 20 to the left",
+          "zh": "因為這樣左邊有 20、"
+        },
+        {
+          "id": 126,
+          "start": 376.26,
+          "end": 379.14,
+          "en": "and 20 to the right to center this nicely.",
+          "zh": "右邊也有 20，就能漂亮地置中。"
+        },
+        {
+          "id": 127,
+          "start": 379.14,
+          "end": 380.13,
+          "en": "I'll not set a height.",
+          "zh": "我不會設定高度。"
+        },
+        {
+          "id": 128,
+          "start": 380.13,
+          "end": 381.18,
+          "en": "The height should be determined",
+          "zh": "高度應該由"
+        },
+        {
+          "id": 129,
+          "start": 381.18,
+          "end": 383.64,
+          "en": "by the content that's in there.",
+          "zh": "裡面的內容決定。"
+        },
+        {
+          "id": 130,
+          "start": 383.64,
+          "end": 388.64,
+          "en": "And I'll give it a padding though of, let's say, 16 pixels.",
+          "zh": "不過我會給它一個 padding，比如說 16px。"
+        },
+        {
+          "id": 131,
+          "start": 390.63,
+          "end": 394.29,
+          "en": "A set index of 100 to be above of the backdrop.",
+          "zh": "z-index 設為 100，讓它位於背景遮罩之上。"
+        },
+        {
+          "id": 132,
+          "start": 394.29,
+          "end": 396.363,
+          "en": "A background color of white.",
+          "zh": "背景色是白色。"
+        },
+        {
+          "id": 133,
+          "start": 397.5,
+          "end": 402.5,
+          "en": "And a slight box shadow with these settings here",
+          "zh": "再加上用這些設定的輕微陰影，"
+        },
+        {
+          "id": 134,
+          "start": 404.865,
+          "end": 407.43,
+          "en": "to hopefully make it look good.",
+          "zh": "希望能讓它看起來不錯。"
+        },
+        {
+          "id": 135,
+          "start": 407.43,
+          "end": 408.81,
+          "en": "So that's my alert box.",
+          "zh": "這就是我的警示框。"
+        },
+        {
+          "id": 136,
+          "start": 408.81,
+          "end": 412.17,
+          "en": "Now we also have that alert box actions class",
+          "zh": "我們還有 alert-box-actions 類別，"
+        },
+        {
+          "id": 137,
+          "start": 412.17,
+          "end": 414.81,
+          "en": "which holds that button where we can close everything.",
+          "zh": "它包含那個可以關閉一切的按鈕。"
+        },
+        {
+          "id": 138,
+          "start": 414.81,
+          "end": 416.647,
+          "en": "And there, I just want to add text align",
+          "zh": "在那裡，我只想加入 text-align: right，"
+        },
+        {
+          "id": 139,
+          "start": 416.647,
+          "end": 418.71,
+          "en": "\"right\" to push this all the way to the right.",
+          "zh": "把它一路推到右邊。"
+        },
+        {
+          "id": 140,
+          "start": 418.71,
+          "end": 421.5,
+          "en": "Now of course you can adjust this however you want.",
+          "zh": "當然，你可以隨意調整。"
+        },
+        {
+          "id": 141,
+          "start": 421.5,
+          "end": 422.64,
+          "en": "Let's see this.",
+          "zh": "我們來看看。"
+        },
+        {
+          "id": 142,
+          "start": 422.64,
+          "end": 425.01,
+          "en": "Let's wait for this to reload",
+          "zh": "等待它重新載入，"
+        },
+        {
+          "id": 143,
+          "start": 425.01,
+          "end": 427.68,
+          "en": "and then enter some incorrect credentials here.",
+          "zh": "然後在這裡輸入一些不正確的憑證。"
+        },
+        {
+          "id": 144,
+          "start": 427.68,
+          "end": 429.57,
+          "en": "And here is our alert box.",
+          "zh": "警示框出現在這裡了。"
+        },
+        {
+          "id": 145,
+          "start": 429.57,
+          "end": 431.22,
+          "en": "This is nice modal now.",
+          "zh": "現在這是一個不錯的對話框。"
+        },
+        {
+          "id": 146,
+          "start": 431.22,
+          "end": 433.95,
+          "en": "And, of course, you could go way more advanced here.",
+          "zh": "當然，你在這裡可以做得更進階。"
+        },
+        {
+          "id": 147,
+          "start": 433.95,
+          "end": 437.94,
+          "en": "You could use NG content to pass dynamic dom",
+          "zh": "你可以使用 ng-content 把動態的 DOM"
+        },
+        {
+          "id": 148,
+          "start": 437.94,
+          "end": 439.98,
+          "en": "into that box here, whatever you want.",
+          "zh": "傳入這個框中，隨你喜歡。"
+        },
+        {
+          "id": 149,
+          "start": 439.98,
+          "end": 441.63,
+          "en": "But this our box, of course,",
+          "zh": "不過這就是我們的框，當然，"
+        },
+        {
+          "id": 150,
+          "start": 441.63,
+          "end": 443.52,
+          "en": "at the moment we can't close it though.",
+          "zh": "目前我們還無法關閉它。"
+        },
+        {
+          "id": 151,
+          "start": 443.52,
+          "end": 445.65,
+          "en": "But creating that is the first step.",
+          "zh": "但建立它是第一步。"
+        },
+        {
+          "id": 152,
+          "start": 445.65,
+          "end": 448.56,
+          "en": "Now, how can we load this dynamically?",
+          "zh": "那麼，我們要如何動態載入它呢？"
+        },
+        {
+          "id": 153,
+          "start": 448.56,
+          "end": 450.86,
+          "en": "And, of course, also how can we then close it?",
+          "zh": "當然，還有我們要如何關閉它呢？"
+        }
+      ]
+    },
+    {
+      "id": "14466464",
+      "title": "Understanding the Different Approaches",
+      "lectureOrder": 636,
+      "videoOrder": 586,
+      "sourceHash": "b2b90d88123826a0b8e36e532cb9c5cb042f8cba2920d4555ffb67fb0eddc8f4",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.31,
+          "end": 7.55,
+          "en": "It is important to understand that dynamic components in general just means that",
+          "zh": "重要的是要理解，一般來說，動態元件的意思只是"
+        },
+        {
+          "id": 2,
+          "start": 7.56,
+          "end": 8.31,
+          "en": "you want to",
+          "zh": "你想要"
+        },
+        {
+          "id": 3,
+          "start": 8.34,
+          "end": 10.89,
+          "en": "display some component dynamically,",
+          "zh": "動態地顯示某個元件，"
+        },
+        {
+          "id": 4,
+          "start": 11.04,
+          "end": 14.85,
+          "en": "which means it's not always there but it's there once",
+          "zh": "也就是說它並不總是存在，而是在"
+        },
+        {
+          "id": 5,
+          "start": 14.88,
+          "end": 17.83,
+          "en": "something specific happens in your code.",
+          "zh": "程式碼中發生某件特定的事情之後才出現。"
+        },
+        {
+          "id": 6,
+          "start": 18.12,
+          "end": 23.49,
+          "en": "Therefore, you typically want to control programmatically when that component should be loaded, when it",
+          "zh": "因此，你通常會想以程式方式控制該元件何時應該被載入、何時"
+        },
+        {
+          "id": 7,
+          "start": 23.49,
+          "end": 27.58,
+          "en": "should be displayed and you already learned about a way of doing that",
+          "zh": "應該被顯示，而你已經學過一種做法，"
+        },
+        {
+          "id": 8,
+          "start": 27.66,
+          "end": 33.93,
+          "en": "and we're currently using that way and that way is ngIf. ngIf is awesome because it allows you to",
+          "zh": "我們目前就在使用那種做法，那就是 ngIf。ngIf 很棒，因為它讓你能"
+        },
+        {
+          "id": 9,
+          "start": 33.93,
+          "end": 40.65,
+          "en": "use a declarative approach, which means you simply add that component selector in your template and then",
+          "zh": "使用宣告式的做法，也就是你只要在範本中加入那個元件選擇器，然後"
+        },
+        {
+          "id": 10,
+          "start": 40.65,
+          "end": 46.65,
+          "en": "you use ngIf to still only load it upon a certain condition, so you use ngIf to control whether",
+          "zh": "使用 ngIf 讓它只在特定條件下才載入，所以你是用 ngIf 來控制"
+        },
+        {
+          "id": 11,
+          "start": 46.65,
+          "end": 53.7,
+          "en": "the DOM really has that component or not and therefore ngIf definitely is a great approach of loading",
+          "zh": "DOM 中是否真的有那個元件，因此 ngIf 絕對是動態載入元件的"
+        },
+        {
+          "id": 12,
+          "start": 53.7,
+          "end": 55.22,
+          "en": "a component dynamically.",
+          "zh": "好方法。"
+        },
+        {
+          "id": 13,
+          "start": 55.35,
+          "end": 59.88,
+          "en": "It saves you a lot of extra work which you will have to do with the alternative approach you're about",
+          "zh": "它能省下很多額外的工作，那些是你使用即將學到的替代做法時"
+        },
+        {
+          "id": 14,
+          "start": 59.88,
+          "end": 64.95,
+          "en": "to learn and it's definitely worth a thought and has no major downsides",
+          "zh": "必須做的，所以它絕對值得考慮，而且沒有什麼重大缺點，"
+        },
+        {
+          "id": 15,
+          "start": 64.95,
+          "end": 70.17,
+          "en": "and at the moment as I mentioned, we are using ngIf here in this project, we're using it in many",
+          "zh": "而正如我提到的，我們目前在這個專案中使用 ngIf，在許多"
+        },
+        {
+          "id": 16,
+          "start": 70.17,
+          "end": 76.17,
+          "en": "places and we're also using it for this alert box and I'll show you how to finish the entire alert flow",
+          "zh": "地方都用到了它，我們也把它用在這個警示框上，我會示範如何完成整個警示流程，"
+        },
+        {
+          "id": 17,
+          "start": 76.35,
+          "end": 79.44,
+          "en": "before we then have a look at that alternative.",
+          "zh": "然後再來看看那個替代做法。"
+        },
+        {
+          "id": 18,
+          "start": 79.44,
+          "end": 82.03,
+          "en": "Nonetheless, what would be the alternative?",
+          "zh": "儘管如此，替代做法是什麼呢？"
+        },
+        {
+          "id": 19,
+          "start": 82.08,
+          "end": 88.35,
+          "en": "The alternative is that you use something which in the past was named dynamic component loader.",
+          "zh": "替代做法是使用過去被稱為 dynamic component loader 的東西。"
+        },
+        {
+          "id": 20,
+          "start": 88.35,
+          "end": 94.28999999999999,
+          "en": "Now this was a helper utility that doesn't exist anymore or that you shouldn't use anymore but in the",
+          "zh": "它是一個現在已經不存在、或者說你不應該再使用的輔助工具，但"
+        },
+        {
+          "id": 21,
+          "start": 94.28999999999999,
+          "end": 101.85,
+          "en": "end, it's now about a general concept you could say of creating a component in code and then manually",
+          "zh": "說到底，現在講的是一個一般性的概念，可以說就是在程式碼中建立元件，然後手動"
+        },
+        {
+          "id": 22,
+          "start": 101.85,
+          "end": 102.99000000000001,
+          "en": "attaching it to the DOM.",
+          "zh": "把它附加到 DOM 上。"
+        },
+        {
+          "id": 23,
+          "start": 103.47,
+          "end": 110.82,
+          "en": "So there, you have to control, in your code by yourself, how that component is instantiated, that data is",
+          "zh": "所以在那種做法中，你必須自己在程式碼中控制元件如何被實例化、資料如何"
+        },
+        {
+          "id": 24,
+          "start": 110.82,
+          "end": 113.97999999999999,
+          "en": "passed into it and also that it is removed.",
+          "zh": "傳入，以及它如何被移除。"
+        },
+        {
+          "id": 25,
+          "start": 114.09,
+          "end": 116.39,
+          "en": "So everything ngIf does for you,",
+          "zh": "也就是 ngIf 替你做的所有事情，"
+        },
+        {
+          "id": 26,
+          "start": 116.43,
+          "end": 118.8,
+          "en": "you have to do on your own there. Still,",
+          "zh": "在那裡你都必須自己來。不過，"
+        },
+        {
+          "id": 27,
+          "start": 118.8,
+          "end": 120.98,
+          "en": "this approach can be useful,",
+          "zh": "這種做法仍然可能很有用，"
+        },
+        {
+          "id": 28,
+          "start": 120.98,
+          "end": 128.19,
+          "en": "it also of course allows you to control it entirely from code and you don't have to touch the template.",
+          "zh": "當然，它也讓你能完全從程式碼控制，而不必動到範本。"
+        },
+        {
+          "id": 29,
+          "start": 128.19,
+          "end": 133.44,
+          "en": "Sometimes you might not want to do that or you have no real way of adding the component to the template",
+          "zh": "有時候你可能不想動範本，或者你根本沒有辦法把元件加到範本中，"
+        },
+        {
+          "id": 30,
+          "start": 133.86,
+          "end": 136.59,
+          "en": "and therefore, this is also an interesting approach.",
+          "zh": "因此，這也是一種值得了解的做法。"
+        },
+        {
+          "id": 31,
+          "start": 136.59,
+          "end": 138.54,
+          "en": "Now we'll have a look at both here,",
+          "zh": "我們會在這裡看看這兩種做法，"
+        },
+        {
+          "id": 32,
+          "start": 138.57,
+          "end": 143.73,
+          "en": "we started with ngIf, let's finish it up with that approach before we then dive into creating",
+          "zh": "我們已經從 ngIf 開始了，先用那種做法完成，然後再深入探討"
+        },
+        {
+          "id": 33,
+          "start": 143.73,
+          "end": 146.4,
+          "en": "components and managing components from code.",
+          "zh": "如何從程式碼建立和管理元件。"
+        }
+      ]
+    },
+    {
+      "id": "14466466",
+      "title": "Using ngIf",
+      "lectureOrder": 637,
+      "videoOrder": 587,
+      "sourceHash": "10c06c45b6124482ee17ee1ca0107f18ceff29feadbc519ff59a5b8b545f8149",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.43,
+          "end": 4.38,
+          "en": "-: So we started with NGF",
+          "zh": "我們從 ngIf 開始，"
+        },
+        {
+          "id": 2,
+          "start": 4.38,
+          "end": 7.53,
+          "en": "and therefore at the moment our alert component here",
+          "zh": "因此目前這裡的 alert 元件"
+        },
+        {
+          "id": 3,
+          "start": 7.53,
+          "end": 10.29,
+          "en": "is simply included with its selector",
+          "zh": "只是藉由它的選擇器被引入，"
+        },
+        {
+          "id": 4,
+          "start": 10.29,
+          "end": 12.03,
+          "en": "and controlled with NGF.",
+          "zh": "並由 ngIf 控制。"
+        },
+        {
+          "id": 5,
+          "start": 12.03,
+          "end": 14.76,
+          "en": "Huge advantage of this is that we don't have to",
+          "zh": "這樣做的一大優點是，我們不必"
+        },
+        {
+          "id": 6,
+          "start": 14.76,
+          "end": 18.24,
+          "en": "manually create it and we also can pass data in",
+          "zh": "手動建立它，而且還可以把資料傳進去，"
+        },
+        {
+          "id": 7,
+          "start": 18.24,
+          "end": 21.06,
+          "en": "as we learn it here with property binding.",
+          "zh": "就像我們在這裡學到的，藉由屬性繫結。"
+        },
+        {
+          "id": 8,
+          "start": 21.06,
+          "end": 23.52,
+          "en": "It also means that listening to events",
+          "zh": "這也表示監聽事件"
+        },
+        {
+          "id": 9,
+          "start": 23.52,
+          "end": 26.52,
+          "en": "is super simple and straightforward.",
+          "zh": "非常簡單直接。"
+        },
+        {
+          "id": 10,
+          "start": 26.52,
+          "end": 29.79,
+          "en": "If we want to make sure we can also get rid of that alert",
+          "zh": "如果我們想確保也能關閉那個警示，"
+        },
+        {
+          "id": 11,
+          "start": 29.79,
+          "end": 30.9,
+          "en": "all we need to do",
+          "zh": "我們只需要"
+        },
+        {
+          "id": 12,
+          "start": 30.9,
+          "end": 33.69,
+          "en": "is we need to emit an event",
+          "zh": "發出一個事件，"
+        },
+        {
+          "id": 13,
+          "start": 33.69,
+          "end": 36.63,
+          "en": "and we make that event listenable from outside with the help",
+          "zh": "並藉由 @Output 讓外部能夠監聽這個事件，"
+        },
+        {
+          "id": 14,
+          "start": 36.63,
+          "end": 39.333,
+          "en": "of at output, which you import from at Anglo core.",
+          "zh": "它是從 @angular/core 匯入的。"
+        },
+        {
+          "id": 15,
+          "start": 40.89,
+          "end": 43.41,
+          "en": "And we could name this close",
+          "zh": "我們可以把它命名為 close，"
+        },
+        {
+          "id": 16,
+          "start": 43.41,
+          "end": 48.41,
+          "en": "and this will be or will hold a new event emitter",
+          "zh": "而它會存放一個新的 EventEmitter，"
+        },
+        {
+          "id": 17,
+          "start": 48.45,
+          "end": 51.3,
+          "en": "which we import also from at angle a core.",
+          "zh": "同樣是從 @angular/core 匯入的。"
+        },
+        {
+          "id": 18,
+          "start": 51.3,
+          "end": 55.437,
+          "en": "And that event emitter could now also transport some data.",
+          "zh": "那個 EventEmitter 現在也可以傳遞一些資料。"
+        },
+        {
+          "id": 19,
+          "start": 55.437,
+          "end": 58.56,
+          "en": "But here I'll actually add why as a type",
+          "zh": "不過在這裡，我其實會加上 void 作為型別，"
+        },
+        {
+          "id": 20,
+          "start": 58.56,
+          "end": 61.95,
+          "en": "because I won't emit any data. I'll just emit the hate.",
+          "zh": "因為我不會發出任何資料，只會發出一個「嘿，"
+        },
+        {
+          "id": 21,
+          "start": 61.95,
+          "end": 64.38,
+          "en": "This was closed event.",
+          "zh": "這被關閉了」的事件。"
+        },
+        {
+          "id": 22,
+          "start": 64.38,
+          "end": 66.693,
+          "en": "Now to emit this we need a method here,",
+          "zh": "要發出這個事件，我們需要在這裡加入一個方法，"
+        },
+        {
+          "id": 23,
+          "start": 67.59,
+          "end": 69.24,
+          "en": "for example, on close.",
+          "zh": "例如 onClose。"
+        },
+        {
+          "id": 24,
+          "start": 69.24,
+          "end": 71.97,
+          "en": "And now this will be triggered whenever a user",
+          "zh": "現在每當使用者點擊這個關閉按鈕"
+        },
+        {
+          "id": 25,
+          "start": 71.97,
+          "end": 74.91,
+          "en": "clicks this close button or the backdrop.",
+          "zh": "或背景遮罩時，就會觸發它。"
+        },
+        {
+          "id": 26,
+          "start": 74.91,
+          "end": 79.59,
+          "en": "So here we can register a click listener and fire on close.",
+          "zh": "所以在這裡，我們可以註冊一個點擊監聽器並觸發 onClose。"
+        },
+        {
+          "id": 27,
+          "start": 79.59,
+          "end": 81.75,
+          "en": "And we do the same when the backdrop is clicked",
+          "zh": "點擊背景遮罩時我們也做同樣的事，"
+        },
+        {
+          "id": 28,
+          "start": 81.75,
+          "end": 85.11,
+          "en": "let's say to dismiss the modal in that case as well.",
+          "zh": "比如說，在那種情況下也關閉這個對話框。"
+        },
+        {
+          "id": 29,
+          "start": 85.11,
+          "end": 87.87,
+          "en": "So both these things, the backdrop and this button",
+          "zh": "所以這兩者，也就是背景遮罩和這個按鈕，"
+        },
+        {
+          "id": 30,
+          "start": 87.87,
+          "end": 89.61,
+          "en": "will trigger on close.",
+          "zh": "都會觸發 onClose。"
+        },
+        {
+          "id": 31,
+          "start": 89.61,
+          "end": 93.99000000000001,
+          "en": "And in on close we can now simply use the close event",
+          "zh": "而在 onClose 中，我們現在只要使用"
+        },
+        {
+          "id": 32,
+          "start": 93.99000000000001,
+          "end": 97.11,
+          "en": "we created and manually emit it.",
+          "zh": "我們建立的 close 事件，並手動發出它。"
+        },
+        {
+          "id": 33,
+          "start": 97.11,
+          "end": 100.08,
+          "en": "Now this allows us to go back to the off component",
+          "zh": "這讓我們能回到 auth 元件，"
+        },
+        {
+          "id": 34,
+          "start": 100.08,
+          "end": 103.5,
+          "en": "and in there we can now listen to close.",
+          "zh": "在那裡我們現在可以監聽 close。"
+        },
+        {
+          "id": 35,
+          "start": 103.5,
+          "end": 106.09,
+          "en": "And here we can now call on",
+          "zh": "然後在這裡，我們可以呼叫"
+        },
+        {
+          "id": 36,
+          "start": 107.28,
+          "end": 111.12,
+          "en": "handle error, for example whatever you want to name it.",
+          "zh": "onHandleError，例如，或任何你想取的名稱。"
+        },
+        {
+          "id": 37,
+          "start": 111.12,
+          "end": 114.19,
+          "en": "This is a method we now have to add to the off component",
+          "zh": "這是一個我們現在必須加到 auth 元件中的方法，"
+        },
+        {
+          "id": 38,
+          "start": 115.59,
+          "end": 117.15,
+          "en": "maybe here.",
+          "zh": "也許就加在這裡。"
+        },
+        {
+          "id": 39,
+          "start": 117.15,
+          "end": 118.86,
+          "en": "And in on hand error.",
+          "zh": "而在 onHandleError 中，"
+        },
+        {
+          "id": 40,
+          "start": 118.86,
+          "end": 121.05,
+          "en": "I essentially just want to reset the error.",
+          "zh": "我基本上只想重設錯誤。"
+        },
+        {
+          "id": 41,
+          "start": 121.05,
+          "end": 123.78,
+          "en": "So I'll set error back to null.",
+          "zh": "所以我會把 error 設回 null。"
+        },
+        {
+          "id": 42,
+          "start": 123.78,
+          "end": 125.88,
+          "en": "And by doing that, the condition",
+          "zh": "這樣一來，顯示錯誤的條件"
+        },
+        {
+          "id": 43,
+          "start": 125.88,
+          "end": 128.04,
+          "en": "for displaying the error will be removed",
+          "zh": "就會被移除，"
+        },
+        {
+          "id": 44,
+          "start": 128.04,
+          "end": 130.11,
+          "en": "because we're using error here in NGF.",
+          "zh": "因為我們在這裡的 ngIf 中使用了 error。"
+        },
+        {
+          "id": 45,
+          "start": 130.11,
+          "end": 131.46,
+          "en": "And if that is null",
+          "zh": "而如果它是 null，"
+        },
+        {
+          "id": 46,
+          "start": 131.46,
+          "end": 134.1,
+          "en": "then this whole alert will not be shown anymore",
+          "zh": "整個警示就不會再顯示，"
+        },
+        {
+          "id": 47,
+          "start": 134.1,
+          "end": 136.89,
+          "en": "and therefore this will then close the alert.",
+          "zh": "因此這就會關閉警示。"
+        },
+        {
+          "id": 48,
+          "start": 136.89,
+          "end": 139.62,
+          "en": "So let's try this again. Let's enter invalid credentials.",
+          "zh": "我們再試一次。輸入無效的憑證。"
+        },
+        {
+          "id": 49,
+          "start": 139.62,
+          "end": 141.63,
+          "en": "Here is the alert.",
+          "zh": "警示出現在這裡。"
+        },
+        {
+          "id": 50,
+          "start": 141.63,
+          "end": 142.95,
+          "en": "If I click here,",
+          "zh": "如果我點擊這裡，"
+        },
+        {
+          "id": 51,
+          "start": 142.95,
+          "end": 143.91,
+          "en": "we get rid of it.",
+          "zh": "就把它關掉了。"
+        },
+        {
+          "id": 52,
+          "start": 143.91,
+          "end": 146.07,
+          "en": "If I now enter invalid credentials again",
+          "zh": "如果我現在再次輸入無效的憑證，"
+        },
+        {
+          "id": 53,
+          "start": 146.07,
+          "end": 148.86,
+          "en": "let's try the close button works too.",
+          "zh": "試試看，關閉按鈕也能運作。"
+        },
+        {
+          "id": 54,
+          "start": 148.86,
+          "end": 151.5,
+          "en": "So now this is the finished flow with NGF",
+          "zh": "這就是使用 ngIf 的完整流程，"
+        },
+        {
+          "id": 55,
+          "start": 151.5,
+          "end": 154.95,
+          "en": "and I strongly recommend using that flow.",
+          "zh": "而我強烈建議使用這個流程。"
+        },
+        {
+          "id": 56,
+          "start": 154.95,
+          "end": 159.36,
+          "en": "There are rarely situations where you absolutely need",
+          "zh": "你絕對需要使用命令式做法的情況很少見，"
+        },
+        {
+          "id": 57,
+          "start": 159.36,
+          "end": 162.72,
+          "en": "the imperative approach. You're all going to learn about.",
+          "zh": "不過你也會學到它。"
+        },
+        {
+          "id": 58,
+          "start": 162.72,
+          "end": 166.26,
+          "en": "Using this approach with NGF is so much easier",
+          "zh": "使用 ngIf 的這種做法容易得多，"
+        },
+        {
+          "id": 59,
+          "start": 166.26,
+          "end": 168.75,
+          "en": "and they offer really is an approach you should",
+          "zh": "當你遇到某個條件成立時"
+        },
+        {
+          "id": 60,
+          "start": 168.75,
+          "end": 171.72,
+          "en": "use when you have a scenario where you need to",
+          "zh": "需要動態顯示某個元件的情境時，"
+        },
+        {
+          "id": 61,
+          "start": 171.72,
+          "end": 176.46,
+          "en": "show some component dynamically when some condition is met.",
+          "zh": "它真的是你應該使用的做法。"
+        },
+        {
+          "id": 62,
+          "start": 176.46,
+          "end": 179.43,
+          "en": "Nonetheless, let's now see how we could create",
+          "zh": "儘管如此，我們現在來看看如何"
+        },
+        {
+          "id": 63,
+          "start": 179.43,
+          "end": 181.71,
+          "en": "that alert component entirely in code",
+          "zh": "完全在程式碼中建立那個 alert 元件，"
+        },
+        {
+          "id": 64,
+          "start": 181.71,
+          "end": 183.153,
+          "en": "and control it from there.",
+          "zh": "並從那裡控制它。"
+        }
+      ]
+    },
+    {
       "id": "14466468",
       "title": "Preparing Programmatic Creation",
       "lectureOrder": 638,
