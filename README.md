@@ -89,7 +89,7 @@ Firefox 完全關閉後暫用附加元件會移除；長期安裝需要 Mozilla 
 
 `course_queue.py` 處理 React 以外的 12 門課，依堂數由少到多排序：Remix 106 → Svelte 171 → NativeScript 217 → Ionic 242 → CSS 266 → React Native 275 → Flutter 286 → Vue 294 → Next.js 417 → NodeJS 479 → JavaScript 540 → Angular 701。這 12 門課合計 3,994 堂影片。各課堂數與進度一覽見 [課程字幕分類索引](data/courses/README.md)。
 
-Remix 已全部完成 106 堂（10,422 段）。Svelte 已全部完成 171 堂（10,409 段，含 3 堂音訊補件）。NativeScript 已驗證前 101 堂（7,064 段），剩餘 116 堂。Ionic 已全部完成 242 堂（13,917 段）。CSS 已驗證前 60 堂（3,079 段）。React Native 已驗證前 137 堂（17,598 段）。Flutter 已驗證前 40 堂（4,546 段）。Vue 已驗證前 150 堂（15,683 段）。Next.js 已驗證前 40 堂（4,311 段）。NodeJS 已驗證前 40 堂（2,700 段）。JavaScript 已驗證 90 堂（5,657 段）。Angular 已驗證前 46 堂（4,447 段）。下一輪從 Svelte 或堂數少的課程繼續。
+Remix 已全部完成 106 堂（10,422 段）。Svelte 已全部完成 171 堂（10,409 段，含 3 堂音訊補件）。NativeScript 已驗證前 101 堂（7,064 段），剩餘 116 堂。Ionic 已全部完成 242 堂（13,917 段）。CSS 已驗證前 60 堂（3,079 段）。React Native 已驗證前 137 堂（17,598 段）。Flutter 已驗證前 40 堂（4,546 段）。Vue 已驗證前 150 堂（15,683 段）。Next.js 已驗證前 40 堂（4,311 段）。NodeJS 已驗證前 40 堂（2,700 段）。JavaScript 已驗證 90 堂（5,657 段）。Angular 已驗證前 50 堂（4,903 段）。下一輪從 Svelte 或堂數少的課程繼續。
 
 - `python3 course_queue.py order`：列出課程順序與完成堂數。
 - `python3 course_queue.py next`：取得最小未完成課程的下一堂（`--course ID` 限定課程）。
@@ -108,6 +108,6 @@ Remix 已全部完成 106 堂（10,422 段）。Svelte 已全部完成 171 堂�
 
 `data/courses/1362070/translation-progress.json` 保留每堂英文檔、翻譯檔、驗證與匯入狀態。`translation_queue.py next` 取得下一堂；`verify` 核對完整結果，`imported` 必須附上實際觀察到的匯入證據。每完成一堂通知一次，可中斷後續接。詳細步驟見 `ONLINE-WORKFLOW.md`。
 
-使用者指定優先處理 React，每 25 堂自動提交備份至 [GitHub 儲存庫](https://github.com/goldshoot0720/Udemygpt)。React 已全部完成 678 堂（第 676-678 堂已提交；每 25 堂自動提交）。其他課程由堂數少的開始。Remix 106 堂已全部完成；Svelte 171 堂已全部完成；NativeScript 已驗證前 101 堂（7,064 段），剩餘 116 堂。Vue 已完成前 150 堂。Ionic 242 堂已全部完成；React Native 已完成前 137 堂；CSS 已完成前 60 堂；Flutter、Next.js 與 NodeJS 已完成前 40 堂；JavaScript 已完成 90 堂；Angular 已完成前 46 堂（4,447 段）。下一輪從 Svelte 或堂數少的課程繼續。
+使用者指定優先處理 React，每 25 堂自動提交備份至 [GitHub 儲存庫](https://github.com/goldshoot0720/Udemygpt)。React 已全部完成 678 堂（第 676-678 堂已提交；每 25 堂自動提交）。其他課程由堂數少的開始。Remix 106 堂已全部完成；Svelte 171 堂已全部完成；NativeScript 已驗證前 101 堂（7,064 段），剩餘 116 堂。Vue 已完成前 150 堂。Ionic 242 堂已全部完成；React Native 已完成前 137 堂；CSS 已完成前 60 堂；Flutter、Next.js 與 NodeJS 已完成前 40 堂；JavaScript 已完成 90 堂；Angular 已完成前 50 堂（4,903 段）。下一輪從 Svelte 或堂數少的課程繼續。
 
 參考：[Mozilla 暫時安裝](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)、[OpenCC JS](https://github.com/nk2028/opencc-js)、[ChatGPT 檔案處理](https://learn.chatgpt.com/docs/use-chatgpt)。
