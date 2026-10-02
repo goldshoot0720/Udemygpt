@@ -14388,6 +14388,4884 @@
           "zh": "但你理解這裡發生什麼超級關鍵。"
         }
       ]
+    },
+    {
+      "id": "11561908",
+      "title": "Node.js - Looking Behind the Scenes",
+      "lectureOrder": 37,
+      "videoOrder": 31,
+      "sourceHash": "f9990cddeecca35bf355bba1f19e2f75ac8083b54493e53aafd96c4fcc0343e3",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.18,
+          "end": 8.37,
+          "en": "Over the last lectures, I extensively mentioned how node works with asynchronous code",
+          "zh": "在上一堂，我大量提到 Node 怎麼使用非同步程式碼，"
+        },
+        {
+          "id": 2,
+          "start": 8.39,
+          "end": 11.61,
+          "en": "and i mentioned this event loop which is important.",
+          "zh": "而我提到這個事件迴圈，它很重要。"
+        },
+        {
+          "id": 3,
+          "start": 11.72,
+          "end": 16.07,
+          "en": "Let me dive deeper into that and deeper into how",
+          "zh": "讓我更深入那個，以及更深入"
+        },
+        {
+          "id": 4,
+          "start": 16.06,
+          "end": 24.38,
+          "en": "nodejs exactly executes your code to stay performant and still be able to handle long taking tasks",
+          "zh": "Node.js 到底怎麼執行你的程式碼，以保持效能，並仍然能處理耗時的工作，"
+        },
+        {
+          "id": 5,
+          "start": 24.56,
+          "end": 29.36,
+          "en": "like working with files or things like that because there is an important concept which you have to",
+          "zh": "像處理檔案或類似的事，因為有一個重要概念，你必須"
+        },
+        {
+          "id": 6,
+          "start": 29.36,
+          "end": 34.1,
+          "en": "understand to understand, well what is happening behind the scenes.",
+          "zh": "理解，才能理解幕後發生了什麼。"
+        },
+        {
+          "id": 7,
+          "start": 34.1,
+          "end": 37.25,
+          "en": "So in our node application we have our code",
+          "zh": "所以在我們的 Node 應用程式裡我們有我們的程式碼，"
+        },
+        {
+          "id": 8,
+          "start": 37.28,
+          "end": 44.42,
+          "en": "and one important thing to understand and to really keep in mind is that nodejs uses only one single",
+          "zh": "而要理解、也要真正記住的一件重要事是，Node.js 只使用一個"
+        },
+        {
+          "id": 9,
+          "start": 44.45,
+          "end": 46.1,
+          "en": "javascript thread,",
+          "zh": "JavaScript 執行緒，"
+        },
+        {
+          "id": 10,
+          "start": 46.46,
+          "end": 50.71,
+          "en": "a thread is basically like a process in your operating system you could say.",
+          "zh": "執行緒基本上像你作業系統裡的一個程序，你可以說。"
+        },
+        {
+          "id": 11,
+          "start": 50.9,
+          "end": 57.38,
+          "en": "So it's only using that one thread and the obvious question is how is it then able to handle multiple",
+          "zh": "所以它只使用那一個執行緒，而明顯的問題是，它那時怎麼能處理多個"
+        },
+        {
+          "id": 12,
+          "start": 57.38,
+          "end": 65.39,
+          "en": "requests because if we're not able to assign a new thread for each request, they ultimately end up all",
+          "zh": "請求，因為如果我們不能為每個請求指派一個新執行緒，它們最終全部"
+        },
+        {
+          "id": 13,
+          "start": 65.39,
+          "end": 67.39,
+          "en": "running in one on the same thread",
+          "zh": "在同一個執行緒上跑，"
+        },
+        {
+          "id": 14,
+          "start": 67.43,
+          "end": 70.31,
+          "en": "and this of course poses a security question,",
+          "zh": "而這當然提出一個安全性問題，"
+        },
+        {
+          "id": 15,
+          "start": 70.31,
+          "end": 77.99,
+          "en": "can you then access data from request A, from request B and most importantly here at this point when",
+          "zh": "你那時能從請求 A 存取請求 B 的資料嗎，而最重要的是，在這個時間點當"
+        },
+        {
+          "id": 16,
+          "start": 77.99,
+          "end": 83.93,
+          "en": "we talk about performance, there of course also is the question of does this not mean that if the",
+          "zh": "我們談效能，當然也有這個問題：這是不是表示如果"
+        },
+        {
+          "id": 17,
+          "start": 83.93,
+          "end": 90.48,
+          "en": "request A is still doing work, request B can't be handled? Well both is taken care of",
+          "zh": "請求 A 仍在做工作，請求 B 就不能被處理？嗯，兩者都被處理了，"
+        },
+        {
+          "id": 18,
+          "start": 90.5,
+          "end": 90.84,
+          "en": "nodejs",
+          "zh": "Node.js"
+        },
+        {
+          "id": 19,
+          "start": 90.89,
+          "end": 91.47,
+          "en": ".",
+          "zh": "。"
+        },
+        {
+          "id": 20,
+          "start": 91.55,
+          "end": 97.34,
+          "en": "and at this point of time here, I want to focus on the performance question though I'll also briefly",
+          "zh": "而在這裡這個時間點，我想聚焦在效能問題，不過我也會簡短"
+        },
+        {
+          "id": 21,
+          "start": 97.34,
+          "end": 99.15,
+          "en": "touch on the security question.",
+          "zh": "碰到安全性問題。"
+        },
+        {
+          "id": 22,
+          "start": 99.28999999999999,
+          "end": 101.50999999999999,
+          "en": "Now let's start with the performance.",
+          "zh": "現在讓我們從效能開始。"
+        },
+        {
+          "id": 23,
+          "start": 101.50999999999999,
+          "end": 109.1,
+          "en": "Let's say we have some code which accesses the file system as we already did in this course too. Now working",
+          "zh": "讓我們說我們有一些程式碼存取檔案系統，如我們在這門課程裡已經做過的。現在處理"
+        },
+        {
+          "id": 24,
+          "start": 109.1,
+          "end": 115.67,
+          "en": "with files often is a task that takes longer because files can be very big and it doesn't necessarily",
+          "zh": "檔案常常是耗時較久的工作，因為檔案可以非常大，而它不一定"
+        },
+        {
+          "id": 25,
+          "start": 115.67,
+          "end": 117.38,
+          "en": "complete instantly,",
+          "zh": "立刻完成，"
+        },
+        {
+          "id": 26,
+          "start": 117.62,
+          "end": 123.95,
+          "en": "therefore if we're doing this upon an incoming request, a second request might have to wait because we're",
+          "zh": "因此如果我們在一個進來的請求上做這個，第二個請求可能必須等待，因為我們"
+        },
+        {
+          "id": 27,
+          "start": 123.95,
+          "end": 127.07,
+          "en": "not able to handle it yet or it even gets declined,",
+          "zh": "還不能處理它，或它甚至被拒絕，"
+        },
+        {
+          "id": 28,
+          "start": 127.07,
+          "end": 131.27,
+          "en": "so basically our webpage is down for that user.",
+          "zh": "所以基本上我們的網頁對那個使用者是掛掉的。"
+        },
+        {
+          "id": 29,
+          "start": 131.27,
+          "end": 137.78,
+          "en": "Now one important construct I already mentioned is that event loop, the event loop is automatically started",
+          "zh": "現在我已經提過的一個重要構造是那個事件迴圈，事件迴圈被自動啟動，"
+        },
+        {
+          "id": 30,
+          "start": 137.78,
+          "end": 140.57999999999998,
+          "en": "by nodejs when your program starts,",
+          "zh": "由 Node.js，當你的程式開始時，"
+        },
+        {
+          "id": 31,
+          "start": 140.6,
+          "end": 142.82999999999998,
+          "en": "you don't have to do that explicitly,",
+          "zh": "你不必明確做那個，"
+        },
+        {
+          "id": 32,
+          "start": 142.88,
+          "end": 144.81,
+          "en": "nodejs does that when well",
+          "zh": "Node.js 在，嗯，"
+        },
+        {
+          "id": 33,
+          "start": 144.86,
+          "end": 147.38,
+          "en": "it basically starts running code.",
+          "zh": "它基本上開始跑程式碼時做那個。"
+        },
+        {
+          "id": 34,
+          "start": 147.62,
+          "end": 151.97,
+          "en": "This is responsible for handling event callbacks though,",
+          "zh": "不過這負責處理事件回呼，"
+        },
+        {
+          "id": 35,
+          "start": 152.09,
+          "end": 159.26,
+          "en": "so all these nice functions we basically added thus far in create server for example, the event loop",
+          "zh": "所以所有這些我們到目前基本上加的好函式，例如在 createServer 裡，事件迴圈"
+        },
+        {
+          "id": 36,
+          "start": 159.29,
+          "end": 165.82999999999998,
+          "en": "is responsible for basically running that code when a certain event occurs you could say, it's aware",
+          "zh": "負責在某個事件發生時基本上跑那段程式碼，你可以說，它知道"
+        },
+        {
+          "id": 37,
+          "start": 165.82999999999998,
+          "end": 172.52,
+          "en": "of all these callbacks and basically well, execute said code. That doesn't help us with our long taking",
+          "zh": "所有這些回呼，並基本上，嗯，執行所述的程式碼。那對我們耗時的"
+        },
+        {
+          "id": 38,
+          "start": 172.52,
+          "end": 179.32999999999998,
+          "en": "file operation though and it's important to understand that this operation is not handled by the event",
+          "zh": "檔案操作沒有幫助，而重要的是要理解這個操作不是由事件"
+        },
+        {
+          "id": 39,
+          "start": 179.32999999999998,
+          "end": 184.89,
+          "en": "loop, just the callback that we might have defined on write file",
+          "zh": "迴圈處理的，只有我們可能在 writeFile 上定義的回呼，"
+        },
+        {
+          "id": 40,
+          "start": 184.94,
+          "end": 191.15,
+          "en": "once it's done, that code will be handled in event loop but that code will finish fast,",
+          "zh": "一旦它完成，那段程式碼會在事件迴圈裡被處理，但那段程式碼會很快結束，"
+        },
+        {
+          "id": 41,
+          "start": 191.15,
+          "end": 197.95,
+          "en": "so basically the event loop will only handle callbacks that contain fast finishing code.",
+          "zh": "所以基本上事件迴圈只會處理包含快速結束程式碼的回呼。"
+        },
+        {
+          "id": 42,
+          "start": 198.71,
+          "end": 205.37,
+          "en": "Instead our file system operation and a couple of other long taking operations are sent to a worker",
+          "zh": "相反，我們的檔案系統操作，以及一些其他耗時操作，被送到一個工作者"
+        },
+        {
+          "id": 43,
+          "start": 205.4,
+          "end": 209.81,
+          "en": "pool which is also spun up and managed by nodejs automatically.",
+          "zh": "集區，它也由 Node.js 自動啟動並管理。"
+        },
+        {
+          "id": 44,
+          "start": 210.18,
+          "end": 214.45,
+          "en": "This worker pool is responsible for all the heavy lifting,",
+          "zh": "這個工作者集區負責所有繁重工作，"
+        },
+        {
+          "id": 45,
+          "start": 214.65,
+          "end": 222.45,
+          "en": "this worker pool is kind of totally detached of your javascript code you could say and it runs on different",
+          "zh": "這個工作者集區可以說和你的 JavaScript 程式碼完全分開，而它跑在不同的"
+        },
+        {
+          "id": 46,
+          "start": 222.45,
+          "end": 227.99,
+          "en": "threads, it can spin up multiple threads, it's closely intervened with your operating system you're",
+          "zh": "執行緒上，它可以啟動多個執行緒，它和你的作業系統密切交織，你"
+        },
+        {
+          "id": 47,
+          "start": 227.99,
+          "end": 229.2,
+          "en": "running the app on,",
+          "zh": "在上面跑 App 的，"
+        },
+        {
+          "id": 48,
+          "start": 229.22,
+          "end": 235.56,
+          "en": "so this is really detached from your code and this worker pool is therefore doing all the heavy lifting.",
+          "zh": "所以這真的和你的程式碼分開，而這個工作者集區因此做所有繁重工作。"
+        },
+        {
+          "id": 49,
+          "start": 235.64,
+          "end": 241.71,
+          "en": "If you're doing something with a file, well a worker from that pool will take care and will do its job",
+          "zh": "如果你在對檔案做某件事，嗯，那個集區裡的一個工作者會處理並做它的工作，"
+        },
+        {
+          "id": 50,
+          "start": 241.76,
+          "end": 249,
+          "en": "totally detached from your code and from the request and from the event loop. The one connection to the event loop",
+          "zh": "和你的程式碼、請求、以及事件迴圈完全分開。和事件迴圈的一個連接，"
+        },
+        {
+          "id": 51,
+          "start": 249.02,
+          "end": 251.36,
+          "en": "we will have though is that",
+          "zh": "我們會有的是，"
+        },
+        {
+          "id": 52,
+          "start": 251.39,
+          "end": 259.55,
+          "en": "once the worker is done, so for example once we read a file, it will trigger the callback for that read",
+          "zh": "一旦工作者完成，所以例如一旦我們讀一個檔案，它會觸發那個 read"
+        },
+        {
+          "id": 53,
+          "start": 259.55,
+          "end": 265.46,
+          "en": "file operation and since the event loop is responsible for the events and the callbacks, this will in",
+          "zh": "file 操作的回呼，而因為事件迴圈負責事件和回呼，這會"
+        },
+        {
+          "id": 54,
+          "start": 265.46,
+          "end": 268.1,
+          "en": "the end end up in the event loop,",
+          "zh": "最後進到事件迴圈，"
+        },
+        {
+          "id": 55,
+          "start": 268.1,
+          "end": 273.56,
+          "en": "so there nodejs will then basically execute the appropriate callback.",
+          "zh": "所以那裡 Node.js 接著會基本上執行適當的回呼。"
+        },
+        {
+          "id": 56,
+          "start": 273.56,
+          "end": 279.05,
+          "en": "Now this is a lot of behind the scenes stuff which is nice to know, you don't have to write any code",
+          "zh": "現在這是很多幕後的東西，知道它很好，你不必寫任何程式碼"
+        },
+        {
+          "id": 57,
+          "start": 279.35,
+          "end": 280.36,
+          "en": "to make this work,",
+          "zh": "來讓這個運作，"
+        },
+        {
+          "id": 58,
+          "start": 280.36,
+          "end": 282.62,
+          "en": "this is all built into nodejs",
+          "zh": "這全部內建在 Node.js 裡，"
+        },
+        {
+          "id": 59,
+          "start": 282.65,
+          "end": 287.81,
+          "en": "and if you write code as you learn it in this course, you automatically take advantage of this.",
+          "zh": "而如果你如你在這門課程學的那樣寫程式碼，你自動利用這個。"
+        },
+        {
+          "id": 60,
+          "start": 287.84000000000003,
+          "end": 293.21,
+          "en": "I still of course want you to understand how that works behind the scenes because I believe that helps",
+          "zh": "我當然仍然想要你理解那在幕後怎麼運作，因為我相信那幫"
+        },
+        {
+          "id": 61,
+          "start": 293.21,
+          "end": 294.1,
+          "en": "you understand",
+          "zh": "你理解"
+        },
+        {
+          "id": 62,
+          "start": 294.11,
+          "end": 296.06,
+          "en": "nodejs better.",
+          "zh": "Node.js 更好。"
+        },
+        {
+          "id": 63,
+          "start": 296.06,
+          "end": 297.61,
+          "en": "Now let's look into that event loop",
+          "zh": "現在讓我們看那個事件迴圈"
+        },
+        {
+          "id": 64,
+          "start": 297.62,
+          "end": 300.71,
+          "en": "then. That event loop is in the end",
+          "zh": "那麼。那個事件迴圈最後是"
+        },
+        {
+          "id": 65,
+          "start": 300.71,
+          "end": 307.57,
+          "en": "a loop which is run or started by nodejs that keeps the nodejs process running",
+          "zh": "一個迴圈，由 Node.js 跑或啟動，它讓 Node.js 程序保持執行，"
+        },
+        {
+          "id": 66,
+          "start": 307.65,
+          "end": 314.06,
+          "en": "and as I just mentioned, that handles all the callbacks and it has a certain order in which it goes through",
+          "zh": "而如我剛提到的，那處理所有回呼，而它有一定的順序，它走遍"
+        },
+        {
+          "id": 67,
+          "start": 314.16,
+          "end": 315.3,
+          "en": "the callbacks.",
+          "zh": "那些回呼。"
+        },
+        {
+          "id": 68,
+          "start": 315.69,
+          "end": 319.25,
+          "en": "So basically it's a loop that just well keeps on looping",
+          "zh": "所以基本上它是一個迴圈，嗯，一直繼續迴圈，"
+        },
+        {
+          "id": 69,
+          "start": 319.29,
+          "end": 325.65,
+          "en": "unsurprisingly, at the beginning of each new iteration it checks if there are any timer callbacks it",
+          "zh": "不意外地，在每次新迭代的開頭，它檢查是否有任何計時器回呼"
+        },
+        {
+          "id": 70,
+          "start": 325.65,
+          "end": 329.41,
+          "en": "should execute. We haven't set up any timers yet",
+          "zh": "它應該執行。我們還沒設定任何計時器，"
+        },
+        {
+          "id": 71,
+          "start": 329.59,
+          "end": 332.84000000000003,
+          "en": "but basically there is set timeout and set interval,",
+          "zh": "但基本上有 setTimeout 和 setInterval，"
+        },
+        {
+          "id": 72,
+          "start": 332.86,
+          "end": 339.76,
+          "en": "you might know this from frontend javascript too, there these methods also exist. Now in nodejs you can",
+          "zh": "你可能從前端 JavaScript 也知道這個，那裡這些方法也存在。現在在 Node.js 你也可以"
+        },
+        {
+          "id": 73,
+          "start": 339.76,
+          "end": 347.04,
+          "en": "also set a timer and basically you set a timer and always pass a method, a function that should be executed",
+          "zh": "設定一個計時器，而基本上你設定一個計時器，並總是傳一個方法、一個函式，應該被執行"
+        },
+        {
+          "id": 74,
+          "start": 347.08,
+          "end": 352.84000000000003,
+          "en": "once that timer completes and nodejs is aware of this and at the beginning of each new loop iteration,",
+          "zh": "一旦那個計時器完成，而 Node.js 知道這個，而在每次新迴圈迭代的開頭，"
+        },
+        {
+          "id": 75,
+          "start": 353.17,
+          "end": 356.02,
+          "en": "it executes any due timer callbacks,",
+          "zh": "它執行任何到期的計時器回呼，"
+        },
+        {
+          "id": 76,
+          "start": 356.02,
+          "end": 362.74,
+          "en": "so any callbacks that have to be executed because a timer completes. Then as a next step, it checks other",
+          "zh": "所以任何必須被執行的回呼，因為計時器完成。然後作為下一步，它檢查其他"
+        },
+        {
+          "id": 77,
+          "start": 362.74,
+          "end": 363.52,
+          "en": "callbacks,",
+          "zh": "回呼，"
+        },
+        {
+          "id": 78,
+          "start": 363.55,
+          "end": 370.24,
+          "en": "for example if we had write or read file, we might have a callback because that operation finished and",
+          "zh": "例如如果我們有 writeFile 或 readFile，我們可能有一個回呼，因為那個操作完成了，而"
+        },
+        {
+          "id": 79,
+          "start": 370.24,
+          "end": 373.6,
+          "en": "it will then also execute these callbacks.",
+          "zh": "它接著也會執行這些回呼。"
+        },
+        {
+          "id": 80,
+          "start": 373.63,
+          "end": 381.34,
+          "en": "Now be aware that with IO here, I mean generally any input output operations that typically is file",
+          "zh": "現在要注意，這裡用 I/O，我一般指任何輸入輸出操作，那通常是檔案"
+        },
+        {
+          "id": 81,
+          "start": 381.34,
+          "end": 387.37,
+          "en": "operations but can also be network operations and in general, I'm talking about blocking long taking",
+          "zh": "操作，但也可以是網路操作，而一般來說，我談的是阻塞的、耗時的"
+        },
+        {
+          "id": 82,
+          "start": 387.37,
+          "end": 388.73,
+          "en": "operations.",
+          "zh": "操作。"
+        },
+        {
+          "id": 83,
+          "start": 388.75,
+          "end": 394.54,
+          "en": "Now it's important to understand that nodejs will leave that phase at a certain point of time and that",
+          "zh": "現在重要的是要理解，Node.js 會在某個時間點離開那個階段，而那"
+        },
+        {
+          "id": 84,
+          "start": 394.54,
+          "end": 400.9,
+          "en": "can also mean that if there are too many outstanding callbacks, it will continue its loop iteration and",
+          "zh": "也可以表示如果有太多未完成的回呼，它會繼續它的迴圈迭代，並"
+        },
+        {
+          "id": 85,
+          "start": 400.9,
+          "end": 408.90999999999997,
+          "en": "postpone these callbacks to the next iteration to execute them. After working on these open callbacks",
+          "zh": "把這些回呼延到下一次迭代來執行它們。在處理這些未完成的回呼"
+        },
+        {
+          "id": 86,
+          "start": 408.94,
+          "end": 410.93,
+          "en": "and hopefully finishing them all,",
+          "zh": "並希望把它們全部做完之後，"
+        },
+        {
+          "id": 87,
+          "start": 410.98,
+          "end": 420.31,
+          "en": "it will enter a pull phase. The pull phase is basically a phase where nodejs will look for new IO events",
+          "zh": "它會進入一個 poll 階段。poll 階段基本上是一個階段，Node.js 會尋找新的 I/O 事件，"
+        },
+        {
+          "id": 88,
+          "start": 420.34,
+          "end": 427,
+          "en": "and basically do its best to execute their callbacks immediately if possible.",
+          "zh": "並基本上盡力立刻執行它們的回呼，如果可能。"
+        },
+        {
+          "id": 89,
+          "start": 427,
+          "end": 434.44,
+          "en": "Now if that's not possible, it will defer the execution and basically register this as a pending callback,",
+          "zh": "現在如果那不可能，它會延後執行，並基本上把這個註冊成一個待處理回呼，"
+        },
+        {
+          "id": 90,
+          "start": 434.47,
+          "end": 436.16,
+          "en": "so this is how that works.",
+          "zh": "所以這就是那個運作的方式。"
+        },
+        {
+          "id": 91,
+          "start": 437.22,
+          "end": 443.97,
+          "en": "Important, it also will check if there are any timer callbacks due to be executed",
+          "zh": "重要的是，它也會檢查是否有任何計時器回呼到期該被執行，"
+        },
+        {
+          "id": 92,
+          "start": 444.03,
+          "end": 449.01,
+          "en": "and if that is the case, it will jump to that timer phase and execute them right away,",
+          "zh": "而如果情況是那樣，它會跳到那個計時器階段並立刻執行它們，"
+        },
+        {
+          "id": 93,
+          "start": 449.07,
+          "end": 452.51,
+          "en": "so it can actually jump back there and not finish the iteration",
+          "zh": "所以它實際上可以跳回那裡，而不結束這次迭代，"
+        },
+        {
+          "id": 94,
+          "start": 452.64,
+          "end": 454.15,
+          "en": "otherwise it will continue",
+          "zh": "否則它會繼續，"
+        },
+        {
+          "id": 95,
+          "start": 454.35,
+          "end": 462.03,
+          "en": "and next set immediate callbacks will be executed in a so-called check phase. Set immediate is a bit like",
+          "zh": "而接下來 setImmediate 回呼會在所謂的 check 階段被執行。setImmediate 有點像"
+        },
+        {
+          "id": 96,
+          "start": 462.03,
+          "end": 470,
+          "en": "set timeout or set interval, just that it will execute immediately but always after any open callbacks",
+          "zh": "setTimeout 或 setInterval，只是它會立刻執行，但總是在任何未完成的回呼"
+        },
+        {
+          "id": 97,
+          "start": 470.07,
+          "end": 471.75,
+          "en": "have been executed,",
+          "zh": "被執行之後，"
+        },
+        {
+          "id": 98,
+          "start": 471.87,
+          "end": 478.14,
+          "en": "so typically faster than set timeout with one millisecond of open duration, let's say",
+          "zh": "所以通常比 setTimeout 帶一毫秒的開放時間更快，讓我們說，"
+        },
+        {
+          "id": 99,
+          "start": 478.23,
+          "end": 481.45,
+          "en": "but after the current cycle",
+          "zh": "但在目前這個循環"
+        },
+        {
+          "id": 100,
+          "start": 481.62,
+          "end": 486.75,
+          "en": "well finished or at least finished open callbacks that were due to be handled in that current iteration.",
+          "zh": "嗯，結束之後，或至少結束了在那次目前迭代裡到期該被處理的未完成回呼。"
+        },
+        {
+          "id": 101,
+          "start": 486.96,
+          "end": 489.77,
+          "en": "And now we're entering a highly theoretical terrain",
+          "zh": "而現在我們進入高度理論的領域，"
+        },
+        {
+          "id": 102,
+          "start": 489.9,
+          "end": 495.78,
+          "en": "and I don't want to dive too deep into that, though you will find a couple of resources that do dive",
+          "zh": "而我不想太深入那個，不過你會找到一些資源，確實更深入，"
+        },
+        {
+          "id": 103,
+          "start": 495.78,
+          "end": 501.6,
+          "en": "deeper at the end of this module in case you want to join the nodejs team and really dive super",
+          "zh": "在這個模組結尾，如果你想加入 Node.js 團隊並真的超"
+        },
+        {
+          "id": 104,
+          "start": 501.6,
+          "end": 503.27,
+          "en": "hardcore into this.",
+          "zh": "硬核地深入這個。"
+        },
+        {
+          "id": 105,
+          "start": 503.49,
+          "end": 510.51,
+          "en": "Now we're nearing the end of each iteration cycle and now nodejs will execute all close event callbacks,",
+          "zh": "現在我們接近每次迭代循環的結尾，而現在 Node.js 會執行所有 close 事件回呼，"
+        },
+        {
+          "id": 106,
+          "start": 510.51,
+          "end": 514.86,
+          "en": "so if you registered any close events and in our code, we haven't",
+          "zh": "所以如果你註冊了任何 close 事件，而在我們的程式碼裡，我們沒有，"
+        },
+        {
+          "id": 107,
+          "start": 514.92,
+          "end": 520.89,
+          "en": "but if you had any close events, this would be the point of time where nodejs executes their appropriate",
+          "zh": "但如果你有任何 close 事件，這會是那個時間點，Node.js 執行它們適當的"
+        },
+        {
+          "id": 108,
+          "start": 520.89,
+          "end": 521.94,
+          "en": "callbacks.",
+          "zh": "回呼。"
+        },
+        {
+          "id": 109,
+          "start": 522.12,
+          "end": 529.29,
+          "en": "So roughly spoken, we have timer callbacks, we then have any IO related callbacks and other event callbacks",
+          "zh": "所以粗略地說，我們有計時器回呼，然後我們有任何 I/O 相關回呼和其他事件回呼，"
+        },
+        {
+          "id": 110,
+          "start": 529.65,
+          "end": 533.47,
+          "en": "and set immediate followed by close event callbacks,",
+          "zh": "以及 setImmediate，接著是 close 事件回呼，"
+        },
+        {
+          "id": 111,
+          "start": 533.52,
+          "end": 538.83,
+          "en": "so close events are basically handled separately or their callbacks are handled separately we should",
+          "zh": "所以 close 事件基本上被分開處理，或它們的回呼被分開處理，我們應該"
+        },
+        {
+          "id": 112,
+          "start": 538.83,
+          "end": 549.75,
+          "en": "say. Well and then we might exit the whole nodejs program but only if there are no remaining event",
+          "zh": "說。嗯，然後我們可能結束整個 Node.js 程式，但只有在沒有剩餘的事件"
+        },
+        {
+          "id": 113,
+          "start": 549.84,
+          "end": 557.15,
+          "en": "handlers which are registered and that is what I mean with this refs equal null thing here. Internally",
+          "zh": "處理函式被註冊時，而那是我用這裡這個 refs 等於 null 的意思。在內部"
+        },
+        {
+          "id": 114,
+          "start": 557.18,
+          "end": 565.05,
+          "en": "nodejs keeps track of its open event listeners and it basically has a counter, references or refs",
+          "zh": "Node.js 追蹤它未完成的事件監聽器，而它基本上有一個計數器，references 或 refs，"
+        },
+        {
+          "id": 115,
+          "start": 565.26,
+          "end": 570,
+          "en": "which it increments by 1 for every new callback that is registered,",
+          "zh": "它對每個被註冊的新回呼加 1，"
+        },
+        {
+          "id": 116,
+          "start": 570,
+          "end": 572.76,
+          "en": "every new event listener that is registered",
+          "zh": "每個被註冊的新事件監聽器，"
+        },
+        {
+          "id": 117,
+          "start": 572.85,
+          "end": 575.63,
+          "en": "so every new future work that it has to do",
+          "zh": "所以每個它必須做的新未來工作，"
+        },
+        {
+          "id": 118,
+          "start": 575.63,
+          "end": 581.46,
+          "en": "you could say and it reduces that counter by 1 for every event listener that it doesn't need anymore,",
+          "zh": "你可以說，而它對每個它不再需要的事件監聽器把那個計數器減 1，"
+        },
+        {
+          "id": 119,
+          "start": 581.64,
+          "end": 587.28,
+          "en": "every callback it finished and since in a server environment",
+          "zh": "每個它完成的回呼，而因為在伺服器環境裡，"
+        },
+        {
+          "id": 120,
+          "start": 587.28,
+          "end": 593.37,
+          "en": "we create a server with create server and then listen to incoming requests with listen,",
+          "zh": "我們用 createServer 建立一個伺服器，然後用 listen 聽取進來的請求，"
+        },
+        {
+          "id": 121,
+          "start": 593.46,
+          "end": 599.82,
+          "en": "this is an event which never is finished by default and therefore, we always have at least one reference",
+          "zh": "這是一個預設永遠不會結束的事件，因此我們永遠至少有一個 reference，"
+        },
+        {
+          "id": 122,
+          "start": 600,
+          "end": 606.63,
+          "en": "and therefore we don't exit in a normal node web server program. We can call the exit function as you",
+          "zh": "因此我們在一般的 Node 網頁伺服器程式裡不會結束。我們可以呼叫 exit 函式，如你"
+        },
+        {
+          "id": 123,
+          "start": 606.63,
+          "end": 607.72,
+          "en": "already saw",
+          "zh": "已經看到的，"
+        },
+        {
+          "id": 124,
+          "start": 607.95,
+          "end": 614.07,
+          "en": "and if we do anything else like at the beginning of the course when we just used node to execute a file",
+          "zh": "而如果我們做任何其他事，像課程一開始我們只用 Node 執行一個檔案，"
+        },
+        {
+          "id": 125,
+          "start": 614.07,
+          "end": 621.27,
+          "en": "that did not listen to a web server or on a web server, then it also finishes eventually once its done",
+          "zh": "那個沒有在網頁伺服器上聽取的，那麼它最終也會結束，一旦它做完"
+        },
+        {
+          "id": 126,
+          "start": 621.36,
+          "end": 623.15,
+          "en": "with its work.",
+          "zh": "它的工作。"
+        },
+        {
+          "id": 127,
+          "start": 623.16,
+          "end": 625.34,
+          "en": "So this is how the event loop works",
+          "zh": "所以這就是事件迴圈運作的方式，"
+        },
+        {
+          "id": 128,
+          "start": 625.74,
+          "end": 634.11,
+          "en": "and this can be very theoretical, all these different phases typically don't matter to you, certainly",
+          "zh": "而這可以非常理論，所有這些不同階段通常對你不重要，當然"
+        },
+        {
+          "id": 129,
+          "start": 634.11,
+          "end": 636.65,
+          "en": "not when getting started with nodejs.",
+          "zh": "在開始使用 Node.js 時不是。"
+        },
+        {
+          "id": 130,
+          "start": 636.78,
+          "end": 640.93,
+          "en": "Now consult these advanced resources if you want to learn more,",
+          "zh": "現在如果你想學更多，查這些進階資源，"
+        },
+        {
+          "id": 131,
+          "start": 640.95,
+          "end": 648.66,
+          "en": "for now just be aware of that first picture I showed you, of how nodejs handles complex work, that",
+          "zh": "目前只要知道我給你看的第一張圖，Node.js 怎麼處理複雜工作，"
+        },
+        {
+          "id": 132,
+          "start": 648.66,
+          "end": 654.27,
+          "en": "there is this worker pool that takes care that your things are not getting blocked and that it therefore",
+          "zh": "有這個工作者集區負責讓你的事情不被阻塞，而它因此"
+        },
+        {
+          "id": 133,
+          "start": 654.27,
+          "end": 656.28,
+          "en": "stays performant.",
+          "zh": "保持效能。"
+        },
+        {
+          "id": 134,
+          "start": 656.28,
+          "end": 662.11,
+          "en": "Now I also touched on that security thing with that one javascript thread",
+          "zh": "現在我也碰到那個安全性的事，用那一個 JavaScript 執行緒，"
+        },
+        {
+          "id": 135,
+          "start": 662.35,
+          "end": 666.34,
+          "en": "and regarding that, we also got no problems by default,",
+          "zh": "而關於那個，我們預設也沒有問題，"
+        },
+        {
+          "id": 136,
+          "start": 666.48,
+          "end": 673.92,
+          "en": "though I will come back later to how we can manage global data and how we should manage it to ensure",
+          "zh": "不過我稍後會回到我們怎麼管理全域資料，以及我們該怎麼管理它，以確保"
+        },
+        {
+          "id": 137,
+          "start": 673.92,
+          "end": 679.05,
+          "en": "that we do not spoil data from request A to request B. By default",
+          "zh": "我們不把請求 A 的資料洩到請求 B。預設"
+        },
+        {
+          "id": 138,
+          "start": 679.05,
+          "end": 685.35,
+          "en": "we have some separation because remember that callback method in create server gets executed for every",
+          "zh": "我們有一些分離，因為記住 createServer 裡的那個回呼方法對每個"
+        },
+        {
+          "id": 139,
+          "start": 685.35,
+          "end": 691.08,
+          "en": "new incoming request and therefore this function only runs for that incoming request and anything we do",
+          "zh": "新進來的請求被執行，因此這個函式只為那個進來的請求跑，而我們對"
+        },
+        {
+          "id": 140,
+          "start": 691.08,
+          "end": 696.9,
+          "en": "to the request or response object there will not be exposed to our request or response objects because",
+          "zh": "那裡的 request 或 response 物件做的任何事，不會暴露給我們的 request 或 response 物件，因為"
+        },
+        {
+          "id": 141,
+          "start": 696.9,
+          "end": 702.1,
+          "en": "each function is only scoped to itself and not accessible by the other functions,",
+          "zh": "每個函式只限定在它自己，不能被其他函式存取，"
+        },
+        {
+          "id": 142,
+          "start": 702.12,
+          "end": 707.76,
+          "en": "so by default we have that separation due to how javascript works.",
+          "zh": "所以預設我們有那個分離，由於 JavaScript 運作的方式。"
+        },
+        {
+          "id": 143,
+          "start": 707.76,
+          "end": 710.13,
+          "en": "Now that was a big chunk of theory,",
+          "zh": "現在那是一大塊理論，"
+        },
+        {
+          "id": 144,
+          "start": 710.13,
+          "end": 715.2,
+          "en": "again not something you have to learn by heart but something where you should at least keep that big",
+          "zh": "再次，不是你必須背下來的東西，而是你至少該把那張大"
+        },
+        {
+          "id": 145,
+          "start": 715.2,
+          "end": 718.91,
+          "en": "picture in mind of how nodejs manages its work.",
+          "zh": "圖記在心裡的東西，Node.js 怎麼管理它的工作。"
+        }
+      ]
+    },
+    {
+      "id": "11561940",
+      "title": "Using the Node Modules System",
+      "lectureOrder": 38,
+      "videoOrder": 32,
+      "sourceHash": "5ea45a80e5978f74bcac89d5c28d78bc97606eafff3baaaadefff88208446430",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.18,
+          "end": 4.02,
+          "en": "So let's wrap this module up",
+          "zh": "所以讓我們把這個模組收尾，"
+        },
+        {
+          "id": 2,
+          "start": 4.04,
+          "end": 9.72,
+          "en": "and right before we finish, let's actually start wrapping it up by improving our code a little bit.",
+          "zh": "而就在我們結束之前，讓我們實際上開始收尾，藉由稍微改善我們的程式碼。"
+        },
+        {
+          "id": 3,
+          "start": 9.98,
+          "end": 16.22,
+          "en": "We've got all this code in this file and actually typically you write multiples or work with multiple",
+          "zh": "我們把所有這些程式碼放在這個檔案裡，而實際上你通常寫多個，或使用多個"
+        },
+        {
+          "id": 4,
+          "start": 16.22,
+          "end": 17.01,
+          "en": "files",
+          "zh": "檔案，"
+        },
+        {
+          "id": 5,
+          "start": 17.45,
+          "end": 23.88,
+          "en": "and why don't we create a new file that actually contains our routing logic,",
+          "zh": "而我們為什麼不建立一個新檔案，實際上包含我們的路由邏輯，"
+        },
+        {
+          "id": 6,
+          "start": 23.96,
+          "end": 27.59,
+          "en": "so the logic where we check the url and do different things.",
+          "zh": "所以我們檢查 URL 並做不同事情的邏輯。"
+        },
+        {
+          "id": 7,
+          "start": 27.89,
+          "end": 30.93,
+          "en": "So I'll create a new file here, routes.js,",
+          "zh": "所以我會在這裡建立一個新檔案，routes.js，"
+        },
+        {
+          "id": 8,
+          "start": 30.98,
+          "end": 35.67,
+          "en": "the name is up to you and I get this special icon by my IDE,",
+          "zh": "名稱由你決定，而我的 IDE 給我這個特殊圖示，"
+        },
+        {
+          "id": 9,
+          "start": 35.69,
+          "end": 37.34,
+          "en": "it is a normal javascript file,",
+          "zh": "它是一個一般的 JavaScript 檔案，"
+        },
+        {
+          "id": 10,
+          "start": 37.34,
+          "end": 38.71,
+          "en": "don't be confused.",
+          "zh": "不要困惑。"
+        },
+        {
+          "id": 11,
+          "start": 38.78,
+          "end": 45.83,
+          "en": "And in that file, I basically want to have my if statements here and my default response code,",
+          "zh": "而在那個檔案裡，我基本上想要我這裡的 if 陳述，以及我的預設回應程式碼，"
+        },
+        {
+          "id": 12,
+          "start": 46.07,
+          "end": 52.84,
+          "en": "so I'll cut all of that out of here so that this is a pretty lean file and move it into routes.js.",
+          "zh": "所以我會把那全部從這裡剪下，這樣這是一個相當精簡的檔案，並把它移進 routes.js。"
+        },
+        {
+          "id": 13,
+          "start": 52.85,
+          "end": 54.4,
+          "en": "Now this wouldn't work like that,",
+          "zh": "現在這樣不會有效，"
+        },
+        {
+          "id": 14,
+          "start": 54.41,
+          "end": 56.29,
+          "en": "let me say that, we'll have to tweak that",
+          "zh": "讓我說，我們必須調整那個，"
+        },
+        {
+          "id": 15,
+          "start": 56.66,
+          "end": 59.3,
+          "en": "but this is now the code moved over.",
+          "zh": "但這現在是移過去的程式碼。"
+        },
+        {
+          "id": 16,
+          "start": 59.6,
+          "end": 61.64,
+          "en": "I don't need the file system in",
+          "zh": "我不再需要檔案系統，在"
+        },
+        {
+          "id": 17,
+          "start": 61.65,
+          "end": 64.41,
+          "en": "app.js anymore so we can remove that import,",
+          "zh": "app.js 裡，所以我們可以移除那個匯入，"
+        },
+        {
+          "id": 18,
+          "start": 64.52,
+          "end": 70.13,
+          "en": "we do need http because we still use that there and we don't need the url and method here so let's",
+          "zh": "我們確實需要 http，因為我們仍在那裡使用它，而我們這裡不需要 url 和 method，所以讓我們"
+        },
+        {
+          "id": 19,
+          "start": 70.13,
+          "end": 72.57,
+          "en": "remove that, go over routes.js,",
+          "zh": "移除那個，到 routes.js，"
+        },
+        {
+          "id": 20,
+          "start": 72.65,
+          "end": 76.5,
+          "en": "add this fs imported on top",
+          "zh": "在頂端加上這個 fs 匯入，"
+        },
+        {
+          "id": 21,
+          "start": 76.67,
+          "end": 78.86,
+          "en": "and now start working with that.",
+          "zh": "並現在開始使用那個。"
+        },
+        {
+          "id": 22,
+          "start": 78.89,
+          "end": 81.71000000000001,
+          "en": "Now what do we need to do in this file?",
+          "zh": "現在我們在這個檔案裡需要做什麼？"
+        },
+        {
+          "id": 23,
+          "start": 81.71000000000001,
+          "end": 85.8,
+          "en": "We somehow need to be able to connect app.js to routes.js,",
+          "zh": "我們以某種方式需要能夠把 app.js 連到 routes.js，"
+        },
+        {
+          "id": 24,
+          "start": 85.82,
+          "end": 86.43,
+          "en": "right",
+          "zh": "對吧，"
+        },
+        {
+          "id": 25,
+          "start": 86.45,
+          "end": 91.43,
+          "en": "because we need to be able to send our incoming request to that file",
+          "zh": "因為我們需要能夠把我們進來的請求送到那個檔案，"
+        },
+        {
+          "id": 26,
+          "start": 91.46000000000001,
+          "end": 98.89,
+          "en": "so to say. And for that, let's create a new function, I'll name it",
+          "zh": "可以這麼說。而為此，讓我們建立一個新函式，我會把它命名為"
+        },
+        {
+          "id": 27,
+          "start": 100.2,
+          "end": 105.36,
+          "en": "request handler and we can either create a function like this,",
+          "zh": "requestHandler，而我們可以像這樣建立一個函式，"
+        },
+        {
+          "id": 28,
+          "start": 105.36,
+          "end": 111.45,
+          "en": "it should receive request and response as arguments, just as this function does because we'll effectively",
+          "zh": "它應該接收 request 和 response 當引數，就像這個函式，因為我們實際上會"
+        },
+        {
+          "id": 29,
+          "start": 111.45,
+          "end": 116.34,
+          "en": "replace that function or we use an ES6 function,",
+          "zh": "替換那個函式，或我們使用一個 ES6 函式，"
+        },
+        {
+          "id": 30,
+          "start": 116.34,
+          "end": 122.58,
+          "en": "storing it in a constant, request handler which looks like this. Bit of a strange syntax if you've never",
+          "zh": "把它存在一個常數裡，requestHandler，看起來像這樣。如果你從來"
+        },
+        {
+          "id": 31,
+          "start": 122.58,
+          "end": 128.09,
+          "en": "seen it before but we're essentially creating an anonymous arrow function which we store in a constant",
+          "zh": "沒看過，語法有點怪，但我們本質上建立一個匿名箭頭函式，我們把它存在一個常數裡，"
+        },
+        {
+          "id": 32,
+          "start": 128.16,
+          "end": 130.97,
+          "en": "and this therefore is the function name.",
+          "zh": "而這因此是函式名稱。"
+        },
+        {
+          "id": 33,
+          "start": 130.98,
+          "end": 138.36,
+          "en": "Now here we again receive request and response and in that function, we now move all that code because",
+          "zh": "現在這裡我們再次收到 request 和 response，而在那個函式裡，我們現在移動所有那段程式碼，因為"
+        },
+        {
+          "id": 34,
+          "start": 138.36,
+          "end": 141.32,
+          "en": "that code obviously uses the request and response object,",
+          "zh": "那段程式碼顯然使用 request 和 response 物件，"
+        },
+        {
+          "id": 35,
+          "start": 141.32999999999998,
+          "end": 147.69,
+          "en": "so we need to have them available as local variables and we do now because these arguments are now named",
+          "zh": "所以我們需要讓它們當區域變數可用，而我們現在有，因為這些引數現在被命名"
+        },
+        {
+          "id": 36,
+          "start": 147.72,
+          "end": 148.92000000000002,
+          "en": "this way.",
+          "zh": "成這樣。"
+        },
+        {
+          "id": 37,
+          "start": 148.92000000000002,
+          "end": 151.18,
+          "en": "We also use url and method,",
+          "zh": "我們也使用 url 和 method，"
+        },
+        {
+          "id": 38,
+          "start": 151.26,
+          "end": 159.51,
+          "en": "so we need to re-add these constants by getting that data out from the request, request url and request",
+          "zh": "所以我們需要重新加上這些常數，藉由從 request 取出那份資料，request.url 和 request"
+        },
+        {
+          "id": 39,
+          "start": 159.57,
+          "end": 167.44,
+          "en": "method and now we just need to export this handler. We're importing with this require syntax",
+          "zh": ".method，而現在我們只需要匯出這個 handler。我們用這個 require 語法匯入，"
+        },
+        {
+          "id": 40,
+          "start": 167.45,
+          "end": 170.75,
+          "en": "but how are we exporting in nodejs?",
+          "zh": "但我們在 Node.js 裡怎麼匯出？"
+        },
+        {
+          "id": 41,
+          "start": 170.88,
+          "end": 173.01,
+          "en": "There are two ways of exporting,",
+          "zh": "有兩種匯出方式，"
+        },
+        {
+          "id": 42,
+          "start": 173.09,
+          "end": 178.35,
+          "en": "the first one is to go at the bottom and add module.exports,",
+          "zh": "第一種是到底部，並加上 module.exports，"
+        },
+        {
+          "id": 43,
+          "start": 178.37,
+          "end": 186.5,
+          "en": "this is another keyword or object which is exposed globally to you by nodejs which has an exports",
+          "zh": "這是另一個關鍵字或物件，由 Node.js 全域暴露給你，它有一個 exports"
+        },
+        {
+          "id": 44,
+          "start": 186.74,
+          "end": 187.68,
+          "en": "property",
+          "zh": "屬性，"
+        },
+        {
+          "id": 45,
+          "start": 188,
+          "end": 192.55,
+          "en": "and we can assign a value to this, like our request handler,",
+          "zh": "而我們可以指派一個值給這個，像我們的 requestHandler，"
+        },
+        {
+          "id": 46,
+          "start": 192.56,
+          "end": 198.07999999999998,
+          "en": "so this constant which holds this function, it's now stored in module exports.",
+          "zh": "所以這個常數放著這個函式，它現在存在 module.exports 裡。"
+        },
+        {
+          "id": 47,
+          "start": 198.17000000000002,
+          "end": 203.74,
+          "en": "And since this is a global object exposed by node, node is actually able to work with this",
+          "zh": "而因為這是 Node 暴露的全域物件，Node 實際上能使用這個，"
+        },
+        {
+          "id": 48,
+          "start": 203.9,
+          "end": 212.45,
+          "en": "and we can now import from that routes.js file by requiring it and node will look for module exports",
+          "zh": "而我們現在可以從那個 routes.js 檔案匯入，藉由 require 它，而 Node 會尋找 module.exports，"
+        },
+        {
+          "id": 49,
+          "start": 212.45,
+          "end": 217.6,
+          "en": "and see if something was registered for this file here",
+          "zh": "並看是否有東西為這裡這個檔案被註冊，"
+        },
+        {
+          "id": 50,
+          "start": 217.64,
+          "end": 223.18,
+          "en": "and we do register something in module exports, the request handler and you can register anything here.",
+          "zh": "而我們確實在 module.exports 裡註冊某樣東西，requestHandler，而你可以在這裡註冊任何東西。"
+        },
+        {
+          "id": 51,
+          "start": 223.28,
+          "end": 228.6,
+          "en": "You can add a new javascript object with multiple key value pairs, whatever you need, here",
+          "zh": "你可以加一個新的 JavaScript 物件，有多個鍵值組，無論你需要什麼，這裡"
+        },
+        {
+          "id": 52,
+          "start": 228.62,
+          "end": 230.82999999999998,
+          "en": "I'll just register my function.",
+          "zh": "我只會註冊我的函式。"
+        },
+        {
+          "id": 53,
+          "start": 231.32,
+          "end": 238.25,
+          "en": "So now I can go back to app.js and import my routes, the name of that constant is up to you,",
+          "zh": "所以現在我可以回到 app.js 並匯入我的 routes，那個常數的名稱由你決定，"
+        },
+        {
+          "id": 54,
+          "start": 238.88,
+          "end": 240.72,
+          "en": "by requiring it",
+          "zh": "藉由 require 它，"
+        },
+        {
+          "id": 55,
+          "start": 240.74,
+          "end": 246.66,
+          "en": "and since this is now not a global module, we don't just type routes,",
+          "zh": "而因為這現在不是一個全域模組，我們不只打 routes，"
+        },
+        {
+          "id": 56,
+          "start": 246.86,
+          "end": 255.74,
+          "en": "instead we want to add a local path to it with ./ and you can omit .js because nodejs",
+          "zh": "相反我們想用 ./ 給它加一個本地路徑，而你可以省略 .js，因為 Node.js"
+        },
+        {
+          "id": 57,
+          "start": 255.74,
+          "end": 257.92,
+          "en": "will automatically attach this at the end.",
+          "zh": "會自動在結尾附上這個。"
+        },
+        {
+          "id": 58,
+          "start": 258.05,
+          "end": 259.24,
+          "en": "You can add it though",
+          "zh": "你可以加上它，"
+        },
+        {
+          "id": 59,
+          "start": 259.37,
+          "end": 260.86,
+          "en": "but I'll just type",
+          "zh": "但我只會打"
+        },
+        {
+          "id": 60,
+          "start": 260.89,
+          "end": 266.9,
+          "en": "./routes separated from the core modules to make it really clear that this is a custom",
+          "zh": "./routes，和核心模組分開，讓事情真的清楚這是一個自訂"
+        },
+        {
+          "id": 61,
+          "start": 266.9,
+          "end": 267.73,
+          "en": "file",
+          "zh": "檔案，"
+        },
+        {
+          "id": 62,
+          "start": 267.89,
+          "end": 271.36,
+          "en": "and now node will go ahead and look for a routes.js",
+          "zh": "而現在 Node 會去尋找一個 routes.js"
+        },
+        {
+          "id": 63,
+          "start": 271.41,
+          "end": 278.39,
+          "en": "file in the same folder as app.js which it will find and in that file, it will look for module",
+          "zh": "檔案，在和 app.js 同一個資料夾裡，它會找到，而在那個檔案裡，它會尋找 module"
+        },
+        {
+          "id": 64,
+          "start": 278.39,
+          "end": 281.46,
+          "en": "exports and see what's registered in there",
+          "zh": ".exports，並看那裡面註冊了什麼，"
+        },
+        {
+          "id": 65,
+          "start": 281.55,
+          "end": 286.25,
+          "en": "and now we export that request handler method and now we can use that,",
+          "zh": "而現在我們匯出那個 requestHandler 方法，而現在我們可以使用那個，"
+        },
+        {
+          "id": 66,
+          "start": 286.28,
+          "end": 291.89,
+          "en": "it will be stored in that routes because we assign whatever is exported from that file in that routes",
+          "zh": "它會被存在那個 routes 裡，因為我們把從那個檔案匯出的任何東西指派到那個 routes"
+        },
+        {
+          "id": 67,
+          "start": 291.89,
+          "end": 292.78,
+          "en": "constant,",
+          "zh": "常數裡，"
+        },
+        {
+          "id": 68,
+          "start": 293,
+          "end": 297.6,
+          "en": "so this routes constant will ultimately hold this function",
+          "zh": "所以這個 routes 常數最終會放著這個函式，"
+        },
+        {
+          "id": 69,
+          "start": 297.83,
+          "end": 301.25,
+          "en": "and now we can use that here as a handler,",
+          "zh": "而現在我們可以在這裡把它當 handler 使用，"
+        },
+        {
+          "id": 70,
+          "start": 301.38,
+          "end": 303.39,
+          "en": "routes. Don't execute it,",
+          "zh": "routes。不要執行它，"
+        },
+        {
+          "id": 71,
+          "start": 303.41,
+          "end": 311.3,
+          "en": "so no parentheses, just pass the name telling node hey please execute the function that's stored in",
+          "zh": "所以沒有括號，只傳名稱，告訴 Node，嘿，請執行存在"
+        },
+        {
+          "id": 72,
+          "start": 311.3,
+          "end": 313.56,
+          "en": "routes for incoming requests.",
+          "zh": "routes 裡的函式，給進來的請求。"
+        },
+        {
+          "id": 73,
+          "start": 314.56,
+          "end": 321.67,
+          "en": "And now if we save that and we restart the server and we reload this page, this is looking good",
+          "zh": "而現在如果我們存那個，並重新啟動伺服器，並重新載入這個頁面，這看起來不錯，"
+        },
+        {
+          "id": 74,
+          "start": 322.8,
+          "end": 324.24,
+          "en": "and this is also looking good,",
+          "zh": "而這也看起來不錯，"
+        },
+        {
+          "id": 75,
+          "start": 324.3,
+          "end": 328.32,
+          "en": "we should have tests stored in message.text and we do.",
+          "zh": "我們應該有測試存在 message.text 裡，而我們有。"
+        },
+        {
+          "id": 76,
+          "start": 328.62,
+          "end": 335.31,
+          "en": "So now we simply split our code over two files, having one file which is very lean that just spins",
+          "zh": "所以現在我們單純把程式碼拆到兩個檔案，有一個非常精簡的檔案，只是啟動"
+        },
+        {
+          "id": 77,
+          "start": 335.31,
+          "end": 336.19,
+          "en": "up the server",
+          "zh": "伺服器，"
+        },
+        {
+          "id": 78,
+          "start": 336.36,
+          "end": 338.04,
+          "en": "but and that's important,",
+          "zh": "但，而那很重要，"
+        },
+        {
+          "id": 79,
+          "start": 338.1,
+          "end": 345.09000000000003,
+          "en": "that also creates a connection to another file through that import and through that export where we",
+          "zh": "那也透過那個匯入、以及透過那個匯出，建立到另一個檔案的連接，我們在那裡"
+        },
+        {
+          "id": 80,
+          "start": 345.09000000000003,
+          "end": 349.48,
+          "en": "export our request handler function here.",
+          "zh": "匯出我們這裡的 requestHandler 函式。"
+        },
+        {
+          "id": 81,
+          "start": 349.59000000000003,
+          "end": 351.57,
+          "en": "This is how that works,",
+          "zh": "這就是那個運作的方式，"
+        },
+        {
+          "id": 82,
+          "start": 351.57,
+          "end": 358.86,
+          "en": "now one important note about nodes module system, the file content here is actually cached by node and",
+          "zh": "現在關於 Node 模組系統的一個重要注意，這裡的檔案內容實際上被 Node 快取，而"
+        },
+        {
+          "id": 83,
+          "start": 358.86,
+          "end": 360.97,
+          "en": "we can't edit it externally,",
+          "zh": "我們不能從外部編輯它，"
+        },
+        {
+          "id": 84,
+          "start": 361.05,
+          "end": 367.47,
+          "en": "so if we somehow would define routes as an object and we tried to add a new property on the fly here, this",
+          "zh": "所以如果我們以某種方式把 routes 定義成一個物件，並試著在這裡即時加一個新屬性，這"
+        },
+        {
+          "id": 85,
+          "start": 367.47,
+          "end": 370.34,
+          "en": "would not manipulate the original file,",
+          "zh": "不會改動原始檔案，"
+        },
+        {
+          "id": 86,
+          "start": 370.35,
+          "end": 374.14,
+          "en": "so this is basically logged, not accessible from outside,",
+          "zh": "所以這基本上被鎖住，從外面不可存取，"
+        },
+        {
+          "id": 87,
+          "start": 374.16,
+          "end": 378.82,
+          "en": "we can only export stuff that we can now read from outside. Though",
+          "zh": "我們只能匯出我們現在可以從外面讀的東西。不過"
+        },
+        {
+          "id": 88,
+          "start": 378.87,
+          "end": 384.12,
+          "en": "you could have functions which you export that start changing stuff inside of that file",
+          "zh": "你可以有你匯出的函式，開始改變那個檔案裡面的東西，"
+        },
+        {
+          "id": 89,
+          "start": 384.27,
+          "end": 386.54,
+          "en": "but let's not make that too complicated for now,",
+          "zh": "但現在讓我們不要把那個弄得太複雜，"
+        },
+        {
+          "id": 90,
+          "start": 386.55,
+          "end": 391.52,
+          "en": "we'll see all of that throughout the course obviously. For now we have that connection,",
+          "zh": "我們顯然會在整門課程裡看到那一切。目前我們有那個連接，"
+        },
+        {
+          "id": 91,
+          "start": 391.77,
+          "end": 396.65,
+          "en": "there's one other syntax you could use, instead of module exports,",
+          "zh": "還有另一種你可以使用的語法，而不是 module.exports，"
+        },
+        {
+          "id": 92,
+          "start": 396.72,
+          "end": 404.78,
+          "en": "sometimes you export many things and you could do that by having an object which has like the handler",
+          "zh": "有時你匯出很多東西，而你可以藉由有一個物件來做那個，它有像 handler"
+        },
+        {
+          "id": 93,
+          "start": 404.79,
+          "end": 407.93,
+          "en": "key and that is my request handler function",
+          "zh": "鍵，而那是我的 requestHandler 函式，"
+        },
+        {
+          "id": 94,
+          "start": 408.06,
+          "end": 415.93,
+          "en": "and then also it has some text key which is some hardcoded text",
+          "zh": "然後它也有某個 text 鍵，那是一些寫死的文字，"
+        },
+        {
+          "id": 95,
+          "start": 415.93,
+          "end": 422.5,
+          "en": "in this case, now we would export two things and that is how you can group that or separate these two",
+          "zh": "在這個情況，現在我們會匯出兩樣東西，而那是你可以把它們分組或分開這兩"
+        },
+        {
+          "id": 96,
+          "start": 422.5,
+          "end": 426.99,
+          "en": "things and still have one export being managed here which is the most you can have",
+          "zh": "樣東西的方式，並仍然有一個在這裡被管理的匯出，那是你最多能有的，"
+        },
+        {
+          "id": 97,
+          "start": 427.39,
+          "end": 431.94,
+          "en": "and now in app.js, routes would be that object and not that function.",
+          "zh": "而現在在 app.js，routes 會是那個物件，不是那個函式。"
+        },
+        {
+          "id": 98,
+          "start": 431.95,
+          "end": 436.72,
+          "en": "So here we would have to access the handler property,",
+          "zh": "所以這裡我們必須存取 handler 屬性，"
+        },
+        {
+          "id": 99,
+          "start": 436.72,
+          "end": 445.93,
+          "en": "so this property which holds the function reference we want to use and we could also simply output console",
+          "zh": "所以這個屬性放著我們想使用的函式參考，而我們也可以單純輸出 console"
+        },
+        {
+          "id": 100,
+          "start": 446.14,
+          "end": 448.84,
+          "en": "log routes some text here.",
+          "zh": ".log routes.someText，這裡。"
+        },
+        {
+          "id": 101,
+          "start": 448.93,
+          "end": 452.59000000000003,
+          "en": "So this is how we can have multiple exports in one file,",
+          "zh": "所以這是我們可以在一個檔案裡有多個匯出的方式，"
+        },
+        {
+          "id": 102,
+          "start": 452.59000000000003,
+          "end": 458.72,
+          "en": "now you see some hardcoded text here from this console log and we still have the same functionality",
+          "zh": "現在你從這個 console.log 看到一些寫死的文字，而我們仍然有和之前一樣的功能。"
+        },
+        {
+          "id": 103,
+          "start": 458.72,
+          "end": 459.65999999999997,
+          "en": "as before.",
+          "zh": "如之前。"
+        },
+        {
+          "id": 104,
+          "start": 460.76,
+          "end": 463.83,
+          "en": "Now there also is a different way of exporting multiple things,",
+          "zh": "現在也有一種不同的方式匯出多個東西，"
+        },
+        {
+          "id": 105,
+          "start": 464.03,
+          "end": 472.1,
+          "en": "besides this code which you can of course use, you can also have module.exports.handler request",
+          "zh": "除了這段你當然可以使用的程式碼，你也可以有 module.exports.handler = request"
+        },
+        {
+          "id": 106,
+          "start": 472.1,
+          "end": 482.23,
+          "en": "handler and then also module.exports. some text, some hardcoded text.",
+          "zh": "Handler，然後也有 module.exports. someText，一些寫死的文字。"
+        },
+        {
+          "id": 107,
+          "start": 482.23,
+          "end": 485.55,
+          "en": "Now it might look different but we still only have one export,",
+          "zh": "現在它可能看起來不同，但我們仍然只有一個匯出，"
+        },
+        {
+          "id": 108,
+          "start": 485.56,
+          "end": 492.49,
+          "en": "we still have module exports which bundles all the exports but we explicitly assigned the different properties",
+          "zh": "我們仍然有 module.exports，它把所有匯出捆在一起，但我們明確指派了不同的屬性，"
+        },
+        {
+          "id": 109,
+          "start": 492.49,
+          "end": 493.18,
+          "en": "like this,",
+          "zh": "像這樣，"
+        },
+        {
+          "id": 110,
+          "start": 493.18,
+          "end": 495.99,
+          "en": "so this is basically equivalent to this code.",
+          "zh": "所以這基本上等同於這段程式碼。"
+        },
+        {
+          "id": 111,
+          "start": 496.27,
+          "end": 504.78,
+          "en": "If I now save this and restart my server, we see some hardcoded text and if I submit this, it also",
+          "zh": "如果我現在存這個並重新啟動我的伺服器，我們看到一些寫死的文字，而如果我提交這個，它也"
+        },
+        {
+          "id": 112,
+          "start": 504.87,
+          "end": 506.17,
+          "en": "still works.",
+          "zh": "仍然有效。"
+        },
+        {
+          "id": 113,
+          "start": 506.17,
+          "end": 509.47,
+          "en": "Last but not least, there is a shortcut for this syntax,",
+          "zh": "最後，這個語法有一個捷徑，"
+        },
+        {
+          "id": 114,
+          "start": 509.49,
+          "end": 512.82,
+          "en": "you can now omit module and just write exports,",
+          "zh": "你現在可以省略 module，只寫 exports，"
+        },
+        {
+          "id": 115,
+          "start": 512.85,
+          "end": 517.76,
+          "en": "this is simply a shortcut supported by nodejs, not some general javascript magic,",
+          "zh": "這單純是 Node.js 支援的捷徑，不是某種一般的 JavaScript 魔法，"
+        },
+        {
+          "id": 116,
+          "start": 517.76,
+          "end": 525.69,
+          "en": "it's just an explicit shortcut supported by nodejs where now we also have multiple exports being merged",
+          "zh": "它只是 Node.js 支援的明確捷徑，現在我們也有多個匯出被合併"
+        },
+        {
+          "id": 117,
+          "start": 525.69,
+          "end": 527.79,
+          "en": "together into one export,",
+          "zh": "在一起成一個匯出，"
+        },
+        {
+          "id": 118,
+          "start": 527.82,
+          "end": 529.88,
+          "en": "so therefore again when I execute this,",
+          "zh": "所以因此當我再次執行這個，"
+        },
+        {
+          "id": 119,
+          "start": 529.89,
+          "end": 541.02,
+          "en": "we see some hardcoded text and some last value being submitted here still works and still ends up in",
+          "zh": "我們看到一些寫死的文字，而某個最後的值在這裡被提交，仍然有效，並仍然進到"
+        },
+        {
+          "id": 120,
+          "start": 541.02,
+          "end": 542.82,
+          "en": "message.text.",
+          "zh": "message.text。"
+        },
+        {
+          "id": 121,
+          "start": 542.85,
+          "end": 550.15,
+          "en": "So this is how we can connect multiple files by exporting either one element, one function as we had",
+          "zh": "所以這是我們可以連接多個檔案的方式，藉由匯出一個元素、一個函式，如我們"
+        },
+        {
+          "id": 122,
+          "start": 550.16,
+          "end": 555.46,
+          "en": "it initially with module.exports equals request handler,",
+          "zh": "最初有的，用 module.exports 等於 requestHandler，"
+        },
+        {
+          "id": 123,
+          "start": 555.72,
+          "end": 556.05,
+          "en": "right",
+          "zh": "對吧，"
+        },
+        {
+          "id": 124,
+          "start": 556.05,
+          "end": 557.86,
+          "en": "this is what we had initially,",
+          "zh": "這是我們最初有的，"
+        },
+        {
+          "id": 125,
+          "start": 557.91,
+          "end": 565.53,
+          "en": "let me comment this out with two slashes in front of it or module exports pointing at an object to combine",
+          "zh": "讓我用前面兩條斜線把這個註解掉，或 module.exports 指向一個物件，來組合"
+        },
+        {
+          "id": 126,
+          "start": 565.53,
+          "end": 577.05,
+          "en": "multiple things or using module.exports.handler equals request handler and module.exports.",
+          "zh": "多個東西，或使用 module.exports.handler 等於 requestHandler，以及 module.exports."
+        },
+        {
+          "id": 127,
+          "start": 577.05,
+          "end": 582.67,
+          "en": "some text equal some text or again,",
+          "zh": "someText 等於 someText，或再次，"
+        },
+        {
+          "id": 128,
+          "start": 586.16,
+          "end": 591.74,
+          "en": "this shortcut which is the same as this, just with this shortcut offered by nodejs.",
+          "zh": "這個捷徑，它和這個一樣，只是用 Node.js 提供的這個捷徑。"
+        },
+        {
+          "id": 129,
+          "start": 591.78,
+          "end": 596.79,
+          "en": "So this is how imports and exports work, how the module system works and we'll work with a lot of files",
+          "zh": "所以這是 import 和 export 怎麼運作、模組系統怎麼運作，而我們會使用很多檔案，"
+        },
+        {
+          "id": 130,
+          "start": 596.79,
+          "end": 597.48,
+          "en": "throughout the course",
+          "zh": "在整門課程裡，"
+        },
+        {
+          "id": 131,
+          "start": 597.47,
+          "end": 599.87,
+          "en": "so this is important to understand.",
+          "zh": "所以理解這個很重要。"
+        },
+        {
+          "id": 132,
+          "start": 600.05,
+          "end": 603.72,
+          "en": "With that out of the way, let's now finally wrap this module up.",
+          "zh": "那個處理完之後，讓我們現在終於把這個模組收尾。"
+        }
+      ]
+    },
+    {
+      "id": "11561942",
+      "title": "Wrap Up",
+      "lectureOrder": 39,
+      "videoOrder": 33,
+      "sourceHash": "beee9e6d41d8d0bffbe8fe195b9db4ece7180bc4176df3340b225431e50a24fe",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.18,
+          "end": 3.98,
+          "en": "So let's sum this module up",
+          "zh": "所以讓我們把這個模組總結一下，"
+        },
+        {
+          "id": 2,
+          "start": 3.99,
+          "end": 4.7,
+          "en": "now.",
+          "zh": "現在。"
+        },
+        {
+          "id": 3,
+          "start": 4.86,
+          "end": 10.95,
+          "en": "First of all we had a brief refresher on how the web works and in general, it looks like this, client",
+          "zh": "首先我們簡短複習了網頁怎麼運作，而一般來說，它看起來像這樣，用戶端，"
+        },
+        {
+          "id": 4,
+          "start": 11.03,
+          "end": 17.1,
+          "en": "so the browser sends a request to the server, the server does some magic, reaches out to a database, works",
+          "zh": "所以瀏覽器送一個請求到伺服器，伺服器做一些魔法，連到資料庫，處理"
+        },
+        {
+          "id": 5,
+          "start": 17.1,
+          "end": 20.21,
+          "en": "with files, sends back a response, can be",
+          "zh": "檔案，送回一個回應，可以是"
+        },
+        {
+          "id": 6,
+          "start": 20.22,
+          "end": 25.2,
+          "en": "html, can be something different and sends it back to the client, the browser which then can display",
+          "zh": "HTML，可以是別的東西，並把它送回用戶端，瀏覽器接著可以顯示"
+        },
+        {
+          "id": 7,
+          "start": 25.21,
+          "end": 25.52,
+          "en": "that",
+          "zh": "那個，"
+        },
+        {
+          "id": 8,
+          "start": 25.56,
+          "end": 29.26,
+          "en": "and that is the entire flow we also saw in this module.",
+          "zh": "而那是我們在這個模組也看到的整個流程。"
+        },
+        {
+          "id": 9,
+          "start": 29.4,
+          "end": 32.15,
+          "en": "Now nodejs is the part that runs on the server",
+          "zh": "現在 Node.js 是跑在伺服器上的那部分，"
+        },
+        {
+          "id": 10,
+          "start": 32.49,
+          "end": 38.98,
+          "en": "and regarding its lifecycle, there is one important concept and that is that so-called event loop.",
+          "zh": "而關於它的生命週期，有一個重要概念，那就是所謂的事件迴圈。"
+        },
+        {
+          "id": 11,
+          "start": 39.54,
+          "end": 46.5,
+          "en": "Nodejs code runs in a non-blocking way which means we only register a bunch of callbacks and events",
+          "zh": "Node.js 程式碼以非阻塞的方式跑，意思是我們只註冊一堆回呼和事件，"
+        },
+        {
+          "id": 12,
+          "start": 46.53,
+          "end": 49.79,
+          "en": "and nodejs will eventually trigger that code",
+          "zh": "而 Node.js 最終會觸發那段程式碼，"
+        },
+        {
+          "id": 13,
+          "start": 49.89,
+          "end": 57.51,
+          "en": "once a certain task is done, so that the javascript threat is always free to handle new events, new incoming",
+          "zh": "一旦某個工作完成，這樣 JavaScript 執行緒永遠有空處理新事件、新進來的"
+        },
+        {
+          "id": 14,
+          "start": 57.51,
+          "end": 63.36,
+          "en": "requests and stuff like that. And node program can exit if there is no more work to do",
+          "zh": "請求，以及類似的事。而 Node 程式可以結束，如果沒有更多工作要做，"
+        },
+        {
+          "id": 15,
+          "start": 63.48,
+          "end": 70.47,
+          "en": "but on a server, this well should at least never happen because create server registers an event listener",
+          "zh": "但在伺服器上，這嗯，至少不該發生，因為 createServer 註冊一個事件監聽器，"
+        },
+        {
+          "id": 16,
+          "start": 70.47,
+          "end": 72.74,
+          "en": "for an event which is never done,",
+          "zh": "給一個永遠不會完成的事件，"
+        },
+        {
+          "id": 17,
+          "start": 72.75,
+          "end": 79.32,
+          "en": "if a new event is triggered, so if a new request is received, this does not mean that node unregisters the event",
+          "zh": "如果一個新事件被觸發，所以如果收到一個新請求，這不表示 Node 取消註冊事件"
+        },
+        {
+          "id": 18,
+          "start": 79.32,
+          "end": 79.93,
+          "en": "listener",
+          "zh": "監聽器，"
+        },
+        {
+          "id": 19,
+          "start": 80.03999999999999,
+          "end": 85.58,
+          "en": "instead we keep on listening for more requests and that is of course how a server should behave.",
+          "zh": "相反我們繼續聽取更多請求，而那當然是伺服器該有的行為。"
+        },
+        {
+          "id": 20,
+          "start": 85.86,
+          "end": 91.2,
+          "en": "So it's this cycle that's important to understand and that we have this loop which always keeps on going,",
+          "zh": "所以要理解的是這個循環，而我們有這個迴圈，它一直繼續，"
+        },
+        {
+          "id": 21,
+          "start": 91.2,
+          "end": 97.47,
+          "en": "keeps on waiting for new events and which does something when some event happens and then basically",
+          "zh": "繼續等待新事件，而當某個事件發生時它做某件事，然後基本上"
+        },
+        {
+          "id": 22,
+          "start": 97.47,
+          "end": 102.99000000000001,
+          "en": "dispatches some actions to the operating system you could say for example",
+          "zh": "把一些動作派給作業系統，你可以說，例如，"
+        },
+        {
+          "id": 23,
+          "start": 102.99000000000001,
+          "end": 106.38,
+          "en": "and then again frees up the threat.",
+          "zh": "然後再次把執行緒空出來。"
+        },
+        {
+          "id": 24,
+          "start": 106.39,
+          "end": 113.07,
+          "en": "Now this also involves a lot of asynchronous code which we saw with all the callbacks. The javascript",
+          "zh": "現在這也涉及很多非同步程式碼，我們用所有那些回呼看到的。JavaScript"
+        },
+        {
+          "id": 25,
+          "start": 113.07,
+          "end": 114.93,
+          "en": "code should be non-blocking,",
+          "zh": "程式碼應該是非阻塞的，"
+        },
+        {
+          "id": 26,
+          "start": 114.96000000000001,
+          "end": 121.92,
+          "en": "so we have this callback and event driven approach where we are able to register some code to be executed",
+          "zh": "所以我們有這個回呼和事件驅動的做法，我們能註冊一些程式碼，在"
+        },
+        {
+          "id": 27,
+          "start": 122.01,
+          "end": 128.64,
+          "en": "in the future instead of running right away and blocking the main threat because this has to be avoided",
+          "zh": "未來被執行，而不是立刻跑並阻塞主執行緒，因為這必須被避免，"
+        },
+        {
+          "id": 28,
+          "start": 128.73,
+          "end": 136.23,
+          "en": "under all circumstances and nodejs is built around that concept of avoiding this issue.",
+          "zh": "在所有情況下，而 Node.js 是圍繞避免這個問題的概念建立的。"
+        },
+        {
+          "id": 29,
+          "start": 136.23,
+          "end": 139.28,
+          "en": "We also saw how to work with requests and responses",
+          "zh": "我們也看到怎麼處理請求和回應，"
+        },
+        {
+          "id": 30,
+          "start": 139.32999999999998,
+          "end": 148.43,
+          "en": "the nodejs way. We saw that we have to parse the requests data which arrives in chunks and that we can use this",
+          "zh": "Node.js 的方式。我們看到我們必須解析請求資料，它以區塊到達，而我們可以使用這個"
+        },
+        {
+          "id": 31,
+          "start": 148.44,
+          "end": 154.98,
+          "en": "concept of streams and buffers which I explained and that we should avoid sending double responses",
+          "zh": "串流和緩衝區的概念，我解釋過的，而我們應該避免送出雙重回應，"
+        },
+        {
+          "id": 32,
+          "start": 155.13,
+          "end": 156.75,
+          "en": "so that after res",
+          "zh": "所以在 res"
+        },
+        {
+          "id": 33,
+          "start": 156.87,
+          "end": 164.73,
+          "en": "end, you must not send another response and this can happen easily if you forget about that asynchronous nature",
+          "zh": ".end 之後，你不可以再送另一個回應，而這很容易發生，如果你忘了那個非同步本質，"
+        },
+        {
+          "id": 34,
+          "start": 164.97,
+          "end": 169.06,
+          "en": "and that a line of code you write might not execute immediately.",
+          "zh": "以及你寫的一行程式碼可能不會立刻執行。"
+        },
+        {
+          "id": 35,
+          "start": 169.2,
+          "end": 174.49,
+          "en": "So depending on where you write it, if it's in an event listener, it will not execute immediately.",
+          "zh": "所以取決於你在哪裡寫它，如果它在一個事件監聽器裡，它不會立刻執行。"
+        },
+        {
+          "id": 36,
+          "start": 174.51,
+          "end": 175.34,
+          "en": "That is what I mean",
+          "zh": "那是我的意思，"
+        },
+        {
+          "id": 37,
+          "start": 175.38,
+          "end": 182.34,
+          "en": "and that is what is important to keep in mind here. We also learn that nodejs is all about using it's",
+          "zh": "而那是這裡要記住的重要事。我們也學到 Node.js 全是關於使用它的"
+        },
+        {
+          "id": 38,
+          "start": 182.61,
+          "end": 184.44,
+          "en": "built in functionalities",
+          "zh": "內建功能，"
+        },
+        {
+          "id": 39,
+          "start": 184.65,
+          "end": 191.4,
+          "en": "and whilst there are some global variables or objects or functions we can use, this also means that we",
+          "zh": "而雖然有一些全域變數或物件或函式我們可以使用，這也表示我們"
+        },
+        {
+          "id": 40,
+          "start": 191.4,
+          "end": 198.74,
+          "en": "should use its core modules. Core modules are things like the http, the fs or the path module,",
+          "zh": "應該使用它的核心模組。核心模組是像 http、fs 或 path 模組這樣的東西，"
+        },
+        {
+          "id": 41,
+          "start": 198.81,
+          "end": 204.87,
+          "en": "there are more and you can learn all about them in the official nodejs docs of course, we'll also use",
+          "zh": "還有更多，而你當然可以在官方 Node.js 文件裡學關於它們的一切，我們也會"
+        },
+        {
+          "id": 42,
+          "start": 204.87,
+          "end": 210.96,
+          "en": "quite a lot of them throughout this course and these core modules give us a couple of different functionalities",
+          "zh": "在這整門課程裡使用相當多，而這些核心模組給我們一些不同功能，"
+        },
+        {
+          "id": 43,
+          "start": 211.29,
+          "end": 218.67000000000002,
+          "en": "that allow us to basically do whatever we ever could want to do on a server like create a new server",
+          "zh": "讓我們基本上能做我們在伺服器上可能想做的任何事，像建立一個新伺服器，"
+        },
+        {
+          "id": 44,
+          "start": 218.7,
+          "end": 221.62,
+          "en": "with the help of the http module. They're",
+          "zh": "藉助 http 模組。它們"
+        },
+        {
+          "id": 45,
+          "start": 221.64,
+          "end": 225.42000000000002,
+          "en": "imported via the require syntax",
+          "zh": "透過 require 語法被匯入，"
+        },
+        {
+          "id": 46,
+          "start": 225.63,
+          "end": 228.72,
+          "en": "and we can only use them in the file into which we import them",
+          "zh": "而我們只能在我們把它們匯入的那個檔案裡使用它們，"
+        },
+        {
+          "id": 47,
+          "start": 228.75,
+          "end": 234.46,
+          "en": "and if we want to use them in two different files, we have to import them in both files separately.",
+          "zh": "而如果我們想在兩個不同檔案裡使用它們，我們必須在兩個檔案裡分開匯入它們。"
+        },
+        {
+          "id": 48,
+          "start": 234.48,
+          "end": 240.46,
+          "en": "Now that leads us to the node module system and this basically works with the help of this require",
+          "zh": "現在那把我們帶到 Node 模組系統，而這基本上藉助這個 require"
+        },
+        {
+          "id": 49,
+          "start": 240.51,
+          "end": 245.26,
+          "en": "keyword which pulls some functionality from one of our files",
+          "zh": "關鍵字運作，它從我們的某個檔案拉出一些功能，"
+        },
+        {
+          "id": 50,
+          "start": 245.28,
+          "end": 253.2,
+          "en": "if we start with slash or ./ or from a core or third party module, we haven't used any third party",
+          "zh": "如果我們以 / 或 ./ 開頭，或從一個核心或第三方模組，我們還沒用過任何第三方"
+        },
+        {
+          "id": 51,
+          "start": 253.2,
+          "end": 254.47,
+          "en": "modules thus far",
+          "zh": "模組到目前為止，"
+        },
+        {
+          "id": 52,
+          "start": 254.48,
+          "end": 256.23,
+          "en": "but we'll also do that soon",
+          "zh": "但我們很快也會那樣做，"
+        },
+        {
+          "id": 53,
+          "start": 256.41,
+          "end": 263.04,
+          "en": "and it basically pulls in whatever we export there and stores it in a new variable or constant as we",
+          "zh": "而它基本上拉進我們在那裡匯出的任何東西，並把它存在一個新變數或常數裡，如我們"
+        },
+        {
+          "id": 54,
+          "start": 263.04,
+          "end": 264.81,
+          "en": "did it in this module.",
+          "zh": "在這個模組裡做的。"
+        },
+        {
+          "id": 55,
+          "start": 264.81,
+          "end": 267.22,
+          "en": "And export is an important keyword here,",
+          "zh": "而 export 是這裡一個重要關鍵字，"
+        },
+        {
+          "id": 56,
+          "start": 267.24,
+          "end": 275.56,
+          "en": "we do export with the help of module.exports or for multiple exports with the export shortcut",
+          "zh": "我們藉助 module.exports 匯出，或對多個匯出用 exports 捷徑，"
+        },
+        {
+          "id": 57,
+          "start": 275.58,
+          "end": 277.58,
+          "en": "I showed you in the last lectures.",
+          "zh": "我在上一堂給你看的。"
+        },
+        {
+          "id": 58,
+          "start": 278.07,
+          "end": 280.44,
+          "en": "So this is what we learn in this module",
+          "zh": "所以這是我們在這個模組學到的，"
+        },
+        {
+          "id": 59,
+          "start": 280.5,
+          "end": 285.53,
+          "en": "and I know that this was a lot of theory or nitty gritty stuff about",
+          "zh": "而我知道這是很多理論，或關於"
+        },
+        {
+          "id": 60,
+          "start": 285.54,
+          "end": 291.39,
+          "en": "nodejs. Doesn't look too easy and beautiful but it'll get way more beautiful from now on,",
+          "zh": "Node.js 的細節。看起來不太容易、也不漂亮，但從現在起會漂亮很多，"
+        },
+        {
+          "id": 61,
+          "start": 291.54,
+          "end": 297.78,
+          "en": "it is super important to never forget what nodejs is and does it for you though because many courses",
+          "zh": "不過永遠不要忘記 Node.js 是什麼、它為你做什麼，這超級重要，因為很多課程"
+        },
+        {
+          "id": 62,
+          "start": 297.84000000000003,
+          "end": 303,
+          "en": "right away start with expressjs which we'll also use starting soon",
+          "zh": "立刻從 Express.js 開始，我們很快也會開始使用，"
+        },
+        {
+          "id": 63,
+          "start": 303.12,
+          "end": 308.52,
+          "en": "and therefore you never really learn what's happening under the hood which is sad because this is important",
+          "zh": "因此你從來沒真正學到幕後發生什麼，那很可惜，因為這很重要，"
+        },
+        {
+          "id": 64,
+          "start": 308.67,
+          "end": 311.19,
+          "en": "and makes you a better node developer.",
+          "zh": "並讓你成為更好的 Node 開發者。"
+        },
+        {
+          "id": 65,
+          "start": 311.24,
+          "end": 312.76,
+          "en": "But with that, let's move on.",
+          "zh": "但有了那個，讓我們繼續。"
+        }
+      ]
+    },
+    {
+      "id": "11562040",
+      "title": "Module Introduction",
+      "lectureOrder": 41,
+      "videoOrder": 34,
+      "sourceHash": "c9a66088f6cc40010b704c30b53beb603dc8c52867a4cdad2a591ea7d72ed381",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.15,
+          "end": 8.36,
+          "en": "Now that we already had a pretty close look at nodejs and worked a lot with it,",
+          "zh": "現在我們已經相當仔細看過 Node.js，並大量使用它，"
+        },
+        {
+          "id": 2,
+          "start": 8.57,
+          "end": 14.12,
+          "en": "let's take one step back and let's see how we can both make development a bit easier, how",
+          "zh": "讓我們退一步，看看我們怎麼讓開發容易一點，怎麼"
+        },
+        {
+          "id": 3,
+          "start": 14.12,
+          "end": 20.96,
+          "en": "we can speed that up a little bit and most importantly, how we can actually debug our nodejs apps",
+          "zh": "把那個加快一點，而最重要的是，我們怎麼實際除錯我們的 Node.js App，"
+        },
+        {
+          "id": 4,
+          "start": 21.08,
+          "end": 28.53,
+          "en": "or how we can use various tools to understand better what's going on in our nodejs applications.",
+          "zh": "或我們怎麼使用各種工具，更好地理解我們的 Node.js 應用程式裡發生什麼。"
+        },
+        {
+          "id": 5,
+          "start": 28.73,
+          "end": 34.29,
+          "en": "Because in this module, you will learn some tips and tricks which will hopefully help you write",
+          "zh": "因為在這個模組，你會學一些訣竅，希望能幫你以"
+        },
+        {
+          "id": 6,
+          "start": 34.32,
+          "end": 38.13,
+          "en": "nodejs applications in a very efficient manner.",
+          "zh": "非常有效率的方式寫 Node.js 應用程式。"
+        }
+      ]
+    },
+    {
+      "id": "11562990",
+      "title": "Understanding NPM Scripts",
+      "lectureOrder": 42,
+      "videoOrder": 35,
+      "sourceHash": "3765de9b178d5980e6a65bb449e457bc7e95ef917598134faab6ce77f80e4333",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.17,
+          "end": 8.81,
+          "en": "For this module I'm back in the application or the project we worked on in the last core section and you",
+          "zh": "對這個模組，我回到我們在上一個核心區段做的應用程式或專案，而你"
+        },
+        {
+          "id": 2,
+          "start": 8.81,
+          "end": 15.19,
+          "en": "can find my state attached to this video so that you can start right at the same point as I do.",
+          "zh": "可以找到我的狀態附在這支影片，這樣你可以從和我一樣的點開始。"
+        },
+        {
+          "id": 3,
+          "start": 15.44,
+          "end": 18.9,
+          "en": "So it is just the code we wrote over the last lectures",
+          "zh": "所以它就是我們在上一堂寫的程式碼，"
+        },
+        {
+          "id": 4,
+          "start": 18.98,
+          "end": 25.28,
+          "en": "and one thing we constantly had to do in the last section or throughout this course was that we always",
+          "zh": "而我們在上一個區段、或這整門課程裡不斷必須做的一件事是，我們總是"
+        },
+        {
+          "id": 5,
+          "start": 25.28,
+          "end": 33.89,
+          "en": "had to run node app.js to start our well app or our node application with that file.",
+          "zh": "必須跑 node app.js，來啟動我們的，嗯，App，或用那個檔案啟動我們的 Node 應用程式。"
+        },
+        {
+          "id": 6,
+          "start": 33.89,
+          "end": 41.24,
+          "en": "Now this is certainly ok and not too much work but it actually is possible to define some scripts in",
+          "zh": "現在這當然可以，工作也不太多，但實際上可以在"
+        },
+        {
+          "id": 7,
+          "start": 41.24,
+          "end": 45.19,
+          "en": "a nodejs project that can help us with tasks like this,",
+          "zh": "一個 Node.js 專案裡定義一些指令稿，幫我們做像這樣的工作，"
+        },
+        {
+          "id": 8,
+          "start": 45.23,
+          "end": 50.62,
+          "en": "we can also use them for other tasks but especially for this, they can be useful right now",
+          "zh": "我們也可以把它們用於其他工作，但尤其對這個，它們現在可以有用，"
+        },
+        {
+          "id": 9,
+          "start": 50.72,
+          "end": 55.12,
+          "en": "and for that we have to use a feature we didn't use thus far.",
+          "zh": "而為此我們必須使用一個我們到目前還沒用的功能。"
+        },
+        {
+          "id": 10,
+          "start": 55.37,
+          "end": 64.49,
+          "en": "We have to use npm, npm stands for node package manager and it is installed together with nodejs, so",
+          "zh": "我們必須使用 npm，npm 代表 Node Package Manager，而它和 Node.js 一起安裝，所以"
+        },
+        {
+          "id": 11,
+          "start": 64.49,
+          "end": 65.96,
+          "en": "you don't need to do anything,",
+          "zh": "你不需要做任何事，"
+        },
+        {
+          "id": 12,
+          "start": 65.96,
+          "end": 68,
+          "en": "you got this installed already.",
+          "zh": "你已經安裝了這個。"
+        },
+        {
+          "id": 13,
+          "start": 68,
+          "end": 75.89,
+          "en": "Now we will also use npm to install some additional third party packages to our project soon, so packages",
+          "zh": "現在我們很快也會用 npm 把一些額外的第三方套件安裝到我們的專案，所以那些套件"
+        },
+        {
+          "id": 14,
+          "start": 75.89,
+          "end": 78.93,
+          "en": "that are not included in nodes core,",
+          "zh": "不包含在 Node 的核心裡，"
+        },
+        {
+          "id": 15,
+          "start": 78.95,
+          "end": 89.24,
+          "en": "so not part of nodes core modules but we can also use npm to initialize a so-called node project or",
+          "zh": "所以不是 Node 核心模組的一部分，但我們也可以用 npm 初始化一個所謂的 Node 專案，或"
+        },
+        {
+          "id": 16,
+          "start": 89.24,
+          "end": 91.87,
+          "en": "to add some extra features to it",
+          "zh": "給它加一些額外功能，"
+        },
+        {
+          "id": 17,
+          "start": 91.91,
+          "end": 99.05,
+          "en": "to be precise because we obviously already got a node project here but now in this project, in a terminal",
+          "zh": "精確地說，因為我們顯然這裡已經有一個 Node 專案，但現在在這個專案裡，在一個終端機"
+        },
+        {
+          "id": 18,
+          "start": 99.25999999999999,
+          "end": 104.4,
+          "en": "navigated into this project, you can run npm init.",
+          "zh": "導覽進這個專案，你可以跑 npm init。"
+        },
+        {
+          "id": 19,
+          "start": 104.45,
+          "end": 107.09,
+          "en": "Now this will not delete your code or anything like that,",
+          "zh": "現在這不會刪除你的程式碼或任何類似的東西，"
+        },
+        {
+          "id": 20,
+          "start": 107.09,
+          "end": 108.08,
+          "en": "no worries,",
+          "zh": "不用擔心，"
+        },
+        {
+          "id": 21,
+          "start": 108.08,
+          "end": 111.84,
+          "en": "simply hit enter and you'll be prompted with a couple of questions here.",
+          "zh": "單純按 Enter，而你會在這裡被問幾個問題。"
+        },
+        {
+          "id": 22,
+          "start": 111.95,
+          "end": 115.33,
+          "en": "It'll ask you first of all for a name of your package",
+          "zh": "它會首先問你套件的名稱，"
+        },
+        {
+          "id": 23,
+          "start": 115.4,
+          "end": 118.67,
+          "en": "and for now you can simply translate this with project name.",
+          "zh": "而目前你可以單純把這個理解成專案名稱。"
+        },
+        {
+          "id": 24,
+          "start": 118.67,
+          "end": 122.99,
+          "en": "Now you can pick any name you want, the part in the parentheses here",
+          "zh": "現在你可以選任何你想要的名稱，括號裡的部分"
+        },
+        {
+          "id": 25,
+          "start": 123.06,
+          "end": 125.93,
+          "en": "always is the suggestion, the default",
+          "zh": "永遠是建議、預設，"
+        },
+        {
+          "id": 26,
+          "start": 125.93,
+          "end": 128.73,
+          "en": "it will pick if you don't choose your own name,",
+          "zh": "如果你不選自己的名稱，它會選的，"
+        },
+        {
+          "id": 27,
+          "start": 128.78,
+          "end": 132.27,
+          "en": "so if I just hit enter here, it will take that default.",
+          "zh": "所以如果我在這裡只按 Enter，它會採用那個預設。"
+        },
+        {
+          "id": 28,
+          "start": 132.47,
+          "end": 135.42,
+          "en": "So you can basically do that for all these questions,",
+          "zh": "所以你基本上可以對所有這些問題那樣做，"
+        },
+        {
+          "id": 29,
+          "start": 135.53,
+          "end": 138.26,
+          "en": "for the description, you can leave that empty",
+          "zh": "對描述，你可以留空，"
+        },
+        {
+          "id": 30,
+          "start": 138.29,
+          "end": 144.55,
+          "en": "then it will have no default text either but you can also enter some text like complete nodejs",
+          "zh": "那時它也不會有預設文字，但你也可以輸入一些文字，像 Complete Node.js"
+        },
+        {
+          "id": 31,
+          "start": 144.57,
+          "end": 152.97,
+          "en": "guide, this is what this course is and then define an entry point with fs for example. You can leave",
+          "zh": "Guide，這就是這門課程，然後定義一個進入點，例如 app.js。你可以留"
+        },
+        {
+          "id": 32,
+          "start": 152.97,
+          "end": 157.75,
+          "en": "the task command empty, leave that empty, keywords you can choose some if you want,",
+          "zh": "test 指令空白，留那個空白，關鍵字如果你想可以選一些，"
+        },
+        {
+          "id": 33,
+          "start": 157.82999999999998,
+          "end": 162.9,
+          "en": "you can put your name into the offer field though this is also not required and you can always choose",
+          "zh": "你可以把你的名字放進 author 欄位，不過這也不是必須的，而你永遠可以選"
+        },
+        {
+          "id": 34,
+          "start": 162.9,
+          "end": 163.47,
+          "en": "a license",
+          "zh": "一個授權，"
+        },
+        {
+          "id": 35,
+          "start": 163.47,
+          "end": 166.03,
+          "en": "but if you don't plan on sharing this project publicly,",
+          "zh": "但如果你不打算公開分享這個專案，"
+        },
+        {
+          "id": 36,
+          "start": 166.03,
+          "end": 167.6,
+          "en": "this also doesn't really matter.",
+          "zh": "這也真的不重要。"
+        },
+        {
+          "id": 37,
+          "start": 167.91,
+          "end": 174.21,
+          "en": "So with this what you get is this package.json file and there you also see all these settings",
+          "zh": "所以有了這個，你得到的是這個 package.json 檔案，而那裡你也看到所有這些設定，"
+        },
+        {
+          "id": 38,
+          "start": 174.21,
+          "end": 178.27,
+          "en": "or configurations you just set up and you can of course edit them there too,",
+          "zh": "或你剛設定的組態，而你當然也可以在那裡編輯它們，"
+        },
+        {
+          "id": 39,
+          "start": 178.38,
+          "end": 182.16,
+          "en": "so if you had a typo in your description, you can just edit it here.",
+          "zh": "所以如果你的描述有錯字，你可以就在這裡編輯它。"
+        },
+        {
+          "id": 40,
+          "start": 182.25,
+          "end": 188.88,
+          "en": "Now this is using the json format which is a special kind of data format which basically looks a",
+          "zh": "現在這使用 JSON 格式，那是一種特殊的資料格式，基本上看起來"
+        },
+        {
+          "id": 41,
+          "start": 188.88,
+          "end": 193.75,
+          "en": "lot like javascript objects and it pretty much is based on that,",
+          "zh": "很像 JavaScript 物件，而它大致基於那個，"
+        },
+        {
+          "id": 42,
+          "start": 193.77,
+          "end": 196.2,
+          "en": "there is one important thing to understand though,",
+          "zh": "不過有一件重要的事要理解，"
+        },
+        {
+          "id": 43,
+          "start": 196.26,
+          "end": 204.32999999999998,
+          "en": "the keys are always put between double quotation marks and so are the values, except for numbers or arrays",
+          "zh": "鍵永遠放在雙引號之間，值也是，除了數字或陣列，"
+        },
+        {
+          "id": 44,
+          "start": 204.36,
+          "end": 208.19,
+          "en": "or true or false which are not put between these",
+          "zh": "或 true 或 false，那些不放在這些之間，"
+        },
+        {
+          "id": 45,
+          "start": 208.26,
+          "end": 209.1,
+          "en": "but that's too much",
+          "zh": "但那太多了，"
+        },
+        {
+          "id": 46,
+          "start": 209.1,
+          "end": 212.78,
+          "en": "for now, we can ignore that for now just so that you understand what you got there,",
+          "zh": "目前，我們目前可以忽略那個，只為了讓你理解你那裡得到什麼，"
+        },
+        {
+          "id": 47,
+          "start": 212.88,
+          "end": 216.25,
+          "en": "it's basically a configuration file for your project.",
+          "zh": "它基本上是你專案的設定檔。"
+        },
+        {
+          "id": 48,
+          "start": 216.27,
+          "end": 219.07,
+          "en": "Now what does this configuration file give you?",
+          "zh": "現在這個設定檔給你什麼？"
+        },
+        {
+          "id": 49,
+          "start": 219.32999999999998,
+          "end": 221.6,
+          "en": "Well let's clear the console here,",
+          "zh": "嗯，讓我們清掉這裡的主控台，"
+        },
+        {
+          "id": 50,
+          "start": 221.88,
+          "end": 228.45,
+          "en": "with this configuration file, you'll see that we got a scripts section there which has one default script",
+          "zh": "有了這個設定檔，你會看到我們那裡有一個 scripts 區段，它有一個預設指令稿，"
+        },
+        {
+          "id": 51,
+          "start": 228.54,
+          "end": 230.34,
+          "en": "that won't do anything for now,",
+          "zh": "目前不會做任何事，"
+        },
+        {
+          "id": 52,
+          "start": 230.57999999999998,
+          "end": 236.19,
+          "en": "you can add your own scripts here and I will tell you how to execute them too of course.",
+          "zh": "你可以在這裡加你自己的指令稿，而我當然也會告訴你怎麼執行它們。"
+        },
+        {
+          "id": 53,
+          "start": 236.19,
+          "end": 242.04,
+          "en": "For that, let's add a comma after this test script and add a new script name which has to be put between",
+          "zh": "為此，讓我們在這個 test 指令稿之後加一個逗號，並加一個新的指令稿名稱，必須放在"
+        },
+        {
+          "id": 54,
+          "start": 242.07,
+          "end": 246.22,
+          "en": "double quotation marks and there, let's name it start. Now",
+          "zh": "雙引號之間，而那裡，讓我們把它命名為 start。現在"
+        },
+        {
+          "id": 55,
+          "start": 246.23,
+          "end": 250.43,
+          "en": "start is actually a special script name as you will see in a second,",
+          "zh": "start 實際上是一個特殊的指令稿名稱，如你等一下會看到的，"
+        },
+        {
+          "id": 56,
+          "start": 250.53,
+          "end": 254.95,
+          "en": "so make sure to type this correctly and then between the quotation marks,",
+          "zh": "所以確定你正確打這個，然後在引號之間，"
+        },
+        {
+          "id": 57,
+          "start": 255.03,
+          "end": 257.88,
+          "en": "you type a command that should be executed.",
+          "zh": "你打一個應該被執行的指令。"
+        },
+        {
+          "id": 58,
+          "start": 257.88,
+          "end": 260.83,
+          "en": "So this is a command which you could also type down there",
+          "zh": "所以這是一個你也可以在下面那裡打的指令，"
+        },
+        {
+          "id": 59,
+          "start": 261.03,
+          "end": 262.49,
+          "en": "and there we always have to type",
+          "zh": "而那裡我們總是必須打"
+        },
+        {
+          "id": 60,
+          "start": 262.49,
+          "end": 263.97,
+          "en": "node app.js,",
+          "zh": "node app.js，"
+        },
+        {
+          "id": 61,
+          "start": 264.03,
+          "end": 268.23,
+          "en": "so let's now put that between these double quotation marks here",
+          "zh": "所以讓我們現在把那個放在這裡這些雙引號之間，"
+        },
+        {
+          "id": 62,
+          "start": 268.27,
+          "end": 269.89,
+          "en": "node app.js,",
+          "zh": "node app.js，"
+        },
+        {
+          "id": 63,
+          "start": 269.91,
+          "end": 271.74,
+          "en": "like this.",
+          "zh": "像這樣。"
+        },
+        {
+          "id": 64,
+          "start": 271.83,
+          "end": 273.87,
+          "en": "With that save that file",
+          "zh": "有了那個，存那個檔案，"
+        },
+        {
+          "id": 65,
+          "start": 274.17,
+          "end": 282.93,
+          "en": "and then you can run npm start. Start is a reserved name and this will always look for such a start",
+          "zh": "然後你可以跑 npm start。start 是一個保留名稱，而這永遠會尋找這樣一個 start"
+        },
+        {
+          "id": 66,
+          "start": 283.02,
+          "end": 283.85,
+          "en": "script here.",
+          "zh": "指令稿，這裡。"
+        },
+        {
+          "id": 67,
+          "start": 284.19,
+          "end": 289.61,
+          "en": "And if you do that, it will as you can see here just execute node app.js.",
+          "zh": "而如果你那樣做，它會如你在這裡看到的，只是執行 node app.js。"
+        },
+        {
+          "id": 68,
+          "start": 289.71,
+          "end": 295.62,
+          "en": "So it does the same you had before but now you can always just well run this command instead of running",
+          "zh": "所以它做和你之前一樣的事，但現在你永遠可以，嗯，跑這個指令，而不是跑"
+        },
+        {
+          "id": 69,
+          "start": 295.62,
+          "end": 295.89,
+          "en": "node",
+          "zh": "node"
+        },
+        {
+          "id": 70,
+          "start": 295.89,
+          "end": 300.87,
+          "en": "app.js. Not that much of a saved characters but a few at least",
+          "zh": "app.js。省下的字元沒那麼多，但至少一些，"
+        },
+        {
+          "id": 71,
+          "start": 300.93,
+          "end": 304.59,
+          "en": "and it's also a good practice because if you ever share this project,",
+          "zh": "而這也是好的做法，因為如果你分享這個專案，"
+        },
+        {
+          "id": 72,
+          "start": 304.59,
+          "end": 310.35,
+          "en": "it's pretty common that people just have to run npm start and that they don't have to guess which of your",
+          "zh": "相當常見的是人們只要跑 npm start，而不必猜你的哪個"
+        },
+        {
+          "id": 73,
+          "start": 310.35,
+          "end": 313.18,
+          "en": "javascript files is the entry file.",
+          "zh": "JavaScript 檔案是進入檔。"
+        },
+        {
+          "id": 74,
+          "start": 313.74,
+          "end": 319.2,
+          "en": "So you can quit this with control c of course as always and I mentioned that this would be a special",
+          "zh": "所以你當然可以一如往常用 Ctrl+C 結束這個，而我提過這會是一個特殊"
+        },
+        {
+          "id": 75,
+          "start": 319.26,
+          "end": 320.34,
+          "en": "script name.",
+          "zh": "指令稿名稱。"
+        },
+        {
+          "id": 76,
+          "start": 320.34,
+          "end": 323.78,
+          "en": "You can add more scripts, also without using a special name,",
+          "zh": "你可以加更多指令稿，也不用使用特殊名稱，"
+        },
+        {
+          "id": 77,
+          "start": 323.82,
+          "end": 325.82,
+          "en": "you can indeed choose any name you want,",
+          "zh": "你確實可以選任何你想要的名稱，"
+        },
+        {
+          "id": 78,
+          "start": 325.89,
+          "end": 331.71,
+          "en": "just make sure to always wrap the name in double quotation marks and that it does not contain any blanks",
+          "zh": "只要確定永遠把名稱包在雙引號裡，而且它不含任何空白"
+        },
+        {
+          "id": 79,
+          "start": 331.8,
+          "end": 333.49,
+          "en": "or whitespaces.",
+          "zh": "或空白字元。"
+        },
+        {
+          "id": 80,
+          "start": 333.56,
+          "end": 339.61,
+          "en": "So for example we could have start-server.",
+          "zh": "所以例如我們可以有 start-server。"
+        },
+        {
+          "id": 81,
+          "start": 339.61,
+          "end": 341.93,
+          "en": "Now this can also run node app.js,",
+          "zh": "現在這也可以跑 node app.js，"
+        },
+        {
+          "id": 82,
+          "start": 341.97,
+          "end": 346.35,
+          "en": "so it will do the exact same as this script and therefore it's of course redundant",
+          "zh": "所以它會做和這個指令稿完全一樣的事，因此它當然是多餘的，"
+        },
+        {
+          "id": 83,
+          "start": 346.36,
+          "end": 347.94,
+          "en": "but I want to show you something",
+          "zh": "但我想給你看某件事，"
+        },
+        {
+          "id": 84,
+          "start": 348.24,
+          "end": 354.73,
+          "en": "and now if you try running npm start-server, you'll get an error.",
+          "zh": "而現在如果你試著跑 npm start-server，你會得到一個錯誤。"
+        },
+        {
+          "id": 85,
+          "start": 355.09000000000003,
+          "end": 361.93,
+          "en": "You basically get an error that is not a known command and indeed it isn't because just typing",
+          "zh": "你基本上得到一個錯誤，那不是一個已知指令，而確實它不是，因為只打"
+        },
+        {
+          "id": 86,
+          "start": 361.93,
+          "end": 364.03,
+          "en": "the script name here will not work,",
+          "zh": "這裡的指令稿名稱不會有效，"
+        },
+        {
+          "id": 87,
+          "start": 364.03,
+          "end": 364.63,
+          "en": "start",
+          "zh": "start"
+        },
+        {
+          "id": 88,
+          "start": 364.65,
+          "end": 367.21,
+          "en": "just was the special case as I mentioned.",
+          "zh": "只是特殊情況，如我提到的。"
+        },
+        {
+          "id": 89,
+          "start": 367.22,
+          "end": 373.89,
+          "en": "Indeed for normal scripts with their own custom names, you have to run npm run and then your script name,",
+          "zh": "確實，對有自己自訂名稱的一般指令稿，你必須跑 npm run，然後你的指令稿名稱，"
+        },
+        {
+          "id": 90,
+          "start": 374.02,
+          "end": 377.96,
+          "en": "so npm run start-server will now also start the server.",
+          "zh": "所以 npm run start-server 現在也會啟動伺服器。"
+        },
+        {
+          "id": 91,
+          "start": 377.98,
+          "end": 383.77,
+          "en": "Now as I mentioned, this is of course redundant, npm start is way shorter but I want you to understand",
+          "zh": "現在如我提到的，這當然是多餘的，npm start 短很多，但我想要你理解"
+        },
+        {
+          "id": 92,
+          "start": 383.92,
+          "end": 385.88,
+          "en": "how you can add your own scripts.",
+          "zh": "你怎麼加你自己的指令稿。"
+        },
+        {
+          "id": 93,
+          "start": 386.02,
+          "end": 392.8,
+          "en": "Now if you worked with something like angular or react or vue or any modern frontend development workflow,",
+          "zh": "現在如果你用過像 Angular 或 React 或 Vue，或任何現代前端開發工作流程，"
+        },
+        {
+          "id": 94,
+          "start": 393.13,
+          "end": 398.62,
+          "en": "you will have seen that you use such scripts a lot to trigger build workflows for your projects for",
+          "zh": "你會看過你大量使用這樣的指令稿，來觸發你專案的建置工作流程，例如，"
+        },
+        {
+          "id": 95,
+          "start": 398.62,
+          "end": 403.62,
+          "en": "example and indeed you can use that for all kinds of tasks to want to execute",
+          "zh": "而確實你可以把那個用於各種你想執行的工作，"
+        },
+        {
+          "id": 96,
+          "start": 403.75,
+          "end": 408.55,
+          "en": "but for now we'll not dive deeper into that and if you haven't worked with angular or react, it's",
+          "zh": "但目前我們不會更深入那個，而如果你沒用過 Angular 或 React，那"
+        },
+        {
+          "id": 97,
+          "start": 408.55,
+          "end": 408.81,
+          "en": "also",
+          "zh": "也"
+        },
+        {
+          "id": 98,
+          "start": 408.85,
+          "end": 409.78,
+          "en": "no problem,",
+          "zh": "沒問題，"
+        },
+        {
+          "id": 99,
+          "start": 409.78,
+          "end": 411.34000000000003,
+          "en": "you will see what I mean",
+          "zh": "你會看到我的意思，"
+        },
+        {
+          "id": 100,
+          "start": 411.34000000000003,
+          "end": 416.9,
+          "en": "later in this course when I explore node's functionality as a build tool a bit more.",
+          "zh": "在這門課程稍後，當我多探索一點 Node 當建置工具的功能時。"
+        },
+        {
+          "id": 101,
+          "start": 416.92,
+          "end": 421.42,
+          "en": "For now let's just use that npm start script to start our application conveniently.",
+          "zh": "目前讓我們就用那個 npm start 指令稿，方便地啟動我們的應用程式。"
+        }
+      ]
+    },
+    {
+      "id": "11562998",
+      "title": "Installing 3rd Party Packages",
+      "lectureOrder": 43,
+      "videoOrder": 36,
+      "sourceHash": "cd704b2e8fe9e54056d8a41578de5fdc1c46c6d3027fd560215114c919932b50",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.28,
+          "end": 8.67,
+          "en": "So in the last lecture, we added a script to start our application and this is nice to know that we",
+          "zh": "所以在上一堂，我們加了一個指令稿來啟動我們的應用程式，而知道我們"
+        },
+        {
+          "id": 2,
+          "start": 8.67,
+          "end": 14.88,
+          "en": "have this scripting functionality. Now with such a package.json file available,",
+          "zh": "有這個指令稿功能很好。現在有這樣一個 package.json 檔案可用，"
+        },
+        {
+          "id": 3,
+          "start": 14.91,
+          "end": 22.77,
+          "en": "so therefore with this being a managed node project you could say, we can also do one other very important thing,",
+          "zh": "所以因此這是一個被管理的 Node 專案，你可以說，我們也可以做另一件非常重要的事，"
+        },
+        {
+          "id": 4,
+          "start": 23.16,
+          "end": 32.67,
+          "en": "we can install third party packages because a typical node project looks like that. You have your local",
+          "zh": "我們可以安裝第三方套件，因為一個典型的 Node 專案看起來像那樣。你有你的本地"
+        },
+        {
+          "id": 5,
+          "start": 32.67,
+          "end": 39.58,
+          "en": "project with your code obviously and you use a lot of core node packages like the fs package or the http",
+          "zh": "專案，顯然有你的程式碼，而你使用很多核心 Node 套件，像 fs 套件或 http"
+        },
+        {
+          "id": 6,
+          "start": 39.59,
+          "end": 41.35,
+          "en": "package we're already using",
+          "zh": "套件，我們已經在用的，"
+        },
+        {
+          "id": 7,
+          "start": 41.67,
+          "end": 43.71,
+          "en": "but often this does not suffice",
+          "zh": "但常常這不夠，"
+        },
+        {
+          "id": 8,
+          "start": 43.83,
+          "end": 49.92,
+          "en": "and in the next core section, we will install one big third package actually because you typically have",
+          "zh": "而在下一個核心區段，我們會安裝一個很大的第三方套件，實際上，因為你通常有"
+        },
+        {
+          "id": 9,
+          "start": 49.92,
+          "end": 52.89,
+          "en": "such dependencies third party packages.",
+          "zh": "這樣的依賴、第三方套件。"
+        },
+        {
+          "id": 10,
+          "start": 52.89,
+          "end": 57.88,
+          "en": "So you want to use some functionalities some code which you didn't write on your own but which is also",
+          "zh": "所以你想使用一些功能、一些程式碼，不是你自己寫的，但也"
+        },
+        {
+          "id": 11,
+          "start": 57.9,
+          "end": 65.12,
+          "en": "not included into nodejs. Packages could help you with parsing incoming requests, validating user input,",
+          "zh": "不包含在 Node.js 裡。套件可以幫你解析進來的請求、驗證使用者輸入，"
+        },
+        {
+          "id": 12,
+          "start": 65.19,
+          "end": 67.2,
+          "en": "anything of that kind.",
+          "zh": "任何那類的事。"
+        },
+        {
+          "id": 13,
+          "start": 67.2,
+          "end": 74.05,
+          "en": "Now we will use express in the next lectures or in the next module to be precise, body parser is another",
+          "zh": "現在我們會在下一堂，或精確地說在下一個模組使用 Express，body-parser 是另一個"
+        },
+        {
+          "id": 14,
+          "start": 74.11,
+          "end": 79.74,
+          "en": "package we'll use throughout this course and there are thousands of packages available that offer all",
+          "zh": "我們會在這整門課程使用的套件，而有數千個套件可用，提供所有"
+        },
+        {
+          "id": 15,
+          "start": 79.74,
+          "end": 82.46000000000001,
+          "en": "kinds of utilities you can add to your projects",
+          "zh": "種類的工具，你可以加到你的專案，"
+        },
+        {
+          "id": 16,
+          "start": 82.47,
+          "end": 85.23,
+          "en": "so that you don't have to reinvent the wheel.",
+          "zh": "這樣你不必重新發明輪子。"
+        },
+        {
+          "id": 17,
+          "start": 85.23,
+          "end": 89.03999999999999,
+          "en": "These packages are available through the npm repository,",
+          "zh": "這些套件透過 npm 儲存庫取得，"
+        },
+        {
+          "id": 18,
+          "start": 89.03999999999999,
+          "end": 92.91,
+          "en": "that is a cloud package repository where all these packages live",
+          "zh": "那是一個雲端套件儲存庫，所有這些套件住在那裡，"
+        },
+        {
+          "id": 19,
+          "start": 93.12,
+          "end": 96.93,
+          "en": "and you can conveniently install and manage them via npm,",
+          "zh": "而你可以方便地透過 npm 安裝並管理它們，"
+        },
+        {
+          "id": 20,
+          "start": 97.05,
+          "end": 103.02000000000001,
+          "en": "remember that tool that shipped with node. And this is exactly what we will do now to install a first",
+          "zh": "記住那個和 Node 一起附帶的工具。而這正是我們現在要做的，來安裝第一個"
+        },
+        {
+          "id": 21,
+          "start": 103.02000000000001,
+          "end": 107.27000000000001,
+          "en": "little utility package that will speed up our development workflow.",
+          "zh": "小工具套件，它會加快我們的開發工作流程。"
+        },
+        {
+          "id": 22,
+          "start": 107.85,
+          "end": 113.25,
+          "en": "Because right now what we have to do is whenever we change our code, we have to quit the development",
+          "zh": "因為現在我們必須做的是，每當我們改變程式碼，我們必須用 Ctrl+C 結束開發"
+        },
+        {
+          "id": 23,
+          "start": 113.25,
+          "end": 115.72999999999999,
+          "en": "server with Control-C and restart it,",
+          "zh": "伺服器並重新啟動它，"
+        },
+        {
+          "id": 24,
+          "start": 115.77000000000001,
+          "end": 116.19,
+          "en": "right,",
+          "zh": "對吧，"
+        },
+        {
+          "id": 25,
+          "start": 116.31,
+          "end": 121.64,
+          "en": "so if we have it running with npm start now, remember this is our new command to start the server",
+          "zh": "所以如果我們現在用 npm start 讓它跑著，記住這是我們啟動伺服器的新指令，"
+        },
+        {
+          "id": 26,
+          "start": 121.86,
+          "end": 126.96,
+          "en": "and I would change something here, like for example here I fixed that /head right,",
+          "zh": "而我會在這裡改變某樣東西，像例如這裡我修正了那個 /head，對吧，"
+        },
+        {
+          "id": 27,
+          "start": 126.96,
+          "end": 132.42,
+          "en": "whenever I do this I have to save this and for my change to have an effect, I have to quit the server",
+          "zh": "每當我做這個，我必須存這個，而要讓我的改變有效果，我必須用 Ctrl+C 結束伺服器"
+        },
+        {
+          "id": 28,
+          "start": 132.42,
+          "end": 134.88,
+          "en": "with Control-C and restart it.",
+          "zh": "並重新啟動它。"
+        },
+        {
+          "id": 29,
+          "start": 134.88,
+          "end": 139.52,
+          "en": "Now this is a bit cumbersome because we just want to be able to type and then hit save",
+          "zh": "現在這有點麻煩，因為我們只想能夠打字然後按存檔，"
+        },
+        {
+          "id": 30,
+          "start": 139.59,
+          "end": 145.47,
+          "en": "and it should automatically restart and right, that would be a great workflow during development and",
+          "zh": "而它應該自動重新啟動，而對吧，那在開發時會是很棒的工作流程，而"
+        },
+        {
+          "id": 31,
+          "start": 145.5,
+          "end": 151.8,
+          "en": "to achieve this, we have to install a third party package that gives us just this functionality.",
+          "zh": "要達到這個，我們必須安裝一個第三方套件，給我們正好這個功能。"
+        },
+        {
+          "id": 32,
+          "start": 151.86,
+          "end": 154.81,
+          "en": "Now how do we add such a third party package?",
+          "zh": "現在我們怎麼加這樣一個第三方套件？"
+        },
+        {
+          "id": 33,
+          "start": 154.89,
+          "end": 159.56,
+          "en": "We do that with the help of npm and there, we get the install command,",
+          "zh": "我們藉助 npm 做那個，而那裡我們得到 install 指令，"
+        },
+        {
+          "id": 34,
+          "start": 159.57,
+          "end": 165.72,
+          "en": "so just as we had run to run one of our scripts, install installs a third party package.",
+          "zh": "所以就像我們有 run 來跑我們的某個指令稿，install 安裝一個第三方套件。"
+        },
+        {
+          "id": 35,
+          "start": 165.72,
+          "end": 167.88,
+          "en": "Now how do we install it?",
+          "zh": "現在我們怎麼安裝它？"
+        },
+        {
+          "id": 36,
+          "start": 167.88,
+          "end": 170.19,
+          "en": "First of all we have to know the package name",
+          "zh": "首先我們必須知道套件名稱，"
+        },
+        {
+          "id": 37,
+          "start": 170.19,
+          "end": 173.11,
+          "en": "and if you're wondering well how do I know the package name,",
+          "zh": "而如果你在想，嗯，我怎麼知道套件名稱，"
+        },
+        {
+          "id": 38,
+          "start": 173.25,
+          "end": 179.09,
+          "en": "well that comes with courses like this, experience or by simply googling for certain problems which",
+          "zh": "嗯，那來自像這樣的課程、經驗，或單純為某些問題搜尋，那些"
+        },
+        {
+          "id": 39,
+          "start": 179.1,
+          "end": 183.23,
+          "en": "you want to have solved and all of a sudden you find a thread where some package is mentioned.",
+          "zh": "你想被解決的，而突然你找到一個討論串，某個套件被提到。"
+        },
+        {
+          "id": 40,
+          "start": 183.51,
+          "end": 186.47,
+          "en": "Now I can tell you for this auto-restart mechanism,",
+          "zh": "現在我可以告訴你，對這個自動重新啟動機制，"
+        },
+        {
+          "id": 41,
+          "start": 186.57,
+          "end": 189.87,
+          "en": "there is a package called nodemon, written like this.",
+          "zh": "有一個套件叫 nodemon，像這樣寫。"
+        },
+        {
+          "id": 42,
+          "start": 189.87,
+          "end": 197.86,
+          "en": "By the way you can always search for npm and then the package name if you know that name and you will",
+          "zh": "順便說，如果你知道那個名稱，你永遠可以搜尋 npm 然後套件名稱，而你會"
+        },
+        {
+          "id": 43,
+          "start": 197.86,
+          "end": 201.07,
+          "en": "find an entry on npmjs.com.",
+          "zh": "在 npmjs.com 找到一個項目。"
+        },
+        {
+          "id": 44,
+          "start": 201.07,
+          "end": 208.24,
+          "en": "Now this is the package page basically where you find a description, installation instructions, usage",
+          "zh": "現在這基本上是套件頁面，你在那裡找到描述、安裝說明、用法"
+        },
+        {
+          "id": 45,
+          "start": 208.24,
+          "end": 213.88,
+          "en": "instructions, how to configure it because most packages give you an easy way of using it and then always",
+          "zh": "說明、怎麼設定它，因為大多數套件給你一個簡單的使用方式，然後永遠"
+        },
+        {
+          "id": 46,
+          "start": 213.88,
+          "end": 216.31,
+          "en": "give you configuration possibilities.",
+          "zh": "給你設定的可能。"
+        },
+        {
+          "id": 47,
+          "start": 216.4,
+          "end": 218.2,
+          "en": "You'll see how popular the package is,",
+          "zh": "你會看到這個套件多受歡迎，"
+        },
+        {
+          "id": 48,
+          "start": 218.2,
+          "end": 224.26,
+          "en": "what's version it's using, if there is an exernal little home page, where the source code can be found if",
+          "zh": "它用的是哪個版本，是否有一個外部的小首頁，原始碼在哪裡可以找到，如果"
+        },
+        {
+          "id": 49,
+          "start": 224.26,
+          "end": 225.34,
+          "en": "it's open source.",
+          "zh": "它是開放原始碼。"
+        },
+        {
+          "id": 50,
+          "start": 225.34,
+          "end": 228.34,
+          "en": "So you find a bunch of stuff here, pretty useful,",
+          "zh": "所以你在這裡找到一堆東西，相當有用，"
+        },
+        {
+          "id": 51,
+          "start": 228.34,
+          "end": 230.8,
+          "en": "you also see how many versions are existing",
+          "zh": "你也看到有多少版本存在，"
+        },
+        {
+          "id": 52,
+          "start": 230.92000000000002,
+          "end": 234.61,
+          "en": "and by default, you will always install the latest version by the way",
+          "zh": "而預設，你永遠會安裝最新版本，順便說，"
+        },
+        {
+          "id": 53,
+          "start": 234.61,
+          "end": 236.56,
+          "en": "but let's go back to installing it",
+          "zh": "但讓我們回到安裝它，"
+        },
+        {
+          "id": 54,
+          "start": 236.56,
+          "end": 239.07,
+          "en": "before we dive deeper into this whole npm thing.",
+          "zh": "在我們更深入這整個 npm 的事之前。"
+        },
+        {
+          "id": 55,
+          "start": 239.38,
+          "end": 242.83,
+          "en": "So we want to install it and this command would install it",
+          "zh": "所以我們想安裝它，而這個指令會安裝它，"
+        },
+        {
+          "id": 56,
+          "start": 242.95,
+          "end": 245.23,
+          "en": "but don't hit enter yet,",
+          "zh": "但先不要按 Enter，"
+        },
+        {
+          "id": 57,
+          "start": 245.32,
+          "end": 253.9,
+          "en": "you can define how this should be installed because packages which you install can be divided into development",
+          "zh": "你可以定義這該怎麼被安裝，因為你安裝的套件可以分成開發"
+        },
+        {
+          "id": 58,
+          "start": 253.9,
+          "end": 260.5,
+          "en": "packages, so packages which mostly help you during development and production dependencies,",
+          "zh": "套件，所以主要在開發時幫你的套件，以及正式環境依賴，"
+        },
+        {
+          "id": 59,
+          "start": 260.5,
+          "end": 267.34,
+          "en": "so packages that helps you for the app as it's running on a server, for example nodemon would be a",
+          "zh": "所以幫你的 App 在伺服器上跑的套件，例如 nodemon 會是一個"
+        },
+        {
+          "id": 60,
+          "start": 267.34,
+          "end": 271.49,
+          "en": "development dependency because we only use it during the development process,",
+          "zh": "開發依賴，因為我們只在開發過程使用它，"
+        },
+        {
+          "id": 61,
+          "start": 271.6,
+          "end": 275.32,
+          "en": "once we install our app on a real server we don't need it there.",
+          "zh": "一旦我們把 App 安裝到真正的伺服器，我們那裡不需要它。"
+        },
+        {
+          "id": 62,
+          "start": 275.35,
+          "end": 279.88,
+          "en": "The real server which is running somewhere in the Internet of course shouldn't restart",
+          "zh": "真正的伺服器，在網際網路上某個地方跑的，當然不該重新啟動，"
+        },
+        {
+          "id": 63,
+          "start": 279.88,
+          "end": 284.18,
+          "en": "and it also doesn't have to because we'll not change its code dynamically.",
+          "zh": "而它也不必，因為我們不會動態改變它的程式碼。"
+        },
+        {
+          "id": 64,
+          "start": 284.87,
+          "end": 291.15,
+          "en": "And you can basically tell npm which kind of dependency this is, this does not make a huge difference",
+          "zh": "而你基本上可以告訴 npm 這是哪種依賴，這不會造成巨大差異，"
+        },
+        {
+          "id": 65,
+          "start": 291.15,
+          "end": 298.08,
+          "en": "and you can omit the setting but it helps you understand which package is used for what. Now you do add this",
+          "zh": "而你可以省略這個設定，但它幫你理解哪個套件用於什麼。現在你加上這個，"
+        },
+        {
+          "id": 66,
+          "start": 298.08,
+          "end": 301.76,
+          "en": "by adding --save-dev,",
+          "zh": "藉由加上 --save-dev，"
+        },
+        {
+          "id": 67,
+          "start": 301.92,
+          "end": 307.26,
+          "en": "if you had just save like this, this would install it as a production dependency,",
+          "zh": "如果你只有像這樣的 save，這會把它安裝成正式環境依賴，"
+        },
+        {
+          "id": 68,
+          "start": 307.26,
+          "end": 313.29,
+          "en": "so a package which we really use and use in our code and work with and with this we're indicating that",
+          "zh": "所以一個我們真的使用、在程式碼裡使用並一起工作的套件，而用這個我們表示"
+        },
+        {
+          "id": 69,
+          "start": 313.34,
+          "end": 317.39,
+          "en": "this only adds something we used during development.",
+          "zh": "這只加我們在開發時使用的東西。"
+        },
+        {
+          "id": 70,
+          "start": 317.43,
+          "end": 319.35,
+          "en": "There also is a third option by the way,",
+          "zh": "順便說也有第三個選項，"
+        },
+        {
+          "id": 71,
+          "start": 319.35,
+          "end": 324.69,
+          "en": "-g, we'll not install it in this project but globally on your machine",
+          "zh": "-g，我們不會在這個專案裡安裝它，而是在你的機器上全域安裝，"
+        },
+        {
+          "id": 72,
+          "start": 324.75,
+          "end": 327.28,
+          "en": "so that you can use it anywhere.",
+          "zh": "這樣你可以在任何地方使用它。"
+        },
+        {
+          "id": 73,
+          "start": 327.29,
+          "end": 333.53,
+          "en": "Now let's first of all install it with save dev, like this --save-dev.",
+          "zh": "現在讓我們首先用 save-dev 安裝它，像這樣 --save-dev。"
+        },
+        {
+          "id": 74,
+          "start": 333.54,
+          "end": 340.65999999999997,
+          "en": "Now what this will do is it will download it from the npm repository and install it into this project,",
+          "zh": "現在這會做的是從 npm 儲存庫下載它，並安裝進這個專案，"
+        },
+        {
+          "id": 75,
+          "start": 340.71,
+          "end": 344.78,
+          "en": "so not globally on your machine but into this project.",
+          "zh": "所以不是在你的機器上全域，而是進這個專案。"
+        },
+        {
+          "id": 76,
+          "start": 345.18,
+          "end": 351.45,
+          "en": "So now you see you get a report here that it finished successfully, what it did and it gives you a couple",
+          "zh": "所以現在你看到你這裡得到一份報告，它成功完成，它做了什麼，而它給你一些"
+        },
+        {
+          "id": 77,
+          "start": 351.45,
+          "end": 353.4,
+          "en": "of new things in your project.",
+          "zh": "你專案裡的新東西。"
+        },
+        {
+          "id": 78,
+          "start": 353.4,
+          "end": 359.97,
+          "en": "It gives you that node modules folder, the package log json file and it updated the package.json",
+          "zh": "它給你那個 node_modules 資料夾、package-lock.json 檔案，而它更新了 package.json"
+        },
+        {
+          "id": 79,
+          "start": 359.97,
+          "end": 360.6,
+          "en": "file.",
+          "zh": "檔案。"
+        },
+        {
+          "id": 80,
+          "start": 360.9,
+          "end": 366.45,
+          "en": "There we see that the new dev dependency section was added and that stands for development dependencies,",
+          "zh": "那裡我們看到新的 devDependencies 區段被加上，而那代表開發依賴，"
+        },
+        {
+          "id": 81,
+          "start": 366.54,
+          "end": 370.06,
+          "en": "as I said you can differentiate between different dependencies,",
+          "zh": "如我說的，你可以區分不同依賴，"
+        },
+        {
+          "id": 82,
+          "start": 370.14,
+          "end": 372.56,
+          "en": "we'll see production dependencies later too",
+          "zh": "我們稍後也會看到正式環境依賴，"
+        },
+        {
+          "id": 83,
+          "start": 372.99,
+          "end": 377.29,
+          "en": "and there you see that nodemon was installed and which version was picked.",
+          "zh": "而那裡你看到 nodemon 被安裝了，以及選了哪個版本。"
+        },
+        {
+          "id": 84,
+          "start": 377.29,
+          "end": 379.72,
+          "en": "Now regarding that character here,",
+          "zh": "現在關於這裡這個字元，"
+        },
+        {
+          "id": 85,
+          "start": 379.89,
+          "end": 383.61,
+          "en": "well this basically defines how this package will be updated",
+          "zh": "嗯，這基本上定義這個套件會怎麼被更新，"
+        },
+        {
+          "id": 86,
+          "start": 383.85,
+          "end": 391.11,
+          "en": "if you rerun just npm install, without defining an extra package name because this command standalone",
+          "zh": "如果你只重新跑 npm install，沒有定義額外的套件名稱，因為這個指令單獨"
+        },
+        {
+          "id": 87,
+          "start": 391.32,
+          "end": 397.77,
+          "en": "will simply go through all your packages mentioned in package.json and install them and it would automatically",
+          "zh": "會單純走遍 package.json 裡提到的所有套件並安裝它們，而它會自動"
+        },
+        {
+          "id": 88,
+          "start": 397.77,
+          "end": 399.69,
+          "en": "pick a later version if available",
+          "zh": "如果有較新版本就選它，"
+        },
+        {
+          "id": 89,
+          "start": 399.81,
+          "end": 403.71,
+          "en": "but more on npm and packages can also be found in a separate module",
+          "zh": "但更多關於 npm 和套件的事也可以在一個分開的模組找到，"
+        },
+        {
+          "id": 90,
+          "start": 403.77,
+          "end": 405.11,
+          "en": "later in the course.",
+          "zh": "在課程稍後。"
+        },
+        {
+          "id": 91,
+          "start": 405.39,
+          "end": 408.03,
+          "en": "So this is basically how we now install this",
+          "zh": "所以這基本上是我們現在怎麼安裝這個，"
+        },
+        {
+          "id": 92,
+          "start": 408.15,
+          "end": 410.65,
+          "en": "and the question is where is it installed?",
+          "zh": "而問題是它安裝在哪裡？"
+        },
+        {
+          "id": 93,
+          "start": 410.85,
+          "end": 412.88,
+          "en": "Well that is the node modules folder",
+          "zh": "嗯，那是 node_modules 資料夾，"
+        },
+        {
+          "id": 94,
+          "start": 412.98,
+          "end": 417.69,
+          "en": "and actually that is a huge folder as you can tell. The reason for this is that",
+          "zh": "而實際上那是一個巨大的資料夾，如你可以看出的。原因是"
+        },
+        {
+          "id": 95,
+          "start": 417.69,
+          "end": 419.87,
+          "en": "for one we got nodemon in there,",
+          "zh": "其一我們那裡面有 nodemon，"
+        },
+        {
+          "id": 96,
+          "start": 420,
+          "end": 424.25,
+          "en": "if we look for n, we see it here.",
+          "zh": "如果我們找 n，我們在這裡看到它。"
+        },
+        {
+          "id": 97,
+          "start": 424.44,
+          "end": 429.63,
+          "en": "Now this is basically the source code of the package or the build version of the package we installed",
+          "zh": "現在這基本上是套件的原始碼，或我們安裝的套件的建置版本，"
+        },
+        {
+          "id": 98,
+          "start": 430.32,
+          "end": 435,
+          "en": "and this package simply happens to have a couple of peer dependencies,",
+          "zh": "而這個套件剛好有一些 peer 依賴，"
+        },
+        {
+          "id": 99,
+          "start": 435.06,
+          "end": 437.26,
+          "en": "you can see them here and here.",
+          "zh": "你可以在這裡和這裡看到它們。"
+        },
+        {
+          "id": 100,
+          "start": 437.31,
+          "end": 442.92,
+          "en": "So we got a bunch of dependencies in there and these and their dependencies are also installed,",
+          "zh": "所以我們那裡面有一堆依賴，而這些以及它們的依賴也被安裝，"
+        },
+        {
+          "id": 101,
+          "start": 442.92,
+          "end": 449.01,
+          "en": "that is why you could end up with quite a big node modules folder but you can always delete that node",
+          "zh": "那就是為什麼你最後可能有一個相當大的 node_modules 資料夾，但你永遠可以刪除那個 node"
+        },
+        {
+          "id": 102,
+          "start": 449.01,
+          "end": 451.6,
+          "en": "modules folder if you need to free up space.",
+          "zh": "_modules 資料夾，如果你需要騰出空間。"
+        },
+        {
+          "id": 103,
+          "start": 451.62,
+          "end": 457.38,
+          "en": "Now you can't use that package but you can then rerun npm install if you start working on that project",
+          "zh": "現在你不能使用那個套件，但你可以接著重新跑 npm install，如果你再次開始做那個專案，"
+        },
+        {
+          "id": 104,
+          "start": 457.38,
+          "end": 463.29,
+          "en": "again and it will re-install this package and all its pure dependencies and therefore recreate the node",
+          "zh": "而它會重新安裝這個套件和它所有的 peer 依賴，因此重建 node"
+        },
+        {
+          "id": 105,
+          "start": 463.29,
+          "end": 464.37,
+          "en": "modules folder,",
+          "zh": "_modules 資料夾，"
+        },
+        {
+          "id": 106,
+          "start": 464.55,
+          "end": 467.64,
+          "en": "this is how packages work in node projects.",
+          "zh": "這就是套件在 Node 專案裡運作的方式。"
+        },
+        {
+          "id": 107,
+          "start": 467.64,
+          "end": 472.53,
+          "en": "So you need that node modules folder while still using the packages but if you're not working on the",
+          "zh": "所以當你仍在使用套件時你需要那個 node_modules 資料夾，但如果你沒在做"
+        },
+        {
+          "id": 108,
+          "start": 472.53,
+          "end": 478.02,
+          "en": "project, you can delete it if you want, if you need the free space and then just remember to rerun npm",
+          "zh": "專案，如果你需要空出來的空間，你可以刪除它，然後只要記得重新跑 npm"
+        },
+        {
+          "id": 109,
+          "start": 478.03,
+          "end": 480.96,
+          "en": "install once you are working on the project again.",
+          "zh": "install，一旦你再次在做這個專案。"
+        },
+        {
+          "id": 110,
+          "start": 481.41,
+          "end": 489.36,
+          "en": "The package log json file by the way just stores the exact versions I installed today so that if you",
+          "zh": "順便說，package-lock.json 檔案只儲存我今天安裝的確切版本，這樣如果你"
+        },
+        {
+          "id": 111,
+          "start": 489.36,
+          "end": 495.13,
+          "en": "share your project with others, they can actually get these exact versions too instead of the latest versions",
+          "zh": "和別人分享你的專案，他們實際上也能得到這些確切版本，而不是最新版本，"
+        },
+        {
+          "id": 112,
+          "start": 495.15,
+          "end": 498.14,
+          "en": "but again, more on npm in a separate module.",
+          "zh": "但再次，更多關於 npm 的事在一個分開的模組。"
+        }
+      ]
+    },
+    {
+      "id": "11563010",
+      "title": "Using Nodemon for Autorestarts",
+      "lectureOrder": 45,
+      "videoOrder": 37,
+      "sourceHash": "598f90e43e7cd007b36400142dcef7a1c159ecdbea114eadf18699bc6ddfc668",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.61,
+          "end": 8.22,
+          "en": "So for now we got that nodemon package installed and it will just work because it automatically installed",
+          "zh": "所以目前我們安裝了那個 nodemon 套件，而它會就這樣運作，因為它自動安裝了"
+        },
+        {
+          "id": 2,
+          "start": 8.28,
+          "end": 9.48,
+          "en": "all the dependencies",
+          "zh": "所有依賴，"
+        },
+        {
+          "id": 3,
+          "start": 9.48,
+          "end": 11.11,
+          "en": "this package needs in turn.",
+          "zh": "這個套件接著需要的。"
+        },
+        {
+          "id": 4,
+          "start": 11.19,
+          "end": 13.26,
+          "en": "So how can we now use it?",
+          "zh": "那麼我們現在怎麼使用它？"
+        },
+        {
+          "id": 5,
+          "start": 13.26,
+          "end": 22.63,
+          "en": "Nodemon is a utility tool and it allows us to run our application, our node application through this",
+          "zh": "nodemon 是一個工具，而它讓我們能跑我們的應用程式、我們的 Node 應用程式，透過這個"
+        },
+        {
+          "id": 6,
+          "start": 23.26,
+          "end": 26.26,
+          "en": "package here which will run node apps.js",
+          "zh": "這裡的套件，它最後會跑 node app.js，"
+        },
+        {
+          "id": 7,
+          "start": 26.29,
+          "end": 33.25,
+          "en": "in the end but which will also watch our files for changes and restart the process for us if",
+          "zh": "但也會監看我們的檔案是否有改變，並為我們重新啟動程序，如果"
+        },
+        {
+          "id": 8,
+          "start": 33.25,
+          "end": 37.7,
+          "en": "we do change something. So we can simply change start here,",
+          "zh": "我們確實改變某樣東西。所以我們可以單純在這裡改變 start，"
+        },
+        {
+          "id": 9,
+          "start": 37.78,
+          "end": 41.52,
+          "en": "so the node app.js command to nodemon app.js",
+          "zh": "所以把 node app.js 指令改成 nodemon app.js，"
+        },
+        {
+          "id": 10,
+          "start": 41.58,
+          "end": 49.06,
+          "en": "and this will look for a nodemon tool which it will find in this project because we installed it",
+          "zh": "而這會尋找一個 nodemon 工具，它會在這個專案裡找到，因為我們把它安裝"
+        },
+        {
+          "id": 11,
+          "start": 49.06,
+          "end": 50.69,
+          "en": "here. As a side note",
+          "zh": "在這裡。附帶一提，"
+        },
+        {
+          "id": 12,
+          "start": 50.8,
+          "end": 56.38,
+          "en": "if you were to run nodemon app.js down there, you would get an error that this command is not found",
+          "zh": "如果你在下面那裡跑 nodemon app.js，你會得到一個錯誤，這個指令找不到，"
+        },
+        {
+          "id": 13,
+          "start": 56.71,
+          "end": 62.59,
+          "en": "because it's only installed in this project and not globally on your machine but the terminal will try",
+          "zh": "因為它只安裝在這個專案裡，不是在你的機器上全域，但終端機會試著"
+        },
+        {
+          "id": 14,
+          "start": 62.59,
+          "end": 65.02,
+          "en": "to find this globally. Here",
+          "zh": "全域找這個。這裡"
+        },
+        {
+          "id": 15,
+          "start": 65.17,
+          "end": 68.07,
+          "en": "it will work because this will look globally.",
+          "zh": "它會有效，因為這會在專案裡找。"
+        },
+        {
+          "id": 16,
+          "start": 68.41,
+          "end": 75.46000000000001,
+          "en": "So if you now run npm start, this will simply start the node server and output some extra information",
+          "zh": "所以如果你現在跑 npm start，這會單純啟動 Node 伺服器，並輸出一些額外資訊，"
+        },
+        {
+          "id": 17,
+          "start": 76.09,
+          "end": 79.68,
+          "en": "and if you now go to your routes.js file and edit something,",
+          "zh": "而如果你現在到你的 routes.js 檔案並編輯某樣東西，"
+        },
+        {
+          "id": 18,
+          "start": 79.69,
+          "end": 85.21000000000001,
+          "en": "let's just add an extra line and you save that file, you see it's restarting.",
+          "zh": "讓我們只加一行，而你存那個檔案，你看到它在重新啟動。"
+        },
+        {
+          "id": 19,
+          "start": 85.21000000000001,
+          "end": 91.66,
+          "en": "And this of course is very convenient because now, we dont have to spend time on manually exiting and",
+          "zh": "而這當然非常方便，因為現在我們不必花時間手動結束並"
+        },
+        {
+          "id": 20,
+          "start": 91.66,
+          "end": 92.53999999999999,
+          "en": "restarting,",
+          "zh": "重新啟動，"
+        },
+        {
+          "id": 21,
+          "start": 92.56,
+          "end": 94.63,
+          "en": "now is this done for us.",
+          "zh": "現在這為我們做了。"
+        }
+      ]
+    },
+    {
+      "id": "11563014",
+      "title": "Understanding different Error Types",
+      "lectureOrder": 47,
+      "videoOrder": 38,
+      "sourceHash": "b4a562a519a159deb2401a5655c328d334be784ae2eb868653dcd539da1654eb",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.2,
+          "end": 8.17,
+          "en": "In the last lectures we worked a bit on the project setup and how we could use external packages which",
+          "zh": "在上一堂我們做了一點專案設定，以及我們怎麼使用外部套件，那"
+        },
+        {
+          "id": 2,
+          "start": 8.17,
+          "end": 11.43,
+          "en": "is super important and which we'll do a lot throughout this course.",
+          "zh": "超級重要，而我們會在這整門課程裡做很多。"
+        },
+        {
+          "id": 3,
+          "start": 11.62,
+          "end": 16.12,
+          "en": "But now I want to have a look at something else which helps us during development and that is of course",
+          "zh": "但現在我想看別的東西，它在開發時幫我們，而那當然是"
+        },
+        {
+          "id": 4,
+          "start": 16.46,
+          "end": 17.43,
+          "en": "fixing errors,",
+          "zh": "修正錯誤，"
+        },
+        {
+          "id": 5,
+          "start": 17.44,
+          "end": 23.83,
+          "en": "we need to understand how we can find and fix errors in our code because there always will be errors,",
+          "zh": "我們需要理解我們怎麼在程式碼裡找到並修正錯誤，因為永遠會有錯誤，"
+        },
+        {
+          "id": 6,
+          "start": 24.01,
+          "end": 27.6,
+          "en": "you will never write a program that just runs perfectly.",
+          "zh": "你永遠不會寫出一個就完美跑起來的程式。"
+        },
+        {
+          "id": 7,
+          "start": 27.67,
+          "end": 33.55,
+          "en": "For this, we first of all have to understand that there are different types of errors so that you can",
+          "zh": "為此，我們首先必須理解有不同類型的錯誤，這樣你能"
+        },
+        {
+          "id": 8,
+          "start": 33.55,
+          "end": 36.83,
+          "en": "understand how each type can be tackled.",
+          "zh": "理解每種類型可以怎麼處理。"
+        },
+        {
+          "id": 9,
+          "start": 36.91,
+          "end": 42.99,
+          "en": "The first kind of error you often get or you sometimes getting your programs are a syntax error,",
+          "zh": "你常常得到、或你的程式有時得到的第一種錯誤是語法錯誤，"
+        },
+        {
+          "id": 10,
+          "start": 43.18,
+          "end": 49.81,
+          "en": "this is if you have a typo in your code or you forget like a closing curly brace or anything like",
+          "zh": "這是如果你的程式碼有錯字，或你忘了像一個結束的大括號，或任何類似"
+        },
+        {
+          "id": 11,
+          "start": 49.81,
+          "end": 50.43,
+          "en": "that,",
+          "zh": "的東西，"
+        },
+        {
+          "id": 12,
+          "start": 50.5,
+          "end": 56.49,
+          "en": "so you have an error which should automatically be thrown when you try to run your project.",
+          "zh": "所以你有一個錯誤，當你試著跑你的專案時應該自動被丟出。"
+        },
+        {
+          "id": 13,
+          "start": 56.65,
+          "end": 61.84,
+          "en": "Most of the time, these are pretty easy to fix but we'll have a look at this and how we find and fix",
+          "zh": "大多數時候，這些相當容易修正，但我們會看這個，以及我們怎麼找到並修正"
+        },
+        {
+          "id": 14,
+          "start": 61.84,
+          "end": 63.67,
+          "en": "them in a second.",
+          "zh": "它們，等一下。"
+        },
+        {
+          "id": 15,
+          "start": 63.76,
+          "end": 69.33,
+          "en": "The second category of errors are runtime errors, at least this is how I like to call them.",
+          "zh": "第二類錯誤是執行期錯誤，至少這是我喜歡的叫法。"
+        },
+        {
+          "id": 16,
+          "start": 69.49,
+          "end": 76.06,
+          "en": "Now these are errors which are not typos but where you try to execute some code which will just break",
+          "zh": "現在這些不是錯字的錯誤，而是你試著執行一些程式碼，它會直接壞掉，"
+        },
+        {
+          "id": 17,
+          "start": 76.06,
+          "end": 83.7,
+          "en": "when it runs and I'll show an example for this in a second too. The third kind of errors are logical errors.",
+          "zh": "當它跑的時候，而我等一下也會給這個看一個範例。第三種錯誤是邏輯錯誤。"
+        },
+        {
+          "id": 18,
+          "start": 83.7,
+          "end": 88.97,
+          "en": "Now these are the most difficult ones because there, you will never see an error message,",
+          "zh": "現在這些是最難的，因為那裡你永遠不會看到錯誤訊息，"
+        },
+        {
+          "id": 19,
+          "start": 89.07,
+          "end": 92.36,
+          "en": "your app just doesn't work the way it should",
+          "zh": "你的 App 只是不以它該有的方式運作，"
+        },
+        {
+          "id": 20,
+          "start": 92.7,
+          "end": 99.66,
+          "en": "and it can be hard to find these but I will also show you some tool which can help you with that in",
+          "zh": "而找到這些可能很難，但我也會給你看一些工具，可以在"
+        },
+        {
+          "id": 21,
+          "start": 99.66,
+          "end": 100.63,
+          "en": "this module.",
+          "zh": "這個模組裡幫你那個。"
+        },
+        {
+          "id": 22,
+          "start": 101.03999999999999,
+          "end": 107.21000000000001,
+          "en": "So let's now start with syntax errors and let's see how we can find these and fix these.",
+          "zh": "所以讓我們現在從語法錯誤開始，並看看我們怎麼找到這些並修正這些。"
+        }
+      ]
+    },
+    {
+      "id": "11563020",
+      "title": "Finding & Fixing Syntax Errors",
+      "lectureOrder": 48,
+      "videoOrder": 39,
+      "sourceHash": "a25593608b23be774bcf7990b5d9ebf1223d07465a121e0d96dafc5ffe72f40b",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.11,
+          "end": 3.93,
+          "en": "Syntax errors can be very annoying",
+          "zh": "語法錯誤可以非常煩人，"
+        },
+        {
+          "id": 2,
+          "start": 3.94,
+          "end": 7.19,
+          "en": "but most of the time, they're not that hard to fix.",
+          "zh": "但大多數時候，它們沒那麼難修正。"
+        },
+        {
+          "id": 3,
+          "start": 7.21,
+          "end": 13.33,
+          "en": "Let's add a simple syntax error, here in app.js let's simply remove the t in const,",
+          "zh": "讓我們加一個簡單的語法錯誤，這裡在 app.js，讓我們單純移除 const 裡的 t，"
+        },
+        {
+          "id": 4,
+          "start": 13.33,
+          "end": 15.99,
+          "en": "now all of a sudden, this is an invalid keyword,",
+          "zh": "現在突然，這是一個無效的關鍵字，"
+        },
+        {
+          "id": 5,
+          "start": 16,
+          "end": 18.05,
+          "en": "it doesn't exist, it's not a keyword",
+          "zh": "它不存在，它不是一個關鍵字，"
+        },
+        {
+          "id": 6,
+          "start": 18.13,
+          "end": 23.27,
+          "en": "and we already get some help in the IDE which is showing us something is wrong here.",
+          "zh": "而我們已經在 IDE 裡得到一些幫助，它顯示我們這裡有東西不對。"
+        },
+        {
+          "id": 7,
+          "start": 23.56,
+          "end": 28.01,
+          "en": "Now if we hover over this, we see that a semi-colon is expected",
+          "zh": "現在如果我們把游標移到這個上面，我們看到預期一個分號，"
+        },
+        {
+          "id": 8,
+          "start": 28.09,
+          "end": 30.45,
+          "en": "and actually this is not that helpful",
+          "zh": "而實際上這沒那麼有幫助，"
+        },
+        {
+          "id": 9,
+          "start": 30.62,
+          "end": 35.02,
+          "en": "and this is simply because visual studio code thinks so that this is a variable",
+          "zh": "而這單純是因為 Visual Studio Code 這樣認為，這是一個變數，"
+        },
+        {
+          "id": 10,
+          "start": 35.14,
+          "end": 40.47,
+          "en": "and since we have a variable in the same line, we should close this with a semi-colon",
+          "zh": "而因為我們在同一行有一個變數，我們應該用分號結束這個，"
+        },
+        {
+          "id": 11,
+          "start": 40.6,
+          "end": 46.55,
+          "en": "and now it actually doesn't show an error. But let's save this and let's try running our app with npm",
+          "zh": "而現在它實際上不顯示錯誤。但讓我們存這個，並讓我們試著用 npm"
+        },
+        {
+          "id": 12,
+          "start": 46.69,
+          "end": 51.16,
+          "en": "start without that semi-colon we added. And you will see, it right away",
+          "zh": "start 跑我們的 App，沒有我們加的那個分號。而你會看到，它立刻"
+        },
+        {
+          "id": 13,
+          "start": 51.18,
+          "end": 57.11,
+          "en": "crashes and in there we see unexpected identifier const server.",
+          "zh": "當掉，而在那裡面我們看到 unexpected identifier const server。"
+        },
+        {
+          "id": 14,
+          "start": 57.16,
+          "end": 63.04,
+          "en": "So in the end, whilst it doesn't clearly tell us that we forgot the t here because it's not smart enough",
+          "zh": "所以最後，雖然它沒有清楚告訴我們我們在這裡忘了 t，因為它不夠聰明，"
+        },
+        {
+          "id": 15,
+          "start": 63.04,
+          "end": 65.12,
+          "en": "to understand that this is the error here,",
+          "zh": "去理解這就是這裡的錯誤，"
+        },
+        {
+          "id": 16,
+          "start": 65.2,
+          "end": 68.93,
+          "en": "we still see that the error seems to be stemming from this line",
+          "zh": "我們仍然看到錯誤似乎來自這一行，"
+        },
+        {
+          "id": 17,
+          "start": 69.19,
+          "end": 74.89,
+          "en": "and in such cases, as dumb as it sounds, you should simply take a closer look at this line and see what",
+          "zh": "而在這樣的情況，雖然聽起來很笨，你應該單純更仔細看這一行，並看什麼"
+        },
+        {
+          "id": 18,
+          "start": 74.89,
+          "end": 75.98,
+          "en": "could be wrong there",
+          "zh": "可能在那裡不對，"
+        },
+        {
+          "id": 19,
+          "start": 76.18,
+          "end": 78.27,
+          "en": "and you should quickly be able to see",
+          "zh": "而你應該很快就能看到"
+        },
+        {
+          "id": 20,
+          "start": 78.43,
+          "end": 79.78,
+          "en": "I forgot a t here.",
+          "zh": "我在這裡忘了一個 t。"
+        },
+        {
+          "id": 21,
+          "start": 80.17,
+          "end": 81.73,
+          "en": "So these are syntax errors,",
+          "zh": "所以這些是語法錯誤，"
+        },
+        {
+          "id": 22,
+          "start": 82.03,
+          "end": 89.4,
+          "en": "other errors would be that you maybe go to the routes.js file and let's say you forget a closing curly",
+          "zh": "其他錯誤會是，你也許到 routes.js 檔案，而讓我們說你忘了一個結束的大括"
+        },
+        {
+          "id": 23,
+          "start": 89.4,
+          "end": 90.39,
+          "en": "brace here.",
+          "zh": "號，這裡。"
+        },
+        {
+          "id": 24,
+          "start": 90.39,
+          "end": 94.68,
+          "en": "Now again visual studio code does complain and does show an error over there,",
+          "zh": "現在 Visual Studio Code 再次抱怨，並在那裡顯示一個錯誤，"
+        },
+        {
+          "id": 25,
+          "start": 94.92,
+          "end": 99.59,
+          "en": "if we jump there we see at the end that the closing curly brace is expected.",
+          "zh": "如果我們跳到那裡，我們在結尾看到預期結束的大括號。"
+        },
+        {
+          "id": 26,
+          "start": 99.6,
+          "end": 104.13,
+          "en": "Now it's not expected at this point where it's showing this message but it's expected somewhere in the",
+          "zh": "現在它不是在它顯示這個訊息的這個點被預期，而是在檔案裡的某個地方被預期，"
+        },
+        {
+          "id": 27,
+          "start": 104.13,
+          "end": 106.67,
+          "en": "file and whilst it can be cumbersome,",
+          "zh": "而雖然那可能麻煩，"
+        },
+        {
+          "id": 28,
+          "start": 106.68,
+          "end": 112.17,
+          "en": "you should then check your block statements like this if statement and see if there are all closed correctly.",
+          "zh": "你那時應該檢查你的區塊陳述，像這個 if 陳述，並看是否全部正確關閉。"
+        },
+        {
+          "id": 29,
+          "start": 112.71000000000001,
+          "end": 117.87,
+          "en": "In visual studio code, you also get some help because if you click next to such a curly brace, you'll see",
+          "zh": "在 Visual Studio Code，你也得到一些幫助，因為如果你點這樣一個大括號旁邊，你會看到"
+        },
+        {
+          "id": 30,
+          "start": 117.87,
+          "end": 123.86,
+          "en": "that this line gets highlighted and it actually shows you where it thinks that this is getting closed",
+          "zh": "這一行被醒目標示，而它實際上給你看它認為這個在哪裡被關閉，"
+        },
+        {
+          "id": 31,
+          "start": 123.93,
+          "end": 126.57,
+          "en": "and this is far too much at the bottom here",
+          "zh": "而這在下面這裡太多了，"
+        },
+        {
+          "id": 32,
+          "start": 126.57,
+          "end": 134.61,
+          "en": "for example. Again if you run this, you will see that it crashes and there, you also see unexpected token",
+          "zh": "例如。再次，如果你跑這個，你會看到它當掉，而那裡你也看到 unexpected token，"
+        },
+        {
+          "id": 33,
+          "start": 135.09,
+          "end": 136.75,
+          "en": "and it points us at routes.js",
+          "zh": "而它指向我們 routes.js"
+        },
+        {
+          "id": 34,
+          "start": 136.78,
+          "end": 137.17000000000002,
+          "en": ".",
+          "zh": "。"
+        },
+        {
+          "id": 35,
+          "start": 137.22,
+          "end": 139.65,
+          "en": "and then you see the line number too.",
+          "zh": "然後你也看到行號。"
+        },
+        {
+          "id": 36,
+          "start": 139.92000000000002,
+          "end": 146.37,
+          "en": "So here it points us at line 52 and it basically shows us the same place as visual studio code which",
+          "zh": "所以這裡它指向我們第 52 行，而它基本上給我們看和 Visual Studio Code 一樣的地方，那"
+        },
+        {
+          "id": 37,
+          "start": 146.37,
+          "end": 147.6,
+          "en": "is the wrong place",
+          "zh": "是錯誤的地方，"
+        },
+        {
+          "id": 38,
+          "start": 147.78,
+          "end": 153.87,
+          "en": "but in such a case here, you should really take the IDE help, see that error message and then go through",
+          "zh": "但在這裡這樣的情況，你真的應該接受 IDE 的幫助，看那個錯誤訊息，然後走遍"
+        },
+        {
+          "id": 39,
+          "start": 153.87,
+          "end": 155.43,
+          "en": "your file and see",
+          "zh": "你的檔案並看，"
+        },
+        {
+          "id": 40,
+          "start": 155.44,
+          "end": 161.85,
+          "en": "hmm where could I be missing a character or where do I have an extra closing curly brace or something",
+          "zh": "嗯，我可能在哪裡少一個字元，或我在哪裡多一個結束的大括號，或類似"
+        },
+        {
+          "id": 41,
+          "start": 161.85,
+          "end": 162.54,
+          "en": "like that",
+          "zh": "的東西，"
+        },
+        {
+          "id": 42,
+          "start": 162.69,
+          "end": 167.09,
+          "en": "and eventually you should be able to find this error and therefore of course fix it.",
+          "zh": "而最終你應該能找到這個錯誤，因此當然修正它。"
+        },
+        {
+          "id": 43,
+          "start": 167.37,
+          "end": 173.82,
+          "en": "So syntax errors should always result in an error message and then that can sometimes be hard to find",
+          "zh": "所以語法錯誤應該永遠導致一個錯誤訊息，然後那有時很難找到"
+        },
+        {
+          "id": 44,
+          "start": 173.82,
+          "end": 174.49,
+          "en": "them,",
+          "zh": "它們，"
+        },
+        {
+          "id": 45,
+          "start": 174.56,
+          "end": 182.88,
+          "en": "often it's like a typo, a mistyped variable name of a variable that therefore doesn't exist or missing",
+          "zh": "常常它像一個錯字、一個打錯的變數名稱，因此那個變數不存在，或少了"
+        },
+        {
+          "id": 46,
+          "start": 182.88,
+          "end": 188.19,
+          "en": "or extra characters but you can find them and it just takes some time to go through your file.",
+          "zh": "或多餘的字元，但你可以找到它們，而它只是需要一些時間走遍你的檔案。"
+        }
+      ]
+    },
+    {
+      "id": "11563028",
+      "title": "Dealing with Runtime Errors",
+      "lectureOrder": 49,
+      "videoOrder": 40,
+      "sourceHash": "a981f14f39254f2f8ce8010e59c9ab261613150e11d9bba31dbf9197c7c0d373",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2.21,
+          "end": 9.69,
+          "en": "The next category are runtime errors and a great example for this can be shown with the res write method",
+          "zh": "下一類是執行期錯誤，而這個的一個好例子可以用 res.write 方法顯示，"
+        },
+        {
+          "id": 2,
+          "start": 9.75,
+          "end": 10.63,
+          "en": "here.",
+          "zh": "這裡。"
+        },
+        {
+          "id": 3,
+          "start": 10.76,
+          "end": 19.6,
+          "en": "Now as I mentioned, you have to return here to prevent the execution of the code after this statement",
+          "zh": "現在如我提到的，你必須在這裡 return，以阻止這個陳述之後的程式碼執行，"
+        },
+        {
+          "id": 4,
+          "start": 19.63,
+          "end": 23.51,
+          "en": "otherwise and this is something node specific of course, you would",
+          "zh": "否則，而這當然是 Node 特有的某件事，你會"
+        },
+        {
+          "id": 5,
+          "start": 23.69,
+          "end": 27.4,
+          "en": "end a request here but the code execution would continue",
+          "zh": "在這裡結束一個請求，但程式碼執行會繼續，"
+        },
+        {
+          "id": 6,
+          "start": 27.56,
+          "end": 31.57,
+          "en": "and eventually we would reach this line and this is no syntax error,",
+          "zh": "而最終我們會到達這一行，而這不是語法錯誤，"
+        },
+        {
+          "id": 7,
+          "start": 31.57,
+          "end": 36.39,
+          "en": "this is correct but if we run our code here, seems to work right,",
+          "zh": "這是正確的，但如果我們在這裡跑我們的程式碼，似乎有效，對吧，"
+        },
+        {
+          "id": 8,
+          "start": 36.44,
+          "end": 38.71,
+          "en": "there is no syntax error after all.",
+          "zh": "畢竟沒有語法錯誤。"
+        },
+        {
+          "id": 9,
+          "start": 38.87,
+          "end": 44.48,
+          "en": "But if we now visit our page, eventually it breaks here and this is the point where it should go back",
+          "zh": "但如果我們現在造訪我們的頁面，最終它在這裡壞掉，而這是它應該回到"
+        },
+        {
+          "id": 10,
+          "start": 44.48,
+          "end": 51.08,
+          "en": "to your code and should find an error message there too. And this error message is something you",
+          "zh": "你的程式碼、也應該在那裡找到錯誤訊息的點。而這個錯誤訊息是某樣你"
+        },
+        {
+          "id": 11,
+          "start": 51.08,
+          "end": 57.74,
+          "en": "shouldn't just take and paste into the Q & A section but actually read it.",
+          "zh": "不該只是拿去貼到 Q&A 區段、而是實際讀它的東西。"
+        },
+        {
+          "id": 12,
+          "start": 57.74,
+          "end": 60.8,
+          "en": "A lot of the error messages are indeed helpful,",
+          "zh": "很多錯誤訊息確實有幫助，"
+        },
+        {
+          "id": 13,
+          "start": 60.8,
+          "end": 64.1,
+          "en": "you just need to know how to read them, at the bottom",
+          "zh": "你只需要知道怎麼讀它們，在底部"
+        },
+        {
+          "id": 14,
+          "start": 64.1,
+          "end": 70.31,
+          "en": "you always find uninteresting stuff I'd say but you have to scroll to the top of the error message and",
+          "zh": "我會說你永遠找到無趣的東西，但你必須捲到錯誤訊息的頂端，而"
+        },
+        {
+          "id": 15,
+          "start": 70.31,
+          "end": 73.13,
+          "en": "all of a sudden, it should get more meaningful.",
+          "zh": "突然，它應該變得更有意義。"
+        },
+        {
+          "id": 16,
+          "start": 73.13,
+          "end": 79.91,
+          "en": "For example here, you see the error code which already indicates that it's something with headers being",
+          "zh": "例如這裡，你看到錯誤碼，它已經表示那和 headers 被"
+        },
+        {
+          "id": 17,
+          "start": 79.91,
+          "end": 87.25,
+          "en": "sent and then here, you actually find a detailed error message, cannot set headers after they are set",
+          "zh": "送出有關，然後這裡你實際上找到詳細的錯誤訊息，cannot set headers after they are sent"
+        },
+        {
+          "id": 18,
+          "start": 87.28999999999999,
+          "end": 94.1,
+          "en": "to the client and then you see that it was caused by a call to set header and unfortunately, the line",
+          "zh": "to the client，然後你看到它是由對 setHeader 的呼叫造成的，而不幸的是，行"
+        },
+        {
+          "id": 19,
+          "start": 94.1,
+          "end": 96.5,
+          "en": "numbers don't help you, here at least",
+          "zh": "號沒幫你，至少這裡，"
+        },
+        {
+          "id": 20,
+          "start": 96.59,
+          "end": 98.31,
+          "en": "but then it does help you here,",
+          "zh": "但然後它在這裡確實幫你，"
+        },
+        {
+          "id": 21,
+          "start": 98.47999999999999,
+          "end": 105.08,
+          "en": "you see it's in the request handler and there it points at the routes.js file line 32. And now this is the",
+          "zh": "你看到它在 requestHandler 裡，而那裡它指向 routes.js 檔案第 32 行。而現在這是"
+        },
+        {
+          "id": 22,
+          "start": 105.08,
+          "end": 106.63,
+          "en": "point where you can dive in and see,",
+          "zh": "你可以深入並看的點，"
+        },
+        {
+          "id": 23,
+          "start": 106.67,
+          "end": 108.64,
+          "en": "ok I'm calling set header here,",
+          "zh": "好，我在這裡呼叫 setHeader，"
+        },
+        {
+          "id": 24,
+          "start": 108.74000000000001,
+          "end": 114.1,
+          "en": "now since it's complaining that I can't set them after they are sent to the client,",
+          "zh": "現在既然它抱怨我不能在它們被送到用戶端之後設定它們，"
+        },
+        {
+          "id": 25,
+          "start": 114.17,
+          "end": 120.23,
+          "en": "I should look well in the code before this statement because it looks like I'm finishing my response",
+          "zh": "我應該好好看這個陳述之前的程式碼，因為看起來我在結束我的回應，"
+        },
+        {
+          "id": 26,
+          "start": 120.23,
+          "end": 128.81,
+          "en": "there for this example. And indeed at some point you should find this statement and see I do actually",
+          "zh": "那裡，對這個例子。而確實在某個點你應該找到這個陳述，並看到我實際上"
+        },
+        {
+          "id": 27,
+          "start": 128.9,
+          "end": 135.11,
+          "en": "not finish my code execution after this statement which is not per se a problem but it becomes a problem",
+          "zh": "沒有在這個陳述之後結束我的程式碼執行，那本身不是問題，但它變成問題，"
+        },
+        {
+          "id": 28,
+          "start": 135.37,
+          "end": 140.87,
+          "en": "if in the following code, I then work on my response again as I'm doing it here.",
+          "zh": "如果在接下來的程式碼裡，我接著再次處理我的回應，如我在這裡做的。"
+        },
+        {
+          "id": 29,
+          "start": 140.9,
+          "end": 148.13,
+          "en": "So now this is the point where we can fix this by stopping the code execution or by wrapping this in an",
+          "zh": "所以現在這是我們可以藉由停止程式碼執行來修正這個的點，或藉由把這個包在一個"
+        },
+        {
+          "id": 30,
+          "start": 148.16,
+          "end": 151.52,
+          "en": "extra if statement which is guaranteed to not run",
+          "zh": "額外的 if 陳述裡，它保證不會跑，"
+        },
+        {
+          "id": 31,
+          "start": 151.64,
+          "end": 157.69,
+          "en": "if we make it into this statement. And now with that, we can of course restart our server",
+          "zh": "如果我們進入這個陳述。而現在有了那個，我們當然可以重新啟動我們的伺服器，"
+        },
+        {
+          "id": 32,
+          "start": 157.7,
+          "end": 159.31,
+          "en": "or actually we don't need to,",
+          "zh": "或實際上我們不需要，"
+        },
+        {
+          "id": 33,
+          "start": 159.38,
+          "end": 162.06,
+          "en": "we got nodemon now so you don't need to do that",
+          "zh": "我們現在有 nodemon，所以你不需要做那個，"
+        },
+        {
+          "id": 34,
+          "start": 162.1,
+          "end": 164.86,
+          "en": "and now if you reload your page, it will work again.",
+          "zh": "而現在如果你重新載入你的頁面，它會再次有效。"
+        }
+      ]
     }
   ]
 }
