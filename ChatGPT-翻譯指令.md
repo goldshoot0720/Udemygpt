@@ -10,4 +10,4 @@
 
 台灣術語：component＝元件、array＝陣列、object＝物件、function＝函式、variable＝變數、string＝字串、boolean＝布林、code＝程式碼、data＝資料、database＝資料庫、project＝專案、library＝函式庫、default＝預設、call＝呼叫、load＝載入、callback＝回呼、async＝非同步、cache＝快取、server＝伺服器、interface＝介面、source code＝原始碼、folder＝資料夾、configuration＝設定、memory＝記憶體、return＝回傳。
 
-完成後先驗證所有 zh 已填妥、cue 數量一致、英文與時間軸未變動，再提供檔案連結與實際完成段數。若因限制无法完成，明確列出尚未翻譯的講座及段落，不可宣稱完整完成。
+完成後先驗證所有 zh 已填妥、cue 數量一致、英文與時間軸未變動，再提供檔案連結與實際完成段數。若因限制無法完成，明確列出尚未翻譯的講座及段落，不可宣稱完整完成。
