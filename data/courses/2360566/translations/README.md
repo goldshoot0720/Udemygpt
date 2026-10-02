@@ -8,5 +8,6 @@
 
 - [tw-001-050.json](tw-001-050.json)：43 堂影片已驗證（2,738 段）。
 - [tw-051-100.json](tw-051-100.json)：43 堂影片已驗證（2,438 段）。
-- [tw-101-150.json](tw-101-150.json)：11 堂影片已驗證（768 段）。本區間尚未滿 50 堂。
-- [ChatGPT-Svelte-supplement-2360566.zh-TW.json](ChatGPT-Svelte-supplement-2360566.zh-TW.json)：3 堂音訊補件譯文。合計前 100 堂影片已完成（6,128 段）。
+- [tw-101-150.json](tw-101-150.json)：42 堂影片已驗證（2,696 段）。
+- [tw-151-200.json](tw-151-200.json)：40 堂影片已驗證（2,353 段）。
+- [ChatGPT-Svelte-supplement-2360566.zh-TW.json](ChatGPT-Svelte-supplement-2360566.zh-TW.json)：3 堂音訊補件譯文。合計 171 堂影片全部完成（10,409 段）。
