@@ -6,6 +6,6 @@
 
 目前的譯文檔案：
 
-- [tw-001-050.json](tw-001-050.json)：前 20 堂影片已驗證（1,834 段）。本區間尚未滿 50 堂。
+- [tw-001-050.json](tw-001-050.json)：前 30 堂影片已驗證（2,739 段）。本區間尚未滿 50 堂。
 
 進度以 [translation-progress.json](../translation-progress.json) 為準。中英雙語特效字幕由 `export_ass.py` 產生，放在 `subtitles-ass/`（不加入 Git）。
