@@ -61,3 +61,9 @@ python3 scripts/detect_adjacent_dup.py . /tmp/dup.json
 ```
 
 修正以 `scripts/apply_zh_patch.py PATCH.json data/import-reports/translation-repairs-2026-10-03.json --label …` 套用：會檢查舊值、拒絕空白中文，並記錄每一段的修改前後。修正後須重新匯出 `.ass`（`python3 export_ass.py <courseId>`），並在瀏覽器擴充功能中重新匯入。
+
+## 六、後續：分支合併與用語回歸修正
+
+- 分支 `cue/udemygpt-zh-translation-fixes`（8be16d8，基準為含錯字的 ef88a62）逐段比對後選擇性納入 21 段對位改善，包括 Angular DI 語境中誤譯為「權杖」的 token；其中仍帶「強製」錯字、整段錯開一句的 1708340/37143778 不採用，改為人工重新對位。
+- 第一節的還原把 ef88a62 少數正確的替換一併還原了，已補修：嵌套→巢狀（156 處）、優化→最佳化（原文為 polished 的 3 處改譯為「改良」）。
+- 儲存庫只保留 `main` 分支；其餘分支皆已合併（提交 4138e88、0d53c41、bc4d90d）並刪除。
