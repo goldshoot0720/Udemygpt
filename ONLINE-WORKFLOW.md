@@ -25,4 +25,8 @@ Firefox 原生 CUA 支援 AX 和按鍵。每次重新取得 AX 索引；檔案�
 
 ## 最終 GitHub 提交
 
-使用者已授權全部任務完成後提交到 `https://github.com/goldshoot0720/Udemygpt`。工作目錄已初始化 Git 並連結 origin，保留遠端 main 的初始歷史。全部字幕處理及清單核對完成前不提前推送。最終整理 README、字幕備份與最新版擴充功能 ZIP，執行必要驗證，commit 並 push，核對遠端 SHA 後通知使用者。不要把登入憑證、Firefox 設定檔或 Downloads 中無關檔案加入儲存庫。
+使用者已授權提交並推送至 `https://github.com/goldshoot0720/Udemygpt`。工作目錄已初始化 Git 並連結 origin，保留遠端 main 的初始歷史。
+
+**每翻譯滿 10 堂即自動 commit 並 push**，不必等全課完成。回報規則：每滿 10 堂向使用者回報本次完成的堂次與段數、累計進度，並依實際每堂平均耗時推估**全課剩餘翻譯時間**（預估依據要寫明：已翻譯堂數、平均每堂段數與實際耗時）。推估只反映實際觀察到的速度，不使用未驗證的數字。
+
+全課完成後再整理 README、字幕備份與最新版擴充功能 ZIP，執行必要驗證，最後 commit 並 push，核對遠端 SHA 後通知使用者。不要把登入憑證、Firefox 設定檔或 Downloads 中無關檔案加入儲存庫。
