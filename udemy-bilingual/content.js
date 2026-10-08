@@ -134,9 +134,7 @@
       <button class="retry" type="button">重新讀取字幕</button>
       <button class="export-current" type="button">匯出本堂英文</button>
       <button class="export-course" type="button">匯出全課英文</button>
-      <button class="import-english" type="button">匯入補充英文字幕</button>
-      <input class="import-english-file" type="file" accept=".json,application/json" hidden>
-      <button class="import" type="button">匯入 ChatGPT 譯文</button>
+      <button class="import" type="button">匯入中英雙語字幕</button>
       <input class="import-file" type="file" accept=".json,application/json" hidden>
       <p class="source">中文由英文預先翻譯，採台灣術語；不使用 Udemy 中文字幕。尚未匯入譯文時只顯示英文。</p></div></div>`;
     player.append(root);
@@ -161,8 +159,6 @@
     shadow.querySelector(".time-retry").addEventListener("click", () => loadCourseTime(true));
     shadow.querySelector(".export-current").addEventListener("click", exportCurrent);
     shadow.querySelector(".export-course").addEventListener("click", exportCourse);
-    shadow.querySelector(".import-english").addEventListener("click", () => shadow.querySelector(".import-english-file").click());
-    shadow.querySelector(".import-english-file").addEventListener("change", importEnglish);
     shadow.querySelector(".import").addEventListener("click", () => shadow.querySelector(".import-file").click());
     shadow.querySelector(".import-file").addEventListener("change", importTranslation);
     for (const input of shadow.querySelectorAll("select,input[name]")) {
@@ -256,7 +252,7 @@
         if (!en.length) throw new Error("英文字幕格式無法解析");
       } else {
         const supplemental = stored[englishKey];
-        if (supplemental?.sourceOrigin !== "audio-transcription") throw new Error("這堂課沒有可用的英文字幕；可匯入補充英文字幕");
+        if (supplemental?.sourceOrigin !== "audio-transcription") throw new Error("這堂課沒有可用的英文字幕");
         await validateEnglish(supplemental);
         if (revision !== generation) return;
         let maxEnd = 0;
@@ -273,8 +269,8 @@
         zh = en.map((cue,i) => ({ ...cue, text: translation.cues[i].zh }));
       }
       loaded = true;
-      status.textContent = zh.length ? `ChatGPT 英文預譯已就緒 · ${en.length} 段中英字幕` :
-        `英文 ${en.length} 段已就緒；本堂尚未匯入 ChatGPT 譯文`;
+      status.textContent = zh.length ? `中英雙語字幕已就緒 · ${en.length} 段` :
+        `英文 ${en.length} 段已就緒；本堂尚未匯入中英雙語字幕`;
       if (englishOrigin === "audio-transcription") status.textContent += " · 英文來源：音訊轉錄";
       root.dataset.source = englishOrigin;
       root.dataset.status = zh.length ? "bilingual-ready" : "english-only";
@@ -308,7 +304,7 @@
         id:lecture,title,sourceHash:await sourceHash(cues),sourceOrigin,
         cues:cues.map(({start,end,text},i)=>({id:i+1,start,end,en:text,zh:""}))
       }]},`Udemy-English-${courseId}-${lecture}.json`);
-      status.textContent = `已匯出 ${cues.length} 段英文；請交給 ChatGPT 翻譯`;
+      status.textContent = `已匯出 ${cues.length} 段英文；請交給翻譯工具處理後再匯入`;
     } catch (error) { status.textContent = error.message; }
   }
   let collecting = false;
@@ -404,27 +400,6 @@
   function supplementalEntry(lecture, hash) {
     return {id:String(lecture.id),title:lecture.title,sourceHash:hash,sourceOrigin:"audio-transcription",cues:lecture.cues.map(({id,start,end,en})=>({id,start,end,en})),importedAt:new Date().toISOString()};
   }
-  async function importEnglish(event) {
-    const activeCourse = course;
-    try {
-      const file = event.target.files[0]; if (!file) return;
-      const value = JSON.parse(await file.text());
-      const courseId = await UdemyCourses.idFor(activeCourse);
-      if (value.version !== 1 || value.courseId !== courseId || value.sourceLanguage !== "en") throw new Error("補充英文字幕必須屬於目前課程");
-      if (!Array.isArray(value.lectures) || !value.lectures.length) throw new Error("檔案沒有英文講座資料");
-      const updates = {};
-      for (const lecture of value.lectures) {
-        if (lecture.sourceOrigin !== "audio-transcription") throw new Error("補充英文字幕需標明音訊轉錄來源");
-        const hash = await validateEnglish(lecture);
-        const storageKey = `english-source:${courseId}:${lecture.id}`;
-        if (updates[storageKey]) throw new Error("補充英文檔案包含重複講座");
-        updates[storageKey] = supplementalEntry(lecture, hash);
-      }
-      await browser.storage.local.set(updates);
-      if (course === activeCourse) { key = ""; check(); }
-    } catch (error) { status.textContent = `英文匯入失敗：${error.message}`; }
-    finally { event.target.value = ""; }
-  }
   async function importTranslation(event) {
     const activeCourse = course;
     try {
@@ -439,7 +414,7 @@
         for (const [index,cue] of lecture.cues.entries()) {
           if (cue.id !== index+1 || typeof cue.en !== "string" || !cue.en.trim() || typeof cue.zh !== "string" || !cue.zh.trim() || !Number.isFinite(cue.start) || !Number.isFinite(cue.end) || cue.end <= cue.start) throw new Error(`${lecture.title || lecture.id} 第 ${index+1} 段缺漏或格式錯誤`);
         }
-        updates[UdemyCourses.translationKey(courseId, lecture.id)] = {sourceHash:hash,translatedBy:"ChatGPT",cues:lecture.cues.map(c=>({zh:toTraditional(c.zh)})),importedAt:new Date().toISOString()};
+        updates[UdemyCourses.translationKey(courseId, lecture.id)] = {sourceHash:hash,translatedBy:"bilingual-zh-tw",cues:lecture.cues.map(c=>({zh:toTraditional(c.zh)})),importedAt:new Date().toISOString()};
         if (lecture.sourceOrigin === "audio-transcription") updates[`english-source:${courseId}:${lecture.id}`] = supplementalEntry(lecture, hash);
       }
       await browser.storage.local.set(updates);

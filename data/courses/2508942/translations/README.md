@@ -4,7 +4,7 @@
 
 全課 **540／540 堂影片、37,567 段**已完成台灣繁體中文翻譯。所有講座、段號、英文、時間軸及來源 metadata 已核對，沒有缺段或空白譯文。檢查結果見 [完整驗證報告](../translation-audit.json)。
 
-可在本課程播放器的設定按「匯入 ChatGPT 譯文」，選取下列 JSON。課程 ID 必須相符；瀏覽器匯入狀態以 [translation-progress.json](../translation-progress.json) 為準。目前尚未記錄瀏覽器匯入。
+可在本課程播放器的設定按「匯入中英雙語字幕」，選取下列 JSON。課程 ID 必須相符；瀏覽器匯入狀態以 [translation-progress.json](../translation-progress.json) 為準。目前尚未記錄瀏覽器匯入。
 
 譯文檔案：
 

@@ -19,7 +19,7 @@ Svelte 英文來源已補齊為 171／171 堂、10,409 段：168 堂 Udemy 原�
 3 堂共 184 段繁體中文均非空；除 `zh` 外，所有欄位逐一比對相同，包括英文、時間、編號與來源資訊。修正過一次跨段重複文字，紀錄見 [translation-corrections.json](translation-corrections.json)；驗證報告見 [translation-verification.json](translation-verification.json)。
 
 - [補充英文字幕 JSON](English-supplement-2360566.json)：在 Svelte 播放器設定內匯入補充英文字幕。
-- [完整中英字幕 JSON](../translations/ChatGPT-Svelte-supplement-2360566.zh-TW.json)：匯入 ChatGPT 譯文即可同時儲存 3 堂補充英文與中文。
+- [完整中英字幕 JSON](../translations/ChatGPT-Svelte-supplement-2360566.zh-TW.json)：匯入中英雙語字幕即可同時儲存 3 堂補充英文與中文。
 - [progress.json](progress.json)：各堂實際匯入與播放核對證據。
 
 這次只翻譯補件的 3 堂；其餘 168 堂的中文進度保留原有狀態。

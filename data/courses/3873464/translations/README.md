@@ -2,7 +2,7 @@
 
 [返回課程資料](../README.md)。
 
-可在本課程的播放器設定按「匯入 ChatGPT 譯文」，選取此資料夾中的 JSON。課程 ID 必須相符；譯文進度以 [translation-progress.json](../translation-progress.json) 為準。
+可在本課程的播放器設定按「匯入中英雙語字幕」，選取此資料夾中的 JSON。課程 ID 必須相符；譯文進度以 [translation-progress.json](../translation-progress.json) 為準。
 
 目前的譯文檔案：
 

@@ -92,27 +92,25 @@ async function workflow(course, index, withoutEnglish = false, chromium = false)
   const root = nodes.find(node => node.id === 'udemy-bilingual-root'), shadow = root.shadow;
   const upload = value => ({ target: { files: [{ text: async () => JSON.stringify(value) }], value: 'fixture' } });
   if (withoutEnglish) {
+    // Courses without an official English track report the gap and expose no supplement import.
     assert.equal(root.dataset.status, 'error');
-    const supplemental = {version:1,courseId,sourceLanguage:'en',targetLanguage:'zh-TW',lectures:[{
-      id:lectureId,title:'Fixture lecture',sourceOrigin:'audio-transcription',
-      sourceHash:createHash('sha256').update(JSON.stringify([{start:1,end:3,text:'Hello world'}])).digest('hex'),
-      cues:[{id:1,start:1,end:3,en:'Hello world',zh:''}]
-    }]};
-    const wrongCourse = structuredClone(supplemental); wrongCourse.courseId++;
-    await shadow.querySelector('.import-english-file').events.change(upload(wrongCourse));
-    assert.match(shadow.querySelector('.status').textContent,/英文匯入失敗/);
-    const tampered = structuredClone(supplemental); tampered.lectures[0].cues[0].en='Changed';
-    await shadow.querySelector('.import-english-file').events.change(upload(tampered));
-    assert.match(shadow.querySelector('.status').textContent,/英文或時間軸已變動/);
-    const negative = structuredClone(supplemental); negative.lectures[0].cues[0].start=-1;
-    await shadow.querySelector('.import-english-file').events.change(upload(negative));
-    assert.match(shadow.querySelector('.status').textContent,/格式錯誤/);
-    assert.equal(Object.keys(storage).length,0);
-    await shadow.querySelector('.import-english-file').events.change(upload(supplemental));
-    await settle();
-    assert.ok(storage[`english-source:${courseId}:${lectureId}`]);
-    assert.equal(root.dataset.source,'audio-transcription');
-    assert.match(shadow.querySelector('.status').textContent,/音訊轉錄/);
+    // The DOM stub answers every selector, so assert against the shipped source instead.
+    assert.ok(!fs.readFileSync(require.resolve('../udemy-bilingual/content.js'), 'utf8').includes('import-english'));
+    assert.match(shadow.querySelector('.status').textContent,/沒有可用的英文字幕/);
+    assert.equal(Object.keys(storage).length, 0);
+    // Without a supplemental import the lecture can only recover from the official caption track.
+    denied = true;
+    shadow.querySelector('.retry').events.click(); await settle();
+    assert.equal(root.dataset.status,'error');
+    assert.match(shadow.querySelector('.status').textContent,/403/);
+    denied = false; captionAvailable = true; playbackText = 'Official English';
+    shadow.querySelector('.retry').events.click(); await settle();
+    assert.equal(root.dataset.source,'udemy-caption');
+    assert.equal(root.dataset.status,'english-only');
+    await shadow.querySelector('.export-current').events.click();
+    const official = JSON.parse(await downloads.pop().text());
+    assert.equal(official.lectures[0].cues[0].en,'Official English');
+    return;
   }
   assert.equal(root.dataset.status, 'english-only');
   assert.equal(shadow.querySelector('.time-current').textContent, '目前：1. Fixture lecture');
@@ -144,19 +142,6 @@ async function workflow(course, index, withoutEnglish = false, chromium = false)
   assert.ok(storage[`translation:${courseId}:${lectureId}`]);
   assert.equal(root.dataset.status, 'bilingual-ready');
   assert.equal(shadow.querySelector('.toggle').textContent, '中英 CC ✓');
-  if (withoutEnglish) {
-    denied = true;
-    shadow.querySelector('.retry').events.click(); await settle();
-    assert.equal(root.dataset.status,'error');
-    assert.match(shadow.querySelector('.status').textContent,/403/);
-    denied = false; captionAvailable = true; playbackText = 'Official English';
-    shadow.querySelector('.retry').events.click(); await settle();
-    assert.equal(root.dataset.source,'udemy-caption');
-    assert.equal(root.dataset.status,'english-only');
-    await shadow.querySelector('.export-current').events.click();
-    const official = JSON.parse(await downloads.pop().text());
-    assert.equal(official.lectures[0].cues[0].en,'Official English');
-  }
   if (course.id === 1362070) {
     storage[`translation:${lectureId}`] = storage[`translation:${courseId}:${lectureId}`];
     delete storage[`translation:${courseId}:${lectureId}`];
