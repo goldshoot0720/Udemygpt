@@ -48,6 +48,7 @@
     input[type="range"] { width: 125px; accent-color: #7fdcff; }
     input[type="number"] { width: 80px; color: white; border: 1px solid #ffffff40; background: #14253d; border-radius: 6px; padding: 4px; }
     .status { color: #b9cee8; font-size: 12px; line-height: 1.5; margin-bottom: 10px; }
+    .notice { width: 100%; margin-bottom: 10px; padding: 8px 10px; border: 1px solid #ffd47966; border-radius: 9px; background: #2a1f06e8; color: #ffe3a6; font-size: 12px; line-height: 1.5; }
     .source { font-size: 11px; color: #a0b2c9; line-height: 1.5; margin: 8px 0 0; }
     @media(max-width:600px) { .captions { left: 3%; right: 3%; } .lines { padding: 8px 12px; } .zh { font-size: min(var(--zh-size,var(--size,25px)),20px); } .en { font-size: min(calc(var(--size,25px)*.76),16px); } }
     @media(prefers-reduced-motion:reduce) { .fade { animation: none; } .toolbar { transition: none; } }
@@ -113,6 +114,7 @@
       <div class="panel" hidden>
       <div class="course-time" aria-label="課程影片分鐘數" hidden>
       <div class="course-id">課程 ID：讀取中…</div>
+      <div class="notice" role="status" hidden></div>
       <div class="time-current">正在讀取課程時長…</div><div class="time-total"></div>
       <div class="time-values"><span class="time-watched"></span><span class="time-remaining"></span></div>
       <div class="time-note">依序觀看估算：前面影片＋本堂播放位置</div>
@@ -133,6 +135,12 @@
     player.append(root);
     chineseLine = shadow.querySelector(".zh"); englishLine = shadow.querySelector(".en");
     toggle = shadow.querySelector(".toggle"); status = shadow.querySelector(".status"); panel = shadow.querySelector(".panel");
+    if (!course.known) {
+      // Courses outside the prepared list still load; only warn that no translation exists.
+      const notice = shadow.querySelector(".notice");
+      notice.textContent = `此課程尚未加入翻譯清單（${course.slug}），目前只顯示官方英文字幕。可按「匯出全課英文」取出字幕後翻譯。`;
+      notice.hidden = false;
+    }
     toggle.addEventListener("click", () => { prefs.enabled = !prefs.enabled; apply(); save(); });
     const settings = shadow.querySelector(".settings");
     settings.addEventListener("click", () => {
@@ -172,7 +180,7 @@
     const lecture = location.pathname.match(/\/lecture\/(\d+)/)?.[1];
     const courseId = shadow.querySelector(".course-id");
     courseId.textContent = timeCourseId ? `課程 ID：${timeCourseId} · 資料夾 data/courses/${timeCourseId}` : "課程 ID：讀取中…";
-    courseId.title = course ? `${course.title}（${timeCourseId || "讀取中"}）` : "";
+    courseId.title = course ? `${course.title || course.slug}（${timeCourseId || "讀取中"}）` : "";
     if (!timeItems) {
       current.textContent = timeError || "正在讀取課程時長…";
       total.textContent = ""; watched.textContent = "已觀看 — 分鐘"; remaining.textContent = "未觀看 — 分鐘";

@@ -1,4 +1,6 @@
-/* Shared course allowlist for content scripts and background messages. */
+/* Course routes for content scripts and background messages.
+   Any Udemy course page works; the list below is only the courses with translations
+   prepared, and an unlisted course is flagged instead of blocked. */
 (function (scope) {
   "use strict";
   const courses = Object.freeze([
@@ -16,18 +18,26 @@
     { slug: "ionic-2-the-practical-guide-to-building-ios-android-apps", title: "Ionic - Build iOS, Android & Web Apps with Ionic & Angular" },
     { slug: "javascript-the-complete-guide-2020-beginner-advanced", title: "JavaScript - The Complete Guide (Beginner + Advanced)" },
     { slug: "chatgpt-bard-bing-complete-guide-to-chatgpt-openai-apis", title: "ChatGPT & Generative AI - The Complete Guide", id: 5291332 }
-  ].map(course => Object.freeze({ ...course, instructor: "Maximilian Schwarzmüller" })));
+  ].map(course => Object.freeze({ ...course, instructor: "Maximilian Schwarzmüller", known: true })));
+  const bySlug = new Map(courses.map(course => [course.slug, course]));
+  const unlisted = new Map();
   const ids = new Map();
   function forUrl(value) {
     try {
       const url = new URL(value);
       if (url.origin !== "https://www.udemy.com") return null;
       const slug = url.pathname.match(/^\/course\/([^/]+)\/learn\//)?.[1];
-      return courses.find(course => course.slug === slug) || null;
+      if (!slug) return null;
+      if (bySlug.has(slug)) return bySlug.get(slug);
+      // Callers compare course objects by identity, so reuse one object per slug.
+      if (!unlisted.has(slug)) {
+        unlisted.set(slug, Object.freeze({ slug, title: "", instructor: "", known: false }));
+      }
+      return unlisted.get(slug);
     } catch { return null; }
   }
   async function idFor(course, fetcher = fetch) {
-    if (!courses.includes(course)) throw new Error("不支援的課程頁面");
+    if (!course || typeof course.slug !== "string" || !course.slug) throw new Error("不是課程頁面");
     if (course.id) return course.id;
     if (!ids.has(course.slug)) {
       const pending = (async () => {

@@ -1,18 +1,18 @@
-# Udemy 中英雙語特效字幕 2.6.0
+# Udemy 中英雙語特效字幕 2.7.0
 
 GitHub Release 提供 Firefox 的 XPI／ZIP、Chrome、Edge 的開發者載入包，以及 Safari 原始碼包。尚未發布到瀏覽器商店，也未提供 Mozilla 或 Apple 簽署的安裝檔。包內不包含課程影片、音訊、帳號資料或已翻譯的課程字幕。
 
 ## Firefox（115 以上）
 
-1. 下載 `udemy-bilingual-firefox-2.6.0.xpi`（與 ZIP 內容相同）或解壓縮 `udemy-bilingual-firefox-2.6.0.zip`。
+1. 下載 `udemy-bilingual-firefox-2.7.0.xpi`（與 ZIP 內容相同）或解壓縮 `udemy-bilingual-firefox-2.7.0.zip`。
 2. 開啟 `about:debugging#/runtime/this-firefox`，按「載入暫用附加元件」。
 3. 選擇 XPI 檔案或解壓縮資料夾內的 `manifest.json`，回到 Udemy 播放器重新整理。
 
-Firefox 關閉後暫用附加元件會移除。`udemy-bilingual-firefox-2.6.0.xpi` **未經 Mozilla 簽章**，內容與 Firefox ZIP 相同（SHA-256 一致），可暫時載入；要長期安裝需 Mozilla 簽章的 XPI，或自行以 `web-ext sign` 簽署。
+Firefox 關閉後暫用附加元件會移除。`udemy-bilingual-firefox-2.7.0.xpi` **未經 Mozilla 簽章**，內容與 Firefox ZIP 相同（SHA-256 一致），可暫時載入；要長期安裝需 Mozilla 簽章的 XPI，或自行以 `web-ext sign` 簽署。
 
 ## Chrome／Edge（109 以上，建議目前穩定版）
 
-1. 下載相應的 `udemy-bilingual-chrome-2.6.0.zip` 或 `udemy-bilingual-edge-2.6.0.zip`，解壓縮到固定位置。
+1. 下載相應的 `udemy-bilingual-chrome-2.7.0.zip` 或 `udemy-bilingual-edge-2.7.0.zip`，解壓縮到固定位置。
 2. Chrome 開啟 `chrome://extensions`；Edge 開啟 `edge://extensions`。
 3. 開啟「開發人員模式」，按「載入未封裝項目」，選擇包含 `manifest.json` 的資料夾。
 4. 回到 Udemy 課程播放器重新整理；保留解壓縮資料夾供後續載入。
@@ -21,13 +21,13 @@ Chrome／Edge 包使用 Manifest V3 service worker，並處理非同步訊息與
 
 ## Safari
 
-`udemy-bilingual-safari-source-2.6.0.zip` 是 Safari Web Extension 轉換來源，不能直接安裝。本次未生成或編譯 Xcode 專案：發布主機只有 Command Line Tools，未安裝完整 Xcode。
+`udemy-bilingual-safari-source-2.7.0.zip` 是 Safari Web Extension 轉換來源，不能直接安裝。本次未生成或編譯 Xcode 專案：發布主機只有 Command Line Tools，未安裝完整 Xcode。
 
 在已安裝完整 Xcode 的 Mac 解壓縮來源包，執行 `sh convert-safari.sh`，再開啟產生的 Xcode 專案。設定開發團隊、檢查轉換工具列出的 API 相容性警告，編譯並簽署應用程式及擴充套件。Safari 版本仍待原生編譯與實際播放驗證，詳見包內 `SAFARI.md`。
 
 ## 使用
 
-登入有觀看權限的 Udemy 帳號，開啟支援課程的 `learn/` 頁面。繁體中文在上、英文在下；透過「設定」匯入 ChatGPT 譯文。尚未匯入譯文時只顯示英文。課程分鐘數僅在點選「設定」後顯示，採前面影片總長加本堂播放位置的依序估算。
+登入有觀看權限的 Udemy 帳號，開啟任一課程的 `learn/` 頁面都可使用。繁體中文在上、英文在下；透過「設定」匯入 ChatGPT 譯文。沒有譯文的課程（含未加入翻譯清單的課程）只顯示英文，並在面板標示尚未翻譯。尚未匯入譯文時只顯示英文。課程分鐘數僅在點選「設定」後顯示，採前面影片總長加本堂播放位置的依序估算。
 
 升級時在擴充套件管理頁面按重新載入，再重新整理課程。先保留譯文 JSON 備份；移除擴充套件可能清除瀏覽器儲存的譯文。
 

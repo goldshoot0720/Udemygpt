@@ -6,10 +6,31 @@ const manifest = require('../udemy-bilingual/manifest.json');
 
 async function main() {
   assert.equal(courses.courses.length, 14);
-  assert.equal(courses.forUrl('https://www.udemy.com/course/claude-code-the-practical-guide/learn/lecture/123'), null);
-  assert.equal(courses.forUrl('https://www.udemy.com/course/codex-the-practical-guide/learn/lecture/123'), null);
-  assert.deepEqual(manifest.content_scripts[0].matches,
-    courses.courses.map(c => `https://www.udemy.com/course/${c.slug}/learn/*`));
+  // Any Udemy course player loads; courses outside the list are flagged, not rejected.
+  const unlistedUrl = 'https://www.udemy.com/course/claude-code-the-practical-guide/learn/lecture/123';
+  const unlisted = courses.forUrl(unlistedUrl);
+  assert.equal(unlisted.slug, 'claude-code-the-practical-guide');
+  assert.equal(unlisted.known, false);
+  assert.equal(unlisted.title, '');
+  assert.equal(courses.forUrl(unlistedUrl), unlisted, 'unlisted course objects must keep their identity');
+  assert.equal(courses.forUrl('https://www.udemy.com/course/codex-the-practical-guide/learn/lecture/123').known, false);
+  assert.notEqual(courses.forUrl('https://www.udemy.com/course/codex-the-practical-guide/learn/lecture/123'), unlisted);
+  assert.deepEqual(manifest.content_scripts[0].matches, ['https://www.udemy.com/course/*/learn/*']);
+  // The single wildcard pattern must really cover every course URL it is supposed to.
+  const matchPattern = (pattern, url) => {
+    const target = new URL(url);
+    const parsed = pattern.match(/^https?:\/\/([^/]+)(\/.*)$/);
+    if (!parsed || parsed[1] !== target.host) return false;
+    const escaped = parsed[2].split('*').map(part => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('.*');
+    return new RegExp(`^${escaped}$`).test(target.pathname);
+  };
+  for (const course of courses.courses) {
+    assert.equal(course.known, true);
+    assert.ok(matchPattern(manifest.content_scripts[0].matches[0], `https://www.udemy.com/course/${course.slug}/learn/lecture/1`));
+  }
+  assert.ok(matchPattern(manifest.content_scripts[0].matches[0], unlistedUrl));
+  assert.equal(matchPattern(manifest.content_scripts[0].matches[0], 'https://www.udemy.com/course/unknown/'), false);
+  assert.equal(matchPattern(manifest.content_scripts[0].matches[0], 'https://www.udemy.com/course/unknown/learn-other/lecture/1'), false);
   assert.ok(manifest.background.scripts.indexOf('courses.js') < manifest.background.scripts.indexOf('background.js'));
   assert.ok(manifest.content_scripts[0].js.indexOf('courses.js') < manifest.content_scripts[0].js.indexOf('content.js'));
   for (const [index, course] of courses.courses.entries()) {
@@ -33,8 +54,15 @@ async function main() {
     assert.notEqual(courses.translationKey(first, 123), courses.translationKey(first + 1, 123));
   }
   assert.equal(courses.forUrl('invalid'), null);
-  assert.equal(courses.forUrl('https://www.udemy.com/course/unknown/learn/lecture/123'), null);
-  await assert.rejects(courses.idFor({ slug: 'unknown' }), /不支援/);
+  assert.equal(courses.forUrl('https://www.udemy.com/course/unknown/learn/lecture/123').known, false);
+  assert.equal(courses.forUrl('https://www.udemy.com/course/unknown/'), null);
+  // An unlisted course still resolves its ID through the signed-in Udemy session.
+  assert.equal(await courses.idFor(unlisted, async address => {
+    assert.equal(address, 'https://www.udemy.com/api-2.0/courses/claude-code-the-practical-guide/?fields[course]=id');
+    return { ok: true, json: async () => ({ id: 5291333 }) };
+  }), 5291333);
+  await assert.rejects(courses.idFor(null, async () => ({ ok: true, json: async () => ({ id: 1 }) })), /不是課程頁面/);
+  await assert.rejects(courses.idFor({}), /不是課程頁面/);
 
   // A failed ID lookup must be retryable after signing back in.
   const context = { URL, Map, fetch: () => {}, module: { exports: {} } };
@@ -58,8 +86,16 @@ async function main() {
     assert.equal(await listener({ type: 'caption-file', url: 'https://vtt-a.udemycdn.com/test.vtt' }, sender), 'WEBVTT');
     await assert.rejects(listener({ type: 'caption-file', url: 'https://evil.test/test.vtt' }, sender), /字幕來源/);
   }
-  await assert.rejects(listener({ type: 'page-zoom' }, { url: 'https://www.udemy.com/course/unknown/learn/', tab: { id: 1 } }), /不支援/);
-  await assert.rejects(listener({ type: 'page-zoom' }, { url: 'https://www.udemy.com/course/claude-code-the-practical-guide/learn/lecture/123', tab: { id: 1 } }), /不支援/);
-  console.log(`PASS: ${courses.courses.length} course routes, ID resolution/cache/retry, per-course storage keys, background authorization and caption hosts.`);
+  // Unlisted courses are served like listed ones; only non-player pages are refused.
+  for (const url of ['https://www.udemy.com/course/unknown/learn/', 'https://www.udemy.com/course/claude-code-the-practical-guide/learn/lecture/123']) {
+    const sender = { url, tab: { id: 1 } };
+    assert.equal(await listener({ type: 'page-zoom' }, sender), 1.5);
+    assert.equal(await listener({ type: 'caption-file', url: 'https://vtt-a.udemycdn.com/test.vtt' }, sender), 'WEBVTT');
+  }
+  for (const url of ['https://www.udemy.com/course/unknown/', 'https://www.udemy.com/', 'https://www.udemy.com/course/unknown/learn-other/lecture/1']) {
+    await assert.rejects(listener({ type: 'page-zoom' }, { url, tab: { id: 1 } }), /不是課程頁面/);
+  }
+  await assert.rejects(listener({ type: 'page-zoom' }, { url: 'https://www.udemy.com.evil.test/course/unknown/learn/lecture/1', tab: { id: 1 } }), /不是課程頁面/);
+  console.log(`PASS: ${courses.courses.length} prepared courses plus any unlisted course player, wildcard coverage, ID resolution/cache/retry, per-course storage keys, background authorization and caption hosts.`);
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });

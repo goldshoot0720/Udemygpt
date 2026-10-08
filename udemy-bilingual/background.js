@@ -2,7 +2,7 @@
 browser.runtime.onMessage.addListener(async (message, sender) => {
   if (!["caption-file", "page-zoom"].includes(message?.type)) return;
   if (!UdemyCourses.forUrl(sender.url)) {
-    throw new Error("不支援的課程頁面");
+    throw new Error("不是課程頁面");
   }
   if (message.type === "page-zoom") return browser.tabs.getZoom(sender.tab.id);
   const url = new URL(message.url);

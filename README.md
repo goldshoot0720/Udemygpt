@@ -8,7 +8,7 @@ Firefox、Chrome、Edge 開發者載入包與 Safari 轉換來源包見 [GitHub 
 
 13 門課的字幕已統一依課程分類，從 [課程字幕索引](data/courses/README.md) 按課程名稱查看。第 14 門 ChatGPT & Generative AI 已加入支援但尚未匯出英文字幕。各課使用 `data/courses/課程ID/`，繁體中文譯文放在其中的 `translations/`，英文來源、翻譯佇列與進度也保存在同一課程資料夾。
 
-## 支援課程（2.6）
+## 支援課程（2.7）
 
 以下 14 門課程的講師皆為 **Maximilian Schwarzmüller**（ChatGPT 一課另有 Manuel Lorenz）。
 
@@ -29,7 +29,7 @@ Firefox、Chrome、Edge 開發者載入包與 Safari 轉換來源包見 [GitHub 
 
 已完成課程合計 **4,672** 堂影片（不含文章與測驗）。
 
-在上述課程的 `learn/` 播放器頁面啟用。課程 ID 自動從 Udemy 取得；本堂及全課英文匯出、譯文匯入均使用目前課程 ID，譯文依課程分開儲存，並相容既有 React 譯文。新增支援不代表字幕已翻譯；新課程需先匯出英文，再交給 ChatGPT 翻譯與匯入。
+**任何 Udemy 課程的 `learn/` 播放器頁面都會啟用**，不分課程。課程 ID 自動從 Udemy 取得；本堂及全課英文匯出、譯文匯入均使用目前課程 ID，譯文依課程分開儲存，並相容既有 React 譯文。上表 14 門是已備妥中文譯文的課程；其餘課程功能一樣可用，只在「設定」面板標示「此課程尚未加入翻譯清單」，先顯示官方英文字幕。匯出英文後交給 ChatGPT 翻譯與匯入即可。
 
 更新後在 `about:debugging#/runtime/this-firefox` 重新載入此附加元件，再重新整理課程播放器頁面。
 
@@ -71,7 +71,7 @@ React 標示的 71 小時換算為約 4,260 分鐘；面板優先使用各堂影
 
 Firefox 完全關閉後暫用附加元件會移除；長期安裝需要 Mozilla 簽章。請保留譯文 JSON 作為備份。
 
-只在指定課程的 learn 頁面執行，使用正常登入權限取得英文字幕；不下載影片、不讀取 Cookie API、不儲存登入憑證。ChatGPT 檔案上傳由使用者或授權的瀏覽器操作完成，擴充功能不擷取 ChatGPT 登入資訊。
+只在 `https://www.udemy.com/course/*/learn/*` 播放器頁面執行（其他網址與非播放器頁面一律拒絕訊息），使用正常登入權限取得英文字幕；不下載影片、不讀取 Cookie API、不儲存登入憑證。ChatGPT 檔案上傳由使用者或授權的瀏覽器操作完成，擴充功能不擷取 ChatGPT 登入資訊。
 
 ## 主要檔案
 

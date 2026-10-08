@@ -9,8 +9,12 @@
   const inPlayer = typeof location !== 'undefined' && location.origin === 'https://www.udemy.com';
   const timedFetch = (url, options) => fetch(url, { ...options, signal: AbortSignal.timeout(30000) });
   const rows = new Map();
-  for (const course of UdemyCourses.courses) {
-    const row = document.createElement('li'); row.textContent = course.title;
+  // The course open in the player is always offered, even when it is not in the prepared list.
+  const current = inPlayer ? UdemyCourses.forUrl(location.href) : null;
+  const offered = current && !UdemyCourses.courses.includes(current) ? [current, ...UdemyCourses.courses] : UdemyCourses.courses;
+  for (const course of offered) {
+    const row = document.createElement('li');
+    row.textContent = course.known ? course.title : `${course.slug}（目前課程，未加入翻譯清單）`;
     const state = document.createElement('small'); state.textContent = '待下載'; row.append(state); list.append(row);
     rows.set(course.slug, { row, state });
   }
@@ -45,7 +49,7 @@
     start.disabled = true; skipReact.disabled = true;
     const report = { version: 1, startedAt: new Date().toISOString(), courses: [] };
     const skipped = new Set(inPlayer ? (new URL(location.href).searchParams.get('subtitleExportSkip') || '').split(',') : []);
-    const targets = UdemyCourses.courses.filter(course => !(skipReact.checked && course.id === 1362070) && !skipped.has(course.slug));
+    const targets = offered.filter(course => !(skipReact.checked && course.id === 1362070) && !skipped.has(course.slug));
     for (const slug of skipped) if (rows.has(slug)) rows.get(slug).state.textContent = '沿用已驗證英文備份';
     if (skipReact.checked) rows.get('react-the-complete-guide-incl-redux').state.textContent = '沿用已有完整英文備份';
     for (const [index, course] of targets.entries()) {

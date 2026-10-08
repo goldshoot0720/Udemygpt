@@ -34,8 +34,11 @@ async function main() {
   assert.equal(await browser.runtime.sendMessage({ type: 'caption-file', url: 'https://vtt-a.udemycdn.com/test.vtt' }), 'WEBVTT');
   assert.equal(fetchCalls, 1);
   await assert.rejects(browser.runtime.sendMessage({ type: 'caption-file', url: 'https://evil.test/caption' }), /字幕來源/);
+  // Courses outside the prepared list are still served; pages that are not course players are not.
   sender.url = 'https://www.udemy.com/course/unknown/learn/lecture/123';
-  await assert.rejects(browser.runtime.sendMessage({ type: 'page-zoom' }), /不支援/);
+  assert.equal(await browser.runtime.sendMessage({ type: 'page-zoom' }), 1.5);
+  sender.url = 'https://www.udemy.com/course/unknown/';
+  await assert.rejects(browser.runtime.sendMessage({ type: 'page-zoom' }), /不是課程頁面/);
   sender.url = 'https://www.udemy.com/course/react-the-complete-guide-incl-redux/learn/lecture/123';
   captionStatus = 403;
   await assert.rejects(browser.runtime.sendMessage({ type: 'caption-file', url: 'https://vtt-a.udemycdn.com/test.vtt' }), /403/);
