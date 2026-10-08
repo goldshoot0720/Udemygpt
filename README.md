@@ -71,6 +71,8 @@ React 標示的 71 小時換算為約 4,260 分鐘；面板優先使用各堂影
 
 Firefox 完全關閉後暫用附加元件會移除；長期安裝需要 Mozilla 簽章。請保留譯文 JSON 作為備份。
 
+產出的 `udemy-bilingual-firefox-版本.xpi` 未經簽章，與 Firefox ZIP 內容相同（SHA-256 一致），只能用同一個「載入暫用附加元件」對話框載入；雙擊安裝一定會被拒絕。若要可長期安裝的簽章版本，先依 [取得 API Key 與 API Secret](https://addons.mozilla.org/zh-TW/developers/addon/api/key/) 建立 AMO 憑證（需接受未上架 add-on 的條款），再執行 `npx web-ext sign --api-key=<key> --api-secret=<secret> --source-dir udemy-bilingual`。憑證只留在本機，不要提交進這個儲存庫。
+
 只在 `https://www.udemy.com/course/*/learn/*` 播放器頁面執行（其他網址與非播放器頁面一律拒絕訊息），使用正常登入權限取得英文字幕；不下載影片、不讀取 Cookie API、不儲存登入憑證。ChatGPT 檔案上傳由使用者或授權的瀏覽器操作完成，擴充功能不擷取 ChatGPT 登入資訊。
 
 ## 主要檔案

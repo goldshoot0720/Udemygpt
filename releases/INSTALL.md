@@ -13,7 +13,7 @@ GitHub Release 提供 Firefox 的 XPI／ZIP、Chrome、Edge 的開發者載入�
 
 已從資料夾載入過的使用者不必重裝，對既有項目按「重新載入」即可取得新版本。
 
-`udemy-bilingual-firefox-2.7.0.xpi` 與 ZIP 內容完全相同（SHA-256 一致），只是換成單一檔案的容器，**未經 Mozilla 簽章**，只能用同一個「載入暫用附加元件」對話框載入；雙擊或拖曳進視窗一定會出現「因為此附加元件尚未經過驗證，無法安裝」，這是預期行為。長期安裝需 AMO 簽章（把 XPI 上傳 AMO，或以 `web-ext sign --api-key=<key> --api-secret=<secret>` 自簽）。
+`udemy-bilingual-firefox-2.7.0.xpi` 與 ZIP 內容完全相同（SHA-256 一致），只是換成單一檔案的容器，**未經 Mozilla 簽章**，只能用同一個「載入暫用附加元件」對話框載入；雙擊或拖曳進視窗一定會出現「因為此附加元件尚未經過驗證，無法安裝」，這是預期行為。長期安裝需 AMO 簽章：把 XPI 上傳 AMO，或依 [取得 API Key 與 API Secret](https://addons.mozilla.org/zh-TW/developers/addon/api/key/) 建立憑證後自簽 `npx web-ext sign --api-key=<key> --api-secret=<secret> --source-dir udemy-bilingual`。
 
 ## Chrome／Edge（109 以上，建議目前穩定版）
 
