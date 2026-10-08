@@ -2,12 +2,12 @@
 
 本資料夾處理原課程匯出中沒有原文字幕的 14 堂。原始影片由使用者提供；影片與抽出的 AAC 音訊保存在本機，不加入 Git。來源雜湊、片長與處理進度記錄於 [progress.json](progress.json)。
 
-日文原文以 MLX Whisper `large-v3-turbo` 自動語音辨識。技術名稱依課程標題、程式畫面與課程內容校正；原始辨識輸出保留在 `transcripts/`。這不是逐字人工聽校。繁體中文譯文保留相同時間軸與日文原文，並提供可直接播放的雙語 SRT。
+日文原文以 MLX Whisper `large-v3-turbo` 自動語音辨識。技術名稱依課程標題、程式畫面與課程內容校正；原始辨識輸出保留在 `transcripts/`。這不是逐字人工聽校。繁體中文譯文保留相同時間軸與日文原文，並提供可直接播放的中日雙語 SRT。
 
 | 堂次 | 講座 | 語音辨識 | 繁中 | 段數 |
 | ---: | --- | --- | --- | ---: |
 | 7 | こうして開発環境を整える(Node.js, VSCode, create-vue) | 完成 | 完成 | 207 |
-| 8 | create-vueが作成したプロジェクトはどうなっているのか | 完成 | 待處理 | — |
+| 8 | create-vueが作成したプロジェクトはどうなっているのか | 完成 | 完成 | 414 |
 | 9 | 拡張機能はこうセットアップする(Volar, ESLint, Oxlint, Prettier) | 完成 | 待處理 | — |
 | 64 | propsを利用して親から子にデータを渡す方法 | 完成 | 待處理 | — |
 | 65 | バリデーションを利用してpropsに予期しないデータが渡るのを防ぐ方法 | 完成 | 待處理 | — |
@@ -22,7 +22,8 @@
 | 159 | こうしてTypeScriptをセットアップする | 完成 | 待處理 | — |
 
 - [補充日文原文與繁中譯文 JSON](Japanese-supplement-2426224.json)
-- [第 7 堂雙語 SRT](bilingual-subtitles/Vue-007-42549830.ja.zh-TW.srt)
+- [第 7 堂中日雙語 SRT](bilingual-subtitles/Vue-007-42549830.ja.zh-TW.srt)
+- [第 8 堂中日雙語 SRT](bilingual-subtitles/Vue-008-42549834.ja.zh-TW.srt)
 - [課程原始匯出備份](Japanese-course-2426224-original-159.json)
 - [技術名稱校正與片尾裁切紀錄](corrections.json)
 
