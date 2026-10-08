@@ -11,6 +11,8 @@
   let setPanel = () => {};
   let en = [], zh = [], key = "", loaded = false, generation = 0, controller, last = "", savedTimer;
   let englishOrigin = "udemy-caption", pair = "中英雙語", pairShort = "中英", sourceLabel = "原文";
+  // 匯出檔名與 sourceLanguage 都跟著課程原始語言走，日文課不會再輸出 English。
+  let sourceCode = "en", sourceSlug = "English";
   let pageZoom = 1, zoomChecked = 0, zoomPending = false;
   let timeCourse = null, timeCourseId = null, timeItems = null, timeError = "", timeRevision = 0, timeController;
   const terms = /\b(Claude(?: Code)?|Codex|Flutter|Dart|Node(?:\.js|JS)?|React Native|NativeScript|Angular|Svelte(?:\.js)?|Remix(?:\.js)?|GraphQL|Express|MongoDB|Deno|Flexbox|Sass|React(?:\.js)?|JavaScript|TypeScript|JSX|Redux|Next\.js|Hooks?|useState|useEffect|useReducer|useRef|useContext|props|state|components?|DOM|API|HTTP|CSS|HTML|Vite)\b/gi;
@@ -310,10 +312,10 @@
     const title = document.querySelector('[data-purpose="lecture-title"]')?.textContent || document.title;
     try {
       const courseId = await UdemyCourses.idFor(activeCourse);
-      downloadJSON({version:1,courseId,sourceLanguage:"en",targetLanguage:"zh-TW",lectures:[{
-        id:lecture,title,sourceHash:await sourceHash(cues),sourceOrigin,
+      downloadJSON({version:1,courseId,sourceLanguage:sourceCode,targetLanguage:"zh-TW",lectures:[{
+        id:lecture,title,sourceHash:await sourceHash(cues),sourceOrigin,sourceLanguage:sourceCode,
         cues:cues.map(({start,end,text},i)=>({id:i+1,start,end,en:text,zh:""}))
-      }]},`Udemy-English-${courseId}-${lecture}.json`);
+      }]},`Udemy-${sourceSlug}-${courseId}-${lecture}.json`);
       status.textContent = `已匯出 ${cues.length} 段${sourceLabel}；請交給翻譯工具處理後再匯入`;
     } catch (error) { status.textContent = error.message; }
   }
@@ -326,6 +328,8 @@
     pairShort = name.replace("雙語", "");
     const lang = (info && (info.name || info)) || "原文";
     sourceLabel = lang;
+    sourceCode = info?.code || "en";
+    sourceSlug = core.languageSlug(sourceCode);
     const label = shadow?.querySelector(".import");
     if (label) label.textContent = `匯入${name}字幕`;
     const current = shadow?.querySelector(".export-current");
@@ -405,7 +409,7 @@
           cues += parsed.length;
           lectures.push({id:String(item.id),title:item.title,
             lectureOrder:curriculum.find(entry => entry.type==='lecture' && entry.id===String(item.id))?.lectureOrder,
-            videoOrder:index+1,sourceHash:await sourceHash(parsed),
+            videoOrder:index+1,sourceHash:await sourceHash(parsed),sourceLanguage:sourceCode,
             cues:parsed.map(({start,end,text},i)=>({id:i+1,start,end,en:text,zh:""}))});
         } catch(error) { errors.push({id:item.id,title:item.title,error:error.message}); }
         const done = index + 1, elapsed = (Date.now() - started) / 1000;
@@ -417,8 +421,8 @@
       lectures.sort((a,b) => a.videoOrder - b.videoOrder);
       errors.sort((a,b) => videos.findIndex(x=>String(x.id)===String(a.id)) - videos.findIndex(x=>String(x.id)===String(b.id)));
       downloadJSON({version:1,courseId,courseSlug:activeCourse.slug,courseTitle:activeCourse.title || activeCourse.slug,
-        sourceLanguage:"en",targetLanguage:"zh-TW",lectures,errors,curriculum},`Udemy-English-course-${courseId}.json`);
-      status.textContent = `英文匯出完成：${lectures.length} 堂；${errors.length} 堂缺少字幕或讀取失敗`;
+        sourceLanguage:sourceCode,targetLanguage:"zh-TW",lectures,errors,curriculum},`Udemy-${sourceSlug}-course-${courseId}.json`);
+      status.textContent = `${sourceLabel}匯出完成：${lectures.length} 堂；${errors.length} 堂缺少字幕或讀取失敗`;
       renderProgress(videos.length, videos.length,
         `完成：${lectures.length} 堂 / ${cues} 段，${errors.length} 堂失敗，耗時 ${minutes((Date.now() - started) / 1000)}`);
     } catch(error) { status.textContent = error.message; }

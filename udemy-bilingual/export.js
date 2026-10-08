@@ -31,7 +31,7 @@
     if (address.protocol !== 'https:' || !(address.hostname.endsWith('.udemycdn.com') || address.hostname === 'udemy-captions.s3.amazonaws.com' || address.hostname === 'www.udemy.com')) throw new Error('字幕來源不是 Udemy');
     if (inPlayer) return browser.runtime.sendMessage({type:'caption-file',url:address.href});
     const response = await timedFetch(address.href, { credentials: 'omit', redirect: 'error' });
-    if (!response.ok) throw new Error(`英文字幕讀取失敗（HTTP ${response.status}）`);
+    if (!response.ok) throw new Error(`原始字幕讀取失敗（HTTP ${response.status}）`);
     const text = await response.text();
     if (text.length > 5000000) throw new Error('字幕檔過大');
     return text;
@@ -76,6 +76,8 @@
         if (!videos.length) throw new Error('未取得影片講座清單');
         const result = { version: 1, courseId, courseSlug: course.slug, courseTitle: course.title,
           sourceLanguage: 'en', targetLanguage: 'zh-TW', lectures: [], errors: [], curriculum };
+        // 匯出檔名與 sourceLanguage 跟著課程原始字幕語言走。
+        let courseCode = 'en', courseSlug = 'English', courseName = '英文';
         for (let batchStart = 0; batchStart < videos.length; batchStart += 3) {
           const group = videos.slice(batchStart, batchStart + 3);
           state.textContent = `下載 ${batchStart + 1}–${batchStart + group.length}/${videos.length} · ${group[0].title}`;
@@ -84,13 +86,20 @@
           try {
             // Check access through the same subscribed-lecture endpoint used by the player.
             const lecture = await json(`/api-2.0/users/me/subscribed-courses/${courseId}/lectures/${item.id}/?fields[lecture]=asset&fields[asset]=captions`);
-            const english = SubtitleCore.select(lecture.asset?.captions || []).english;
-            if (!english?.url) throw new Error('沒有英文字幕');
+            const picked = SubtitleCore.select(lecture.asset?.captions || []);
+            const english = picked.source?.caption || picked.english;
+            if (!english?.url) throw new Error(`沒有${picked.sourceName || '原始'}字幕`);
+            if (!courseCode || result.sourceLanguage === 'en') {
+              courseCode = picked.sourceCode || 'en';
+              courseSlug = SubtitleCore.languageSlug(courseCode);
+              courseName = picked.sourceName || '原文';
+              result.sourceLanguage = courseCode;
+            }
             const cues = SubtitleCore.parse(await caption(english.url));
-            if (!cues.length) throw new Error('英文字幕無法解析');
+            if (!cues.length) throw new Error(`${picked.sourceName || '原始'}字幕無法解析`);
             result.lectures.push({ id: String(item.id), title: item.title,
               lectureOrder: curriculum.find(entry => entry.type === 'lecture' && entry.id === item.id)?.lectureOrder,
-              videoOrder: videoIndex + 1, sourceHash: await hash(cues),
+              videoOrder: videoIndex + 1, sourceHash: await hash(cues), sourceLanguage: courseCode,
               cues: cues.map(({ start, end, text }, i) => ({ id: i + 1, start, end, en: text, zh: '' })) });
           } catch (error) { result.errors.push({ id: item.id, title: item.title, error: error.message }); }
           }));
@@ -102,13 +111,13 @@
         record.videoCount = videos.length; record.downloadedLectures = result.lectures.length;
         record.cueCount = result.lectures.reduce((count, lecture) => count + lecture.cues.length, 0);
         record.errors = result.errors;
-        record.filename = `Udemy-English-course-${courseId}.json`;
+        record.filename = `Udemy-${courseSlug}-course-${courseId}.json`;
         download(result, record.filename, row);
-        state.textContent = `英文匯出：${record.downloadedLectures}/${record.videoCount} 堂影片、${record.cueCount} 段；${result.errors.length} 堂待補`;
+        state.textContent = `${courseName}匯出：${record.downloadedLectures}/${record.videoCount} 堂影片、${record.cueCount} 段；${result.errors.length} 堂待補`;
       } catch (error) { record.status = 'failed'; record.error = error.message; state.textContent = error.message; }
     }
     report.finishedAt = new Date().toISOString();
-    download(report, 'Udemy-English-export-report.json', status);
+    download(report, 'Udemy-export-report.json', status);
     status.prepend(document.createTextNode(`匯出結束：${report.courses.filter(x => x.status === 'downloaded').length}/${targets.length} 門成功；請檢查各課程結果。 `));
     start.disabled = false; skipReact.disabled = false;
   });

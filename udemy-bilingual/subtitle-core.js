@@ -87,6 +87,16 @@
     if (short === "日") return ["zh-TW"];
     return ["en", "zh-TW"];
   }
+  // 匯出檔名用英文語言名稱：日文課輸出 Udemy-Japanese-course-<id>.json，
+  // 避免檔名寫死 English 卻裝著日文字幕，下游工具也就分不出來源語言。
+  const languageSlugs = {
+    en: "English", ja: "Japanese", ko: "Korean", de: "German", fr: "French",
+    es: "Spanish", it: "Italian", pt: "Portuguese", "zh-TW": "TraditionalChinese", zh: "Chinese",
+  };
+  function languageSlug(info) {
+    const code = typeof info === "string" ? info : (info?.code || "");
+    return languageSlugs[code] || "Source";
+  }
   function select(captions) {
     const english = captions.find(c => /(^|\s)en(?:[_-]|\s|$)|english|英語|英语/i.test(language(c)));
     const traditional = captions.find(c => /zh[_-](?:tw|hk|hant)|繁體|繁体|traditional/i.test(language(c)));
@@ -126,7 +136,7 @@
     return text.replace(pattern, value => dictionary.get(value))
       .replace(/\b(React|JavaScript|TypeScript)\s*庫/g, "$1 函式庫");
   }
-  const api = { time, parse, at, select, primaryLanguage, languageInfo, pairName, pipeline, localizeTaiwan };
+  const api = { time, parse, at, select, primaryLanguage, languageInfo, languageSlug, pairName, pipeline, localizeTaiwan };
   root.SubtitleCore = api;
   if (typeof module !== "undefined") module.exports = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);

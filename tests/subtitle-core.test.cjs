@@ -48,3 +48,9 @@ assert.deepEqual(SubtitleCore.pipeline(SubtitleCore.select([{ language: 'ja' }])
 assert.deepEqual(SubtitleCore.pipeline(SubtitleCore.select([{ language: 'zh-Hans' }]).source), ['zh-TW']);
 assert.deepEqual(SubtitleCore.pipeline(SubtitleCore.select([{ language: 'de' }]).source), ['en', 'zh-TW']);
 console.log('PASS: Primary-language detection drives the bilingual pair (中英 / 中日 / 中文) and the small-language en→zh pipeline.');
+// 匯出檔名與 sourceLanguage 必須跟著課程語言，日文課不會再輸出 English。
+assert.equal(SubtitleCore.languageSlug(SubtitleCore.select([{ language: 'ja', title: '日本語' }]).source), 'Japanese');
+assert.equal(SubtitleCore.languageSlug(SubtitleCore.select([{ language: 'en' }]).source), 'English');
+assert.equal(SubtitleCore.languageSlug('ko'), 'Korean');
+assert.equal(SubtitleCore.languageSlug(''), 'Source');
+console.log('PASS: Export filenames and sourceLanguage follow the course language (English / Japanese / …).');
