@@ -1,0 +1,129 @@
+name: Release
+
+# Build, Mozilla-sign and publish a GitHub Release carrying both XPI flavours.
+# The AMO credential only ever lives in repository secrets; it is passed to the
+# signing step through the environment and is never written to the repository.
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '版本號，必須與 udemy-bilingual/manifest.json 一致（留空則以 manifest 為準）'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 確認版本號一致
+        id: version
+        run: |
+          set -euo pipefail
+          manifest=$(python3 -c "import json;print(json.load(open('udemy-bilingual/manifest.json'))['version'])")
+          requested="${{ github.event.inputs.version }}"
+          tag="${GITHUB_REF_NAME#v}"
+          if [ -n "$requested" ] && [ "$requested" != "$manifest" ]; then
+            echo "輸入版本 $requested 與 manifest 版本 $manifest 不符" >&2
+            exit 1
+          fi
+          if [ "${GITHUB_REF_TYPE}" = "tag" ] && [ "$tag" != "$manifest" ]; then
+            echo "tag v$tag 與 manifest 版本 $manifest 不符" >&2
+            exit 1
+          fi
+          echo "version=$manifest" >> "$GITHUB_OUTPUT"
+
+      - name: 檢查 AMO 憑證
+        env:
+          ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+          SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        run: |
+          set -euo pipefail
+          if [ -z "$ISSUER" ] || [ -z "$SECRET" ]; then
+            echo "缺少 AMO_JWT_ISSUER 或 AMO_JWT_SECRET，無法簽署。" >&2
+            echo "請在 Settings → Secrets and variables → Actions 新增這兩個 repository secret。" >&2
+            exit 1
+          fi
+
+      - name: 安裝 web-ext
+        run: npm install --global web-ext@7
+
+      - name: 執行測試
+        run: |
+          set -euo pipefail
+          python3 tests/extension-packages.test.py
+          for test in tests/*.test.cjs; do (cd tests && node "$test"); done
+
+      - name: 建置並向 AMO 送出簽署
+        id: build
+        env:
+          AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+          AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        run: |
+          set -euo pipefail
+          version="${{ steps.version.outputs.version }}"
+          output="dist/v$version"
+          # AMO 未列出簽署偶爾會排隊，最多重試三次。
+          for attempt in 1 2 3; do
+            if python3 scripts/build_release.py --timeout 600000; then
+              break
+            fi
+            echo "第 $attempt 次簽署未完成，60 秒後重試。" >&2
+            sleep 60
+          done
+          test -f "$output/udemy-bilingual-firefox-$version-unsigned.xpi"
+          test -f "$output/udemy-bilingual-firefox-$version-signed.xpi"
+          cmp "$output/udemy-bilingual-firefox-$version-unsigned.xpi" \
+              "$output/udemy-bilingual-firefox-$version.zip"
+
+      - name: 上傳簽署與未簽署套件
+        uses: actions/upload-artifact@v4
+        with:
+          name: udemy-bilingual-${{ steps.version.outputs.version }}
+          path: |
+            dist/v${{ steps.version.outputs.version }}/*.xpi
+            dist/v${{ steps.version.outputs.version }}/*.zip
+            dist/v${{ steps.version.outputs.version }}/SHA256SUMS.txt
+            dist/v${{ steps.version.outputs.version }}/INSTALL.md
+          retention-days: 90
+
+      - name: 建立或更新 GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          notes="releases/v$VERSION.md"
+          test -f "$notes" || { echo "找不到發布說明 $notes" >&2; exit 1; }
+          assets=$(ls "dist/v$VERSION" | grep -v '^\.DS_Store$' | sed "s|^|dist/v$VERSION/|")
+          if gh release view "v$VERSION" >/dev/null 2>&1; then
+            gh release upload "v$VERSION" $assets --clobber
+          else
+            gh release create "v$VERSION" --title "udemy-bilingual $VERSION" \
+              --notes-file "$notes" $assets
+          fi
+
+      - name: 發布摘要
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: gh release view "v$VERSION"
