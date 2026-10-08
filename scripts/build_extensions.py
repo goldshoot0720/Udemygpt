@@ -39,25 +39,33 @@ def package_files(browser):
     return manifest, files
 
 
+def write_archive(target, files, manifest):
+    """Write a deterministic ZIP/XPI: fixed timestamps and modes, verified after writing."""
+    with ZipFile(target, 'w', compression=ZIP_DEFLATED) as archive:
+        for name, data in sorted(files.items()):
+            info = ZipInfo(name, (2026, 1, 1, 0, 0, 0))
+            info.compress_type = ZIP_DEFLATED
+            info.external_attr = (0o100755 if name.endswith('.sh') else 0o100644) << 16
+            archive.writestr(info, data)
+    with ZipFile(target) as archive:
+        assert archive.testzip() is None
+        assert json.loads(archive.read('manifest.json')) == manifest
+    return target
+
+
 def build(output=None):
     version = json.loads((SOURCE / 'manifest.json').read_text())['version']
     output = Path(output) if output else ROOT / 'dist' / f'v{version}'
     output.mkdir(parents=True, exist_ok=True)
     assets = []
-    for browser in ('firefox', 'chrome', 'edge', 'safari'):
-        manifest, files = package_files(browser)
+    packages = {browser: package_files(browser) for browser in ('firefox', 'chrome', 'edge', 'safari')}
+    for browser, (manifest, files) in packages.items():
         suffix = 'safari-source' if browser == 'safari' else browser
-        target = output / f'udemy-bilingual-{suffix}-{version}.zip'
-        with ZipFile(target, 'w', compression=ZIP_DEFLATED) as archive:
-            for name, data in sorted(files.items()):
-                info = ZipInfo(name, (2026, 1, 1, 0, 0, 0))
-                info.compress_type = ZIP_DEFLATED
-                info.external_attr = (0o100755 if name.endswith('.sh') else 0o100644) << 16
-                archive.writestr(info, data)
-        with ZipFile(target) as archive:
-            assert archive.testzip() is None
-            assert json.loads(archive.read('manifest.json')) == manifest
-        assets.append(target)
+        assets.append(write_archive(output / f'udemy-bilingual-{suffix}-{version}.zip', files, manifest))
+    # Firefox install file. It is not signed, so Firefox only accepts it via temporary
+    # loading (about:debugging) or a build that allows unsigned add-ons.
+    firefox_manifest, firefox_files = packages['firefox']
+    assets.append(write_archive(output / f'udemy-bilingual-firefox-{version}.xpi', firefox_files, firefox_manifest))
     instructions = output / 'INSTALL.md'
     instructions.write_bytes((ROOT / 'releases/INSTALL.md').read_bytes())
     assets.append(instructions)

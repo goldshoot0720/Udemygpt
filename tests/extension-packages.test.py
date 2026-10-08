@@ -41,6 +41,17 @@ with tempfile.TemporaryDirectory() as temp:
                     assert 'SAFARI.md' in package.namelist()
                     assert 'convert-safari.sh' in package.namelist()
             assert not any(name.startswith('data/') or name.endswith(('.mp4', '.m4a', '.pem', '.key')) for name in package.namelist())
+    firefox_manifest, firefox_expected = builder.package_files('firefox')
+    xpi = output / f'udemy-bilingual-firefox-{firefox_manifest["version"]}.xpi'
+    assert xpi.exists()
+    with ZipFile(xpi) as package:
+        assert set(package.namelist()) == set(firefox_expected)
+        assert all(package.read(name) == data for name, data in firefox_expected.items())
+        assert package.testzip() is None
+        assert json.loads(package.read('manifest.json')) == firefox_manifest
+        # Nothing that could pass as a Mozilla signature may ship in the package.
+        assert not any(name.startswith('META-INF') or name.endswith(('.rsa', '.sf', '.pem', '.key')) for name in package.namelist())
+    assert xpi.read_bytes() == (output / f'udemy-bilingual-firefox-{firefox_manifest["version"]}.zip').read_bytes()
     for line in (output / 'SHA256SUMS.txt').read_text().splitlines():
         checksum, name = line.split('  ')
         assert hashlib.sha256((output / name).read_bytes()).hexdigest() == checksum
