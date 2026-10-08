@@ -11,7 +11,7 @@
 | 9 | 拡張機能はこうセットアップする(Volar, ESLint, Oxlint, Prettier) | 完成 | 完成 | 234 |
 | 64 | propsを利用して親から子にデータを渡す方法 | 完成 | 完成 | 344 |
 | 65 | バリデーションを利用してpropsに予期しないデータが渡るのを防ぐ方法 | 完成 | 完成 | 54 |
-| 66 | 高度なバリデーションをpropsに指定する方法 | 完成 | 待處理 | — |
+| 66 | 高度なバリデーションをpropsに指定する方法 | 完成 | 完成 | 132 |
 | 68 | emitを使ってイベントを発生させて子から親に対して通信する方法 | 完成 | 待處理 | — |
 | 69 | 引数をemitに渡して子から親にデータを渡す方法 | 完成 | 待處理 | — |
 | 70 | defineEmitsを使って明示的にemitするイベントを示す方法 | 完成 | 待處理 | — |
@@ -25,6 +25,7 @@
 - [第 7 堂中日雙語 SRT](bilingual-subtitles/Vue-007-42549830.ja.zh-TW.srt)
 - [第 8 堂中日雙語 SRT](bilingual-subtitles/Vue-008-42549834.ja.zh-TW.srt)
 - [第 9 堂中日雙語 SRT](bilingual-subtitles/Vue-009-42549838.ja.zh-TW.srt)
+- [第 66 堂中日雙語 SRT](bilingual-subtitles/Vue-066-42562598.ja.zh-TW.srt)
 - [第 65 堂中日雙語 SRT](bilingual-subtitles/Vue-065-42562596.ja.zh-TW.srt)
 - [第 64 堂中日雙語 SRT](bilingual-subtitles/Vue-064-42562594.ja.zh-TW.srt)
 - [課程原始匯出備份](Japanese-course-2426224-original-159.json)
