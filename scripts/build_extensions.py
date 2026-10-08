@@ -63,9 +63,11 @@ def build(output=None):
         suffix = 'safari-source' if browser == 'safari' else browser
         assets.append(write_archive(output / f'udemy-bilingual-{suffix}-{version}.zip', files, manifest))
     # Firefox install file. It is not signed, so Firefox only accepts it via temporary
-    # loading (about:debugging) or a build that allows unsigned add-ons.
+    # loading (about:debugging) or a build that allows unsigned add-ons. The
+    # -unsigned suffix keeps it from being mistaken for the signed build; the signed
+    # XPI is produced separately by scripts/build_release.py.
     firefox_manifest, firefox_files = packages['firefox']
-    assets.append(write_archive(output / f'udemy-bilingual-firefox-{version}.xpi', firefox_files, firefox_manifest))
+    assets.append(write_archive(output / f'udemy-bilingual-firefox-{version}-unsigned.xpi', firefox_files, firefox_manifest))
     instructions = output / 'INSTALL.md'
     instructions.write_bytes((ROOT / 'releases/INSTALL.md').read_bytes())
     assets.append(instructions)

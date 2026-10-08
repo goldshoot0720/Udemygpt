@@ -42,7 +42,7 @@ with tempfile.TemporaryDirectory() as temp:
                     assert 'convert-safari.sh' in package.namelist()
             assert not any(name.startswith('data/') or name.endswith(('.mp4', '.m4a', '.pem', '.key')) for name in package.namelist())
     firefox_manifest, firefox_expected = builder.package_files('firefox')
-    xpi = output / f'udemy-bilingual-firefox-{firefox_manifest["version"]}.xpi'
+    xpi = output / f'udemy-bilingual-firefox-{firefox_manifest["version"]}-unsigned.xpi'
     assert xpi.exists()
     with ZipFile(xpi) as package:
         assert set(package.namelist()) == set(firefox_expected)

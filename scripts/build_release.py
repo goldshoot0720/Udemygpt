@@ -2,7 +2,7 @@
 """Build every browser package and, when AMO credentials are available, the signed Firefox XPI too.
 
 Produces both XPI flavours into dist/v版本/ so a release never ships only one:
-    udemy-bilingual-firefox-版本.xpi         unsigned, identical bytes to the Firefox ZIP
+    udemy-bilingual-firefox-版本-unsigned.xpi  unsigned, identical bytes to the Firefox ZIP
     udemy-bilingual-firefox-版本-signed.xpi   Mozilla-signed, directly installable
 
 Signing needs an AMO unlisted-signing credential. Supply it either way:
@@ -85,7 +85,7 @@ def main():
         print('未提供 AMO 憑證，略過簽署版 XPI（其餘套件已產生）')
 
     manifest, files = package_files('firefox')
-    unsigned = output / f'udemy-bilingual-firefox-{manifest["version"]}.xpi'
+    unsigned = output / f'udemy-bilingual-firefox-{manifest["version"]}-unsigned.xpi'
     print(f'未簽署 XPI：{unsigned}')
     print(f'校驗碼：{write_checksums(output)}')
     return 0
