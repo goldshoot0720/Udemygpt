@@ -40,15 +40,39 @@ def read_credentials(key_file):
     return issuer, secret
 
 
+def stage_firefox_source(destination):
+    """Write a clean Firefox-only source tree for AMO to sign.
+
+    Signing the repository's udemy-bilingual/ directory hands AMO every file in
+    it, including chrome-compat.js and chrome-service-worker.js. Those are never
+    referenced by the Firefox manifest, but they still ship inside the signed
+    XPI, so the published Firefox package would carry Chrome-only sources.
+    Staging the packaged Firefox file set keeps both artefacts identical apart
+    from Mozilla's signature.
+    """
+    manifest, files = package_files('firefox')
+    destination.mkdir(parents=True, exist_ok=True)
+    (destination / 'manifest.json').write_bytes(files['manifest.json'])
+    for name, data in files.items():
+        if name == 'manifest.json':
+            continue
+        target = destination / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(data)
+    return destination
+
+
 def sign(source_dir, output_dir, version, issuer, secret, timeout):
     """Ask AMO to sign the extension; return the produced XPI path or None."""
     with tempfile.TemporaryDirectory() as temp:
+        artifacts = Path(temp) / 'artifacts'
+        stage = stage_firefox_source(Path(temp) / 'source')
         env = {**os.environ, 'WEB_EXT_API_KEY': issuer, 'WEB_EXT_API_SECRET': secret}
-        command = ['npx', '--yes', 'web-ext@7', 'sign', '--source-dir', str(source_dir),
-                   '--channel', 'unlisted', '--artifacts-dir', temp, '--timeout', str(timeout),
-                   '--no-input']
+        command = ['npx', '--yes', 'web-ext@7', 'sign', '--source-dir', str(stage),
+                   '--channel', 'unlisted', '--artifacts-dir', str(artifacts),
+                   '--timeout', str(timeout), '--no-input']
         result = subprocess.run(command, env=env, capture_output=True, text=True)
-        signed = sorted(Path(temp).glob('*.xpi'))
+        signed = sorted(artifacts.glob('*.xpi'))
         if not signed:
             raise RuntimeError(describe_failure(result))
         target = output_dir / f'udemy-bilingual-firefox-{version}-signed.xpi'
@@ -91,18 +115,27 @@ def main():
     parser.add_argument('--output', help='output directory; defaults to dist/v版本/')
     parser.add_argument('--key-file', help='file outside this repo holding the AMO issuer on line 1 and secret on line 2')
     parser.add_argument('--timeout', type=int, default=300000, help='signing timeout in milliseconds')
+    parser.add_argument('--resign', action='store_true',
+                        help='sign again even when a signed XPI is already present')
     args = parser.parse_args()
 
     version = json.loads((ROOT / 'udemy-bilingual/manifest.json').read_text(encoding='utf-8'))['version']
     output = Path(args.output).expanduser() if args.output else ROOT / 'dist' / f'v{version}'
     build(output)
 
-    issuer, secret = read_credentials(args.key_file)
-    if issuer and secret:
-        signed = sign(ROOT / 'udemy-bilingual', output, version, issuer, secret, args.timeout)
-        print(f'已簽署：{signed}')
+    # AMO refuses to sign the same version twice, so a signature already fetched
+    # from AMO (see scripts/fetch_signed.py) must be reused rather than requested
+    # again; only a build whose manifest version changed can be re-signed.
+    signed_path = output / f'udemy-bilingual-firefox-{version}-signed.xpi'
+    if signed_path.exists() and not args.resign:
+        print(f'沿用既有簽章版：{signed_path}')
     else:
-        print('未提供 AMO 憑證，略過簽署版 XPI（其餘套件已產生）')
+        issuer, secret = read_credentials(args.key_file)
+        if issuer and secret:
+            signed = sign(ROOT / 'udemy-bilingual', output, version, issuer, secret, args.timeout)
+            print(f'已簽署：{signed}')
+        else:
+            print('未提供 AMO 憑證，略過簽署版 XPI（其餘套件已產生）')
 
     manifest, files = package_files('firefox')
     unsigned = output / f'udemy-bilingual-firefox-{manifest["version"]}-unsigned.xpi'

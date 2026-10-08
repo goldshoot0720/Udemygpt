@@ -12,7 +12,8 @@ SOURCE = ROOT / 'udemy-bilingual'
 def package_files(browser):
     files = {str(path.relative_to(SOURCE)): path.read_bytes()
              for path in sorted(SOURCE.rglob('*'))
-             if path.is_file() and path.name != '.DS_Store' and not path.name.endswith('.tmp')}
+             if path.is_file() and path.name not in ('.DS_Store', '.web-extension-id')
+             and not path.name.endswith('.tmp')}
     manifest = json.loads(files['manifest.json'])
     if browser == 'firefox':
         files.pop('chrome-compat.js', None)
