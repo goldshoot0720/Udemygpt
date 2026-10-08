@@ -21,7 +21,7 @@ GitHub Release 提供 Firefox 的簽章 XPI 與 ZIP、Chrome、Edge 的開發者
 
 已從資料夾載入過的使用者不必重裝，對既有項目按「重新載入」即可取得新版本。Firefox 關閉後暫用附加元件會移除。
 
-`udemy-bilingual-firefox-2.7.6.xpi`（無 `-signed`）與 ZIP 內容完全相同（SHA-256 一致），**未經簽章**，只能用方式二的對話框載入；雙擊會出現「因為此附加元件尚未經過驗證，無法安裝」，這是預期行為。自行簽署請依 [取得 API Key 與 API Secret](https://addons.mozilla.org/zh-TW/developers/addon/api/key/) 建立憑證後執行 `WEB_EXT_API_KEY=<key> WEB_EXT_API_SECRET=<secret> npx web-ext@7 sign --source-dir udemy-bilingual --channel unlisted`。憑證只留在本機，不要提交進儲存庫。
+`udemy-bilingual-firefox-2.7.6-unsigned.xpi` 與 ZIP 內容完全相同（SHA-256 一致），**未經簽章**，只能用方式二的對話框載入；雙擊會出現「因為此附加元件尚未經過驗證，無法安裝」，這是預期行為。自行簽署請依 [取得 API Key 與 API Secret](https://addons.mozilla.org/zh-TW/developers/addon/api/key/) 建立憑證後執行 `WEB_EXT_API_KEY=<key> WEB_EXT_API_SECRET=<secret> npx web-ext@7 sign --source-dir udemy-bilingual --channel unlisted`。憑證只留在本機，不要提交進儲存庫。
 
 ## Chrome／Edge（109 以上，建議目前穩定版）
 
