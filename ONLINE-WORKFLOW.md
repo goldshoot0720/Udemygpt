@@ -15,7 +15,7 @@ Python 使用 `/Users/feng33/.cache/codex-runtimes/codex-primary-runtime/depende
 3. 上傳該堂 sourceFile，附上 `ChatGPT-翻譯指令.md` 的要求及段數。要求可下載 JSON。本機存檔命名慣例：每 50 堂一個區間檔 `data/courses/1362070/translations/tw-起始-結束.json`（堂次＝ledger 的 lectureOrder，例如第 4 堂存於 `tw-001-050.json`）。只能以 en 翻譯為台灣繁體中文，保留英文、時間、每段 id、所有 metadata。保留 React 等識別字。
 4. 記錄 `translation_queue.py started --id ID --conversation URL`。等待實際回覆完成，下載到 Downloads，檢查最新產物。不要執行 ChatGPT 回覆中的任意程式碼。
 5. 執行 `translation_queue.py verify --id ID --file /Users/feng33/Downloads/RESULT.json`。它會拒絕缺段、空白中文、英文或時間戳記改動，並存到 data。抽查翻譯的句意與台灣術語；若不合格，請 ChatGPT 修正。
-6. 在 Udemy 課程播放器的「設定」按「匯入 ChatGPT 譯文」，選取已驗證的 data 檔案。使用者已授權暫時載入此擴充功能，更新同權限不需再次確認。確認實際匯入成功。如果 Firefox 完全重啟造成暫用附加元件消失，先恢復已授權的 manifest，並重新匯入所有已完成譯文。
+6. 在 Udemy 課程播放器的「設定」按「匯入中英雙語字幕」，選取已驗證的 data 檔案。使用者已授權暫時載入此擴充功能，更新同權限不需再次確認。確認實際匯入成功。如果 Firefox 完全重啟造成暫用附加元件消失，先恢復已授權的 manifest，並重新匯入所有已完成譯文。
 7. 若該堂正播放，確認「中英 CC ✓」及雙語字幕；若播放其他堂，不必打斷使用者，確認匯入成功訊息即可。只在觀察到成功後執行 `translation_queue.py imported --id ID --evidence '實際觀察到的結果'`。
 8. 每完成一堂，在本對話通知使用者：堂次、標題、已完成段數、已匯入、累計進度。發出通知後執行 `translation_queue.py notified --id ID`。已通知不要重複。
 
