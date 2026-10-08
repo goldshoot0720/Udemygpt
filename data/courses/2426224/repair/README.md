@@ -18,13 +18,14 @@
 | 71 | emitの命名規則はこうなっている | 完成 | 完成 | 17 |
 | 73 | アプリのセットアップを行う方法 | 完成 | 完成 | 68 |
 | 79 | こうして仮想DOMを使ってレンダリングをしている | 完成 | 完成 | 151 |
-| 80 | 仮想DOMはコンポーネント単位ではこうなっている | 完成 | 待處理 | — |
+| 80 | 仮想DOMはコンポーネント単位ではこうなっている | 完成 | 完成 | 24 |
 | 159 | こうしてTypeScriptをセットアップする | 完成 | 待處理 | — |
 
 - [補充日文原文與繁中譯文 JSON](Japanese-supplement-2426224.json)
 - [第 7 堂中日雙語 SRT](bilingual-subtitles/Vue-007-42549830.ja.zh-TW.srt)
 - [第 8 堂中日雙語 SRT](bilingual-subtitles/Vue-008-42549834.ja.zh-TW.srt)
 - [第 9 堂中日雙語 SRT](bilingual-subtitles/Vue-009-42549838.ja.zh-TW.srt)
+- [第 80 堂中日雙語 SRT](bilingual-subtitles/Vue-080-42562654.ja.zh-TW.srt)
 - [第 79 堂中日雙語 SRT](bilingual-subtitles/Vue-079-42562650.ja.zh-TW.srt)
 - [第 71 堂中日雙語 SRT](bilingual-subtitles/Vue-071-42562624.ja.zh-TW.srt)
 - [第 70 堂中日雙語 SRT](bilingual-subtitles/Vue-070-42562618.ja.zh-TW.srt)
