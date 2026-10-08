@@ -137,7 +137,9 @@ def main():
 
     source = Path(args.input)
     cues = json.loads(source.read_text(encoding='utf-8'))[args.lecture_id]
-    zh = Path(args.translation).read_text(encoding='utf-8').strip()
+    raw = Path(args.translation).read_text(encoding='utf-8').strip()
+    # Subtitle cues are single lines: fold the translator's paragraph wrapping away.
+    zh = ''.join(raw.split())
     if not zh:
         raise SystemExit('譯文檔案是空的。')
 
