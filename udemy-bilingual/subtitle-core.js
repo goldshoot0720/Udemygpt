@@ -43,11 +43,56 @@
     return [caption.locale_id, caption.language, caption.locale, caption.title, caption.label]
       .map(value => typeof value === "string" ? value : value?.locale || value?.name || "").join(" ");
   }
+  // 語言代碼／名稱對照，用於決定雙語字幕的名稱，例如英文課為中英、日文課為中日。
+  // [比對樣式, 完整名稱, 中文簡稱, 語言代碼]
+  const languageLabels = [
+    [/ja(?:[_-]|\s|$)|japanese|日本|日文/i, "日文", "日", "ja"],
+    [/ko(?:[_-]|\s|$)|korean|韓國|韓文/i, "韓文", "韓", "ko"],
+    [/zh[_-](?:tw|hk|hant)|繁體|繁体|traditional/i, "繁體中文", "繁", "zh-TW"],
+    [/(^|\s)zh(?:[_-]|\s|$)|chinese|中文|漢語|汉语/i, "中文", "中", "zh"],
+    [/(^|\s)en(?:[_-]|\s|$)|english|英語|英语/i, "英文", "英", "en"],
+    [/(^|\s)de(?:[_-]|\s|$)|german|德語|德语/i, "德文", "德", "de"],
+    [/(^|\s)fr(?:[_-]|\s|$)|french|法語|法语/i, "法文", "法", "fr"],
+    [/(^|\s)es(?:[_-]|\s|$)|spanish|西班牙/i, "西班牙文", "西", "es"],
+    [/(^|\s)it(?:[_-]|\s|$)|italian|義大利|意大利/i, "義大利文", "義", "it"],
+    [/(^|\s)pt(?:[_-]|\s|$)|portuguese|葡萄牙/i, "葡萄牙文", "葡", "pt"],
+  ];
+  function languageInfo(caption) {
+    const text = caption ? language(caption) : "";
+    for (const [pattern, name, short, code] of languageLabels) if (pattern.test(text)) return { name, short, code };
+    return { name: "", short: "", code: "" };
+  }
+  // 課程主要語言＝原始字幕軌。Udemy 的自動翻譯字幕標示為 auto／自動，人工字幕則沒有。
+  function primaryLanguage(captions) {
+    const list = Array.isArray(captions) ? captions : [];
+    const manual = list.filter(caption => !/auto|自動|自动|generated/i.test(language(caption)));
+    const chosen = manual[0] || list[0];
+    if (!chosen) return null;
+    const info = languageInfo(chosen);
+    return { ...info, caption: chosen };
+  }
+  // 雙語組合取決於課程主要語言：英文課為中英雙語，日文課為中日雙語，
+  // 原文是中文時只顯示中文，其他小語種則先把原文翻譯成英文再走中英雙語。
+  function pairName(info) {
+    const short = typeof info === "string" ? (languageLabels.find(item => item[1] === info)?.[2] || "") : (info?.short || "");
+    if (short === "中" || short === "繁") return "中文雙語";
+    if (short === "日") return "中日雙語";
+    return "中英雙語";
+  }
+  // 翻譯工作語言：中文課程不需翻譯，小語種先翻成英文再翻中文。
+  function pipeline(info) {
+    const short = typeof info === "string" ? (languageLabels.find(item => item[1] === info)?.[2] || "") : (info?.short || "");
+    if (short === "中" || short === "繁") return ["zh-TW"];
+    if (short === "英") return ["zh-TW"];
+    if (short === "日") return ["zh-TW"];
+    return ["en", "zh-TW"];
+  }
   function select(captions) {
     const english = captions.find(c => /(^|\s)en(?:[_-]|\s|$)|english|英語|英语/i.test(language(c)));
     const traditional = captions.find(c => /zh[_-](?:tw|hk|hant)|繁體|繁体|traditional/i.test(language(c)));
     const chinese = traditional || captions.find(c => /(^|\s)zh(?:[_-]|\s|$)|chinese|中文/i.test(language(c)));
-    return { english, chinese, simplified: !!chinese && !traditional };
+    const source = primaryLanguage(captions);
+    return { english, chinese, simplified: !!chinese && !traditional, source, sourceName: source?.name || "", sourceCode: source?.code || "" };
   }
   // Longest phrases first. Preserve APIs, identifiers and English technical names.
   // Avoid blanket replacements for ambiguous words such as 項目, 內存, 庫 and 對象.
@@ -81,7 +126,7 @@
     return text.replace(pattern, value => dictionary.get(value))
       .replace(/\b(React|JavaScript|TypeScript)\s*庫/g, "$1 函式庫");
   }
-  const api = { time, parse, at, select, localizeTaiwan };
+  const api = { time, parse, at, select, primaryLanguage, languageInfo, pairName, pipeline, localizeTaiwan };
   root.SubtitleCore = api;
   if (typeof module !== "undefined") module.exports = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);

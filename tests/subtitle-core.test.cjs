@@ -25,3 +25,26 @@ assert.equal(taiwan('JavaScript 库、React 项目、数据库'), 'JavaScript �
 assert.equal(taiwan('useState、props、Hooks、JSX'), 'useState、props、Hooks、JSX');
 assert.equal(taiwan('目标对象、三个项目'), '目標對象、三個項目');
 console.log('PASS: Taiwan technical terminology, intact API identifiers, context-sensitive object/project wording.');
+// 雙語組合依課程主要語言決定：英文課中英雙語、日文課中日雙語。
+const primaryCases = [
+  [[{ language: 'ja', title: '日本語' }, { language: 'ja', title: '日文[自動]' }], '日文', '中日雙語'],
+  [[{ language: 'en', title: 'English' }, { language: 'ja', title: '日文[自動]' }], '英文', '中英雙語'],
+  [[{ language: 'zh-Hans', title: '中文[自动]' }], '中文', '中文雙語'],
+  [[{ language: 'zh-TW', title: '繁體中文' }], '繁體中文', '中文雙語'],
+  // 韓文、德文、法文等小語種先把原文翻成英文，再走中英雙語。
+  [[{ language: 'ko', title: '한국어' }, { language: 'en', title: 'English[Auto]' }], '韓文', '中英雙語'],
+  [[{ language: 'de', title: 'Deutsch' }, { language: 'fr', title: 'Français' }], '德文', '中英雙語'],
+  [[{ language: 'es', title: 'Español' }], '西班牙文', '中英雙語'],
+];
+for (const [captions, name, pair] of primaryCases) {
+  const picked = SubtitleCore.select(captions);
+  assert.equal(picked.sourceName, name, `${name} 課程的主要語言判斷錯誤`);
+  assert.equal(SubtitleCore.pairName(picked.source), pair);
+}
+// 全部都是自動字幕時退回第一條字幕軌。
+assert.equal(SubtitleCore.select([{ language: 'de', title: 'Deutsch[Auto]' }, { language: 'fr', title: 'Français[auto]' }]).sourceName, '德文');
+assert.equal(SubtitleCore.select([]).source, null);
+assert.deepEqual(SubtitleCore.pipeline(SubtitleCore.select([{ language: 'ja' }]).source), ['zh-TW']);
+assert.deepEqual(SubtitleCore.pipeline(SubtitleCore.select([{ language: 'zh-Hans' }]).source), ['zh-TW']);
+assert.deepEqual(SubtitleCore.pipeline(SubtitleCore.select([{ language: 'de' }]).source), ['en', 'zh-TW']);
+console.log('PASS: Primary-language detection drives the bilingual pair (中英 / 中日 / 中文) and the small-language en→zh pipeline.');

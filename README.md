@@ -8,7 +8,7 @@ Firefox、Chrome、Edge 開發者載入包與 Safari 轉換來源包見 [GitHub 
 
 13 門課的字幕已統一依課程分類，從 [課程字幕索引](data/courses/README.md) 按課程名稱查看。第 14 門 ChatGPT & Generative AI 已加入支援但尚未匯出英文字幕。各課使用 `data/courses/課程ID/`，繁體中文譯文放在其中的 `translations/`，英文來源、翻譯佇列與進度也保存在同一課程資料夾。
 
-## 支援課程（2.7.5）
+## 支援課程（2.7.6）
 
 以下 14 門課程的講師皆為 **Maximilian Schwarzmüller**（ChatGPT 一課另有 Manuel Lorenz）。
 

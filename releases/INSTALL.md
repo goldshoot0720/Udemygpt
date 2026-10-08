@@ -1,4 +1,4 @@
-# Udemy 中英雙語特效字幕 2.7.5
+# Udemy 中英雙語特效字幕 2.7.6
 
 GitHub Release 提供 Firefox 的簽章 XPI 與 ZIP、Chrome、Edge 的開發者載入包，以及 Safari 原始碼包。Firefox 的 XPI 已由 Mozilla 簽署，可直接安裝且重開瀏覽器不會被移除；未發布到瀏覽器商店。包內不包含課程影片、音訊、帳號資料或已翻譯的課程字幕。
 
@@ -6,7 +6,7 @@ GitHub Release 提供 Firefox 的簽章 XPI 與 ZIP、Chrome、Edge 的開發者
 
 ### 方式一：安裝簽章版（建議）
 
-1. 下載 `udemy-bilingual-firefox-2.7.5-signed.xpi`。
+1. 下載 `udemy-bilingual-firefox-2.7.6-signed.xpi`。
 2. Firefox 選單「工具」→「附加元件與主題」，右上角齒輪選「從檔案安裝附加元件」。
 3. 選該 XPI，按「立即安裝」。
 
@@ -14,18 +14,18 @@ GitHub Release 提供 Firefox 的簽章 XPI 與 ZIP、Chrome、Edge 的開發者
 
 ### 方式二：暫時載入（與 v2.5.0 相同）
 
-1. 解壓縮 `udemy-bilingual-firefox-2.7.5.zip`（或直接使用本機的擴充功能資料夾）。
+1. 解壓縮 `udemy-bilingual-firefox-2.7.6.zip`（或直接使用本機的擴充功能資料夾）。
 2. 開啟 `about:debugging#/runtime/this-firefox`，按「載入暫用附加元件」。
 3. 選擇解壓縮資料夾內的 `manifest.json`，在確認對話框按「載入」。
 4. 回到 Udemy 播放器重新整理。
 
 已從資料夾載入過的使用者不必重裝，對既有項目按「重新載入」即可取得新版本。Firefox 關閉後暫用附加元件會移除。
 
-`udemy-bilingual-firefox-2.7.5.xpi`（無 `-signed`）與 ZIP 內容完全相同（SHA-256 一致），**未經簽章**，只能用方式二的對話框載入；雙擊會出現「因為此附加元件尚未經過驗證，無法安裝」，這是預期行為。自行簽署請依 [取得 API Key 與 API Secret](https://addons.mozilla.org/zh-TW/developers/addon/api/key/) 建立憑證後執行 `WEB_EXT_API_KEY=<key> WEB_EXT_API_SECRET=<secret> npx web-ext@7 sign --source-dir udemy-bilingual --channel unlisted`。憑證只留在本機，不要提交進儲存庫。
+`udemy-bilingual-firefox-2.7.6.xpi`（無 `-signed`）與 ZIP 內容完全相同（SHA-256 一致），**未經簽章**，只能用方式二的對話框載入；雙擊會出現「因為此附加元件尚未經過驗證，無法安裝」，這是預期行為。自行簽署請依 [取得 API Key 與 API Secret](https://addons.mozilla.org/zh-TW/developers/addon/api/key/) 建立憑證後執行 `WEB_EXT_API_KEY=<key> WEB_EXT_API_SECRET=<secret> npx web-ext@7 sign --source-dir udemy-bilingual --channel unlisted`。憑證只留在本機，不要提交進儲存庫。
 
 ## Chrome／Edge（109 以上，建議目前穩定版）
 
-1. 下載相應的 `udemy-bilingual-chrome-2.7.5.zip` 或 `udemy-bilingual-edge-2.7.5.zip`，解壓縮到固定位置。
+1. 下載相應的 `udemy-bilingual-chrome-2.7.6.zip` 或 `udemy-bilingual-edge-2.7.6.zip`，解壓縮到固定位置。
 2. Chrome 開啟 `chrome://extensions`；Edge 開啟 `edge://extensions`。
 3. 開啟「開發人員模式」，按「載入未封裝項目」，選擇包含 `manifest.json` 的資料夾。
 4. 回到 Udemy 課程播放器重新整理；保留解壓縮資料夾供後續載入。
@@ -34,7 +34,7 @@ Chrome／Edge 包使用 Manifest V3 service worker，並處理非同步訊息與
 
 ## Safari
 
-`udemy-bilingual-safari-source-2.7.5.zip` 是 Safari Web Extension 轉換來源，不能直接安裝。本次未生成或編譯 Xcode 專案：發布主機只有 Command Line Tools，未安裝完整 Xcode。
+`udemy-bilingual-safari-source-2.7.6.zip` 是 Safari Web Extension 轉換來源，不能直接安裝。本次未生成或編譯 Xcode 專案：發布主機只有 Command Line Tools，未安裝完整 Xcode。
 
 在已安裝完整 Xcode 的 Mac 解壓縮來源包，執行 `sh convert-safari.sh`，再開啟產生的 Xcode 專案。設定開發團隊、檢查轉換工具列出的 API 相容性警告，編譯並簽署應用程式及擴充套件。Safari 版本仍待原生編譯與實際播放驗證，詳見包內 `SAFARI.md`。
 

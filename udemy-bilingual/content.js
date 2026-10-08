@@ -10,7 +10,7 @@
   let prefs = { ...defaults }, video, player, root, shadow, chineseLine, englishLine, panel, status, toggle;
   let setPanel = () => {};
   let en = [], zh = [], key = "", loaded = false, generation = 0, controller, last = "", savedTimer;
-  let englishOrigin = "udemy-caption";
+  let englishOrigin = "udemy-caption", pair = "中英雙語", pairShort = "中英";
   let pageZoom = 1, zoomChecked = 0, zoomPending = false;
   let timeCourse = null, timeCourseId = null, timeItems = null, timeError = "", timeRevision = 0, timeController;
   const terms = /\b(Claude(?: Code)?|Codex|Flutter|Dart|Node(?:\.js|JS)?|React Native|NativeScript|Angular|Svelte(?:\.js)?|Remix(?:\.js)?|GraphQL|Express|MongoDB|Deno|Flexbox|Sass|React(?:\.js)?|JavaScript|TypeScript|JSX|Redux|Next\.js|Hooks?|useState|useEffect|useReducer|useRef|useContext|props|state|components?|DOM|API|HTTP|CSS|HTML|Vite)\b/gi;
@@ -69,7 +69,7 @@
     root.style.setProperty("--player-width", `${player.clientWidth}px`);
     root.style.setProperty("--bottom", `${prefs.bottom}%`);
     root.dataset.effect = prefs.effect;
-    toggle.textContent = prefs.enabled ? (zh.length ? "中英 CC ✓" : "中英 CC · 中文待翻譯") : "中英 CC 關";
+    toggle.textContent = prefs.enabled ? (zh.length ? `${pairShort} CC ✓` : `${pairShort} CC · 中文待翻譯`) : `${pairShort} CC 關`;
     toggle.setAttribute("aria-pressed", String(prefs.enabled));
     player.classList.toggle("udemy-bilingual-active", prefs.enabled && loaded);
     render(true);
@@ -126,7 +126,7 @@
       <button class="time-retry" type="button" hidden>重新讀取時長</button></div>
       <div class="status" role="status">正在讀取課程字幕…</div>
       <div class="progress" hidden><div class="progress-label"></div>
-      <div class="progress-track" role="progressbar" aria-label="全課英文字幕匯出進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar"></div></div></div>
+      <div class="progress-track" role="progressbar" aria-label="全課字幕匯出進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar"></div></div></div>
       <label>字幕效果<select name="effect"><option value="glow">光暈＋淡入</option><option value="cinema">電影描邊</option><option value="minimal">簡潔閱讀</option></select></label>
       <label>字體大小<input name="size" type="range" min="16" max="40" aria-label="字體大小"></label>
       <label>字幕高度<input name="bottom" type="range" min="5" max="65" aria-label="字幕高度"></label>
@@ -143,7 +143,7 @@
     if (!course.known) {
       // Courses outside the prepared list still load; only warn that no translation exists.
       const notice = shadow.querySelector(".notice");
-      notice.textContent = `此課程尚未加入翻譯清單（${course.slug}），目前只顯示官方英文字幕。可按「匯出全課英文」取出字幕後翻譯。`;
+      notice.textContent = `此課程尚未加入翻譯清單（${course.slug}），目前只顯示官方原始字幕。可按「匯出全課英文」取出字幕後翻譯。`;
       notice.hidden = false;
     }
     toggle.addEventListener("click", () => { prefs.enabled = !prefs.enabled; apply(); save(); });
@@ -245,14 +245,17 @@
       const legacyKey = `translation:${lecture}`;
       const stored = await browser.storage.local.get([storageKey, englishKey, ...(courseId === 1362070 ? [legacyKey] : [])]);
       if (revision !== generation) return;
-      if (selected.english?.url) {
-        const englishVtt = await browser.runtime.sendMessage({ type: "caption-file", url: selected.english.url });
+      // 課程主要語言決定雙語組合：英文課是中英雙語，日文課是中日雙語。
+      const sourceCaption = selected.source?.caption || selected.english;
+      applyPair(core.pairName(selected.sourceName));
+      if (sourceCaption?.url) {
+        const englishVtt = await browser.runtime.sendMessage({ type: "caption-file", url: sourceCaption.url });
         if (revision !== generation) return;
         en = core.parse(englishVtt);
-        if (!en.length) throw new Error("英文字幕格式無法解析");
+        if (!en.length) throw new Error("字幕格式無法解析");
       } else {
         const supplemental = stored[englishKey];
-        if (supplemental?.sourceOrigin !== "audio-transcription") throw new Error("這堂課沒有可用的英文字幕");
+        if (supplemental?.sourceOrigin !== "audio-transcription") throw new Error("這堂課沒有可用的原始字幕");
         await validateEnglish(supplemental);
         if (revision !== generation) return;
         let maxEnd = 0;
@@ -265,13 +268,20 @@
       const hash = await sourceHash(en);
       if (revision !== generation) return;
       const translation = stored[storageKey] || (courseId === 1362070 ? stored[legacyKey] : null);
-      if (translation?.sourceHash === hash && translation.cues?.length === en.length) {
-        zh = en.map((cue,i) => ({ ...cue, text: translation.cues[i].zh }));
+      if (translation?.cues?.length === en.length) {
+        // 雜湊對得上原文字幕就用原文字幕；對不上但譯文自帶英文工作譯文且雜湊一致，就用它當第二行。
+        const carried = translation.cues.every(cue => typeof cue.en === "string" && cue.en.trim());
+        const texts = carried ? translation.cues.map(cue => cue.en) : en.map(cue => cue.text);
+        const textHash = await sourceHash(en.map((cue,i) => ({ start: cue.start, end: cue.end, text: texts[i] })));
+        if (textHash === translation.sourceHash) {
+          // 第二行在英文課程是原文字幕，在小語種課程是譯文帶入的英文工作譯文。
+          en = en.map((cue,i) => ({ ...cue, text: texts[i] }));
+          zh = en.map((cue,i) => ({ ...cue, text: translation.cues[i].zh }));
+        }
       }
       loaded = true;
-      status.textContent = zh.length ? `中英雙語字幕已就緒 · ${en.length} 段` :
-        `英文 ${en.length} 段已就緒；本堂尚未匯入中英雙語字幕`;
-      if (englishOrigin === "audio-transcription") status.textContent += " · 英文來源：音訊轉錄";
+      renderStatus();
+      if (englishOrigin === "audio-transcription") status.textContent += " · 原始字幕來源：音訊轉錄";
       root.dataset.source = englishOrigin;
       root.dataset.status = zh.length ? "bilingual-ready" : "english-only";
       apply();
@@ -279,7 +289,7 @@
       if (signal.aborted || revision !== generation) return;
       status.textContent = error.message || "字幕讀取失敗，請重試";
       root.dataset.status = "error";
-      toggle.textContent = "中英 CC · 請開設定";
+      toggle.textContent = `${pairShort} CC · 請開設定`;
       panel.hidden = false;
       shadow.querySelector(".toolbar").dataset.open = "true";
     }
@@ -295,7 +305,7 @@
     setTimeout(() => URL.revokeObjectURL(url),60000);
   }
   async function exportCurrent() {
-    if (!en.length) { status.textContent = "請先等待英文字幕讀取完成"; return; }
+    if (!en.length) { status.textContent = "請先等待原始字幕讀取完成"; return; }
     const lecture = key, cues = en, activeCourse = course, sourceOrigin = englishOrigin;
     const title = document.querySelector('[data-purpose="lecture-title"]')?.textContent || document.title;
     try {
@@ -309,6 +319,19 @@
   }
   let collecting = false;
   const minutes = seconds => seconds < 60 ? `${Math.ceil(seconds)} 秒` : `約 ${Math.ceil(seconds / 60)} 分鐘`;
+  // 依課程主要語言更新按鈕與面板文字：英文課中英雙語、日文課中日雙語。
+  function applyPair(name) {
+    pair = name;
+    pairShort = name.replace("雙語", "");
+    const button = shadow?.querySelector(".import");
+    if (button) button.textContent = `匯入${name}字幕`;
+    if (status) renderStatus();
+  }
+  function renderStatus() {
+    if (!status) return;
+    status.textContent = zh.length ? `${pair}字幕已就緒 · ${en.length} 段` :
+      `${pairShort} ${en.length} 段已就緒；本堂尚未匯入${pair}字幕`;
+  }
   function renderProgress(done, total, label) {
     const box = shadow?.querySelector(".progress");
     if (!box) return 0;
@@ -352,7 +375,7 @@
       if (!videos.length) throw new Error("課程清單沒有提供影片講座");
       let cues = 0;
       for (const [index, item] of videos.entries()) {
-        status.textContent = `匯出英文字幕 ${index+1}/${videos.length} · ${item.title}`;
+        status.textContent = `匯出${pairShort}字幕 ${index+1}/${videos.length} · ${item.title}`;
         try {
           let captions = item.asset?.captions;
           if (!captions?.length) {
@@ -360,10 +383,12 @@
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             captions = (await response.json()).asset?.captions;
           }
-          const english = core.select(captions || []).english;
-          if (!english?.url) throw new Error("沒有英文字幕");
+          const picked = core.select(captions || []);
+          const english = picked.source?.caption || picked.english;
+          applyPair(core.pairName(picked.sourceName));
+          if (!english?.url) throw new Error("沒有可用的原始字幕");
           const parsed = core.parse(await browser.runtime.sendMessage({type:"caption-file",url:english.url}));
-          if (!parsed.length) throw new Error("英文字幕無法解析");
+          if (!parsed.length) throw new Error("原始字幕無法解析");
           cues += parsed.length;
           lectures.push({id:String(item.id),title:item.title,
             lectureOrder:curriculum.find(entry => entry.type==='lecture' && entry.id===String(item.id))?.lectureOrder,
@@ -406,7 +431,7 @@
       const file = event.target.files[0]; if (!file) return;
       const value = JSON.parse(await file.text());
       const courseId = await UdemyCourses.idFor(activeCourse);
-      if (value.courseId !== courseId || value.sourceLanguage !== "en" || value.targetLanguage !== "zh-TW") throw new Error("譯文必須來自本課英文字幕，目標語言為 zh-TW");
+      if (value.courseId !== courseId || value.targetLanguage !== "zh-TW") throw new Error("譯文必須來自本課原始字幕，目標語言為 zh-TW");
       const updates = {};
       if (!Array.isArray(value.lectures) || !value.lectures.length) throw new Error("譯文沒有講座資料");
       for (const lecture of value.lectures) {
@@ -414,7 +439,12 @@
         for (const [index,cue] of lecture.cues.entries()) {
           if (cue.id !== index+1 || typeof cue.en !== "string" || !cue.en.trim() || typeof cue.zh !== "string" || !cue.zh.trim() || !Number.isFinite(cue.start) || !Number.isFinite(cue.end) || cue.end <= cue.start) throw new Error(`${lecture.title || lecture.id} 第 ${index+1} 段缺漏或格式錯誤`);
         }
-        updates[UdemyCourses.translationKey(courseId, lecture.id)] = {sourceHash:hash,translatedBy:"bilingual-zh-tw",cues:lecture.cues.map(c=>({zh:toTraditional(c.zh)})),importedAt:new Date().toISOString()};
+        // 英文課程的 en 就是原文字幕；小語種課程的 en 是先翻出的英文工作譯文，一併保存作為第二行。
+        updates[UdemyCourses.translationKey(courseId, lecture.id)] = {
+          sourceHash:hash, translatedBy:"bilingual-zh-tw",
+          cues:lecture.cues.map(c=>({zh:toTraditional(c.zh),en:c.en})),
+          importedAt:new Date().toISOString()
+        };
         if (lecture.sourceOrigin === "audio-transcription") updates[`english-source:${courseId}:${lecture.id}`] = supplementalEntry(lecture, hash);
       }
       await browser.storage.local.set(updates);

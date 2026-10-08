@@ -96,7 +96,7 @@ async function workflow(course, index, withoutEnglish = false, chromium = false)
     assert.equal(root.dataset.status, 'error');
     // The DOM stub answers every selector, so assert against the shipped source instead.
     assert.ok(!fs.readFileSync(require.resolve('../udemy-bilingual/content.js'), 'utf8').includes('import-english'));
-    assert.match(shadow.querySelector('.status').textContent,/沒有可用的英文字幕/);
+    assert.match(shadow.querySelector('.status').textContent,/沒有可用的原始字幕/);
     assert.equal(Object.keys(storage).length, 0);
     // Without a supplemental import the lecture can only recover from the official caption track.
     denied = true;
