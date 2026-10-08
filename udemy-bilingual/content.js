@@ -10,7 +10,7 @@
   let prefs = { ...defaults }, video, player, root, shadow, chineseLine, englishLine, panel, status, toggle;
   let setPanel = () => {};
   let en = [], zh = [], key = "", loaded = false, generation = 0, controller, last = "", savedTimer;
-  let englishOrigin = "udemy-caption", pair = "中英雙語", pairShort = "中英";
+  let englishOrigin = "udemy-caption", pair = "中英雙語", pairShort = "中英", sourceLabel = "原文";
   let pageZoom = 1, zoomChecked = 0, zoomPending = false;
   let timeCourse = null, timeCourseId = null, timeItems = null, timeError = "", timeRevision = 0, timeController;
   const terms = /\b(Claude(?: Code)?|Codex|Flutter|Dart|Node(?:\.js|JS)?|React Native|NativeScript|Angular|Svelte(?:\.js)?|Remix(?:\.js)?|GraphQL|Express|MongoDB|Deno|Flexbox|Sass|React(?:\.js)?|JavaScript|TypeScript|JSX|Redux|Next\.js|Hooks?|useState|useEffect|useReducer|useRef|useContext|props|state|components?|DOM|API|HTTP|CSS|HTML|Vite)\b/gi;
@@ -132,18 +132,18 @@
       <label>字幕高度<input name="bottom" type="range" min="5" max="65" aria-label="字幕高度"></label>
       <label>時間校正（秒）<input name="offset" type="number" min="-10" max="10" step="0.1" aria-label="字幕時間校正"></label>
       <button class="retry" type="button">重新讀取字幕</button>
-      <button class="export-current" type="button">匯出本堂英文</button>
-      <button class="export-course" type="button">匯出全課英文</button>
+      <button class="export-current" type="button">匯出本堂原文</button>
+      <button class="export-course" type="button">匯出全課原文</button>
       <button class="import" type="button">匯入中英雙語字幕</button>
       <input class="import-file" type="file" accept=".json,application/json" hidden>
-      <p class="source">中文由英文預先翻譯，採台灣術語；不使用 Udemy 中文字幕。尚未匯入譯文時只顯示英文。</p></div></div>`;
+      <p class="source">中文由原文預先翻譯，採台灣術語；不使用 Udemy 自己的中文字幕。尚未匯入譯文時只顯示原文。</p></div></div>`;
     player.append(root);
     chineseLine = shadow.querySelector(".zh"); englishLine = shadow.querySelector(".en");
     toggle = shadow.querySelector(".toggle"); status = shadow.querySelector(".status"); panel = shadow.querySelector(".panel");
     if (!course.known) {
       // Courses outside the prepared list still load; only warn that no translation exists.
       const notice = shadow.querySelector(".notice");
-      notice.textContent = `此課程尚未加入翻譯清單（${course.slug}），目前只顯示官方原始字幕。可按「匯出全課英文」取出字幕後翻譯。`;
+      notice.textContent = `此課程尚未加入翻譯清單（${course.slug}），目前只顯示官方原始字幕。可按「匯出全課原文」取出字幕後翻譯。`;
       notice.hidden = false;
     }
     toggle.addEventListener("click", () => { prefs.enabled = !prefs.enabled; apply(); save(); });
@@ -247,7 +247,7 @@
       if (revision !== generation) return;
       // 課程主要語言決定雙語組合：英文課是中英雙語，日文課是中日雙語。
       const sourceCaption = selected.source?.caption || selected.english;
-      applyPair(core.pairName(selected.sourceName));
+      applyPair(core.pairName(selected.sourceName), selected.source);
       if (sourceCaption?.url) {
         const englishVtt = await browser.runtime.sendMessage({ type: "caption-file", url: sourceCaption.url });
         if (revision !== generation) return;
@@ -314,17 +314,30 @@
         id:lecture,title,sourceHash:await sourceHash(cues),sourceOrigin,
         cues:cues.map(({start,end,text},i)=>({id:i+1,start,end,en:text,zh:""}))
       }]},`Udemy-English-${courseId}-${lecture}.json`);
-      status.textContent = `已匯出 ${cues.length} 段英文；請交給翻譯工具處理後再匯入`;
+      status.textContent = `已匯出 ${cues.length} 段${sourceLabel}；請交給翻譯工具處理後再匯入`;
     } catch (error) { status.textContent = error.message; }
   }
   let collecting = false;
   const minutes = seconds => seconds < 60 ? `${Math.ceil(seconds)} 秒` : `約 ${Math.ceil(seconds / 60)} 分鐘`;
   // 依課程主要語言更新按鈕與面板文字：英文課中英雙語、日文課中日雙語。
-  function applyPair(name) {
+  // 匯出取的是原始字幕，所以按鈕名稱必須跟著語言變動，否則日文課會出現「匯出英文」。
+  function applyPair(name, info) {
     pair = name;
     pairShort = name.replace("雙語", "");
-    const button = shadow?.querySelector(".import");
-    if (button) button.textContent = `匯入${name}字幕`;
+    const lang = (info && (info.name || info)) || "原文";
+    sourceLabel = lang;
+    const label = shadow?.querySelector(".import");
+    if (label) label.textContent = `匯入${name}字幕`;
+    const current = shadow?.querySelector(".export-current");
+    if (current) current.textContent = `匯出本堂${lang}`;
+    const exportCourse = shadow?.querySelector(".export-course");
+    if (exportCourse) exportCourse.textContent = `匯出全課${lang}`;
+    const note = shadow?.querySelector(".source");
+    if (note) note.textContent = `中文由${lang}預先翻譯，採台灣術語；不使用 Udemy 自己的中文字幕。尚未匯入譯文時只顯示${lang}。`;
+    const notice = shadow?.querySelector(".notice");
+    if (notice && !notice.hidden && notice.textContent?.includes("匯出全課")) {
+      notice.textContent = `此課程尚未加入翻譯清單（${course?.slug || ""}），目前只顯示官方原始字幕。可按「匯出全課${lang}」取出字幕後翻譯。`;
+    }
     if (status) renderStatus();
   }
   function renderStatus() {
@@ -385,7 +398,7 @@
           }
           const picked = core.select(captions || []);
           const english = picked.source?.caption || picked.english;
-          applyPair(core.pairName(picked.sourceName));
+          applyPair(core.pairName(picked.sourceName), picked.source);
           if (!english?.url) throw new Error("沒有可用的原始字幕");
           const parsed = core.parse(await browser.runtime.sendMessage({type:"caption-file",url:english.url}));
           if (!parsed.length) throw new Error("原始字幕無法解析");
@@ -397,7 +410,7 @@
         } catch(error) { errors.push({id:item.id,title:item.title,error:error.message}); }
         const done = index + 1, elapsed = (Date.now() - started) / 1000;
         const percent = renderProgress(done, videos.length,
-          `已匯出 ${done}/${videos.length} 堂 · ${cues} 段 · ${errors.length} 堂失敗 · 預計剩 ${minutes(elapsed / done * (videos.length - done))}`);
+          `已匯出 ${done}/${videos.length} 堂 · ${cues} 段${sourceLabel} · ${errors.length} 堂失敗 · 預計剩 ${minutes(elapsed / done * (videos.length - done))}`);
         button.textContent = `匯出中 ${percent}%`;
         await new Promise(resolve => setTimeout(resolve,300));
       }
@@ -415,7 +428,7 @@
     if (!/^\d+$/.test(String(lecture.id)) || !Array.isArray(lecture.cues) || !lecture.cues.length || !/^[a-f0-9]{64}$/.test(lecture.sourceHash)) throw new Error("講座格式不正確");
     let previousStart = -1;
     for (const [index, cue] of lecture.cues.entries()) {
-      if (cue.id !== index + 1 || typeof cue.en !== "string" || !cue.en.trim() || !Number.isFinite(cue.start) || !Number.isFinite(cue.end) || cue.start < 0 || cue.start < previousStart || cue.end <= cue.start) throw new Error(`${lecture.title || lecture.id} 第 ${index + 1} 段英文或時間軸格式錯誤`);
+      if (cue.id !== index + 1 || typeof cue.en !== "string" || !cue.en.trim() || !Number.isFinite(cue.start) || !Number.isFinite(cue.end) || cue.start < 0 || cue.start < previousStart || cue.end <= cue.start) throw new Error(`${lecture.title || lecture.id} 第 ${index + 1} 段${sourceLabel}或時間軸格式錯誤`);
       previousStart = cue.start;
     }
     const hash = await sourceHash(lecture.cues.map(cue => ({start:cue.start,end:cue.end,text:cue.en})));

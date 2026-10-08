@@ -4,7 +4,7 @@
 The chain is strictly ordered so a failure never leaves a half-published release:
     1. run every test in tests/
     2. build all browser packages into dist/v版本/ (scripts/build_release.py)
-    3. require BOTH udemy-bilingual-firefox-版本-unsigned.xpi and -signed.xpi
+    3. require BOTH udemy-bilingual-firefox-版本-UNSIGNED-DO-NOT-INSTALL.xpi and -signed.xpi
     4. recompute SHA256SUMS.txt over every asset
     5. git add + commit + push origin main
     6. gh release create v版本 --notes-file releases/v版本.md dist/v版本/*
@@ -69,12 +69,12 @@ def build(version, key_file, skip_tests):
 
 def require_both_xpi(output, version):
     print('== 3/6 檢查雙版本 XPI ==')
-    for suffix in ('-unsigned', '-signed'):
+    for suffix in ('-UNSIGNED-DO-NOT-INSTALL', '-signed'):
         path = output / f'udemy-bilingual-firefox-{version}{suffix}.xpi'
         if not path.exists():
             raise SystemExit(f'缺少 {path.name}，發布中止（每個 Release 必須同時有簽署與未簽署兩支 XPI）。')
         print(f'  {path.name}  {hashlib.sha256(path.read_bytes()).hexdigest()}')
-    unsigned = output / f'udemy-bilingual-firefox-{version}-unsigned.xpi'
+    unsigned = output / f'udemy-bilingual-firefox-{version}-UNSIGNED-DO-NOT-INSTALL.xpi'
     firefox_zip = output / f'udemy-bilingual-firefox-{version}.zip'
     if unsigned.read_bytes() != firefox_zip.read_bytes():
         raise SystemExit('未簽署 XPI 與 Firefox ZIP 內容不一致，中止。')

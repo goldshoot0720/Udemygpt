@@ -63,12 +63,13 @@ def build(output=None):
     for browser, (manifest, files) in packages.items():
         suffix = 'safari-source' if browser == 'safari' else browser
         assets.append(write_archive(output / f'udemy-bilingual-{suffix}-{version}.zip', files, manifest))
-    # Firefox install file. It is not signed, so Firefox only accepts it via temporary
-    # loading (about:debugging) or a build that allows unsigned add-ons. The
-    # -unsigned suffix keeps it from being mistaken for the signed build; the signed
-    # XPI is produced separately by scripts/build_release.py.
+    # Firefox install file. It is not signed, so Firefox always refuses to install it
+    # ("因為此附加元件尚未經過驗證，無法安裝"). The filename says so in plain words because
+    # this file is otherwise byte-identical to the Firefox ZIP and looks installable.
     firefox_manifest, firefox_files = packages['firefox']
-    assets.append(write_archive(output / f'udemy-bilingual-firefox-{version}-unsigned.xpi', firefox_files, firefox_manifest))
+    assets.append(write_archive(
+        output / f'udemy-bilingual-firefox-{version}-UNSIGNED-DO-NOT-INSTALL.xpi',
+        firefox_files, firefox_manifest))
     instructions = output / 'INSTALL.md'
     instructions.write_bytes((ROOT / 'releases/INSTALL.md').read_bytes())
     assets.append(instructions)
