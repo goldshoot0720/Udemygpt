@@ -50,11 +50,31 @@ def sign(source_dir, output_dir, version, issuer, secret, timeout):
         result = subprocess.run(command, env=env, capture_output=True, text=True)
         signed = sorted(Path(temp).glob('*.xpi'))
         if not signed:
-            detail = '\n'.join(line for line in result.stdout.splitlines()[-6:] if 'at ' not in line)
-            raise RuntimeError(f'簽署失敗：{detail.strip() or result.stderr[-500:]}')
+            raise RuntimeError(describe_failure(result))
         target = output_dir / f'udemy-bilingual-firefox-{version}-signed.xpi'
         shutil.copyfile(signed[0], target)
         return target
+
+
+def describe_failure(result):
+    """Explain why signing produced no XPI.
+
+    web-ext prints the real reason (bad JWT, revoked key, AMO queue) near the end
+    of stdout or on stderr; without this the caller only ever sees an empty
+    message and there is nothing to act on.
+    """
+    def interesting(text):
+        noise = ('at ', 'npm warn', 'npm notice', 'DeprecationWarning', 'trace-')
+        lines = [line.strip() for line in text.splitlines() if line.strip()]
+        return [line for line in lines
+                if not any(marker in line for marker in noise)
+                and not line.startswith(('$ ', 'node internal'))]
+
+    lines = interesting(result.stdout) + interesting(result.stderr)
+    lines = lines[-8:]
+    if not lines:
+        lines = [f'web-ext 結束但沒有產出 XPI（exit {result.returncode}）']
+    return '簽署失敗：\n' + '\n'.join(f'  {line}' for line in lines)
 
 
 def write_checksums(output_dir):
