@@ -4,11 +4,15 @@ GitHub Release 提供 Firefox 的 XPI／ZIP、Chrome、Edge 的開發者載入�
 
 ## Firefox（115 以上）
 
-1. 下載 `udemy-bilingual-firefox-2.7.0.xpi`（與 ZIP 內容相同）或解壓縮 `udemy-bilingual-firefox-2.7.0.zip`。
-2. 開啟 `about:debugging#/runtime/this-firefox`，按「載入暫用附加元件」。
-3. 選擇 XPI 檔案或解壓縮資料夾內的 `manifest.json`，回到 Udemy 播放器重新整理。
+> `udemy-bilingual-firefox-2.7.0.xpi` **未經 Mozilla 簽章**。雙擊 XPI 或從檔案總管拖進視窗，Firefox 一定會顯示「因為此附加元件尚未經過驗證，無法安裝」，這是預期行為，不是檔案損壞。XPI 只能用下面的「暫用載入」安裝。
 
-Firefox 關閉後暫用附加元件會移除。`udemy-bilingual-firefox-2.7.0.xpi` **未經 Mozilla 簽章**，內容與 Firefox ZIP 相同（SHA-256 一致），可暫時載入；要長期安裝需 Mozilla 簽章的 XPI，或自行以 `web-ext sign` 簽署。
+已從資料夾載入過的使用者不必重裝，到 `about:debugging#/runtime/this-firefox` 對既有項目按「重新載入」即可取得新版本。
+
+1. 開啟 `about:debugging#/runtime/this-firefox`，按「載入暫用附加元件」。
+2. 選擇 `udemy-bilingual-firefox-2.7.0.xpi`（或解壓縮 ZIP 後的 `manifest.json`），在確認對話框按「載入」。
+3. 回到 Udemy 播放器重新整理。
+
+Firefox 關閉後暫用附加元件會移除。要長期安裝只有兩種方式：把 XPI 上傳 AMO 做免費簽章，或自行以 `web-ext sign --api-key=<key> --api-secret=<secret>` 簽署（需要 AMO 帳號與 API 憑證）。
 
 ## Chrome／Edge（109 以上，建議目前穩定版）
 
