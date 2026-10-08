@@ -2,11 +2,14 @@
 
 [返回課程資料](../README.md)。
 
-## 目前沒有譯文
+在本課程的播放器設定按「匯入 ChatGPT 譯文」，選取此資料夾中的 JSON。課程 ID 必須為 `5291332`；
+進度以 [translation-progress.json](../translation-progress.json) 為準。
 
-此課程尚未匯出英文字幕來源，因此本資料夾沒有 `tw-*.json` 譯文檔。
-不可在沒有英文原文字幕的情況下產生或推測譯文。
+目前的譯文檔案：
 
-匯出英文並執行 `prepare_course_sources.cjs` 之後，翻譯進度以
-[translation-progress.json](../translation-progress.json) 為準；譯文會以每 50 堂一個
-`tw-起始-結束.json` 存放在本資料夾，可直接在播放器設定按「匯入 ChatGPT 譯文」。
+- `tw-001-050.json`：第 1–10 堂已驗證（630 段）。
+- `tw-151-200.json`：第 166–175 堂已驗證（674 段）。
+- `tw-301-350.json`：第 330–339 堂已驗證（793 段）。
+
+合計 30 堂、2097 段已通過 SHA-256 驗證，全課 339 堂尚在翻譯中。
+中英雙語特效字幕由 `export_ass.py` 產生，放在 `subtitles-ass/`（不加入 Git）。

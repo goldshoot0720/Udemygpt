@@ -8,6 +8,7 @@
   const toTraditional = text => SubtitleCore.localizeTaiwan(convertCharacters(text));
   const defaults = { enabled: true, effect: "glow", size: 25, bottom: 10, offset: 0 };
   let prefs = { ...defaults }, video, player, root, shadow, chineseLine, englishLine, panel, status, toggle;
+  let setPanel = () => {};
   let en = [], zh = [], key = "", loaded = false, generation = 0, controller, last = "", savedTimer;
   let englishOrigin = "udemy-caption";
   let pageZoom = 1, zoomChecked = 0, zoomPending = false;
@@ -49,6 +50,10 @@
     input[type="number"] { width: 80px; color: white; border: 1px solid #ffffff40; background: #14253d; border-radius: 6px; padding: 4px; }
     .status { color: #b9cee8; font-size: 12px; line-height: 1.5; margin-bottom: 10px; }
     .notice { width: 100%; margin-bottom: 10px; padding: 8px 10px; border: 1px solid #ffd47966; border-radius: 9px; background: #2a1f06e8; color: #ffe3a6; font-size: 12px; line-height: 1.5; }
+    .progress { width: 100%; margin-bottom: 10px; }
+    .progress-label { color: #b9cee8; font-size: 12px; line-height: 1.5; margin-bottom: 5px; word-break: break-word; }
+    .progress-track { height: 6px; border-radius: 3px; background: #ffffff1f; overflow: hidden; }
+    .progress-bar { height: 100%; width: 0%; border-radius: 3px; background: linear-gradient(90deg,#79e6ff,#4b8dff); transition: width .2s ease-out; }
     .source { font-size: 11px; color: #a0b2c9; line-height: 1.5; margin: 8px 0 0; }
     @media(max-width:600px) { .captions { left: 3%; right: 3%; } .lines { padding: 8px 12px; } .zh { font-size: min(var(--zh-size,var(--size,25px)),20px); } .en { font-size: min(calc(var(--size,25px)*.76),16px); } }
     @media(prefers-reduced-motion:reduce) { .fade { animation: none; } .toolbar { transition: none; } }
@@ -120,6 +125,8 @@
       <div class="time-note">依序觀看估算：前面影片＋本堂播放位置</div>
       <button class="time-retry" type="button" hidden>重新讀取時長</button></div>
       <div class="status" role="status">正在讀取課程字幕…</div>
+      <div class="progress" hidden><div class="progress-label"></div>
+      <div class="progress-track" role="progressbar" aria-label="全課英文字幕匯出進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar"></div></div></div>
       <label>字幕效果<select name="effect"><option value="glow">光暈＋淡入</option><option value="cinema">電影描邊</option><option value="minimal">簡潔閱讀</option></select></label>
       <label>字體大小<input name="size" type="range" min="16" max="40" aria-label="字體大小"></label>
       <label>字幕高度<input name="bottom" type="range" min="5" max="65" aria-label="字幕高度"></label>
@@ -143,12 +150,13 @@
     }
     toggle.addEventListener("click", () => { prefs.enabled = !prefs.enabled; apply(); save(); });
     const settings = shadow.querySelector(".settings");
-    settings.addEventListener("click", () => {
-      panel.hidden = !panel.hidden;
-      shadow.querySelector(".course-time").hidden = panel.hidden;
-      settings.setAttribute("aria-expanded", String(!panel.hidden));
-      shadow.querySelector(".toolbar").dataset.open = String(!panel.hidden);
-    });
+    setPanel = open => {
+      panel.hidden = !open;
+      shadow.querySelector(".course-time").hidden = !open;
+      settings.setAttribute("aria-expanded", String(open));
+      shadow.querySelector(".toolbar").dataset.open = String(open);
+    };
+    settings.addEventListener("click", () => setPanel(panel.hidden));
     shadow.querySelector(".retry").addEventListener("click", () => { key = ""; check(); });
     shadow.querySelector(".time-retry").addEventListener("click", () => loadCourseTime(true));
     shadow.querySelector(".export-current").addEventListener("click", exportCurrent);
@@ -166,7 +174,7 @@
     }
     root.addEventListener("keydown", event => {
       event.stopPropagation();
-      if (event.key === "Escape" && !panel.hidden) { panel.hidden = true; shadow.querySelector(".course-time").hidden = true; settings.setAttribute("aria-expanded", "false"); shadow.querySelector(".toolbar").dataset.open = "false"; }
+      if (event.key === "Escape" && !panel.hidden) setPanel(false);
     });
     root.addEventListener("click", event => event.stopPropagation());
     apply();
@@ -304,11 +312,28 @@
     } catch (error) { status.textContent = error.message; }
   }
   let collecting = false;
+  const minutes = seconds => seconds < 60 ? `${Math.ceil(seconds)} 秒` : `約 ${Math.ceil(seconds / 60)} 分鐘`;
+  function renderProgress(done, total, label) {
+    const box = shadow?.querySelector(".progress");
+    if (!box) return 0;
+    box.hidden = false;
+    const percent = total ? Math.min(100, Math.floor(done / total * 100)) : 0;
+    box.querySelector(".progress-bar").style.width = `${percent}%`;
+    box.querySelector(".progress-track").setAttribute("aria-valuenow", String(percent));
+    box.querySelector(".progress-label").textContent = label;
+    return percent;
+  }
   async function exportCourse() {
     if (collecting) return;
     collecting = true;
-    const button = shadow.querySelector(".export-course"); button.disabled = true;
+    const button = shadow.querySelector(".export-course");
+    const label = button.textContent;
+    button.disabled = true;
     const lectures = [], errors = [], activeCourse = course;
+    const started = Date.now();
+    // A full course runs for minutes; open the panel so the progress stays visible.
+    setPanel(true);
+    renderProgress(0, 0, "正在讀取課程清單…");
     try {
       const courseId = await UdemyCourses.idFor(activeCourse);
       let next = new URL(`/api-2.0/courses/${courseId}/subscriber-curriculum-items/`,location.origin);
@@ -323,9 +348,14 @@
         const data = await response.json(); items.push(...data.results);
         next = data.next ? new URL(data.next,location.origin) : null;
       }
+      // Keep the full curriculum and lecture order; verify_course_sources requires them.
+      let order = 0;
+      const curriculum = items.map(item => ({type:item._class,id:String(item.id),title:item.title,
+        ...(item._class==='lecture'?{lectureOrder:++order,assetType:item.asset?.asset_type||null}:{})}));
       const videos = items.filter(x=>x._class==='lecture' && /^video$/i.test(x.asset?.asset_type || ''));
       if (!videos.length) throw new Error("課程清單沒有提供影片講座");
-      for (const [index,item] of videos.entries()) {
+      let cues = 0;
+      for (const [index, item] of videos.entries()) {
         status.textContent = `匯出英文字幕 ${index+1}/${videos.length} · ${item.title}`;
         try {
           let captions = item.asset?.captions;
@@ -336,16 +366,29 @@
           }
           const english = core.select(captions || []).english;
           if (!english?.url) throw new Error("沒有英文字幕");
-          const cues = core.parse(await browser.runtime.sendMessage({type:"caption-file",url:english.url}));
-          if (!cues.length) throw new Error("英文字幕無法解析");
-          lectures.push({id:String(item.id),title:item.title,sourceHash:await sourceHash(cues),cues:cues.map(({start,end,text},i)=>({id:i+1,start,end,en:text,zh:""}))});
+          const parsed = core.parse(await browser.runtime.sendMessage({type:"caption-file",url:english.url}));
+          if (!parsed.length) throw new Error("英文字幕無法解析");
+          cues += parsed.length;
+          lectures.push({id:String(item.id),title:item.title,
+            lectureOrder:curriculum.find(entry => entry.type==='lecture' && entry.id===String(item.id))?.lectureOrder,
+            videoOrder:index+1,sourceHash:await sourceHash(parsed),
+            cues:parsed.map(({start,end,text},i)=>({id:i+1,start,end,en:text,zh:""}))});
         } catch(error) { errors.push({id:item.id,title:item.title,error:error.message}); }
+        const done = index + 1, elapsed = (Date.now() - started) / 1000;
+        const percent = renderProgress(done, videos.length,
+          `已匯出 ${done}/${videos.length} 堂 · ${cues} 段 · ${errors.length} 堂失敗 · 預計剩 ${minutes(elapsed / done * (videos.length - done))}`);
+        button.textContent = `匯出中 ${percent}%`;
         await new Promise(resolve => setTimeout(resolve,300));
       }
-      downloadJSON({version:1,courseId,sourceLanguage:"en",targetLanguage:"zh-TW",lectures,errors},`Udemy-English-course-${courseId}.json`);
+      lectures.sort((a,b) => a.videoOrder - b.videoOrder);
+      errors.sort((a,b) => videos.findIndex(x=>String(x.id)===String(a.id)) - videos.findIndex(x=>String(x.id)===String(b.id)));
+      downloadJSON({version:1,courseId,courseSlug:activeCourse.slug,courseTitle:activeCourse.title || activeCourse.slug,
+        sourceLanguage:"en",targetLanguage:"zh-TW",lectures,errors,curriculum},`Udemy-English-course-${courseId}.json`);
       status.textContent = `英文匯出完成：${lectures.length} 堂；${errors.length} 堂缺少字幕或讀取失敗`;
+      renderProgress(videos.length, videos.length,
+        `完成：${lectures.length} 堂 / ${cues} 段，${errors.length} 堂失敗，耗時 ${minutes((Date.now() - started) / 1000)}`);
     } catch(error) { status.textContent = error.message; }
-    finally { collecting = false; button.disabled = false; }
+    finally { collecting = false; button.disabled = false; button.textContent = label; }
   }
   async function validateEnglish(lecture) {
     if (!/^\d+$/.test(String(lecture.id)) || !Array.isArray(lecture.cues) || !lecture.cues.length || !/^[a-f0-9]{64}$/.test(lecture.sourceHash)) throw new Error("講座格式不正確");
