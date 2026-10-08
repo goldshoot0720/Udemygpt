@@ -6,11 +6,11 @@ Firefox、Chrome、Edge 開發者載入包與 Safari 轉換來源包見 [GitHub 
 
 版本 2.0 不再下載或使用 Udemy 中文字幕，也不使用本機翻譯模型。尚未完成英文預譯的講座只顯示英文，左上角會標示「中文待翻譯」。
 
-13 門課的字幕已統一依課程分類，從 [課程字幕索引](data/courses/README.md) 按課程名稱查看。各課使用 `data/courses/課程ID/`，繁體中文譯文放在其中的 `translations/`，英文來源、翻譯佇列與進度也保存在同一課程資料夾。
+13 門課的字幕已統一依課程分類，從 [課程字幕索引](data/courses/README.md) 按課程名稱查看。第 14 門 ChatGPT & Generative AI 已加入支援但尚未匯出英文字幕。各課使用 `data/courses/課程ID/`，繁體中文譯文放在其中的 `translations/`，英文來源、翻譯佇列與進度也保存在同一課程資料夾。
 
-## 支援課程（2.3）
+## 支援課程（2.6）
 
-以下 13 門課程的講師皆為 **Maximilian Schwarzmüller**。
+以下 14 門課程的講師皆為 **Maximilian Schwarzmüller**（ChatGPT 一課另有 Manuel Lorenz）。
 
 - [React - The Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/) — 678 堂
 - [Flutter & Dart - The Complete Guide](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/) — 286 堂
@@ -25,8 +25,9 @@ Firefox、Chrome、Edge 開發者載入包與 Safari 轉換來源包見 [GitHub 
 - [Vue - The Complete Guide (incl. Router & Composition API)](https://www.udemy.com/course/vuejs-2-the-complete-guide/) — 294 堂
 - [Ionic - Build iOS, Android & Web Apps with Ionic & Angular](https://www.udemy.com/course/ionic-2-the-practical-guide-to-building-ios-android-apps/) — 242 堂
 - [JavaScript - The Complete Guide (Beginner + Advanced)](https://www.udemy.com/course/javascript-the-complete-guide-2020-beginner-advanced/) — 540 堂
+- [ChatGPT & Generative AI - The Complete Guide](https://www.udemy.com/course/chatgpt-bard-bing-complete-guide-to-chatgpt-openai-apis/) — 待匯出英文字幕
 
-13 門課合計 **4,672** 堂影片（不含文章與測驗）。
+已完成課程合計 **4,672** 堂影片（不含文章與測驗）。
 
 在上述課程的 `learn/` 播放器頁面啟用。課程 ID 自動從 Udemy 取得；本堂及全課英文匯出、譯文匯入均使用目前課程 ID，譯文依課程分開儲存，並相容既有 React 譯文。新增支援不代表字幕已翻譯；新課程需先匯出英文，再交給 ChatGPT 翻譯與匯入。
 
@@ -52,7 +53,7 @@ React 標示的 71 小時換算為約 4,260 分鐘；面板優先使用各堂影
 
 在已登入的課程播放器網址加上 `?subtitleExport=batch`（原本已有查詢參數則加上 `&subtitleExport=batch`），即可開啟「課程英文字幕匯出」。此專用分頁須保持開啟，可逐課下載目前清單中的英文 JSON 與匯出報告。預設沿用 React 既有完整英文備份；影片與文章清單分別記錄，缺少英文字幕或無觀看權限的項目會列入報告。選項頁也有相同介面；若跨來源請求無回應，使用播放器內的匯出頁。
 
-下載後執行 `node prepare_course_sources.cjs /完整路徑/Udemy-English-course-ID.json`，驗證英文、時間軸雜湊、影片覆蓋範圍與缺漏記錄，並在 `data/courses/ID/` 保存原文、逐堂英文檔及約 800 段的 ChatGPT 批次（不拆開單堂）。各課程獨立的翻譯進度會初始化為待翻譯；既有進度不會重設。`data/english-download-progress.json` 記錄 13 門課的下載與驗證狀態，和 React 既有翻譯進度分開。
+下載後執行 `node prepare_course_sources.cjs /完整路徑/Udemy-English-course-ID.json`，驗證英文、時間軸雜湊、影片覆蓋範圍與缺漏記錄，並在 `data/courses/ID/` 保存原文、逐堂英文檔及約 800 段的 ChatGPT 批次（不拆開單堂）。各課程獨立的翻譯進度會初始化為待翻譯；既有進度不會重設。`data/english-download-progress.json` 記錄 14 門課的下載與驗證狀態，和 React 既有翻譯進度分開。
 
 英文來源的逐課統計與缺漏處理方式見 [課程英文字幕來源進度](data/english-source-summary.md)。沒有英文字幕的影片先列為待補來源；若改由影片音訊轉錄，需校對英文與時間軸。擴充功能 2.4.1 可在設定中「匯入補充英文字幕」；只有 Udemy 未提供英文字幕時才使用轉錄來源。補充來源與 ChatGPT 譯文都驗證課程、段數及原文時間軸雜湊。Svelte 三堂已補齊 184 段英文與 ChatGPT 繁體中文、匯入並逐堂播放核對；專用進度見 [補充字幕進度](data/courses/2360566/repair/README.md)。
 
