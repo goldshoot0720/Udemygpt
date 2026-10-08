@@ -15,7 +15,7 @@
 | 68 | emitを使ってイベントを発生させて子から親に対して通信する方法 | 完成 | 完成 | 82 |
 | 69 | 引数をemitに渡して子から親にデータを渡す方法 | 完成 | 完成 | 45 |
 | 70 | defineEmitsを使って明示的にemitするイベントを示す方法 | 完成 | 完成 | 55 |
-| 71 | emitの命名規則はこうなっている | 完成 | 待處理 | — |
+| 71 | emitの命名規則はこうなっている | 完成 | 完成 | 17 |
 | 73 | アプリのセットアップを行う方法 | 完成 | 完成 | 68 |
 | 79 | こうして仮想DOMを使ってレンダリングをしている | 完成 | 待處理 | — |
 | 80 | 仮想DOMはコンポーネント単位ではこうなっている | 完成 | 待處理 | — |
@@ -25,6 +25,7 @@
 - [第 7 堂中日雙語 SRT](bilingual-subtitles/Vue-007-42549830.ja.zh-TW.srt)
 - [第 8 堂中日雙語 SRT](bilingual-subtitles/Vue-008-42549834.ja.zh-TW.srt)
 - [第 9 堂中日雙語 SRT](bilingual-subtitles/Vue-009-42549838.ja.zh-TW.srt)
+- [第 71 堂中日雙語 SRT](bilingual-subtitles/Vue-071-42562624.ja.zh-TW.srt)
 - [第 70 堂中日雙語 SRT](bilingual-subtitles/Vue-070-42562618.ja.zh-TW.srt)
 - [第 69 堂中日雙語 SRT](bilingual-subtitles/Vue-069-42562616.ja.zh-TW.srt)
 - [第 73 堂中日雙語 SRT](bilingual-subtitles/Vue-073-42562630.ja.zh-TW.srt)
