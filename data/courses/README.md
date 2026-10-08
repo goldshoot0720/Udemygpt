@@ -20,9 +20,9 @@
 | [Vue - The Complete Guide (incl. Router & Composition API)](995016/README.md) | 995016 | 294 | 294（全部完成） | [查看譯文](995016/translations/README.md) |
 | [Ionic - Build iOS, Android & Web Apps with Ionic & Angular](1070124/README.md) | 1070124 | 242 | 242（全部完成） | [查看譯文](1070124/translations/README.md) |
 | [JavaScript - The Complete Guide (Beginner + Advanced)](2508942/README.md) | 2508942 | 540 | 540（全部完成） | [查看譯文](2508942/translations/README.md) |
-| [ChatGPT & Generative AI - The Complete Guide](5291332/README.md) | 5291332 | 339 | 244（翻譯中） | [查看譯文](5291332/translations/README.md) |
+| [ChatGPT & Generative AI - The Complete Guide](5291332/README.md) | 5291332 | 339 | 267（翻譯中） | [查看譯文](5291332/translations/README.md) |
 
-13 門已完成課程影片講座合計 4,672 堂（不含文章與測驗）；第 14 門 ChatGPT & Generative AI（339 堂）已完成 244 堂、17,925 段（71.8%）。
+13 門已完成課程影片講座合計 4,672 堂（不含文章與測驗）；第 14 門 ChatGPT & Generative AI（339 堂）已完成 267 堂、19,530 段（78.3%）。
 
 13 門課影片講座合計 4,672 堂（不含文章與測驗）。React 優先處理、678 堂已全部完成（每 25 堂自動提交）。Remix 106 堂已全部完成（10,422 段）；Svelte 171 堂已全部完成（10,409 段）；NativeScript 217 堂已全部完成（15,428 段）。Vue 294 堂已全部完成。Ionic 242 堂已全部完成；React Native 275 堂已全部完成；CSS 266 堂已全部完成；Flutter 已完成 286 堂（全部完成，36,671 段）；Next.js 417 堂已全部完成（46,195 段）；NodeJS 已全部完成 479 堂（31,419 段）；JavaScript 已全部完成 540 堂（37,567 段）；Angular 已完成 701 堂；Svelte 含 3 堂音訊補件譯文。剩餘課程依各課即時翻譯進度接續處理。
 
