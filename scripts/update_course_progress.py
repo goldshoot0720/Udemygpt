@@ -50,28 +50,33 @@ def main():
     cues = sum(item['cueCount'] for item in done)
     total_cues = sum(item['cueCount'] for item in lectures)
     title = ledger.get('courseTitle') or course
+    # 課程原文不一定是英文：日文課的來源檔與描述都要跟著語言走。
+    code = ledger.get('sourceLanguage') or 'en'
+    source_word = {'ja': '日文', 'ko': '韓文', 'de': '德文', 'fr': '法文', 'es': '西班牙文',
+                   'it': '義大利文', 'pt': '葡萄牙文', 'zh': '中文', 'zh-TW': '繁體中文'}.get(code, '英文')
+    source_file = f'{ {"en": "English", "ja": "Japanese", "ko": "Korean", "de": "German", "fr": "French", "es": "Spanish", "it": "Italian", "pt": "Portuguese", "zh": "Chinese", "zh-TW": "TraditionalChinese"}.get(code, "Source") }-course-{course}.json'
     ranges_text = '、'.join(f'第 {a}–{b} 堂' if a != b else f'第 {a} 堂' for a, b in ranges(orders))
 
     (folder / 'README.md').write_text(f'''# {title}
 
 課程 ID：`{course}`；[返回課程索引](../README.md)。
 
-共 {len(lectures)} 堂影片、{total_cues:,} 段英文字幕。
+共 {len(lectures)} 堂影片、{total_cues:,} 段{source_word}字幕。
 
 ## 進度：{len(done)} 堂已驗證（{cues:,} 段，{cues / total_cues * 100:.1f}%）
 
 已完成堂次區間：{ranges_text}。
 
-全部譯文皆通過 `course_queue.py verify` 的段數、英文原文與時間軸 SHA-256 檢查。
+全部譯文皆通過 `course_queue.py verify` 的段數、{source_word}原文與時間軸 SHA-256 檢查。
 
-- [完整英文來源](English-course-{course}.json)
+- [完整{source_word}來源]({source_file})
 - [繁體中文譯文](translations/README.md)
 - [翻譯與匯入進度](translation-progress.json)
 - [課程清單](curriculum.json)
 
 ## 檔案結構
 
-`lecture-queue/` 保存逐堂英文；`chatgpt-batches/` 保存待翻譯的英文批次；
+`lecture-queue/` 保存逐堂{source_word}；`chatgpt-batches/` 保存待翻譯的{source_word}批次；
 `translations/` 保存中文譯文（每 50 堂一個 `tw-起始-結束.json`）；`imports/` 保留本機原始下載備份。
 ''', encoding='utf-8')
 
