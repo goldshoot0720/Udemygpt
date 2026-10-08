@@ -21,6 +21,7 @@
 | [Ionic - Build iOS, Android & Web Apps with Ionic & Angular](1070124/README.md) | 1070124 | 242 | 242（全部完成） | [查看譯文](1070124/translations/README.md) |
 | [JavaScript - The Complete Guide (Beginner + Advanced)](2508942/README.md) | 2508942 | 540 | 540（全部完成） | [查看譯文](2508942/translations/README.md) |
 | [ChatGPT & Generative AI - The Complete Guide](5291332/README.md) | 5291332 | 339 | 339（翻譯中） | [查看譯文](5291332/translations/README.md) |
+| [Vue.js - The Complete Guide（日文版）](2426224/README.md) | 2426224 | 159 | 0（翻譯中） | [來源](2426224/Japanese-course-2426224.json) |
 
 13 門已完成課程影片講座合計 4,672 堂（不含文章與測驗）；第 14 門 ChatGPT & Generative AI（339 堂）已完成 339 堂、24,949 段（100.0%）。
 
@@ -28,7 +29,7 @@
 
 每課分類：
 
-- `English-course-ID.json`：完整英文來源。
+- `English-course-ID.json`／`Japanese-course-ID.json`：完整原始字幕來源，檔名標示該課原始語言。
 - `lecture-queue/`：逐堂英文。
 - `chatgpt-batches/`：英文翻譯批次。
 - `translations/`：繁體中文譯文。
