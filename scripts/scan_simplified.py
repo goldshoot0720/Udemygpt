@@ -319,9 +319,9 @@ def main():
         if not path.exists():
             continue
         data = json.loads(path.read_text(encoding='utf-8'))
-        for cue in data.get('cues', []):
+        for cue in data['lectures'][0]['cues']:
             zh = cue.get('zh', '')
-            bad = sorted({ch for ch in zh if ch in FORBIDDEN})
+            bad = sorted({ch for ch in zh if FORBIDDEN.get(ch, ch) != ch})
             if bad:
                 hits.append((lecture['lectureOrder'], lecture['lectureId'], cue['id'],
                              zh, bad))
