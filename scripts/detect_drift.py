@@ -55,7 +55,9 @@ def main():
         if lecture.get('status') != 'verified':
             continue
         result = course_dir / 'work' / 'results' / f"result-{lecture['lectureId']}.json"
-        source = course_dir / 'lecture-queue' / f"English-{int(lecture['lectureOrder']):03d}-{lecture['lectureId']}.json"
+        # 佇列檔名跟著該課原始語言（English-*／Japanese-*），且編號未必等於
+        # lectureOrder，所以一律走台帳記錄的 sourceFile。
+        source = Path(lecture['sourceFile'])
         if not result.exists() or not source.exists():
             continue
         data = json.loads(result.read_text(encoding='utf-8'))

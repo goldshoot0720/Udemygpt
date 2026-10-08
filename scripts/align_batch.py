@@ -67,7 +67,9 @@ def main():
         if not full.exists():
             missing.append((order, f'{lid} 尚無 full 檔'))
             continue
-        source = COURSE / args.course / 'lecture-queue' / f"English-{order:03d}-{lid}.json"
+        # 佇列檔名帶著該課的原始語言（English-*／Japanese-*），而且編號未必等於
+        # 台帳的 lectureOrder，所以一律走台帳記錄的 sourceFile。
+        source = Path(lecture['sourceFile'])
         cues = json.loads(source.read_text(encoding='utf-8'))['lectures'][0]['cues']
         input_path = batch / 'input.json'
         payload = json.loads(input_path.read_text(encoding='utf-8')) if input_path.exists() else {}
