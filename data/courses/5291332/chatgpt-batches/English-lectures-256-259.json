@@ -1,0 +1,3169 @@
+{
+  "version": 1,
+  "courseId": 5291332,
+  "courseSlug": "chatgpt-bard-bing-complete-guide-to-chatgpt-openai-apis",
+  "courseTitle": "ChatGPT & Generative AI - The Complete Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "50148613",
+      "title": "Sending Requests & Extracting Content From Responses",
+      "sourceHash": "5f186f27a0af234910974a2ea729b1dcb88b340d25556d45954b62178be449a6",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.099,
+          "end": 2.699,
+          "en": "So that's this API key which is now",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 2.72,
+          "end": 5.599,
+          "en": "included in our code base. Next, to",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.799,
+          "end": 8.779,
+          "en": "send this request, we also need to set up the",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.779,
+          "end": 11.579,
+          "en": "so-called request body, so the actual",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.059,
+          "end": 14.919,
+          "en": "main data that should be sent with the request",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.019,
+          "end": 16.779,
+          "en": "to the OpenAI API.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.119,
+          "end": 20.6,
+          "en": "And that would be, most importantly, our",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 20.719,
+          "end": 23.68,
+          "en": "prompt. And that prompt, of course, can",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 23.68,
+          "end": 26.659,
+          "en": "be hardcoded into our application. It could,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 26.68,
+          "end": 29.479,
+          "en": "however, also be some text that's dynamically",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 29.579,
+          "end": 32.139,
+          "en": "generated, for example, by users using our",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 32.18,
+          "end": 34.959,
+          "en": "application. And I'll show you how that could",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 35.04,
+          "end": 37.78,
+          "en": "work in a second too. But first,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 37.939,
+          "end": 40.7,
+          "en": "let's add this data like this. And as you can see here in the",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 40.739,
+          "end": 43.699,
+          "en": "official documentation, you should at least",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 43.739,
+          "end": 46.18,
+          "en": "define which model you want to use",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 46.799,
+          "end": 49.279,
+          "en": "because you are sending the request to that API",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 49.659,
+          "end": 52.579,
+          "en": "but that API, as you saw on the pricing page,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 52.619,
+          "end": 55.579,
+          "en": "offers many models, so you need to specify",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 55.579,
+          "end": 58.179,
+          "en": "which model you wanna use. And you should keep in mind that",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 58.199,
+          "end": 60.28,
+          "en": "different models have different price points.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 60.939,
+          "end": 63.479,
+          "en": "And you need to add an input, which is the",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 63.539,
+          "end": 66.519,
+          "en": "prompt that should be processed by the model for which it should",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 66.559,
+          "end": 69.48,
+          "en": "generate an output. Now it's worth",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 69.56,
+          "end": 72.359,
+          "en": "noting that besides a single prompt, you could also",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 72.399,
+          "end": 74.999,
+          "en": "attach a history of multiple messages",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 75.339,
+          "end": 78.059,
+          "en": "if you were to build your own chat, for example, but",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 78.12,
+          "end": 80.299,
+          "en": "here, we'll start with a single prompt.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 81.039,
+          "end": 83.78,
+          "en": "So back in the Python code, I'll add a body",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 85.319,
+          "end": 88.18,
+          "en": "variable and store a dictionary",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 88.199,
+          "end": 90.779,
+          "en": "in there too. In the",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 90.85900000000001,
+          "end": 92.979,
+          "en": "dictionary, I'll have a key named model,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 94.06,
+          "end": 95.799,
+          "en": "and then here I'll use GPT",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 97.09899999999999,
+          "end": 98.519,
+          "en": "and go to the pricing page,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 99.119,
+          "end": 101.15899999999999,
+          "en": "gpt-4o-mini in my case",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 101.799,
+          "end": 104.59899999999999,
+          "en": "because it's a really cheap model and still quite",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 104.619,
+          "end": 107.35900000000001,
+          "en": "capable. Now at the point of time",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 107.439,
+          "end": 110.319,
+          "en": "where you're watching this, the model names",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 110.559,
+          "end": 113.4,
+          "en": "very likely have changed and you can pick any model you",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 113.439,
+          "end": 116.38,
+          "en": "want. You, again, should just keep in mind that you'll pay for it",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 116.53999999999999,
+          "end": 118.999,
+          "en": "so maybe you don't wanna use the most expensive one.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 119.09899999999999,
+          "end": 121.719,
+          "en": "But it is, of course, up to you. By the way,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 121.98,
+          "end": 124.719,
+          "en": "at the point of time where I'm recording this, not all",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 124.819,
+          "end": 127.279,
+          "en": "models are unlocked for all users.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 127.659,
+          "end": 130.419,
+          "en": "You need to have a certain amount of",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 130.559,
+          "end": 133.099,
+          "en": "API usage to be unlocked for the more",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 133.119,
+          "end": 135.839,
+          "en": "powerful models. That's just also something to keep in",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 135.879,
+          "end": 138.86,
+          "en": "mind. So that's the model, and then here, I'll",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 138.899,
+          "end": 141.599,
+          "en": "add the input, and as a input,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 141.899,
+          "end": 144.879,
+          "en": "I'll say, \"Write a short poem",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 145.019,
+          "end": 147.919,
+          "en": "about Python.\" And again, we'll",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 147.94,
+          "end": 150.47899999999998,
+          "en": "make this more dynamic and let the user of this",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 150.499,
+          "end": 152.899,
+          "en": "application enter this input later.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 153.579,
+          "end": 156.159,
+          "en": "So that's the body. Now we need to attach this body",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 156.459,
+          "end": 159.31900000000002,
+          "en": "to our request, and",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 159.339,
+          "end": 162.139,
+          "en": "for that, we go to the post function here again",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 163.099,
+          "end": 165.97899999999998,
+          "en": "and add the JSON parameter and set that",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 166.04,
+          "end": 168.939,
+          "en": "equal to body. And behind the scenes,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 168.959,
+          "end": 171.81900000000002,
+          "en": "this Python dictionary will be converted to a",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 171.91899999999998,
+          "end": 174.619,
+          "en": "JSON formatted text that's",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 174.639,
+          "end": 177.54,
+          "en": "attached to this request, and the request will then be",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 177.599,
+          "end": 180.079,
+          "en": "sent to this URL with this",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 180.12,
+          "end": 182.799,
+          "en": "metadata and with this request body,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 184.019,
+          "end": 186.24,
+          "en": "which is the equivalent to this here.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 187.099,
+          "end": 189.839,
+          "en": "And as a result, we'll get back a response, a",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 189.879,
+          "end": 192.799,
+          "en": "response sent back to us by the OpenAI",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 193.039,
+          "end": 195.68,
+          "en": "servers. Now this response will",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 195.719,
+          "end": 198.68,
+          "en": "include all kinds of data, and we can",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 198.82,
+          "end": 201.679,
+          "en": "extract that data by calling the",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 201.799,
+          "end": 204.539,
+          "en": "JSON method on this response object.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 205.299,
+          "end": 208.24,
+          "en": "Now we could also get back an error, and if this",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 208.24,
+          "end": 211.219,
+          "en": "were a real application, you would wanna implement error",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 211.319,
+          "end": 214.159,
+          "en": "handling, but to keep things simple, we'll",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 214.24,
+          "end": 216.94,
+          "en": "just assume that it works and we'll try to extract",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 216.94,
+          "end": 219.47899999999998,
+          "en": "the response data from that",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 219.659,
+          "end": 220.96,
+          "en": "response we got back.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 222.699,
+          "end": 225.47899999999998,
+          "en": "Now this response data is something we",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 225.519,
+          "end": 228.16,
+          "en": "can print to the terminal here, to the",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 228.199,
+          "end": 230.219,
+          "en": "console to see what's inside of it.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 231.599,
+          "end": 233.94,
+          "en": "And with that, we can open that terminal again,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 234.92000000000002,
+          "end": 237.739,
+          "en": "and again execute app.py, but now it",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 237.75900000000001,
+          "end": 240.699,
+          "en": "should hopefully send that request and get that response.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 241.599,
+          "end": 244.399,
+          "en": "It can take a while, of course, for this request to be",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 244.399,
+          "end": 247.159,
+          "en": "sent and the response be received, but after",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 247.199,
+          "end": 249.75900000000001,
+          "en": "that, that's looking good. You should get back",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 249.879,
+          "end": 252.859,
+          "en": "some output, and that of course looks super scary and",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 252.919,
+          "end": 255.359,
+          "en": "unstructured, but in the end, that is a Python",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 255.419,
+          "end": 258.259,
+          "en": "dictionary which includes multiple keys and respective",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 258.319,
+          "end": 261.039,
+          "en": "values. And for example, in there",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 261.299,
+          "end": 264.059,
+          "en": "somewhere, you should also have an output key, and",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 264.159,
+          "end": 267.059,
+          "en": "for that you have an array, as it's",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 267.059,
+          "end": 269.899,
+          "en": "called, a list of values, where every",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 269.999,
+          "end": 272.579,
+          "en": "value has a type which could be message,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 273.159,
+          "end": 276.119,
+          "en": "an ID, a status,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 276.979,
+          "end": 279.839,
+          "en": "a role, which is something like assistant in",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 279.859,
+          "end": 282.819,
+          "en": "this case since we're talking about output created by the",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 282.959,
+          "end": 284.939,
+          "en": "model here, by the AI assistant,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 285.919,
+          "end": 288.499,
+          "en": "and then a content key which includes the",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 288.519,
+          "end": 291.359,
+          "en": "actual output, again, in a list. And then",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 291.439,
+          "end": 294.099,
+          "en": "here we have an object where the type is",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 294.179,
+          "end": 297.159,
+          "en": "output_text, and then there we got the actual",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 297.179,
+          "end": 299.779,
+          "en": "text that was produced by the",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 299.839,
+          "end": 302.559,
+          "en": "AI. In addition to the actual",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 302.559,
+          "end": 305.379,
+          "en": "text that was generated in that output, you'll",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 305.459,
+          "end": 308.039,
+          "en": "also find information like the output",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 308.119,
+          "end": 311.079,
+          "en": "tokens, which is the number of tokens that was",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 311.099,
+          "end": 313.959,
+          "en": "generated for this output, so that's what you're paying for",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 313.999,
+          "end": 316.979,
+          "en": "in the end. And you see total tokens,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 316.979,
+          "end": 319.939,
+          "en": "which is the output tokens plus the input tokens, so that",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 319.979,
+          "end": 322.799,
+          "en": "is the total amount of tokens that was processed and for which",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 322.799,
+          "end": 325.759,
+          "en": "you're paying. So let's",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 325.779,
+          "end": 327.939,
+          "en": "now extract that actual",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 328.419,
+          "end": 331.279,
+          "en": "text here, and for that I'll add a text variable and",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 331.299,
+          "end": 333.899,
+          "en": "then go into response data and access",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 334.579,
+          "end": 337.259,
+          "en": "output like this, because",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 337.299,
+          "end": 339.799,
+          "en": "remember, there is a output key in that",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 339.839,
+          "end": 342.399,
+          "en": "dictionary, and that is a",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 342.519,
+          "end": 345.359,
+          "en": "list of messages but here we know we'll only",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 345.519,
+          "end": 348.439,
+          "en": "have one message that we received. So again",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 348.459,
+          "end": 351.359,
+          "en": "with square brackets 0, I access this first",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 351.419,
+          "end": 354.159,
+          "en": "element because in Python, like in most programming",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 354.199,
+          "end": 357.05899999999997,
+          "en": "languages, lists start with the first element",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 357.099,
+          "end": 359.439,
+          "en": "at index 0. Then",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 359.639,
+          "end": 361.799,
+          "en": "thereafter, it's the",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 362.119,
+          "end": 365.099,
+          "en": "content key I wanna access, and that again holds a list",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 365.239,
+          "end": 368.219,
+          "en": "of content pieces where the",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 368.239,
+          "end": 371.179,
+          "en": "first one will be the text. So here it's",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 371.459,
+          "end": 374.059,
+          "en": "content 0 for the first piece of",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 374.099,
+          "end": 376.959,
+          "en": "content and then text. That should give us the",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 377.039,
+          "end": 379.939,
+          "en": "actual text. We can verify this by",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 379.999,
+          "end": 382.639,
+          "en": "again printing, and keep in mind, you'll now be charged",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 382.659,
+          "end": 385.499,
+          "en": "again if you try this because we're sending a new request.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 386.039,
+          "end": 388.639,
+          "en": "It's not a lot of tokens and with the 4o-mini",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 388.659,
+          "end": 391.459,
+          "en": "model, it should not be too expensive, but it",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 391.479,
+          "end": 394.359,
+          "en": "is something to keep in mind. So here we go.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 394.659,
+          "end": 397.259,
+          "en": "That's the text generated by the AI.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 398.079,
+          "end": 401.039,
+          "en": "It's different from the text we got before because it was a brand-new",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 401.05899999999997,
+          "end": 403.779,
+          "en": "request. It was handled by the underlying AI",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 403.799,
+          "end": 406.299,
+          "en": "model. And that's how we can",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 406.319,
+          "end": 409.219,
+          "en": "interact with that AI model just",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 409.319,
+          "end": 412.199,
+          "en": "from inside our code without using ChatGPT",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 412.199,
+          "end": 413.399,
+          "en": "or anything like that.",
+          "zh": ""
+        }
+      ],
+      "lectureOrder": 256,
+      "videoOrder": 256
+    },
+    {
+      "id": "50148615",
+      "title": "Handling Dynamic User Input & Adding Instructions",
+      "sourceHash": "fe25380856c0bf93923f2b5e21d92a94b078f6d4ab9ddd8d616d0e54c118c9d4",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.34,
+          "end": 3.219,
+          "en": "So we got started with sending requests to",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.319,
+          "end": 5.599,
+          "en": "the OpenAI API here.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.44,
+          "end": 9.399,
+          "en": "Now, we can configure this request which we sent",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.399,
+          "end": 11.739,
+          "en": "here. For example, we can make the input more",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.739,
+          "end": 14.46,
+          "en": "dynamic, but we can also do more than that.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.079,
+          "end": 17.939,
+          "en": "The OpenAI API allows us",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 17.959,
+          "end": 20.939,
+          "en": "to configure a bunch of things when it comes",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 20.959,
+          "end": 23.879,
+          "en": "to sending requests, and the official",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 23.959,
+          "end": 26.539,
+          "en": "docs are a great place to dive deeper.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 26.819,
+          "end": 29.739,
+          "en": "Now, for example, you can also add a dedicated",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 29.799,
+          "end": 32.199,
+          "en": "instructions key to your",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 32.36,
+          "end": 35.219,
+          "en": "request body, and that would be some",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 35.239,
+          "end": 37.939,
+          "en": "general instruction you wanna give to the AI model",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 37.939,
+          "end": 40.719,
+          "en": "besides the actual input that's sent to it.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 41.479,
+          "end": 44.219,
+          "en": "Why would you separate these two things?",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 44.219,
+          "end": 46.979,
+          "en": "Well, for example, if the input is generated by a",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 47.099,
+          "end": 49.939,
+          "en": "user, if you're waiting for user input and you're sending",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 49.959,
+          "end": 52.78,
+          "en": "whatever the user of your app entered to the API,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 53.239,
+          "end": 55.639,
+          "en": "you might wanna enrich that with some general",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 55.639,
+          "end": 58.52,
+          "en": "instructions since you, of course, don't know what the",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 58.599,
+          "end": 61.459,
+          "en": "user will enter if you are not the user.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 62.619,
+          "end": 65.179,
+          "en": "In addition, input can also be a",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 65.299,
+          "end": 68.239,
+          "en": "list of message objects.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 68.899,
+          "end": 71.639,
+          "en": "It can also just be some text, the prompt",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 71.659,
+          "end": 74.639,
+          "en": "itself. But if you're building a chat,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 74.639,
+          "end": 77.299,
+          "en": "for example, you might wanna attach the entire chat",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 77.399,
+          "end": 80.299,
+          "en": "history, and that's why input does not just take",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 80.299,
+          "end": 83.199,
+          "en": "some raw text, but alternatively also a",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 83.35900000000001,
+          "end": 85.979,
+          "en": "list of messages where every",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 86.07900000000001,
+          "end": 89.019,
+          "en": "message is such a object, such a dictionary,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 89.319,
+          "end": 91.85900000000001,
+          "en": "which has a role that defines who",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 91.979,
+          "end": 94.919,
+          "en": "sent that message and then the actual",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 94.999,
+          "end": 97.439,
+          "en": "content. And role could be",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 97.499,
+          "end": 100.09899999999999,
+          "en": "developer, which is similar to",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 100.13900000000001,
+          "end": 102.679,
+          "en": "instructions in the end. It's a message sent by",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 102.799,
+          "end": 105.719,
+          "en": "you. And in older",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 105.759,
+          "end": 107.819,
+          "en": "examples where maybe that",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 107.959,
+          "end": 110.899,
+          "en": "completions API endpoint instead of the",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 110.939,
+          "end": 113.57900000000001,
+          "en": "responses endpoint, which we are using here,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 113.719,
+          "end": 116.07900000000001,
+          "en": "was used, you might also see",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 116.259,
+          "end": 118.819,
+          "en": "role system instead of a role",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 119.019,
+          "end": 121.839,
+          "en": "developer. And that's kind of the same",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 121.839,
+          "end": 124.779,
+          "en": "thing. Role developer is just a more modern role to",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 124.779,
+          "end": 127.339,
+          "en": "assign, but both in the end are",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 127.379,
+          "end": 129.719,
+          "en": "about defining some meta",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 130.119,
+          "end": 132.97899999999998,
+          "en": "overarching instructions that you as the",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 132.999,
+          "end": 135.959,
+          "en": "developer of this application send to the",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 136.059,
+          "end": 138.419,
+          "en": "AI no matter which other",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 138.739,
+          "end": 141.619,
+          "en": "messages might be in the chat or which other messages",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 141.619,
+          "end": 144.579,
+          "en": "might be sent by the user. Because that's The",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 144.659,
+          "end": 146.999,
+          "en": "second role we see here, user.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 147.699,
+          "end": 150.659,
+          "en": "And that would be the role you attach to messages that",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 150.699,
+          "end": 153.599,
+          "en": "are sent by the actual user of the application",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 153.619,
+          "end": 156.379,
+          "en": "you are building. So not by you, the developer,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 156.539,
+          "end": 159.359,
+          "en": "but by the actual user. So the content here",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 159.659,
+          "end": 162.599,
+          "en": "would be the prompt sent by that user.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 163.41899999999998,
+          "end": 166.31900000000002,
+          "en": "And then you also might have messages with a role",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 166.359,
+          "end": 169.199,
+          "en": "of assistant, and that would be all the",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 169.239,
+          "end": 171.75900000000001,
+          "en": "messages that were generated by an AI",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 171.899,
+          "end": 174.25900000000001,
+          "en": "because, of course, if you are building your own chat",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 174.299,
+          "end": 177.199,
+          "en": "application, you typically wanna send the",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 177.239,
+          "end": 179.939,
+          "en": "entire chat history to the AI with",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 179.959,
+          "end": 182.859,
+          "en": "every request so that the entire context",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 182.899,
+          "end": 185.779,
+          "en": "of the overall history of the overall chat is",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 185.819,
+          "end": 188.619,
+          "en": "available to the AI. And, of course, you",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 188.619,
+          "end": 191.599,
+          "en": "typically wanna tell the AI which of those messages",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 191.659,
+          "end": 194.539,
+          "en": "were sent by the user and which messages were sent",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 194.559,
+          "end": 197.199,
+          "en": "by itself, by the AI in the past.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 197.779,
+          "end": 200.459,
+          "en": "So that's why you could also set role to assistant",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 200.779,
+          "end": 202.799,
+          "en": "if you were to resend those",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 202.899,
+          "end": 205.779,
+          "en": "AI-generated messages to the AI",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 205.779,
+          "end": 208.579,
+          "en": "again, typically as mentioned as part of a",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 208.679,
+          "end": 211.519,
+          "en": "chat. But let's keep things simple.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 211.799,
+          "end": 214.539,
+          "en": "Let's start by making the input dynamic and adding",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 214.599,
+          "end": 217.379,
+          "en": "instructions. Thankfully, getting",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 217.399,
+          "end": 219.779,
+          "en": "user input is really simple in Python.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 220.779,
+          "end": 223.659,
+          "en": "We can go to the top of our file right below the import",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 224.399,
+          "end": 227.059,
+          "en": "and add a user input variable and set it equal to",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 227.599,
+          "end": 229.799,
+          "en": "input executed as a function.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 230.899,
+          "end": 233.879,
+          "en": "Now, this is a function that's built into Python.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 233.939,
+          "end": 236.619,
+          "en": "You don't need to import anything to execute",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 236.679,
+          "end": 239.499,
+          "en": "this function. And input then",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 239.559,
+          "end": 242.479,
+          "en": "takes some text wrapped by double quotes",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 242.699,
+          "end": 245.579,
+          "en": "that will be shown to the user, and after that",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 245.619,
+          "end": 248.219,
+          "en": "it will wait for the user input. And once the input is",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 248.25900000000001,
+          "end": 250.97899999999998,
+          "en": "submitted, it will store that in this variable.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 252.599,
+          "end": 255.239,
+          "en": "So here we could say your prompt or question",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 255.639,
+          "end": 258.319,
+          "en": "colon and some white space to",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 258.359,
+          "end": 261.059,
+          "en": "separate it from the actual input that will be entered by the",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 261.099,
+          "end": 263.899,
+          "en": "user. And it's then this user input",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 264.019,
+          "end": 266.819,
+          "en": "text which we'll get back which I want to use",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 266.919,
+          "end": 269.499,
+          "en": "here in my body instead of this hard-coded",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 269.559,
+          "end": 270.039,
+          "en": "input.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 272.199,
+          "end": 275.179,
+          "en": "And now since we don't know what that input will be in advance, I'll",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 275.199,
+          "end": 278.179,
+          "en": "add this instructions key here to add some",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 278.239,
+          "end": 280.939,
+          "en": "general instructions, like you",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 281.119,
+          "end": 283.899,
+          "en": "are a helpful, friendly",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 284.199,
+          "end": 286.499,
+          "en": "assistant, and you could, of course, add any",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 286.539,
+          "end": 289.499,
+          "en": "instructions you want here. With that",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 289.539,
+          "end": 292.319,
+          "en": "done, if you save this and you",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 292.359,
+          "end": 294.759,
+          "en": "execute this file again, you'll be",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 294.819,
+          "end": 297.519,
+          "en": "prompted first and you have to enter something like,",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 297.519,
+          "end": 299.299,
+          "en": "\"How are you?\"",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 300.599,
+          "end": 303.419,
+          "en": "And if I now hit enter, that is stored",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 303.479,
+          "end": 306.379,
+          "en": "and sent to the API and I get back the response",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 306.419,
+          "end": 309.099,
+          "en": "here. And that, again, is the AI-generated",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 309.099,
+          "end": 309.599,
+          "en": "text.",
+          "zh": ""
+        }
+      ],
+      "lectureOrder": 257,
+      "videoOrder": 257
+    },
+    {
+      "id": "50148619",
+      "title": "Building a Simple Chat",
+      "sourceHash": "6a8b7b808bb27892c5202e05c2af1e6a5b92c8ed2a7f30571e560140033ee3f3",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.399,
+          "end": 3.339,
+          "en": "Now we can build kind of a chat if we also",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.5,
+          "end": 6.479,
+          "en": "store a history. For that, I'll add",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.48,
+          "end": 9.3,
+          "en": "a history array, a history",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.399,
+          "end": 12.159,
+          "en": "list here, like this. A",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.199,
+          "end": 15.079,
+          "en": "variable named history which stores a list, which in Python is",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.099,
+          "end": 17.739,
+          "en": "created like this, and then I'll",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.399,
+          "end": 21.199,
+          "en": "add different elements to that history.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 21.76,
+          "end": 24.439,
+          "en": "For example, that user input, I'll add that.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 24.819,
+          "end": 27.799,
+          "en": "And in Python, we do this by calling history append, which",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 27.84,
+          "end": 30.719,
+          "en": "adds a new element to this history. And I'll add a",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 30.739,
+          "end": 33,
+          "en": "dictionary created with curly braces,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 34.7,
+          "end": 37.639,
+          "en": "where we need to have a role and that should be user",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 37.739,
+          "end": 40.58,
+          "en": "since we're storing some user input here, and then",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 40.659,
+          "end": 43.479,
+          "en": "content which will be the",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 43.559,
+          "end": 46.36,
+          "en": "user input. So that's the first entry",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 46.379,
+          "end": 49.319,
+          "en": "I'll add to this history. But it's not all",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 49.34,
+          "end": 52.119,
+          "en": "I want to add. Instead, I also want to",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 52.199,
+          "end": 55.04,
+          "en": "store the output I get by the AI model",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 55.18,
+          "end": 57.92,
+          "en": "in the history, and then I want to start a",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 58.119,
+          "end": 60.659,
+          "en": "loop that continues asking for more",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 60.719,
+          "end": 63.679,
+          "en": "input and generates output based on the entire",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 63.778999999999996,
+          "end": 66.019,
+          "en": "history and not just the latest input.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 67.319,
+          "end": 69.859,
+          "en": "So once I get back a text response by the",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 69.919,
+          "end": 72.819,
+          "en": "API, I'll append another element",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 72.819,
+          "end": 75.059,
+          "en": "to my history, another dictionary.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 76.059,
+          "end": 78.759,
+          "en": "But here the role will be assistant because I want to",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 78.839,
+          "end": 81.419,
+          "en": "store that answer which I got back from the API.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 82.479,
+          "end": 85.179,
+          "en": "And the available roles are user,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 86.319,
+          "end": 89.039,
+          "en": "assistant, and developer if you want to have some",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 89.119,
+          "end": 91.839,
+          "en": "general instructions. Here, I'll stick to adding the",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 91.85900000000001,
+          "end": 94.57900000000001,
+          "en": "instructions through this special instructions key",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 94.57900000000001,
+          "end": 97.439,
+          "en": "though. The content here will",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 97.479,
+          "end": 100.219,
+          "en": "be that text which I got back from the API.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 101.039,
+          "end": 104.019,
+          "en": "Now, in order to turn this into a chat which keeps on",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 104.09899999999999,
+          "end": 106.979,
+          "en": "asking for more questions by the user once we got a",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 106.999,
+          "end": 109.919,
+          "en": "response, I'll create a loop. And for that",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 109.919,
+          "end": 112.739,
+          "en": "in Python, we can use the while keyword and after",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 112.759,
+          "end": 115.65899999999999,
+          "en": "that true to create an infinite loop which will",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 115.679,
+          "end": 117.819,
+          "en": "continue executing.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 118.959,
+          "end": 121.039,
+          "en": "And we'll see how we can stop it in a second.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 122.519,
+          "end": 124.899,
+          "en": "Then I'll highlight all that code",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 125.399,
+          "end": 128.179,
+          "en": "and indent it by hitting the tab",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 128.199,
+          "end": 130.919,
+          "en": "key to move it into this loop so that it belongs to the",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 130.97899999999998,
+          "end": 133.939,
+          "en": "loop. And that will now keep on",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 134.019,
+          "end": 136.299,
+          "en": "asking for more questions, add those",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 136.399,
+          "end": 138.839,
+          "en": "questions, send the request, add the",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 138.839,
+          "end": 141.659,
+          "en": "response and start again as long",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 141.719,
+          "end": 143.319,
+          "en": "as this loop keeps on going.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 144.859,
+          "end": 147.619,
+          "en": "In order to stop that loop at some point, we could check",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 147.659,
+          "end": 150.319,
+          "en": "if user input is",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 150.399,
+          "end": 153.299,
+          "en": "equal to nothing, if it's an empty string,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 154.379,
+          "end": 157.179,
+          "en": "so if the user just hit enter without entering anything.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 157.959,
+          "end": 160.81900000000002,
+          "en": "And in that case, we can use the break keyword to",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 160.859,
+          "end": 161.959,
+          "en": "get out of this loop.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 163.75900000000001,
+          "end": 166.359,
+          "en": "This will stop the loop and exit the program.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 167.059,
+          "end": 169.75900000000001,
+          "en": "And true should be True with an uppercase T by the way.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 170.539,
+          "end": 173.399,
+          "en": "And with that, we should have a very simple",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 173.579,
+          "end": 176.179,
+          "en": "chatbot that should continue asking for input and",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 176.219,
+          "end": 179.159,
+          "en": "continue producing outputs. One",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 179.219,
+          "end": 182.059,
+          "en": "last thing I want to do here, of course, is I still want to",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 182.199,
+          "end": 184.899,
+          "en": "show the output that's generated by the AI and",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 185.039,
+          "end": 187.75900000000001,
+          "en": "not just append it. That's also important but not",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 187.779,
+          "end": 190.299,
+          "en": "enough. So I'll still show the text by calling",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 190.379,
+          "end": 193.239,
+          "en": "print_text. In addition,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 193.299,
+          "end": 196.179,
+          "en": "in order to make this loop and this chatbot",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 196.25900000000001,
+          "end": 199.059,
+          "en": "really useful, we should now also make sure to",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 199.219,
+          "end": 201.179,
+          "en": "not send our user input",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 201.959,
+          "end": 204.799,
+          "en": "to the API but instead",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 204.819,
+          "end": 207.599,
+          "en": "our history. Our history that includes",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 207.659,
+          "end": 210.199,
+          "en": "all those different messages. Otherwise, the",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 210.579,
+          "end": 213.31900000000002,
+          "en": "API to which we sent the request would not be",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 213.339,
+          "end": 216.25900000000001,
+          "en": "aware of that history. Just storing it",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 216.339,
+          "end": 219.239,
+          "en": "locally is not enough. We also have to send it to the",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 219.299,
+          "end": 222.219,
+          "en": "API and that's what I'll do here. And with",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 222.279,
+          "end": 224.959,
+          "en": "that, our chatbot, our simple chatbot here should be",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 225.079,
+          "end": 228.039,
+          "en": "finished. We can now again open",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 228.059,
+          "end": 230.239,
+          "en": "the terminal and run our code",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 231.639,
+          "end": 234.239,
+          "en": "and then start the interaction.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 235.539,
+          "end": 238.41899999999998,
+          "en": "And, for example, say, write a short",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 238.499,
+          "end": 240.119,
+          "en": "poem about a dog",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 241.699,
+          "end": 244.439,
+          "en": "and wait a couple of seconds for the response to be",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 244.459,
+          "end": 247.399,
+          "en": "back. And here we go. That's our poem.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 247.699,
+          "end": 250.499,
+          "en": "And now, as a follow-up question, we could say",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 251.019,
+          "end": 253.379,
+          "en": "now make it about a cat.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 254.059,
+          "end": 255.819,
+          "en": "Keep the story though.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 257.059,
+          "end": 259.639,
+          "en": "And since we're sending our entire history to the",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 259.699,
+          "end": 261.659,
+          "en": "API, we should now hopefully get",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 262.199,
+          "end": 265.119,
+          "en": "almost the same text. It should just be",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 265.119,
+          "end": 268.059,
+          "en": "about a cat now but the general story should be the same",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 268.359,
+          "end": 271.139,
+          "en": "and that will only work if we do indeed send the",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 271.159,
+          "end": 273.939,
+          "en": "entire history because otherwise the AI",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 273.959,
+          "end": 276.439,
+          "en": "model would have no idea of what it produced",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 276.619,
+          "end": 279.299,
+          "en": "previously. This information is not stored on the",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 279.359,
+          "end": 281.999,
+          "en": "server. We need to send this history instead.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 282.739,
+          "end": 285.499,
+          "en": "And looks similar enough to me I would say.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 286.05899999999997,
+          "end": 288.379,
+          "en": "If I now want to exit, I'll just enter nothing and hit",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 288.459,
+          "end": 289.999,
+          "en": "enter and we're out.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 290.859,
+          "end": 293.579,
+          "en": "Alternatively, you can always hit control C",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 293.819,
+          "end": 296.759,
+          "en": "to exit this loop. And that's now a",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 297.159,
+          "end": 299.779,
+          "en": "simple example of how we could manage a chat",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 299.819,
+          "end": 302.279,
+          "en": "history and send that to the API.",
+          "zh": ""
+        }
+      ],
+      "lectureOrder": 258,
+      "videoOrder": 258
+    },
+    {
+      "id": "50148623",
+      "title": "Using The OpenAI SDK",
+      "sourceHash": "ae49b8a88796b1496570205374e2251d7743e2f750c155b8baccb1652f4d174d",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.539,
+          "end": 3.399,
+          "en": "Now, as mentioned, there is more you can",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.419,
+          "end": 5.879,
+          "en": "configure and you should absolutely",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.92,
+          "end": 8.819,
+          "en": "consult the official documentation to learn all about",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.84,
+          "end": 11.799,
+          "en": "the API, all about its capabilities and what you can",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.819,
+          "end": 14.38,
+          "en": "do with it. To conclude this",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.439,
+          "end": 17.179,
+          "en": "section, I now just wanna show you how you",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 17.239,
+          "end": 19.139,
+          "en": "could use the Python",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 19.5,
+          "end": 22.399,
+          "en": "SDK, an extra package provided by",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 22.5,
+          "end": 25.319,
+          "en": "OpenAI, to simplify the",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 25.399,
+          "end": 28.119,
+          "en": "code you have to write. I showed you this",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 28.139,
+          "end": 30.739,
+          "en": "approach here to give you a more general way of",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 30.779,
+          "end": 33.52,
+          "en": "interacting with the API because that would",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 33.559,
+          "end": 36.419,
+          "en": "work in all programming languages. Of course, the code",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 36.419,
+          "end": 39.18,
+          "en": "would need to be adjusted, but sending a raw request",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 39.299,
+          "end": 42.06,
+          "en": "is something you can do from all languages.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 42.36,
+          "end": 44.819,
+          "en": "But if you are using Python, or",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 45.02,
+          "end": 47.939,
+          "en": "JavaScript for that matter, you can also use",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 47.979,
+          "end": 50.619,
+          "en": "these helper packages provided by OpenAI",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 50.979,
+          "end": 53.799,
+          "en": "to simplify the process of interacting",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 53.879,
+          "end": 56.339,
+          "en": "with their APIs. To do that,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 56.819,
+          "end": 59.799,
+          "en": "I'll again open the terminal and run pip install",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 59.799,
+          "end": 62.619,
+          "en": "OpenAI. That will install that OpenAI",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 62.8,
+          "end": 65.78,
+          "en": "SDK package, and that's required",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 65.8,
+          "end": 68.379,
+          "en": "in order to use it. Then instead of",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 68.419,
+          "end": 71.379,
+          "en": "importing requests, I'll import OpenAI, so that",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 71.479,
+          "end": 72.84,
+          "en": "package I just installed.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 74.459,
+          "end": 77.299,
+          "en": "And then as we can see in the official documentation, we should create a",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 77.379,
+          "end": 79.059,
+          "en": "client by calling",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 79.699,
+          "end": 82.059,
+          "en": "OpenAI.OpenAI,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 83.539,
+          "end": 86.099,
+          "en": "or similar to what they tell us,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 86.499,
+          "end": 89.219,
+          "en": "by importing OpenAI,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 89.639,
+          "end": 92.36,
+          "en": "written like this, from OpenAI, and then just",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 92.419,
+          "end": 95.34,
+          "en": "calling it like this. Now,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 95.38,
+          "end": 98.15899999999999,
+          "en": "this client can be configured and",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 98.15899999999999,
+          "end": 101.03999999999999,
+          "en": "specifically you can set your API key there and",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 101.059,
+          "end": 103.939,
+          "en": "you need to set it. It will also",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 103.959,
+          "end": 106.819,
+          "en": "try to read it from your environment variables, but if it's not",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 106.84,
+          "end": 109.799,
+          "en": "available there and it is not available here in this",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 109.84,
+          "end": 112.279,
+          "en": "demo application, you have to set it",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 112.279,
+          "end": 115.15899999999999,
+          "en": "manually. So I will copy my key from up",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 115.18,
+          "end": 117.699,
+          "en": "here and store it like this and again,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 118.02000000000001,
+          "end": 120.799,
+          "en": "storing it in your code is dangerous, as",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 120.819,
+          "end": 123.559,
+          "en": "mentioned before. It's fine for this demo, but not",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 123.559,
+          "end": 126.099,
+          "en": "something you should do if you plan on sharing this code.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 126.879,
+          "end": 129.699,
+          "en": "So that's now the client set up. Now I'll",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 129.739,
+          "end": 132.339,
+          "en": "keep the history, I still wanna manage the chat",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 132.379,
+          "end": 135.199,
+          "en": "history. I'll keep the loop, I keep on asking for user",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 135.239,
+          "end": 138.139,
+          "en": "input and exiting the loop. I'll add that user",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 138.179,
+          "end": 140.919,
+          "en": "input to my history, that won't change,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 141.459,
+          "end": 143.519,
+          "en": "but this part here will change.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 144.959,
+          "end": 147.619,
+          "en": "Now with the package installed, we can send a",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 147.639,
+          "end": 150.599,
+          "en": "request to this responses API or",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 150.659,
+          "end": 153.539,
+          "en": "to the chat completion API if we wanted to do that, but",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 153.559,
+          "end": 156.159,
+          "en": "I'll stick to the responses API here by",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 156.199,
+          "end": 157.899,
+          "en": "executing this kind of code.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 159.199,
+          "end": 161.739,
+          "en": "So I'll copy that here and",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 161.81900000000002,
+          "end": 164.539,
+          "en": "replace this part of my",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 164.599,
+          "end": 167.299,
+          "en": "code, API URL headers and body,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 167.599,
+          "end": 170.31900000000002,
+          "en": "with it. Now for the",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 170.359,
+          "end": 173.239,
+          "en": "model, I'll still use GPT 4o",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 173.25900000000001,
+          "end": 175.859,
+          "en": "mini, so I'll change that. For the",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 175.879,
+          "end": 178.399,
+          "en": "instructions, I'll change that to, \"You are a",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 178.739,
+          "end": 180.699,
+          "en": "helpful, friendly",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 181.179,
+          "end": 184.139,
+          "en": "assistant,\" and",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 184.379,
+          "end": 187.119,
+          "en": "for input I wanna switch to sending multiple",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 187.179,
+          "end": 190.139,
+          "en": "messages. And as you also see in the official docs,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 190.159,
+          "end": 193.079,
+          "en": "you can indeed set a list of such messages which",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 193.119,
+          "end": 195.47899999999998,
+          "en": "have the same shape as before to input.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 196.97899999999998,
+          "end": 199.519,
+          "en": "So I'll simply set input to my history here.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 202.25900000000001,
+          "end": 205.239,
+          "en": "Now, response is now a different kind of object though.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 205.419,
+          "end": 208.279,
+          "en": "We don't have to extract the response",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 208.319,
+          "end": 211.179,
+          "en": "data manually anymore, and we definitely don't wanna send a",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 211.199,
+          "end": 213.699,
+          "en": "request like this anymore, so this should be removed.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 215.439,
+          "end": 218.059,
+          "en": "And instead this response thing we get back",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 218.75900000000001,
+          "end": 221.099,
+          "en": "thankfully has an",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 221.219,
+          "end": 224.199,
+          "en": "output_text property. It's no longer a",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 224.279,
+          "end": 226.619,
+          "en": "dictionary, but an object, and that object has a",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 226.719,
+          "end": 229.579,
+          "en": "output_text property which conveniently gives",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 229.599,
+          "end": 232.359,
+          "en": "us access to that output_text so that we no",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 232.379,
+          "end": 235.219,
+          "en": "longer have to access like this. So that",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 235.25900000000001,
+          "end": 237.639,
+          "en": "will be the text we get back from the AI.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 238.939,
+          "end": 241.899,
+          "en": "And I still wanna output that and store that in my history as a",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 242.139,
+          "end": 244.779,
+          "en": "assistant. And",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 244.959,
+          "end": 247.859,
+          "en": "that should be it. That should be all you need to use this Python",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 247.919,
+          "end": 250.739,
+          "en": "package, and as you see, it's less code than before,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 251.039,
+          "end": 253.839,
+          "en": "not totally different but definitely less, and therefore, of",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 253.859,
+          "end": 256.719,
+          "en": "course, if you are building an application with Python,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 257.159,
+          "end": 259.879,
+          "en": "using this official SDK definitely makes sense.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 260.579,
+          "end": 263.379,
+          "en": "With that, if you saved it all and you execute this again,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 263.599,
+          "end": 266.559,
+          "en": "we can try again by asking for a short joke.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 266.959,
+          "end": 268.939,
+          "en": "Okay, that's a pretty good one, I have to say.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 269.279,
+          "end": 271.459,
+          "en": "Now make it about snowman.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 272.099,
+          "end": 274.839,
+          "en": "Yeah. So again, we can see the history was",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 274.859,
+          "end": 277.679,
+          "en": "preserved. This worked as intended, and by",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 277.699,
+          "end": 280.199,
+          "en": "entering nothing and hitting enter, we get out of this chat.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 281.159,
+          "end": 283.719,
+          "en": "And that's therefore how we can use this Python SDK.",
+          "zh": ""
+        }
+      ],
+      "lectureOrder": 259,
+      "videoOrder": 259
+    }
+  ],
+  "errors": []
+}
