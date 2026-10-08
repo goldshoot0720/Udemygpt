@@ -109,6 +109,6 @@ Remix 已全部完成 106 堂（10,422 段）。Svelte 已全部完成 171 堂�
 
 `data/courses/1362070/translation-progress.json` 保留每堂英文檔、翻譯檔、驗證與匯入狀態。`translation_queue.py next` 取得下一堂；`verify` 核對完整結果，`imported` 必須附上實際觀察到的匯入證據。每完成一堂通知一次，可中斷後續接。詳細步驟見 `ONLINE-WORKFLOW.md`。
 
-使用者指定優先處理 React，每 25 堂自動提交備份至 [GitHub 儲存庫](https://github.com/goldshoot0720/Udemygpt)。React 已全部完成 678 堂（第 676-678 堂已提交；每 25 堂自動提交）。其他課程由堂數少的開始。Remix 106 堂已全部完成；Svelte 171 堂已全部完成；NativeScript 217 堂已全部完成（15,428 段）。Vue 294 堂已全部完成。Ionic 242 堂已全部完成；React Native 275 堂已全部完成；CSS 266 堂已全部完成；Flutter 已完成 286 堂（全部完成，36,671 段）；Next.js 417 堂已全部完成；NodeJS 已全部完成 479 堂；JavaScript 已全部完成 540 堂（37,567 段）；Angular 已全部完成 701 堂（63,653 段）。
+使用者指定優先處理 React；現在改為**每翻譯 10 堂自動 commit 並 push**備份至 [GitHub 儲存庫](https://github.com/goldshoot0720/Udemygpt)，每 10 堂回報一次全課翻譯推估時間。React 已全部完成 678 堂（當時每 25 堂自動提交）。其他課程由堂數少的開始。Remix 106 堂已全部完成；Svelte 171 堂已全部完成；NativeScript 217 堂已全部完成（15,428 段）。Vue 294 堂已全部完成。Ionic 242 堂已全部完成；React Native 275 堂已全部完成；CSS 266 堂已全部完成；Flutter 已完成 286 堂（全部完成，36,671 段）；Next.js 417 堂已全部完成；NodeJS 已全部完成 479 堂；JavaScript 已全部完成 540 堂（37,567 段）；Angular 已全部完成 701 堂（63,653 段）。
 
 參考：[Mozilla 暫時安裝](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)、[OpenCC JS](https://github.com/nk2028/opencc-js)、[ChatGPT 檔案處理](https://learn.chatgpt.com/docs/use-chatgpt)。
