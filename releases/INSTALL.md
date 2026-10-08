@@ -1,19 +1,27 @@
 # Udemy 中英雙語特效字幕 2.7.0
 
-GitHub Release 提供 Firefox 的 XPI／ZIP、Chrome、Edge 的開發者載入包，以及 Safari 原始碼包。尚未發布到瀏覽器商店，也未提供 Mozilla 或 Apple 簽署的安裝檔。包內不包含課程影片、音訊、帳號資料或已翻譯的課程字幕。
+GitHub Release 提供 Firefox 的簽章 XPI 與 ZIP、Chrome、Edge 的開發者載入包，以及 Safari 原始碼包。Firefox 的 XPI 已由 Mozilla 簽署，可直接安裝且重開瀏覽器不會被移除；未發布到瀏覽器商店。包內不包含課程影片、音訊、帳號資料或已翻譯的課程字幕。
 
 ## Firefox（115 以上）
 
-安裝方式與 v2.5.0 相同：**解壓縮 ZIP，用 about:debugging 暫時載入**。該版本沒有簽章、也沒有提供 `.xpi`，本版沿用同一做法。
+### 方式一：安裝簽章版（建議）
+
+1. 下載 `udemy-bilingual-firefox-2.7.0-signed.xpi`。
+2. Firefox 選單「工具」→「附加元件與主題」，右上角齒輪選「從檔案安裝附加元件」。
+3. 選該 XPI，按「立即安裝」。
+
+此版本由 Mozilla 簽署，可長期安裝，重新開啟 Firefox 不會被移除。升級新版本時重複以上步驟即可。
+
+### 方式二：暫時載入（與 v2.5.0 相同）
 
 1. 解壓縮 `udemy-bilingual-firefox-2.7.0.zip`（或直接使用本機的擴充功能資料夾）。
 2. 開啟 `about:debugging#/runtime/this-firefox`，按「載入暫用附加元件」。
 3. 選擇解壓縮資料夾內的 `manifest.json`，在確認對話框按「載入」。
 4. 回到 Udemy 播放器重新整理。
 
-已從資料夾載入過的使用者不必重裝，對既有項目按「重新載入」即可取得新版本。
+已從資料夾載入過的使用者不必重裝，對既有項目按「重新載入」即可取得新版本。Firefox 關閉後暫用附加元件會移除。
 
-`udemy-bilingual-firefox-2.7.0.xpi` 與 ZIP 內容完全相同（SHA-256 一致），只是換成單一檔案的容器，**未經 Mozilla 簽章**，只能用同一個「載入暫用附加元件」對話框載入；雙擊或拖曳進視窗一定會出現「因為此附加元件尚未經過驗證，無法安裝」，這是預期行為。長期安裝需 AMO 簽章：把 XPI 上傳 AMO，或依 [取得 API Key 與 API Secret](https://addons.mozilla.org/zh-TW/developers/addon/api/key/) 建立憑證後自簽 `npx web-ext sign --api-key=<key> --api-secret=<secret> --source-dir udemy-bilingual`。
+`udemy-bilingual-firefox-2.7.0.xpi`（無 `-signed`）與 ZIP 內容完全相同（SHA-256 一致），**未經簽章**，只能用方式二的對話框載入；雙擊會出現「因為此附加元件尚未經過驗證，無法安裝」，這是預期行為。自行簽署請依 [取得 API Key 與 API Secret](https://addons.mozilla.org/zh-TW/developers/addon/api/key/) 建立憑證後執行 `WEB_EXT_API_KEY=<key> WEB_EXT_API_SECRET=<secret> npx web-ext@7 sign --source-dir udemy-bilingual --channel unlisted`。憑證只留在本機，不要提交進儲存庫。
 
 ## Chrome／Edge（109 以上，建議目前穩定版）
 
@@ -38,6 +46,6 @@ Chrome／Edge 包使用 Manifest V3 service worker，並處理非同步訊息與
 
 ## 驗證檔案
 
-macOS／Linux 在下載資料夾執行 `shasum -a 256 -c SHA256SUMS.txt`。測試涵蓋 14 門課路由、字幕載入／匯出／匯入、時間軸雜湊、補充英文來源、課程分鐘數、Chromium 非同步通訊及各瀏覽器包內容。Safari 尚未完成原生測試。
+macOS／Linux 在下載資料夾執行 `shasum -a 256 -c SHA256SUMS.txt`。測試涵蓋 14 門課路由與任意課程的萬用比對、字幕載入／匯出／匯入、時間軸雜湊、補充英文來源、課程分鐘數、Chromium 非同步通訊及各瀏覽器包內容。Safari 尚未完成原生測試。
 
 官方安裝文件：[Firefox](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)、[Chrome](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked)、[Edge](https://learn.microsoft.com/en-us/microsoft-edge/extensions/getting-started/extension-sideloading)、[Safari](https://developer.apple.com/documentation/safariservices/packaging-a-web-extension-for-safari)。
