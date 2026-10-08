@@ -1,4 +1,4 @@
-# Udemy 中英雙語特效字幕
+# Udemy 中英/中日雙語特效字幕
 
 Firefox、Chrome、Edge 開發者載入包與 Safari 轉換來源包見 [GitHub Releases](https://github.com/goldshoot0720/Udemygpt/releases)。安裝方式與簽章限制見 [安裝指南](releases/INSTALL.md)。執行 `python3 scripts/build_extensions.py` 可重建四種套件，輸出至 `dist/v版本/`。
 
