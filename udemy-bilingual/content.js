@@ -6,7 +6,7 @@
   if (!course) return;
   const convertCharacters = OpenCC.Converter({ from: "cn", to: "tw" });
   const toTraditional = text => SubtitleCore.localizeTaiwan(convertCharacters(text));
-  const defaults = { enabled: true, effect: "glow", size: 25, bottom: 10, offset: 0 };
+  const defaults = { enabled: true, effect: "glow", size: 25, x: 50, y: 80, offset: 0 };
   let prefs = { ...defaults }, video, player, root, shadow, chineseLine, englishLine, panel, status, toggle;
   let setPanel = () => {};
   let en = [], zh = [], key = "", loaded = false, generation = 0, controller, last = "", savedTimer;
@@ -19,8 +19,10 @@
   const css = `
     :host { all: initial; position: absolute; inset: 0; z-index: 30; pointer-events: none; font-family: -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif; color: white; }
     * { box-sizing: border-box; }
-    .captions { position: absolute; left: 8%; right: 8%; bottom: var(--bottom,10%); text-align: center; pointer-events: none; }
-    .lines { display: inline-flex; max-width: 100%; flex-direction: column; gap: calc(5px*var(--ui-scale,1)); padding: calc(9px*var(--ui-scale,1)) calc(16px*var(--ui-scale,1)); border-radius: calc(12px*var(--ui-scale,1)); background: linear-gradient(120deg,rgba(8,14,28,.89),rgba(14,21,39,.82)); border: 1px solid rgba(136,187,255,.25); box-shadow: 0 4px 20px #0006; }
+    .captions { position: absolute; left: var(--caption-x,50%); top: var(--caption-y,80%); width: 84%; transform: translate(-50%,-100%); text-align: center; pointer-events: none; }
+    .lines { display: inline-flex; max-width: 100%; flex-direction: column; gap: calc(5px*var(--ui-scale,1)); padding: calc(9px*var(--ui-scale,1)) calc(16px*var(--ui-scale,1)); border-radius: calc(12px*var(--ui-scale,1)); background: linear-gradient(120deg,rgba(8,14,28,.89),rgba(14,21,39,.82)); border: 1px solid rgba(136,187,255,.25); box-shadow: 0 4px 20px #0006; pointer-events: auto; touch-action: none; cursor: grab; user-select: none; }
+    .lines:active { cursor: grabbing; }
+    .lines:focus-visible { outline: 2px solid #79e6ff; outline-offset: 3px; }
     .lines[hidden], [hidden] { display: none !important; }
     .zh { font-size: var(--zh-size,var(--size,25px)); line-height: 1.35; font-weight: 650; text-wrap: pretty; line-break: strict; word-break: normal; text-shadow: 0 1px 4px #000; }
     .en { font-size: calc(var(--size,25px)*.76); line-height: 1.3; color: #e1eaff; text-wrap: pretty; text-shadow: 0 1px 4px #000; }
@@ -57,19 +59,48 @@
     .progress-track { height: 6px; border-radius: 3px; background: #ffffff1f; overflow: hidden; }
     .progress-bar { height: 100%; width: 0%; border-radius: 3px; background: linear-gradient(90deg,#79e6ff,#4b8dff); transition: width .2s ease-out; }
     .source { font-size: 11px; color: #a0b2c9; line-height: 1.5; margin: 8px 0 0; }
-    @media(max-width:600px) { .captions { left: 3%; right: 3%; } .lines { padding: 8px 12px; } .zh { font-size: min(var(--zh-size,var(--size,25px)),20px); } .en { font-size: min(calc(var(--size,25px)*.76),16px); } }
+    @media(max-width:600px) { .captions { width: 94%; } .lines { padding: 8px 12px; } .zh { font-size: min(var(--zh-size,var(--size,25px)),20px); } .en { font-size: min(calc(var(--size,25px)*.76),16px); } }
     @media(prefers-reduced-motion:reduce) { .fade { animation: none; } .toolbar { transition: none; } }
   `;
   function save() {
     clearTimeout(savedTimer);
     savedTimer = setTimeout(() => browser.storage.local.set({ subtitlePrefs: prefs }).catch(() => {}), 200);
   }
+  function clamp(value, min, max) { return Math.min(max, Math.max(min, value)); }
+  function positionBounds() {
+    const caption = shadow?.querySelector(".lines");
+    const playerRect = player?.getBoundingClientRect();
+    const captionRect = caption?.getBoundingClientRect();
+    if (!caption || caption.hidden || !playerRect?.width || !playerRect.height || !captionRect?.width || !captionRect.height) {
+      return { minX: 8, maxX: 92, minY: 4, maxY: 96 };
+    }
+    const horizontalInset = captionRect.width / playerRect.width * 50 + 2;
+    const verticalInset = captionRect.height / playerRect.height * 100 + 2;
+    return {
+      minX: Math.min(50, horizontalInset), maxX: Math.max(50, 100 - horizontalInset),
+      minY: Math.min(90, verticalInset), maxY: 96
+    };
+  }
+  function setPosition() {
+    if (!root) return;
+    root.style.setProperty("--caption-x", `${prefs.x}%`);
+    root.style.setProperty("--caption-y", `${prefs.y}%`);
+    shadow.querySelector('[name="x"]').value = prefs.x;
+    shadow.querySelector('[name="y"]').value = prefs.y;
+  }
+  function clampPosition() {
+    const bounds = positionBounds();
+    prefs.x = clamp(prefs.x, bounds.minX, bounds.maxX);
+    prefs.y = clamp(prefs.y, bounds.minY, bounds.maxY);
+    setPosition();
+  }
   function apply() {
     root.style.setProperty("--size", `${prefs.size / pageZoom}px`);
     root.style.setProperty("--ui-scale", String(1 / pageZoom));
     root.style.setProperty("--player-height", `${player.clientHeight}px`);
     root.style.setProperty("--player-width", `${player.clientWidth}px`);
-    root.style.setProperty("--bottom", `${prefs.bottom}%`);
+    root.style.setProperty("--caption-x", `${prefs.x}%`);
+    root.style.setProperty("--caption-y", `${prefs.y}%`);
     root.dataset.effect = prefs.effect;
     toggle.textContent = prefs.enabled ? (zh.length ? `${pairShort} CC ✓` : `${pairShort} CC · 中文待翻譯`) : `${pairShort} CC 關`;
     toggle.setAttribute("aria-pressed", String(prefs.enabled));
@@ -111,6 +142,7 @@
       if (force || chinese !== last.split("\u0000")[1]) paint(chineseLine, chinese, true);
       last = signature;
     }
+    clampPosition();
   }
   function mount() {
     root = document.createElement("div"); root.id = "udemy-bilingual-root";
@@ -131,7 +163,10 @@
       <div class="progress-track" role="progressbar" aria-label="全課字幕匯出進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar"></div></div></div>
       <label>字幕效果<select name="effect"><option value="glow">光暈＋淡入</option><option value="cinema">電影描邊</option><option value="minimal">簡潔閱讀</option></select></label>
       <label>字體大小<input name="size" type="range" min="16" max="40" aria-label="字體大小"></label>
-      <label>字幕高度<input name="bottom" type="range" min="5" max="65" aria-label="字幕高度"></label>
+      <label>水平位置<input name="x" type="range" min="8" max="92" aria-label="字幕水平位置"></label>
+      <label>垂直位置<input name="y" type="range" min="4" max="96" aria-label="字幕垂直位置"></label>
+      <p class="source">也可以直接拖曳字幕移動；聚焦字幕後可用方向鍵微調。</p>
+      <button class="reset-position" type="button">重設字幕位置</button>
       <label>時間校正（秒）<input name="offset" type="number" min="-10" max="10" step="0.1" aria-label="字幕時間校正"></label>
       <button class="retry" type="button">重新讀取字幕</button>
       <button class="export-current" type="button">匯出本堂原文</button>
@@ -158,6 +193,11 @@
     };
     settings.addEventListener("click", () => setPanel(panel.hidden));
     shadow.querySelector(".retry").addEventListener("click", () => { key = ""; check(); });
+    shadow.querySelector(".reset-position").addEventListener("click", () => {
+      prefs.x = defaults.x; prefs.y = defaults.y; apply(); save();
+      shadow.querySelector('[name="x"]').value = prefs.x;
+      shadow.querySelector('[name="y"]').value = prefs.y;
+    });
     shadow.querySelector(".time-retry").addEventListener("click", () => loadCourseTime(true));
     shadow.querySelector(".export-current").addEventListener("click", exportCurrent);
     shadow.querySelector(".export-course").addEventListener("click", exportCourse);
@@ -167,9 +207,46 @@
       input.value = prefs[input.name];
       input.addEventListener("input", () => {
         prefs[input.name] = input.name === "effect" ? input.value : Number(input.value);
+        if (input.name === "x" || input.name === "y") clampPosition();
         apply(); save();
       });
     }
+    const caption = shadow.querySelector(".lines");
+    let drag = null;
+    caption.setAttribute("tabindex", "0");
+    caption.setAttribute("aria-label", "拖曳字幕移動位置，也可用方向鍵微調");
+    caption.title = "拖曳字幕移動位置；方向鍵可微調";
+    caption.addEventListener("pointerdown", event => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      drag = { pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, x: prefs.x, y: prefs.y };
+      caption.setPointerCapture(event.pointerId);
+      event.preventDefault();
+    });
+    caption.addEventListener("pointermove", event => {
+      if (!drag || event.pointerId !== drag.pointerId) return;
+      const rect = player.getBoundingClientRect();
+      const bounds = positionBounds();
+      prefs.x = clamp(drag.x + (event.clientX - drag.startX) / rect.width * 100, bounds.minX, bounds.maxX);
+      prefs.y = clamp(drag.y + (event.clientY - drag.startY) / rect.height * 100, bounds.minY, bounds.maxY);
+      setPosition();
+    });
+    const finishDrag = event => {
+      if (!drag || event.pointerId !== drag.pointerId) return;
+      drag = null;
+      save();
+    };
+    caption.addEventListener("pointerup", finishDrag);
+    caption.addEventListener("pointercancel", finishDrag);
+    caption.addEventListener("keydown", event => {
+      const step = event.shiftKey ? 5 : 1;
+      const deltas = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] };
+      const delta = deltas[event.key];
+      if (!delta) return;
+      const bounds = positionBounds();
+      prefs.x = clamp(prefs.x + delta[0], bounds.minX, bounds.maxX);
+      prefs.y = clamp(prefs.y + delta[1], bounds.minY, bounds.maxY);
+      setPosition(); save(); event.preventDefault();
+    });
     root.addEventListener("keydown", event => {
       event.stopPropagation();
       if (event.key === "Escape" && !panel.hidden) setPanel(false);
@@ -523,7 +600,12 @@
     .udemy-bilingual-active [class*="captions-display--captions-cue-text"] { visibility:hidden!important; }`;
   document.head.append(nativeStyle);
   browser.storage.local.get("subtitlePrefs").then(result => {
-    prefs = { ...defaults, ...result.subtitlePrefs };
+    const stored = result.subtitlePrefs || {};
+    const legacyY = stored.bottom === undefined || Number(stored.bottom) === 10 ? defaults.y : 100 - Number(stored.bottom);
+    prefs = { ...defaults, ...stored, y: stored.y ?? legacyY };
+    prefs.x = Number.isFinite(Number(prefs.x)) ? Math.min(92, Math.max(8, Number(prefs.x))) : defaults.x;
+    prefs.y = Number.isFinite(Number(prefs.y)) ? Math.min(96, Math.max(4, Number(prefs.y))) : defaults.y;
+    delete prefs.bottom;
     check();
     setInterval(check, 500);
   }).catch(() => { check(); setInterval(check, 500); });
