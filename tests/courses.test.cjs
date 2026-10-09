@@ -43,24 +43,34 @@ async function main() {
     let requests = 0;
     const fetcher = async (address, options) => {
       requests++;
-      assert.equal(address, `https://www.udemy.com/api-2.0/courses/${course.slug}/?fields[course]=id`);
+      assert.equal(address, `https://www.udemy.com/api-2.0/courses/${course.slug}/?fields[course]=id,locale`);
       assert.equal(options.credentials, 'include');
-      return { ok: true, json: async () => ({ id: 9000000 + index }) };
+      return { ok: true, json: async () => ({ id: 9000000 + index, locale: { locale: 'en_US' } }) };
     };
     const [first, second] = await Promise.all([courses.idFor(course, fetcher), courses.idFor(course, fetcher)]);
     assert.equal(first, course.id || 9000000 + index);
     assert.equal(second, first);
-    assert.equal(requests, course.id ? 0 : 1);
+    assert.equal(requests, 1);
+    // 課程 ID 與課程語言（course.locale）一起快取；課程語言用來挑出正確的原始字幕軌。
+    const meta = await courses.metaFor(course, fetcher);
+    assert.equal(meta.id, first);
+    assert.equal(meta.locale, 'en_US');
+    assert.equal(requests, 1);
     assert.notEqual(courses.translationKey(first, 123), courses.translationKey(first + 1, 123));
   }
   assert.equal(courses.forUrl('invalid'), null);
   assert.equal(courses.forUrl('https://www.udemy.com/course/unknown/learn/lecture/123').known, false);
   assert.equal(courses.forUrl('https://www.udemy.com/course/unknown/'), null);
-  // An unlisted course still resolves its ID through the signed-in Udemy session.
-  assert.equal(await courses.idFor(unlisted, async address => {
-    assert.equal(address, 'https://www.udemy.com/api-2.0/courses/claude-code-the-practical-guide/?fields[course]=id');
-    return { ok: true, json: async () => ({ id: 5291333 }) };
-  }), 5291333);
+  // An unlisted course still resolves its ID and course language through the signed-in Udemy session.
+  assert.deepEqual(await courses.metaFor(unlisted, async address => {
+    assert.equal(address, 'https://www.udemy.com/api-2.0/courses/claude-code-the-practical-guide/?fields[course]=id,locale');
+    return { ok: true, json: async () => ({ id: 5291333, locale: { locale: 'en_US' } }) };
+  }), { id: 5291333, locale: 'en_US' });
+  // A course that exposes no locale still resolves its ID; language detection falls back to the caption tracks.
+  assert.deepEqual(await courses.metaFor(courses.forUrl('https://www.udemy.com/course/codex-the-practical-guide/learn/lecture/1'), async address => {
+    assert.equal(address, 'https://www.udemy.com/api-2.0/courses/codex-the-practical-guide/?fields[course]=id,locale');
+    return { ok: true, json: async () => ({ id: 5291334 }) };
+  }), { id: 5291334, locale: '' });
   await assert.rejects(courses.idFor(null, async () => ({ ok: true, json: async () => ({ id: 1 }) })), /不是課程頁面/);
   await assert.rejects(courses.idFor({}), /不是課程頁面/);
 

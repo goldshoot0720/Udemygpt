@@ -21,7 +21,7 @@ Element.prototype.__defineSetter__('download', function (value) { this.fileName 
   class TestURL extends URL {}
   TestURL.createObjectURL = blob => { files.push(blob); return 'blob:fixture'; };
   const context = {
-    UdemyCourses: {courses, idFor: async course => courses.indexOf(course)+1}, SubtitleCore,
+    UdemyCourses: {courses, metaFor: async course => ({ id: courses.indexOf(course)+1, locale: course.slug === 'japanese' ? 'ja_JP' : 'en_US' })}, SubtitleCore,
     URL: TestURL, TextEncoder, Blob, AbortSignal, crypto:webcrypto, setTimeout: fn => fn(),
     document: {querySelector: selector=>nodes[selector], createElement:tag=>{const node=new Element(); node.tag=tag; if(tag==='a') links.push(node); return node;},createTextNode:text=>text},
     async fetch(address,options) {

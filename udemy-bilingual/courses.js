@@ -21,7 +21,7 @@
   ].map(course => Object.freeze({ ...course, instructor: "Maximilian Schwarzmüller", known: true })));
   const bySlug = new Map(courses.map(course => [course.slug, course]));
   const unlisted = new Map();
-  const ids = new Map();
+  const metas = new Map();
   function forUrl(value) {
     try {
       const url = new URL(value);
@@ -36,26 +36,32 @@
       return unlisted.get(slug);
     } catch { return null; }
   }
-  async function idFor(course, fetcher = fetch) {
+  async function metaFor(course, fetcher = fetch) {
     if (!course || typeof course.slug !== "string" || !course.slug) throw new Error("不是課程頁面");
-    if (course.id) return course.id;
-    if (!ids.has(course.slug)) {
+    if (!metas.has(course.slug)) {
       const pending = (async () => {
-        const response = await fetcher(`https://www.udemy.com/api-2.0/courses/${course.slug}/?fields[course]=id`, {
+        // course.locale 是課程原文語言（en_US／ja_JP…），用來挑出正確的原始字幕軌；
+        // 翻譯字幕軌不一定標示 auto，少了這個資訊就會把譯文當成原文。
+        const response = await fetcher(`https://www.udemy.com/api-2.0/courses/${course.slug}/?fields[course]=id,locale`, {
           credentials: "include", headers: { Accept: "application/json" }
         });
         if (!response.ok) throw new Error(`課程 ID 讀取失敗（${response.status}）；請確認仍已登入`);
         const data = await response.json();
-        if (!Number.isSafeInteger(data.id) || data.id <= 0) throw new Error("無法辨識本課程 ID");
-        return data.id;
+        const id = course.id || data.id;
+        if (!Number.isSafeInteger(id) || id <= 0) throw new Error("無法辨識本課程 ID");
+        const locale = typeof data.locale === "string" ? data.locale : (data.locale?.locale || "");
+        return { id, locale };
       })();
-      ids.set(course.slug, pending);
-      pending.catch(() => ids.delete(course.slug));
+      metas.set(course.slug, pending);
+      pending.catch(() => metas.delete(course.slug));
     }
-    return ids.get(course.slug);
+    return metas.get(course.slug);
+  }
+  async function idFor(course, fetcher = fetch) {
+    return (await metaFor(course, fetcher)).id;
   }
   const translationKey = (courseId, lectureId) => `translation:${courseId}:${lectureId}`;
-  const api = Object.freeze({ courses, forUrl, idFor, translationKey });
+  const api = Object.freeze({ courses, forUrl, idFor, metaFor, translationKey });
   scope.UdemyCourses = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(globalThis);

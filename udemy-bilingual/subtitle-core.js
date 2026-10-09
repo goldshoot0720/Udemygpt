@@ -62,11 +62,23 @@
     for (const [pattern, name, short, code] of languageLabels) if (pattern.test(text)) return { name, short, code };
     return { name: "", short: "", code: "" };
   }
-  // 課程主要語言＝原始字幕軌。Udemy 的自動翻譯字幕標示為 auto／自動，人工字幕則沒有。
-  function primaryLanguage(captions) {
+  // 課程語言代碼：Udemy 的 course.locale 形如 en_US、ja_JP，只取主要語言碼用來比對字幕軌。
+  function localeCode(value) {
+    const text = typeof value === "string" ? value : (value?.locale || value?.code || "");
+    return (String(text).match(/^([a-z]{2,3})(?:[_-][A-Za-z]{2,4})?/) || ["", ""])[1].toLowerCase();
+  }
+  const baseLanguage = code => String(code || "").toLowerCase().split(/[_-]/)[0];
+  // 課程主要語言＝原始字幕軌。優先採用 Udemy course.locale 指出的課程語言，因為翻譯字幕軌
+  // 不一定標示 auto／自動，只靠 auto 判斷會把譯文軌（例如簡體中文）誤當成課程原文。
+  // 取不到課程語言時才退回原本的「非自動字幕優先」規則。
+  function primaryLanguage(captions, courseLocale) {
     const list = Array.isArray(captions) ? captions : [];
-    const manual = list.filter(caption => !/auto|自動|自动|generated/i.test(language(caption)));
-    const chosen = manual[0] || list[0];
+    const wanted = baseLanguage(localeCode(courseLocale));
+    let chosen = wanted ? list.find(caption => baseLanguage(languageInfo(caption).code) === wanted) : null;
+    if (!chosen) {
+      const manual = list.filter(caption => !/auto|自動|自动|generated/i.test(language(caption)));
+      chosen = manual[0] || list[0];
+    }
     if (!chosen) return null;
     const info = languageInfo(chosen);
     return { ...info, caption: chosen };
@@ -97,11 +109,11 @@
     const code = typeof info === "string" ? info : (info?.code || "");
     return languageSlugs[code] || "Source";
   }
-  function select(captions) {
+  function select(captions, courseLocale) {
     const english = captions.find(c => /(^|\s)en(?:[_-]|\s|$)|english|英語|英语/i.test(language(c)));
     const traditional = captions.find(c => /zh[_-](?:tw|hk|hant)|繁體|繁体|traditional/i.test(language(c)));
     const chinese = traditional || captions.find(c => /(^|\s)zh(?:[_-]|\s|$)|chinese|中文/i.test(language(c)));
-    const source = primaryLanguage(captions);
+    const source = primaryLanguage(captions, courseLocale);
     return { english, chinese, simplified: !!chinese && !traditional, source, sourceName: source?.name || "", sourceCode: source?.code || "" };
   }
   // Longest phrases first. Preserve APIs, identifiers and English technical names.
@@ -136,7 +148,7 @@
     return text.replace(pattern, value => dictionary.get(value))
       .replace(/\b(React|JavaScript|TypeScript)\s*庫/g, "$1 函式庫");
   }
-  const api = { time, parse, at, select, primaryLanguage, languageInfo, languageSlug, pairName, pipeline, localizeTaiwan };
+  const api = { time, parse, at, select, primaryLanguage, languageInfo, languageSlug, pairName, pipeline, localeCode, localizeTaiwan };
   root.SubtitleCore = api;
   if (typeof module !== "undefined") module.exports = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);

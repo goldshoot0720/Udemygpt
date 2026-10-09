@@ -309,15 +309,16 @@
     englishOrigin = "udemy-caption";
     status.textContent = "正在讀取課程字幕…";
     try {
-      const courseId = await UdemyCourses.idFor(activeCourse);
+      const meta = await UdemyCourses.metaFor(activeCourse);
       if (revision !== generation) return;
+      const courseId = meta.id;
       const url = new URL(`/api-2.0/users/me/subscribed-courses/${courseId}/lectures/${lecture}/`, location.origin);
       url.searchParams.set("fields[lecture]", "asset");
       url.searchParams.set("fields[asset]", "captions");
       const response = await fetch(url, { credentials: "include", signal, headers: { Accept: "application/json" } });
       if (!response.ok) throw new Error(`課程字幕讀取失敗（${response.status}）；請確認仍已登入`);
       const data = await response.json();
-      const selected = core.select(data.asset?.captions || []);
+      const selected = core.select(data.asset?.captions || [], meta.locale);
       const storageKey = UdemyCourses.translationKey(courseId, lecture);
       const englishKey = `english-source:${courseId}:${lecture}`;
       // Existing React translations used only the lecture ID.
@@ -448,7 +449,8 @@
     setPanel(true);
     renderProgress(0, 0, "正在讀取課程清單…");
     try {
-      const courseId = await UdemyCourses.idFor(activeCourse);
+      const meta = await UdemyCourses.metaFor(activeCourse);
+      const courseId = meta.id, courseLocale = meta.locale;
       let next = new URL(`/api-2.0/courses/${courseId}/subscriber-curriculum-items/`,location.origin);
       next.searchParams.set('page_size','200');
       next.searchParams.set('fields[lecture]','id,title,asset');
@@ -477,7 +479,7 @@
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             captions = (await response.json()).asset?.captions;
           }
-          const picked = core.select(captions || []);
+          const picked = core.select(captions || [], courseLocale);
           const english = picked.source?.caption || picked.english;
           applyPair(core.pairName(picked.sourceName), picked.source);
           if (!english?.url) throw new Error("沒有可用的原始字幕");

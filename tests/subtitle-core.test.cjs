@@ -48,6 +48,26 @@ assert.deepEqual(SubtitleCore.pipeline(SubtitleCore.select([{ language: 'ja' }])
 assert.deepEqual(SubtitleCore.pipeline(SubtitleCore.select([{ language: 'zh-Hans' }]).source), ['zh-TW']);
 assert.deepEqual(SubtitleCore.pipeline(SubtitleCore.select([{ language: 'de' }]).source), ['en', 'zh-TW']);
 console.log('PASS: Primary-language detection drives the bilingual pair (中英 / 中日 / 中文) and the small-language en→zh pipeline.');
+// 課程 locale 優先：Udemy 的翻譯字幕軌不一定標示 auto，少了 course.locale 就會把簡體中文譯軌
+// 當成課程原文（5291332 的實際案例：面板變成「中文雙語」、第二行只顯示簡體中文）。
+const translated = [
+  { locale_id: 'zh_CN', title: '中文（简体）' },
+  { locale_id: 'en_US', title: 'English [Auto]' },
+];
+assert.equal(SubtitleCore.select(translated).sourceName, '中文', '沒有課程語言時仍沿用原本的非自動優先規則');
+assert.equal(SubtitleCore.select(translated, 'en_US').sourceName, '英文');
+assert.equal(SubtitleCore.select(translated, 'en_US').source.caption.locale_id, 'en_US');
+assert.equal(SubtitleCore.pairName(SubtitleCore.select(translated, 'en_US').source), '中英雙語');
+// 日文課的課程語言是 ja_JP，英文譯軌不會被誤選。
+assert.equal(SubtitleCore.select([{ locale_id: 'en_US', title: 'English [Auto]' }, { locale_id: 'ja_JP', title: '日本語' }], 'ja_JP').sourceName, '日文');
+// 課程語言沒有對應字幕軌時退回原本的「非自動優先」規則。
+assert.equal(SubtitleCore.select(translated, 'de_DE').sourceName, '中文');
+assert.equal(SubtitleCore.localeCode('en_US'), 'en');
+assert.equal(SubtitleCore.localeCode('ja_JP'), 'ja');
+assert.equal(SubtitleCore.localeCode({ locale: 'zh_TW' }), 'zh');
+assert.equal(SubtitleCore.localeCode(''), '');
+assert.equal(SubtitleCore.localeCode(undefined), '');
+console.log('PASS: Course locale selects the original caption track, so Udemy translation tracks are never mistaken for the course source.');
 // 匯出檔名與 sourceLanguage 必須跟著課程語言，日文課不會再輸出 English。
 assert.equal(SubtitleCore.languageSlug(SubtitleCore.select([{ language: 'ja', title: '日本語' }]).source), 'Japanese');
 assert.equal(SubtitleCore.languageSlug(SubtitleCore.select([{ language: 'en' }]).source), 'English');

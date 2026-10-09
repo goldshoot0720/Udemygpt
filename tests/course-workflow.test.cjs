@@ -62,7 +62,7 @@ async function workflow(course, index, withoutEnglish = false, chromium = false)
     },
     async fetch(address) {
       address = String(address); requests.push(address);
-      if (address.includes(`courses/${course.slug}/?fields[course]=id`)) return { ok: true, json: async () => ({ id: courseId }) };
+      if (address.includes(`courses/${course.slug}/?fields[course]=id,locale`)) return { ok: true, json: async () => ({ id: courseId, locale: { locale: 'en_US' } }) };
       if (address.includes(`/courses/${courseId}/subscriber-curriculum-items/`)) return { ok: true, json: async () => ({ results: [{ _class: 'lecture', id: 123, title: 'Fixture lecture', asset: { asset_type: 'Video', length: 120, captions: [{ locale_id: 'en_US', url: 'https://vtt-a.udemycdn.com/test.vtt' }] } }], next: null }) };
       assert.ok(address.includes(`/subscribed-courses/${courseId}/lectures/123/`), address);
       if (denied) return {ok:false,status:403};

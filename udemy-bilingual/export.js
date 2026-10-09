@@ -58,7 +58,8 @@
       try {
         status.textContent = `課程 ${index + 1}/${targets.length} · ${course.title}`;
         state.textContent = '正在辨識課程 ID…';
-        const courseId = await UdemyCourses.idFor(course, timedFetch);
+        const meta = await UdemyCourses.metaFor(course, timedFetch);
+        const courseId = meta.id, courseLocale = meta.locale;
         record.courseId = courseId;
         state.textContent = '正在讀取完整課程清單…';
         const items = [];
@@ -86,7 +87,7 @@
           try {
             // Check access through the same subscribed-lecture endpoint used by the player.
             const lecture = await json(`/api-2.0/users/me/subscribed-courses/${courseId}/lectures/${item.id}/?fields[lecture]=asset&fields[asset]=captions`);
-            const picked = SubtitleCore.select(lecture.asset?.captions || []);
+            const picked = SubtitleCore.select(lecture.asset?.captions || [], courseLocale);
             const english = picked.source?.caption || picked.english;
             if (!english?.url) throw new Error(`沒有${picked.sourceName || '原始'}字幕`);
             if (!courseCode || result.sourceLanguage === 'en') {
