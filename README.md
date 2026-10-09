@@ -55,7 +55,7 @@ React 標示的 71 小時換算為約 4,260 分鐘；面板優先使用各堂影
 
 下載後執行 `node prepare_course_sources.cjs /完整路徑/Udemy-English-course-ID.json`，驗證英文、時間軸雜湊、影片覆蓋範圍與缺漏記錄，並在 `data/courses/ID/` 保存原文、逐堂英文檔及約 800 段的 ChatGPT 批次（不拆開單堂）。各課程獨立的翻譯進度會初始化為待翻譯；既有進度不會重設。`data/english-download-progress.json` 記錄 14 門課的下載與驗證狀態，和 React 既有翻譯進度分開。
 
-英文來源的逐課統計與缺漏處理方式見 [課程英文字幕來源進度](data/english-source-summary.md)。沒有英文字幕的影片先列為待補來源；若改由影片音訊轉錄，需校對英文與時間軸。擴充功能 2.4.1 可在設定中「匯入補充英文字幕」；只有 Udemy 未提供英文字幕時才使用轉錄來源。補充來源與繁中譯文都驗證課程、段數及原文時間軸雜湊。Svelte 三堂已補齊 184 段英文與繁體中文、匯入並逐堂播放核對；專用進度見 [補充字幕進度](data/courses/2360566/repair/README.md)。
+英文來源的逐課統計與缺漏處理方式見 [課程英文字幕來源進度](data/english-source-summary.md)。缺少原音訊語言字幕的影片（如英文或日文）可用 `scripts/transcribe_missing_assemblyai.py` 產生 AssemblyAI 候選稿，再和現有辨識結果比較後選較好的原文；API key 只從 `ASSEMBLYAI_API_KEY` 環境變數讀取。英文與日文缺漏分別記錄在 `data/missing-english-sources.json`、`data/missing-japanese-sources.json`。Svelte 三堂已用 AssemblyAI 選定較完整的英文稿；Vue 日文版 14 堂已建立比較清單，候選稿尚待產生，選定前保留原 Whisper 稿。
 
 1. 播放器設定按「匯出本堂英文」或「匯出全課英文」。全課匯出會讀取登入帳號可觀看的講座，完成後下載 JSON，失敗項目記錄在 errors。
 2. 將英文 JSON 與 `ChatGPT-翻譯指令.md` 的指令交給 ChatGPT 線上翻譯；大型檔案應分成小批次。
