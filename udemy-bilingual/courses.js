@@ -17,8 +17,17 @@
     { slug: "vuejs-2-the-complete-guide", title: "Vue - The Complete Guide (incl. Router & Composition API)" },
     { slug: "ionic-2-the-practical-guide-to-building-ios-android-apps", title: "Ionic - Build iOS, Android & Web Apps with Ionic & Angular" },
     { slug: "javascript-the-complete-guide-2020-beginner-advanced", title: "JavaScript - The Complete Guide (Beginner + Advanced)" },
-    { slug: "chatgpt-bard-bing-complete-guide-to-chatgpt-openai-apis", title: "ChatGPT & Generative AI - The Complete Guide", id: 5291332 }
-  ].map(course => Object.freeze({ ...course, instructor: "Maximilian Schwarzmüller", known: true })));
+    { slug: "chatgpt-bard-bing-complete-guide-to-chatgpt-openai-apis", title: "ChatGPT & Generative AI - The Complete Guide", id: 5291332 },
+    { slug: "javascript-data-structures-and-algorithms", title: "100 Days of Code: JavaScript Data Structures and Algorithms", id: 4905690, instructor: "Elshad Karimov" },
+    { slug: "mastering-linux", title: "Mastering Linux: The Comprehensive Guide", id: 5181942, instructor: "Jannis Seemann、Denis Panjuta" },
+    { slug: "flutter-bootcamp-with-dart", title: "The Complete Flutter Development Bootcamp with Dart", id: 2259120, instructor: "Dr. Angela Yu" },
+    { slug: "complete-angular-indepth-easy", title: "Complete Angular 22 - Ultimate Guide - with Real World App", id: 1633166, instructor: "Harsha Vardhan" },
+    { slug: "the-complete-ruby-on-rails-developer-course", title: "The Complete Ruby on Rails Developer Course", id: 519442, instructor: "Rob Percival、Mashrur Hossain" },
+    { slug: "introduction-to-computer-networks", title: "Introduction to Computer Networks for Non-Techies", id: 580876, instructor: "Alton Hardin" },
+    { slug: "php-for-complete-beginners-includes-msql-object-oriented", title: "PHP for Beginners - Become a PHP Master - CMS Project", id: 405282, instructor: "Edwin Diaz" },
+    { slug: "ios-13-app-development-bootcamp", title: "iOS & Swift - The Complete iOS App Development Bootcamp", id: 1778502, instructor: "Dr. Angela Yu" },
+    { slug: "complete-networking-fundamentals-course-ccna-start", title: "The Complete Networking Fundamentals Course. Your CCNA start", id: 751094, instructor: "David Bombal" }
+  ].map(course => Object.freeze({ ...course, instructor: course.instructor || "Maximilian Schwarzmüller", known: true })));
   const bySlug = new Map(courses.map(course => [course.slug, course]));
   const unlisted = new Map();
   const metas = new Map();

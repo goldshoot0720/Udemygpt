@@ -6,11 +6,11 @@ Firefox、Chrome、Edge 開發者載入包與 Safari 轉換來源包見 [GitHub 
 
 版本 2.0 不再下載或使用 Udemy 中文字幕，也不使用本機翻譯模型。尚未完成英文預譯的講座只顯示英文，左上角會標示「中文待翻譯」。
 
-13 門課的字幕已統一依課程分類，從 [課程字幕索引](data/courses/README.md) 按課程名稱查看。第 14 門 ChatGPT & Generative AI 已加入支援但尚未匯出英文字幕。各課使用 `data/courses/課程ID/`，繁體中文譯文放在其中的 `translations/`，英文來源、翻譯佇列與進度也保存在同一課程資料夾。
+13 門課的字幕已統一依課程分類，從 [課程字幕索引](data/courses/README.md) 按課程名稱查看。第 14 門 ChatGPT & Generative AI 已加入支援但尚未匯出英文字幕。第 15 門 100 Days of Code: JavaScript Data Structures and Algorithms（課程 ID `4905690`，講師 Elshad Karimov）、第 16 門 Mastering Linux: The Comprehensive Guide（課程 ID `5181942`，講師 Jannis Seemann、Denis Panjuta）、第 17 門 The Complete Flutter Development Bootcamp with Dart（課程 ID `2259120`，講師 Dr. Angela Yu）、第 18 門 Complete Angular 22 - Ultimate Guide - with Real World App（課程 ID `1633166`，講師 Harsha Vardhan）、第 19 門 The Complete Ruby on Rails Developer Course（課程 ID `519442`，講師 Rob Percival、Mashrur Hossain）、第 20 門 Introduction to Computer Networks for Non-Techies（課程 ID `580876`，講師 Alton Hardin）、第 21 門 PHP for Beginners - Become a PHP Master - CMS Project（課程 ID `405282`，講師 Edwin Diaz）、第 22 門 iOS & Swift - The Complete iOS App Development Bootcamp（課程 ID `1778502`，講師 Dr. Angela Yu）與第 23 門 The Complete Networking Fundamentals Course. Your CCNA start（課程 ID `751094`，講師 David Bombal）已加入翻譯清單，尚未匯出英文字幕。各課使用 `data/courses/課程ID/`，繁體中文譯文放在其中的 `translations/`，英文來源、翻譯佇列與進度也保存在同一課程資料夾。
 
 ## 支援課程（2.7.6）
 
-以下 14 門課程的講師皆為 **Maximilian Schwarzmüller**（ChatGPT 一課另有 Manuel Lorenz）。
+以下 23 門已加入翻譯清單。前 14 門的講師為 **Maximilian Schwarzmüller**（ChatGPT 一課另有 Manuel Lorenz）。第 15 門講師為 **Elshad Karimov**。第 16 門講師為 **Jannis Seemann**、**Denis Panjuta**。第 17 門講師為 **Dr. Angela Yu**。第 18 門講師為 **Harsha Vardhan**。第 19 門講師為 **Rob Percival**、**Mashrur Hossain**。第 20 門講師為 **Alton Hardin**。第 21 門講師為 **Edwin Diaz**。第 22 門講師為 **Dr. Angela Yu**。第 23 門講師為 **David Bombal**。
 
 - [React - The Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/) — 678 堂
 - [Flutter & Dart - The Complete Guide](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/) — 286 堂
@@ -26,10 +26,19 @@ Firefox、Chrome、Edge 開發者載入包與 Safari 轉換來源包見 [GitHub 
 - [Ionic - Build iOS, Android & Web Apps with Ionic & Angular](https://www.udemy.com/course/ionic-2-the-practical-guide-to-building-ios-android-apps/) — 242 堂
 - [JavaScript - The Complete Guide (Beginner + Advanced)](https://www.udemy.com/course/javascript-the-complete-guide-2020-beginner-advanced/) — 540 堂
 - [ChatGPT & Generative AI - The Complete Guide](https://www.udemy.com/course/chatgpt-bard-bing-complete-guide-to-chatgpt-openai-apis/) — 待匯出英文字幕
+- [100 Days of Code: JavaScript Data Structures and Algorithms](https://www.udemy.com/course/javascript-data-structures-and-algorithms/?couponCode=MT261019G3) — 待匯出英文字幕
+- [Mastering Linux: The Comprehensive Guide](https://www.udemy.com/course/mastering-linux/?couponCode=MT261019G3) — 待匯出英文字幕
+- [The Complete Flutter Development Bootcamp with Dart](https://www.udemy.com/course/flutter-bootcamp-with-dart/?couponCode=MT261019G3) — 待匯出英文字幕
+- [Complete Angular 22 - Ultimate Guide - with Real World App](https://www.udemy.com/course/complete-angular-indepth-easy/?couponCode=MT261019G3) — 待匯出英文字幕
+- [The Complete Ruby on Rails Developer Course](https://www.udemy.com/course/the-complete-ruby-on-rails-developer-course/?couponCode=MT261019G3) — 待匯出英文字幕
+- [Introduction to Computer Networks for Non-Techies](https://www.udemy.com/course/introduction-to-computer-networks/?couponCode=MT261019G3) — 待匯出英文字幕
+- [PHP for Beginners - Become a PHP Master - CMS Project](https://www.udemy.com/course/php-for-complete-beginners-includes-msql-object-oriented/?couponCode=MT261019G3) — 待匯出英文字幕
+- [iOS & Swift - The Complete iOS App Development Bootcamp](https://www.udemy.com/course/ios-13-app-development-bootcamp/?couponCode=MT261019G3) — 待匯出英文字幕
+- [The Complete Networking Fundamentals Course. Your CCNA start](https://www.udemy.com/course/complete-networking-fundamentals-course-ccna-start/?couponCode=MT261019G3) — 待匯出英文字幕
 
 已完成課程合計 **4,672** 堂影片（不含文章與測驗）。
 
-**任何 Udemy 課程的 `learn/` 播放器頁面都會啟用**，不分課程。課程 ID 自動從 Udemy 取得；本堂及全課英文匯出、譯文匯入均使用目前課程 ID，譯文依課程分開儲存，並相容既有 React 譯文。上表 14 門是已備妥中文譯文的課程；其餘課程功能一樣可用，只在「設定」面板標示「此課程尚未加入翻譯清單」，先顯示官方英文字幕。匯出英文後交給 ChatGPT 翻譯與匯入即可。
+**任何 Udemy 課程的 `learn/` 播放器頁面都會啟用**，不分課程。課程 ID 自動從 Udemy 取得；本堂及全課英文匯出、譯文匯入均使用目前課程 ID，譯文依課程分開儲存，並相容既有 React 譯文。上表 23 門已加入翻譯清單。JavaScript Data Structures and Algorithms、Mastering Linux、The Complete Flutter Development Bootcamp with Dart、Complete Angular 22、The Complete Ruby on Rails Developer Course、Introduction to Computer Networks for Non-Techies、PHP for Beginners、iOS & Swift 與 CCNA Networking Fundamentals 尚未匯出英文字幕；其餘課程已備妥中文譯文。未列入清單的課程功能一樣可用，只在「設定」面板標示「此課程尚未加入翻譯清單」，先顯示官方英文字幕。匯出英文後交給 ChatGPT 翻譯與匯入即可。
 
 更新後在 `about:debugging#/runtime/this-firefox` 重新載入此附加元件，再重新整理課程播放器頁面。
 
@@ -55,7 +64,9 @@ React 標示的 71 小時換算為約 4,260 分鐘；面板優先使用各堂影
 
 在已登入的課程播放器網址加上 `?subtitleExport=batch`（原本已有查詢參數則加上 `&subtitleExport=batch`），即可開啟「課程英文字幕匯出」。此專用分頁須保持開啟，可逐課下載目前清單中的英文 JSON 與匯出報告。預設沿用 React 既有完整英文備份；影片與文章清單分別記錄，缺少英文字幕或無觀看權限的項目會列入報告。選項頁也有相同介面；若跨來源請求無回應，使用播放器內的匯出頁。
 
-下載後執行 `node prepare_course_sources.cjs /完整路徑/Udemy-English-course-ID.json`，驗證英文、時間軸雜湊、影片覆蓋範圍與缺漏記錄，並在 `data/courses/ID/` 保存原文、逐堂英文檔及約 800 段的 ChatGPT 批次（不拆開單堂）。各課程獨立的翻譯進度會初始化為待翻譯；既有進度不會重設。`data/english-download-progress.json` 記錄 14 門課的下載與驗證狀態，和 React 既有翻譯進度分開。
+同一個頁面的「讀取我的課程」會讀取目前帳號已加入的全部課程，列出課程 ID、標題、原文語言與講師。已在翻譯清單的課程會略過。英文新課程預設勾選。按「登錄選取的課程」會下載 `subscribed-courses-register.json`，並把選取的課程加入這次的匯出清單。下載後執行 `node scripts/register_subscribed_courses.cjs /完整路徑/subscribed-courses-register.json`，才會寫進擴充功能的課程清單；寫入後要在 `about:debugging` 重新載入擴充功能。原文不是英文的課程可以登錄，但現有英文匯出驗證不會收。
+
+下載後執行 `node prepare_course_sources.cjs /完整路徑/Udemy-English-course-ID.json`，驗證英文、時間軸雜湊、影片覆蓋範圍與缺漏記錄，並在 `data/courses/ID/` 保存原文、逐堂英文檔及約 800 段的 ChatGPT 批次（不拆開單堂）。各課程獨立的翻譯進度會初始化為待翻譯；既有進度不會重設。`data/english-download-progress.json` 記錄 23 門課的下載與驗證狀態，和 React 既有翻譯進度分開。
 
 英文來源的逐課統計與缺漏處理方式見 [課程英文字幕來源進度](data/english-source-summary.md)。缺少原音訊語言字幕的影片（如英文或日文）可用 `scripts/transcribe_missing_assemblyai.py` 產生 AssemblyAI 候選稿，再和現有辨識結果比較後選較好的原文；API key 只從 `ASSEMBLYAI_API_KEY` 環境變數讀取。英文與日文缺漏分別記錄在 `data/missing-english-sources.json`、`data/missing-japanese-sources.json`。Svelte 三堂已用 AssemblyAI 選定較完整的英文稿；Vue 日文版 14 堂已建立比較清單，候選稿尚待產生，選定前保留原 Whisper 稿。
 

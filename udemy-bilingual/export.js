@@ -11,7 +11,8 @@
   const rows = new Map();
   // The course open in the player is always offered, even when it is not in the prepared list.
   const current = inPlayer ? UdemyCourses.forUrl(location.href) : null;
-  const offered = current && !UdemyCourses.courses.includes(current) ? [current, ...UdemyCourses.courses] : UdemyCourses.courses;
+  const offered = [...UdemyCourses.courses];
+  if (current && !offered.some(course => course.slug === current.slug)) offered.unshift(current);
   for (const course of offered) {
     const row = document.createElement('li');
     row.textContent = course.known ? course.title : `${course.slug}（目前課程，未加入翻譯清單）`;
@@ -122,4 +123,104 @@
     status.prepend(document.createTextNode(`匯出結束：${report.courses.filter(x => x.status === 'downloaded').length}/${targets.length} 門成功；請檢查各課程結果。 `));
     start.disabled = false; skipReact.disabled = false;
   });
+  const loadMine = surface.querySelector('#load-mine');
+  const registerMine = surface.querySelector('#register-mine');
+  const mineStatus = surface.querySelector('#mine-status');
+  const mineList = surface.querySelector('#mine');
+  if (loadMine && registerMine && mineStatus && mineList && typeof UdemySubscribed !== 'undefined') {
+    const mineRows = [];
+    function addExportRow(course) {
+      if (rows.has(course.slug)) return;
+      offered.push(course);
+      const row = document.createElement('li');
+      row.textContent = course.title;
+      const state = document.createElement('small');
+      state.textContent = '待下載';
+      row.append(state);
+      list.append(row);
+      rows.set(course.slug, { row, state });
+    }
+    loadMine.addEventListener('click', async () => {
+      loadMine.disabled = true;
+      registerMine.disabled = true;
+      mineRows.length = 0;
+      mineList.replaceChildren();
+      mineStatus.textContent = '正在讀取已加入的課程…';
+      try {
+        const found = [];
+        const seen = new Set();
+        let next = '/api-2.0/users/me/subscribed-courses/?page_size=100&fields[course]=title,url,locale,visible_instructors';
+        for (let page = 0; next && page < 20; page++) {
+          const requested = new URL(next, 'https://www.udemy.com').href;
+          mineStatus.textContent = `正在讀取已加入的課程（第 ${page + 1} 頁）…`;
+          const data = await json(next);
+          for (const raw of Array.isArray(data.results) ? data.results : []) {
+            const course = UdemySubscribed.courseFromApi(raw);
+            if (!course || seen.has(course.id)) continue;
+            seen.add(course.id);
+            found.push(course);
+          }
+          const upcoming = typeof data.next === 'string' ? new URL(data.next, 'https://www.udemy.com').href : '';
+          next = upcoming && upcoming !== requested ? data.next : null;
+        }
+        let listed = 0, englishChecked = 0;
+        for (const course of found) {
+          const known = UdemySubscribed.isListed(course, UdemyCourses.courses);
+          const english = course.locale.startsWith('en');
+          const row = document.createElement('li');
+          const label = document.createElement('label');
+          const box = document.createElement('input');
+          box.type = 'checkbox';
+          box.checked = !known && english;
+          box.disabled = known;
+          label.append(box, document.createTextNode(` ${course.title}`));
+          const state = document.createElement('small');
+          const language = course.locale || '語言未知';
+          const who = course.instructor ? ` · ${course.instructor}` : '';
+          state.textContent = known
+            ? `課程 ID ${course.id} · ${language}${who} · 已在翻譯清單，略過`
+            : `課程 ID ${course.id} · ${language}${who} · ${english ? '可登錄' : '可登錄，原文不是英文'}`;
+          row.append(label, state);
+          mineList.append(row);
+          mineRows.push({ course, box, state });
+          if (known) listed++;
+          else if (english) englishChecked++;
+        }
+        const fresh = found.length - listed;
+        mineStatus.textContent = found.length
+          ? `讀取 ${found.length} 門：${listed} 門已在翻譯清單，${fresh} 門可登錄。已勾選 ${englishChecked} 門英文新課程。`
+          : '此帳號沒有已加入的課程。';
+        registerMine.disabled = fresh === 0;
+      } catch (error) {
+        mineStatus.textContent = error.message;
+        registerMine.disabled = true;
+      } finally {
+        loadMine.disabled = false;
+      }
+    });
+    registerMine.addEventListener('click', () => {
+      const selected = mineRows.filter(row => row.box.checked && !row.box.disabled).map(row => row.course);
+      if (!selected.length) {
+        mineStatus.textContent = '請先勾選要登錄的課程。';
+        return;
+      }
+      let documentJson;
+      try {
+        documentJson = UdemySubscribed.registrationDocument(selected, new Date().toISOString());
+      } catch (error) {
+        mineStatus.textContent = error.message;
+        return;
+      }
+      for (const row of mineRows) {
+        if (!row.box.checked || row.box.disabled) continue;
+        const course = Object.freeze({ slug: row.course.slug, title: row.course.title, id: row.course.id, instructor: row.course.instructor || '未提供', known: true });
+        addExportRow(course);
+        row.box.disabled = true;
+        row.state.textContent = `課程 ID ${row.course.id} · ${row.course.locale || '語言未知'} · 已加入本次匯出清單`;
+      }
+      download(documentJson, 'subscribed-courses-register.json', mineStatus);
+      mineStatus.prepend(document.createTextNode(`已登錄 ${selected.length} 門，並加入下方匯出清單。請再執行 node scripts/register_subscribed_courses.cjs，把下載的 subscribed-courses-register.json 寫進專案。 `));
+      registerMine.disabled = !mineRows.some(row => !row.box.disabled);
+    });
+  }
 })();
