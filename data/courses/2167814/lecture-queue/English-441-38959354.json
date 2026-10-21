@@ -1,0 +1,1778 @@
+{
+  "version": 1,
+  "courseId": 2167814,
+  "courseSlug": "spring-5-with-spring-boot-2",
+  "courseTitle": "Java Spring Framework, Spring Boot, Spring AI - Gen AI",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38959354",
+      "title": "Creating a Service Registry",
+      "lectureOrder": 442,
+      "videoOrder": 441,
+      "sourceHash": "9f62131fff8fe44857d48207dabba207f620aed774027fcebefcfef565edc708",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0,
+          "end": 2.91,
+          "en": "(gentle music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 2.91,
+          "end": 6.39,
+          "en": "-: So now let's understand how do you run a Eureka server?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.39,
+          "end": 9,
+          "en": "So basically we want to have something",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9,
+          "end": 11.97,
+          "en": "where different microservices will register themselves",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.97,
+          "end": 14.91,
+          "en": "and then of course they can also search about each other.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.91,
+          "end": 16.71,
+          "en": "So let's say we have 10 microservices,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 16.71,
+          "end": 19.29,
+          "en": "and then if one microservice wants to connect",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 19.29,
+          "end": 21.66,
+          "en": "with another microservice, how will they search?",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 21.66,
+          "end": 24.33,
+          "en": "So what we are gonna do is we will create a server,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 24.33,
+          "end": 26.04,
+          "en": "a service discovery server,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 26.04,
+          "end": 28.74,
+          "en": "and then every client here will register itself.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 28.74,
+          "end": 32.25,
+          "en": "So they become a client and then we have a server.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 32.25,
+          "end": 33.54,
+          "en": "So which server we are going to use?",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 33.54,
+          "end": 35.94,
+          "en": "There are multiple options, but then one of the most famous",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 35.94,
+          "end": 39.42,
+          "en": "and common one is Netflix Eureka server.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 39.42,
+          "end": 42.21,
+          "en": "So what we are gonna do is we will create a Eureka server.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 42.21,
+          "end": 43.68,
+          "en": "Now this is not that complex.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 43.68,
+          "end": 45.24,
+          "en": "If you're thinking, hey, we have to write",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 45.24,
+          "end": 48.39,
+          "en": "a lot of lines of code, just follow me in few minutes,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 48.39,
+          "end": 50.52,
+          "en": "I will tell you how to create a Eureka server.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 50.52,
+          "end": 52.2,
+          "en": "So the first thing is you have to create a project.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 52.2,
+          "end": 54.78,
+          "en": "So you have to go to start.spring.io",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 54.78,
+          "end": 57.96,
+          "en": "and here you have to select Maven project and Java.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 57.96,
+          "end": 59.46,
+          "en": "Of course, you can go for Gradle as well.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 59.46,
+          "end": 61.86,
+          "en": "That's your choice. So we can see we have Java,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 61.86,
+          "end": 63.84,
+          "en": "And then this is a version,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 63.84,
+          "end": 64.86,
+          "en": "and the group ID,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 64.86,
+          "end": 67.23,
+          "en": "which we are following here is com.telusko.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 67.23,
+          "end": 68.37,
+          "en": "And the artifact ID,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 68.37,
+          "end": 72.3,
+          "en": "And let's say I'm saying this is my service-registry, okay?",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 72.3,
+          "end": 74.01,
+          "en": "So this is my server basically.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 74.01,
+          "end": 77.58,
+          "en": "And then I want this to be Jar and 17 version.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 77.58,
+          "end": 79.32,
+          "en": "Now what are dependencies we have to add.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 79.32,
+          "end": 80.61,
+          "en": "Only two dependencies basically.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 80.61,
+          "end": 82.53,
+          "en": "The first one is we want to run this project.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 82.53,
+          "end": 84.42,
+          "en": "So, we'll say this is web.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 84.42,
+          "end": 88.83,
+          "en": "And the second one is we need to create a Eureka server.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 88.83,
+          "end": 91.68,
+          "en": "So if you can see, we have an option of Eureka server here.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 91.68,
+          "end": 92.52000000000001,
+          "en": "Just select that.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 92.52000000000001,
+          "end": 97.17,
+          "en": "So this is basically SPRING CLOUD DISCOVERY,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 97.17,
+          "end": 98.003,
+          "en": "and that's it.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 98.003,
+          "end": 100.25999999999999,
+          "en": "We just need these two things, and click on generate.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 100.25999999999999,
+          "end": 101.61,
+          "en": "And you can see we got our project.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 101.61,
+          "end": 104.64,
+          "en": "So let me just open this and unzip it. So unzipping done.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 104.64,
+          "end": 107.07,
+          "en": "Let me open this project using IntelliJ IDEA.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 107.07,
+          "end": 107.90299999999999,
+          "en": "So I'm opening this.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 107.90299999999999,
+          "end": 109.44,
+          "en": "These are the projects we are working with.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 109.44,
+          "end": 111.45,
+          "en": "We got two microservices, question service",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 111.45,
+          "end": 114.03,
+          "en": "and the quiz service, right?",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 114.03,
+          "end": 117.66,
+          "en": "Now, the idea was when a quiz service want to create a quiz,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 117.66,
+          "end": 119.607,
+          "en": "it'll use the question service.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 119.607,
+          "end": 121.44,
+          "en": "There are two different services, right?",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 121.44,
+          "end": 124.89,
+          "en": "And in order to search for the question service,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 124.89,
+          "end": 126.45,
+          "en": "we will need a Eureka server.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 126.45,
+          "end": 128.46,
+          "en": "So basically a question service will register itself",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 128.46,
+          "end": 129.69,
+          "en": "to Eureka server",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 129.69,
+          "end": 133.05,
+          "en": "and then a quiz service will be able to search it, right?",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 133.05,
+          "end": 135.03,
+          "en": "So let me open that project now.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 135.03,
+          "end": 136.14,
+          "en": "The Eureka server project.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 136.14,
+          "end": 140.64,
+          "en": "So I will say open, downloads, service registry, open.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 140.64,
+          "end": 144.03,
+          "en": "And now we are opening our Eureka server project.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 144.03,
+          "end": 146.01,
+          "en": "So it'll take some time for the dependencies,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 146.01,
+          "end": 148.59,
+          "en": "and okay, still doing it.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 148.59,
+          "end": 150.09,
+          "en": "So let's wait for that.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 150.09,
+          "end": 151.77,
+          "en": "So by the time it is downloading the dependencies,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 151.77,
+          "end": 154.26,
+          "en": "let me open the project and you can see the pom file.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 154.26,
+          "end": 156.24,
+          "en": "We have mentioned two things here.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 156.24,
+          "end": 159.54,
+          "en": "We need a web project and also we need a Eureka server.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 159.54,
+          "end": 162.21,
+          "en": "So both things are there. Let me close this.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 162.21,
+          "end": 165.96,
+          "en": "And if you go to src, you can see we have",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 165.96,
+          "end": 168.09,
+          "en": "a service registry application.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 168.09,
+          "end": 169.38,
+          "en": "And then if you go to resource,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 169.38,
+          "end": 170.73,
+          "en": "we have application.properties.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 170.73,
+          "end": 173.22,
+          "en": "So, basically now in order to make it work,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 173.22,
+          "end": 174.3,
+          "en": "we need to change two things,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 174.3,
+          "end": 177.51,
+          "en": "the application properties and the main application.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 177.51,
+          "end": 179.88,
+          "en": "Right, now, if you want to enable the Eureka server,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 179.88,
+          "end": 181.8,
+          "en": "once you've got dependency, that's your first steps.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 181.8,
+          "end": 182.7,
+          "en": "You have to add the dependency.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 182.7,
+          "end": 185.37,
+          "en": "The second step is you have to put an annotation",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 185.37,
+          "end": 188.01,
+          "en": "here called EnableEurekaServer.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 188.01,
+          "end": 189.36,
+          "en": "That's it. So simple, right?",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 189.36,
+          "end": 192.99,
+          "en": "So just by doing this, we are enabling the Eureka server,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 192.99,
+          "end": 195,
+          "en": "but we have to write some configuration.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 195,
+          "end": 197.88,
+          "en": "One of the thing is, what is the name of this Eureka server?",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 197.88,
+          "end": 199.23,
+          "en": "In fact, going forward,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 199.23,
+          "end": 201.48,
+          "en": "we'll also name our services.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 201.48,
+          "end": 205.71,
+          "en": "Example, if you go back to your, let's say question service,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 205.71,
+          "end": 208.59,
+          "en": "and in this, if you open your application.properties,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 208.59,
+          "end": 210.32999999999998,
+          "en": "you have to also mention the name",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 210.32999999999998,
+          "end": 212.22,
+          "en": "of this particular service.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 212.22,
+          "end": 213.99,
+          "en": "So when you have multiple microservices,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 213.99,
+          "end": 216.69,
+          "en": "it's important to have a good name for it, right?",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 216.69,
+          "end": 219.66,
+          "en": "So that you can search it. So we don't have a name yet.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 219.66,
+          "end": 220.53,
+          "en": "We'll do that later.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 220.53,
+          "end": 222.03,
+          "en": "But at this point, what I will do",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 222.03,
+          "end": 224.94,
+          "en": "is I will just go back to my service registry",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 224.94,
+          "end": 226.98,
+          "en": "and let's make some changes here.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 226.98,
+          "end": 228.27,
+          "en": "The first thing you have to mention the name,",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 228.27,
+          "end": 230.64,
+          "en": "you have to mention the port number it is going to run.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 230.64,
+          "end": 231.66,
+          "en": "So just do that first.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 231.66,
+          "end": 235.68,
+          "en": "So just spring.application.name.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 235.68,
+          "end": 236.91,
+          "en": "So this is our property.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 236.91,
+          "end": 241.05,
+          "en": "And the value I'm going to set here is service-registry.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 241.05,
+          "end": 242.28,
+          "en": "Okay? That's the first thing.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 242.28,
+          "end": 243.9,
+          "en": "The next thing we have to mention is a port number,",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 243.9,
+          "end": 245.58,
+          "en": "where this particular server will run.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 245.58,
+          "end": 247.89,
+          "en": "So let's say server.port.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 247.89,
+          "end": 249.27,
+          "en": "Even if you don't mention, by default,",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 249.27,
+          "end": 251.16,
+          "en": "Eureka server runs on this server,",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 251.16,
+          "end": 252.69,
+          "en": "which is 8761.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 252.69,
+          "end": 254.94,
+          "en": "Now, apart from this, we have to set three more properties.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 254.94,
+          "end": 257.49,
+          "en": "The reason being, when you talk about a client,",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 257.49,
+          "end": 260.22,
+          "en": "a Eureka client, Eureka client going to register itself",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 260.22,
+          "end": 261.27,
+          "en": "to the Eureka server, right?",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 261.27,
+          "end": 262.15,
+          "en": "So let's say we have three things here.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 262.15,
+          "end": 264.54,
+          "en": "We've got a Eureka server, we've got two clients here,",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 264.54,
+          "end": 267.6,
+          "en": "which is the Quiz Service and the Question Service.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 267.6,
+          "end": 270.36,
+          "en": "Of course, these two services, the quiz and question,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 270.36,
+          "end": 273.33,
+          "en": "they are going to register themself to the Eureka server.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 273.33,
+          "end": 274.95,
+          "en": "But what about the Eureka server?",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 274.95,
+          "end": 277.98,
+          "en": "Do we want to register itself? Of course not, right?",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 277.98,
+          "end": 279.69,
+          "en": "Eureka server should not be registering itself.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 279.69,
+          "end": 282.65999999999997,
+          "en": "And also, we also don't want to fetch the registry,",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 282.65999999999997,
+          "end": 283.98,
+          "en": "so we'll make that false.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 283.98,
+          "end": 285.96,
+          "en": "And we also set the host name for it.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 285.96,
+          "end": 287.24,
+          "en": "So let's say, to do that",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 287.24,
+          "end": 290.373,
+          "en": "we have to say Eureka.instance.hostname,",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 291.69,
+          "end": 293.4,
+          "en": "and the host name is localhost.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 293.4,
+          "end": 294.33,
+          "en": "The next thing we have to mention",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 294.33,
+          "end": 297.65999999999997,
+          "en": "is about the fetch registry, and we'll make this false.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 297.65999999999997,
+          "end": 299.43,
+          "en": "And also I don't want it to register itself.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 299.43,
+          "end": 303.51,
+          "en": "So I will say register-with-eureka false, okay?",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 303.51,
+          "end": 305.31,
+          "en": "So you have to mention these three things as well.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 305.31,
+          "end": 306.75,
+          "en": "So we don't want register itself",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 306.75,
+          "end": 309.42,
+          "en": "and then we don't want to fetch registry as well.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 309.42,
+          "end": 310.71,
+          "en": "And then we are specifying the host name,",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 310.71,
+          "end": 312.21,
+          "en": "which is localhost.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 312.21,
+          "end": 314.25,
+          "en": "So that's it. We are registered.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 314.25,
+          "end": 316.89,
+          "en": "Now we also have a port number and this,",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 316.89,
+          "end": 319.62,
+          "en": "this will make your Eureka server work.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 319.62,
+          "end": 320.453,
+          "en": "So let me try this.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 320.453,
+          "end": 323.22,
+          "en": "What I will do is I will just run this project.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 323.22,
+          "end": 324.363,
+          "en": "I hope this will work.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 325.44,
+          "end": 329.94,
+          "en": "So yeah, so it says it started, but which port number?",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 329.94,
+          "end": 333.6,
+          "en": "So you can say it is starting off port number 876,",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 333.6,
+          "end": 335.52,
+          "en": "and anyway, default was that,",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 335.52,
+          "end": 337.08,
+          "en": "even if you don't mention.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 337.08,
+          "end": 337.92,
+          "en": "So how do I verify?",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 337.92,
+          "end": 339.96,
+          "en": "So I can just simply go to my browser",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 339.96,
+          "end": 342.78,
+          "en": "and just mention localhost.8761.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 342.78,
+          "end": 345.51,
+          "en": "And this is your Eureka server running.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 345.51,
+          "end": 347.73,
+          "en": "So you can see it says spring Eureka,",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 347.73,
+          "end": 350.01,
+          "en": "but if you see here, this is important for us.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 350.01,
+          "end": 352.14,
+          "en": "Instance currently registered with Eureka.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 352.14,
+          "end": 354.78,
+          "en": "At this point, we don't have any microservice",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 354.78,
+          "end": 357,
+          "en": "which has registered itself to Eureka server.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 357,
+          "end": 359.31,
+          "en": "They're not even running, right?",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 359.31,
+          "end": 362.19,
+          "en": "So how do we make it connected? How do we make it work?",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 362.19,
+          "end": 364.2,
+          "en": "So that's what we are going to see now.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 364.2,
+          "end": 365.91,
+          "en": "So let's go back to our IntelliJ.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 365.91,
+          "end": 368.31,
+          "en": "And here, if you see, this is running, right?",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 368.31,
+          "end": 370.05,
+          "en": "We don't have to make any changes here.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 370.05,
+          "end": 371.34,
+          "en": "But the changes we are going to make",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 371.34,
+          "end": 373.02,
+          "en": "is in the question-service.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 373.02,
+          "end": 374.31,
+          "en": "So let's run question-service",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 374.31,
+          "end": 376.35,
+          "en": "because the quiz-service will not run",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 376.35,
+          "end": 378.93,
+          "en": "because we have not run the changes yet.",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 378.93,
+          "end": 381.36,
+          "en": "So let's run the question-service and see if this works.",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 381.36,
+          "end": 384.42,
+          "en": "Now, first of all, even if you run this, it'll not register.",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 384.42,
+          "end": 386.01,
+          "en": "Let me show you that once.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 386.01,
+          "end": 389.07,
+          "en": "So I'll just run this code, it'll take some time to load.",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 389.07,
+          "end": 391.71,
+          "en": "And you can see it's running on 8080 port number.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 391.71,
+          "end": 393.57,
+          "en": "But if I go back to Eureka server,",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 393.57,
+          "end": 394.8,
+          "en": "you can see it is not registered",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 394.8,
+          "end": 397.47,
+          "en": "Even if I refresh, it's not registered.",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 397.47,
+          "end": 398.76,
+          "en": "So how do we do that?",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 398.76,
+          "end": 401.43,
+          "en": "So the first thing you do is you go to your pom file.",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 401.43,
+          "end": 404.15999999999997,
+          "en": "If you remember, when we were creating this project,",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 404.15999999999997,
+          "end": 406.32,
+          "en": "we have added two more dependencies.",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 406.32,
+          "end": 409.86,
+          "en": "One is your Eureka server, Eureka client,",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 409.86,
+          "end": 411.65999999999997,
+          "en": "and second is your openfeign.",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 411.65999999999997,
+          "end": 413.37,
+          "en": "So we are not using openfeign at this point.",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 413.37,
+          "end": 415.89,
+          "en": "We are using the Eureka client.",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 415.89,
+          "end": 417.3,
+          "en": "So let's uncomment this,",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 417.3,
+          "end": 419.1,
+          "en": "and it'll take some time to load it.",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 419.1,
+          "end": 421.32,
+          "en": "So refresh. So you can say loading done.",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 421.32,
+          "end": 424.68,
+          "en": "Now this particular project, which is our question service,",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 424.68,
+          "end": 426.75,
+          "en": "we have added a Eureka client.",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 426.75,
+          "end": 428.04,
+          "en": "That's the first change you have to make.",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 428.04,
+          "end": 430.44,
+          "en": "Let's restart and let's see if that works.",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 430.44,
+          "end": 432.89,
+          "en": "Again, sometime we learn from trial error, right?",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 433.74,
+          "end": 436.35,
+          "en": "There's no problem. You can see this is important.",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 436.35,
+          "end": 439.31,
+          "en": "This is the the DiscoveryClient, right?",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 439.31,
+          "end": 440.52,
+          "en": "So we have done this.",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 440.52,
+          "end": 444.6,
+          "en": "So restriction status is okay or it's in good status.",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 444.6,
+          "end": 446.16,
+          "en": "Let's refresh this and see.",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 446.16,
+          "end": 447.75,
+          "en": "Okay, can you see that? We got it?",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 447.75,
+          "end": 449.88,
+          "en": "We got one application registered.",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 449.88,
+          "end": 451.29,
+          "en": "Now, which which is this application?",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 451.29,
+          "end": 452.85,
+          "en": "We don't have any idea.",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 452.85,
+          "end": 453.75,
+          "en": "And actually we know",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 453.75,
+          "end": 455.43,
+          "en": "because we have run the question service,",
+          "zh": ""
+        },
+        {
+          "id": 204,
+          "start": 455.43,
+          "end": 456.48,
+          "en": "but what's the name of it?",
+          "zh": ""
+        },
+        {
+          "id": 205,
+          "start": 456.48,
+          "end": 458.52,
+          "en": "We want a good name for it, right?",
+          "zh": ""
+        },
+        {
+          "id": 206,
+          "start": 458.52,
+          "end": 459.45,
+          "en": "So what I will do is",
+          "zh": ""
+        },
+        {
+          "id": 207,
+          "start": 459.45,
+          "end": 461.90999999999997,
+          "en": "I will go back to my application properties",
+          "zh": ""
+        },
+        {
+          "id": 208,
+          "start": 461.90999999999997,
+          "end": 465.24,
+          "en": "and here I will say spring.application.name.",
+          "zh": ""
+        },
+        {
+          "id": 209,
+          "start": 465.24,
+          "end": 468.24,
+          "en": "I will say, this is my question-service.",
+          "zh": ""
+        },
+        {
+          "id": 210,
+          "start": 468.24,
+          "end": 472.8,
+          "en": "And save this, restart, and go back here, let's refresh.",
+          "zh": ""
+        },
+        {
+          "id": 211,
+          "start": 472.8,
+          "end": 473.82,
+          "en": "And you can see we got it.",
+          "zh": ""
+        },
+        {
+          "id": 212,
+          "start": 473.82,
+          "end": 476.31,
+          "en": "So we got question-service registered.",
+          "zh": ""
+        },
+        {
+          "id": 213,
+          "start": 476.31,
+          "end": 477.27,
+          "en": "And the beauty is",
+          "zh": ""
+        },
+        {
+          "id": 214,
+          "start": 477.27,
+          "end": 479.43,
+          "en": "if you run this with a multiple instance...",
+          "zh": ""
+        },
+        {
+          "id": 215,
+          "start": 479.43,
+          "end": 481.41,
+          "en": "We have only one instance now.",
+          "zh": ""
+        },
+        {
+          "id": 216,
+          "start": 481.41,
+          "end": 483.99,
+          "en": "What I will do is I will just go to the configuration.",
+          "zh": ""
+        },
+        {
+          "id": 217,
+          "start": 483.99,
+          "end": 485.28,
+          "en": "Remember, we have also ran this",
+          "zh": ""
+        },
+        {
+          "id": 218,
+          "start": 485.28,
+          "end": 487.47,
+          "en": "with a different port number.",
+          "zh": ""
+        },
+        {
+          "id": 219,
+          "start": 487.47,
+          "end": 489.24,
+          "en": "Let's run that one.",
+          "zh": ""
+        },
+        {
+          "id": 220,
+          "start": 489.24,
+          "end": 491.61,
+          "en": "So now we are basically trying to run two instance",
+          "zh": ""
+        },
+        {
+          "id": 221,
+          "start": 491.61,
+          "end": 493.2,
+          "en": "of question-service.",
+          "zh": ""
+        },
+        {
+          "id": 222,
+          "start": 493.2,
+          "end": 496.5,
+          "en": "And if you go back here, and if you refresh,",
+          "zh": ""
+        },
+        {
+          "id": 223,
+          "start": 496.5,
+          "end": 497.33299999999997,
+          "en": "can you see that?",
+          "zh": ""
+        },
+        {
+          "id": 224,
+          "start": 497.33299999999997,
+          "end": 498.42,
+          "en": "We got two instance?",
+          "zh": ""
+        },
+        {
+          "id": 225,
+          "start": 498.42,
+          "end": 500.19,
+          "en": "And we also specify here.",
+          "zh": ""
+        },
+        {
+          "id": 226,
+          "start": 500.19,
+          "end": 503.76,
+          "en": "So this is on port number 8081.",
+          "zh": ""
+        },
+        {
+          "id": 227,
+          "start": 503.76,
+          "end": 507.3,
+          "en": "The first service is on default port number, which is 8080.",
+          "zh": ""
+        },
+        {
+          "id": 228,
+          "start": 507.3,
+          "end": 509.43,
+          "en": "So yeah, that's how thing works. You know, it's awesome.",
+          "zh": ""
+        },
+        {
+          "id": 229,
+          "start": 509.43,
+          "end": 511.95,
+          "en": "So we got two connections here.",
+          "zh": ""
+        },
+        {
+          "id": 230,
+          "start": 511.95,
+          "end": 514.83,
+          "en": "And now basically your service,",
+          "zh": ""
+        },
+        {
+          "id": 231,
+          "start": 514.83,
+          "end": 518.76,
+          "en": "basically your quiz service should be able to find it.",
+          "zh": ""
+        },
+        {
+          "id": 232,
+          "start": 518.76,
+          "end": 521.7,
+          "en": "But again, the problem is, even if your quiz service...",
+          "zh": ""
+        },
+        {
+          "id": 233,
+          "start": 521.7,
+          "end": 523.08,
+          "en": "Let's go back to our quiz service",
+          "zh": ""
+        },
+        {
+          "id": 234,
+          "start": 523.08,
+          "end": 524.49,
+          "en": "and let's see what's wrong there.",
+          "zh": ""
+        },
+        {
+          "id": 235,
+          "start": 524.49,
+          "end": 526.02,
+          "en": "I know we are working with multiple projects.",
+          "zh": ""
+        },
+        {
+          "id": 236,
+          "start": 526.02,
+          "end": 526.853,
+          "en": "So at this point,",
+          "zh": ""
+        },
+        {
+          "id": 237,
+          "start": 526.853,
+          "end": 529.59,
+          "en": "we are currently shuffling between three projects.",
+          "zh": ""
+        },
+        {
+          "id": 238,
+          "start": 529.59,
+          "end": 531.9,
+          "en": "The quiz project, the question service,",
+          "zh": ""
+        },
+        {
+          "id": 239,
+          "start": 531.9,
+          "end": 533.52,
+          "en": "I mean the quiz service, the question service,",
+          "zh": ""
+        },
+        {
+          "id": 240,
+          "start": 533.52,
+          "end": 535.53,
+          "en": "and the service registry.",
+          "zh": ""
+        },
+        {
+          "id": 241,
+          "start": 535.53,
+          "end": 537.3,
+          "en": "So if you go to your quiz service,",
+          "zh": ""
+        },
+        {
+          "id": 242,
+          "start": 537.3,
+          "end": 540.54,
+          "en": "we want to say that this particular createQuiz",
+          "zh": ""
+        },
+        {
+          "id": 243,
+          "start": 540.54,
+          "end": 543.57,
+          "en": "is going to search about question service, right?",
+          "zh": ""
+        },
+        {
+          "id": 244,
+          "start": 543.57,
+          "end": 545.7,
+          "en": "And then we mention if you can register yourself",
+          "zh": ""
+        },
+        {
+          "id": 245,
+          "start": 545.7,
+          "end": 547.56,
+          "en": "to Eureka server, you can search it.",
+          "zh": ""
+        },
+        {
+          "id": 246,
+          "start": 547.56,
+          "end": 550.74,
+          "en": "But how you are going to do that? How do I request?",
+          "zh": ""
+        },
+        {
+          "id": 247,
+          "start": 550.74,
+          "end": 553.29,
+          "en": "And that's where there's a concept of Feign.",
+          "zh": ""
+        },
+        {
+          "id": 248,
+          "start": 553.29,
+          "end": 555.06,
+          "en": "So we'll try to configure this",
+          "zh": ""
+        },
+        {
+          "id": 249,
+          "start": 555.06,
+          "end": 557.31,
+          "en": "and make it work with the help of Feign.",
+          "zh": ""
+        },
+        {
+          "id": 250,
+          "start": 557.31,
+          "end": 558.51,
+          "en": "Now how exactly Feign works,",
+          "zh": ""
+        },
+        {
+          "id": 251,
+          "start": 558.51,
+          "end": 560.343,
+          "en": "that we'll see in the next video.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

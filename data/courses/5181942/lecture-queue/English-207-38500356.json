@@ -1,0 +1,791 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38500356",
+      "title": "Process Grouping & Control: Efficient Resource Management with cgroups",
+      "lectureOrder": 237,
+      "videoOrder": 207,
+      "sourceHash": "688d0f125dcbf9025dab1eedb1e8b6d8b72883b410a6495251fc7689f765f415",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.29,
+          "end": 1.28,
+          "en": "In this lecture.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 1.28,
+          "end": 4.16,
+          "en": "We want to have a look at what is a cgroup in Linux.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 4.88,
+          "end": 8.6,
+          "en": "Please note this is just a rough overview that I can give here.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.17,
+          "end": 13.77,
+          "en": "Cgroups can do way more things, but at least we get a first impression.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 13.79,
+          "end": 16.61,
+          "en": "So a cgroup or control groups.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 16.61,
+          "end": 18.44,
+          "en": "They are a feature of the linux kernel.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.44,
+          "end": 20.57,
+          "en": "It's provided by the Linux kernel.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 21.29,
+          "end": 27.2,
+          "en": "The idea here is that we don't just have processes that are in a hierarchy, but also that they can",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 27.2,
+          "end": 32.96,
+          "en": "be bundled into those cgroups and those cgroups form themselves a hierarchy.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 33.68,
+          "end": 37.49,
+          "en": "This allows us to more evenly distribute system resources.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 37.49,
+          "end": 43.1,
+          "en": "So for example, if we see that one cgroup needs a lot of processing power and another one also needs",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 43.1,
+          "end": 50.84,
+          "en": "a lot of that, then we can define how those resources should be scheduled between those two cgroups.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 51.71,
+          "end": 58.49,
+          "en": "Systemd heavily relies on cgroups to manage processes and they are in this hierarchy.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 58.61,
+          "end": 65.07,
+          "en": "The advantages here is that a cgroup can spend multiple processes and even contain other cgroups.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 65.07,
+          "end": 67.11,
+          "en": "So we really have a hierarchy here.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 67.14,
+          "end": 68.86,
+          "en": "Why is this an advantage?",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 68.88,
+          "end": 71.58,
+          "en": "Let's take a normal web server for example.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 71.58,
+          "end": 77.08,
+          "en": "A normal web server might have multiple child processes, for example to execute PHP code.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 77.1,
+          "end": 83.91,
+          "en": "If we would just limit the CPU or memory resources of the web server, all those child processes would",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 83.91,
+          "end": 85.32,
+          "en": "not be caught by that.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 86.07,
+          "end": 92.22,
+          "en": "So we if we if they are all in a cgroup, we can limit the resources for that cgroup and we can make",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 92.25,
+          "end": 97.8,
+          "en": "sure that the whole web server, including all the PHP processes and including all the other processes,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 97.8,
+          "end": 99.89,
+          "en": "those PHP programs might start.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 99.9,
+          "end": 108.06,
+          "en": "All of those are contained and they don't, they can't, they can't use more resources than we want",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 108.06,
+          "end": 109.55,
+          "en": "to because we could limit that.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 109.56,
+          "end": 117.36,
+          "en": "Or another example, we could have Firefox and Firefox likes to have quite a few sub processes for rendering",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 117.72,
+          "end": 123.81,
+          "en": "and we could just say like hey, this whole cgroup in which Firefox is running should not use more than",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 123.81,
+          "end": 125.92,
+          "en": "100MB of memory.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 125.94,
+          "end": 130.14,
+          "en": "This will, by the way, also be the example in the next lecture we'll have a look at that.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 130.14,
+          "end": 133.83,
+          "en": "How you can limit Firefox to just 100MB of memory.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 134.73,
+          "end": 141.96,
+          "en": "So this is a big advantage that all those sub processes that we start from a process in a cgroup, they",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 141.96,
+          "end": 145.86,
+          "en": "will also automatically be in the same cgroup as the parent.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 146.34,
+          "end": 152.31,
+          "en": "The cgroups are used for all processes, so all the processes that we have started, they are already",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 152.31,
+          "end": 154.53,
+          "en": "in cgroups because of that.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 154.53,
+          "end": 156.99,
+          "en": "So we didn't have to deal with that so far.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 157.62,
+          "end": 163.74,
+          "en": "Why do we need those Cgroups Well, the one thing I had mentioned that before already, the resource",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 163.74,
+          "end": 170.01,
+          "en": "limiting that we can configure a cgroup to not exceed a specific, for example, memory limit or percentage",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 170.01,
+          "end": 172.2,
+          "en": "of our CPU resources.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 172.2,
+          "end": 174,
+          "en": "So that's already really nice.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 174,
+          "end": 182.02,
+          "en": "But another reason would be that we can also measure how much resources, certain systems consume.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 182.03,
+          "end": 188.9,
+          "en": "So for example, our web server with all the other processes that it has spun up, how much CPU power",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 188.99,
+          "end": 190.94,
+          "en": "does it use or how much memory?",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 191.18,
+          "end": 197.84,
+          "en": "Um, and we would also have the ability because all of those processes are bundled into a cgroup that",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 197.84,
+          "end": 201.05,
+          "en": "we could for example, just freeze all of those processes.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 201.47,
+          "end": 206.9,
+          "en": "Those cgroups are especially useful if we want our system's resources to be shared.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 206.9,
+          "end": 212.03,
+          "en": "So for example, when we are running multiple services now in an application sense, not in a system",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 212.21,
+          "end": 218.12,
+          "en": "sense, but when we are trying to run multiple services or containers, if we are using Docker on the",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 218.12,
+          "end": 224.32999999999998,
+          "en": "same server and we want to share the resources of our hardware, then those cgroups are especially useful.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 224.32999999999998,
+          "end": 228.68,
+          "en": "But they are already used on our system and we want to have a look at those.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 229.34,
+          "end": 231.5,
+          "en": "So how can we inspect cgroups?",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 231.5,
+          "end": 237.82999999999998,
+          "en": "We have the possibility to show processes on our system with Systemctl status and this will print a",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 237.86,
+          "end": 238.43,
+          "en": "list.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 238.43,
+          "end": 245.76,
+          "en": "So for example, here we are right now on a CentOS, and here I could say, for example, systemctl",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 245.76,
+          "end": 252.84,
+          "en": "status to list the status and then we can see here the cgroup and this is our main cgroup from our whole",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 252.84,
+          "end": 253.47,
+          "en": "system.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 253.47,
+          "end": 258.87,
+          "en": "And then this would be the first cgroup for init dot scope and then we can see this is the process that's",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 258.87,
+          "end": 266.4,
+          "en": "running there or here we got the system dot slice, this is another cgroup and then we got a few um",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 266.4,
+          "end": 269.58,
+          "en": "services running there and the corresponding processes.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 270.12,
+          "end": 271.62,
+          "en": "A service is not a process.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 271.65,
+          "end": 278.55,
+          "en": "A service is just something that systemd can manage and the service will then spin up those processes.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 278.55,
+          "end": 284.67,
+          "en": "Or if we scroll down at some point we can see, for example, that our whole user account is in a in",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 284.67,
+          "end": 285.45,
+          "en": "a cgroup.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 285.45,
+          "end": 292.08,
+          "en": "Here we got a cgroup user dot slice, this is one cgroup and in that cgroup we got this cgroup here",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 292.08,
+          "end": 299.22,
+          "en": "because my current user here on this system has the user ID 1000 and then we have this in a.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 299.24,
+          "end": 300.05,
+          "en": "Another C group.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 300.05,
+          "end": 307.25,
+          "en": "And then from that we have yet another C group here for those processes, or we got here another C group,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 307.52,
+          "end": 309.77,
+          "en": "um, with other processes in those.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 309.77,
+          "end": 316.61,
+          "en": "So you can see how we have those hierarchy, how all those processes are in C groups and those C groups",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 316.61,
+          "end": 319.16,
+          "en": "can be nested here on our system.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 319.16,
+          "end": 325.49,
+          "en": "And this allows us to more easily see, for example, if for example, the user 1000 would use a lot",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 325.49,
+          "end": 331.76,
+          "en": "of resources, then we could, for example, try to list the CPU utilization of this slice and that",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 331.76,
+          "end": 337.34000000000003,
+          "en": "would then contain all the processes in this C group or in sub C groups of those.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 338.09000000000003,
+          "end": 339.98,
+          "en": "How can we list those?",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 340.19,
+          "end": 343.73,
+          "en": "Well, for that we have the ability to inspect C groups.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 343.73,
+          "end": 347.84000000000003,
+          "en": "We can use the system D CG top for that for C group top.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 347.84000000000003,
+          "end": 350.9,
+          "en": "And this will then list all of those C groups.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 351.29,
+          "end": 353.48,
+          "en": "So let's just have a look at that.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 353.48,
+          "end": 357.05,
+          "en": "So here I just press the key to quit that one.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 357.05,
+          "end": 362.71,
+          "en": "And now I can say system D CG top and I can just press enter.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 362.71,
+          "end": 366.52,
+          "en": "And now we can see here how much CPU resources are being used.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 366.52,
+          "end": 373.27,
+          "en": "This one here is my whole system and we can see part of our whole system would be our user slice.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 373.27,
+          "end": 376.42,
+          "en": "And we can see here how this is using this much CPU.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 376.42,
+          "end": 380.05,
+          "en": "Please note this contains all the nested C groups as well.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 380.05,
+          "end": 386.08,
+          "en": "So this slice, for example, contains all the resources that this slice here, for example, is is",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 386.08,
+          "end": 386.71,
+          "en": "using.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 387.56,
+          "end": 390.95,
+          "en": "So the control group, that's our whole system.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 390.95,
+          "end": 393.65,
+          "en": "And then this one here would just be our user.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 393.65,
+          "end": 398.6,
+          "en": "And then there are also those sub groups and yet another sub group.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 398.6,
+          "end": 401.06,
+          "en": "So you can see how we have those nested groups.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 401.06,
+          "end": 403.85,
+          "en": "But usually the slash should collect all of those.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 403.88,
+          "end": 410.57,
+          "en": "If it doesn't totally add up, it's just because of timings, because those CPU percentage are measured",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 411.11,
+          "end": 412.64,
+          "en": "maybe at a different time.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 412.76,
+          "end": 419.51,
+          "en": "But aside from that, this one here should always be our total CPU utilization and our total memory",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 419.51,
+          "end": 420.62,
+          "en": "utilization.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 420.77,
+          "end": 427.61,
+          "en": "But again, timing because of timing or measurement issues here, it might not always be displayed here",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 427.61,
+          "end": 433.19,
+          "en": "at the top, but you can see how in general this allows us to see those cgroups.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 433.22,
+          "end": 437.24,
+          "en": "Those cgroups can be nested even more by default.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 437.24,
+          "end": 443.18,
+          "en": "It only displays the first three levels of cgroups, but if we want to display more, we could add another",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 443.18,
+          "end": 446.18,
+          "en": "parameter here minus minus depth to five.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 446.18,
+          "end": 449.1,
+          "en": "For example, to display five levels of cgroups.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 449.13,
+          "end": 455.61,
+          "en": "If we want to have a look at that, I just press Q to quit that one and then I set this parameter to",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 455.61,
+          "end": 456.12,
+          "en": "five.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 456.12,
+          "end": 459.36,
+          "en": "And now you can see here how we now have way more cgroups.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 459.36,
+          "end": 462.57,
+          "en": "You can see here even our terminal would be their own cgroup.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 462.57,
+          "end": 471.03,
+          "en": "So you can see how those cgroups are heavily utilized here to group our processes into a hierarchy and",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 471.03,
+          "end": 475.83,
+          "en": "this allows us to more easily see what's going on here on our system.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 476.55,
+          "end": 482.67,
+          "en": "Now we have seen how we can have a look at the cgroups, but now it would also be nice if we could create",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 482.67,
+          "end": 489.42,
+          "en": "our own cgroup and somewhat limit, for example, the resources just as an example and how that works",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 489.42,
+          "end": 492.42,
+          "en": "and how we can limit Firefox to just 100MB.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 492.42,
+          "end": 495.21,
+          "en": "This is what we'll have a look at in the next lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

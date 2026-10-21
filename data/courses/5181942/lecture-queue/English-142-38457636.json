@@ -1,0 +1,1526 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38457636",
+      "title": "Advanced File Permissions: SUID (Set User ID) and SGID (Set Group ID)",
+      "lectureOrder": 167,
+      "videoOrder": 142,
+      "sourceHash": "28f3b4ed3dd81c95039306aaaa72bc246a8d5c9dd8d4d68a9da8b1cd7576b7ad",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.59,
+          "end": 6.95,
+          "en": "Let's now have another look at more advanced file permission, the so-called set user ID and the set",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.98,
+          "end": 8.18,
+          "en": "group ID bit.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.44,
+          "end": 14.51,
+          "en": "One thing I would like to start this lecture with with would be the question Have you ever wondered",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 14.51,
+          "end": 18.23,
+          "en": "how do certain programs seem to have additional privileges?",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 18.23,
+          "end": 19.79,
+          "en": "How does that work?",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.79,
+          "end": 23.24,
+          "en": "We have used those programs before, at least the first two of them.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 23.24,
+          "end": 26.78,
+          "en": "For example, sudo or switch user.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 27.62,
+          "end": 32.54,
+          "en": "If we run them, they need to somehow have root privileges too.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 32.54,
+          "end": 39.86,
+          "en": "For example, either switch to a different user or to run a command as another user, as the root user.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 40.04,
+          "end": 45.59,
+          "en": "How does it work that those programs have additional privileges to just change the user?",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 45.59,
+          "end": 51.23,
+          "en": "Also here, the Mount program that allows you to, for example, connect a separate drive to your file",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 51.23,
+          "end": 51.92,
+          "en": "system.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 51.92,
+          "end": 55.1,
+          "en": "Mounting is a topic that we'll have a look at in a later chapter.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 55.1,
+          "end": 62.09,
+          "en": "But I've included it here because maybe you've used the Mount Command before and this can be explained",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 62.09,
+          "end": 64.01,
+          "en": "with the so called set user ID.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 64.85,
+          "end": 72.72,
+          "en": "The idea here is that we can set a special bit for special executable files, and if this bit is set,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 72.75,
+          "end": 79.05,
+          "en": "the executable, whenever we execute it will gain the rights of the owner of that file so it will not",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 79.05,
+          "end": 84.6,
+          "en": "be run as our user, but it will be run in the context of the owner of that file.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 84.96000000000001,
+          "end": 90.51,
+          "en": "This allows unprivileged user to access privileged resources.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 91.08,
+          "end": 98.07,
+          "en": "So for example, imagine we had an executable file that would be owned by the user user root and that",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 98.07,
+          "end": 102.63,
+          "en": "file would be executable and the set user ID would be set here.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 102.63,
+          "end": 110.00999999999999,
+          "en": "And in that case, if a normal user would then execute that file, he would have additional privileges",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 110.00999999999999,
+          "end": 116.19,
+          "en": "as if he would be the user root, but only for this program and only for this one program that's being",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 116.19,
+          "end": 117.15,
+          "en": "executed.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 117.39,
+          "end": 124.89,
+          "en": "We need to be careful here because this can cause a security serious security problems on our system",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 124.89,
+          "end": 127.26,
+          "en": "if we set this for all of our programs.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 128.34,
+          "end": 137.94,
+          "en": "So there's certain safeguards at play because this can be a major security issue on most systems and",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 138.3,
+          "end": 141.84,
+          "en": "usually all modern Linux distributions follow that pattern.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 141.84,
+          "end": 150.69,
+          "en": "This suid bit is limited to executable binary files only, so it is not supported for executable scripts.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 150.69,
+          "end": 159.03,
+          "en": "So for example, if we had a file or a.py file for Python, if we had a file with a script in it, then",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 159.03,
+          "end": 166.17000000000002,
+          "en": "this suid bit of that script would be ignored because technically we are executing bash in a case of",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 166.17000000000002,
+          "end": 167.7,
+          "en": "dot H or Python.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 167.7,
+          "end": 174.42000000000002,
+          "en": "And if we are trying to execute a python file and it's another binary then that we are executing, So",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 175.05,
+          "end": 183.24,
+          "en": "this applies only to or it usually only applies to executable binary files, not to executable scripts.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 183.84,
+          "end": 189.18,
+          "en": "If we set this to our own programs, they must be like compiled programs.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 189.18,
+          "end": 189.75,
+          "en": "And then this.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 190.02,
+          "end": 191.55,
+          "en": "The resulting executable.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 191.55,
+          "end": 198.72,
+          "en": "We could set it there, but we must be aware that very easy to create major security vulnerabilities",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 198.72,
+          "end": 200.13,
+          "en": "through this procedure.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 200.13,
+          "end": 207.36,
+          "en": "We thus need to be extremely careful if our program would, for example, allow arbitrary access to",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 207.36,
+          "end": 211.98,
+          "en": "the file system in any way, then an attacker could use that one.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 211.98,
+          "end": 217.56,
+          "en": "And for example, delete files or access files in ways that we didn't thought of.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 218.1,
+          "end": 223.26,
+          "en": "If there was, for example, a even just a small bug in our application that allowed that.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 223.26,
+          "end": 226.14,
+          "en": "So we need to be extremely careful here.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 227.31,
+          "end": 233.88,
+          "en": "How can we inspect the suid bit we can do this with LS minus L command again.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 233.88,
+          "end": 238.53,
+          "en": "And here for example, the suid would be at this position.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 238.86,
+          "end": 245.91,
+          "en": "If like this means it's a file, then it's read, write and then this suid bit here is set.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 245.94,
+          "end": 253.88,
+          "en": "Lowercase s means that the suid bit is set and that we have execute bit set and an uppercase s means",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 253.88,
+          "end": 257.75,
+          "en": "that the suid bit is set but without the execute bit.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 258.2,
+          "end": 261.62,
+          "en": "So this is how we can inspect the suid bit.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 261.74,
+          "end": 264.23,
+          "en": "Let's have a look at how we can inspect that one.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 264.23,
+          "end": 272.12,
+          "en": "So let me find for example where my program pseudo is so I can say where pseudo and O which.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 272.95,
+          "end": 273.94,
+          "en": "Which pseudo.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 273.94,
+          "end": 277.45,
+          "en": "And then we can see here this is the path to my pseudo program.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 277.54,
+          "end": 285.28,
+          "en": "Now I can say ls l usr bin pseudo and then we can see here this is being printed here in red.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 285.31,
+          "end": 293.67,
+          "en": "This is the color scheme here because this, this suid bit here is set and here you can see our WS.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 293.68,
+          "end": 299.35,
+          "en": "So this suid here is set and we can see this is being owned by the user root.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 299.35,
+          "end": 306.94,
+          "en": "So if we try to execute this executable then it will be executed as with additional privileges of the",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 306.94,
+          "end": 307.69,
+          "en": "root user.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 307.69,
+          "end": 312.52,
+          "en": "And then this program will make sure, hey, here, please confirm the password.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 312.52,
+          "end": 314.59,
+          "en": "Do you actually have pseudo rights?",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 314.59,
+          "end": 318.07,
+          "en": "But this is part of this check is part of the pseudo program.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 318.07,
+          "end": 324.73,
+          "en": "So the way it works, whenever I say pseudo something is that this program is being called, it gets",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 324.73,
+          "end": 330.34,
+          "en": "automatically those privileges of the root user and then it performs all the checks, whether the password",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 330.34,
+          "end": 333.44,
+          "en": "is correct and only then it will execute the command.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 333.44,
+          "end": 335.12,
+          "en": "So this is how pseudo works.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 335.12,
+          "end": 344.24,
+          "en": "And as long as there is no problem or no bug in that execution path, in a sense that pseudo will always",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 344.24,
+          "end": 348.23,
+          "en": "check for my password before executing the rest of the command.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 348.26,
+          "end": 350.18,
+          "en": "This is safe and we can use it.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 350.18,
+          "end": 354.23,
+          "en": "But this is how this suid bit can work.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 354.98,
+          "end": 362.18,
+          "en": "Um, we can also manually set the suid bit with CMD for the user.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 362.18,
+          "end": 364.19,
+          "en": "We need to set this suid bit.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 364.19,
+          "end": 366.92,
+          "en": "So user plus s and then the file.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 367.22,
+          "end": 376.36,
+          "en": "But of course this suid bit will only take effect if it's an executable file, it must be owned by the",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 376.37,
+          "end": 382.58,
+          "en": "user where we want to give those additional privileges to that program and it can for example, be a",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 382.58,
+          "end": 388.13,
+          "en": "script that we are trying to execute because also then on most system, this will not work properly",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 388.13,
+          "end": 389.81,
+          "en": "then or it will be ignored.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 389.81,
+          "end": 392.15,
+          "en": "This is important for security reasons.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 392.33,
+          "end": 398.8,
+          "en": "We should also another important thing that I would like to mention here is this doesn't necessarily",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 398.8,
+          "end": 400.39,
+          "en": "set the suid bit.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 400.42,
+          "end": 403.9,
+          "en": "It's more like a security thing.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 404.05,
+          "end": 409.18,
+          "en": "We should also try to limit the write access to this file then as much as possible, because if this",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 409.18,
+          "end": 415.45,
+          "en": "bit is set and somebody, for example, would try to overwrite that file and that would work, then",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 415.45,
+          "end": 423.73,
+          "en": "there's a new executable with also this suid bit that is set and this could cause serious security problems",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 423.73,
+          "end": 424.93,
+          "en": "for our system.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 425.74,
+          "end": 432.1,
+          "en": "I want to show you what kind of security problems can happen if this suid bit is set.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 432.1,
+          "end": 440.02,
+          "en": "And for this I can use the python executable and I can just copy that one to a new path and then I will",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 440.02,
+          "end": 442.78,
+          "en": "set the suid bit for that one.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 443.5,
+          "end": 447.28,
+          "en": "Why I'm using Python and not bash because so far we have always learned.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 447.28,
+          "end": 447.79,
+          "en": "Bash.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 447.82,
+          "end": 454.76,
+          "en": "The reason is that I've tried it with with Bash to set the suid bit for bash but this didn't work because",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 454.79,
+          "end": 462.35,
+          "en": "Bash has some additional ways how it's configuring itself that even if if this suid bit is set for.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 462.35,
+          "end": 470.24,
+          "en": "Bash it doesn't get this those additional privileges because of the way Bash initializes itself and",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 470.24,
+          "end": 471.65,
+          "en": "the way the program is written.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 471.65,
+          "end": 478.49,
+          "en": "But Python doesn't do that, doesn't Python doesn't reset the privileges it gets when starting it in",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 478.49,
+          "end": 479.27,
+          "en": "any way.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 479.78,
+          "end": 485.42,
+          "en": "So we can just modify this suid bit for our Python executable.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 485.54,
+          "end": 490.52,
+          "en": "And one thing I can do, I need of course now additional privileges here.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 490.52,
+          "end": 493.61,
+          "en": "I can just copy my python executable.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 494.25,
+          "end": 497.76,
+          "en": "And I will just copy it into my home directory.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 497.79,
+          "end": 502.23,
+          "en": "Technically, for the copying procedure, I would not necessarily need the pseudo, but it's a little",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 502.23,
+          "end": 508.74,
+          "en": "bit easier if I put the pseudo in front because now in my home directory I have a Python three file",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 508.74,
+          "end": 511.23,
+          "en": "and we can see here it is already owned by root.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 511.23,
+          "end": 517.86,
+          "en": "If I hadn't used pseudo here, then this copy program or this copy command would have been run as a",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 517.89,
+          "end": 522.96,
+          "en": "normal user and then I would have to change this to be owned by root.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 522.96,
+          "end": 528.51,
+          "en": "But now we can see we got a python executable in our home folder that is owned by root.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 528.51,
+          "end": 534.15,
+          "en": "And here we can see root is allowed to read, write and execute it.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 534.15,
+          "end": 540.78,
+          "en": "All others are allowed to read and execute it and oh, the group is allowed to read and execute it and",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 540.78,
+          "end": 544.2,
+          "en": "all others are not allowed to execute it.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 544.2,
+          "end": 546.03,
+          "en": "Let's see if I can execute it.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 547.02,
+          "end": 550.49,
+          "en": "Um, based on those permissions, I should not be able to execute it.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 550.49,
+          "end": 557.39,
+          "en": "And we can see here I'm not able to execute it because this is my current mask that I had set up here",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 557.39,
+          "end": 558.26,
+          "en": "for my system.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 558.26,
+          "end": 560.6,
+          "en": "And it's a new file that has been created here.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 560.6,
+          "end": 564.05,
+          "en": "So that's why I'm not getting this executable permission.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 564.05,
+          "end": 570.74,
+          "en": "But we can change this with a mod plus x for the file Python three in my home directory.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 570.74,
+          "end": 574.25,
+          "en": "And because this file is owned by root, I need to do it like this.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 574.25,
+          "end": 577.46,
+          "en": "Now I can just output this one again.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 577.46,
+          "end": 578.57,
+          "en": "And now we can see here.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 578.57,
+          "end": 579.89,
+          "en": "Oh, this didn't work.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 579.89,
+          "end": 584.03,
+          "en": "Plus x only applied for the user and at that already had that one.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 584.03,
+          "end": 587.15,
+          "en": "So I need to say others plus x for that file.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 587.18,
+          "end": 588.98,
+          "en": "Now I can see this here.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 588.98,
+          "end": 593.96,
+          "en": "Now I'm able to execute it and I think others should also be able to read that file.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 593.96,
+          "end": 596.81,
+          "en": "So I also give this file, read permissions.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 596.99,
+          "end": 605.33,
+          "en": "So this is now that now that we have prepared and we have if we look at this again, we have in my home",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 605.33,
+          "end": 608.07,
+          "en": "folder a file that is owned by root.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 608.1,
+          "end": 616.41,
+          "en": "It's the Python three executable and all others, for example, me here are allowed to read and execute",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 616.41,
+          "end": 616.92,
+          "en": "this one.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 616.92,
+          "end": 619.17,
+          "en": "So let's just see if I start it.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 619.17,
+          "end": 623.28,
+          "en": "If I'm getting a python shell and we can see here right now we are getting a python shell.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 623.28,
+          "end": 625.41,
+          "en": "Looks good to me in Python.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 625.41,
+          "end": 628.41,
+          "en": "I can just quit this shell with the quit command.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 628.65,
+          "end": 631.44,
+          "en": "So right now this is just a normal executable.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 631.44,
+          "end": 633.24,
+          "en": "Nothing special is happening here.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 634.08,
+          "end": 636.99,
+          "en": "Let's have a look at the users that exist on my system.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 636.99,
+          "end": 638.97,
+          "en": "And here you can see we got a different user.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 638.97,
+          "end": 642.84,
+          "en": "For example, the user Jack and I want to look into his home directory.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 642.84,
+          "end": 646.02,
+          "en": "We can see here from my bash, I am not allowed to do this.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 646.02,
+          "end": 647.52,
+          "en": "I get a permission denied.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 647.55,
+          "end": 652.47,
+          "en": "Let's see if I can do this from Python so I can just start Python here.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 652.47,
+          "end": 659.46,
+          "en": "I need to import a module that's called OS for operating system and then I can say list here and then",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 659.46,
+          "end": 665.25,
+          "en": "I can supply a path and we can see here I get a permission denied even.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 665.37,
+          "end": 671.01,
+          "en": "Or also Python is not allowed to list the home directory because it doesn't have the permissions.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 671.52,
+          "end": 673.08,
+          "en": "Don't worry about this too much.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 673.08,
+          "end": 674.49,
+          "en": "This is just Python code.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 674.49,
+          "end": 680.37,
+          "en": "This course is about Bash But again, I couldn't use Bash because it kind of like resets this Uid and",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 680.37,
+          "end": 683.58,
+          "en": "it doesn't account for the additional permissions there.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 683.58,
+          "end": 685.35,
+          "en": "So I needed to use Python.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 685.35,
+          "end": 687.81,
+          "en": "So I will now just quit this shell again.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 687.81,
+          "end": 693.87,
+          "en": "And now let's have a look at what happens when I set this suid the way to go would be sudo.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 693.99,
+          "end": 702.99,
+          "en": "We now need to be root because this file is owned by root and I can say cmd u plus s for the python",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 702.99,
+          "end": 703.77,
+          "en": "three file.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 703.77,
+          "end": 708.36,
+          "en": "So now this this suid bit has been set.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 708.45,
+          "end": 713.73,
+          "en": "Now let's have a look again at the Python three file here and here you can see it's already showing",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 713.73,
+          "end": 718.86,
+          "en": "up in red because it's now a dangerous file because here this one bit is set.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 718.86,
+          "end": 720.87,
+          "en": "So it's executable for the owner.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 720.87,
+          "end": 724.2,
+          "en": "But also this suid or set user ID bit is set.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 724.62,
+          "end": 725.25,
+          "en": "All right.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 725.25,
+          "end": 727.95,
+          "en": "Let's now just repeat the same thing as before.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 727.95,
+          "end": 735.18,
+          "en": "I will now just execute this file and I will now import my operating system module and I can now say",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 735.21,
+          "end": 742.35,
+          "en": "os.listdir, uh, slash home slash jack the home folder of a different user.",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 742.35,
+          "end": 745.68,
+          "en": "And we can see we are able to list the contents there.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 746.28,
+          "end": 747.99,
+          "en": "I could do even more now.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 748.02,
+          "end": 751.2,
+          "en": "I could run commands here from Python.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 751.2,
+          "end": 752.91,
+          "en": "I could start other programs.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 753.24,
+          "end": 757.65,
+          "en": "I am now the root user because the set uid bit is set.",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 757.68,
+          "end": 763.23,
+          "en": "I'm no longer as I'm now the user root and I now have full access to the whole system.",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 763.65,
+          "end": 769.02,
+          "en": "I can use it to look into other home folders, but I could also use it, for example, now to destroy",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 769.02,
+          "end": 772.29,
+          "en": "the system or to do malicious action now.",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 772.29,
+          "end": 778.35,
+          "en": "So this is why I want to emphasize that this suid bit can be really dangerous here.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 778.35,
+          "end": 780.78,
+          "en": "It's been set on a binary executable.",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 780.78,
+          "end": 786.15,
+          "en": "It just happened to be Python and it just happened to open a shell, not a bash shell, but at least",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 786.15,
+          "end": 788.66,
+          "en": "a python shell here for me.",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 788.66,
+          "end": 790.19,
+          "en": "So it made it really easy.",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 790.19,
+          "end": 795.74,
+          "en": "But you can imagine even if that was your own executable and that would be any exploit in it, people",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 795.74,
+          "end": 800.03,
+          "en": "could exploit it and gain complete access to your system.",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 800.87,
+          "end": 806.48,
+          "en": "Of course, this executable here would not necessarily have to be owned by root.",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 806.48,
+          "end": 808.37,
+          "en": "That could also be any other user.",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 808.37,
+          "end": 814.13,
+          "en": "And then in that case, that program would be run as the other user, as the owner here of that file.",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 814.55,
+          "end": 820.13,
+          "en": "We have now looked at the set user ID, but there's also the set group ID, which pretty much works",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 820.13,
+          "end": 822.17,
+          "en": "in an identical, identical way.",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 822.62,
+          "end": 827.48,
+          "en": "We can also give additional privileges based on the group of the owner of that file.",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 827.48,
+          "end": 834.53,
+          "en": "That would be the SG ID or the set group ID example would be if this s would appear here for our group",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 834.53,
+          "end": 835.46,
+          "en": "permissions.",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 835.46,
+          "end": 840.26,
+          "en": "And it works pretty much the same as the suid lowercase s.",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 840.29,
+          "end": 845.93,
+          "en": "It means that the set group ID bit is set and that the executable bit is set and uppercase.",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 846.06,
+          "end": 851.76,
+          "en": "S means that the set group ID bit is set, but the executable bit is not set.",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 852.33,
+          "end": 854.07,
+          "en": "We can just have a look at that.",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 854.07,
+          "end": 858.63,
+          "en": "So for example, here we can see right now the permissions of the Python three file.",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 858.63,
+          "end": 866.6,
+          "en": "But I could say, for example, for the group, I want to add this set group ID bit on my file, Python,",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 866.61,
+          "end": 867.33,
+          "en": "Python three.",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 867.33,
+          "end": 875.37,
+          "en": "And we can see here this this didn't work because I need to be the owner of that file or the user root,",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 875.37,
+          "end": 877.14,
+          "en": "but in this case it's the same.",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 877.8,
+          "end": 881.85,
+          "en": "So I need right now it's owned by root, so I need a pseudo in front of that one.",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 881.85,
+          "end": 883.08,
+          "en": "Enter my password.",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 883.08,
+          "end": 891.72,
+          "en": "And now we can see here and now we can see here this set user ID bit is set and also the set group ID.",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 891.87,
+          "end": 897.96,
+          "en": "So now if this program would be executed, it would be run as the root user, root as the group root",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 897.96,
+          "end": 899.58,
+          "en": "without needing any password.",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 899.58,
+          "end": 906,
+          "en": "And here we can see we can just we could now just start that program again in order to give out this",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 906.1,
+          "end": 914.38,
+          "en": "permission for the set user ID and the set group ID, we need to be the owner of that file and be able",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 914.38,
+          "end": 916.12,
+          "en": "to in general change permissions.",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 916.51,
+          "end": 922.27,
+          "en": "But here you can see this is now if I would now start that program, I would not just be the user root,",
+          "zh": ""
+        },
+        {
+          "id": 204,
+          "start": 922.27,
+          "end": 924.7,
+          "en": "but I would then also be the group root.",
+          "zh": ""
+        },
+        {
+          "id": 205,
+          "start": 924.97,
+          "end": 926.83,
+          "en": "But the effect would be the same.",
+          "zh": ""
+        },
+        {
+          "id": 206,
+          "start": 926.83,
+          "end": 929.35,
+          "en": "I would have full control over my whole system.",
+          "zh": ""
+        },
+        {
+          "id": 207,
+          "start": 929.35,
+          "end": 933.58,
+          "en": "So this is the set user ID and the set group ID.",
+          "zh": ""
+        },
+        {
+          "id": 208,
+          "start": 933.58,
+          "end": 939.91,
+          "en": "I would like to emphasize it's this is an important feature because for certain tasks we need additional",
+          "zh": ""
+        },
+        {
+          "id": 209,
+          "start": 939.91,
+          "end": 940.69,
+          "en": "privileges.",
+          "zh": ""
+        },
+        {
+          "id": 210,
+          "start": 940.69,
+          "end": 948.04,
+          "en": "Just for example, pseudo switch user, maybe some mounts that are allowed as a normal user, maybe",
+          "zh": ""
+        },
+        {
+          "id": 211,
+          "start": 948.04,
+          "end": 953.32,
+          "en": "other tasks that are allowed as a normal users, but those files then will be in binary form.",
+          "zh": ""
+        },
+        {
+          "id": 212,
+          "start": 953.32,
+          "end": 958.72,
+          "en": "They will not be scripts, they will not be super easy to modify and they will have certain checks that",
+          "zh": ""
+        },
+        {
+          "id": 213,
+          "start": 958.72,
+          "end": 964.78,
+          "en": "we can only do certain tasks that we consider safe and this will be compiled into that binary.",
+          "zh": ""
+        },
+        {
+          "id": 214,
+          "start": 965.2,
+          "end": 970.29,
+          "en": "And this is the way, um, this can be used responsibly.",
+          "zh": ""
+        },
+        {
+          "id": 215,
+          "start": 970.29,
+          "end": 974.49,
+          "en": "So this is the set user ID and the set group ID bit.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

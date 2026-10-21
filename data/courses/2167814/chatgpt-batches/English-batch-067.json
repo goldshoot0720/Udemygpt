@@ -1,0 +1,4993 @@
+{
+  "version": 1,
+  "courseId": 2167814,
+  "courseSlug": "spring-5-with-spring-boot-2",
+  "courseTitle": "Java Spring Framework, Spring Boot, Spring AI - Gen AI",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "41788378",
+      "title": "Validating the input using Around Advice",
+      "lectureOrder": 287,
+      "videoOrder": 286,
+      "sourceHash": "2ded580a28e0ac5c6076b2b2a8800e84da90e08798c49e4e3c1229523c1e2e05",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0,
+          "end": 3.21,
+          "en": "(upbeat music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.21,
+          "end": 5.603,
+          "en": "-: So now let's validate the input.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.603,
+          "end": 7.12,
+          "en": "Now what input I'm talking about.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.12,
+          "end": 8.835,
+          "en": "So if let's say if you go back to Postman",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 8.835,
+          "end": 11.135,
+          "en": "and if you hit the value for one per request,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 11.135,
+          "end": 13.88,
+          "en": "let's say for four, and when you click on send,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 13.88,
+          "end": 15.177,
+          "en": "of course you got the response.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 15.177,
+          "end": 18.818,
+          "en": "But let's say if someone is sending a negative value, okay?",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 18.818,
+          "end": 21.193,
+          "en": "In real world people will not do that.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 21.193,
+          "end": 24.3,
+          "en": "But let's say for any type of data, we are just going",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 24.3,
+          "end": 26.258,
+          "en": "for one record here or one variable.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 26.258,
+          "end": 28.56,
+          "en": "You can work with any kind of variable you want,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 28.56,
+          "end": 30.36,
+          "en": "but at this point, let's say if someone's sending",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 30.36,
+          "end": 32.49,
+          "en": "for minus four and when you click on send,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 32.49,
+          "end": 35.756,
+          "en": "you can see we got the post, a zero post profile is null.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 35.756,
+          "end": 37.738,
+          "en": "Basically the data is not the database,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 37.738,
+          "end": 40.098,
+          "en": "it's a mistake from the user side, right?",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 40.098,
+          "end": 42.96,
+          "en": "But maybe user was trying to send requests for four",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 42.96,
+          "end": 45.69,
+          "en": "and by mistake he's sending a request for minus four.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 45.69,
+          "end": 47.01,
+          "en": "What we can do is even",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 47.01,
+          "end": 50.129,
+          "en": "before you send us requests to the actual service job",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 50.129,
+          "end": 52.29,
+          "en": "or the job service methods,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 52.29,
+          "end": 53.881,
+          "en": "what if you can change it in between?",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 53.881,
+          "end": 55.5,
+          "en": "Okay, that's something we are",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 55.5,
+          "end": 56.88,
+          "en": "playing with the input fields, right?",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 56.88,
+          "end": 59.07,
+          "en": "In fact, not just with the input, you can also play",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 59.07,
+          "end": 61.74,
+          "en": "with the output, which our use service mode is sending.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 61.74,
+          "end": 63.69,
+          "en": "But let's say, let's only play with the input now.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 63.69,
+          "end": 65.43,
+          "en": "So I want to make this work, when I click on send,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 65.43,
+          "end": 67.14,
+          "en": "I want to make it work.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 67.14,
+          "end": 70.05199999999999,
+          "en": "So what we can do is let's create another aspect here",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 70.05199999999999,
+          "end": 72.36,
+          "en": "in a OP for package.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 72.36,
+          "end": 76.36,
+          "en": "And I will say this validation aspect",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 77.20400000000001,
+          "end": 79.31,
+          "en": "and not just changing, if you just want to check",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 79.31,
+          "end": 81.434,
+          "en": "for the values, you can also do that here.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 81.434,
+          "end": 84.529,
+          "en": "You can stop the request if the value is not correct.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 84.529,
+          "end": 87.69,
+          "en": "So you can do all those things in this validation aspect",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 87.69,
+          "end": 89.07,
+          "en": "if you want to make it work.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 89.07,
+          "end": 90.78,
+          "en": "I will just make this as a component",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 90.78,
+          "end": 92.657,
+          "en": "and aspect that's important.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 92.657,
+          "end": 95.9,
+          "en": "And now we also need the logging statement, right?",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 95.9,
+          "end": 98.34,
+          "en": "So we'll just take this and use it here.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 98.34,
+          "end": 99.18,
+          "en": "We have to change one thing,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 99.18,
+          "end": 100.62,
+          "en": "instead of saying performance monitor,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 100.62,
+          "end": 102.39099999999999,
+          "en": "we'll say variation aspect.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 102.39099999999999,
+          "end": 104.61,
+          "en": "Okay, now let's start the actual work.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 104.61,
+          "end": 105.753,
+          "en": "So we need a method, right, so we'll say public",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 105.753,
+          "end": 108.36,
+          "en": "and we know that it returns the object",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 108.36,
+          "end": 109.75,
+          "en": "because we are going to use around advice.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 109.75,
+          "end": 111.47999999999999,
+          "en": "So if you want to change the value,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 111.47999999999999,
+          "end": 114.66,
+          "en": "you can use around advice here and public object.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 114.66,
+          "end": 116.447,
+          "en": "Let's use a method name as validate",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 116.447,
+          "end": 118.47,
+          "en": "and update, not just checking, right?",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 118.47,
+          "end": 121.77,
+          "en": "We have to also update it and okay,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 121.77,
+          "end": 124.26,
+          "en": "this is a method I want this to be around.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 124.26,
+          "end": 128.311,
+          "en": "So I would say around and here, okay,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 128.311,
+          "end": 130.52100000000002,
+          "en": "we have to mention the execution.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 130.52100000000002,
+          "end": 135.52100000000002,
+          "en": "So it should be for execution of written type, anything.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 137.18,
+          "end": 140.73,
+          "en": "I want the entire package name so I can just simply use it",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 140.73,
+          "end": 142.893,
+          "en": "now instead of typing it alone,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 143.94,
+          "end": 147.6,
+          "en": "let's only work with get job, right?",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 147.6,
+          "end": 150.936,
+          "en": "So we'll just copy this, paste it here,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 150.936,
+          "end": 153.96,
+          "en": "and in short of start I will say get job.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 153.96,
+          "end": 156.12,
+          "en": "That's the only method I want to work with, okay?",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 156.12,
+          "end": 157.77,
+          "en": "And now we have to return something, right?",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 157.77,
+          "end": 159.78,
+          "en": "So it's a return object.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 159.78,
+          "end": 162.12,
+          "en": "We have to get object here, we will do that in some time.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 162.12,
+          "end": 163.8,
+          "en": "I will simply say null at this point.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 163.8,
+          "end": 165.36,
+          "en": "Okay, so now let's start working.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 165.36,
+          "end": 168.098,
+          "en": "So we have to accept the value, right?",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 168.098,
+          "end": 171.27,
+          "en": "So for that we can use first of all pursuing join point",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 171.27,
+          "end": 173.019,
+          "en": "because that's what we are going to use for proceed.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 173.019,
+          "end": 175.987,
+          "en": "But apart from this, I also want one more variable.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 175.987,
+          "end": 179.31,
+          "en": "See, when you say you want to validate get job,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 179.31,
+          "end": 181.781,
+          "en": "which will have a post Id, so I want to get a hold on",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 181.781,
+          "end": 183.732,
+          "en": "that variable here as well.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 183.732,
+          "end": 186.086,
+          "en": "Now the question is how will I get the value here?",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 186.086,
+          "end": 187.722,
+          "en": "See if I get the value here,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 187.722,
+          "end": 190.53,
+          "en": "I can basically perform the operations which I want,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 190.53,
+          "end": 192.101,
+          "en": "but then how will I get the value?",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 192.101,
+          "end": 193.449,
+          "en": "See if you want to get the value,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 193.449,
+          "end": 195.564,
+          "en": "you can pass one more parameter here",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 195.564,
+          "end": 197.61,
+          "en": "by using double amp percent and then you can",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 197.61,
+          "end": 199.26,
+          "en": "mention the arguments.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 199.26,
+          "end": 200.91,
+          "en": "And in bracket you can mention the argument name,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 200.91,
+          "end": 202.26,
+          "en": "which is post Id.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 202.26,
+          "end": 203.581,
+          "en": "So whatever arguments you are passing",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 203.581,
+          "end": 206.493,
+          "en": "inside this get job will get a name post Id",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 206.493,
+          "end": 208.755,
+          "en": "and that's the same name you are using here.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 208.755,
+          "end": 210.42000000000002,
+          "en": "So whatever value you're passing.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 210.42000000000002,
+          "end": 213,
+          "en": "So if you're passing minus four, this will be minus four.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 213,
+          "end": 214.802,
+          "en": "If you're passing two, it'll be two, okay?",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 214.802,
+          "end": 216.653,
+          "en": "Now, once you've got the value here,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 216.653,
+          "end": 218.07,
+          "en": "we can perform the operation.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 218.07,
+          "end": 219.54,
+          "en": "Now what option I'm talking about, we want",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 219.54,
+          "end": 223.68,
+          "en": "to check if the post Id, if it is less than zero",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 223.68,
+          "end": 226.36599999999999,
+          "en": "or even, okay, let's say less than zero.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 226.36599999999999,
+          "end": 230.582,
+          "en": "In that case, we'll say post Id is equal to minus post Id.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 230.582,
+          "end": 233.16,
+          "en": "So what we are doing is we are changing it, right?",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 233.16,
+          "end": 234.92000000000002,
+          "en": "So if it is minus four, it'll become plus four minus,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 234.92000000000002,
+          "end": 238.35,
+          "en": "minus plus basic balance and that's it.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 238.35,
+          "end": 240.593,
+          "en": "Once you have changed the value, it's time to call",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 240.593,
+          "end": 244.682,
+          "en": "that method, which is jp.proceed.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 244.682,
+          "end": 246.393,
+          "en": "But in this proceed, there's one problem.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 246.393,
+          "end": 251.07,
+          "en": "If you simply say proceed, it will call the method, right?",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 251.07,
+          "end": 253.826,
+          "en": "But not with the updated arguments, okay?",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 253.826,
+          "end": 256.296,
+          "en": "So okay, it it might throw an exception.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 256.296,
+          "end": 258.223,
+          "en": "Let me show you what I'm talking about.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 258.223,
+          "end": 262.5,
+          "en": "Okay, so when you say proceed, it'll call the get job method",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 262.5,
+          "end": 264.818,
+          "en": "with the same value, which is coming from the client.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 264.818,
+          "end": 267.54,
+          "en": "We don't want that, we want to send our own value,",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 267.54,
+          "end": 269.1,
+          "en": "which we have updated.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 269.1,
+          "end": 272.22,
+          "en": "In that case, you have to pass the arguments as well.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 272.22,
+          "end": 273.57,
+          "en": "So in the proceed,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 273.57,
+          "end": 276.45,
+          "en": "if you can see we have a different method for it.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 276.45,
+          "end": 279.383,
+          "en": "So it says there's one proceed method with no parameters",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 279.383,
+          "end": 281.67,
+          "en": "and there's a second proceed method which takes",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 281.67,
+          "end": 282.784,
+          "en": "the object added.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 282.784,
+          "end": 285.9,
+          "en": "Okay, so we have to basically pass the values and added.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 285.9,
+          "end": 289.26,
+          "en": "So what we can do here is I can pass a new object",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 289.26,
+          "end": 292.05,
+          "en": "added and I'm just passing one value.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 292.05,
+          "end": 293.37,
+          "en": "So if you have multiple value variables,",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 293.37,
+          "end": 295.675,
+          "en": "you can simply add comma and you can make it work.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 295.675,
+          "end": 297.78,
+          "en": "That's it, this is the thing you have to do.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 297.78,
+          "end": 299.28,
+          "en": "But this will return an object as well.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 299.28,
+          "end": 301.48,
+          "en": "So we'll simply say object OBJ,",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 301.48,
+          "end": 304.887,
+          "en": "and here let's return OBJ, as simple as that.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 304.887,
+          "end": 307.59,
+          "en": "So what we are doing is we are changing the value",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 307.59,
+          "end": 310.38,
+          "en": "which you are get job of services getting.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 310.38,
+          "end": 311.831,
+          "en": "So even before you call that method,",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 311.831,
+          "end": 315.3,
+          "en": "you are changing the value and I hope this will work.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 315.3,
+          "end": 316.53,
+          "en": "Let's try, in fact,",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 316.53,
+          "end": 317.94,
+          "en": "there should be some long message as well, right?",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 317.94,
+          "end": 321.913,
+          "en": "So I will say logger dot info,",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 321.913,
+          "end": 326.913,
+          "en": "I can say post Id is negative updating it, okay?",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 328.92,
+          "end": 333.207,
+          "en": "And maybe I just want to say new value here, new value,",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 333.207,
+          "end": 335.01,
+          "en": "and let's print the post Id.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 335.01,
+          "end": 336.45,
+          "en": "So whatever new value is getting updated,",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 336.45,
+          "end": 337.931,
+          "en": "we will also print that there.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 337.931,
+          "end": 339.946,
+          "en": "And now after making changes, let's restart,",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 339.946,
+          "end": 341.507,
+          "en": "let's go to Postman.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 341.507,
+          "end": 343.8,
+          "en": "And first of all, let's work with four.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 343.8,
+          "end": 345.64,
+          "en": "And let's say what happens when you click on send,",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 345.64,
+          "end": 347.028,
+          "en": "you can see it is working for four",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 347.028,
+          "end": 348.822,
+          "en": "and there is no problem here.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 348.822,
+          "end": 351.001,
+          "en": "You can see it is not printing positive",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 351.001,
+          "end": 353.37,
+          "en": "or the post Id is negative.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 353.37,
+          "end": 354.5,
+          "en": "But the moment you send a request",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 354.5,
+          "end": 356.97,
+          "en": "for minus four, that's where it'll trigger.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 356.97,
+          "end": 358.153,
+          "en": "You can see it is working first of all,",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 358.153,
+          "end": 359.79,
+          "en": "and let's see the console.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 359.79,
+          "end": 361.148,
+          "en": "So post that is negative, updating it",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 361.148,
+          "end": 363.048,
+          "en": "and the new value is four.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 363.048,
+          "end": 365.45,
+          "en": "Okay, so that's how things are working out.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 365.45,
+          "end": 368.288,
+          "en": "So basically we are violating the input as well",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 368.288,
+          "end": 370.028,
+          "en": "and we are changing it.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 370.028,
+          "end": 372.524,
+          "en": "If you don't wanna change it, that's your choice for that.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 372.524,
+          "end": 375.15,
+          "en": "You can also use before advice and you can make it work.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 375.15,
+          "end": 378.36,
+          "en": "So yeah, that's it from this video where we talked about",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 378.36,
+          "end": 381.453,
+          "en": "how do you validate with the help of around advice.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "42058450",
+      "title": "Importance Of Security",
+      "lectureOrder": 288,
+      "videoOrder": 287,
+      "sourceHash": "1b6907b2fc0f88a04281dc4e80b8286d60d17025f59257768c72881d4b70370c",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0,
+          "end": 3.33,
+          "en": "(peaceful music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.33,
+          "end": 6.211,
+          "en": "-: In this module, we'll talk about spring security.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.211,
+          "end": 8.019,
+          "en": "The thing is, when you build an application,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.019,
+          "end": 11.322,
+          "en": "what's the most important thing which comes to your mind?",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.322,
+          "end": 14.37,
+          "en": "I know according to this topic, it should be security.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.37,
+          "end": 17.43,
+          "en": "But as a developer, the most important thing for us,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 17.43,
+          "end": 18.69,
+          "en": "the project should work, right?",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 18.69,
+          "end": 21.852,
+          "en": "So whatever code you write should work is our first thing.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 21.852,
+          "end": 23.97,
+          "en": "And then of course your code should work.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 23.97,
+          "end": 26.19,
+          "en": "If your client is accessing your application,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 26.19,
+          "end": 27.09,
+          "en": "it should work, right?",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 27.09,
+          "end": 29.37,
+          "en": "Otherwise why someone will use your application?",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 29.37,
+          "end": 30.51,
+          "en": "So that's first thing.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 30.51,
+          "end": 32.49,
+          "en": "Second, we need to make sure",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 32.49,
+          "end": 35.13,
+          "en": "that your application is stable.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 35.13,
+          "end": 37.23,
+          "en": "So let's say in your project you have 10 features",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 37.23,
+          "end": 39.12,
+          "en": "and then you want them to work.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 39.12,
+          "end": 42.12,
+          "en": "Of course you will test your application by doing that",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 42.12,
+          "end": 42.953,
+          "en": "and doing the doing this.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 42.953,
+          "end": 46.71,
+          "en": "If everything works fine, you are confident that it'll work,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 46.71,
+          "end": 48.63,
+          "en": "but then will it work every time?",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 48.63,
+          "end": 49.463,
+          "en": "That's a question.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 49.463,
+          "end": 51.24,
+          "en": "So you want to make your application stable.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 51.24,
+          "end": 54.03,
+          "en": "So it doesn't matter what kind of input your user gives,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 54.03,
+          "end": 56.28,
+          "en": "you have to handle those exceptions.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 56.28,
+          "end": 58.41,
+          "en": "And we have talked about exceptions before, right?",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 58.41,
+          "end": 60.48,
+          "en": "So basically we have to make sure as a developer",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 60.48,
+          "end": 62.1,
+          "en": "that you handle the exceptions.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 62.1,
+          "end": 65.01,
+          "en": "You make sure that your application is stable.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 65.01,
+          "end": 67.32,
+          "en": "So even if you have lot of users,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 67.32,
+          "end": 68.153,
+          "en": "we have to make sure",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 68.153,
+          "end": 69.625,
+          "en": "that your application is scalable as well.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 69.625,
+          "end": 72,
+          "en": "Maybe that's a part of cloud deployment.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 72,
+          "end": 75,
+          "en": "You can scale your cloud applications and stuff,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 75,
+          "end": 77.37,
+          "en": "but the important thing is your code should work",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 77.37,
+          "end": 78.33,
+          "en": "and it should be stable.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 78.33,
+          "end": 80.922,
+          "en": "The next important thing we look at is performance,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 80.922,
+          "end": 82.28999999999999,
+          "en": "of course, right,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 82.28999999999999,
+          "end": 84.63,
+          "en": "nowadays we don't have patience, as a user,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 84.63,
+          "end": 85.5,
+          "en": "we don't have patience, right?",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 85.5,
+          "end": 87.69,
+          "en": "When you go to any application, it doesn't matter.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 87.69,
+          "end": 88.931,
+          "en": "Is it our e-commerce website or social media website",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 88.931,
+          "end": 91.74,
+          "en": "or it is our enterprise application.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 91.74,
+          "end": 93.06,
+          "en": "We want speed.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 93.06,
+          "end": 96.92,
+          "en": "Basically we want the result in less amount of time.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 96.92,
+          "end": 98.85,
+          "en": "So we have to make sure",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 98.85,
+          "end": 101.37,
+          "en": "that your application has a good performance,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 101.37,
+          "end": 102.99000000000001,
+          "en": "not just one feature.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 102.99000000000001,
+          "end": 105.24000000000001,
+          "en": "Everything should be on the same page.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 105.24000000000001,
+          "end": 107.7,
+          "en": "We tend to make some features faster,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 107.7,
+          "end": 110.22,
+          "en": "and then because of some complex behavior,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 110.22,
+          "end": 111.78,
+          "en": "some of the features lag.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 111.78,
+          "end": 114.53999999999999,
+          "en": "But then we try to focus that everything goes smoothly.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 114.53999999999999,
+          "end": 116.31,
+          "en": "So the thing is, the application should work.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 116.31,
+          "end": 117.42,
+          "en": "The application should be stable,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 117.42,
+          "end": 119.34,
+          "en": "and also we need performance,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 119.34,
+          "end": 120.99,
+          "en": "but what about security?",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 120.99,
+          "end": 122.61,
+          "en": "See, the thing is, as a developer,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 122.61,
+          "end": 126.15,
+          "en": "we have this mindset that security is not our concern.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 126.15,
+          "end": 127.95,
+          "en": "Because when you build an application,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 127.95,
+          "end": 129.3,
+          "en": "and if it's an enterprise application,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 129.3,
+          "end": 130.95,
+          "en": "of course we have a supply team",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 130.95,
+          "end": 133.56,
+          "en": "who will provide the security for your project.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 133.56,
+          "end": 135.03,
+          "en": "Now, when when you talk about security,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 135.03,
+          "end": 136.53,
+          "en": "what comes to your mind?",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 136.53,
+          "end": 138.868,
+          "en": "Maybe there are some attackers attacking your application.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 138.868,
+          "end": 142.05,
+          "en": "And the way you secure them is with the help of firewall,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 142.05,
+          "end": 145.2,
+          "en": "or some policies, which you set,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 145.2,
+          "end": 146.91,
+          "en": "who can I use this application?",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 146.91,
+          "end": 148.53,
+          "en": "But then it goes beyond that.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 148.53,
+          "end": 150.93,
+          "en": "One of the example you can say is login password.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 150.93,
+          "end": 152.44400000000002,
+          "en": "So of course whenever you go to any website",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 152.44400000000002,
+          "end": 155.25,
+          "en": "where the data should be secure,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 155.25,
+          "end": 158.13,
+          "en": "we do get their username and password, right?",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 158.13,
+          "end": 159.15699999999998,
+          "en": "So we have to consider that part.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 159.15699999999998,
+          "end": 161.43,
+          "en": "So if a user comes to your application by saying,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 161.43,
+          "end": 162.66,
+          "en": "hey, I'm Navin,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 162.66,
+          "end": 164.97,
+          "en": "how do you prove yourself that you're Navin?",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 164.97,
+          "end": 166.936,
+          "en": "Next, what are the rules you have?",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 166.936,
+          "end": 169.53,
+          "en": "So we take care of those things, right?",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 169.53,
+          "end": 171.66,
+          "en": "So the question is how will you implement security",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 171.66,
+          "end": 173.43,
+          "en": "in terms of authentication,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 173.43,
+          "end": 174.903,
+          "en": "in terms of authorization?",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 174.903,
+          "end": 177.817,
+          "en": "It's not just about a username password,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 177.817,
+          "end": 181.23,
+          "en": "it's also about what features you can access.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 181.23,
+          "end": 183.21,
+          "en": "Example, if we talk about our application,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 183.21,
+          "end": 184.974,
+          "en": "which is job application, it is working.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 184.974,
+          "end": 186.219,
+          "en": "I'm not sure if it's stable",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 186.219,
+          "end": 188.19,
+          "en": "because we have not done exceptional handling.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 188.19,
+          "end": 189.417,
+          "en": "I'm not sure if it has good performances",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 189.417,
+          "end": 192.57,
+          "en": "because we have not done any scale scalable code there.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 192.57,
+          "end": 195.69,
+          "en": "But how about security? Anyone can add a job.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 195.69,
+          "end": 199.68,
+          "en": "Anyone can delete a job. Anyone can basically search a job.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 199.68,
+          "end": 201.156,
+          "en": "Don't you think different users",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 201.156,
+          "end": 203.16,
+          "en": "should have a different access?",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 203.16,
+          "end": 205.8,
+          "en": "Example, if you are creating a new job,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 205.8,
+          "end": 207.81,
+          "en": "we have to make sure that you're the admin,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 207.81,
+          "end": 210.215,
+          "en": "not a normal user should not be able to create a job there.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 210.215,
+          "end": 212.52,
+          "en": "And if you're deleting a job or any,",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 212.52,
+          "end": 215.496,
+          "en": "if you're doing any changes to the application,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 215.496,
+          "end": 217.53,
+          "en": "we have to check the access.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 217.53,
+          "end": 219.36,
+          "en": "The authorization is also important,",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 219.36,
+          "end": 221.55700000000002,
+          "en": "but is it the only two things important?",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 221.55700000000002,
+          "end": 223.35,
+          "en": "Not exactly.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 223.35,
+          "end": 224.49,
+          "en": "See, if we talk about security,",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 224.49,
+          "end": 226.82999999999998,
+          "en": "there are a lot of different things and hackers",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 226.82999999999998,
+          "end": 228.905,
+          "en": "or someone who want to attack your application,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 228.905,
+          "end": 231.09,
+          "en": "they are much ahead",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 231.09,
+          "end": 234.69,
+          "en": "in terms of what are the security vulnerabilities we have",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 234.69,
+          "end": 235.86,
+          "en": "or how they can attack your application.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 235.86,
+          "end": 239.43,
+          "en": "So you have to basically take care of everything,",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 239.43,
+          "end": 241.32,
+          "en": "even if you have a small loophole.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 241.32,
+          "end": 243.693,
+          "en": "So let's say you build an application, you try to secure it,",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 243.693,
+          "end": 246.347,
+          "en": "but there will be one simple loophole",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 246.347,
+          "end": 250.11,
+          "en": "and the attackers are going to attack exactly at that place.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 250.11,
+          "end": 251.31,
+          "en": "And because of that loophole,",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 251.31,
+          "end": 253.41,
+          "en": "your application can be hacked.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 253.41,
+          "end": 255.51,
+          "en": "'cause if have to make sure that we secured it",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 255.51,
+          "end": 258.9,
+          "en": "and the what level of security we have to go to.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 258.9,
+          "end": 260.82,
+          "en": "See there are different kind of applications, right?",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 260.82,
+          "end": 263.01,
+          "en": "We have applications which manages your data,",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 263.01,
+          "end": 264.81,
+          "en": "in fact, we have some application",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 264.81,
+          "end": 266.46,
+          "en": "where they don't manage your data,",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 266.46,
+          "end": 268.98,
+          "en": "they manage their own data, which can be public.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 268.98,
+          "end": 271.149,
+          "en": "So if you have a public website, everything is public.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 271.149,
+          "end": 275.07,
+          "en": "In that case, security is important, but then not that much.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 275.07,
+          "end": 278.402,
+          "en": "But what if you are basically handling user personal data?",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 278.402,
+          "end": 280.11,
+          "en": "Now that's critical.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 280.11,
+          "end": 282.763,
+          "en": "If you are handling user credit card information,",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 282.763,
+          "end": 284.25,
+          "en": "now that's critical,",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 284.25,
+          "end": 287.04,
+          "en": "you are handling user medical records, now that's critical.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 287.04,
+          "end": 288.51,
+          "en": "If you're handling user's money,",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 288.51,
+          "end": 289.883,
+          "en": "something like a banking application,",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 289.883,
+          "end": 291.27,
+          "en": "that's very, very critical",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 291.27,
+          "end": 292.62,
+          "en": "because that's a human tendency, right?",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 292.62,
+          "end": 294.57,
+          "en": "We care more about money than your personal data.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 294.57,
+          "end": 296.82,
+          "en": "But your personality is also important.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 296.82,
+          "end": 300.21,
+          "en": "I mean, think about this, if someone hacks your credit card,",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 300.21,
+          "end": 301.89,
+          "en": "so let's say if a company announced, hey,",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 301.89,
+          "end": 304.14,
+          "en": "you know there's an attack on the website",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 304.14,
+          "end": 305.67,
+          "en": "or on the application",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 305.67,
+          "end": 309.39,
+          "en": "and millions of credit card information has been leaked,",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 309.39,
+          "end": 310.806,
+          "en": "you will be concerned.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 310.806,
+          "end": 313.32,
+          "en": "But then you can also block your credit cards, right?",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 313.32,
+          "end": 314.37,
+          "en": "So the moment I get this message,",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 314.37,
+          "end": 315.45,
+          "en": "I can block my credit card.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 315.45,
+          "end": 317.64,
+          "en": "What about if someone hacks your bank account?",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 317.64,
+          "end": 319.95,
+          "en": "Maybe they withdraw some money,",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 319.95,
+          "end": 322.276,
+          "en": "but then you can block your bank account as well.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 322.276,
+          "end": 325.2,
+          "en": "What about your medical records or personal data?",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 325.2,
+          "end": 328.08,
+          "en": "Once it is gone, it's gone, okay?",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 328.08,
+          "end": 329.883,
+          "en": "Maybe privacy is not important to you,",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 329.883,
+          "end": 332.43,
+          "en": "but it's important for most of us.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 332.43,
+          "end": 335.85,
+          "en": "So you have to make sure that we handle the data as well.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 335.85,
+          "end": 338.31,
+          "en": "So according to some rules and regulations,",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 338.31,
+          "end": 340.2,
+          "en": "personal data is also important.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 340.2,
+          "end": 343.59000000000003,
+          "en": "So if you leak those data, I mean not on purpose,",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 343.59000000000003,
+          "end": 346.08,
+          "en": "but let's say there's attack on the user data",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 346.08,
+          "end": 348.39,
+          "en": "which you are handling, you have to pay high penalty",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 348.39,
+          "end": 350.79,
+          "en": "or you might have to go to jail as well.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 350.79,
+          "end": 352.14,
+          "en": "So that's something you have to take care of.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 352.14,
+          "end": 354.6,
+          "en": "So personal data is very, very important.",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 354.6,
+          "end": 357.15,
+          "en": "But now question arise. How do you know?",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 357.15,
+          "end": 358.53,
+          "en": "How do you secure the application?",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 358.53,
+          "end": 359.7,
+          "en": "What are the attacks we have?",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 359.7,
+          "end": 362.67,
+          "en": "And that's where we have something called OWASP Top 10,",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 362.67,
+          "end": 365.64,
+          "en": "in which you will see the top 10 attacks which's happening",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 365.64,
+          "end": 367.11,
+          "en": "and you can take care of it.",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 367.11,
+          "end": 368.82,
+          "en": "But what exactly OWASP is",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 368.82,
+          "end": 371.94,
+          "en": "and what is the those top 10 security risk?",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 371.94,
+          "end": 373.44,
+          "en": "Let's talk about that in the next video.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 373.44,
+          "end": 374.43,
+          "en": "And one more thing,",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 374.43,
+          "end": 376.36,
+          "en": "now since we are talking about all the security",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 376.36,
+          "end": 378.6,
+          "en": "in this topic of security,",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 378.6,
+          "end": 382.47,
+          "en": "does it handle most of the security issues?",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 382.47,
+          "end": 384.21,
+          "en": "And the answer is yes. How?",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 384.21,
+          "end": 385.66,
+          "en": "We'll see that in the course.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "42058454",
+      "title": "OWASP Top 10",
+      "lectureOrder": 289,
+      "videoOrder": 288,
+      "sourceHash": "a87eb56fc7da69879649d18f09930528b1641f32f2f03d4348b8352cbe47a326",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0,
+          "end": 3.21,
+          "en": "(upbeat music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.21,
+          "end": 5.007,
+          "en": "-: So before jumping into Spring Security,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.007,
+          "end": 8.114,
+          "en": "let's talk about the top 10 security risk.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.114,
+          "end": 10.8,
+          "en": "Now to understand this, we have a place",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.8,
+          "end": 13.294,
+          "en": "where we can see the top 10 security risk.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 13.294,
+          "end": 16.726,
+          "en": "Now when you say top 10 is not the only 10, we have lot",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 16.726,
+          "end": 19.08,
+          "en": "of security risk which have to take care of.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 19.08,
+          "end": 20.19,
+          "en": "But then these are top 10,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 20.19,
+          "end": 21.78,
+          "en": "at least solve this problem first.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 21.78,
+          "end": 26.01,
+          "en": "Now to create this top 10, we got something called OWASP.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 26.01,
+          "end": 27.542,
+          "en": "Now if you see the full form of OWASP,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 27.542,
+          "end": 31.77,
+          "en": "it's a open web application security project,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 31.77,
+          "end": 32.781,
+          "en": "in short OWASP,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 32.781,
+          "end": 35.94,
+          "en": "and they create this top 10 every four years.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 35.94,
+          "end": 38.79,
+          "en": "So last time they did is in 2021,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 38.79,
+          "end": 42.93,
+          "en": "and before that it was 2017 and now expecting it 2025.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 42.93,
+          "end": 45.687,
+          "en": "So till that, we have to go for this top 10.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 45.687,
+          "end": 47.88,
+          "en": "And of course I want you to be updated.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 47.88,
+          "end": 48.96,
+          "en": "So if you're watching this video",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 48.96,
+          "end": 50.13,
+          "en": "after a few years, make sure",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 50.13,
+          "end": 51.903,
+          "en": "that you check the list at that time.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 51.903,
+          "end": 54.51,
+          "en": "Now, if you look at this list, of course when we go",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 54.51,
+          "end": 57.163,
+          "en": "to the topic of spring security, we'll talk about each",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 57.163,
+          "end": 59.413,
+          "en": "of one of them, which one we are trying to solve.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 59.413,
+          "end": 63.15,
+          "en": "But then of course we may not be looking at all the security",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 63.15,
+          "end": 64.658,
+          "en": "risk here, but then we'll see",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 64.658,
+          "end": 67.337,
+          "en": "what are the things which we can solve in spring security.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 67.337,
+          "end": 69.42,
+          "en": "Okay, so let's talk about the first one.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 69.42,
+          "end": 70.53,
+          "en": "So you can see we have top 10.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 70.53,
+          "end": 72.358,
+          "en": "We got the first one, which is book broken access control.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 72.358,
+          "end": 74.37,
+          "en": "If you want to read more about this,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 74.37,
+          "end": 76.65,
+          "en": "we can click here on the new tab.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 76.65,
+          "end": 78.132,
+          "en": "They will give you description.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 78.132,
+          "end": 81.9,
+          "en": "Now basically this talks about the access control.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 81.9,
+          "end": 83.03999999999999,
+          "en": "Remember when we talked about",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 83.03999999999999,
+          "end": 84.93,
+          "en": "authentication and authorization?",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 84.93,
+          "end": 88.41,
+          "en": "So as a user, what are the resources I can access?",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 88.41,
+          "end": 90.39,
+          "en": "What are the resources I can modify?",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 90.39,
+          "end": 92.59700000000001,
+          "en": "So all this controls, if those are broken,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 92.59700000000001,
+          "end": 93.907,
+          "en": "then it's a security risk.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 93.907,
+          "end": 96.39699999999999,
+          "en": "Now of course, if you can just read this,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 96.39699999999999,
+          "end": 98.94,
+          "en": "it'll give you more idea, I will share the link",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 98.94,
+          "end": 100.413,
+          "en": "and the resources as well for this website.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 100.413,
+          "end": 103.5,
+          "en": "And it it gives you the introduction for access control.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 103.5,
+          "end": 106.199,
+          "en": "The next one we have is cryptographic failure.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 106.199,
+          "end": 109.08,
+          "en": "Now, cryptographic becomes a very important thing in",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 109.08,
+          "end": 111.72,
+          "en": "securities because whatever data you send from server",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 111.72,
+          "end": 114.202,
+          "en": "to client, from client to server need to be secured.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 114.202,
+          "end": 118.86699999999999,
+          "en": "So let's say if a server is basically secured by saying,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 118.86699999999999,
+          "end": 121.98,
+          "en": "\"Hey, no one other than the actual users can access this",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 121.98,
+          "end": 124.32,
+          "en": "data\", but the data is getting passed from",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 124.32,
+          "end": 125.37,
+          "en": "the server to client, right?",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 125.37,
+          "end": 126.9,
+          "en": "If you're not encrypting it,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 126.9,
+          "end": 128.556,
+          "en": "then anyone can basically attack,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 128.556,
+          "end": 132.09,
+          "en": "which is a man in the middle attack and they can read data.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 132.09,
+          "end": 133.41,
+          "en": "But now let's say you say, \"Hey,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 133.41,
+          "end": 134.786,
+          "en": "you know I'm using encryption there\".",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 134.786,
+          "end": 137.28,
+          "en": "But the question is the encryption technique",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 137.28,
+          "end": 138.75,
+          "en": "which you're using, is it secure?",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 138.75,
+          "end": 141,
+          "en": "So not every encryption technique is secure,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 141,
+          "end": 142.62,
+          "en": "so we have to check which one is secure",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 142.62,
+          "end": 145.32,
+          "en": "and which one is not, which is the latest standard.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 145.32,
+          "end": 147.425,
+          "en": "And if you're going for one way encryption,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 147.425,
+          "end": 149.31,
+          "en": "which is hashing basically.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 149.31,
+          "end": 151.44,
+          "en": "So we have different techniques for hashing techniques.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 151.44,
+          "end": 154.98,
+          "en": "We have MD5 and SHA, and those are deprecated.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 154.98,
+          "end": 156.30599999999998,
+          "en": "So are you still using them?",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 156.30599999999998,
+          "end": 157.91,
+          "en": "So that's something you take care",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 157.91,
+          "end": 159.3,
+          "en": "of when you're building an application",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 159.3,
+          "end": 160.82999999999998,
+          "en": "or when you're securing an application.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 160.82999999999998,
+          "end": 163.25,
+          "en": "Next interesting one we have is injection.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 163.25,
+          "end": 166.542,
+          "en": "Now basically your application can be hacked.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 166.542,
+          "end": 168.246,
+          "en": "Now when you say application here,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 168.246,
+          "end": 170.52,
+          "en": "we can talk about desktop application as well,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 170.52,
+          "end": 172.62,
+          "en": "but the security becomes important when it is a web",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 172.62,
+          "end": 175.05,
+          "en": "application because anyone from the world can access it.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 175.05,
+          "end": 176.118,
+          "en": "desktop application can be,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 176.118,
+          "end": 178.41,
+          "en": "you can secure your desktop application",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 178.41,
+          "end": 179.97,
+          "en": "by securing your door, right?",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 179.97,
+          "end": 180.85,
+          "en": "No one can come in and then",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 180.85,
+          "end": 183.69,
+          "en": "how can they access the desktop application?",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 183.69,
+          "end": 185.16,
+          "en": "But what about web application?",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 185.16,
+          "end": 187.17,
+          "en": "Anyone can access it from all over the world",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 187.17,
+          "end": 188.85,
+          "en": "and to secure it, of course we have",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 188.85,
+          "end": 190.29,
+          "en": "to maintain the security,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 190.29,
+          "end": 192.222,
+          "en": "but then even then they can hack",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 192.222,
+          "end": 194.04,
+          "en": "with the help of injections.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 194.04,
+          "end": 195.45,
+          "en": "Now, let me give an example here.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 195.45,
+          "end": 198.21,
+          "en": "When you talk about SQL, so let's say we use JDBC,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 198.21,
+          "end": 199.92000000000002,
+          "en": "we have talked about JDBC.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 199.92000000000002,
+          "end": 201.27,
+          "en": "And then when you want to,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 201.27,
+          "end": 203.22,
+          "en": "let's say search something from the table,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 203.22,
+          "end": 204.93,
+          "en": "of course you fire a select query.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 204.93,
+          "end": 207.738,
+          "en": "Right, now when you say select star from a table,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 207.738,
+          "end": 209.177,
+          "en": "basically you get everything.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 209.177,
+          "end": 210.843,
+          "en": "But then most of the time we pass the values",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 210.843,
+          "end": 213.44400000000002,
+          "en": "as well based on which you want to filter.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 213.44400000000002,
+          "end": 215.739,
+          "en": "So you will apply a value clause in the web clause.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 215.739,
+          "end": 217.29,
+          "en": "You will say, okay, I have this data.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 217.29,
+          "end": 222.29,
+          "en": "But then if you want to use a a normal statement in JDBC,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 222.452,
+          "end": 224.325,
+          "en": "what we do is we use a query",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 224.325,
+          "end": 228.39,
+          "en": "and then we pass the values at the end by doing plus,",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 228.39,
+          "end": 230.4,
+          "en": "and then single code, I lend this string,",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 230.4,
+          "end": 231.78199999999998,
+          "en": "but you pass the value there.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 231.78199999999998,
+          "end": 233.43,
+          "en": "So let's say if you go to a website",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 233.43,
+          "end": 235.483,
+          "en": "and say, my name is Navin, my password is this,",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 235.483,
+          "end": 238.517,
+          "en": "if you are a real user, of course you will get the access.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 238.517,
+          "end": 241.5,
+          "en": "If you're not a real user, if you're an attacker,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 241.5,
+          "end": 243.39,
+          "en": "you don't have your username password in the database,",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 243.39,
+          "end": 244.551,
+          "en": "it'll not allow you, right?",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 244.551,
+          "end": 246.53,
+          "en": "So what do you think, what will be the query for this?",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 246.53,
+          "end": 250.253,
+          "en": "Of course, you can simply say, select star from table",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 250.253,
+          "end": 252.423,
+          "en": "where the username is this, where the password is this.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 252.423,
+          "end": 256.59,
+          "en": "This important thing is if this query fires",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 256.59,
+          "end": 259.08,
+          "en": "and if it gives you any rule,",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 259.08,
+          "end": 260.535,
+          "en": "that means the user is valid.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 260.535,
+          "end": 263.4,
+          "en": "But what if you don't receive any rules?",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 263.4,
+          "end": 264.872,
+          "en": "That means the user is invalid.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 264.872,
+          "end": 267.72,
+          "en": "So ultimately it's all about true and false, right?",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 267.72,
+          "end": 270.026,
+          "en": "So what if as a user",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 270.026,
+          "end": 274.278,
+          "en": "or as an attacker, I'm passing a username as Navin",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 274.278,
+          "end": 276.87,
+          "en": "and by saying Navin",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 276.87,
+          "end": 279.99,
+          "en": "or one is equal to one, where the clause says",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 279.99,
+          "end": 281.4,
+          "en": "one is equal to one,",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 281.4,
+          "end": 283.513,
+          "en": "let me return true or let me return some roles.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 283.513,
+          "end": 286.71,
+          "en": "So basically it's all comes down to true and false",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 286.71,
+          "end": 287.954,
+          "en": "and that's a screw injection.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 287.954,
+          "end": 291.12,
+          "en": "And one way to prevent it is with the prepared statement.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 291.12,
+          "end": 293.385,
+          "en": "Because in prepared statement, it takes the value",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 293.385,
+          "end": 297.93,
+          "en": "with the type, that's how you can basically secure it.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 297.93,
+          "end": 300.09,
+          "en": "But then SQ is not the only injection we have.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 300.09,
+          "end": 301.35,
+          "en": "We have different injections as well.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 301.35,
+          "end": 303.284,
+          "en": "We got noSQL injection, OS commands.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 303.284,
+          "end": 308.284,
+          "en": "We got for ORM as well and with with the graph as well.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 308.46,
+          "end": 309.72,
+          "en": "So there are different types",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 309.72,
+          "end": 311.04,
+          "en": "of injection attack which can happen",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 311.04,
+          "end": 312.42,
+          "en": "and you have to take care of it.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 312.42,
+          "end": 315.15,
+          "en": "Next is about how you are designing your application.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 315.15,
+          "end": 317.31,
+          "en": "It's not about implementation, but design.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 317.31,
+          "end": 319.196,
+          "en": "How well you're designing your application, is it secure?",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 319.196,
+          "end": 322.136,
+          "en": "Next we have a security misconfiguration.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 322.136,
+          "end": 327.136,
+          "en": "See, whenever you use any particular library or a server",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 327.281,
+          "end": 331.08,
+          "en": "or a framework or a tool, basically most of these tools,",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 331.08,
+          "end": 334.347,
+          "en": "frameworks, and libraries gives you a default configuration.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 334.347,
+          "end": 336.599,
+          "en": "And sometime we don't change them.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 336.599,
+          "end": 338.782,
+          "en": "And since it's default configuration,",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 338.782,
+          "end": 341.10699999999997,
+          "en": "everyone knows about those configuration.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 341.10699999999997,
+          "end": 343.05,
+          "en": "So as an attacker, simply I can,",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 343.05,
+          "end": 345.27,
+          "en": "if I know which tool you are using,",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 345.27,
+          "end": 347.657,
+          "en": "which server you're using, basically I can just go there",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 347.657,
+          "end": 350.43,
+          "en": "and I can hack with the default configuration.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 350.43,
+          "end": 353.577,
+          "en": "Even if you have used 10 tools in your project",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 353.577,
+          "end": 355.05,
+          "en": "and you have secured",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 355.05,
+          "end": 356.37,
+          "en": "and you have changed the configuration",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 356.37,
+          "end": 360.24,
+          "en": "for the nine nine tools, that one tool",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 360.24,
+          "end": 362.188,
+          "en": "will create mess for your project.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 362.188,
+          "end": 365.43,
+          "en": "So you have to make sure that you change the configurations.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 365.43,
+          "end": 367.89,
+          "en": "Next is vulnerable and outdated components.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 367.89,
+          "end": 370.56,
+          "en": "We do have this tendency of using external tools,",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 370.56,
+          "end": 373.016,
+          "en": "let's say DBMS or a library.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 373.016,
+          "end": 377.168,
+          "en": "And if they are deprecated, if they are not supported",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 377.168,
+          "end": 379.283,
+          "en": "by the company itself, don't use them.",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 379.283,
+          "end": 381.6,
+          "en": "If they are not in support,",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 381.6,
+          "end": 383.1,
+          "en": "if they don't get security updates,",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 383.1,
+          "end": 384.614,
+          "en": "it can also lead to attacks.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 384.614,
+          "end": 387.57,
+          "en": "Then we have authentication failures with a username,",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 387.57,
+          "end": 389.28,
+          "en": "passwords, we do have a tendency",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 389.28,
+          "end": 391.11,
+          "en": "of storing the passwords directly in the database.",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 391.11,
+          "end": 393.031,
+          "en": "I used to do that in my first initial projects",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 393.031,
+          "end": 396.134,
+          "en": "and then I realize not a good idea, right?",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 396.134,
+          "end": 398.206,
+          "en": "So you have to always make sure that you encrypt your",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 398.206,
+          "end": 400.954,
+          "en": "password when you want to store it in the database,",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 400.954,
+          "end": 403.17,
+          "en": "not two-way encryption.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 403.17,
+          "end": 405.6,
+          "en": "Basically, once you store the password in the database,",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 405.6,
+          "end": 406.644,
+          "en": "no one should be able to decrypt it.",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 406.644,
+          "end": 410.49,
+          "en": "So hashing works there, so that's something we can use.",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 410.49,
+          "end": 412.65,
+          "en": "Also missing the multi-factor authentication.",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 412.65,
+          "end": 415.391,
+          "en": "So don't just go with one auto authentication example.",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 415.391,
+          "end": 418.38,
+          "en": "Most of the website now they ask you for username, password,",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 418.38,
+          "end": 420.42,
+          "en": "but they also send you SMS to verify.",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 420.42,
+          "end": 423.456,
+          "en": "They also send you app notification to verify.",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 423.456,
+          "end": 425.34,
+          "en": "So you can have a multi-layered",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 425.34,
+          "end": 426.931,
+          "en": "or multi-factor authentication enabled.",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 426.931,
+          "end": 429.472,
+          "en": "And then we have more security issues here",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 429.472,
+          "end": 431.94,
+          "en": "regarding the data integrity.",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 431.94,
+          "end": 433.62,
+          "en": "Then we have logging as well.",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 433.62,
+          "end": 435.15,
+          "en": "Now this is interesting is because",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 435.15,
+          "end": 438.57,
+          "en": "we all log our activities on the website, right?",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 438.57,
+          "end": 440.457,
+          "en": "So we do write the log statements",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 440.457,
+          "end": 442.382,
+          "en": "and we have seen that in EOP as well.",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 442.382,
+          "end": 444.761,
+          "en": "Every time you call a function, maintain the log.",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 444.761,
+          "end": 446.739,
+          "en": "But there's one issue with the log, okay?",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 446.739,
+          "end": 449.33299999999997,
+          "en": "In fact, there are two issues, the first issue is most",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 449.33299999999997,
+          "end": 451.38,
+          "en": "of the people avoid logging is",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 451.38,
+          "end": 452.733,
+          "en": "because it affects your performance,",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 452.733,
+          "end": 455.496,
+          "en": "especially if it is a performance critical application.",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 455.496,
+          "end": 457.419,
+          "en": "So we skip the log statements,",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 457.419,
+          "end": 459.71500000000003,
+          "en": "but the problem is if somebody is attacking your",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 459.71500000000003,
+          "end": 462.001,
+          "en": "application, how will you know that there's attack?",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 462.001,
+          "end": 464.67,
+          "en": "So if you have a log maintained properly,",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 464.67,
+          "end": 465.731,
+          "en": "you can actually read the logs,",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 465.731,
+          "end": 467.55,
+          "en": "but it also creates a second problem.",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 467.55,
+          "end": 470.273,
+          "en": "The problem is if you have a log, there are thousands",
+          "zh": ""
+        },
+        {
+          "id": 204,
+          "start": 470.273,
+          "end": 472.89,
+          "en": "of activities going on at the same time, right?",
+          "zh": ""
+        },
+        {
+          "id": 205,
+          "start": 472.89,
+          "end": 474.194,
+          "en": "And if you have a log for everything,",
+          "zh": ""
+        },
+        {
+          "id": 206,
+          "start": 474.194,
+          "end": 477.63,
+          "en": "how will you know which one is a security risk",
+          "zh": ""
+        },
+        {
+          "id": 207,
+          "start": 477.63,
+          "end": 480.181,
+          "en": "or which one is a security attack, which is happening?",
+          "zh": ""
+        },
+        {
+          "id": 208,
+          "start": 480.181,
+          "end": 483.326,
+          "en": "So you have to make sure that you maintain your log properly",
+          "zh": ""
+        },
+        {
+          "id": 209,
+          "start": 483.326,
+          "end": 486.001,
+          "en": "and observe your logs, which are important.",
+          "zh": ""
+        },
+        {
+          "id": 210,
+          "start": 486.001,
+          "end": 488.083,
+          "en": "Don't just wait for the attack to happen.",
+          "zh": ""
+        },
+        {
+          "id": 211,
+          "start": 488.083,
+          "end": 490.68,
+          "en": "Then you will say, \"Hey, you know, let's check the logs\".",
+          "zh": ""
+        },
+        {
+          "id": 212,
+          "start": 490.68,
+          "end": 491.759,
+          "en": "Keep monitoring your logs.",
+          "zh": ""
+        },
+        {
+          "id": 213,
+          "start": 491.759,
+          "end": 494.28,
+          "en": "It'll reveal how many attacks are going on.",
+          "zh": ""
+        },
+        {
+          "id": 214,
+          "start": 494.28,
+          "end": 496.766,
+          "en": "And also we have a server side request forgery.",
+          "zh": ""
+        },
+        {
+          "id": 215,
+          "start": 496.766,
+          "end": 499.594,
+          "en": "In fact, there were two more before, but then",
+          "zh": ""
+        },
+        {
+          "id": 216,
+          "start": 499.594,
+          "end": 501.1,
+          "en": "because of the ranking, it changed.",
+          "zh": ""
+        },
+        {
+          "id": 217,
+          "start": 501.1,
+          "end": 502.92,
+          "en": "There was client side scripting,",
+          "zh": ""
+        },
+        {
+          "id": 218,
+          "start": 502.92,
+          "end": 505.23,
+          "en": "but also now we have server side request forgery.",
+          "zh": ""
+        },
+        {
+          "id": 219,
+          "start": 505.23,
+          "end": 507.572,
+          "en": "What if you are sending some data from server to client",
+          "zh": ""
+        },
+        {
+          "id": 220,
+          "start": 507.572,
+          "end": 509.394,
+          "en": "and the data itself is malicious,",
+          "zh": ""
+        },
+        {
+          "id": 221,
+          "start": 509.394,
+          "end": 511.5,
+          "en": "which is you're sending from the server to client.",
+          "zh": ""
+        },
+        {
+          "id": 222,
+          "start": 511.5,
+          "end": 513.81,
+          "en": "So basically you are getting your client in risk.",
+          "zh": ""
+        },
+        {
+          "id": 223,
+          "start": 513.81,
+          "end": 515.79,
+          "en": "So if you have to medicate all these things,",
+          "zh": ""
+        },
+        {
+          "id": 224,
+          "start": 515.79,
+          "end": 517.26,
+          "en": "and as I mentioned before, these are not",
+          "zh": ""
+        },
+        {
+          "id": 225,
+          "start": 517.26,
+          "end": 518.76,
+          "en": "the only risk we have.",
+          "zh": ""
+        },
+        {
+          "id": 226,
+          "start": 518.76,
+          "end": 521.08,
+          "en": "We have lot of risk, but these are top 10,",
+          "zh": ""
+        },
+        {
+          "id": 227,
+          "start": 521.08,
+          "end": 523.637,
+          "en": "and I would encourage you to go through this top 10.",
+          "zh": ""
+        },
+        {
+          "id": 228,
+          "start": 523.637,
+          "end": 526.83,
+          "en": "Once again, read it and you will get more idea on it.",
+          "zh": ""
+        },
+        {
+          "id": 229,
+          "start": 526.83,
+          "end": 528.87,
+          "en": "Now let's see how exactly we can implement that",
+          "zh": ""
+        },
+        {
+          "id": 230,
+          "start": 528.87,
+          "end": 529.92,
+          "en": "with spring security.",
+          "zh": ""
+        },
+        {
+          "id": 231,
+          "start": 529.92,
+          "end": 532.38,
+          "en": "And is it easy to implement or is it difficult?",
+          "zh": ""
+        },
+        {
+          "id": 232,
+          "start": 532.38,
+          "end": 533.913,
+          "en": "Let's see, in the next video.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "42058456",
+      "title": "Creating a Spring Security Project",
+      "lectureOrder": 290,
+      "videoOrder": 289,
+      "sourceHash": "983f6be94d12cc1abaacaba3701d9b6f3ac7c8b5edc98ecfbe8b46cbf30a3619",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.319,
+          "end": 3.24,
+          "en": "(bright music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.24,
+          "end": 6.66,
+          "en": "-: Now let's get our hand dirty using spring security.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.66,
+          "end": 9.24,
+          "en": "The thing is, we'll be implementing security on our",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.24,
+          "end": 10.47,
+          "en": "job portal later.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.47,
+          "end": 12.24,
+          "en": "Let's try to create a fresh project.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 12.24,
+          "end": 14.91,
+          "en": "Let's try to see how do we implement spring security.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 14.91,
+          "end": 16.47,
+          "en": "What are the other options we have?",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 16.47,
+          "end": 20.07,
+          "en": "And then we'll try to secure our job application.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 20.07,
+          "end": 21.18,
+          "en": "So what you're gonna do is,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 21.18,
+          "end": 23.73,
+          "en": "the first thing you will do is you will go back",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 23.73,
+          "end": 27.27,
+          "en": "to your browser and open the spring initializr",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 27.27,
+          "end": 30.03,
+          "en": "and here we'll create a project, a fresh project.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 30.03,
+          "end": 32.82,
+          "en": "We'll say this is a admin project, Java language,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 32.82,
+          "end": 35.333,
+          "en": "the Springboard version I'm using, which is 3.2 0.2,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 36.627,
+          "end": 39.693,
+          "en": "and the group ID is com.telusko.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 40.618,
+          "end": 44.88,
+          "en": "The project name I will give as spring sec demo.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 44.88,
+          "end": 47.16,
+          "en": "And the packaging, I will keep it as Jar.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 47.16,
+          "end": 49.77,
+          "en": "The Java version I'm using is Java 21.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 49.77,
+          "end": 51.21,
+          "en": "And let's add dependency now.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 51.21,
+          "end": 52.53,
+          "en": "This is, this will be interesting is",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 52.53,
+          "end": 55.515,
+          "en": "because we are creating a web application, of course, right?",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 55.515,
+          "end": 57.39,
+          "en": "You want to secure your web application,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 57.39,
+          "end": 58.59,
+          "en": "so we'll add first web",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 58.59,
+          "end": 60.39,
+          "en": "because we want to create a web project.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 60.39,
+          "end": 64.62,
+          "en": "And then for security, I will use a spring security.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 64.62,
+          "end": 66.72,
+          "en": "Also, I want to use a dev tool,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 66.72,
+          "end": 69.9,
+          "en": "which will help you to reload your application faster.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 69.9,
+          "end": 72,
+          "en": "You can also use this in the earlier project,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 72,
+          "end": 74.1,
+          "en": "which we have used, but let's use it here.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 74.1,
+          "end": 76.89,
+          "en": "Also, maybe we'll need the database,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 76.89,
+          "end": 78.36,
+          "en": "maybe we can add that later as well.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 78.36,
+          "end": 80.13,
+          "en": "At this point, we are adding these three,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 80.13,
+          "end": 82.62,
+          "en": "web, spring security, and dev tool.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 82.62,
+          "end": 84.6,
+          "en": "Click on generate, it'll create a project.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 84.6,
+          "end": 86.25,
+          "en": "You just have to unzip it now, okay?",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 86.25,
+          "end": 89.46000000000001,
+          "en": "So once you unzip it, you just have to open that in the IDE.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 89.46000000000001,
+          "end": 90.72,
+          "en": "So till this point, I was using",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 90.72,
+          "end": 92.13,
+          "en": "IntelliJ IDEA community version.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 92.13,
+          "end": 93.33,
+          "en": "For this particular section,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 93.33,
+          "end": 95.03999999999999,
+          "en": "I'm using the ultimate version",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 95.03999999999999,
+          "end": 96.63,
+          "en": "is because when you see the content",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 96.63,
+          "end": 99.06,
+          "en": "or when you watch this video on ultimate version,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 99.06,
+          "end": 100.65,
+          "en": "you will get more clarity.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 100.65,
+          "end": 101.85,
+          "en": "That's the only reason I'm using it.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 101.85,
+          "end": 104.34,
+          "en": "But you can run the same application on community version.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 104.34,
+          "end": 107.13,
+          "en": "It perfectly works or any other IDEA which you have,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 107.13,
+          "end": 108.57,
+          "en": "Eclipse, VS Code.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 108.57,
+          "end": 111.39,
+          "en": "It works there, okay? So I have a project ready here.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 111.39,
+          "end": 112.44,
+          "en": "So let's look at the project.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 112.44,
+          "end": 114.27000000000001,
+          "en": "Again, this is a simple Springboard project.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 114.27000000000001,
+          "end": 117.39,
+          "en": "If you expand main, you will find Java resources.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 117.39,
+          "end": 119.37,
+          "en": "You've got only one file there.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 119.37,
+          "end": 121.62,
+          "en": "And when you open the palm, that xml,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 121.62,
+          "end": 123.21,
+          "en": "you can see we have multiple things here.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 123.21,
+          "end": 126.63,
+          "en": "We got spring web, spring security, dev tool.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 126.63,
+          "end": 128.91,
+          "en": "At this point, what I will do is I will just comment this",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 128.91,
+          "end": 131.43,
+          "en": "security part because I don't want to use it now,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 131.43,
+          "end": 133.5,
+          "en": "we'll try to introduce this bit later.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 133.5,
+          "end": 134.7,
+          "en": "So I'm commenting this,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 134.7,
+          "end": 137.04,
+          "en": "and basically in this project now we don't have security,",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 137.04,
+          "end": 139.38,
+          "en": "we just have spring web and dev tool.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 139.38,
+          "end": 141.9,
+          "en": "So let's go back here and let's create a controller,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 141.9,
+          "end": 142.733,
+          "en": "of course, right?",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 142.733,
+          "end": 145.29,
+          "en": "If you want to test if your security is working",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 145.29,
+          "end": 146.49,
+          "en": "for a web application,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 146.49,
+          "end": 148.89,
+          "en": "you need some resources which you want to secure.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 148.89,
+          "end": 150,
+          "en": "So in your application you could,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 150,
+          "end": 151.35,
+          "en": "you can have public resources",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 151.35,
+          "end": 153.48,
+          "en": "and you can have a secure resource.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 153.48,
+          "end": 156.21,
+          "en": "Now, when you say public resource, it can be your homepage.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 156.21,
+          "end": 159.9,
+          "en": "If you're building a beautiful application using your own",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 159.9,
+          "end": 163.26,
+          "en": "UI, or maybe you want to, if you,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 163.26,
+          "end": 164.43,
+          "en": "even if you're getting a rest API,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 164.43,
+          "end": 166.41,
+          "en": "you can send some data, which is public.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 166.41,
+          "end": 168.42000000000002,
+          "en": "But then of course you can have data which are,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 168.42000000000002,
+          "end": 169.253,
+          "en": "which are secure.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 169.253,
+          "end": 171.72,
+          "en": "Only you can access them only when you are logged in",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 171.72,
+          "end": 173.76,
+          "en": "and you have the authorization to access it",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 173.76,
+          "end": 175.02,
+          "en": "or you are authorized to access it.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 175.02,
+          "end": 178.74,
+          "en": "So here, let me create a resource and I will say Java class.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 178.74,
+          "end": 180.24,
+          "en": "Let me create a controller",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 180.24,
+          "end": 182.19,
+          "en": "and I will say, this is a simple one.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 182.19,
+          "end": 185.07,
+          "en": "Hello controller. And I want this to be a rest controller",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 185.07,
+          "end": 188.79,
+          "en": "because I want to return a rest data, not a page.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 188.79,
+          "end": 190.68,
+          "en": "Basically I want to return JSON, that's it.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 190.68,
+          "end": 192.42,
+          "en": "And in this I want to have a method.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 192.42,
+          "end": 195.33,
+          "en": "So let's say I want I, I'm going to say public string.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 195.33,
+          "end": 196.95,
+          "en": "I want to return a hello, that's it.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 196.95,
+          "end": 200.64,
+          "en": "And then I will say method name is greet, open, close.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 200.64,
+          "end": 202.14,
+          "en": "And here I will do the mapping.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 202.14,
+          "end": 204.24,
+          "en": "I will say, this is for GetMapping.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 204.24,
+          "end": 207.63,
+          "en": "And the request I want to send is Hello.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 207.63,
+          "end": 208.95,
+          "en": "So whenever you send request for Hello,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 208.95,
+          "end": 209.85,
+          "en": "I want to display this,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 209.85,
+          "end": 212.1,
+          "en": "or maybe you can do it for the homepage as well.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 212.1,
+          "end": 212.933,
+          "en": "But let's say at this point,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 212.933,
+          "end": 215.46,
+          "en": "I'm just saying for hello, I will say return.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 215.46,
+          "end": 218.34,
+          "en": "And I want to print Hello World. Okay, that's it.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 218.34,
+          "end": 220.8,
+          "en": "Nothing fancy. Just want to print Hello World.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 220.8,
+          "end": 224.28,
+          "en": "And now let's run this. Let's see if this works.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 224.28,
+          "end": 225.48,
+          "en": "What I will do is I will go back to my",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 225.48,
+          "end": 228.48,
+          "en": "application and set one.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 228.48,
+          "end": 230.79,
+          "en": "So you can see it is running on Tomcat 800",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 230.79,
+          "end": 232.92000000000002,
+          "en": "or Tomcat put eight, 800.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 232.92000000000002,
+          "end": 235.47,
+          "en": "I need to reload this.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 235.47,
+          "end": 237.21,
+          "en": "So you know, when I commented this,",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 237.21,
+          "end": 238.23,
+          "en": "this is something you have to remember.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 238.23,
+          "end": 240.569,
+          "en": "Whenever you change anything in the palm file,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 240.569,
+          "end": 242.91,
+          "en": "reload your Maven configuration",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 242.91,
+          "end": 244.17,
+          "en": "and then restart the application",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 244.17,
+          "end": 247.47,
+          "en": "because I forgot to reload the Maven configuration.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 247.47,
+          "end": 250.89,
+          "en": "And let's go back to the browser. And now let's hit 8080.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 250.89,
+          "end": 251.97,
+          "en": "You can see we got the data",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 251.97,
+          "end": 254.19,
+          "en": "because we haven't done nothing for the homepage.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 254.19,
+          "end": 256.44,
+          "en": "The page we want to request is slash hello.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 256.44,
+          "end": 258.6,
+          "en": "When I say enter, we got Hello World.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 258.6,
+          "end": 260.85,
+          "en": "So basically anyone can access this page, right?",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 260.85,
+          "end": 261.84,
+          "en": "I want, I don't want it,",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 261.84,
+          "end": 264.356,
+          "en": "I want people to log in to access this page.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 264.356,
+          "end": 267.48,
+          "en": "So that means we have to create a login form.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 267.48,
+          "end": 270.84,
+          "en": "And the way you can do that is by enabling spring security.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 270.84,
+          "end": 274.86,
+          "en": "So basically I want to protect this resource.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 274.86,
+          "end": 278.31,
+          "en": "And to do that, we have to enable the security.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 278.31,
+          "end": 281.46,
+          "en": "That means we have to also create a login form, okay?",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 281.46,
+          "end": 283.62,
+          "en": "Lend work, right? So let's do that in the next video",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 283.62,
+          "end": 285.69,
+          "en": "where we'll try to create this login form.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 285.69,
+          "end": 288.42,
+          "en": "And maybe we have to also create this,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 288.42,
+          "end": 289.77,
+          "en": "when you create this form,",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 289.77,
+          "end": 291.45,
+          "en": "the username should be plain text,",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 291.45,
+          "end": 294.24,
+          "en": "but the password should be encoded, right?",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 294.24,
+          "end": 295.95,
+          "en": "So we have to change that as well.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 295.95,
+          "end": 297.03,
+          "en": "And then we have to send",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 297.03,
+          "end": 299.88,
+          "en": "that username password on the backend to verify",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 299.88,
+          "end": 301.8,
+          "en": "and someone, I mean, we have to write a code for that",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 301.8,
+          "end": 303.823,
+          "en": "as well to verify the username password.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 303.823,
+          "end": 306,
+          "en": "So maybe next video will be a bit lengthy.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 306,
+          "end": 308.67,
+          "en": "So let's say in the next video, how do you secure it?",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

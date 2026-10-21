@@ -1,0 +1,987 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38507932",
+      "title": "How `traceroute` works: Mapping Internet Packet Paths and TTL",
+      "lectureOrder": 318,
+      "videoOrder": 286,
+      "sourceHash": "61c0c2adba3658b406c76e6f974b0d0e7a8ed98beab959045b34d67ef6e60911",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.45,
+          "end": 6.42,
+          "en": "So in the last lecture we have seen how traceroute was just printing the path that internet packets",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.42,
+          "end": 7.74,
+          "en": "take to a destination.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.74,
+          "end": 9.72,
+          "en": "But is this how it actually works?",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.72,
+          "end": 11.7,
+          "en": "So let's have a look at how it works.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.7,
+          "end": 18.15,
+          "en": "So the idea at first is that we send special IP packets to our destination.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 18.15,
+          "end": 24.84,
+          "en": "Let's actually just have a look at this and visualize it so I can just clear here and I can just start",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 25.29,
+          "end": 26.25,
+          "en": "Wireshark here.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 26.25,
+          "end": 29.85,
+          "en": "I can now start capturing here, continue without saving.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 29.85,
+          "end": 37.8,
+          "en": "And now I just traceroute sydney.edu Now I just wait until it's pretty much finished and now I think",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 37.8,
+          "end": 39.21,
+          "en": "I'm ready to cancel it.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 39.21,
+          "end": 45.24,
+          "en": "Control C I'm not interested in the rest and the capture is complete so I can just quit that one.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 45.42,
+          "end": 51.45,
+          "en": "Now we need to filter this because this is now my whole network traffic and there's way too much going",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 51.45,
+          "end": 51.96,
+          "en": "on here.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 51.96,
+          "end": 53.16,
+          "en": "We need to filter that.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 53.16,
+          "end": 56.88,
+          "en": "And the easiest way to filter it is that we check for the destination.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 56.88,
+          "end": 58.35,
+          "en": "That would be this one here.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 58.35,
+          "end": 62.8,
+          "en": "And we filter our wireshark output by this destination.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 63.07,
+          "end": 67.48,
+          "en": "So I go back to Wireshark and now I want to add a display filter here.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 67.51,
+          "end": 71.53,
+          "en": "The way to go is, is that I want to filter by that destination.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 71.53,
+          "end": 77.47,
+          "en": "So and the destination is an IP address and the IP address is part of the IP packet.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 77.47,
+          "end": 84.34,
+          "en": "So I need to say, okay, I want to filter by the IP packet by the destination of the IP packet and",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 84.34,
+          "end": 89.74,
+          "en": "then I can say this one needs to equal the following IP address.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 89.74,
+          "end": 92.38,
+          "en": "And now I can just confirm that one with Enter.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 92.38,
+          "end": 97.96000000000001,
+          "en": "So now we can see here, this is now our advanced filter here and we can see here that we say that we",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 97.96000000000001,
+          "end": 103.47999999999999,
+          "en": "have sent so-called UDP packets here, but they those UDP packets don't matter that much.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 103.47999999999999,
+          "end": 111.78999999999999,
+          "en": "What's important here is that we send an IP packet out and this IP packet is some has a unique field.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 111.82,
+          "end": 113.8,
+          "en": "It has a unique field.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 113.8,
+          "end": 114.97,
+          "en": "We can see this here.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 114.97,
+          "end": 118.42,
+          "en": "It's this time to live or time to live.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 118.78,
+          "end": 126.19,
+          "en": "Um field TTL called it's here in the binary data, but we see it's easier to see it here and this is",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 126.19,
+          "end": 130.15,
+          "en": "what enables this, this traceroute functionality.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 130.15,
+          "end": 135.07,
+          "en": "And we can see here that this time to live here at some point will change if we go down.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 135.07,
+          "end": 139.32999999999998,
+          "en": "You can see here time to live is suddenly two and then three and so on.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 139.32999999999998,
+          "end": 145.03,
+          "en": "So there's something up with this field here and we should investigate that.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 145.03,
+          "end": 146.44,
+          "en": "So let's go back to the slides.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 146.44,
+          "end": 154.66,
+          "en": "So the idea is that we send out an IP packet with a time to live of one to our destination, our router,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 154.69,
+          "end": 158.92000000000002,
+          "en": "that would be the router in my home network will then decrease this TTL by one.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 158.95,
+          "end": 164.47,
+          "en": "This TTL Time to Live is now zero because it's now zero.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 164.5,
+          "end": 171.25,
+          "en": "My router will now discard the packet and will reply with an ICMP packet back time exceeded.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 171.82,
+          "end": 175.81,
+          "en": "We will see this in Wireshark as well, but this is the reply.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 175.81,
+          "end": 180.97,
+          "en": "So it doesn't show up here because this one is only our packets that we send out because of that filter",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 180.97,
+          "end": 182.1,
+          "en": "here.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 182.1,
+          "end": 188.28,
+          "en": "But because this TTL is now zero, our router will then discard the packet and we'll be like, Hey,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 188.31,
+          "end": 189.69,
+          "en": "time is exceeded.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 190.73,
+          "end": 194.93,
+          "en": "Um, you've sent a packet here to me, but I can't forward it anymore.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 194.99,
+          "end": 198.35,
+          "en": "Then we know the IP of our first router.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 198.38,
+          "end": 200.78,
+          "en": "Then we can continue with the next step.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 200.78,
+          "end": 205.12,
+          "en": "And that means that we send out another IP packet with a TTL of two.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 205.28,
+          "end": 209.24,
+          "en": "Our router will decrease its TTL and forward it to the next router.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 209.54,
+          "end": 212.12,
+          "en": "The next router will decrease it one more time.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 212.12,
+          "end": 218.32,
+          "en": "It's now zero and then this packet will be discarded and we will get another time exceeded packet back.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 218.32999999999998,
+          "end": 224.72,
+          "en": "This ICMP time exceeded packet back this we can just do over and over again and always increase the",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 224.72,
+          "end": 225.8,
+          "en": "TTL by one.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 225.8,
+          "end": 230.32999999999998,
+          "en": "And you can see how by doing this we are kind of like tracing a path.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 230.36,
+          "end": 235.91,
+          "en": "Technically we are not tracing the path of a single packet because every request that we send can only",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 235.91,
+          "end": 237.14,
+          "en": "discover the next step.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 237.14,
+          "end": 242.21,
+          "en": "But as long as this path doesn't change, we are able to to trace it properly.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 242.21,
+          "end": 244.67,
+          "en": "So this is the idea behind traceroute.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 244.7,
+          "end": 251.16,
+          "en": "So here you can see if I just I just now use the arrow key down to go through packets.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 251.16,
+          "end": 257.49,
+          "en": "Just have a look at here, the time to add the TTL and here we can see, oh this is what we were interested",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 257.49,
+          "end": 257.94,
+          "en": "in.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 258.09,
+          "end": 260.64,
+          "en": "Here you can see how this TTL is changing.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 260.64,
+          "end": 268.17,
+          "en": "And here we are getting messages, uh, back and here you can see TTL is now higher.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 268.17,
+          "end": 271.56,
+          "en": "And here you can see how it's now also increasing.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 271.56,
+          "end": 275.64,
+          "en": "Sometimes it's jumping to like something like 300, 233.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 275.67,
+          "end": 278.7,
+          "en": "Those are actually the ICMP responses.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 278.7,
+          "end": 284.07,
+          "en": "So for example, when our router is like, Hey, I can't forward that anymore, he will send or it will",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 284.07,
+          "end": 286.15999999999997,
+          "en": "send an ICMP packet back to me.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 286.17,
+          "end": 291.3,
+          "en": "For example, this one here and here you can see this is addressed to my destination.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 291.65999999999997,
+          "end": 294.36,
+          "en": "But why is this filter here still finding it?",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 294.72,
+          "end": 297.65999999999997,
+          "en": "Well, the reason is that the ICMP message.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 298.29,
+          "end": 300.69,
+          "en": "Um, wait, let me really, um.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 302,
+          "end": 302.84,
+          "en": "You make it more?",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 302.84,
+          "end": 303.19,
+          "en": "Yeah.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 303.2,
+          "end": 309.38,
+          "en": "There's this ICMP message that my router was trying to tell me, Hey, I couldn't deliver this packet",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 309.38,
+          "end": 317.9,
+          "en": "and it tells me exactly which packet it could not deliver by including here, this packet here and here",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 317.9,
+          "end": 321.59,
+          "en": "you can see here, this is the packet and there is the destination address.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 321.59,
+          "end": 327.68,
+          "en": "But this is not the actual IP packet that is being delivered, but it's the IP packet that I tried to",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 327.68,
+          "end": 332.84000000000003,
+          "en": "send to my destination where the router was like, Hey, I'm not able to forward it because of the time",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 332.84000000000003,
+          "end": 335.27,
+          "en": "to live because of the TTL.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 335.69,
+          "end": 344.84000000000003,
+          "en": "So I will take this IP packet, put it into an ICMP packet telling you that the time to TTL has been",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 344.84000000000003,
+          "end": 345.56,
+          "en": "exceeded.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 345.56,
+          "end": 355.34000000000003,
+          "en": "Then I will take this ICMP, ICMP structure, put it into a new IP packet that is addressed back to",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 355.34000000000003,
+          "end": 355.82,
+          "en": "you.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 355.82,
+          "end": 362.85,
+          "en": "So if we are if we go up here, you can see this is now the IP packet that has actually been delivered",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 362.85,
+          "end": 368.4,
+          "en": "to me and this then has been put onto an Ethernet frame and so on and so on.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 368.73,
+          "end": 375.57,
+          "en": "So that's why we have those ICMP messages show up here as well, because inside the IP packet there's",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 375.57,
+          "end": 378.69,
+          "en": "this ICMP packet and inside that one is another IP packet.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 378.69,
+          "end": 380.52,
+          "en": "So the filter here still matches.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 381.3,
+          "end": 388.89,
+          "en": "But what we can see here, those UDP messages, you can see here, the TTL is being increased always",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 388.89,
+          "end": 391.29,
+          "en": "by one and we do always three measurements.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 391.29,
+          "end": 398.1,
+          "en": "So this is how traceroute can find out the path to our destination and then get reply gets those replies",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 398.1,
+          "end": 402.12,
+          "en": "back and as long as they are not blocked we are able to trace all of that.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 402.39,
+          "end": 406.74,
+          "en": "By the way, traceroute has revealed something about my network topology here.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 406.74,
+          "end": 414.51,
+          "en": "You can see here this is my main network, but you can see here this is also the LAN network IP address",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 414.51,
+          "end": 415.2,
+          "en": "range.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 416.46,
+          "end": 418.68,
+          "en": "This one is also my network.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 418.68,
+          "end": 422.55,
+          "en": "Why do I have two networks and I'm technically just in a subnet here?",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 422.55,
+          "end": 426.39,
+          "en": "And then we have another network here with this IP range here.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 426.39,
+          "end": 427.26,
+          "en": "You can see this.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 427.26,
+          "end": 428.91,
+          "en": "Those are two networks.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 428.91,
+          "end": 432.39,
+          "en": "This is one router who is then forwarding that to another router.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 432.39,
+          "end": 438.6,
+          "en": "And I felt like maybe I should mention that here because of course it's one thing traceroute has revealed,",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 438.6,
+          "end": 442.74,
+          "en": "but it's another good example to show how subnets can work.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 442.74,
+          "end": 447.9,
+          "en": "So in my case my internet setup is as follows.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 448.23,
+          "end": 450.36,
+          "en": "This is, let's say this is the internet.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 450.39,
+          "end": 454.77,
+          "en": "Then I have a router that's this is provided by my internet service provider.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 454.77,
+          "end": 456.87,
+          "en": "It's mandated, so I have to use it.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 456.87,
+          "end": 458.7,
+          "en": "It's a fiber optic connection.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 458.90999999999997,
+          "end": 465.21,
+          "en": "They only support this one router and they don't allow me to use another one there, so I have to use",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 465.21,
+          "end": 465.33,
+          "en": "it.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 465.33,
+          "end": 469.02,
+          "en": "I've disabled the Wi-Fi, but I can't control that router.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 469.02,
+          "end": 469.92,
+          "en": "I don't like this.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 469.92,
+          "end": 472.59000000000003,
+          "en": "I want to have full control over my network.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 472.59000000000003,
+          "end": 479.43,
+          "en": "I don't want my Internet service provider to control my access to the back end of the my router.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 479.43,
+          "end": 481.5,
+          "en": "So I was like, okay, I will not really use it.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 481.5,
+          "end": 487.55,
+          "en": "I will just leave it there to forward everything to the fiber optic cable and then I will just connect",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 487.55,
+          "end": 490.37,
+          "en": "my own router behind it.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 490.37,
+          "end": 500.75,
+          "en": "So here, technically I'm just having a subnet here of this network and this has an yeah, an individual",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 500.75,
+          "end": 507.98,
+          "en": "IP range here, the own subnet mask and my computer, all my devices only talk to my router and then",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 507.98,
+          "end": 513.8,
+          "en": "the router is connected through an Ethernet cable to the router provided by my ISP and then it's sending",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 513.8,
+          "end": 515.24,
+          "en": "that out to the Internet.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 516.05,
+          "end": 519.11,
+          "en": "So this is how my network looks like.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 519.11,
+          "end": 525.68,
+          "en": "And this is, by the way, also something you can see here in our traceroute output that I got two routers",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 525.68,
+          "end": 532.76,
+          "en": "here that are attached to each other and this router forwards everything to this one and only.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 532.76,
+          "end": 534.38,
+          "en": "Then we are reaching the internet.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 534.38,
+          "end": 542.09,
+          "en": "I felt like this could just be like an interesting detail that what to give you an example what traceroute",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 542.09,
+          "end": 543.08,
+          "en": "could be revealing.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 543.08,
+          "end": 546.44,
+          "en": "For example whenever you try to run this.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 547.4,
+          "end": 552.5,
+          "en": "So feel free to run traceroute on your computer as well and see how it's going.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 552.8,
+          "end": 557.57,
+          "en": "And maybe there's also something like this happening in your network or maybe your company has like",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 557.57,
+          "end": 560.27,
+          "en": "multiple gateways here in between.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 560.51,
+          "end": 562.79,
+          "en": "So feel free to examine that a little bit.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 562.79,
+          "end": 567.41,
+          "en": "And yeah, just try or play around a little bit with traceroute.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 567.44,
+          "end": 569.48,
+          "en": "Maybe you find some interesting hints.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 569.81,
+          "end": 570.38,
+          "en": "All right.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 570.38,
+          "end": 578.6,
+          "en": "This much about traceroute and yeah, I think now you do have a quite a good understanding of how Layer",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 578.6,
+          "end": 581.18,
+          "en": "three works on the Internet.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

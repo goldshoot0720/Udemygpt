@@ -4,8 +4,7 @@
 
 講師：Jannis Seemann、Denis Panjuta。原文語言：英文（en_US）。
 
-Udemy 公開資料標示 616 個已發布項目（含文章與測驗，不是影片堂數）。英文字幕尚未匯出，因此還沒有譯文。
+英文來源已驗證：555／555 堂影片、58,381 段，80 個翻譯批次。中文翻譯進行中。
 
 - 課程頁面：https://www.udemy.com/course/mastering-linux/?couponCode=MT261019G3
-
-匯出全課英文後，執行 `node prepare_course_sources.cjs /完整路徑/Udemy-English-course-5181942.json` 建立逐堂英文與翻譯佇列。
+- 英文來源：`English-course-5181942.json`

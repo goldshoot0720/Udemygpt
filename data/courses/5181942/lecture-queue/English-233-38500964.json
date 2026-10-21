@@ -1,0 +1,945 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38500964",
+      "title": "Ensuring Data Integrity: File System Checks",
+      "lectureOrder": 263,
+      "videoOrder": 233,
+      "sourceHash": "fbf8302f0700dc8e9859d0a0b44d18cb71392d75d4b8cd871458fb4dbd03c3ee",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.29,
+          "end": 4.26,
+          "en": "Let's now have a look at how we can check our file system for errors.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.28,
+          "end": 6.2,
+          "en": "Why is this important?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.29,
+          "end": 10.85,
+          "en": "Well, if everything works, this is not important.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.85,
+          "end": 15.68,
+          "en": "But once something doesn't work, for example, a file system can't be mounted or there would be a boot",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.68,
+          "end": 17.45,
+          "en": "problem or anything like this.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 17.45,
+          "end": 24.17,
+          "en": "Then file checking or file system checking would be the way to go to just see if everything is fine",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 24.17,
+          "end": 26.63,
+          "en": "from a file system perspective.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 26.78,
+          "end": 31.7,
+          "en": "So in this lecture we'll have a look at how we can check the file system for errors.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 32.24,
+          "end": 35.18,
+          "en": "When does it happen that a file system has errors?",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 35.6,
+          "end": 36.68,
+          "en": "This happens.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 36.83,
+          "end": 42.83,
+          "en": "For example, if there was a bug in the driver of a file system, this might sometimes happen.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 42.83,
+          "end": 48.11,
+          "en": "Actually, it sometimes also happens during unexpected power loss loss.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 48.11,
+          "end": 51.2,
+          "en": "So, for example, if the system didn't shut down properly.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 51.23,
+          "end": 54.05,
+          "en": "This was especially worse back in the days.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 54.05,
+          "end": 55.94,
+          "en": "It got way better nowadays.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 56.33,
+          "end": 64.89,
+          "en": "But even just like 10 or 20 years ago when I used Linux the first time, I routinely had problems whenever",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 64.89,
+          "end": 70.83,
+          "en": "there was, for example, a power outage for even just a few seconds, then the system has an unexpected",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 70.83,
+          "end": 74.64,
+          "en": "power loss and then during boot there might be some errors on the file system.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 74.64,
+          "end": 77.43,
+          "en": "Again, it's way better now, but it still might happen.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 77.94,
+          "end": 84.24,
+          "en": "Um, or another reason might be that the hard drive or SSD might just be old and lose data and maybe",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 84.24,
+          "end": 86.49,
+          "en": "not even fail in a visible way.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 86.49,
+          "end": 91.47,
+          "en": "I mean, maybe we can see it through smart, but maybe we haven't used Smart to see that ahead of time.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 91.47,
+          "end": 98.4,
+          "en": "So that might also be a reason for a file system error when the underlying physical media medium isn't",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 98.4,
+          "end": 99.50999999999999,
+          "en": "working properly.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 99.6,
+          "end": 107.22,
+          "en": "Important is that we should check our drives regularly and this can help to prevent data loss.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 107.84,
+          "end": 115.37,
+          "en": "However, there are quite a few limitations to when we can do the file checking or the file system checking",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 115.91,
+          "end": 123.68,
+          "en": "that make it really difficult to justify just checking our data on a production server if that server",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 123.68,
+          "end": 130.79,
+          "en": "needs to be running, for example, 24 over seven because well, one reason is that when we want to",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 130.79,
+          "end": 136.31,
+          "en": "check a file system for errors, at least for ext4, the normal file system on Linux, the drive needs",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 136.31,
+          "end": 139.82,
+          "en": "to be unmounted and should not be encrypted, not be encrypted.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 139.82,
+          "end": 143.27,
+          "en": "It's not that difficult because that's the default.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 143.27,
+          "end": 149.51,
+          "en": "But the drive needs to be unmounted and that pretty much means we can't use our server at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 149.9,
+          "end": 155.69,
+          "en": "So the way I solve that for a previous project of mine was that I would do it maybe like once or twice",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 155.69,
+          "end": 161.66,
+          "en": "a year, and then during a time where I knew there was a holiday day and there would be no nobody would",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 161.66,
+          "end": 163.1,
+          "en": "be using that system.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 163.55,
+          "end": 165.23,
+          "en": "In my case, that was possible.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 165.23,
+          "end": 171.15,
+          "en": "But I do agree probably for, for example, for a public website, this might not be possible.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 171.15,
+          "end": 177.6,
+          "en": "And there the way to go would be to, well, if you really want to do this to, for example, use a",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 177.6,
+          "end": 182.22,
+          "en": "cloud and then you can just turn off one machine and the other machine could take over.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 182.22,
+          "end": 184.44,
+          "en": "So in that case, that would be the way to go.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 184.44,
+          "end": 190.62,
+          "en": "If you do want to insist on doing those file system checks every now and then.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 190.62,
+          "end": 195.48,
+          "en": "But yeah, so at least for ext4, the drive needs to be unmounted.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 195.51,
+          "end": 203.04,
+          "en": "The next thing is that we then can trigger a check, we can say f check and then on the device, please",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 203.04,
+          "end": 205.74,
+          "en": "note we usually need additional privileges for that.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 205.74,
+          "end": 207.42000000000002,
+          "en": "So we need root privileges for that.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 207.42000000000002,
+          "end": 212.97,
+          "en": "So we need a pseudo in front, but this would then trigger a check on a specific partition.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 213.6,
+          "end": 218.07,
+          "en": "On some systems, it might be necessary to also specify the file system.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 218.07,
+          "end": 224.31,
+          "en": "So for example, like this, the way it works is that this is a program and if this one here detects",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 224.31,
+          "end": 230.61,
+          "en": "that on this partition, there's Ext4, then this program will internally call this program to do the",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 230.61,
+          "end": 231.6,
+          "en": "actual check.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 231.81,
+          "end": 238.23,
+          "en": "But if that one doesn't work, we would have to write it like this to run the check on our on our file",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 238.23,
+          "end": 238.92000000000002,
+          "en": "system.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 239.04,
+          "end": 241.5,
+          "en": "So let's just have a look at how that works.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 241.5,
+          "end": 250.53,
+          "en": "So I can just say sudo f filesystem check on the device dev SDB one, I think it was here.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 250.53,
+          "end": 255.87,
+          "en": "And in that case, okay, I do need to enter my password first, but then we can see here right now",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 255.87,
+          "end": 260.28,
+          "en": "this file or this device is mounted so we can't continue.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 261.42,
+          "end": 265.38,
+          "en": "So now what I need to do is that I need to unmount that drive.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 266.53,
+          "end": 269.47,
+          "en": "Step one, I can just unmount it and now repeat it.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 269.47,
+          "end": 272.11,
+          "en": "And now we can see here everything has worked properly.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 272.11,
+          "end": 273.04,
+          "en": "It looks clean.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 273.04,
+          "end": 274.27,
+          "en": "Everything looks all right.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 274.27,
+          "end": 278.92,
+          "en": "There are not a lot of files on that in that file system.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 278.92,
+          "end": 281.29,
+          "en": "So it goes really, really fast.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 281.29,
+          "end": 288.07,
+          "en": "But if it was a bigger, um, hard drive with more, um, space used, then of course this would take",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 288.07,
+          "end": 288.7,
+          "en": "longer.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 289.39,
+          "end": 292.15,
+          "en": "Um, how can we check the root file system then?",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 292.18,
+          "end": 294.77,
+          "en": "If I told you before it needs to be unmounted?",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 294.79,
+          "end": 301.45,
+          "en": "Well, if we have grub enabled and we do have access to grub, then we can set check mode equals to",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 301.45,
+          "end": 301.9,
+          "en": "force.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 301.9,
+          "end": 302.98,
+          "en": "To force.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 303.4,
+          "end": 307.51,
+          "en": "Um, um, uh, file check during the next boot.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 307.87,
+          "end": 312.67,
+          "en": "By the way, if grub doesn't show up, we have seen that in the chapter about the boot process.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 312.67,
+          "end": 315.97,
+          "en": "We had a lecture there, how grub works and how you can enable it.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 316.48,
+          "end": 321.04,
+          "en": "So this will force a file check during the next boot.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 321.07,
+          "end": 322.36,
+          "en": "We can just see it here.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 322.36,
+          "end": 327.17,
+          "en": "So, for example, here, I could now just trigger a reboot here on my machine.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 327.92,
+          "end": 329.3,
+          "en": "Um, restart.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 329.66,
+          "end": 337.94,
+          "en": "So now my computer is restarting and now here in the grub menu, I could press the key to edit this,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 337.94,
+          "end": 340.22,
+          "en": "um, this grub entry here.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 340.28,
+          "end": 344.12,
+          "en": "And this is the way how my Linux system will be started.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 344.12,
+          "end": 347.21,
+          "en": "And here I could now just add an option here.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 347.42,
+          "end": 352.31,
+          "en": "Check mode equals force to my Linux line to my boot options here.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 352.31,
+          "end": 363.29,
+          "en": "So I could add here the line FS check mode equals to force force and then I can just press F10 to boot.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 363.29,
+          "end": 368.66,
+          "en": "So I now press that key and now we are booting it with this additional boot option.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 368.66,
+          "end": 370.94,
+          "en": "So let's see what's going to happen now.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 370.94,
+          "end": 376.94,
+          "en": "And let me now just freeze the frame because it really goes really, really fast here.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 376.94,
+          "end": 380.57,
+          "en": "You can see how it has checked the file system during mount.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 380.87,
+          "end": 386.03,
+          "en": "By the way, if you don't see those text messages during boot, but more like a loading screen, that",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 386.03,
+          "end": 387.74,
+          "en": "was the case for me on CentOS.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 387.77,
+          "end": 393.83,
+          "en": "It should be enough to just press the escape key and then you should be able to see all of those messages",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 393.83,
+          "end": 395.12,
+          "en": "on your screen as well.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 395.15,
+          "end": 401.63,
+          "en": "Please note you might have to reboot because it might only show future messages here, but that would",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 401.63,
+          "end": 402.92,
+          "en": "be then the way to go.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 403.19,
+          "end": 404.69,
+          "en": "If that was too fast.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 404.69,
+          "end": 413.42,
+          "en": "I could also just use Journal Ctl and I could say, okay, let's just print the logs and I could for",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 413.42,
+          "end": 416.58,
+          "en": "example, now filter for those file system checks.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 416.58,
+          "end": 421.91,
+          "en": "So I'm only interested in the logs for the current boot logs and those boot logs.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 421.91,
+          "end": 427.37,
+          "en": "I want to filter with grep for example, by file system or something like this.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 427.37,
+          "end": 433.85,
+          "en": "And then you can see here file system check for this Uuid, this has been finished and then the next",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 433.85,
+          "end": 435.08,
+          "en": "one and the next one.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 435.08,
+          "end": 439.19,
+          "en": "And you can see how now this check has been executed here.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 439.83,
+          "end": 442.29,
+          "en": "This one has also worked on S.o.s for me.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 442.29,
+          "end": 449.1,
+          "en": "So here I can just say journalctl minus B to show everything since the last boot and then we can see",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 449.1,
+          "end": 452.7,
+          "en": "all those boot messages and it's logging quite a bit.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 452.7,
+          "end": 458.37,
+          "en": "So in my case, on my machine I had to scroll down about 650 lines.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 458.37,
+          "end": 461.61,
+          "en": "So I'm now just scrolling down with the arrow key.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 461.61,
+          "end": 469.11,
+          "en": "I could also use the page down key to do it a little bit faster, but at some point at about line 650,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 469.59000000000003,
+          "end": 475.71,
+          "en": "we should see that our file system check is running here and here we can see starting file system check",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 475.71,
+          "end": 478.74,
+          "en": "and it's running that on our llVM volume.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 478.74,
+          "end": 482.1,
+          "en": "That's why we have this mapper here, this def mapper.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 482.1,
+          "end": 483.12,
+          "en": "It's an llVM volume.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 483.12,
+          "end": 485.82,
+          "en": "But again, llVM is a topic of a later chapter.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 485.82,
+          "end": 489.39,
+          "en": "But here we can see how it's checking this file system.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 489.39,
+          "end": 494.82,
+          "en": "It looks a little bit different first because we are running, in my case at least, my center is running",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 494.82,
+          "end": 495.81,
+          "en": "on an llVM.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 495.81,
+          "end": 500.74,
+          "en": "And the second difference to Ubuntu is that's a different type of file system.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 500.74,
+          "end": 505.93,
+          "en": "So that's also why it looks a little bit different here, but we can see that the general concept is",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 505.93,
+          "end": 510.1,
+          "en": "the same in a sense that our file system is being verified on boot.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 510.43,
+          "end": 517.87,
+          "en": "So this is the way if you want to trigger a full file system, check If this one doesn't work, you",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 517.87,
+          "end": 522.31,
+          "en": "could, of course, if you don't, for example, because you don't have access to grub and you are unable",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 522.31,
+          "end": 528.1,
+          "en": "to change any boot options there, you could always boot a live Linux from a USB drive or when you have",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 528.1,
+          "end": 532.03,
+          "en": "a server from the back end there and then check the file system from there.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 532.03,
+          "end": 533.89,
+          "en": "How you can use a live system.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 533.89,
+          "end": 540.79,
+          "en": "We will have a look at this in a full software upgrade chapter here where the full software upgrade",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 540.79,
+          "end": 542.47,
+          "en": "will break the whole system.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 542.47,
+          "end": 544.69,
+          "en": "But that's one of the next chapters.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 544.69,
+          "end": 548.59,
+          "en": "But you could use the same live Linux to fix your file system.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 548.59,
+          "end": 553.87,
+          "en": "Again, if the server needs to be available 24 over seven, it's a judgment call whether you actually",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 553.87,
+          "end": 559.15,
+          "en": "want to check the file system and reboot the server just for that and then it's offline for a while.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 559.3,
+          "end": 564.43,
+          "en": "The next thing that I would like to show you is how you can enable automatic file system checks.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 564.43,
+          "end": 569.98,
+          "en": "Those are especially useful on desktop machines where it's okay if the boot procedure might take a few",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 569.98,
+          "end": 574.9,
+          "en": "minutes longer every now and then, but we will have a look at that in the next lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

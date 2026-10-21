@@ -1,0 +1,5628 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38457758",
+      "title": "What Jobs are and how to start your First Background Job (using `&`)",
+      "lectureOrder": 191,
+      "videoOrder": 164,
+      "sourceHash": "484ce218a14e2da721bf75502a5f7a1d47c54f0dfd200b30146c9b7eda49295b",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.66,
+          "end": 1.83,
+          "en": "In this lecture.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 1.83,
+          "end": 4.29,
+          "en": "We want to have a look at background jobs in Bash.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 4.29,
+          "end": 11.04,
+          "en": "But before we can look at background jobs, we should first clarify what exactly is a job in simple",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.04,
+          "end": 11.52,
+          "en": "terms.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.55,
+          "end": 14.52,
+          "en": "A job is a command that is being executed.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.55,
+          "end": 18.91,
+          "en": "Why do we have this distinction between a job and a process?",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.93,
+          "end": 24.27,
+          "en": "Well, the reason behind that one is that a job can consist of multiple programs.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 24.27,
+          "end": 28.86,
+          "en": "So, for example, here we can see that two programs are connected to each other.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 28.89,
+          "end": 32.82,
+          "en": "They are both running at the same time because they are connected to a pipe.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 32.82,
+          "end": 34.95,
+          "en": "So that means both programs are running.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 34.95,
+          "end": 41.64,
+          "en": "It's just that the output of this process here is connected to the input of this process here, and",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 41.64,
+          "end": 45.36,
+          "en": "this will then yield the result that we will see in our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 45.48,
+          "end": 48.03,
+          "en": "But those are two processes.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 48.03,
+          "end": 55.59,
+          "en": "But they are just one job in our bash terms because it's just one command that is being executed.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 55.68,
+          "end": 60.55,
+          "en": "So in this case, we have two programs here, but only one job.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 61.45,
+          "end": 66.25,
+          "en": "So, so far we have looked mostly at the so called foreground jobs.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 66.28,
+          "end": 72.43,
+          "en": "Those pretty much occupy our shell in a sense that Bash will wait for their completion before accepting",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 72.43,
+          "end": 73.24,
+          "en": "a new command.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 73.24,
+          "end": 77.26,
+          "en": "So in our shell, we can only have one foreground job at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 77.35,
+          "end": 82.96000000000001,
+          "en": "But there's also a different kind of job, the so-called background jobs and those.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 82.96000000000001,
+          "end": 85.63,
+          "en": "We will have a look at those here in this lecture.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 87.1,
+          "end": 92.59,
+          "en": "So just to show you again, if I would start a program here, for example, the program ping to ping",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 92.62,
+          "end": 98.59,
+          "en": "a remote server, I could say ping, Google.com to send packages to Google and see how long it takes",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 98.59,
+          "end": 99.9,
+          "en": "to receive them back.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 99.91,
+          "end": 103.74000000000001,
+          "en": "And then we can see here, this is now occupying my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 103.75,
+          "end": 108.94,
+          "en": "We can see this because if I would now start typing here, for example, Ping, we can see this is not",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 108.94,
+          "end": 110.53,
+          "en": "really appearing in our shell.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 110.56,
+          "end": 111.61,
+          "en": "I could now hit enter.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 111.61,
+          "end": 118.09,
+          "en": "It's not going to get executed because this program ping is running here in our shell.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 118.09,
+          "end": 124.45,
+          "en": "Or more appropriately to say this is a foreground job that's occupying our terminal and the bash will",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 124.45,
+          "end": 125.74,
+          "en": "wait for its completion.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 125.74,
+          "end": 130,
+          "en": "This specific program here with those parameters will never complete.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 130,
+          "end": 135.94,
+          "en": "But I could just hit control C to quit that job to send the corresponding signal here.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 135.94,
+          "end": 139.69,
+          "en": "And now we can see here this job is now finished.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 139.69,
+          "end": 144.22,
+          "en": "And now I am able to use my program or my my shell again.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 144.57999999999998,
+          "end": 147.68,
+          "en": "I now just enter clear to clear my screen.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 147.68,
+          "end": 156.44,
+          "en": "And this one here, for example, would now be this the first process and this would be the second process",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 156.44,
+          "end": 157.4,
+          "en": "that will be started.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 157.4,
+          "end": 162.86,
+          "en": "They will just be linked, but still they will occupy my terminal, not because they generate output,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 162.86,
+          "end": 164.75,
+          "en": "but because they are a foreground job.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 164.75,
+          "end": 170.45,
+          "en": "So this will run until I hit control C to send those signals to tell the to ask the process, hey,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 170.45,
+          "end": 171.32,
+          "en": "please quit.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 171.77,
+          "end": 179.06,
+          "en": "And then when those processes have quit, then I'm back here in my terminal again and I can use my terminal",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 179.06,
+          "end": 179.57,
+          "en": "again.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 179.57,
+          "end": 182.9,
+          "en": "So those would be examples for foreground jobs.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 183.4,
+          "end": 184.6,
+          "en": "Those are really great.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 184.6,
+          "end": 188.05,
+          "en": "But sometimes we want to run something in the background.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 188.08,
+          "end": 193.24,
+          "en": "The way to go is that we use the command that we would like to run, and then we just add an ampersand",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 193.24,
+          "end": 196.39,
+          "en": "at the end, like a space before and then the ampersand.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 196.39,
+          "end": 201.07999999999998,
+          "en": "And this tells Bash that we would like this program to be run in the background.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 201.1,
+          "end": 204.49,
+          "en": "As an example, I'm using the ping program here.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 204.49,
+          "end": 211.87,
+          "en": "Again, here I've used Dash C as a parameter C, space ten, and this means that we just want ten packets",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 211.87,
+          "end": 213.43,
+          "en": "to be sent back and forth.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 214,
+          "end": 219.91,
+          "en": "But this is now here our command, and we want to turn this into a background job.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 219.91,
+          "end": 225.43,
+          "en": "So we just add this symbol here and that should work then, Yeah, it's limited to ten packets and the",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 225.43,
+          "end": 228.57999999999998,
+          "en": "ampersand symbol, it will be started as a background job.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 228.61,
+          "end": 234.25,
+          "en": "One thing we should note is that the output will be still displayed in the shell or in our terminal",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 234.25,
+          "end": 235.99,
+          "en": "unless we redirect it.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 236.29,
+          "end": 238.51,
+          "en": "So that might be necessary.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 238.51,
+          "end": 239.02,
+          "en": "Then.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 239.44,
+          "end": 245.63,
+          "en": "Um, when we start such a background job, the shell will display the job ID and also the process ID",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 245.63,
+          "end": 246.2,
+          "en": "for us.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 246.2,
+          "end": 248.99,
+          "en": "So let's just have a look at how this works.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 249.17,
+          "end": 250.43,
+          "en": "So here we are.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 250.43,
+          "end": 257.51,
+          "en": "I just clear my screen again and let's first use just the ping command or the ping program With this",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 257.51,
+          "end": 263.24,
+          "en": "minus C option, I stick to minus C ten and I just use that one.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 263.24,
+          "end": 268.16,
+          "en": "Now you can see how here like ten data packets are being sent back and forth.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 268.79,
+          "end": 273.26,
+          "en": "Um, this is the IP right now of Google.com, at least for my location.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 273.26,
+          "end": 279.40999999999997,
+          "en": "And you can see here just that only ten packets were transmitted and I do this or I'm limiting this",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 279.40999999999997,
+          "end": 283.43,
+          "en": "here just so it doesn't ping endlessly and it eventually terminates.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 283.43,
+          "end": 290.57,
+          "en": "So you can see how this one here is our our command that we would like to execute.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 291.17,
+          "end": 292.90999999999997,
+          "en": "Um, let's just try it out.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 292.90999999999997,
+          "end": 296.78,
+          "en": "If we turn this into a background job by me adding this symbol here.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 296.78,
+          "end": 303.59,
+          "en": "So I now hit enter and we can see here this is now our job ID and this is the process ID that this is",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 303.59,
+          "end": 304.31,
+          "en": "running on.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 304.31,
+          "end": 309.65,
+          "en": "We are still in control of our bash, but the output of the ping program is still being shown in our",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 309.65,
+          "end": 310.43,
+          "en": "terminal.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 310.55,
+          "end": 313.13,
+          "en": "Let's have a look at what exactly that means.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 313.22,
+          "end": 315.92,
+          "en": "Um, let me just hit clear again.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 315.92,
+          "end": 318.68,
+          "en": "So I'm now starting the ping program again.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 319.54,
+          "end": 321.55,
+          "en": "I'm in control still of my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 321.55,
+          "end": 326.47,
+          "en": "I could just enter LHS, for example, and it would list all the files in my directory.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 326.5,
+          "end": 330.67,
+          "en": "We didn't get any reply or there are no files in this folder.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 331.15,
+          "end": 337.78,
+          "en": "Um, but everything works as we are used to, except that ping likes to always, or that the program",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 337.78,
+          "end": 340.57,
+          "en": "that's running in the background can still print to our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 340.57,
+          "end": 343.33,
+          "en": "So I could, for example, still run this one here again.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 343.33,
+          "end": 347.59000000000003,
+          "en": "And then at the same time I could just type in LHS Al or something like this.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 347.62,
+          "end": 355.51,
+          "en": "And now you can see here we were still able to use our terminal, but of course the background job was",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 355.51,
+          "end": 356.89,
+          "en": "also printing at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 356.89,
+          "end": 363.13,
+          "en": "So you see it gets a little bit confusing, but you can see how it works and how now we were in control",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 363.13,
+          "end": 364.27,
+          "en": "of our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 364.93,
+          "end": 367.99,
+          "en": "Um, but there's more that we can say here.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 368.65,
+          "end": 374.08,
+          "en": "If we don't like want to have that output, we can just redirect it to somewhere.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 374.08,
+          "end": 378.19,
+          "en": "So for example, here I can start the ping program and I could redirect the output.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 378.19,
+          "end": 381.89,
+          "en": "For example, to ping dot text or TXT.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 382.16,
+          "end": 387.59,
+          "en": "And now you can see here, this is now a background job and because the output at least the normal output",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 387.59,
+          "end": 392.27,
+          "en": "has been redirected, the normal output is not going to show up here in my terminal and I can just keep",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 392.27,
+          "end": 393.40999999999997,
+          "en": "using my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 393.40999999999997,
+          "end": 395.93,
+          "en": "And this job is now running in the background.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 395.96,
+          "end": 403.58,
+          "en": "Once this job is finished and I execute a command here, once it's finished, it will add the output",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 403.58,
+          "end": 405.71,
+          "en": "here that this job has now completed.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 405.71,
+          "end": 408.5,
+          "en": "And we can see here this has now completed.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 408.5,
+          "end": 415.73,
+          "en": "It may not print this immediately once the ping had completed, but it may take one command here and",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 415.73,
+          "end": 418.13,
+          "en": "then it will show us that it has completed.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 418.13,
+          "end": 419.39,
+          "en": "We can see it like this.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 419.42,
+          "end": 421.34,
+          "en": "If I would now just start it like this.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 421.34,
+          "end": 423.47,
+          "en": "And now I could literally wait forever.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 423.47,
+          "end": 424.79,
+          "en": "Nothing will be outputted.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 424.79,
+          "end": 431.87,
+          "en": "But once I do any command here, once the ping has completed, then it will print that it's done.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 432.55,
+          "end": 437.71,
+          "en": "Let me now just execute a small command, for example, here that I just want to output.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 437.71,
+          "end": 442.93,
+          "en": "Actually, I don't want to output anything, so I just say echo and then nothing behind.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 443.26,
+          "end": 445.93,
+          "en": "Then it will just print out the line break after that.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 445.93,
+          "end": 448.3,
+          "en": "But now you can see here it prints out that it's done.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 448.3,
+          "end": 452.71,
+          "en": "So it takes one command to print out the status of our jobs.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 453.62,
+          "end": 455.3,
+          "en": "Okay, let's have another look.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 455.3,
+          "end": 457.58,
+          "en": "Let's have a look at what happens when we have a pipe.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 457.58,
+          "end": 463.07,
+          "en": "I just use minus C 100 that we want to have send that we want to send 100 packets to Google.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 463.46,
+          "end": 467.63,
+          "en": "Um, just because I want this program to run a little bit longer.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 467.63,
+          "end": 471.89,
+          "en": "So let's say we got a pipe here and we are like, okay, we're actually not interested in the output",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 471.89,
+          "end": 475.19,
+          "en": "of the ping program, but we just want to count the number of lines.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 475.19,
+          "end": 478.01,
+          "en": "But we want to do this in the background, of course.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 478.68,
+          "end": 484.56,
+          "en": "So I now just hit enter and we can see that this is the first job and this is the last process.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 484.65,
+          "end": 486.72,
+          "en": "Process ID of the last program.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 486.72,
+          "end": 491.97,
+          "en": "So here you can see those two processes are actually being run at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 492.42,
+          "end": 499.23,
+          "en": "Um, the ping program is creating output and that output is being fed or it's being used as input immediately",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 499.23,
+          "end": 501.42,
+          "en": "when it's there for the word count program.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 501.42,
+          "end": 504.36,
+          "en": "So those two processes are running at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 504.36,
+          "end": 510.39,
+          "en": "But Bash is only displaying the last process ID, which would be the process ID of the word count program",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 510.39,
+          "end": 510.81,
+          "en": "here.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 510.81,
+          "end": 515.67,
+          "en": "So it's this job and this is the last process ID from our command.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 515.67,
+          "end": 522.09,
+          "en": "But this is why we have those graphs, because we have those, um, jobs because they represent.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 522.09,
+          "end": 522.36,
+          "en": "Yeah.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 522.36,
+          "end": 529.2,
+          "en": "For example, here they can represent multiple processes running at the same time as you've seen it",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 529.2,
+          "end": 530.61,
+          "en": "here with our pipe.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 530.7,
+          "end": 534.45,
+          "en": "By the way, this feature is a little bit more convenient in other shells.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 534.45,
+          "end": 541.09,
+          "en": "For example zsh maybe you've heard me talk about that shell before, so if I was in a zsh here for example,",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 541.09,
+          "end": 547.51,
+          "en": "and I would just execute the same command, you would see multiple process IDs from the ping program",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 547.51,
+          "end": 552.46,
+          "en": "and the word count program because both of both of these processes are running at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 552.46,
+          "end": 555.37,
+          "en": "But in Bash, it's only showing us the last process.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 555.37,
+          "end": 562.6,
+          "en": "ID But you can see here how this works and how we are able to run something like this in the background.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 562.9,
+          "end": 570.07,
+          "en": "Now that this is running in the background, how can we see whether it's still running and how how can",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 570.07,
+          "end": 572.47,
+          "en": "we access this background job again?",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 572.47,
+          "end": 575.8,
+          "en": "And luckily, there's a command for this in our shell.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 575.83,
+          "end": 578.38,
+          "en": "But we will have a look at that in the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38457762",
+      "title": "Job Listing and Foregrounding: The `jobs` and `fg` Commands",
+      "lectureOrder": 192,
+      "videoOrder": 165,
+      "sourceHash": "483fde366f57c1c61e8ba4dbd39345dc99e97c15d4f86a6de84297badcd5474f",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.32,
+          "end": 4.7,
+          "en": "Let's now have a more in-depth look at the job management in Bash.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.79,
+          "end": 8.72,
+          "en": "So let's say we started a job that is now running in the background.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.72,
+          "end": 12.11,
+          "en": "How can we list all of the jobs that are running in the background?",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.11,
+          "end": 17.66,
+          "en": "Because maybe we are not just running one job in the background, but we want to run multiple jobs at",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.66,
+          "end": 19.07,
+          "en": "the same time in the background.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.07,
+          "end": 21.34,
+          "en": "How can we have an overview over that?",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 21.35,
+          "end": 28.43,
+          "en": "So when Ping is running in the background, the way to list all the background jobs is with the jobs",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 28.43,
+          "end": 34.46,
+          "en": "command so we can just enter jobs and this will print all the jobs that are currently running.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 34.46,
+          "end": 37.4,
+          "en": "So I would say let's just have a look at this.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 37.49,
+          "end": 43.4,
+          "en": "So let's say here I'm running the ping command and I do want to redirect the output, but I don't want",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 43.4,
+          "end": 49.01,
+          "en": "to redirect it into a file because I'm really not interested in the output so I can redirect it into",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 49.01,
+          "end": 50.33,
+          "en": "a virtual file.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 50.6,
+          "end": 55.97,
+          "en": "The file slash dev null, which if we write to it, it will just be discarded.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 55.97,
+          "end": 58.91,
+          "en": "If we would read from it, we would just read zeros.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 59.24,
+          "end": 68.27,
+          "en": "Um, so here I just redirect it into okay, let's throw back and let's throw away our output and I want",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 68.27,
+          "end": 69.59,
+          "en": "to run this in the background.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 69.59,
+          "end": 73.78999999999999,
+          "en": "So now we can see that this job has been started in the background and it's running there.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 73.78999999999999,
+          "end": 80.72,
+          "en": "Now, if I want to list the currently running jobs, that was our jobs command and we can see that this",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 80.72,
+          "end": 83.3,
+          "en": "job here right now, this one here is running.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 83.48,
+          "end": 89.45,
+          "en": "The nice thing about this is that I could also, for example, just do another ping to another server.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 89.45,
+          "end": 91.91,
+          "en": "Let's say, for example, Bing.com.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 92.27000000000001,
+          "end": 98.63,
+          "en": "And I also redirect the output to because I'm not interested in it and this is now also running in the",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 98.63,
+          "end": 99.08,
+          "en": "background.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 99.08,
+          "end": 104.75,
+          "en": "And if I now output all the jobs, you can see that two tasks are running in the background.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 104.75,
+          "end": 108.05,
+          "en": "This is the first ping command, this is the second ping command.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 108.05,
+          "end": 110.93,
+          "en": "And of course it wouldn't need to be just a ping command.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 110.93,
+          "end": 115.7,
+          "en": "I could use any command that I could come up with for bash here.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 115.7,
+          "end": 120.11,
+          "en": "I'm just using Ping because I don't want anything that takes a lot of my processing power.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 120.11,
+          "end": 122.19,
+          "en": "So I don't want the CPU intensive task.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 122.19,
+          "end": 126.15,
+          "en": "I don't want anything that uses a lot of network bandwidth.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 126.15,
+          "end": 132.15,
+          "en": "So I'm just using the ping command here as a placeholder for any other possible command that I could",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 132.15,
+          "end": 133.05,
+          "en": "come up with.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 133.05,
+          "end": 139.44,
+          "en": "So we can see that those two jobs are now running in the background and I'm able to use my shell at",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 139.44,
+          "end": 141.42000000000002,
+          "en": "the same time to do something else.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 141.42000000000002,
+          "end": 147.27,
+          "en": "But let's say I want to switch to one of those jobs and I want to see what's actually happening there.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 147.36,
+          "end": 154.17000000000002,
+          "en": "And for this, I can use the foreground command, which brings a background job back to foreground.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 154.17000000000002,
+          "end": 159.36,
+          "en": "So if we have a job and we want to bring it to foreground, we can use this command.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 159.36,
+          "end": 166.2,
+          "en": "And the way to go is that we could supply or that we could pass in a percentage with the job ID to bring",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 166.2,
+          "end": 168.24,
+          "en": "this job back to foreground.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 168.24,
+          "end": 172.26,
+          "en": "So, for example, this one would bring the first job back to foreground.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 172.26,
+          "end": 178.11,
+          "en": "If there's just one job, it will automatically switch to that and we don't need to specify the job",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 178.14,
+          "end": 184.32,
+          "en": "ID, We could just say foreground if there are multiple jobs, it will switch to the current job, which",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 184.32,
+          "end": 185.31,
+          "en": "is marked with a plus.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 185.31,
+          "end": 186.72,
+          "en": "But don't worry about it too much.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 186.72,
+          "end": 189.6,
+          "en": "We'll have a look at this in the terminal in a second.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 189.6,
+          "end": 195.84,
+          "en": "So let's switch over to our terminal so we can see here those jobs, those jobs here.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 195.84,
+          "end": 200.79,
+          "en": "No, they are done now because I've recorded the slides, so I need to restart those jobs.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 200.79,
+          "end": 201.9,
+          "en": "So I hit clear.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 201.9,
+          "end": 206.57999999999998,
+          "en": "And now, for example, this one here will this one will be our first job.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 206.57999999999998,
+          "end": 211.02,
+          "en": "And this one here to the pink to Google.com.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 211.02,
+          "end": 212.57999999999998,
+          "en": "That will be our second job.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 212.57999999999998,
+          "end": 216.72,
+          "en": "So if I now list the job, you can see that those two jobs here are running.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 216.72,
+          "end": 222.09,
+          "en": "Let's say I want to switch to a job now because right now they're still running in the background.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 222.54,
+          "end": 227.52,
+          "en": "And you can see here, this is this job is indicated with this plus symbol.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 227.52,
+          "end": 234.3,
+          "en": "So this means if I now just use the foreground command, I will by default switch to that job and yours,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 234.57,
+          "end": 237.81,
+          "en": "we can see here, this is the job that's running.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 238.35,
+          "end": 246.51,
+          "en": "And we are now as if we had typed that job into the terminal ourselves without putting it into the background.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 246.51,
+          "end": 251.46,
+          "en": "So if I now, for example, would enter anything here, it will be sent to the ping program.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 251.46,
+          "end": 255.87,
+          "en": "And the ping program usually throws away the standard input or doesn't listen to it.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 255.87,
+          "end": 257.82,
+          "en": "So nothing happens here.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 258.09,
+          "end": 263.88,
+          "en": "One thing we could do here right now would be, for example, to send a signal to that process.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 263.88,
+          "end": 269.91,
+          "en": "For example, for now I would send the control C signal for the interrupt.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 269.91,
+          "end": 274.29,
+          "en": "So I would send the interrupt signal and now my job has been cancelled.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 274.92,
+          "end": 282.24,
+          "en": "So I would if I now list the jobs again, you can see here how I've switched to that job and how I canceled",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 282.24,
+          "end": 282.75,
+          "en": "that job.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 282.75,
+          "end": 286.47,
+          "en": "So let me just copy that one here and start that job again.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 286.47,
+          "end": 290.01,
+          "en": "So I clear my screen again because I want to show you something else.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 290.01,
+          "end": 292.29,
+          "en": "So we have those two jobs that are running.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 292.47,
+          "end": 295.40999999999997,
+          "en": "And let's say I want to switch to the first job.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 295.40999999999997,
+          "end": 299.82,
+          "en": "Then I could say foreground and I could say I would like to switch to the job with.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 300.03,
+          "end": 303.15,
+          "en": "Job ID one so I could just use this command.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 303.15,
+          "end": 305.97,
+          "en": "And now you can see here how this.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 306.12,
+          "end": 311.28,
+          "en": "Yeah, how I've switched to that job and actually it has completed within a few seconds because it was",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 311.28,
+          "end": 313.35,
+          "en": "already running for a few minutes.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 313.35,
+          "end": 316.11,
+          "en": "So it's yeah, that's why I'm back in my batch.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 316.11,
+          "end": 321.03,
+          "en": "But otherwise the ping program would still be active and user input would no longer work.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 321.03,
+          "end": 324.72,
+          "en": "But because the program now has finished, we can see this here.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 324.72,
+          "end": 326.7,
+          "en": "Only the second job is still running.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 327.12,
+          "end": 329.07,
+          "en": "That's why it worked like this.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 329.67,
+          "end": 335.7,
+          "en": "We can see there's still the second job that's still running and this is now marked with a plus.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 335.7,
+          "end": 341.04,
+          "en": "So I could say either foreground or to use the percentage way to write it, I could say I want to switch",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 341.04,
+          "end": 341.82,
+          "en": "to this job.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 341.82,
+          "end": 347.73,
+          "en": "And now I'm here at this job and I can now, for example, also send an interrupt again, Control C",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 347.76,
+          "end": 354.42,
+          "en": "and now this job has been quit or canceled or interrupted and it has come to an end.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 354.45,
+          "end": 357.9,
+          "en": "So this is how this job management works.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 358.42,
+          "end": 363.67,
+          "en": "There's one thing I want to emphasize because I feel like I pretty much showed you the effect, but",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 363.67,
+          "end": 367.09,
+          "en": "I feel like I should clarify it on the slide one more time.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 367.09,
+          "end": 373.6,
+          "en": "So when we are using jobs in bash, only foreground jobs can receive keyboard input.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 373.6,
+          "end": 376.57,
+          "en": "So whenever a job is running in the background.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 376.57,
+          "end": 382.48,
+          "en": "So for example here, if I would, for example, start something here in the background, whatever I",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 382.48,
+          "end": 388.99,
+          "en": "do here in the terminal, it will still be it will still be parsed and it will still just reach the",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 388.99,
+          "end": 389.5,
+          "en": "terminal.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 389.5,
+          "end": 392.89,
+          "en": "It will never reach our ping command because that's running in the background.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 392.89,
+          "end": 399.37,
+          "en": "Also, for example, if I would send an interrupt here, it wouldn't interrupt anything because the",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 399.37,
+          "end": 405.49,
+          "en": "ping program is running in the background and it does it's not connected to my keyboard input that I'm",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 405.49,
+          "end": 406.99,
+          "en": "doing here in my shell.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 406.99,
+          "end": 413.83,
+          "en": "So what I want to emphasize is that only foreground jobs can receive keyboard input and that also includes",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 413.83,
+          "end": 414.25,
+          "en": "signals.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 414.25,
+          "end": 415.51,
+          "en": "For example, Sigint.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 415.54,
+          "end": 421.18,
+          "en": "They will only work for foreground jobs and will only be parsed by those.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 421.18,
+          "end": 424.18,
+          "en": "So background jobs never receive keyboard input.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 424.21,
+          "end": 431.17,
+          "en": "You need to connect your terminal to those with the foreground command first and then those jobs can",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 431.17,
+          "end": 433.33,
+          "en": "receive keyboard input.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 433.33,
+          "end": 437.26,
+          "en": "But as long as they are in the background, they are not able to receive keyboard input.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 437.26,
+          "end": 439.03,
+          "en": "It's completely disconnected.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 440.08,
+          "end": 446.26,
+          "en": "So this is already one part of the process or job management that we can do in batch, that we can start",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 446.26,
+          "end": 452.56,
+          "en": "something in the background and then that we can put it back to foreground that program.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 452.83,
+          "end": 459.15999999999997,
+          "en": "But we can also start something and then tell Bash, Hey, we want to send this program to the background",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 459.15999999999997,
+          "end": 463.18,
+          "en": "and we will have a look at this in the next lecture, how this works.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38457774",
+      "title": "Suspending and Resuming Jobs with `fg`",
+      "lectureOrder": 194,
+      "videoOrder": 166,
+      "sourceHash": "30cc9bfb844c8a8b194aae244420c317ebf72d170395730177402c6d90653a22",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.43,
+          "end": 5.29,
+          "en": "In this lecture, we want to dig deeper into the job management and batch, and we will have a look",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.29,
+          "end": 8.02,
+          "en": "at how we can suspend a program and resume it.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.29,
+          "end": 14.74,
+          "en": "So if we are in a foreground job and we would like to send it to the background, we are able to suspend",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 14.74,
+          "end": 20.74,
+          "en": "the job by using the suspend character that's usually control plus Z or Z.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 20.92,
+          "end": 26.71,
+          "en": "This internally sends a sigtstp signal to the program involved.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 26.71,
+          "end": 31.69,
+          "en": "That's just the internal signal name that is being communicated to the program.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.02,
+          "end": 37.93,
+          "en": "And this signal, you can imagine as a nicer version of the six stop signal from the last chapter,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 37.93,
+          "end": 42.79,
+          "en": "it asks the program to pause execution and return control to the terminal.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 42.79,
+          "end": 49.43,
+          "en": "So when we send a job to the background, it will actually be paused when we send those.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 49.48,
+          "end": 51.4,
+          "en": "This suspend character.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 51.61,
+          "end": 59.2,
+          "en": "A program could also ignore it though, but usually it should listen to that and it should then be sent",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 59.2,
+          "end": 60.44,
+          "en": "to the background.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 60.44,
+          "end": 62.66,
+          "en": "We can then later resume the job.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 62.66,
+          "end": 68.06,
+          "en": "But let's first have a look at how we can send a job to the background and how this works.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 68.06,
+          "end": 75.98,
+          "en": "So let me clear my screen first and let me ping for example, Google.com 100 times.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 76.1,
+          "end": 81.98,
+          "en": "I redirect the output because I'm not interested in this and I don't want to start it in the background.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 81.98,
+          "end": 84.14,
+          "en": "I want to start it in the foreground.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 84.14,
+          "end": 90.74,
+          "en": "So this job is now running in the foreground and now I can try to enter my suspend character.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 90.86,
+          "end": 96.11,
+          "en": "This character or suspend character should usually be the keyboard combination Control Z.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 96.11,
+          "end": 100.75999999999999,
+          "en": "So I've entered this and we have now seen that that this job here has been stopped.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 100.75999999999999,
+          "end": 107.72,
+          "en": "Now, if we now look into our jobs table, we can see here that we do have this job here which is stopped,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 107.72,
+          "end": 109.61,
+          "en": "which by the way, only means paused.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 109.61,
+          "end": 110.84,
+          "en": "It's not terminated.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 110.84,
+          "end": 112.03999999999999,
+          "en": "It's still running.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 112.03999999999999,
+          "end": 115.72999999999999,
+          "en": "It's just stopped in a sense that it's not executing anymore.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 115.72999999999999,
+          "end": 122.56,
+          "en": "But this process and this job, it's still there, but it's stopped and that's what we see here in our",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 122.56,
+          "end": 123.54,
+          "en": "jobs table.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 123.55,
+          "end": 125.32,
+          "en": "So let's say we have that.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 125.32,
+          "end": 126.88,
+          "en": "How can we resume it?",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 127.63,
+          "end": 130.63,
+          "en": "There are several ways how we can resume a job.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 131.02,
+          "end": 135.97,
+          "en": "We can put it back into the foreground by saying foreground and then percentage and then the job ID",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 136.24,
+          "end": 142.57,
+          "en": "But we could also resume this job as a background job with either this command here.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 142.57,
+          "end": 147.52,
+          "en": "We put it back into the foreground and then we say, okay, no, actually we are not interested in this",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 147.52,
+          "end": 149.47,
+          "en": "job to be executed in the foreground.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 149.47,
+          "end": 151.48,
+          "en": "It should be executed in the background.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 151.48,
+          "end": 155.82999999999998,
+          "en": "So we could use this symbol at the end to turn it into a background job.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 155.82999999999998,
+          "end": 161.53,
+          "en": "Or actually we could just use the BG command to turn it into a background job immediately.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 161.77,
+          "end": 170.17000000000002,
+          "en": "When we continue a job, then a second signal is sent to the program that this program is now continuing",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 170.17000000000002,
+          "end": 178.21,
+          "en": "again so programs can have a notice or can take notice of that and they could, for example, reconnect",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 178.21,
+          "end": 184.54,
+          "en": "to a server if we were downloading a file or do something when when the signal occurs.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 184.54,
+          "end": 186.85,
+          "en": "So let's just have a look at how this works.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 186.85,
+          "end": 193.12,
+          "en": "So the ping command has been stopped here and I want to resume it so I could say, okay, here, I want",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 193.12,
+          "end": 193.99,
+          "en": "to resume it.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 194.71,
+          "end": 196.99,
+          "en": "Let's say I want to resume it in the background.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 196.99,
+          "end": 203.89,
+          "en": "So I say back BG percent one and now this program is running in the background again.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 203.89,
+          "end": 207.64,
+          "en": "And if I now look into my jobs table, you can see that this is running.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 207.64,
+          "end": 210.61,
+          "en": "And you can see here this is the command that's running.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 210.7,
+          "end": 217.36,
+          "en": "If I want to, for example, stop that one again, I could now switch back to this program into the",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 217.36,
+          "end": 217.87,
+          "en": "foreground.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 217.87,
+          "end": 221.92000000000002,
+          "en": "If it was stopped, by the way, it would be um, it would be started again.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 221.92000000000002,
+          "end": 223.39,
+          "en": "But now it's running already.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 223.39,
+          "end": 226.45,
+          "en": "So I'm just accessing this now in the foreground.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 226.45,
+          "end": 236.05,
+          "en": "And now I could stop it again with the control Z command or with this escape character control Z to",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 236.05,
+          "end": 237.16,
+          "en": "suspend that program.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 237.16,
+          "end": 239.05,
+          "en": "So now you can see it stopped again.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 239.05,
+          "end": 246.23,
+          "en": "And now I could also resume this program by putting it in this case now back into the foreground.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 246.23,
+          "end": 249.92,
+          "en": "And now you can see here, it's now in the foreground and it's running again.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 250.04,
+          "end": 255.95,
+          "en": "Of course, if that program were to create output so we would not have redirected the output here.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 255.95,
+          "end": 258.98,
+          "en": "It would also print all the output here into my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 258.98,
+          "end": 262.46,
+          "en": "And you can imagine it would be really, really difficult to keep track of that.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 262.46,
+          "end": 268.25,
+          "en": "So just be aware of what's happening here, especially if you do decide not to redirect the output.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 268.25,
+          "end": 273.89,
+          "en": "But here I did redirect the output so we are not getting the output here printed randomly while we are",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 273.89,
+          "end": 275.39,
+          "en": "typing something in here.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 275.81,
+          "end": 282.40999999999997,
+          "en": "And it's we can have an overview of how all of this works so you can see how you can use the escape",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 282.40999999999997,
+          "end": 286.61,
+          "en": "character of Control plus Z to suspend a program.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 286.61,
+          "end": 292.46,
+          "en": "And then you can choose whether you want the program to continue in the background or in the foreground.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 292.7,
+          "end": 293.54,
+          "en": "All right.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 293.65999999999997,
+          "end": 295.61,
+          "en": "Now that we have a job.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 296.73,
+          "end": 301.44,
+          "en": "How can we kill a job and tell this job to come to an end, for example?",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 301.44,
+          "end": 304.71,
+          "en": "And for that we can use the kill command.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 304.98,
+          "end": 307.62,
+          "en": "But we will have a look at this in the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38457834",
+      "title": "Terminating Jobs with `kill`",
+      "lectureOrder": 195,
+      "videoOrder": 167,
+      "sourceHash": "cfa3050dae1cc584ae2933679cdaf2bf562230477d285f3d25d0984f1331968c",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.32,
+          "end": 0.79,
+          "en": "All right.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 0.8,
+          "end": 2.07,
+          "en": "Let's now have a quick lesson.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 2.09,
+          "end": 5.12,
+          "en": "How we can kill a job so we can kill a job.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 5.12,
+          "end": 11.3,
+          "en": "Also with the kill command, we can just say kill, then the sentence percentage sign and then the ID",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.3,
+          "end": 12.17,
+          "en": "of the job.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 12.41,
+          "end": 18.35,
+          "en": "This will then, just as in a normal kill command would do, send Sigterm to that job and will ask the",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.35,
+          "end": 20.06,
+          "en": "job to terminate itself.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 20.18,
+          "end": 25.16,
+          "en": "If this doesn't work, we could of course, also send a kill to a job instead.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 25.16,
+          "end": 29.39,
+          "en": "For example, by specifying the signal that we would like to send to the job.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 29.39,
+          "end": 35.27,
+          "en": "Please note also here we need the percentage sign to make it clear that we want to refer to a job.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 35.27,
+          "end": 37.33,
+          "en": "Let's have a look at how this works.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 37.34,
+          "end": 45.95,
+          "en": "So I first start another ping, for example, for google.com and then I redirect the output into dev",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 45.95,
+          "end": 48.11,
+          "en": "null because I'm not interested in it.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 48.14,
+          "end": 52.73,
+          "en": "Now we can see this is our process ID and this is our our job ID.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 52.73,
+          "end": 53.93,
+          "en": "Why is it job ID to.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 53.93,
+          "end": 55.07,
+          "en": "Let's just have a look.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 55.07,
+          "end": 58.55,
+          "en": "Well, there was another one job that is currently stopped.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 58.55,
+          "end": 62.01,
+          "en": "I had paused that one before, probably in one of those lectures.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 62.01,
+          "end": 65.04,
+          "en": "But this is the new job that's running right now.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 65.04,
+          "end": 66.63,
+          "en": "Let's see how we can kill it.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 66.63,
+          "end": 70.02,
+          "en": "I can just say kill percentage sign two.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 70.02,
+          "end": 71.78999999999999,
+          "en": "And now this job has been killed.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 71.78999999999999,
+          "end": 76.98,
+          "en": "And if we see it here, we can see that it has been terminated with the signal type 15.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 77.07,
+          "end": 80.37,
+          "en": "Why do we need this syntax here with the percentage sign?",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 80.37,
+          "end": 85.95,
+          "en": "Well, we must make it clear whether we mean the process ID or the job ID.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 86.16,
+          "end": 91.65,
+          "en": "So the way we make this clear is that we use the percentage sign here before and then we make it clear,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 91.65,
+          "end": 93.99000000000001,
+          "en": "hey, we are meaning a job ID with this one.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 94.08,
+          "end": 96.99000000000001,
+          "en": "Let's see, for example, if I would do this jobs.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 96.99000000000001,
+          "end": 103.5,
+          "en": "And now, for example, let's say I would just try to kill this kill space two without the percentage",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 103.5,
+          "end": 103.97999999999999,
+          "en": "sign.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 103.97999999999999,
+          "end": 109.56,
+          "en": "And then we can see it was trying to find a process with the process ID two, which of course didn't",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 109.56,
+          "end": 110.13,
+          "en": "exist.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 110.13,
+          "end": 116.64,
+          "en": "So this kill didn't work properly or it didn't do anything because we do need if we want to refer to",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 116.64,
+          "end": 119.85,
+          "en": "a job, we do need to use a percentage sign here.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 119.85,
+          "end": 123.39,
+          "en": "By the way, those jobs is a shell feature.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 123.39,
+          "end": 125.25,
+          "en": "It's a feature of our bash.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 125.34,
+          "end": 132.57,
+          "en": "So this means that if I'm starting a job here and I would like to kill it, I need to do it with a kill",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 132.57,
+          "end": 134.61,
+          "en": "command that's built in in my bash.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 134.61,
+          "end": 135.69,
+          "en": "I can't on the Mac.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 135.69,
+          "end": 138.93,
+          "en": "It's on bin kill bin kill on Linux.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 138.93,
+          "end": 141.54,
+          "en": "It might be in usr bin kill.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 141.54,
+          "end": 146.67000000000002,
+          "en": "There might be a user before, but here it's bin kill.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 147.21,
+          "end": 154.8,
+          "en": "If I would try to refer to job ID two like this, we can see here the bin executable file on my file",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 154.8,
+          "end": 160.23,
+          "en": "system does not support jobs in bash and it doesn't know what to do with this kind of syntax.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 160.23,
+          "end": 167.07,
+          "en": "So just be aware that you need to use kill without any folder path before so the bash will see it as",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 167.07,
+          "end": 173.25,
+          "en": "a bash command and we will use the kill utility from our terminal and not the one from our operating",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 173.25,
+          "end": 173.91,
+          "en": "system.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 173.91,
+          "end": 182.3,
+          "en": "So be aware that here if it's something like usr bin kill or bin kill, working with jobs and kill then",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 182.3,
+          "end": 183.2,
+          "en": "will not work.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 183.2,
+          "end": 185.21,
+          "en": "We need to use just kill.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 185.87,
+          "end": 187.49,
+          "en": "Just the bash feature here.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 187.49,
+          "end": 188.09,
+          "en": "All right.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 188.09,
+          "end": 191.54,
+          "en": "This much about kill and how it refers to jobs.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38457836",
+      "title": "Suspending Jobs with Output using `stty`",
+      "lectureOrder": 196,
+      "videoOrder": 168,
+      "sourceHash": "337f953592d0f9fb57ff7d47845e43dbbc0d0a6573487a8976634708d2506b06",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.26,
+          "end": 4.19,
+          "en": "Let me start this lecture with a small problem that we had so far.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.22,
+          "end": 6.17,
+          "en": "So far, we had to choose.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.2,
+          "end": 12.29,
+          "en": "We had to choose whether we either want to have the output output in our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.29,
+          "end": 17.27,
+          "en": "Let's say, for example, we want to start a background job here with a pink command.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.3,
+          "end": 22.25,
+          "en": "If we start it like this as a background job, we will get all the output in our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.34,
+          "end": 24.86,
+          "en": "That was the one way we could do it.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 24.86,
+          "end": 28.7,
+          "en": "Or we could say, okay, let's just redirect the output here.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 28.7,
+          "end": 31.07,
+          "en": "I'm just redirecting the stdout output.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 31.07,
+          "end": 37.22,
+          "en": "That's enough for now, but I'm redirecting the standard output to dev null.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 37.22,
+          "end": 40.88,
+          "en": "So it's being thrown away and then I don't have any output.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 41.27,
+          "end": 49.31,
+          "en": "Isn't there a way that we could do something in between where our program executes and once it generates",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 49.32,
+          "end": 54.17,
+          "en": "output it will just be paused until we are ready to look at the output.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 54.17,
+          "end": 56.87,
+          "en": "And this is what we want to have a look at right now.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 57.02,
+          "end": 60.35,
+          "en": "We will have a look at the Stty command.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 60.35,
+          "end": 63.88,
+          "en": "With this one, we can send a specific option.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 63.89,
+          "end": 67.52,
+          "en": "The option is called to stop and the ste.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 67.55,
+          "end": 71.12,
+          "en": "It's a tool to change and print the terminal line settings.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 71.12,
+          "end": 74.6,
+          "en": "We here use it for the to stop option.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 74.6,
+          "end": 80.78,
+          "en": "By setting this option, we can tell it that we want to suspend the job if it creates any output.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 80.78,
+          "end": 88.88,
+          "en": "So this means with this command we are able to start a background job and it will only run until it",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 88.88,
+          "end": 90.2,
+          "en": "creates any output.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 90.2,
+          "end": 94.07,
+          "en": "Once it writes any output, the job will be suspended immediately.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 95.21000000000001,
+          "end": 98.42,
+          "en": "If this is if this is what we want, this is great.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 98.42,
+          "end": 101.33,
+          "en": "But maybe sometimes we want to disable that feature again.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 101.33,
+          "end": 106.13,
+          "en": "Then we would use stty minus to stop to disable that feature.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 106.13,
+          "end": 108.62,
+          "en": "So let's have a look at how we can do it.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 108.65,
+          "end": 111.86,
+          "en": "So first I need to cancel what I was writing here.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 111.86,
+          "end": 115.19,
+          "en": "So I just hit control C to cancel the current command.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 115.34,
+          "end": 119.78,
+          "en": "Then I use the sty command and then the option to stop.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 119.78,
+          "end": 121.8,
+          "en": "And now I have set that one.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 121.8,
+          "end": 128.76,
+          "en": "Now I can say, for example, that I want to ping something, for example, Google.com, and I want",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 128.76,
+          "end": 130.92,
+          "en": "this job to be run in the background.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 130.95,
+          "end": 137.52,
+          "en": "Now this job is running in the background, but when we see in our jobs table, this job has been stopped.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 137.55,
+          "end": 143.16,
+          "en": "This is because the to stop option is active and the ping program has created some output.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 143.19,
+          "end": 146.76,
+          "en": "Let's bring this ping program to our foreground.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 146.76,
+          "end": 152.94,
+          "en": "So I use the FG command for that and we can see this is the output that our ping program had so far.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 153.09,
+          "end": 155.64,
+          "en": "I want to put it back into the background.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 155.64,
+          "end": 160.68,
+          "en": "So I hit Control Z So now it's back in the background, but it's also stopped at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 160.68,
+          "end": 167.04,
+          "en": "You can see here it stopped because when I use Control Z, when I enter this suspend character in my",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 167.04,
+          "end": 173.43,
+          "en": "terminal, this means that I want to suspend the program, which means, okay, it will be stopped.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 173.46,
+          "end": 174.93,
+          "en": "Not not terminated.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 174.93,
+          "end": 178.29,
+          "en": "Just stopped until I resume it again.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 178.47,
+          "end": 179.46,
+          "en": "So let's see.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 179.46,
+          "end": 182.4,
+          "en": "Let's just try to resume this command.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 183.03,
+          "end": 185.4,
+          "en": "But using the command again.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 185.4,
+          "end": 191.97,
+          "en": "And then you can see here, this is now or it was running now, but it has stopped already again, because",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 191.97,
+          "end": 196.2,
+          "en": "the ping command likes to create an output, I think twice a second or something like that.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 196.2,
+          "end": 199.05,
+          "en": "So it likes to print those lines.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 199.05,
+          "end": 204.78,
+          "en": "And because every time a background process creates any output, it is stopped.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 204.78,
+          "end": 207.03,
+          "en": "This process now here has been stopped.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 207.03,
+          "end": 212.82,
+          "en": "I could now try to resume it again, for example, like this and immediately after, look at my jobs.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 212.82,
+          "end": 218.01,
+          "en": "You can see here I can put multiple commands with a semicolon here in between.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 218.57999999999998,
+          "end": 220.14,
+          "en": "So you see it was running.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 220.14,
+          "end": 224.76,
+          "en": "But right now, already it stopped again because the program has created output again.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 224.76,
+          "end": 229.71,
+          "en": "So it's really making sure that I'm able to see all the output that's happening here.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 229.95,
+          "end": 235.07999999999998,
+          "en": "And whenever the program creates any output, it will be stopped.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 235.2,
+          "end": 241.5,
+          "en": "If I don't want this, I can also of course disable that again as t minus to stop.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 241.5,
+          "end": 243.46,
+          "en": "Now it's disabled again.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 243.73,
+          "end": 249.28,
+          "en": "And now, for example, I could put the ping program back into the background and now my terminal is",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 249.29,
+          "end": 249.94,
+          "en": "still active.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 249.97,
+          "end": 251.89,
+          "en": "You can see here it's still working.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 252.22,
+          "end": 256.54,
+          "en": "But of course now all the output is being shown because it's not redirected.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 256.54,
+          "end": 257.98,
+          "en": "But I'm still in my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 257.98,
+          "end": 263.53,
+          "en": "You can see here how I'm able to type something in and how everything works.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 263.53,
+          "end": 273.79,
+          "en": "So this is how the Stty command works and how you can use it to to suspend jobs that want to print something.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38457784",
+      "title": "Job Synchronization with the `wait` Command",
+      "lectureOrder": 197,
+      "videoOrder": 169,
+      "sourceHash": "b2bff296818889d7a563b159193fa044b37ec50bac3da09abbb44fbb55a2d7d2",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.29,
+          "end": 3.81,
+          "en": "Let's now have a look at how we can wait for background jobs.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.83,
+          "end": 5.6,
+          "en": "Let me give you an example.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.37,
+          "end": 11.57,
+          "en": "So let's say, for example, that we have three downloads and they are all running in the background.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.59,
+          "end": 16.09,
+          "en": "How can we wait for them and execute another command once all of them are done?",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 16.12,
+          "end": 20.51,
+          "en": "We can do this with the wait command, with the wait command.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 20.53,
+          "end": 22.3,
+          "en": "We can wait for background jobs.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 22.3,
+          "end": 27.43,
+          "en": "So it's running in the foreground and we can wait for the background jobs if we just use it like this.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 27.46,
+          "end": 32.11,
+          "en": "It means that we want to wait until all currently running jobs have changed their state.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 32.11,
+          "end": 35.47,
+          "en": "So usually that means that they have finished executing.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 35.5,
+          "end": 44.74,
+          "en": "We can also pass in the process ID and then we would wait until this one specific process has finished",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 44.74,
+          "end": 45.67,
+          "en": "executing.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 45.7,
+          "end": 52.09,
+          "en": "We could also specify which job we would like to wait by just using the percentage sign here and then",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 52.09,
+          "end": 53.35,
+          "en": "the ID of the job.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 53.44,
+          "end": 57.73,
+          "en": "Or we could also say, okay, we just want any job to be completed.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 57.73,
+          "end": 64.27,
+          "en": "So this would then complete whenever any of our background job is completed.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 64.39,
+          "end": 69.71000000000001,
+          "en": "Let's have a look at this, how we can use it, but also how we can combine it with something really",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 69.71000000000001,
+          "end": 70.3,
+          "en": "cool.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 70.31,
+          "end": 77.66,
+          "en": "So let's say, for example here, instead of a download, I just use a ping here and let's say for example,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 77.66,
+          "end": 85.7,
+          "en": "here I have this command here where I ping a server and I redirect the output to dev null.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 85.78999999999999,
+          "end": 88.4,
+          "en": "Let me now just start this multiple times.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 88.4,
+          "end": 90.94,
+          "en": "So this is the time one error key.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 90.95,
+          "end": 93.92,
+          "en": "I started a second time and I started a third time.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 93.92,
+          "end": 98.28999999999999,
+          "en": "I list my job jobs and I immediately use the wait command.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 98.3,
+          "end": 103.22,
+          "en": "So what's happening now is that we have three jobs that are running in the background.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 103.22,
+          "end": 105.22999999999999,
+          "en": "Those are those three jobs here.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 105.22999999999999,
+          "end": 111.68,
+          "en": "And the Wait program has now looked at all the currently active jobs that are running, and it's tracking",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 111.68,
+          "end": 111.92,
+          "en": "those.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 111.92,
+          "end": 115.85,
+          "en": "And once they change their state, the wait program will terminate.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 115.85,
+          "end": 119.63,
+          "en": "This one here is still our batch printing that the job state has been changed.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 119.78,
+          "end": 123.26,
+          "en": "But you can see here the wait command has finished executing.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 123.26,
+          "end": 129.77,
+          "en": "Once all of those three backgrounds jobs have completed or their state has changed to done.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 130.13,
+          "end": 136.49,
+          "en": "So, you can see how we can here, for example, run multiple stuff in the background or multiple commands.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 136.49,
+          "end": 141.5,
+          "en": "And with wait, we can be like, okay, hey, this should be now be run in the foreground.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 141.5,
+          "end": 146.45,
+          "en": "Not those tasks in the background, but the wait command should be run in the foreground in our batch,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 147.02,
+          "end": 150.17000000000002,
+          "en": "and the wait program should only then finish once.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 150.17000000000002,
+          "end": 155.51,
+          "en": "All of those three background jobs have changed their state here in this case to done.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 156.38,
+          "end": 158.36,
+          "en": "Um, how can we use it?",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 158.39,
+          "end": 162.8,
+          "en": "Well, the way to go is let me start from scratch again.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 162.8,
+          "end": 166.43,
+          "en": "That in bash we can combine multiple commands to one.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 166.43,
+          "end": 173.75,
+          "en": "So for example here I could say hello and I could use a semicolon and then I could, for example, here,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 174.07999999999998,
+          "end": 177.29,
+          "en": "just type in the next command that I would like to be executed.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 177.29,
+          "end": 182.15,
+          "en": "In this case, this tells the batch here, this is the first command that I would like to execute,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 182.15,
+          "end": 188.12,
+          "en": "then a semicolon and then this is the next command that I would like to execute so we can see both of",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 188.12,
+          "end": 190.88,
+          "en": "those are being executed one after the other.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 191.18,
+          "end": 193.67,
+          "en": "We can use this with our wait command.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 193.67,
+          "end": 196.25,
+          "en": "So let me start my three ping jobs again.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 196.25,
+          "end": 197.81,
+          "en": "So here we got that one.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 197.81,
+          "end": 199.1,
+          "en": "Then I say wait.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 199.1,
+          "end": 203.51,
+          "en": "And then for example, I could say Echo hello or something like this.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 203.66,
+          "end": 210.59,
+          "en": "So now we are waiting for all of those three background tasks to change their state, usually to done",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 210.77,
+          "end": 212.15,
+          "en": "now here in this case.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 212.15,
+          "end": 216.49,
+          "en": "So we are waiting for those and then we will output a hello.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 216.5,
+          "end": 218.57,
+          "en": "So let's wait a little bit longer.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 218.57,
+          "end": 220.01,
+          "en": "Let's see what's going to happen.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 220.01,
+          "end": 226.4,
+          "en": "And now you can see two and three were ready and then we can see here, hello is being outputted here",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 226.4,
+          "end": 230.81,
+          "en": "and you can see we pretty much waited for all the background jobs to complete.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 231.41,
+          "end": 238.1,
+          "en": "Another really cool thing is that we can combine it with specific special characters for our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 238.37,
+          "end": 239.97,
+          "en": "What do I mean by this?",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 239.99,
+          "end": 242.33,
+          "en": "Well, there's one special character.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 242.33,
+          "end": 246.05,
+          "en": "For example, you need to have a supported terminal for that, though.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 246.05,
+          "end": 247.46,
+          "en": "It's called Bell.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 247.46,
+          "end": 249.98,
+          "en": "It's just an escape sequence.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 249.98,
+          "end": 253.4,
+          "en": "It's just as if we would output anything else in our shell.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 253.82,
+          "end": 259.73,
+          "en": "We can generate this string sequence using the Tput program, but it's technically it's just characters",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 259.73,
+          "end": 261.56,
+          "en": "that are being sent to our terminals.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 261.56,
+          "end": 265.22,
+          "en": "But those characters influence the behavior of our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 265.22,
+          "end": 271.04,
+          "en": "In my case, if I now hit enter, I'm not sure if you can hear it in the recording, but we can hear",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 271.04,
+          "end": 276.59000000000003,
+          "en": "a small sound which notifies us that something has happened here internally.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 276.59000000000003,
+          "end": 280.43,
+          "en": "Again, this is nothing crazy what's happening here.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 280.43,
+          "end": 286.67,
+          "en": "I could, for example, also redirect this to a file and then we could look what has been sent to our",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 286.67,
+          "end": 287.09000000000003,
+          "en": "terminal.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 287.09000000000003,
+          "end": 291.56,
+          "en": "And we can see it's just this kind of escape sequence that generates this sound.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 292.25,
+          "end": 298.85,
+          "en": "A lot of terminals nowadays might not support this character anymore, or they might do something different.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 298.85,
+          "end": 304.18,
+          "en": "For example, it might also mean that the screen might flash if you execute this command for you, or",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 304.19,
+          "end": 305.81,
+          "en": "it might also mean that or it.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 305.85,
+          "end": 309.22,
+          "en": "Can also happen that this command is just completely ignored.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 309.24,
+          "end": 312.57,
+          "en": "You might also need to have to enable that in the settings.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 312.57,
+          "end": 314.4,
+          "en": "It really depends on your terminal.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 314.4,
+          "end": 318.42,
+          "en": "But if it doesn't work, first check the settings of your terminal.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 319.29,
+          "end": 321.09,
+          "en": "Quite a few terminals are ignoring it.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 321.09,
+          "end": 328.83,
+          "en": "And second, if it if there's no setting for it this, then you might need to change your user interface",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 328.83,
+          "end": 331.11,
+          "en": "application to run your terminal in.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 331.11,
+          "end": 333.71,
+          "en": "But in my case you can see it was working.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 333.72,
+          "end": 340.82,
+          "en": "So the way to go here would be, for example, I could start my three background tasks again.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 340.83,
+          "end": 343.17,
+          "en": "Then I could say, okay, I now want to wait.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 343.17,
+          "end": 347.37,
+          "en": "And then, for example, I want this character to be outputted.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 347.37,
+          "end": 351.03,
+          "en": "And then I could say, Here, download complete or something like this.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 351.03,
+          "end": 352.89,
+          "en": "I hope I was fast enough now.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 353.34000000000003,
+          "end": 357.57,
+          "en": "So now we are waiting until all of those backgrounds drops are complete.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 357.6,
+          "end": 363.51,
+          "en": "Then we output this one special character that will create a sound effect and then we output something",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 363.51,
+          "end": 364.29,
+          "en": "like this here.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 364.83,
+          "end": 366.69,
+          "en": "Maybe you've heard the sound effect.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 366.69,
+          "end": 368.31,
+          "en": "At least here it did work.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 368.88,
+          "end": 371.88,
+          "en": "And yeah, this is how you can combine this.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 371.88,
+          "end": 375.36,
+          "en": "And I do admit in a shell like this.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 376.15,
+          "end": 384.37,
+          "en": "We might use it, but it gets especially useful in batch scripts because then it allows us to run multiple",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 384.37,
+          "end": 385.69,
+          "en": "things in parallel.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 386.14,
+          "end": 391.51,
+          "en": "But even in a batch or even in a shell like this, you can imagine this might be quite convenient if",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 391.51,
+          "end": 393.88,
+          "en": "you have a few downloads that you need to run.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 393.88,
+          "end": 399.61,
+          "en": "And then it could, for example, notify you with a slide with a small sound effect that, okay, everything",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 399.61,
+          "end": 399.94,
+          "en": "is done.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 399.94,
+          "end": 401.44,
+          "en": "We can continue here now.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 401.65,
+          "end": 402.25,
+          "en": "All right.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 402.25,
+          "end": 405.58,
+          "en": "This much about the wait command and how this works.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38457808",
+      "title": "Keep Programs Running: the Command `nohup` vs `&`",
+      "lectureOrder": 198,
+      "videoOrder": 170,
+      "sourceHash": "9e7dddad2cb1ae1403fde0a7d2f867676d4055c305fc86243f1c418a4eba1549",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.51,
+          "end": 7.02,
+          "en": "In this lecture, I want to talk about no hub, which is a utility that allows us to keep a program",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.02,
+          "end": 12.93,
+          "en": "running even if we close our terminal or even if we end our terminal session.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 13.08,
+          "end": 19.29,
+          "en": "So and for this, we can use the no hub command, and this will launch a program that will remain open",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 19.29,
+          "end": 21.32,
+          "en": "even if we close our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 21.33,
+          "end": 23.67,
+          "en": "So, for example, here, I could say no hub.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 23.67,
+          "end": 29.31,
+          "en": "And then the program that I would like to call and then I also turn this, for example, into a background",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 29.31,
+          "end": 36.03,
+          "en": "job in our shell now or this no hub command will do the following.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 36.03,
+          "end": 41.49,
+          "en": "It will start the program ping, which will be run in the background because of this ampersand here",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 41.49,
+          "end": 42.15,
+          "en": "at the end.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 42.15,
+          "end": 44.55,
+          "en": "So this is being run at the background.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 44.55,
+          "end": 49.05,
+          "en": "It will keep running even if we close our terminal or log out from our system.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 49.05,
+          "end": 55.29,
+          "en": "So the ping program will keep running no matter what until it's finished or it has an error or whatever.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 55.62,
+          "end": 60.54,
+          "en": "So you can imagine, for example, if you have a long script that takes a really long time to execute",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 60.64,
+          "end": 67.84,
+          "en": "it, or you have a download that takes a long time, you could start that download with a no hub program.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 67.84,
+          "end": 71.92,
+          "en": "And then even for example, if you log out, the download would still keep running.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 72.73,
+          "end": 73.6,
+          "en": "Don't worry.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 73.6,
+          "end": 77.02,
+          "en": "We will have a look at how exactly this works in a second.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 77.08,
+          "end": 81.01,
+          "en": "The knowHow program will also redirect the standard output.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 81.22,
+          "end": 88.09,
+          "en": "It will either create a file called KnowAbout and our current folder in our current working directory,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 88.09,
+          "end": 92.47,
+          "en": "but if that's not writable, then it will create that file in our home directory.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 93.00999999999999,
+          "end": 99.1,
+          "en": "Before we look into the details, how it works and why we also need this ampersand here and how all",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 99.1,
+          "end": 102.82,
+          "en": "of that fits together, let's just have a look at how Nanohub works.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 103.18,
+          "end": 105.85,
+          "en": "Let me just switch to my bash.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 105.85,
+          "end": 113.62,
+          "en": "And here, for example, I now just use the command from before Nanohub ping minus C 100 to google.com,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 113.62,
+          "end": 115.45,
+          "en": "and then the ampersand.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 116.34,
+          "end": 119.88,
+          "en": "Um, and this will now be run completely in the background.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 119.88,
+          "end": 125.16,
+          "en": "And we can see here that it's appending this to the notepad out in my current working directory.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 125.16,
+          "end": 131.01,
+          "en": "I've um, after that command I've pressed enter because after this output, this was not a command that",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 131.01,
+          "end": 136.47,
+          "en": "I was writing, it was just output that was written after the batch had outputted that one I just pressed",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 136.47,
+          "end": 136.95,
+          "en": "Enter.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 136.95,
+          "end": 139.26,
+          "en": "So that bash generates a new line here.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 139.26,
+          "end": 145.41,
+          "en": "So this ping process is now running and this is the process ID We can just check that for example,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 145.41,
+          "end": 150,
+          "en": "with PS and then this process and you can see here that it's still running.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 150.09,
+          "end": 155.97,
+          "en": "Let me now my terminal supports this, but in your case, it could also just be a new terminal window,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 155.97,
+          "end": 159.18,
+          "en": "open a new tab and start a bash here.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 159.18,
+          "end": 164.78,
+          "en": "And now I just check for the same process ID and you can see here it's still running.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 164.82,
+          "end": 168.78,
+          "en": "Let me now just quit my bash here with the exit command.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 168.78,
+          "end": 171.57,
+          "en": "And now I'm in another shell.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 171.57,
+          "end": 172.92000000000002,
+          "en": "So I just hit exit again.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 172.92000000000002,
+          "end": 175.53,
+          "en": "And this also closes my previous tab.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 175.53,
+          "end": 176.77,
+          "en": "It doesn't really matter.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 176.77,
+          "end": 180.45,
+          "en": "We could have also just closed the whole terminal window.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 180.46,
+          "end": 182.5,
+          "en": "Now this process is still running.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 182.5,
+          "end": 188.71,
+          "en": "You can see here it no longer has a T, It doesn't have one anymore, but we can see it's still running",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 188.92,
+          "end": 189.97,
+          "en": "the time here.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 189.97,
+          "end": 193.84,
+          "en": "It's not the actual time that the program is running.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 193.84,
+          "end": 198.1,
+          "en": "It's the actual time that the program has used our processor.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 198.7,
+          "end": 203.17000000000002,
+          "en": "And that's of course pretty low because we are not doing a CPU intensive task here.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 203.17000000000002,
+          "end": 205.99,
+          "en": "We are just sending a few packets back and forth.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 206.32,
+          "end": 212.05,
+          "en": "Um, but we can see that this program is still running and it's completely independent of our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 212.82,
+          "end": 219,
+          "en": "If we would do this in a terminal, for example, on a Linux desktop and we would start a program with",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 219,
+          "end": 224.19,
+          "en": "no hub and then we would log out from that computer, the program would still keep running.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 225.07999999999998,
+          "end": 231.26,
+          "en": "So this program that we started in the other tab before, it's completely independent of our terminal",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 231.26,
+          "end": 234.62,
+          "en": "and usually also completely independent of our user interface.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 234.62,
+          "end": 238.07,
+          "en": "So even if we would log out, it would keep executing.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 238.16,
+          "end": 239.84,
+          "en": "How does it all work?",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 240.59,
+          "end": 241.76,
+          "en": "Let's have a look.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 242,
+          "end": 246.92,
+          "en": "Let's examine exactly what's the difference between those three commands here.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 246.92,
+          "end": 251.12,
+          "en": "So one time we have a no hub here before, but no ampersand here at the back.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 251.15,
+          "end": 255.89,
+          "en": "Then we have a normal ping command with an ampersand here at the back, and then we have this combined.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 255.89,
+          "end": 256.49,
+          "en": "So.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 257.06,
+          "end": 262.73,
+          "en": "In order to really understand why we use Nohab in combination with the ampersand at the end.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 262.73,
+          "end": 265.22,
+          "en": "Let's just have a look at that in the next slide.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 265.25,
+          "end": 269.69,
+          "en": "So this one, this is the command without an ampersand at the end.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 270.29,
+          "end": 273.01,
+          "en": "This is just no hub and no hub.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 273.02,
+          "end": 276.26,
+          "en": "This connects the ping program from the hub signal.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 276.29,
+          "end": 282.53,
+          "en": "Ping is still a foreground process that is being run in our terminal, but if we would close, our terminal",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 282.56,
+          "end": 286.22,
+          "en": "ping would remain running even after the terminal has been closed.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 286.25,
+          "end": 288.02,
+          "en": "So let's have a look at this.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 288.02,
+          "end": 292.13,
+          "en": "So here we have no hub and then we have our ping command.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 292.13,
+          "end": 293.69,
+          "en": "And I just execute this.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 293.69,
+          "end": 302.51,
+          "en": "Now with this no hub in front, we are telling, hey, disconnect this from the hub signal so that the",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 302.51,
+          "end": 307.7,
+          "en": "signal that the terminal is being closed doesn't reach our ping command.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 307.7,
+          "end": 314.69,
+          "en": "And in addition, the standard output and the output is being redirected to knowabout to that text file.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 314.69,
+          "end": 320.76,
+          "en": "But we can see that this program is still being run as a foreground process here in our bash terminal.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 320.76,
+          "end": 326.61,
+          "en": "So if I would send another signal, for example, I would hit control and C to send an interrupt signal.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 326.61,
+          "end": 334.02,
+          "en": "I could still interrupt that program because it's only disconnected from the Sig hub signal that the",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 334.02,
+          "end": 337.14,
+          "en": "terminal close signal but not from the other signals.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 337.14,
+          "end": 342.12,
+          "en": "So interrupt signals, for example, would still reach our program.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 343.62,
+          "end": 345.27,
+          "en": "Then we had this one.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 346.02,
+          "end": 348.03,
+          "en": "This is what we looked at before.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 348.06,
+          "end": 352.38,
+          "en": "This means that Ping is being launched as a background process for our current terminal.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 352.38,
+          "end": 353.57,
+          "en": "It will terminal.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 353.58,
+          "end": 359.88,
+          "en": "It will terminate when we close our terminal because it will still be receiving the signal from our",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 359.88,
+          "end": 360.69,
+          "en": "terminal.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 361.35,
+          "end": 365.85,
+          "en": "The ampersand here at the back or being a background process doesn't change that.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 366.69,
+          "end": 371.07,
+          "en": "Being a background process disconnects it though from our keyboard input.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 371.07,
+          "end": 377.34,
+          "en": "So and also the signals, for example, the interrupt signal we could send with our keyboard will not",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 377.34,
+          "end": 380.07,
+          "en": "reach that process because it's a background process.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 380.07,
+          "end": 381.48,
+          "en": "Let's just have a look at this.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 381.48,
+          "end": 383.58,
+          "en": "I just sent the interrupt signal here.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 384.06,
+          "end": 390.24,
+          "en": "If I would do this, Google.com, for example, and then the ampersand here at the end, we can see",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 390.24,
+          "end": 391.83,
+          "en": "it's now running in the background.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 391.83,
+          "end": 395.4,
+          "en": "Maybe I should have redirected the output so it's discarded.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 395.64,
+          "end": 400.95,
+          "en": "But if I, for example, now would enter control C to try to send an interrupt.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 401.28,
+          "end": 407.34000000000003,
+          "en": "The interrupt isn't being sent to this background process because well, it's a background process and",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 407.34000000000003,
+          "end": 412.92,
+          "en": "background processes don't receive keyboard input and also not the interrupt signal.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 412.92,
+          "end": 415.40999999999997,
+          "en": "So I can enter jobs and then hit enter.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 415.40999999999997,
+          "end": 418.44,
+          "en": "It's still printing here, so it's really difficult to see.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 418.44,
+          "end": 422.7,
+          "en": "But we can see here it's um, it's this line, it's job number one.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 422.7,
+          "end": 424.77,
+          "en": "So I can enter foreground one.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 424.77,
+          "end": 427.8,
+          "en": "You can see here even that my user input is now in different lines.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 427.8,
+          "end": 430.08,
+          "en": "I have even troubles here highlighting it.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 430.08,
+          "end": 431.58,
+          "en": "This was the foreground command.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 431.58,
+          "end": 433.5,
+          "en": "This was the one that I entered.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 433.92,
+          "end": 436.44,
+          "en": "The additional line breaks are just outputs.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 436.44,
+          "end": 442.47,
+          "en": "They don't change my command that I'm executing so I can now still hit enter to bring that command to",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 442.47,
+          "end": 443.13,
+          "en": "foreground.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 443.13,
+          "end": 448.98,
+          "en": "And now that the ping command is a foreground process, I can hit control C to send the interrupt signal",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 448.98,
+          "end": 453.39,
+          "en": "and to end that program I just hit clear so that my terminal is clear again.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 453.69,
+          "end": 458.73,
+          "en": "So if we combine those, we have now looked at the Nohup command.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 458.73,
+          "end": 466.59000000000003,
+          "en": "We have revised this ampersand, this background process, how that works, let's just combine it So",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 466.59000000000003,
+          "end": 470.64,
+          "en": "we have no hub that disconnects the program from the Sig hub signal.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 470.64,
+          "end": 476.64,
+          "en": "Thus it will keep running even if we close our terminal and it's a background process in our current",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 476.67,
+          "end": 477.27,
+          "en": "terminal.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 477.27,
+          "end": 480.54,
+          "en": "So it will run in the background of our current terminal.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 480.54,
+          "end": 482.67,
+          "en": "So let's just have a look here.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 482.82,
+          "end": 486.63,
+          "en": "If I combine it, I use the error up key to get back here.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 486.63,
+          "end": 488.25,
+          "en": "I just hit here, enter.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 488.25,
+          "end": 493.35,
+          "en": "So now we can see this has started as a bash background process.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 493.35,
+          "end": 495,
+          "en": "We can see here it's running.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 495,
+          "end": 504,
+          "en": "So right now it's still handled by our bash and this is the command that was executed here, but it's",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 504,
+          "end": 506.1,
+          "en": "disconnected from the Sig hub signal.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 506.1,
+          "end": 508.23,
+          "en": "And again, it's running as a background process.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 508.23,
+          "end": 513.69,
+          "en": "So if I would now here, for example, send an interrupt to my terminal, it will not be it will not",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 513.69,
+          "end": 518.7,
+          "en": "reach the ping command because, well, it's a background process in our bash and the Sig hub would",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 518.7,
+          "end": 520.17,
+          "en": "also not reach that one.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 520.95,
+          "end": 527.91,
+          "en": "One thing you might wonder if I would now close my terminal, what's the parent process of that process?",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 528.06,
+          "end": 530.82,
+          "en": "And therefore we have the process ID here.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 530.97,
+          "end": 534.96,
+          "en": "We can list this with F for just this process.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 534.96,
+          "end": 542.46,
+          "en": "You can see here we got a parent process ID because on Unix we have seen in the chapter about processes",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 542.46,
+          "end": 545.37,
+          "en": "that all processes always have a parent process.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 545.37,
+          "end": 547.26,
+          "en": "And we can see here this is the process.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 547.26,
+          "end": 553.86,
+          "en": "ID Let's just have a look at that one too, and we can see Bash has started this ping program.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 555.42,
+          "end": 556.41,
+          "en": "So what's the.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 556.7,
+          "end": 559.12,
+          "en": "As if I would now quit my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 559.13,
+          "end": 560.9,
+          "en": "Here, let me open another tab.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 560.9,
+          "end": 561.62,
+          "en": "And I just.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 561.62,
+          "end": 562.91,
+          "en": "It's really small here.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 562.94,
+          "end": 564.53,
+          "en": "Close the old tab.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 565.04,
+          "end": 568.1,
+          "en": "If I would Now list that one.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 568.37,
+          "end": 569.66,
+          "en": "That was the wrong one.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 569.66,
+          "end": 570.95,
+          "en": "It was this one.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 571.04,
+          "end": 576.83,
+          "en": "Um, we can see here that the pink process now has a different parent process ID because the former",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 576.83,
+          "end": 579.47,
+          "en": "parent process was our batch process.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 579.47,
+          "end": 584.36,
+          "en": "But okay, it was really small in the video, but I had clicked the close button on the other tab.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 584.36,
+          "end": 591.68,
+          "en": "So this parent process of the pink command has um, well, it has terminated because I quit it.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 591.68,
+          "end": 595.94,
+          "en": "So now the parent process ID is in my case, on my system here.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 595.94,
+          "end": 603.23,
+          "en": "It's the one, it's usually the number one then, which is the well on the Mac, it's the launch on",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 603.23,
+          "end": 603.77,
+          "en": "Linux.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 603.77,
+          "end": 610.01,
+          "en": "It would be in IT or System D, it might be called a little bit differently, but this process takes",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 610.01,
+          "end": 611.99,
+          "en": "over the role as a parent process.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 611.99,
+          "end": 617.63,
+          "en": "So this is why the parent process of our pink command has changed because the bash Well, it has been",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 617.63,
+          "end": 618.41,
+          "en": "terminated.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 618.41,
+          "end": 626.33,
+          "en": "So the parent process changes to the main process that takes over the responsibility as a parent.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 626.81,
+          "end": 631.94,
+          "en": "Whenever the parent, for example, terminates, as we've seen it here.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 631.94,
+          "end": 638.96,
+          "en": "So this is how all of this works together and how we can use the Nohup command to disconnect a program",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 638.96,
+          "end": 641.72,
+          "en": "from the signal to run it in the background.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 641.72,
+          "end": 645.71,
+          "en": "Even if we close our session or even if we close our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 646.01,
+          "end": 646.7,
+          "en": "All right.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 646.7,
+          "end": 649.76,
+          "en": "This much about job control and bash.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38499996",
+      "title": "Intro",
+      "lectureOrder": 199,
+      "videoOrder": 171,
+      "sourceHash": "bf773675e553116688a812fc26226eb38d9dd50d9542de7b8447c22059f9739f",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.65,
+          "end": 6.26,
+          "en": "In this chapter we will have a look at the package management on Ubuntu Linux systems.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.65,
+          "end": 9.59,
+          "en": "What is package management first in general?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.62,
+          "end": 16.37,
+          "en": "By definition it's the process of installing, updating, configuring and removing software on our system.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.37,
+          "end": 19.07,
+          "en": "So package will help us with that.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 19.1,
+          "end": 20.15,
+          "en": "Maybe you've seen that.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 20.15,
+          "end": 27.44,
+          "en": "I mean probably you've seen that in this course before when I used apt or apt minus get to install additional",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 27.44,
+          "end": 31.5,
+          "en": "software and this process is called package management.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 31.52,
+          "end": 38.09,
+          "en": "The purpose of this is that we want to have have a streamlined handling of packages and software on",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 38.09,
+          "end": 39.08,
+          "en": "a Linux system.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 39.08,
+          "end": 43.04,
+          "en": "So we want to have it really easy to install additional software.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 44.21,
+          "end": 48.14,
+          "en": "We need it because it facilitates easy software distribution.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 48.14,
+          "end": 53.33,
+          "en": "So we can just say, Hey, please install that program and the package management does all the rest",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 53.33,
+          "end": 53.93,
+          "en": "for us.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 53.96,
+          "end": 56.63,
+          "en": "It's yeah, it simplifies the installation.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 56.63,
+          "end": 63.57,
+          "en": "It ensures that all the software that we install on our system are compatible by only installing versions",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 63.57,
+          "end": 65.61,
+          "en": "that are compatible with each other.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 66.24,
+          "end": 67.89,
+          "en": "It handles dependencies.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 67.89,
+          "end": 74.28,
+          "en": "So, for example, if we install a specific tool and it requires a library to be installed on our system",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 74.28,
+          "end": 80.03999999999999,
+          "en": "that isn't installed yet, package management will detect that and will also install all of those required",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 80.03999999999999,
+          "end": 80.76,
+          "en": "libraries.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 80.76,
+          "end": 87.24,
+          "en": "And actually software on Linux uses a lot of libraries that are installed system wide.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 87.24,
+          "end": 91.14,
+          "en": "So this is really important that package management does this.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 91.93,
+          "end": 97.78,
+          "en": "It helps us maintain system stability and security by providing an easy way to keep our system up to",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 97.78,
+          "end": 98.35,
+          "en": "date.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 98.38,
+          "end": 102.91,
+          "en": "So package management is really important, but we need to be careful.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 102.94,
+          "end": 106.9,
+          "en": "Package management is quite different between different Linux distribution.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 106.9,
+          "end": 112.66,
+          "en": "You can imagine those as like different bundles of Linux software or different flavors of Linux.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 113.38,
+          "end": 118.12,
+          "en": "It's quite different because they like to use their own separate tools.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 118.63,
+          "end": 126.19,
+          "en": "So I needed to focus on one specific Linux distribution here and we will look at package management",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 126.19,
+          "end": 128.14,
+          "en": "primarily on Ubuntu.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 128.86,
+          "end": 131.26,
+          "en": "Why did I put in here on the slide as well?",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 131.29,
+          "end": 138.88,
+          "en": "Debian is another linux distribution, but they are really really um closely closely related.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 138.88,
+          "end": 145.96,
+          "en": "So when you master package management on ubuntu system it's pretty much exactly the same on Debian.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 145.96,
+          "end": 152.3,
+          "en": "So here we will have a look at package management on ubuntu which will allow you to easily work with",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 152.3,
+          "end": 157.34,
+          "en": "Ubuntu systems and with db and systems package management on ubuntu.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 157.73,
+          "end": 161.12,
+          "en": "It's based on the Debian package management format.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 161.48,
+          "end": 169.88,
+          "en": "That's why they are related and by learning ubuntu you can also master db at the same time and it this",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 169.88,
+          "end": 175.1,
+          "en": "leads to that db and packages can can usually be installed on ubuntu as well.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 175.13,
+          "end": 178.79,
+          "en": "Why is usually be bold and in italic here on the slide.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 178.82,
+          "end": 184.94,
+          "en": "The reason is that we should try to avoid that because we can take a normal package that's meant for",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 184.94,
+          "end": 187.04,
+          "en": "Debian and install it on an ubuntu.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 187.07,
+          "end": 189.56,
+          "en": "It might work but it might prevent that.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 189.56,
+          "end": 196.61,
+          "en": "We can easily update our system later, so we should be aware whether the software, the package is",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 196.61,
+          "end": 203.57,
+          "en": "made for Debian or for ubuntu systems, but usually we can install packages that are meant for Debian",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 203.57,
+          "end": 210.23,
+          "en": "on an ubuntu system and we can install packages meant for ubuntu on the Debian system, but both use",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 210.23,
+          "end": 213.47,
+          "en": "the same Debian package management and the same format.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 213.47,
+          "end": 216.5,
+          "en": "So they're pretty much compatible.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 217.04,
+          "end": 218.9,
+          "en": "But exceptions prove that rule.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 218.9,
+          "end": 220.28,
+          "en": "It's the saying in German.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 220.85,
+          "end": 233.48,
+          "en": "Um, both on both systems we can use apt or apt get to install software and also dpkg dpkg how those",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 233.48,
+          "end": 234.8,
+          "en": "tools relate to each other.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 234.8,
+          "end": 235.82,
+          "en": "We will have a look at this.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 235.85,
+          "end": 242.48,
+          "en": "In this chapter you will learn that and after we have analyzed or after we have looked into package",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 242.48,
+          "end": 248.45,
+          "en": "management on Ubuntu, I will also introduce you to package management with SNAP which is enabled in",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 248.45,
+          "end": 249.44,
+          "en": "Ubuntu as well.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 249.44,
+          "end": 255.38,
+          "en": "And that allows us to install so-called snap packages which have a completely different idea how to",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 255.38,
+          "end": 259.61,
+          "en": "manage dependencies and how the software is being installed.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 259.61,
+          "end": 262.76,
+          "en": "So it's a completely different format for packages.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 263.06,
+          "end": 265.7,
+          "en": "And of course we will also have a look at that.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 266.48,
+          "end": 273.35,
+          "en": "I want to tell you a little bit about the scope of this chapter, because it's this chapter is made",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 273.35,
+          "end": 277.25,
+          "en": "for people who really want to understand package management on Ubuntu.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 277.46,
+          "end": 283.94,
+          "en": "The reason is technically it's just a few commands that would be enough for like 80 or 90% of the use",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 283.94,
+          "end": 284.33,
+          "en": "cases.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 284.33,
+          "end": 289.43,
+          "en": "As long as everything works well, I would only need to give you three commands and you could use package",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 289.43,
+          "end": 294.83,
+          "en": "management and most likely at least for the beginning that would be enough.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 295.37,
+          "end": 302.93,
+          "en": "But if you are, for example, a sysadmin and this happened to me, I was a full stack developer and",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 302.93,
+          "end": 306.35,
+          "en": "also the sysadmin for a company.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 306.35,
+          "end": 313.55,
+          "en": "He had a call center that was running as an online software on the server, connecting to a communication",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 313.55,
+          "end": 317.18,
+          "en": "provider to provide the actual voice over IP for us.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 317.3,
+          "end": 325.04,
+          "en": "And now imagine something happens and then the server is down and then like 20 or 30 people are unable",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 325.04,
+          "end": 326.3,
+          "en": "to work there in the office.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 326.3,
+          "end": 327.62,
+          "en": "They are drinking coffee there.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 327.65,
+          "end": 333.82,
+          "en": "They need to get their money, but because of me and because it takes long for me to debug those issues,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 333.82,
+          "end": 338.71,
+          "en": "they now cannot work and my client is losing serious money.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 339.13,
+          "end": 345.82,
+          "en": "Um, so the goal here in this chapter is that you're not just able to install and manage software on",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 345.82,
+          "end": 354.31,
+          "en": "a on a system, but you're able to do this with certainty and reliability even if something goes wrong.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 354.31,
+          "end": 361.03,
+          "en": "So we will look into the details because that's what you need when you want to handle a system with,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 361.03,
+          "end": 368.74,
+          "en": "for example, problematic dependencies in urgent situations where it's really a matter of 1 to 3 hours,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 368.86,
+          "end": 371.83,
+          "en": "that can make a really big difference to your client.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 371.83,
+          "end": 378.94,
+          "en": "So that's why this chapter is quite detailed, because I want to prepare you for all those eventualities.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 379.56,
+          "end": 386.07,
+          "en": "At least from my experience, only a deep understanding about the topic allows me to cope well with",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 386.07,
+          "end": 390.48,
+          "en": "high stress situations, and this is why this chapter is really detailed.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 390.75,
+          "end": 391.44,
+          "en": "All right.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 391.44,
+          "end": 397.89,
+          "en": "So let's now start looking into the package management and how all of that works together.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

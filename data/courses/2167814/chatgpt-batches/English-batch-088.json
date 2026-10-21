@@ -1,0 +1,5440 @@
+{
+  "version": 1,
+  "courseId": 2167814,
+  "courseSlug": "spring-5-with-spring-boot-2",
+  "courseTitle": "Java Spring Framework, Spring Boot, Spring AI - Gen AI",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "50381903",
+      "title": "Cosine Similarity implementation",
+      "lectureOrder": 385,
+      "videoOrder": 384,
+      "sourceHash": "0832a71f63b1e47f5d1e3a0bd3868d8b735cc23c8fe2d82b60a51decf878b2d2",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.08,
+          "end": 3.27,
+          "en": "(gentle music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.27,
+          "end": 6.66,
+          "en": "-: Now once we know the theory, let's try to implement this.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.66,
+          "end": 7.86,
+          "en": "So what exactly we need?",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.86,
+          "end": 10.44,
+          "en": "So let's say if I go back to Insomnia,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.44,
+          "end": 11.64,
+          "en": "I don't want to find the embeddings now,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 11.64,
+          "end": 12.96,
+          "en": "we have done that before.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 12.96,
+          "end": 16.95,
+          "en": "So let's say I want to, so let's change this.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 16.95,
+          "end": 18.12,
+          "en": "So instead of recommend,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 18.12,
+          "end": 21.39,
+          "en": "I want to find the similarity between two words, okay?",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 21.39,
+          "end": 23.7,
+          "en": "And then I will pass those two words here,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 23.7,
+          "end": 26.46,
+          "en": "so maybe the first word is text1,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 26.46,
+          "end": 28.083,
+          "en": "and the second word is text2,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 28.98,
+          "end": 30.51,
+          "en": "and I don't want the third one.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 30.51,
+          "end": 35.43,
+          "en": "So let's say the text1 is dog and cat.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 35.43,
+          "end": 39.09,
+          "en": "In fact, now we know the embeddings are near for them,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 39.09,
+          "end": 41.433,
+          "en": "so it should give a good value.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 43.02,
+          "end": 45.27,
+          "en": "So now if I click on Send,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 45.27,
+          "end": 46.26,
+          "en": "of course this will not work",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 46.26,
+          "end": 48.6,
+          "en": "because we don't have anything to map this",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 48.6,
+          "end": 50.31,
+          "en": "and the server is not even running.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 50.31,
+          "end": 51.143,
+          "en": "So let's do that.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 51.143,
+          "end": 52.2,
+          "en": "So let me go back to my IDE,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 52.2,
+          "end": 53.7,
+          "en": "and let's do the mapping for that.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 53.7,
+          "end": 56.16,
+          "en": "So here I want PostMapping,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 56.16,
+          "end": 61.16,
+          "en": "and this will be /api/similarity public.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 62.37,
+          "end": 63.69,
+          "en": "It will return,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 63.69,
+          "end": 65.19,
+          "en": "so at this point, I'm just saying double.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 65.19,
+          "end": 67.2,
+          "en": "We'll see that later why I'm saying double.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 67.2,
+          "end": 70.28999999999999,
+          "en": "And I will say getSimilarity.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 70.28999999999999,
+          "end": 72.69,
+          "en": "And then in this, I have to accept two values, right,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 72.69,
+          "end": 73.83,
+          "en": "which we have seen before.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 73.83,
+          "end": 75,
+          "en": "I mean, that's what we are sending, right?",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 75,
+          "end": 76.414,
+          "en": "text1, text2.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 76.414,
+          "end": 79.5,
+          "en": "So I will say RequestParam String text1,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 79.5,
+          "end": 84.48,
+          "en": "string text2 and let me just return zero at this point.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 84.48,
+          "end": 86.19,
+          "en": "Okay so how do you find the similarity?",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 86.19,
+          "end": 87.96000000000001,
+          "en": "So what you do is we have to take those two values.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 87.96000000000001,
+          "end": 89.22,
+          "en": "And as you have seen in theory,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 89.22,
+          "end": 91.14,
+          "en": "this is the formula which we want to implement.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 91.14,
+          "end": 93.06,
+          "en": "And of course I don't want to type this here,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 93.06,
+          "end": 95.82,
+          "en": "the entire formula, but what I wanna do is first I want",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 95.82,
+          "end": 97.65,
+          "en": "to take the two text here",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 97.65,
+          "end": 99.42,
+          "en": "and find the embeddings of it.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 99.42,
+          "end": 102.15,
+          "en": "So I'll say float, it'll give me a float adding.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 102.15,
+          "end": 105.42,
+          "en": "And I will say this is embedding one is equal",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 105.42,
+          "end": 106.86,
+          "en": "to this will be from the text1.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 106.86,
+          "end": 109.77000000000001,
+          "en": "So I'm going to use embeddingModel.embed,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 109.77000000000001,
+          "end": 111.66,
+          "en": "and I'm going to pass text1 here.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 111.66,
+          "end": 113.55,
+          "en": "And the same thing for text2.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 113.55,
+          "end": 116.4,
+          "en": "So this is embedding2, this is text2.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 116.4,
+          "end": 120.72,
+          "en": "And once we got it, let's apply a formula to implement this,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 120.72,
+          "end": 123.3,
+          "en": "or let's try a code to apply this formula.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 123.3,
+          "end": 125.13,
+          "en": "So this is the formula which we have to implement.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 125.13,
+          "end": 127.11,
+          "en": "So basically we have to find the dotProduct as well.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 127.11,
+          "end": 130.41,
+          "en": "So we got this three variables dotProduct, norm1, norm2",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 130.41,
+          "end": 134.07,
+          "en": "and then we are doing that dotProduct.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 134.07,
+          "end": 137.07,
+          "en": "We are getting the embeddings and multiplying that.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 137.07,
+          "end": 139.17000000000002,
+          "en": "And then we have to find the square.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 139.17000000000002,
+          "end": 140.4,
+          "en": "And that's what we are doing here.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 140.4,
+          "end": 143.46,
+          "en": "And then this is the dotProduct divided",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 143.46,
+          "end": 144.96,
+          "en": "by the multiplication.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 144.96,
+          "end": 146.37,
+          "en": "And that's what the formula says, right?",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 146.37,
+          "end": 147.84,
+          "en": "Okay and then instead of returning zero,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 147.84,
+          "end": 149.46,
+          "en": "it will return this dotProduct.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 149.46,
+          "end": 151.23,
+          "en": "And that's it. This is a formula which you have to do.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 151.23,
+          "end": 153.39,
+          "en": "And of course we don't have to type this by yourself.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 153.39,
+          "end": 155.07,
+          "en": "You can simply use this code. Okay?",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 155.07,
+          "end": 156.99,
+          "en": "Now let's try, this is working.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 156.99,
+          "end": 159.78,
+          "en": "So let's run this code and let's go back to insomnia",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 159.78,
+          "end": 162.9,
+          "en": "and let's try now, click on send.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 162.9,
+          "end": 163.89,
+          "en": "It's doing some calculation,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 163.89,
+          "end": 165.32999999999998,
+          "en": "that means request accepted there",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 165.32999999999998,
+          "end": 168.39,
+          "en": "and you can see it is 0.6, not a good value",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 168.39,
+          "end": 169.65,
+          "en": "between dog and cat.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 169.65,
+          "end": 170.55,
+          "en": "It should be more similar,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 170.55,
+          "end": 172.23,
+          "en": "but that's what we are getting here.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 172.23,
+          "end": 174.93,
+          "en": "Now, based on different models, some models are very good",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 174.93,
+          "end": 176.79,
+          "en": "with this, some models are not that good.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 176.79,
+          "end": 178.53,
+          "en": "So you got these two values there.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 178.53,
+          "end": 181.35,
+          "en": "But if I try between computer",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 181.35,
+          "end": 184.63400000000001,
+          "en": "and a laptop, click on send.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 184.63400000000001,
+          "end": 186.75,
+          "en": "This is how similar they are.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 186.75,
+          "end": 189.06,
+          "en": "And let's try to search for something very opposite,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 189.06,
+          "end": 192.06,
+          "en": "let's say computer and banana.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 192.06,
+          "end": 196.47,
+          "en": "And you can say the 0.2, which is almost opposite, right?",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 196.47,
+          "end": 198.66,
+          "en": "So that's how you basically find the similarities.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 198.66,
+          "end": 203.66,
+          "en": "So the more closer they are to one, they are very similar,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 203.822,
+          "end": 205.07999999999998,
+          "en": "and 0.2 is very less.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 205.07999999999998,
+          "end": 206.88,
+          "en": "Okay now maybe I want",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 206.88,
+          "end": 208.47,
+          "en": "to return the percentage of similarities.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 208.47,
+          "end": 210.84,
+          "en": "So what what you can also do is you can multiply this",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 210.84,
+          "end": 213.12,
+          "en": "with a hundred, and that should be simple",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 213.12,
+          "end": 214.5,
+          "en": "to return the percentage.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 214.5,
+          "end": 219.5,
+          "en": "So let's try for happy and joy, send.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 222.12,
+          "end": 223.44,
+          "en": "I'm not sure how similar they are.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 223.44,
+          "end": 228.32999999999998,
+          "en": "Let's try, it's 53%; happy and computer not that similar.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 228.32999999999998,
+          "end": 229.68,
+          "en": "Okay that's how you basically do it.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 229.68,
+          "end": 230.88,
+          "en": "Now where they can be used.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 230.88,
+          "end": 232.44,
+          "en": "See, sometime when you want to search something,",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 232.44,
+          "end": 235.56,
+          "en": "you can normally do that by searching by word, right?",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 235.56,
+          "end": 237.54,
+          "en": "So if you have document from that document, you will find",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 237.54,
+          "end": 240.63,
+          "en": "by word, but we want to find the semantic.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 240.63,
+          "end": 241.98,
+          "en": "So let's say if I'm searching for a word,",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 241.98,
+          "end": 243.09,
+          "en": "which is not in the document,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 243.09,
+          "end": 245.1,
+          "en": "the document will say no word found,",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 245.1,
+          "end": 246.99,
+          "en": "but maybe I want to do the semantic search.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 246.99,
+          "end": 249.75,
+          "en": "I have a list of documents, I have a list of products,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 249.75,
+          "end": 251.43,
+          "en": "and what I'm entering is not",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 251.43,
+          "end": 252.6,
+          "en": "matching with any of the product.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 252.6,
+          "end": 255.03,
+          "en": "In that case, I want to search by the semantic.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 255.03,
+          "end": 256.95,
+          "en": "Example, let's say I got a list of products",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 256.95,
+          "end": 260.61,
+          "en": "and nowhere it says headphones, but it says a speaker.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 260.61,
+          "end": 264.51,
+          "en": "Maybe it says Bluetooth AirPods, right?",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 264.51,
+          "end": 266.94,
+          "en": "But nowhere says it's headphones.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 266.94,
+          "end": 268.59,
+          "en": "In that case, a normal search",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 268.59,
+          "end": 270.45,
+          "en": "of headphones will not be able to match it.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 270.45,
+          "end": 272.01,
+          "en": "But semantic search can do it.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 272.01,
+          "end": 274.56,
+          "en": "And that's where this embeddings will be helpful.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 274.56,
+          "end": 275.90999999999997,
+          "en": "And that's where we are going now.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 275.90999999999997,
+          "end": 278.31,
+          "en": "So in the upcoming videos, you will see that.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 278.31,
+          "end": 279.6,
+          "en": "If you're searching for something else,",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 279.6,
+          "end": 282.45,
+          "en": "how will you get data which is relevant or related to it.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 282.45,
+          "end": 284.95,
+          "en": "But yeah, that's how you do the similarity search.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "50381913",
+      "title": "Vector Database Introduction",
+      "lectureOrder": 386,
+      "videoOrder": 385,
+      "sourceHash": "9ba8764522b65fb3e9605123606d5814c40281cbbdc517fa440014d805dbc2fa",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.373,
+          "end": 3.39,
+          "en": "(bright music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.39,
+          "end": 5.94,
+          "en": "-: Now, once we know, how do you find the embeddings,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.94,
+          "end": 9.27,
+          "en": "and then how two words can be checked for the similarity,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.27,
+          "end": 10.59,
+          "en": "and not just words,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.59,
+          "end": 12.18,
+          "en": "it can be for text as well.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 12.18,
+          "end": 13.74,
+          "en": "So if you have a long string,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 13.74,
+          "end": 16.59,
+          "en": "you can try with that, but it works.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 16.59,
+          "end": 18.51,
+          "en": "Okay, and then we have written the formala as well.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 18.51,
+          "end": 21.84,
+          "en": "Of course, we are not going to use this for upcoming videos.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 21.84,
+          "end": 23.25,
+          "en": "I just wanted to show you,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 23.25,
+          "end": 25.86,
+          "en": "you can write these formulas and implement it.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 25.86,
+          "end": 28.38,
+          "en": "But now at this point, what I want to do is,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 28.38,
+          "end": 30.6,
+          "en": "if you go back to Insomnia,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 30.6,
+          "end": 32.7,
+          "en": "and let's say I want to search a particular product.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 32.7,
+          "end": 33.72,
+          "en": "Now, from where?",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 33.72,
+          "end": 36.3,
+          "en": "So let's get this product details first of all,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 36.3,
+          "end": 38.82,
+          "en": "and I will put that in the resources here.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 38.82,
+          "end": 40.53,
+          "en": "So I have this file, which is product_details,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 40.53,
+          "end": 42.97,
+          "en": "and I got all this data from ChatGPT,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 42.97,
+          "end": 44.7,
+          "en": "or, I think from Gemini.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 44.7,
+          "end": 46.86,
+          "en": "Anyway, so you can see we have product names,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 46.86,
+          "end": 48.12,
+          "en": "so we got product title here,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 48.12,
+          "end": 49.95,
+          "en": "we got description, we got price,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 49.95,
+          "end": 51.9,
+          "en": "then which category they belong to,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 51.9,
+          "end": 53.37,
+          "en": "and the features, right?",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 53.37,
+          "end": 55.92,
+          "en": "And maybe this is for the e-commerce website.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 55.92,
+          "end": 57.42,
+          "en": "So you can have those products and stuff,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 57.42,
+          "end": 60.03,
+          "en": "and if you have all this data in the database,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 60.03,
+          "end": 61.65,
+          "en": "and if you want to search, of course, right?",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 61.65,
+          "end": 63.51,
+          "en": "When you go to a e-commerce website",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 63.51,
+          "end": 65.55,
+          "en": "and when you search for a particular product, it will show.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 65.55,
+          "end": 67.89,
+          "en": "But normally when you want to search, let's say with SQL,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 67.89,
+          "end": 70.35,
+          "en": "you normally try to do that with words, right?",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 70.35,
+          "end": 72.36,
+          "en": "So if you're searching for a word Bluetooth,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 72.36,
+          "end": 73.65,
+          "en": "so it will show everything,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 73.65,
+          "end": 75.15,
+          "en": "every product which has a Bluetooth in it.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 75.15,
+          "end": 76.62,
+          "en": "And let's say earbuds,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 76.62,
+          "end": 78.27,
+          "en": "so it will show all the words with earbuds.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 78.27,
+          "end": 79.68,
+          "en": "But what if you search for headphones?",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 79.68,
+          "end": 83.78999999999999,
+          "en": "And if you can see, if I do find here with headphones,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 83.78999999999999,
+          "end": 85.5,
+          "en": "there's no product with headphones.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 85.5,
+          "end": 86.82,
+          "en": "Maybe I will search with wearable,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 86.82,
+          "end": 89.61,
+          "en": "so no product here is actually wearable, it's active.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 89.61,
+          "end": 91.47,
+          "en": "I mean these T-shirts are wearable,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 91.47,
+          "end": 93.36,
+          "en": "but we also have devices, which is wearable, right?",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 93.36,
+          "end": 95.28,
+          "en": "We have smartwatch and stuff,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 95.28,
+          "end": 97.02000000000001,
+          "en": "but it's showing nothing.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 97.02000000000001,
+          "end": 99.53999999999999,
+          "en": "But let's try that with the Insomnia",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 99.53999999999999,
+          "end": 101.64,
+          "en": "by building this AI feature there.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 101.64,
+          "end": 104.85,
+          "en": "So instead of similarity, I will search for product now,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 104.85,
+          "end": 106.32,
+          "en": "and in the product, of course,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 106.32,
+          "end": 109.05,
+          "en": "I want to search, let's use Post.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 109.05,
+          "end": 112.38,
+          "en": "And in this, let's say text,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 112.38,
+          "end": 114.75,
+          "en": "and here I want to search wearable.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 114.75,
+          "end": 115.62,
+          "en": "When you click on Send,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 115.62,
+          "end": 117.21000000000001,
+          "en": "of course, we don't have any method implemented.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 117.21000000000001,
+          "end": 119.37,
+          "en": "So what I wanna do is if I click on wearable,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 119.37,
+          "end": 121.74,
+          "en": "I want to get all the products which are wearable,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 121.74,
+          "end": 122.94,
+          "en": "and that's what I want here.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 122.94,
+          "end": 124.41,
+          "en": "Now, how do we do it?",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 124.41,
+          "end": 126.09,
+          "en": "That should be actually simple, right?",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 126.09,
+          "end": 128.94,
+          "en": "So you can just go back to OpenAIController here,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 128.94,
+          "end": 133.74,
+          "en": "and let's write a method which will return string.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 133.74,
+          "end": 134.97,
+          "en": "In fact, it should not be string,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 134.97,
+          "end": 136.59,
+          "en": "because you're getting multiple products,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 136.59,
+          "end": 138.87,
+          "en": "so not just one string.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 138.87,
+          "end": 140.34,
+          "en": "But at this point, let's say string,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 140.34,
+          "end": 141.69,
+          "en": "and I will say getProducts.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 143.43,
+          "end": 148.26,
+          "en": "And here I will say RequestParam String text.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 149.91,
+          "end": 152.19,
+          "en": "And this will be mapped with the product,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 152.19,
+          "end": 155.43,
+          "en": "or I will say /api/product,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 155.43,
+          "end": 157.29,
+          "en": "I should have taken API common, but anyway.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 157.29,
+          "end": 161.43,
+          "en": "And here, let me return blank just to make this code work.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 161.43,
+          "end": 162.69,
+          "en": "And that's what I want to do.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 162.69,
+          "end": 165.09,
+          "en": "So here it should return the list,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 165.09,
+          "end": 167.73,
+          "en": "but again, we have to get this data from the file, right?",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 167.73,
+          "end": 169.07999999999998,
+          "en": "So the file is here,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 169.07999999999998,
+          "end": 171.15,
+          "en": "so maybe we have to write a lot of code to achieve that,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 171.15,
+          "end": 172.74,
+          "en": "and we'll see that in the upcoming videos.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 172.74,
+          "end": 174.51,
+          "en": "But this is what we want to achieve.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 174.51,
+          "end": 177.78,
+          "en": "So do something with the product detail, get the data,",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 177.78,
+          "end": 179.13,
+          "en": "and I mean, get me all the products,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 179.13,
+          "end": 181.08,
+          "en": "which is matching with the text, which I'm sending there.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 181.08,
+          "end": 183.3,
+          "en": "Not exact matching, the semantic search.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 183.3,
+          "end": 184.56,
+          "en": "Now, how will you do it?",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 184.56,
+          "end": 186.3,
+          "en": "First of all, you have to convert this text,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 186.3,
+          "end": 187.133,
+          "en": "which you're receiving",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 187.133,
+          "end": 188.73,
+          "en": "from the client side, into embeddings.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 188.73,
+          "end": 190.59,
+          "en": "And that should be simple, right?",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 190.59,
+          "end": 193.74,
+          "en": "So a person will search for a word or multiple words.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 193.74,
+          "end": 196.02,
+          "en": "Converting that to embeddings is not a big task,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 196.02,
+          "end": 197.67000000000002,
+          "en": "but if you want to compare this",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 197.67000000000002,
+          "end": 199.07999999999998,
+          "en": "with the product details,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 199.07999999999998,
+          "end": 202.26,
+          "en": "even this has to be converted into embeddings.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 202.26,
+          "end": 205.44,
+          "en": "Now that's a complex task because this is not a simple text.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 205.44,
+          "end": 207.72,
+          "en": "You can see it's a huge file.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 207.72,
+          "end": 211.17000000000002,
+          "en": "And in the real life this file will be huge,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 211.17000000000002,
+          "end": 212.52,
+          "en": "because on the e-commerce website,",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 212.52,
+          "end": 213.57,
+          "en": "you'll be having a lot of products,",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 213.57,
+          "end": 216.75,
+          "en": "not just 30 or 40 products, which is listed here.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 216.75,
+          "end": 217.92000000000002,
+          "en": "It will be thousands of products",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 217.92000000000002,
+          "end": 220.11,
+          "en": "and maybe millions of products, maybe, I'm not sure.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 220.11,
+          "end": 220.94299999999998,
+          "en": "But you got the point, right?",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 220.94299999999998,
+          "end": 222.72,
+          "en": "There are a lot of products there.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 222.72,
+          "end": 224.04,
+          "en": "And how do you store it?",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 224.04,
+          "end": 225.9,
+          "en": "Now, first of all, when you get this data",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 225.9,
+          "end": 226.86,
+          "en": "in a document format,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 226.86,
+          "end": 229.8,
+          "en": "you break down this data into multiple chunks, right?",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 229.8,
+          "end": 232.77,
+          "en": "So, get one big document, break down into multiple chunks,",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 232.77,
+          "end": 235.62,
+          "en": "and this convert this chunks into embeddings,",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 235.62,
+          "end": 239.52,
+          "en": "and then you store that in the vector database.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 239.52,
+          "end": 240.48,
+          "en": "Quite simple, right?",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 240.48,
+          "end": 243,
+          "en": "And this is what we had seen in the website.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 243,
+          "end": 244.92,
+          "en": "So, before going to this page,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 244.92,
+          "end": 246.66,
+          "en": "we were on the vector databases.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 246.66,
+          "end": 248.97,
+          "en": "This is where we are going to store it.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 248.97,
+          "end": 250.92,
+          "en": "Now, close your eyes, how do we do it?",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 250.92,
+          "end": 252.72,
+          "en": "Do we have the implementation",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 252.72,
+          "end": 255.21,
+          "en": "or do we have to implement our own databases? Let's see.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 255.21,
+          "end": 257.25,
+          "en": "The thing is Spring AI will provide you",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 257.25,
+          "end": 259.8,
+          "en": "with the interface, which is called a VectorStore.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 259.8,
+          "end": 261.57,
+          "en": "Okay, so we just have to use this VectorStore,",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 261.57,
+          "end": 264.69,
+          "en": "and with this VectorStore, you can add the documents.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 264.69,
+          "end": 268.95,
+          "en": "So you can see, you can take the documents and store it.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 268.95,
+          "end": 270.99,
+          "en": "In fact, you can add list of documents at the same time,",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 270.99,
+          "end": 272.88,
+          "en": "you can delete the document.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 272.88,
+          "end": 274.71,
+          "en": "You can do a similarity search,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 274.71,
+          "end": 275.7,
+          "en": "This is what you're gonna do.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 275.7,
+          "end": 278.07,
+          "en": "And yeah, these are the options.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 278.07,
+          "end": 280.02,
+          "en": "And we have search requests, which we'll see later.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 280.02,
+          "end": 282.21,
+          "en": "But, of course, the problem is this VectorStore,",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 282.21,
+          "end": 283.26,
+          "en": "these are interface, right?",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 283.26,
+          "end": 285.51,
+          "en": "We don't have the implementation if you want to use it.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 285.51,
+          "end": 286.86,
+          "en": "One option is you can have",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 286.86,
+          "end": 288.69,
+          "en": "your own implementation for the VectorStore,",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 288.69,
+          "end": 291.84000000000003,
+          "en": "or you can use certain inbuilt implementation,",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 291.84000000000003,
+          "end": 293.37,
+          "en": "so if you scroll down, yeah.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 293.37,
+          "end": 294.33,
+          "en": "So you can see these are",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 294.33,
+          "end": 296.82,
+          "en": "the available implementations for the VectorStore.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 296.82,
+          "end": 299.1,
+          "en": "So we got from Azure, from Cassandra.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 299.1,
+          "end": 301.29,
+          "en": "I mean if you're familiar with these databases,",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 301.29,
+          "end": 302.343,
+          "en": "you can use them.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 303.18,
+          "end": 305.97,
+          "en": "We got Chroma, Elasticsearch, then MariaDB.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 305.97,
+          "end": 308.82,
+          "en": "I'm just focusing on things which I have worked on before.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 308.82,
+          "end": 312.81,
+          "en": "Neo4j, then Oracle, PgVector, and Redis.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 312.81,
+          "end": 315.03,
+          "en": "You can use SAP.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 315.03,
+          "end": 319.14,
+          "en": "And the simplest one of all is SimpleVectorStore, okay?",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 319.14,
+          "end": 322.38,
+          "en": "And this is actually inbuilt, so you can use this easily,",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 322.38,
+          "end": 324.63,
+          "en": "and this is only good for the educational purpose,",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 324.63,
+          "end": 326.67,
+          "en": "and, yeah, I'm doing education here,",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 326.67,
+          "end": 329.01,
+          "en": "so we are going to use SimpleVectorStore.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 329.01,
+          "end": 331.44,
+          "en": "But what if you want to use something else?",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 331.44,
+          "end": 332.46,
+          "en": "That should be simple.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 332.46,
+          "end": 333.33,
+          "en": "You know how?",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 333.33,
+          "end": 334.98,
+          "en": "Let's say if you decided to work",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 334.98,
+          "end": 337.17,
+          "en": "with any of these database, let's say PgVector.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 337.17,
+          "end": 338.25,
+          "en": "Now in this case, you have to make sure",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 338.25,
+          "end": 339.54,
+          "en": "that you have this implementation,",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 339.54,
+          "end": 341.90999999999997,
+          "en": "you have this software installed in your machine.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 341.90999999999997,
+          "end": 343.18,
+          "en": "Next, you have to get",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 344.13,
+          "end": 346.2,
+          "en": "the library of PGVector.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 346.2,
+          "end": 348.24,
+          "en": "You have to add that in the pom.xml file,",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 348.24,
+          "end": 349.511,
+          "en": "and then you have to set some properties",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 349.511,
+          "end": 351.63,
+          "en": "in the application properties.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 351.63,
+          "end": 353.1,
+          "en": "Three simple steps.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 353.1,
+          "end": 355.35,
+          "en": "Not exactly simple, but yeah, that's what I would do.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 355.35,
+          "end": 356.183,
+          "en": "In case of Chroma,",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 356.183,
+          "end": 358.71,
+          "en": "you don't have to install anything, just get the API,",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 358.71,
+          "end": 360.87,
+          "en": "or get the library from the repository,",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 360.87,
+          "end": 362.97,
+          "en": "and then add some configuration",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 362.97,
+          "end": 364.53,
+          "en": "in the application properties and you're done.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 364.53,
+          "end": 366.09,
+          "en": "But we are going to use SimpleVectorStore,",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 366.09,
+          "end": 367.23,
+          "en": "because we want to understand",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 367.23,
+          "end": 369.544,
+          "en": "how do we work with the VectorStore, okay?",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 369.544,
+          "end": 370.89,
+          "en": "Or the Vector databases.",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 370.89,
+          "end": 373.14,
+          "en": "Let's say if you want to get details about it,",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 373.14,
+          "end": 375.09,
+          "en": "and if I want to focus on PGVector,",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 375.09,
+          "end": 376.77,
+          "en": "just follow the steps, and you'll be done.",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 376.77,
+          "end": 379.95,
+          "en": "So you just have to run PGVector on the Docker Compose,",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 379.95,
+          "end": 381.45,
+          "en": "if you don't want to install locally,",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 381.45,
+          "end": 382.86,
+          "en": "I mean on your machine,",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 382.86,
+          "end": 386.13,
+          "en": "and then you just have to add this dependency,",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 386.13,
+          "end": 387.9,
+          "en": "and you have to put some properties",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 387.9,
+          "end": 389.64,
+          "en": "in the application property files.",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 389.64,
+          "end": 393.09000000000003,
+          "en": "These are the properties you have to add and you are done.",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 393.09000000000003,
+          "end": 394.83,
+          "en": "Okay, again, this a one-time setup,",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 394.83,
+          "end": 396.72,
+          "en": "but again, we are not gonna focus on all those things.",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 396.72,
+          "end": 399.42,
+          "en": "We're going to use the SimpleVectorStore.",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 399.42,
+          "end": 400.86,
+          "en": "How do we do that?",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 400.86,
+          "end": 402.31,
+          "en": "Let's see, in the next video.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "50381925",
+      "title": "Simple Vectore Store",
+      "lectureOrder": 387,
+      "videoOrder": 386,
+      "sourceHash": "6d7fc7d2b6779f0bca0635aad4825c31860424e80f545464ecb5d6703f160a7d",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 3.16,
+          "end": 5,
+          "en": "So let's try to implement this.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5,
+          "end": 7.2,
+          "en": "So when you click on send I want data.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.2,
+          "end": 10.2,
+          "en": "And we do have data in the products data page.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.72,
+          "end": 12.32,
+          "en": "And we want to make it work.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.52,
+          "end": 14.48,
+          "en": "Of course the code is not working anymore.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.52,
+          "end": 15.56,
+          "en": "I've stopped it.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 15.56,
+          "end": 16.68,
+          "en": "So how do you make it work.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 16.68,
+          "end": 20.64,
+          "en": "So here we need to basically search in the vector database.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 20.64,
+          "end": 26.04,
+          "en": "So the thing which you have to do is first of all we have to load this data in the vector database so",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 26.04,
+          "end": 29.04,
+          "en": "that when you search for it you can search it from the vector database.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 29.04,
+          "end": 34.4,
+          "en": "The first thing we're going to do here is get this data and save that in vector database.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 34.4,
+          "end": 39.88,
+          "en": "But if you observe the document is big I mean not that big, but still it's huge amount of lines.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 40.16,
+          "end": 45,
+          "en": "And if you want to store that in the database, what you do is you have to take this file, break it",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 45,
+          "end": 51.44,
+          "en": "down into chunks, and then try to store each chunk in the vector database.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 51.44,
+          "end": 55.36,
+          "en": "Of course it will do the embedding behind the scene, but that's our task to do that.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 55.4,
+          "end": 59.84,
+          "en": "What I'm going to do is I'm going to create a data initializer class.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 60.28,
+          "end": 62.32,
+          "en": "Now there are multiple ways of doing that.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 62.32,
+          "end": 66.57,
+          "en": "So maybe you can take this data and go by character character.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 66.57,
+          "end": 68.77,
+          "en": "Because if you see everything is structured here.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 68.77,
+          "end": 72.13,
+          "en": "So we got title, description, price, category and feature.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 72.13,
+          "end": 75.01,
+          "en": "So you can keep this as one chunk.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 75.28999999999999,
+          "end": 76.85,
+          "en": "This is a second chunk.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 76.85,
+          "end": 78.13,
+          "en": "So you can do that manually.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 78.41,
+          "end": 80.21000000000001,
+          "en": "Again the code will be a bit lengthy.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 80.21000000000001,
+          "end": 85.93,
+          "en": "The other way is you can use spring AI features to create a chunks of it.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 85.93,
+          "end": 86.97,
+          "en": "And we are going to do that.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 86.97,
+          "end": 91.37,
+          "en": "So going back here I want this to be a component.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 91.37,
+          "end": 93.89,
+          "en": "And then in this I want a method.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 94.09,
+          "end": 97.21000000000001,
+          "en": "So public void init data init will work.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 97.25,
+          "end": 100.93,
+          "en": "And then here basically we have to write lines to do that.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 100.93,
+          "end": 102.69,
+          "en": "So first of all I want to load this file.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 102.69,
+          "end": 104.89,
+          "en": "So product details file I want to load.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 105.17,
+          "end": 108.00999999999999,
+          "en": "And there should be a way to read that data.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 108.00999999999999,
+          "end": 109.41,
+          "en": "So I will say text reader.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 109.45,
+          "end": 111.21000000000001,
+          "en": "Now this is coming from the AI.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 111.25,
+          "end": 113.65,
+          "en": "So it has this class called Text Reader.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 113.69,
+          "end": 115.05,
+          "en": "I'm going to use this.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 115.09,
+          "end": 121.85,
+          "en": "And let's say let's call it text reader equal to new text reader in which you have to pass the file.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 121.85,
+          "end": 124.13,
+          "en": "So this text will read from the file.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 124.25,
+          "end": 128.45,
+          "en": "But you have to mention that from with the help of class path resource and in which you can mention",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 128.45,
+          "end": 129.41,
+          "en": "the file name.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 129.53,
+          "end": 131.09,
+          "en": "The file name is in the resources.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 131.09,
+          "end": 136.05,
+          "en": "You can directly mention the file name here, which is product details dot txt.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 136.17000000000002,
+          "end": 137.73,
+          "en": "Now once you have that.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 137.73,
+          "end": 142.17000000000002,
+          "en": "So let's read this file and store it in the vector database.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 142.32999999999998,
+          "end": 145.97,
+          "en": "And the implementation of vector database we are going to use here is simple vector.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 146.17000000000002,
+          "end": 151.73,
+          "en": "So in this case what I'm going to do is I'm going to say vector store dot.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 151.77,
+          "end": 154.41,
+          "en": "So this is a method in vector store which is add.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 154.41,
+          "end": 155.77,
+          "en": "And we have seen that in the theory.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 155.81,
+          "end": 155.97,
+          "en": "Right.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 155.97,
+          "end": 160.13,
+          "en": "So there's a add method in which you can pass the documents.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 160.29,
+          "end": 161.37,
+          "en": "And as you can see there are a lot.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 161.41,
+          "end": 165.73,
+          "en": "There should be a lot of read stuff here is because what is vector store here.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 165.73,
+          "end": 166.29,
+          "en": "It's a variable.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 166.29,
+          "end": 169.81,
+          "en": "But then when you have defined it nowhere where are the documents okay.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 169.85,
+          "end": 172.57,
+          "en": "So this documents need to come from the product details.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 172.57,
+          "end": 174.61,
+          "en": "And we have to create the object of vector store.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 174.65,
+          "end": 175.97,
+          "en": "So let's put that here.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 175.97,
+          "end": 179.32999999999998,
+          "en": "So I will say private vector store vector store.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 179.65,
+          "end": 183.41,
+          "en": "And then in the constructor of data initializer you can create the object of vector store with the help",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 183.41,
+          "end": 187.17,
+          "en": "of simple vector store which we're going to see that in some time.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 187.49,
+          "end": 191.05,
+          "en": "But then I also want to use that in the open air controller.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 191.05,
+          "end": 196.1,
+          "en": "So instead of creating this object multiple times or just fetching multiple times.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 196.1,
+          "end": 200.74,
+          "en": "Let's create this object once and we can do that in the app.config.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 201.02,
+          "end": 202.22,
+          "en": "In the configuration class.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 202.66,
+          "end": 203.62,
+          "en": "So let me just do that.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 203.66,
+          "end": 206.42000000000002,
+          "en": "So app.config this will be configuration.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 206.74,
+          "end": 209.74,
+          "en": "And here I want to create a bean of vector.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 209.98,
+          "end": 212.26,
+          "en": "So public vector stored object.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 212.26,
+          "end": 214.06,
+          "en": "So it will return the object of vector store.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 214.42000000000002,
+          "end": 216.74,
+          "en": "And I will say vector store.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 216.74,
+          "end": 218.42000000000002,
+          "en": "And this is going to return the object.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 218.42000000000002,
+          "end": 222.78,
+          "en": "And to do that I can simply use a simple vector store.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 222.82,
+          "end": 225.14,
+          "en": "This is what we're going to use as the implementation.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 225.3,
+          "end": 228.42000000000002,
+          "en": "And based on which implementation you are going for you have to change this code.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 228.57999999999998,
+          "end": 232.46,
+          "en": "The other code will remain same, so you have to change the App.config depend upon your vector store.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 232.78,
+          "end": 234.74,
+          "en": "So we are using simple vector store dot.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 235.14,
+          "end": 235.38,
+          "en": "Uh.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 235.38,
+          "end": 240.66,
+          "en": "In this particular class you have this method called builder, which takes the object of the embedding",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 240.66,
+          "end": 241.46,
+          "en": "model.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 241.46,
+          "end": 244.14,
+          "en": "And you can simply inject the embedding model from here.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 244.42,
+          "end": 246.9,
+          "en": "So embedding model embedding model.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 247.14,
+          "end": 251.62,
+          "en": "And then you can simply inject that here embedding model then dot build.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 251.62,
+          "end": 255.38,
+          "en": "So builder pattern you can just get the object of simple vector store.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 255.58,
+          "end": 262.82,
+          "en": "And let's make this as a bean so that I can just I mean, once you have it here in the initializer,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 262.86,
+          "end": 265.22,
+          "en": "you can just come back here and say auto wire.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 265.26,
+          "end": 271.26,
+          "en": "Now you will get the object and once you have the object you can say vector store dot, add documents.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 271.26,
+          "end": 274.82,
+          "en": "But what you don't have it as of now is the documents.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 275.02,
+          "end": 277.06,
+          "en": "So let's convert this product details.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 277.1,
+          "end": 280.34000000000003,
+          "en": "I mean let's get this product details and create the documents out of it.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 280.78,
+          "end": 283.14,
+          "en": "And the way you can do that is just be with me.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 283.14,
+          "end": 284.02,
+          "en": "It's a complex code.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 284.06,
+          "end": 286.62,
+          "en": "Not exactly complex, but you'll be seeing for the first time.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 286.62,
+          "end": 289.46,
+          "en": "So it's your token text splitter.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 289.46,
+          "end": 293.9,
+          "en": "So we are going to use this to convert this document into chunks or maybe documents.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 293.9,
+          "end": 295.58,
+          "en": "So I will name this as token text splitter.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 295.58,
+          "end": 301.22,
+          "en": "Or maybe I can just say splitter equal to new token text splitter.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 301.58,
+          "end": 305.3,
+          "en": "And if you look at the constructor of this so I will just click here.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 305.3,
+          "end": 307.94,
+          "en": "And this is a constructor which will take all the default values.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 307.94,
+          "end": 310.3,
+          "en": "And that's fine you can simply use this.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 310.3,
+          "end": 312.86,
+          "en": "And in fact I'm going to use the default one at this point.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 312.86,
+          "end": 316.26,
+          "en": "And once you have this token splitter I can create documents.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 316.26,
+          "end": 318.62,
+          "en": "But then I don't want to create a single document.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 318.62,
+          "end": 320.3,
+          "en": "I want to create a list of documents.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 320.3,
+          "end": 323.83,
+          "en": "So once you see splitter, it will create multiple chunks.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 323.83,
+          "end": 325.87,
+          "en": "And each chunk will be one document here.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 325.87,
+          "end": 328.55,
+          "en": "And just make sure when you get a document it should be from spring.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 328.59,
+          "end": 330.83,
+          "en": "I and I will say documents equal to.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 330.99,
+          "end": 333.47,
+          "en": "And you have to get the documents from the with the help of splitter.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 333.47,
+          "end": 340.55,
+          "en": "So we'll say splitter dot split and you pass the text reader dot get.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 340.55,
+          "end": 345.55,
+          "en": "So this text dot get will give will will give you this document and or this file.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 345.75,
+          "end": 349.27,
+          "en": "And then you can simply apply split here and it will create the documents for you.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 349.55,
+          "end": 354.43,
+          "en": "And those documents you are adding in your vector store okay.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 354.71,
+          "end": 358.19,
+          "en": "And once you have that your data is initialized.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 358.19,
+          "end": 361.35,
+          "en": "But then I want this method to be called right now where I'm calling this.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 361.35,
+          "end": 364.07,
+          "en": "So if you see here again we are not going to call this.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 364.07,
+          "end": 366.63,
+          "en": "If you call this then it will create a new one.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 366.67,
+          "end": 369.87,
+          "en": "Only when you pass this particular or call this method.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 369.87,
+          "end": 373.59,
+          "en": "I want it to be initialized at the moment you run the project.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 373.59,
+          "end": 376.59,
+          "en": "So I'll say post construct so that it will this, this will be initialized.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 376.59,
+          "end": 379.63,
+          "en": "And yeah I think we are good with this.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 379.67,
+          "end": 381.47,
+          "en": "In fact this implementation will do in the next video.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 381.47,
+          "end": 382.75,
+          "en": "But I want to show you one more thing.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 382.75,
+          "end": 385.28,
+          "en": "So let's try this.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 385.32,
+          "end": 386.8,
+          "en": "I'll comment the first line.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 386.8,
+          "end": 390.44,
+          "en": "If you remember when we went to the constructor, there are default values here.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 390.8,
+          "end": 393.32,
+          "en": "Now what are those things which we have mentioned?",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 394.24,
+          "end": 398.32,
+          "en": "Now if you don't want to go for the default values, we can go for the parameterized constructor which",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 398.32,
+          "end": 399.48,
+          "en": "takes multiple things.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 399.8,
+          "end": 401.6,
+          "en": "So this is the chunk size.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 401.6,
+          "end": 406.96,
+          "en": "So the chunk size is basically your size of your chunk which is measured in the tokens.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 406.96,
+          "end": 408.92,
+          "en": "So how many tokens there should be in one chunk.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 409.56,
+          "end": 416.48,
+          "en": "And ideally this should be depend upon your context size of your model and the model which you are using",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 416.48,
+          "end": 417.48,
+          "en": "which is large.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 417.52,
+          "end": 420.24,
+          "en": "It can have 8000 tokens.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 420.64,
+          "end": 421.64,
+          "en": "So you can set that.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 421.64,
+          "end": 423.6,
+          "en": "But then we also want some space for the query.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 423.6,
+          "end": 425.76,
+          "en": "So we'll set it to let's say 500.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 425.8,
+          "end": 430.36,
+          "en": "Then we got the second one which is minimum chunk size or minimum chunk size per characters.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 430.64,
+          "end": 436.56,
+          "en": "And this can be somewhere between 30 to 50 where you can have you can specify the number of characters",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 436.56,
+          "end": 437.32,
+          "en": "in a chunk.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 438.36,
+          "end": 441.44,
+          "en": "You can also specify the number of tokens in the chunk.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 441.44,
+          "end": 447.32,
+          "en": "So let's say there are if you set this value to let's say 20, and if you have less than 20 tokens in",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 447.32,
+          "end": 448.76,
+          "en": "a chunk, it will discard it.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 448.76,
+          "end": 451.2,
+          "en": "And the maximum number of chunks you need.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 451.24,
+          "end": 451.56,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 451.6,
+          "end": 453.8,
+          "en": "So you can set it to a value.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 454.24,
+          "end": 455,
+          "en": "You can hard limit it.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 455,
+          "end": 459.8,
+          "en": "So let's say if you have a huge document let's say a book or a movie script, uh, and if you don't",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 459.8,
+          "end": 462.24,
+          "en": "want to create a lot of chunks, you can set the limit.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 462.4,
+          "end": 466.28,
+          "en": "And if you don't want to set the limit, you can just go for the maximum value for the integer range.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 466.68,
+          "end": 467.72,
+          "en": "Uh, that's one thing.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 467.92,
+          "end": 472.12,
+          "en": "And then you can also use the last value which is separator.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 472.72,
+          "end": 477.4,
+          "en": "Ideally, if you want to avoid the new lines and stuff it should be false.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 477.4,
+          "end": 478.56,
+          "en": "And that's what you're going to do.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 478.76,
+          "end": 480.04,
+          "en": "So let's set this value.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 480.24,
+          "end": 482.96,
+          "en": "If you don't want to go for the default one.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 483.28,
+          "end": 485.72,
+          "en": "So the chunk size I want to keep it 500.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 485.88,
+          "end": 490.76,
+          "en": "The minimum chunk size character let's say 30 minimum chunk length to embed.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 490.8,
+          "end": 492.72,
+          "en": "Let's say 20 maximum number of chunks.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 492.72,
+          "end": 494.72,
+          "en": "Of course I can go for the maximum value for the integer.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 494.72,
+          "end": 501.36,
+          "en": "But let's say if I want at this point because we don't have big document and the last one is keep separate,",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 501.36,
+          "end": 503.88,
+          "en": "I will just make it false.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 503.88,
+          "end": 506.28,
+          "en": "So you can use the default one, or you can use this one.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 506.28,
+          "end": 508.56,
+          "en": "And we'll try to see if both works or not.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 508.64,
+          "end": 512.76,
+          "en": "And now it's time to implement this which we'll do in the next video.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 512.76,
+          "end": 513.96,
+          "en": "And we'll also run this.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "50381929",
+      "title": "Token Text Splitter",
+      "lectureOrder": 388,
+      "videoOrder": 387,
+      "sourceHash": "9b1ccdf4fefe737109897a370e0b7203589e56c237f6e0b601bb963747cba6cc",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.141,
+          "end": 3.33,
+          "en": "(gentle music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.33,
+          "end": 6.42,
+          "en": "-: So now, let's write the code for the controller.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.42,
+          "end": 9.18,
+          "en": "Now, here maybe, because if you look at this code,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.18,
+          "end": 12.72,
+          "en": "this is lot of lines, but here, how many lines we need?",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.72,
+          "end": 15.69,
+          "en": "Let's see. Basically, we have to use a vector store here",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.69,
+          "end": 18.27,
+          "en": "because we want to search this text",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.27,
+          "end": 21.24,
+          "en": "and we want to do the semantic or similarity search.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 21.24,
+          "end": 23.1,
+          "en": "Basically, the first thing we need is a vector store.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 23.1,
+          "end": 25.47,
+          "en": "So I will just go back on top.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 25.47,
+          "end": 27.72,
+          "en": "And here, let's create the object of vector store.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 27.72,
+          "end": 30.96,
+          "en": "So I will say vector store, vector store,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 30.96,
+          "end": 33.18,
+          "en": "and let's keep this as auto wired",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 33.18,
+          "end": 35.85,
+          "en": "because I want this object to be injected.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 35.85,
+          "end": 39.87,
+          "en": "And here, go down and say vector store dot.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 39.87,
+          "end": 41.94,
+          "en": "Now, there are multiple methods here.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 41.94,
+          "end": 44.73,
+          "en": "We have seen add. We can also delete.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 44.73,
+          "end": 46.02,
+          "en": "But if you go down,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 46.02,
+          "end": 47.85,
+          "en": "there's a method called similarity search.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 47.85,
+          "end": 50.37,
+          "en": "There are two methods actually with different parameters.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 50.37,
+          "end": 51.48,
+          "en": "Let's try the first one,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 51.48,
+          "end": 54.12,
+          "en": "which is similarity search in which you just pass",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 54.12,
+          "end": 57.75,
+          "en": "the text and your job is actually done.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 57.75,
+          "end": 61.08,
+          "en": "If you just write return here,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 61.08,
+          "end": 62.7,
+          "en": "this will do the things for you.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 62.7,
+          "end": 64.2,
+          "en": "The only thing you've to change here is,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 64.2,
+          "end": 67.11,
+          "en": "instead of using string, because it'll turn the list",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 67.11,
+          "end": 68.73,
+          "en": "of documents and that's what you want,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 68.73,
+          "end": 70.53,
+          "en": "so you got the list of documents",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 70.53,
+          "end": 71.78999999999999,
+          "en": "and we are going to return that.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 71.78999999999999,
+          "end": 74.34,
+          "en": "Will this work? Let's try it out.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 74.34,
+          "end": 77.34,
+          "en": "So we'll just run this code and we got an error.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 77.34,
+          "end": 80.46000000000001,
+          "en": "Okay, we got two embedding models.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 80.46000000000001,
+          "end": 82.28999999999999,
+          "en": "Okay, we have solved it here.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 82.28999999999999,
+          "end": 84.243,
+          "en": "But in the initializer also,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 85.14,
+          "end": 90.03,
+          "en": "I think somewhere I'm injecting app config.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 90.03,
+          "end": 91.83,
+          "en": "I'll say add qualifier",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 91.83,
+          "end": 95.37,
+          "en": "and I want to use the OpenAI embedding model.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 95.37,
+          "end": 97.41,
+          "en": "Let's put that. So if you just have one,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 97.41,
+          "end": 99.24000000000001,
+          "en": "you don't have to do all these things.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 99.24000000000001,
+          "end": 102.57,
+          "en": "Since I'm using Ollama and OpenAI in the same project,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 102.57,
+          "end": 103.65,
+          "en": "that's where the issue is.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 103.65,
+          "end": 106.28999999999999,
+          "en": "Okay, so now let's see what are the steps it is following.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 106.28999999999999,
+          "end": 108.99000000000001,
+          "en": "So basically, it is splitting the document into six chunks",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 108.99000000000001,
+          "end": 112.97999999999999,
+          "en": "and this is the document ID for the first one and so on.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 112.97999999999999,
+          "end": 116.37,
+          "en": "So we got six chunks here and it is started.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 116.37,
+          "end": 117.39,
+          "en": "Okay, that's cool.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 117.39,
+          "end": 120,
+          "en": "So, maybe I could also reduce the number of characters",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 120,
+          "end": 121.383,
+          "en": "or tokens in the chunk.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 122.25,
+          "end": 123.45,
+          "en": "That could have helped.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 123.45,
+          "end": 124.71,
+          "en": "But anyway, this should also work.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 124.71,
+          "end": 128.46,
+          "en": "So let's search for the variables now and click send.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 128.46,
+          "end": 130.14,
+          "en": "And you can see earbuds.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 130.14,
+          "end": 135.14,
+          "en": "Okay, looks like variable, not sure, but whatever you get.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 135.42,
+          "end": 139.29,
+          "en": "Second is the laptop strap.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 139.29,
+          "end": 141.75,
+          "en": "Okay, yeah, that's variable.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 141.75,
+          "end": 146.75,
+          "en": "Then we got, what's this? Building blocks.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 147.21,
+          "end": 149.19,
+          "en": "I'm not sure how that is variable.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 149.19,
+          "end": 150.36,
+          "en": "But anyway, you've got the point, right?",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 150.36,
+          "end": 152.37,
+          "en": "So you can just search like this.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 152.37,
+          "end": 155.97,
+          "en": "Maybe you can, I just want to look at my document once",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 155.97,
+          "end": 158.61,
+          "en": "to see what else I can search.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 158.61,
+          "end": 161.76,
+          "en": "So let's say, I want to search tea, and click on send",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 161.76,
+          "end": 163.92000000000002,
+          "en": "and it'll display things which are related to tea.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 163.92000000000002,
+          "end": 167.04,
+          "en": "Okay, water bottles because you can have tea there, kettle.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 167.04,
+          "end": 170.49,
+          "en": "Okay, next we have is airports.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 170.49,
+          "end": 173.37,
+          "en": "I'm not sure how that is matching with this.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 173.37,
+          "end": 176.55,
+          "en": "But again, AI hallucinates sometimes,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 176.55,
+          "end": 179.04,
+          "en": "or maybe it is mentioned somewhere here, tea,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 179.04,
+          "end": 180.39,
+          "en": "and that's what is going for that.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 180.39,
+          "end": 182.07,
+          "en": "And since you're getting multiple chunks,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 182.07,
+          "end": 185.01,
+          "en": "your data should be, it is getting mixed everywhere.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 185.01,
+          "end": 187.92,
+          "en": "But anyway, the point is, you can specify tea here.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 187.92,
+          "end": 189.66,
+          "en": "Or maybe I'll just keep it true",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 189.66,
+          "end": 192,
+          "en": "because I want to document in that format.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 192,
+          "end": 194.103,
+          "en": "Or let's try with this.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 196.56,
+          "end": 199.35,
+          "en": "Let's rerun this. Let's try with default.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 199.35,
+          "end": 202.443,
+          "en": "So splitting documents into four chunks now.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 204.48,
+          "end": 209.37,
+          "en": "Run with tea, laptop sleeves.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 209.37,
+          "end": 211.95,
+          "en": "I think the thing which we did",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 211.95,
+          "end": 215.04,
+          "en": "with the specific values were better than the default one.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 215.04,
+          "end": 217.29,
+          "en": "And that's why you should always specify things",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 217.29,
+          "end": 218.37,
+          "en": "to be very specific.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 218.37,
+          "end": 221.13,
+          "en": "So it is doing the semantic search there.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 221.13,
+          "end": 224.25,
+          "en": "Now, go back to the controller. What else we can change?",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 224.25,
+          "end": 226.56,
+          "en": "Maybe I don't want all the output,",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 226.56,
+          "end": 230.13,
+          "en": "I just want to be simple stuff or maybe very specific stuff.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 230.13,
+          "end": 231.15,
+          "en": "Instead of getting all the documents,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 231.15,
+          "end": 233.34,
+          "en": "maybe I would just want to get two.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 233.34,
+          "end": 235.35,
+          "en": "So in that case, if you just want to specify",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 235.35,
+          "end": 238.2,
+          "en": "how many you want, so you can do the same thing,",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 238.2,
+          "end": 240.18,
+          "en": "vectorstore.similaritysearch.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 240.18,
+          "end": 241.83,
+          "en": "But this time, we will do that with the help",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 241.83,
+          "end": 243.06,
+          "en": "of search request.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 243.06,
+          "end": 245.7,
+          "en": "So with the search request, you can use this pattern,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 245.7,
+          "end": 247.95,
+          "en": "which is searchrequest.builder.build.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 247.95,
+          "end": 251.58,
+          "en": "And then, in the builder, I can pass my query,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 251.58,
+          "end": 254.67,
+          "en": "which is text, and I can also specify",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 254.67,
+          "end": 257.19,
+          "en": "the elements I want, how many documents I want.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 257.19,
+          "end": 259.17,
+          "en": "So top, let's say I want two.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 259.17,
+          "end": 262.05,
+          "en": "So you can apply the filter there. Let's run this.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 262.05,
+          "end": 263.82,
+          "en": "So we're just getting four chunks.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 263.82,
+          "end": 267.363,
+          "en": "Let me just change that to, instead of default,",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 269.1,
+          "end": 272.07,
+          "en": "let's say five and here hundred.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 272.07,
+          "end": 273.54,
+          "en": "Okay, now just getting 28 chunks.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 273.54,
+          "end": 275.46,
+          "en": "So we should get accurate data.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 275.46,
+          "end": 277.26,
+          "en": "So it takes time to do that.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 277.26,
+          "end": 280.11,
+          "en": "Okay, so we got 28 chunks. Let's go back here.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 280.11,
+          "end": 282.78,
+          "en": "And I want for tea, run.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 282.78,
+          "end": 284.90999999999997,
+          "en": "And you can see we only got two documents now.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 284.90999999999997,
+          "end": 287.706,
+          "en": "So organic green tea, that's the first one you got.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 287.706,
+          "end": 290.82,
+          "en": "And we got ceramic coffee cup mugs, okay?",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 290.82,
+          "end": 293.64,
+          "en": "So things which relate to tea. So this is much better.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 293.64,
+          "end": 294.6,
+          "en": "So that's how you basically,",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 294.6,
+          "end": 297.123,
+          "en": "you can work with the data vector store.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "50733977",
+      "title": "PG Vector Store Intro",
+      "lectureOrder": 389,
+      "videoOrder": 388,
+      "sourceHash": "e84c4e5ff02d009ebb095a33d049d0c355ba7b378f9114c0ece92c0e449f671f",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 3.44,
+          "end": 8.88,
+          "en": "Now when we are trying to implement the vector database we or vector store, we have different options",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 8.88,
+          "end": 10.16,
+          "en": "which we talked about before.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.16,
+          "end": 16.64,
+          "en": "And then the implementation we did was simple vector store because the idea was how do you work with",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.64,
+          "end": 17.44,
+          "en": "vector databases?",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.44,
+          "end": 18.96,
+          "en": "How do you work with Vector Store?",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.08,
+          "end": 23.68,
+          "en": "Of course you can store that in the simple vector store or in some other implementation.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 24.04,
+          "end": 24.84,
+          "en": "And it works.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 24.88,
+          "end": 25.4,
+          "en": "Right.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 25.44,
+          "end": 27.52,
+          "en": "But then what if you want to use something else?",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 27.64,
+          "end": 30.96,
+          "en": "And as I mentioned before, there are certain steps which you have to follow.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 31.2,
+          "end": 35.4,
+          "en": "And then if you are working on a project and you're going to do that once and you should do that, right.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 35.44,
+          "end": 39.4,
+          "en": "So instead of going for simple vector store, which is only for educational purpose and experimental",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 39.4,
+          "end": 44.36,
+          "en": "purpose, if you really want to store your embeddings, you have to follow some other implementation.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 44.36,
+          "end": 48.68,
+          "en": "And that's what we are going to do in this particular videos or in the upcoming videos.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 48.68,
+          "end": 55.2,
+          "en": "Now if you go to different vector databases, we are on spring I official documentation, and if you",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 55.2,
+          "end": 58.52,
+          "en": "see vector databases, there are multiple implementations for it.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 58.64,
+          "end": 61.88,
+          "en": "And we went for the simplest one which is simple vector store.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 62.24,
+          "end": 67.04,
+          "en": "But if you want to implement something else, then you have to go to a specific type or implementation",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 67.04,
+          "end": 67.48,
+          "en": "example.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 67.48,
+          "end": 74.53999999999999,
+          "en": "Here we are on PG vector because I feel it's good because you already have the Postgres databases,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 74.53999999999999,
+          "end": 75.62,
+          "en": "which is very famous.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 75.9,
+          "end": 78.9,
+          "en": "And if you have that in your system, you know how it works.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 79.02,
+          "end": 80.06,
+          "en": "So we can use that.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 80.46000000000001,
+          "end": 80.7,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 80.74,
+          "end": 81.98,
+          "en": "So this is PG vector.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 82.02,
+          "end": 85.18,
+          "en": "There's only one thing as of now when I'm recording this video.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 85.18,
+          "end": 92.46000000000001,
+          "en": "When you have your PostgreSQL database in your machine, it doesn't have the PG vector support by default.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 92.5,
+          "end": 92.94,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 93.14,
+          "end": 95.66,
+          "en": "If you want to make it work you can add some extra files.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 95.66,
+          "end": 97.34,
+          "en": "There are certain things you will get.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 97.38,
+          "end": 99.62,
+          "en": "You have to put that into your program files.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 99.62,
+          "end": 104.82,
+          "en": "If you're using windows for Linux and for Mac, we have different configuration, but there are certain",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 104.82,
+          "end": 105.86,
+          "en": "steps which you have to follow.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 105.86,
+          "end": 110.66,
+          "en": "So instead of depending on the local setup we are going to use Docker here.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 110.66,
+          "end": 112.1,
+          "en": "So first of all what is pg vector.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 112.1,
+          "end": 114.3,
+          "en": "So PG vector is for the vector store.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 114.3,
+          "end": 117.1,
+          "en": "And you can store your documents embedding into it.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 117.46000000000001,
+          "end": 119.62,
+          "en": "And you can perform the similarity searches.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 119.78,
+          "end": 123.1,
+          "en": "Now PG vector is a open source extension for PostgreSQL.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 123.1,
+          "end": 128.1,
+          "en": "So basically when you use PG vector in Docker it will have the Postgres inbuilt.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 128.1,
+          "end": 129.9,
+          "en": "So it is built on Postgres.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 129.9,
+          "end": 135.34,
+          "en": "So you can either use PG vector with the help of Docker compose which we are going to use, or you can",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 135.34,
+          "end": 138.02,
+          "en": "directly run it on your Docker container.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 138.02,
+          "end": 139.57999999999998,
+          "en": "So there are steps also mentioned here.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 139.57999999999998,
+          "end": 141.66,
+          "en": "For example if I click on this.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 141.66,
+          "end": 143.34,
+          "en": "So this is the step.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 143.34,
+          "end": 144.9,
+          "en": "So you just run this command.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 144.94,
+          "end": 151.05,
+          "en": "It will have your PG vector running on your Docker container and then you can connect.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 151.57,
+          "end": 154.41,
+          "en": "We are going to use Docker Compose and you will find that in the GitHub repository.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 154.41,
+          "end": 158.37,
+          "en": "If you are watching very soon after uploading, it might take some time, but it will be there now.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 158.61,
+          "end": 159.77,
+          "en": "So what are the things we need.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 159.77,
+          "end": 162.09,
+          "en": "So basically it will create a vector store.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 162.09,
+          "end": 167.32999999999998,
+          "en": "So when we try to run this application with PG vector store it will create a default table.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 167.37,
+          "end": 170.25,
+          "en": "But in case if you want to do it manually you can do that.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 170.25,
+          "end": 172.05,
+          "en": "There are certain dependencies which we have to add.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 172.09,
+          "end": 176.25,
+          "en": "In one of the video we have talked about this spring I stable version.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 176.61,
+          "end": 179.25,
+          "en": "Basically after that you have to add extra dependencies.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 179.25,
+          "end": 182.41,
+          "en": "And this is one of the dependency which you have to add for PG vector.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 182.41,
+          "end": 185.97,
+          "en": "We already have the vector store, but we have to also add pg vector now.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 185.97,
+          "end": 186.85,
+          "en": "So that's one.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 187.17,
+          "end": 191.09,
+          "en": "Next you have to in fact you'll be you already have OpenAI model there.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 191.21,
+          "end": 195.89,
+          "en": "We have to do some configuration, as we do with every spring project where you connect with the database,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 195.89,
+          "end": 198.41,
+          "en": "we have to mention this URL username, password.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 198.69,
+          "end": 201.61,
+          "en": "And for the vector store we have to specify certain properties.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 201.65,
+          "end": 201.85,
+          "en": "Right.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 201.85,
+          "end": 203.41,
+          "en": "So we have to specify the index type.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 204.21,
+          "end": 209.49,
+          "en": "Then we have to specify the distance type and dimensions and max document batch size.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 209.49,
+          "end": 211.05,
+          "en": "So you can mention all those things.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 211.09,
+          "end": 213.77,
+          "en": "And good that's what we need okay.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 213.81,
+          "end": 219.65,
+          "en": "So once we know all these things let's get started with the implementation step by step.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "50733983",
+      "title": "PG Vector Store Configuration",
+      "lectureOrder": 390,
+      "videoOrder": 389,
+      "sourceHash": "860b6d4117b4dd2baacca28f809fdb122c609c556c322a19563b43a8ecfef14a",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 3.28,
+          "end": 5.36,
+          "en": "So let's start the setup.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.4,
+          "end": 9.32,
+          "en": "The first thing you need is Docker because of course we are going to use Docker compose.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.32,
+          "end": 12.64,
+          "en": "And we are going to load that image run it in the container.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.88,
+          "end": 14.8,
+          "en": "So let's see if we have Docker okay.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 14.84,
+          "end": 16.6,
+          "en": "So I do have Docker in this machine.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 16.6,
+          "end": 18.2,
+          "en": "And I just need to get that.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.2,
+          "end": 19.32,
+          "en": "So this is up and running.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 19.32,
+          "end": 20.08,
+          "en": "Docker is up and running.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 20.08,
+          "end": 21.56,
+          "en": "So I will just minimize this.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 22.04,
+          "end": 24,
+          "en": "And now I can run a command.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 24,
+          "end": 25,
+          "en": "But before we do that.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 25,
+          "end": 26.48,
+          "en": "So basically the command is very simple.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 27.04,
+          "end": 34.12,
+          "en": "Once you have a Docker compose file you can run this command which is docker compose up d but then don't",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 34.12,
+          "end": 37.44,
+          "en": "run the command now because we don't have docker compose file here.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 37.48,
+          "end": 39.52,
+          "en": "For example, if I try this you don't do it.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 39.52,
+          "end": 41.56,
+          "en": "So it says no configuration file provided.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 41.56,
+          "end": 45.76,
+          "en": "So of course you need to have the docker file or compose file.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 45.76,
+          "end": 48.48,
+          "en": "And we are going to put that at the root level.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 48.48,
+          "end": 51.16,
+          "en": "So here somewhere here now you don't have to type the entire file.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 51.16,
+          "end": 52.28,
+          "en": "This is not a Docker course.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 52.28,
+          "end": 53.64,
+          "en": "So I will give you the file.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 53.64,
+          "end": 55.4,
+          "en": "And I'm putting that file here.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 55.4,
+          "end": 57.56,
+          "en": "So you'll find the file in the repository.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 57.6,
+          "end": 60.76,
+          "en": "Now this is the Docker file okay I don't have the plugin.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 60.76,
+          "end": 61.84,
+          "en": "I don't need that.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 61.84,
+          "end": 62.72,
+          "en": "So ignore that.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 62.72,
+          "end": 63.6,
+          "en": "So this is the file.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 63.6,
+          "end": 68.09,
+          "en": "So we are basically saying that in this we need the image of the PG vector.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 68.09,
+          "end": 71.85,
+          "en": "This is the PG vector image and the environment variables.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 71.85,
+          "end": 75.13,
+          "en": "So the database I'm going to use is the password.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 75.13,
+          "end": 76.89,
+          "en": "I want to set it as 123, four.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 77.17,
+          "end": 80.09,
+          "en": "And the Postgres user is Postgres.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 80.09,
+          "end": 82.85,
+          "en": "And then the port number is 5432.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 82.89,
+          "end": 84.17,
+          "en": "So you have to mention these things.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 84.17,
+          "end": 88.69,
+          "en": "And now you can actually get your you can actually execute the command.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 88.69,
+          "end": 93.25,
+          "en": "And this will make sure that you have your PG vector image running in the container.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 93.49000000000001,
+          "end": 96.89,
+          "en": "So since I don't have the image it will take some time for the download.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 97.09,
+          "end": 98.57,
+          "en": "Its downloading and done.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 98.57,
+          "end": 101.77000000000001,
+          "en": "And now you can see it has created that and it is running.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 101.77000000000001,
+          "end": 104.28999999999999,
+          "en": "Now let me just verify that in my docker.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 104.57,
+          "end": 107.57,
+          "en": "So in the containers I don't know if the font is visible now.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 107.57,
+          "end": 108.37,
+          "en": "It should be.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 108.37,
+          "end": 113.65,
+          "en": "So you can see we have the spring eye code which is in the running state okay.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 113.69,
+          "end": 115.49000000000001,
+          "en": "So in this you'll be having PG vector.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 115.49000000000001,
+          "end": 116.57,
+          "en": "And that's what we got.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 117.25,
+          "end": 117.89,
+          "en": "Perfect.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 117.93,
+          "end": 122.09,
+          "en": "The one thing to remember it's running on port number this 5432.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 122.93,
+          "end": 124.13,
+          "en": "And let's get started.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 124.13,
+          "end": 125.77,
+          "en": "So this is the one thing you need.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 126.13,
+          "end": 128.41,
+          "en": "Next I need to also specify some configuration.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 128.45,
+          "end": 128.69,
+          "en": "Right.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 128.73,
+          "end": 131.57,
+          "en": "But before we do that so I will do the configuration.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 131.57,
+          "end": 134.79,
+          "en": "Before we do that I also want to specify the dependencies.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 134.83,
+          "end": 139.51,
+          "en": "Now remember, apart from vector store we have to also we also need the PG vector here.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 139.55,
+          "end": 141.31,
+          "en": "Now I'm just going to copy this.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 141.31,
+          "end": 142.75,
+          "en": "Of course not exactly same.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 142.75,
+          "end": 144.47,
+          "en": "So we have to make some changes.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 144.47,
+          "end": 146.79,
+          "en": "So it's not advisors it is starter.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 147.51,
+          "end": 151.31,
+          "en": "And we have to say hyphen PG vector.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 151.35,
+          "end": 152.67000000000002,
+          "en": "I hope there is no error.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 152.67000000000002,
+          "end": 154.07,
+          "en": "Let me just reload this.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 154.07,
+          "end": 156.95,
+          "en": "So apart from vector store you also need vector store PG vector.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 156.95,
+          "end": 158.11,
+          "en": "And there is no problem.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 158.11,
+          "end": 159.47,
+          "en": "So Maven loaded properly.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 159.47,
+          "end": 161.07,
+          "en": "So that's one of the configuration.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 161.55,
+          "end": 166.07,
+          "en": "Next I need to add some properties here in the application properties.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 166.07,
+          "end": 168.07,
+          "en": "Because now you are connecting with the database right.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 168.07,
+          "end": 173.23,
+          "en": "So you have to specify certain properties there the username, the URL the password and other stuff.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 173.23,
+          "end": 174.07,
+          "en": "So let's do that.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 174.07,
+          "end": 175.87,
+          "en": "So this spring dot data source dot URL.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 175.87,
+          "end": 177.11,
+          "en": "That's the first thing you have to mention.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 177.11,
+          "end": 182.67,
+          "en": "And this will be JDBC colon postgres SQL colon slash slash localhost colon.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 182.71,
+          "end": 185.79,
+          "en": "The port number was 5432 slash telescope.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 185.95,
+          "end": 187.27,
+          "en": "Then you have to mention the username.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 187.27,
+          "end": 192.23,
+          "en": "So it is spring dot data source dot username which is Postgres.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 192.23,
+          "end": 194.31,
+          "en": "That's what we have set in the compose file.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 195.19,
+          "end": 200.13,
+          "en": "Spring dot data source dot password which was 1234 which we have set said.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 200.32999999999998,
+          "end": 204.13,
+          "en": "In fact, instead of typing more, I will just copy paste other files.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 204.13,
+          "end": 205.45,
+          "en": "So I don't need SQL.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 205.85,
+          "end": 207.01,
+          "en": "So SQL, which is true.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 207.01,
+          "end": 209.29,
+          "en": "And the driver class name.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 209.32999999999998,
+          "end": 212.01,
+          "en": "Okay, so looks like the configuration is done.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 212.25,
+          "end": 215.97,
+          "en": "Uh, I'm not sure if this will work and if it's not working we'll add some more configuration.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 215.97,
+          "end": 216.97,
+          "en": "And that's how we learn right?",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 217.01,
+          "end": 219.85,
+          "en": "We'll see what are things required and what are not.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 220.01,
+          "end": 225.49,
+          "en": "So at this point basic configuration done where we have specified the database configuration, we have",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 225.49,
+          "end": 227.81,
+          "en": "specified uh nothing in app config.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 227.81,
+          "end": 231.53,
+          "en": "But in the pom.xml file we have mentioned that we are working with the PG vector.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 231.77,
+          "end": 236.32999999999998,
+          "en": "And we also got the docker compose file where we are mentioning that we want this image and I want to",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 236.32999999999998,
+          "end": 237.13,
+          "en": "run that image.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 237.81,
+          "end": 238.05,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 238.09,
+          "end": 238.81,
+          "en": "Looks cool.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 238.97,
+          "end": 243.05,
+          "en": "Uh, now we can get started with the coding and which file we are going to change.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 243.09,
+          "end": 247.53,
+          "en": "Now if you look at the coding files, I mean the Java files, we don't have to change anything in the",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 247.53,
+          "end": 252.41,
+          "en": "controller because controller has no idea which PG implement or the which vector store implementation",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 252.41,
+          "end": 253.93,
+          "en": "you're using in the config.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 253.93,
+          "end": 257.69,
+          "en": "In the data initializer we are just auto wiring vector store.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 257.85,
+          "end": 259.65,
+          "en": "So whatever we inject it will take it.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 259.69,
+          "end": 260.81,
+          "en": "Where are we injecting it?",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 260.85,
+          "end": 262.57,
+          "en": "It is in app config.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 262.61,
+          "end": 264.45,
+          "en": "This is where we have to make the changes.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 264.49,
+          "end": 265.53,
+          "en": "What are the changes.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 265.53,
+          "end": 267.69,
+          "en": "Let's see that in the next video.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

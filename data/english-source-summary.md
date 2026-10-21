@@ -20,6 +20,19 @@
 
 已取得 4,672／4,672 堂影片的英文字幕來源，共 429,579 段；新增 12 門課已整理為 479 個翻譯批次。React 沿用既有佇列。13 門英文來源完整，其中 Svelte 的 3 堂使用 AssemblyAI Universal-3.5 Pro 音訊轉錄補充，共 184 段；和先前的 Whisper 結果比較後採用 AssemblyAI 原文。
 
+## 2026-10-21 六門新匯出
+
+| 課程 | 英文來源狀態 | 已取得／影片總數 | 英文段數 | 翻譯批次 |
+| --- | --- | ---: | ---: | ---: |
+| 100 Days of Code: JavaScript Data Structures and Algorithms | 已完整驗證 | 306／306 | 30,436 | 41 |
+| Mastering Linux: The Comprehensive Guide | 已完整驗證 | 555／555 | 58,381 | 80 |
+| Java Spring Framework, Spring Boot, Spring AI - Gen AI | 已完整驗證：498 堂 Udemy＋1 堂音訊轉錄 | 499／499 | 83,763 | 122 |
+| Laravel 11 - From Basics to Advance | 已完整驗證：249 堂 Udemy＋4 堂音訊轉錄 | 253／253 | 50,046 | 75 |
+| Game Development in JS/TS - The Complete Guide (w/ Phaser 3) | 已完整驗證 | 247／247 | 32,565 | 47 |
+| Solid JS & Firebase - Complete Guide to X(Twitter) Clone | 已完整驗證 | 215／215 | 26,692 | 37 |
+
+這 6 門課合計 2,075／2,075 堂有英文、281,883 段，整理為 402 個翻譯批次。原先沒有 Udemy 英文字幕的 5 堂已用 AssemblyAI Universal-3.5 Pro 音訊轉錄補上，譯文已驗證、尚未在瀏覽器匯入。紀錄在 [missing-english-sources.json](missing-english-sources.json)。API key 只從 `ASSEMBLYAI_API_KEY` 讀取。
+
 原始瀏覽器匯出報告：[2026-10-01 英文匯出報告](import-reports/english-export-report-2026-10-01.json)。
 
 ## 已由音訊轉錄補充的影片
@@ -27,6 +40,11 @@
 - Svelte.js - The Complete Guide 第 73 堂：[Utilizing Slots](https://www.udemy.com/course/sveltejs-the-complete-guide/learn/lecture/14689636)（沒有英文字幕）。
 - Svelte.js - The Complete Guide 第 87 堂：[Binding to Element References](https://www.udemy.com/course/sveltejs-the-complete-guide/learn/lecture/14689664)（沒有英文字幕）。
 - Svelte.js - The Complete Guide 第 111 堂：[Wrap Up](https://www.udemy.com/course/sveltejs-the-complete-guide/learn/lecture/14689718)（沒有英文字幕）。
+- Java Spring Framework 第 70 堂：[Project 1- Calculate Score](https://www.udemy.com/course/spring-5-with-spring-boot-2/learn/lecture/39316482)（104 段，中文已驗證，尚未匯入）。
+- Laravel 11 第 16 堂：[1_Introduction to Laravel Blade Views](https://www.udemy.com/course/laravel-basics-to-advance/learn/lecture/45459453)（227 段，中文已驗證，尚未匯入）。
+- Laravel 11 第 26 堂：[2_Basic Controllers](https://www.udemy.com/course/laravel-basics-to-advance/learn/lecture/45459649)（367 段，中文已驗證，尚未匯入）。
+- Laravel 11 第 210 堂：[3_Service Provider](https://www.udemy.com/course/laravel-basics-to-advance/learn/lecture/45462783)（147 段，中文已驗證，尚未匯入）。
+- Laravel 11 第 211 堂：[4_Service Provider with Service Class](https://www.udemy.com/course/laravel-basics-to-advance/learn/lecture/45462789)（221 段，中文已驗證，尚未匯入）。
 
 這 3 堂仍沒有 Udemy 英文字幕，已使用播放器提供的影片音訊建立補充英文來源。原有 168 堂官方字幕原文與雜湊保持完整。文字教材沒有影片字幕，與影片分開計算。
 

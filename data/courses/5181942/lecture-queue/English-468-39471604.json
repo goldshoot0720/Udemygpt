@@ -1,0 +1,658 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "39471604",
+      "title": "The `getopts` command",
+      "lectureOrder": 516,
+      "videoOrder": 468,
+      "sourceHash": "6e1ff1ab7af64f0e6efd4cdb4e556a11419fb2f9a4fb64aa1a73c3328d8b16e6",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.61,
+          "end": 4.87,
+          "en": "Let's now have a look at how we can accept arguments as options.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.9,
+          "end": 6.91,
+          "en": "What's the problem so far?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.63,
+          "end": 10.54,
+          "en": "I will just call this file options dot h.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.57,
+          "end": 12.34,
+          "en": "Let me just visualize that.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.37,
+          "end": 20.26,
+          "en": "USR bin env bash and let me now just output here my variable one.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 20.29,
+          "end": 21.76,
+          "en": "Just as an example.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 21.76,
+          "end": 24.49,
+          "en": "And I will also output my variable two.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 24.58,
+          "end": 29.62,
+          "en": "So this is now just a simple bash script where we will just output those two variables.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 29.65,
+          "end": 37.78,
+          "en": "Then I make this file executable and now I could try to launch this program and let's say now we don't",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 37.78,
+          "end": 44.02,
+          "en": "want to pass in like normal arguments, but we want to do something like this minus a L, for example.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 44.05,
+          "end": 50.5,
+          "en": "Then we can see this has been accepted as an argument and it would now be up to US programmers to look",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 50.5,
+          "end": 54.4,
+          "en": "into that variable and detect which argument we met.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 54.4,
+          "end": 61.67,
+          "en": "Or we could also write it like this minus a space, minus L, and then we could see this would be our",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 61.67,
+          "end": 66.8,
+          "en": "variable one and this would be our variable two, and then we would need to parse this.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 66.89,
+          "end": 74,
+          "en": "The problem here is the following For a lot of Linux commands, we want those two commands to be completely",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 74,
+          "end": 74.69,
+          "en": "equivalent.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 74.69,
+          "end": 75.95,
+          "en": "Just as an example.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 75.95,
+          "end": 80.12,
+          "en": "LS minus L prints out those arguments or those files here.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 80.12,
+          "end": 85.52,
+          "en": "Or I could also use it like this and it would print out exactly the same information.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 85.52,
+          "end": 87.74,
+          "en": "Or I could also write it like this.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 87.77,
+          "end": 92.44,
+          "en": "LS minus L a and we can see the output here is completely the same.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 92.45,
+          "end": 98.24000000000001,
+          "en": "So whenever we want to accept those arguments, we want to be a little bit more flexible and having",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 98.24000000000001,
+          "end": 101.57,
+          "en": "to write all of this ourselves as we've seen here.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 101.66,
+          "end": 107.87,
+          "en": "This would be extremely tedious and it would be a lot of effort and it would be so much effort that",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 107.87,
+          "end": 110.9,
+          "en": "probably we would not want to use those arguments then.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 111.14,
+          "end": 117.8,
+          "en": "So to accept this kind of arguments, we can use the Getopts command that Bash provides for us.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 117.83,
+          "end": 124.94,
+          "en": "This helps us to parse CLI or command line options such as minus A minus L, minus H, and so on.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 124.97,
+          "end": 126.17,
+          "en": "How does it work?",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 126.2,
+          "end": 132.38,
+          "en": "It goes through our arguments and checks for arguments that start with a dash or a minus symbol, and",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 132.38,
+          "end": 138.53,
+          "en": "they are not exactly just the minus or the dash symbol or the double minus symbol.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 138.82999999999998,
+          "end": 145.22,
+          "en": "The reason for this is that those dash or double dash symbols usually on Unix have a different meaning.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 145.82,
+          "end": 152.81,
+          "en": "Just as an example, echo minus E, for example, will go through all the through this argument here",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 152.81,
+          "end": 156.32,
+          "en": "and it will convert a backslash n into a real line break.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 156.32,
+          "end": 159.32,
+          "en": "And we can see here a real line break is then outputted.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 159.32,
+          "end": 161.46,
+          "en": "This is why we are having two lines here.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 161.48,
+          "end": 166.22,
+          "en": "However, those double dashes, for example, they have a different meaning and they mean that everything",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 166.22,
+          "end": 171.2,
+          "en": "that comes after them will no longer be understood as an argument.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 171.2,
+          "end": 176.24,
+          "en": "And this is why the Getopts command will ignore those here.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 176.75,
+          "end": 183.73,
+          "en": "Also, a single one here also just means that after that here everything will no longer be understood",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 183.73,
+          "end": 184.63,
+          "en": "as an argument.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 184.63,
+          "end": 187.24,
+          "en": "So this is why those are excluded.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 187.39,
+          "end": 192.55,
+          "en": "Of course, if we wanted our bash script to understand this syntax, we would have to manually code",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 192.55,
+          "end": 192.94,
+          "en": "it.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 192.97,
+          "end": 195.22,
+          "en": "Let's now go back to our slides.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 195.79,
+          "end": 198.03,
+          "en": "The syntax is as following Getopts.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 198.04,
+          "end": 204.73,
+          "en": "Then we need to define the available arcs, how they should be parsed, and then we need to specify",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 204.73,
+          "end": 208.41,
+          "en": "a variable in which those arguments should be written.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 208.42000000000002,
+          "end": 209.86,
+          "en": "Each time we call it.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 209.86,
+          "end": 214.96,
+          "en": "It will then try to find one more argument for our bash script and it will provide it.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 214.96,
+          "end": 220.24,
+          "en": "Then in a variable it keeps track in an internal op find variable.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 220.54,
+          "end": 226.69,
+          "en": "So this is why we can call this program multiple times to get all of our options here.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 227.32,
+          "end": 232.42000000000002,
+          "en": "I think I should just present an example and then it's more clear how exactly that works.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 232.42000000000002,
+          "end": 239.05,
+          "en": "So let me go into my options file and I will now just use the Getopts command.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 239.05,
+          "end": 245.72,
+          "en": "And what I want to do is that I want to be like, Hey, okay, in general, l a and l are commands or",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 245.72,
+          "end": 248.45,
+          "en": "r options that I want my program to accept.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 248.57,
+          "end": 254.27,
+          "en": "This is just important so that getopts know what knows what to look for and l stands for.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 254.27,
+          "end": 259.19,
+          "en": "Hey, minus a minus L both of those are supported.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 259.19,
+          "end": 266.66,
+          "en": "Or also they can also be combined and shortened to minus a L and that would stand for minus A and minus",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 266.66,
+          "end": 268.76,
+          "en": "L at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 268.76,
+          "end": 276.29,
+          "en": "So here A and l I want to allow and then I can say, okay, I want to, I want this to be provided in",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 276.29,
+          "end": 276.92,
+          "en": "a variable.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 276.92,
+          "end": 282.82,
+          "en": "I will just call this variable option and then I can just output this variable option.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 282.83,
+          "end": 287.69,
+          "en": "Let me now just save this and just execute it and then we'll have a look at what happens.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 287.69,
+          "end": 291.68,
+          "en": "Because I feel like then it's way more clear what this program is doing.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 291.68,
+          "end": 299.54,
+          "en": "So if I now call this and I do minus a here, we can see here this option has been detected and now",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 299.54,
+          "end": 300.11,
+          "en": "we could work with.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 300.49,
+          "end": 305.62,
+          "en": "So it has parsed those arguments and it has been like, hey, I found an A there.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 305.77,
+          "end": 311.86,
+          "en": "This is the first argument or the the first option that you as a programmer now might want to have a",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 311.86,
+          "end": 312.36,
+          "en": "look at.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 312.37,
+          "end": 318.91,
+          "en": "Or if I specify multiple here, it also takes a look at all of those and it's like, Hey, A is the",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 318.91,
+          "end": 319.83,
+          "en": "first option.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 319.84,
+          "end": 321.94,
+          "en": "You might now want to have a look at this.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 322.68,
+          "end": 331.51,
+          "en": "Um, if we go here again and I just repeat this getopts command here with the same, um, code, it",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 331.51,
+          "end": 335.05,
+          "en": "keeps track of which options it has detected already.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 335.05,
+          "end": 341.5,
+          "en": "So if we execute it multiple times, we can see the first time that we execute it, we get this a and",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 341.5,
+          "end": 343.3,
+          "en": "the second time we get this here.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 343.3,
+          "end": 349.12,
+          "en": "Or if I would do something like this, we could see here, we would first get the option and then the",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 349.12,
+          "end": 349.87,
+          "en": "a option.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 349.87,
+          "end": 355.72,
+          "en": "Or if I would write it like this, then we would also see we would first get the option and then also",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 355.72,
+          "end": 356.53,
+          "en": "the A option.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 356.53,
+          "end": 364.43,
+          "en": "So here we can accept those single letter options through our bash script and we also allow the user",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 364.43,
+          "end": 371.33,
+          "en": "to combine them into one block because that's common Unix philosophy and that's how a lot of programs",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 371.33,
+          "end": 371.81,
+          "en": "do it.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 371.81,
+          "end": 379.91,
+          "en": "So our Shell script should accept this combination of options as well, and then we can here accept",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 379.91,
+          "end": 380.96,
+          "en": "those options.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 381.64,
+          "end": 387.31,
+          "en": "Of course, if we want to be able to accept multiple options, we might want to combine the getopts",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 387.31,
+          "end": 388.6,
+          "en": "with a while loop.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 389.05,
+          "end": 391.36,
+          "en": "Actually, that's quite a best practice here.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 391.36,
+          "end": 397.51,
+          "en": "And how we do that, we will have a look at in the next lecture because this will then allow you to",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 397.84000000000003,
+          "end": 402.28,
+          "en": "check multiple options here and then everything is way more convenient.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 402.28,
+          "end": 405.1,
+          "en": "But that's the topic of the next lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

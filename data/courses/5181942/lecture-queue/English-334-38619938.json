@@ -1,0 +1,546 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38619938",
+      "title": "Setting up MySQL",
+      "lectureOrder": 366,
+      "videoOrder": 334,
+      "sourceHash": "12d880a4a0ebea1a8255388c74a59826e6a4422ea64d7d82cbee7a51329d368f",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.26,
+          "end": 5.24,
+          "en": "Now that PHP is working, let's now have a look at how we get our database running.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.42,
+          "end": 8.21,
+          "en": "The architecture of MySQL is the following.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.24,
+          "end": 13.88,
+          "en": "We got a MySQL server and a MySQL client that then connects to the MySQL server.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.91,
+          "end": 18.05,
+          "en": "This allows several clients to all share the same data.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 18.23,
+          "end": 24.53,
+          "en": "The idea here is we got our MySQL server and then we can have one client for example, to connect to",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 24.53,
+          "end": 26.06,
+          "en": "it from the command line.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 26.06,
+          "end": 32.32,
+          "en": "Another one from PHP, for example, our blog software, maybe another one also from our blog software.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 32.33,
+          "end": 36.72,
+          "en": "If we have multiple concurrent requests, this does happen actually.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 36.74,
+          "end": 44.36,
+          "en": "Or maybe another client from phpMyAdmin, also from PHP or another client backup script and they can",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 44.36,
+          "end": 50.66,
+          "en": "all connect at the same time to the MySQL server and they can all work with the same database.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 50.66,
+          "end": 56.9,
+          "en": "And this is extremely powerful because synchronizing all of those clients ourselves would be a lot of",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 56.9,
+          "end": 57.41,
+          "en": "effort.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 57.41,
+          "end": 64.11,
+          "en": "But if we install a database for us that can do this work for us and we as a programmer can just use",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 64.11,
+          "end": 64.5,
+          "en": "it.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 64.83,
+          "end": 67.68,
+          "en": "Let's now set up MySQL correctly.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 67.68,
+          "end": 75.93,
+          "en": "The next step is that we set it up and this will then allow us to in the next step to run phpMyAdmin",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 75.93,
+          "end": 77.46000000000001,
+          "en": "on our server.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 77.73,
+          "end": 82.28999999999999,
+          "en": "phpMyAdmin is a tool that allows us to easily manage the database.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 82.5,
+          "end": 87.09,
+          "en": "This luckily works almost the same on CentOS and on Ubuntu.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 87.3,
+          "end": 91.47,
+          "en": "So first we need to make sure that MySQL is launched on CentOS.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 91.5,
+          "end": 94.88,
+          "en": "We can query the status through a systemctl status.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 94.89,
+          "end": 102.81,
+          "en": "MySQL d d stands for daemon and usually on CentOS we need to enable this manually and then we should",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 102.81,
+          "end": 105.16,
+          "en": "also just start it immediately right now.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 105.18,
+          "end": 109.02000000000001,
+          "en": "Let's have a look at how it's being set up here on my CentOS.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 109.02000000000001,
+          "end": 119.43,
+          "en": "So here I can now say sudo systemctl status, MySQL, D and here we can see that in this case it's it's",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 119.43,
+          "end": 121.7,
+          "en": "not enabled, it's not running right now.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 121.71,
+          "end": 131.97,
+          "en": "So what I need to do is I need to quit this one and I need to say sudo systemctl enable dash dash now",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 132,
+          "end": 140.07,
+          "en": "MySQL D and I could also of course add a service, but if I leave that out it will by default add this",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 140.25,
+          "end": 141.06,
+          "en": "service for me.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 141.06,
+          "end": 145.44,
+          "en": "But here I will now just enable it and I will now launch the database.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 145.44,
+          "end": 149.73,
+          "en": "And if I now query the status here again, we can see our database.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 149.73,
+          "end": 154.38,
+          "en": "It's running now and this is cool and we can leave it at that.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 155.57999999999998,
+          "end": 163.8,
+          "en": "On Ubuntu, our server is called slightly different, it's called MySQL without a D at the end and usually",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 163.8,
+          "end": 170.28,
+          "en": "there should not be a need for systemctl enable because by default if we install a mysql server on ubuntu",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 170.31,
+          "end": 172.89,
+          "en": "it should enable itself automatically.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 172.92000000000002,
+          "end": 175.82,
+          "en": "Let's just have a look at this whether it's actually true.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 175.82999999999998,
+          "end": 178.07999999999998,
+          "en": "So here I am in my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 178.68,
+          "end": 188.06,
+          "en": "I will just do a sudo systemctl status mysql and if I now enter my password we can see here it's already",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 188.06,
+          "end": 188.6,
+          "en": "running.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 188.6,
+          "end": 190.04,
+          "en": "There's nothing to worry about.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 190.04,
+          "end": 194.03,
+          "en": "Everything is perfect here and we don't even need to enable it.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 194.9,
+          "end": 201.74,
+          "en": "Now the next thing we might want to do is that our database, it's running on our computer, but we",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 201.74,
+          "end": 203.57,
+          "en": "might want to set a root password.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 203.57,
+          "end": 211.31,
+          "en": "This will allow us to control or to have a more fine grained control by default.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 211.37,
+          "end": 218.78,
+          "en": "The way MySQL is configured is that the root has no password and we need to have access to our database",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 218.78,
+          "end": 221.21,
+          "en": "if we want to use phpMyAdmin soon.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 221.21,
+          "end": 229.7,
+          "en": "So first we need to connect to our database and in that way the way we can do it is that on both systems",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 229.7,
+          "end": 236.87,
+          "en": "on CentOS and Ubuntu, MySQL is configured in a way that we can connect to MySQL through our command",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 236.87,
+          "end": 243.75,
+          "en": "line as long as we are logged in as the root user root on our system, we need to be, we need to differentiate",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 243.75,
+          "end": 248.46,
+          "en": "here between the root user of our database and the root user on our Linux system.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 248.46,
+          "end": 250.29,
+          "en": "They are completely independent.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 250.32,
+          "end": 259.74,
+          "en": "MySQL manages its own users, but if we want to connect to our root user from our database, then we",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 259.74,
+          "end": 265.77,
+          "en": "need to be the root user on our Linux system and then we can connect without needing a password.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 265.86,
+          "end": 267.6,
+          "en": "We can see this here.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 267.87,
+          "end": 272.58,
+          "en": "If I want to connect to my database, let me just clear my terminal here.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 272.58,
+          "end": 280.05,
+          "en": "I can use the MySQL command so I could say MySQL and I can here now specify that I would like to connect",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 280.05,
+          "end": 283.44,
+          "en": "as the user root to my database.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 283.44,
+          "end": 286.2,
+          "en": "And then we can see here we do get an access denied.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 286.2,
+          "end": 290.13,
+          "en": "We are not allowed to access this as the user root.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 290.15999999999997,
+          "end": 295.29,
+          "en": "If we want to try to log in with a password, we could do this by adding also a minus P here.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 295.29,
+          "end": 297.77,
+          "en": "But then what password should we use here?",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 297.78,
+          "end": 299.82,
+          "en": "There's not really a password defined for.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 299.99,
+          "end": 300.65,
+          "en": "Root here.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 300.86,
+          "end": 306.26,
+          "en": "So the way to go is that we log in as root, but we add a pseudo in front.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 306.26,
+          "end": 312.08,
+          "en": "And if we are the root user on our Linux machine here, which we are because we just put a pseudo in",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 312.08,
+          "end": 318.37,
+          "en": "front, then in this case we don't need a password and we get directly to our MySQL shell.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 318.38,
+          "end": 325.85,
+          "en": "So this is kind of like a shell, like our bash, just that we here that we need to use MySQL commands",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 325.85,
+          "end": 326.42,
+          "en": "here.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 326.87,
+          "end": 334.1,
+          "en": "We want to test this of course, and our first command will be that we just type in select and then",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 334.1,
+          "end": 342.56,
+          "en": "I can say current underscore time round bracket open, round bracket close and then a semicolon.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 342.56,
+          "end": 345.14,
+          "en": "And this will now tell me the current time.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 345.53,
+          "end": 349.07,
+          "en": "But this now has been calculated by our database.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 349.07,
+          "end": 353.65999999999997,
+          "en": "So we can see here we are now able to communicate to our database.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 353.84000000000003,
+          "end": 359.94,
+          "en": "The next thing is that we need to set a password for our root user and how we do that, we will have",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 359.94,
+          "end": 361.59,
+          "en": "a look at in the next lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

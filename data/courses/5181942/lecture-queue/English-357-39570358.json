@@ -1,0 +1,490 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "39570358",
+      "title": "File Contexts in SELinux",
+      "lectureOrder": 389,
+      "videoOrder": 357,
+      "sourceHash": "e1d99e6e9c8b6b3bb6a59dcc0179e554f693119bc7a40db10aadbac1fdb9754b",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.26,
+          "end": 4.94,
+          "en": "Now we are ready to have a look at what a file context is and how that works.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.94,
+          "end": 13.07,
+          "en": "In SE Linux file contexts are a way of labeling files, so we have our files with all the properties",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 13.07,
+          "end": 17.48,
+          "en": "and the file context is an additional label to those files.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 17.57,
+          "end": 26.45,
+          "en": "Those labels allow Linux to enforce its policy and to check whether an access to a certain file or resource",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 26.45,
+          "end": 27.89,
+          "en": "is allowed or not.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 28.73,
+          "end": 34.19,
+          "en": "So we will first hear in this course have a look at how the labeling works.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 34.34,
+          "end": 40.94,
+          "en": "After that, we will explore an example how this labeling protects us from a potential symlink attack",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 41.45,
+          "end": 45.17,
+          "en": "or from an incorrectly set symlink that it can't be exploited.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 45.17,
+          "end": 49.01,
+          "en": "And then we will also have a look at how we can change the labeling.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 49.01,
+          "end": 52.82,
+          "en": "So let's have a look at the file context in Linux.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 52.82,
+          "end": 59.66,
+          "en": "So the files on this Linux systems are labeled, those labels are completely independent from the normal",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 59.66,
+          "end": 61.35,
+          "en": "Unix file permissions.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 61.38,
+          "end": 71.19,
+          "en": "We can have a look at those labels with the LS command and we can use minus uppercase Z to use or to",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 71.19,
+          "end": 73.47,
+          "en": "display those as Linux labels.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 73.47,
+          "end": 76.26,
+          "en": "So the example output would be something like this.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 76.26,
+          "end": 83.1,
+          "en": "Here we would do an LS minus uppercase Z, and then we can see that there's this new column here and",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 83.1,
+          "end": 85.53,
+          "en": "those are the Linux labels.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 85.53,
+          "end": 87.27,
+          "en": "Let's just have a look at this.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 87.27,
+          "end": 95.4,
+          "en": "Here we are in my home directory and I can do an LS space minus uppercase Z, and then we can see that",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 95.4,
+          "end": 103.14,
+          "en": "we have all of those folders here and that all of those folders have an E Linux label here so we can",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 103.14,
+          "end": 104.82,
+          "en": "see that those files are labeled.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 104.82,
+          "end": 110.88,
+          "en": "And we can also see, at least here in my case, that, for example, this music folder here has a different",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 110.88,
+          "end": 115.56,
+          "en": "label than or a slightly different label than the other folders.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 115.56,
+          "end": 118.44,
+          "en": "So we can see that those labels can be different.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 118.62,
+          "end": 125.85,
+          "en": "We can also, for example, navigate to our root file system and do an LS minus uppercase Z in that",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 125.85,
+          "end": 126.66,
+          "en": "directory.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 126.66,
+          "end": 131.79,
+          "en": "And then you can also see that those labels can be highly, extremely different.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 132.24,
+          "end": 137.61,
+          "en": "So all of those folders are being described through those Linux labels.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 137.61,
+          "end": 139.92000000000002,
+          "en": "What exactly all of this means.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 139.92000000000002,
+          "end": 142.17000000000002,
+          "en": "That's now what we want to have a look at.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 142.32,
+          "end": 144.45,
+          "en": "So what does it all mean?",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 144.45,
+          "end": 147.48,
+          "en": "Let's go back to our example with the Home Directory.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 147.48,
+          "end": 154.41,
+          "en": "And there we had a line, something like this unconfined underscore u, then a colon, then object R,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 154.41,
+          "end": 157.86,
+          "en": "then user home T and then something like S zero.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 157.86,
+          "end": 160.44,
+          "en": "And then this was for our desktop folder.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 160.44,
+          "end": 162.06,
+          "en": "So what does it all mean?",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 162.75,
+          "end": 165.09,
+          "en": "So the syntax here is as follows.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 165.09,
+          "end": 173.19,
+          "en": "We have first the so called SE Linux user, then the SE Linux role, then the SE Linux type and then",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 173.19,
+          "end": 174.96,
+          "en": "the SE Linux level.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 175.14,
+          "end": 183.84,
+          "en": "So here in this case the SE Linux user is unconfined you the E Linux role is object are the s e Linux",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 183.84,
+          "end": 189.21,
+          "en": "type is user home T and the s e Linux level is s zero.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 190.02,
+          "end": 198.32999999999998,
+          "en": "The best practice is being followed here all as e linux users end with underscore u all roles and with",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 198.32999999999998,
+          "end": 204.69,
+          "en": "underscore are all types and with underscore t so this is why we have unconfined u because this is a",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 204.69,
+          "end": 210.96,
+          "en": "user and to indicate that this is a user, this user ends with underscore u.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 210.96,
+          "end": 213.69,
+          "en": "This is object the role object.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 213.69,
+          "end": 221.25,
+          "en": "But because it's a role it ends with underscore R so the role is object, underscore R and then we have",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 221.25,
+          "end": 228.21,
+          "en": "the type with the name user home T because it's a type and best practice practices that those types",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 228.21,
+          "end": 232.89,
+          "en": "end with underscore T So this is why we have this underscore.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 232.89,
+          "end": 234.9,
+          "en": "And then one letter here at the end.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 235.56,
+          "end": 238.29,
+          "en": "This is just a best practice theoretically.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 238.29,
+          "end": 243.96,
+          "en": "For example here, this unconfined, you could also be called just x, Y, Z or something like that",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 243.96,
+          "end": 248.28,
+          "en": "or ABC and that would technically also be a valid E Linux user.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 248.28,
+          "end": 255.84,
+          "en": "But best practices that all Linux users and with underscore U and for the roles underscore R and for",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 255.84,
+          "end": 257.49,
+          "en": "the types underscore T.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 258.9,
+          "end": 268.32,
+          "en": "The idea with Linux is that as e Linux looks at this as E Linux type or this label here and based on",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 268.32,
+          "end": 276.65999999999997,
+          "en": "that as E, Linux will then decide whether access should be granted or not For us, we will mostly focus",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 276.65999999999997,
+          "end": 278.79,
+          "en": "here on this type here.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 278.82,
+          "end": 284.19,
+          "en": "The reason is that we use a specific policy, this targeted policy.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 284.19,
+          "end": 291.45,
+          "en": "You have seen it before in one of those lectures, and this policy mostly works with this type and the",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 291.6,
+          "end": 298.92,
+          "en": "E Linux user and the E Linux role of our file is not that important, but there are other policies that",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 298.92,
+          "end": 299.79,
+          "en": "we could enable.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 300.15,
+          "end": 307.59,
+          "en": "Um, for example, this multi-layer security you we have seen that in one of the config files ml's policy,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 307.59,
+          "end": 308.43,
+          "en": "for example.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 308.43,
+          "end": 316.02,
+          "en": "And for those policies, the Linux user and the Linux role will be significantly more important.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 316.35,
+          "end": 320.55,
+          "en": "So for us, we will mostly focus here on the type.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 321.03,
+          "end": 326.91,
+          "en": "This is still a little bit technical and I would like to provide you an example here how those types",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 326.91,
+          "end": 331.44,
+          "en": "protect us and this is what we will do in the next lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

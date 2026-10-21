@@ -1,0 +1,525 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38501532",
+      "title": "CentOS Boot Process with LVM Integration",
+      "lectureOrder": 279,
+      "videoOrder": 247,
+      "sourceHash": "a788bbaec6b66e2dfe2eda2c305879b3a133efff6931dff156c11e65fd99f877",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.46,
+          "end": 1.54,
+          "en": "In this lecture.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 1.54,
+          "end": 8.19,
+          "en": "We want to have a look at how centers, at least in my install, is using llVM for the main drive.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.2,
+          "end": 13.36,
+          "en": "And for that I would like to answer the question can we use llVM for a boot volume?",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.36,
+          "end": 15.52,
+          "en": "Like can we create an llVM?",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.52,
+          "end": 21.31,
+          "en": "And then on top of llVM we run our whole operating system, including our boot volume.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 21.31,
+          "end": 26.62,
+          "en": "Well we can, but then we are limited to using only certain bootloaders.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 26.62,
+          "end": 33.4,
+          "en": "For example, only grub two would work, then our kernel must support being booted from an llVM volume",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 33.4,
+          "end": 37.69,
+          "en": "and then also not all llVM features are supported.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 37.99,
+          "end": 43.09,
+          "en": "Pretty much everything that we have looked here in that chapter is supported, but more advanced features",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 43.09,
+          "end": 52.06,
+          "en": "are not supported then, especially with raid or thin thin provisioning where our logical volumes are",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 52.06,
+          "end": 57.19,
+          "en": "larger than our physical volumes, those features are then not supported.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 57.37,
+          "end": 65.87,
+          "en": "So the currently the best way to use llVM for our operating is that is that we boot from a normal volume",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 65.87,
+          "end": 73.82,
+          "en": "and our kernel is stored on a normal volume so we don't have to deal with llVM during our boot procedure",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 73.82,
+          "end": 81.32,
+          "en": "because technically our whole kernel can be loaded from a normal volume and then we can use llVM for",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 81.32,
+          "end": 82.58,
+          "en": "the rest of the system.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 82.58,
+          "end": 85.43,
+          "en": "And this is exactly how CentOS is doing it.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 85.43,
+          "end": 93.28999999999999,
+          "en": "So technically on CentOS, even though the our the the main or a lot of our operating system is being",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 93.28999999999999,
+          "end": 99.32,
+          "en": "installed on an llVM volume, it's technically booting from a normal volume because the kernel is stored",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 99.32,
+          "end": 100.67,
+          "en": "on a normal volume.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 101.21000000000001,
+          "end": 108.28999999999999,
+          "en": "And once our kernel has finished initializing and the llvm's, the full llVM support is ready, then",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 108.28999999999999,
+          "end": 113.87,
+          "en": "it can use llVM for the rest of our system and continue our boot procedure.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 113.87,
+          "end": 119.93,
+          "en": "So the idea here we have a normal volume that we boot our kernel from and then the kernel can connect",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 119.93,
+          "end": 126.26,
+          "en": "or can mount our llVM and then everything is seamless and we are not limited to just certain features",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 126.26,
+          "end": 127.91,
+          "en": "or just certain Bootloaders.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 127.91,
+          "end": 132.8,
+          "en": "So let me now switch to CentOS and let's have a look at how that works.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 133.48,
+          "end": 137.26,
+          "en": "So here we are in our llVM sorry, in our CentOS.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 137.26,
+          "end": 143.38,
+          "en": "And here I can now start the Gparted program because I want to examine my hard drives.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 144.23,
+          "end": 151.27,
+          "en": "Um, here we can see we got a few partitions, we can see the one first partition slash boot slash EFI.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 151.3,
+          "end": 155.71,
+          "en": "This is the partition for or uefi systems.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 155.95,
+          "end": 161.68,
+          "en": "On that partition, the bootloader is stored and we can see this is mounted to slash boot slash EFI.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 162.07,
+          "end": 164.92000000000002,
+          "en": "So this is not even part of our operating system.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 164.92000000000002,
+          "end": 168.84,
+          "en": "It's part of the boot procedure and our boot loader is stored on that one.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 168.85,
+          "end": 171.79,
+          "en": "We can also see that there's quite a lot of unused space.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 171.79,
+          "end": 176.95,
+          "en": "The idea here is that we'd rather allocate a little bit too much here just to make sure that we always",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 176.95,
+          "end": 179.35,
+          "en": "have enough space and we don't need to touch this.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 179.71,
+          "end": 186.01,
+          "en": "We can imagine that there the core of our boot loader is installed and the configuration is installed",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 186.01,
+          "end": 187.26,
+          "en": "on this drive here.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 187.27,
+          "end": 188.95,
+          "en": "Let's have a look at slash boot.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 188.98,
+          "end": 194.93,
+          "en": "There's not just the configuration on this drive, but also our part of our boot loader and also the",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 194.93,
+          "end": 196.88,
+          "en": "kernels that we want to boot into.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 196.91,
+          "end": 200.27,
+          "en": "If we have a look at this one, let me just open a file browser.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 201.26,
+          "end": 204.86,
+          "en": "Other locations, I want to go to the into the boot folder.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 204.86,
+          "end": 207.32,
+          "en": "We can see here that there are a few.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 207.32,
+          "end": 209.93,
+          "en": "Um, for example, let me scroll up.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 209.93,
+          "end": 213.32,
+          "en": "We can see here for example those init ram fs.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 213.35,
+          "end": 218.45,
+          "en": "This means, for example, that if we boot our system, this would be the so-called initial Ram disk.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 218.51,
+          "end": 224.9,
+          "en": "This is just code that we can just load into our memory and then we can start executing that one or",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 224.9,
+          "end": 226.16,
+          "en": "working with this one.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 226.16,
+          "end": 229.22,
+          "en": "And we can also see that there are our kernels here.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 229.22,
+          "end": 233.96,
+          "en": "We can also see here, not this one VM Linux, those are the kernels.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 233.96,
+          "end": 237.41,
+          "en": "And we can see here they're about 11MB in size.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 237.92000000000002,
+          "end": 243.83,
+          "en": "Um, this is on a separate partition so that we don't need llVM in order to access our kernel.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 243.86,
+          "end": 249.23,
+          "en": "This makes the whole boot procedure way easier because of our kernel was stored on an llVM.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 249.23,
+          "end": 256.55,
+          "en": "Everything would be it would still work or there are still ways to make it work, but it would be significantly",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 256.55,
+          "end": 257.42,
+          "en": "more difficult.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 257.42,
+          "end": 261.26,
+          "en": "But here our kernel is just on a normal partition partition.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 261.26,
+          "end": 267.14,
+          "en": "So that means that all normal boot loaders can boot our system and everything can work seamlessly because",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 267.14,
+          "end": 271.88,
+          "en": "everything the core boot procedure is just that our kernel is being loaded.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 271.88,
+          "end": 278.6,
+          "en": "So in our case here, we could use all boot loaders because we are not booting from an llVM here we",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 278.6,
+          "end": 280.97,
+          "en": "are booting from a normal file system.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 280.97,
+          "end": 287.99,
+          "en": "It's the ZFS file system, but it's a normal file system which just happens to only contain our kernel",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 287.99,
+          "end": 290.69,
+          "en": "and everything we need to initialize llVM.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 290.69,
+          "end": 297.77,
+          "en": "So then we are booting our kernel and then the kernels can start initializing our llVM volume.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 298.22,
+          "end": 304.91,
+          "en": "So once the kernel is loaded, it can then initialize our llVM and make this available as our system",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 304.91,
+          "end": 305.39,
+          "en": "partition.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 305.39,
+          "end": 307.55,
+          "en": "So this is the boot procedure.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 307.55,
+          "end": 309.62,
+          "en": "How that one works here on CentOS.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 309.65,
+          "end": 315.63,
+          "en": "And this then allows us to use all the llVM features because our kernel doesn't need to be loaded from",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 315.63,
+          "end": 316.31,
+          "en": "an llVM.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 316.31,
+          "end": 322.04,
+          "en": "So technically we are not booting from an llVM, we are just booting from a normal drive and we don't",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 322.04,
+          "end": 325.58,
+          "en": "have all of those constraints that I had mentioned here.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 325.7,
+          "end": 330.32,
+          "en": "So this is the reason why we had so many partitions here on our CentOS.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

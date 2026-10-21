@@ -1,0 +1,1015 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38500076",
+      "title": "The Red Hat Package Manager (RPM) Format",
+      "lectureOrder": 214,
+      "videoOrder": 185,
+      "sourceHash": "f05698780b6a3167ff5394a5d569b052dcbcda0058177514c130f86271152f99",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.36,
+          "end": 0.9,
+          "en": "Before.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 0.9,
+          "end": 2.82,
+          "en": "We will have a look at the DNF package.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 2.82,
+          "end": 6.84,
+          "en": "Manager, I want to introduce you to the package format.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 6.96,
+          "end": 12.33,
+          "en": "The reason for this is that everything that we will have a look at later here in this chapter will be",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.33,
+          "end": 13.86,
+          "en": "built on top of this format.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 13.86,
+          "end": 18.84,
+          "en": "So it makes sense that we are at least in one lecture, have a look at how we could do this manually.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 19.11,
+          "end": 21.46,
+          "en": "So RPM is a package format.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 21.48,
+          "end": 27.33,
+          "en": "It's an archive that contains all the files and configuration required to install the software.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 27.45,
+          "end": 30.39,
+          "en": "It the software itself might have dependencies.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 30.39,
+          "end": 37.47,
+          "en": "Those would be additional RPM files, but a single RPM file is an archive that contains all the files",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 37.47,
+          "end": 42,
+          "en": "and configuration required to install this part of the software.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 42.69,
+          "end": 51,
+          "en": "We could download RPM files manually if we are using CentOS stream that would be usually mirror.stream.centos.org.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 51.45,
+          "end": 57.36,
+          "en": "We should usually avoid doing this because downloading things manually and general can lead to conflicts.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 57.39,
+          "end": 63.19,
+          "en": "Not really from this website because this is the official website that also DNF will be using.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 63.19,
+          "end": 65.23,
+          "en": "So usually that should be safe.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 65.47,
+          "end": 72.58,
+          "en": "But in general, if they are from anywhere else, we should avoid that as it can easily lead to conflicts.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 72.88,
+          "end": 79.03,
+          "en": "Exemptions would be, for example, let's say we have bought some proprietary software and we want to",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 79.03,
+          "end": 83.08,
+          "en": "install it and this other company provides the support for that.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 83.08,
+          "end": 85.63,
+          "en": "Then we might want to download those files manually.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 85.63,
+          "end": 88.57,
+          "en": "But aside from that, we usually want to avoid it.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 89.08,
+          "end": 95.97999999999999,
+          "en": "But here in this case, it's the official mirror and I still want to show you how everything looks when",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 95.97999999999999,
+          "end": 98.5,
+          "en": "we handle those RPM packages manually.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 98.5,
+          "end": 100.31,
+          "en": "So we will now just do it.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 100.33,
+          "end": 104.72999999999999,
+          "en": "So here I am in my browser and I am on mirror CentOS.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 104.95,
+          "end": 105.52000000000001,
+          "en": "Org.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 105.52000000000001,
+          "end": 111.6,
+          "en": "And what we can see here is that this is pretty much just like a file browser that we can see here.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 111.61,
+          "end": 115.96000000000001,
+          "en": "By the way, I'm using CentOS stream in version nine.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 115.96000000000001,
+          "end": 118.87,
+          "en": "So for me the folder is nine minus stream.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 118.87,
+          "end": 126.28,
+          "en": "But I'm sure if you watch this course, at some point there will be ten minus stream or something else",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 126.28,
+          "end": 133,
+          "en": "here in case there are any changes aside from those numbers that are major, there will be updates to",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 133,
+          "end": 135.19,
+          "en": "the corresponding lectures here in that course.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 135.19,
+          "end": 137.68,
+          "en": "So this course is being kept up to date.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 137.95,
+          "end": 144.1,
+          "en": "But if there are no changes, only a version number, I will then not really update those lectures.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 144.1,
+          "end": 150.61,
+          "en": "So here I go into the folder nine stream and then we can see that we do have quite a few other folders",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 150.61,
+          "end": 151.15,
+          "en": "here.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 151.24,
+          "end": 155.5,
+          "en": "What's important for us is either this app stream or base OS.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 155.53,
+          "end": 159.55,
+          "en": "Those are we can see those as like so called application streams.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 159.55,
+          "end": 165.16,
+          "en": "We will have a more detailed look at those later here in this chapter, an application stream.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 165.16,
+          "end": 171.91,
+          "en": "The idea here is that we our operating system here is divided into two parts, into one app stream for",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 172.48,
+          "end": 180.79,
+          "en": "the more outer operating system software and base OS, for the more of the core functionality of our",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 180.79,
+          "end": 182.5,
+          "en": "operating system here.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 182.5,
+          "end": 188.02,
+          "en": "In my case, the RPM package that I've selected that I would like to download, we can find that in",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 188.02,
+          "end": 191.32,
+          "en": "our base OS folder, so I will choose that one.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 191.62,
+          "end": 198.16,
+          "en": "But app stream and base OS the architecture or the file system or the file structure there is identical.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 198.19,
+          "end": 200.89,
+          "en": "But here in my case I need to go into base OS.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 201.13,
+          "end": 205.99,
+          "en": "Then we can see here that we need to select our processor architecture.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 205.99,
+          "end": 207.61,
+          "en": "In my case it's this one.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 207.61,
+          "end": 210.01,
+          "en": "In your case it's most likely this one.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 210.01,
+          "end": 214.56,
+          "en": "This is the normal Intel 64 or AMD 64 bit architecture.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 214.57,
+          "end": 216.52,
+          "en": "This is for ARM processors.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 216.52,
+          "end": 223.84,
+          "en": "I have an arm CPU, so I need to select this one, but usually it would be the x86 64.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 224.23,
+          "end": 228.25,
+          "en": "Then we go into OS for operating system.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 228.25,
+          "end": 230.17000000000002,
+          "en": "They are all our packages there.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 230.26,
+          "end": 234.46,
+          "en": "Then we can see here that we have this repo data.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 234.49,
+          "end": 240.82,
+          "en": "The idea here is that in this folder we have all the files that our package manager can download.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 240.82,
+          "end": 246.13,
+          "en": "And the idea here is, for example, the package manager could then just download those files here and",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 246.13,
+          "end": 252.7,
+          "en": "then it would know which packages are available here for our core of our operating system, for our",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 252.7,
+          "end": 253.6,
+          "en": "base OS.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 254.05,
+          "end": 260.17,
+          "en": "So those are files that will be important later for our package manager and this will allow our package",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 260.17,
+          "end": 262.51,
+          "en": "manager to keep our system up to date.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 262.69,
+          "end": 270.43,
+          "en": "What we want to do is that we want to get the individual RPM packages and we can find those in the folder",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 270.43,
+          "end": 271.45,
+          "en": "packages here.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 271.45,
+          "end": 276.43,
+          "en": "If I open that one, you can see it's quite a long list with a lot of RPM files.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 276.67,
+          "end": 284.62,
+          "en": "And what I want to look for here is zsh and then we can see that we have those RPM files here and those",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 284.62,
+          "end": 291.43,
+          "en": "are those individual RPM files and we can see our repository here can provide us that as in two different",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 291.43,
+          "end": 293.77,
+          "en": "versions only here.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 293.77,
+          "end": 297.82,
+          "en": "The patch version is this is a more recent version.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 298.63,
+          "end": 299.83,
+          "en": "Probably got some.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 300.12,
+          "end": 301.89,
+          "en": "Fixes or things like that.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 301.89,
+          "end": 305.26,
+          "en": "So I can now just click here and I can now just download it.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 305.28,
+          "end": 309.75,
+          "en": "Now we have downloaded this file and now we would like to inspect this file.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 310.54,
+          "end": 315.61,
+          "en": "If we want to have a look at that file, I can now open, for example, a terminal, go into my downloads",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 315.61,
+          "end": 319.02,
+          "en": "folder and there we can see that's our RPM file.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 319.03,
+          "end": 321.19,
+          "en": "We can see here the file size.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 321.19,
+          "end": 329.29,
+          "en": "Of course, with Du, we can see here it's about four megabytes and we want to now inspect that file",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 329.62,
+          "end": 334.36,
+          "en": "dot rpm as an archive format, but it's made for those RPM packages.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 334.36,
+          "end": 336.55,
+          "en": "So we need to have a look at this.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 336.90999999999997,
+          "end": 344.14,
+          "en": "If we want to inspect this RPM file, we can use the RPM command and then we can say minus Q and then",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 344.14,
+          "end": 345.4,
+          "en": "our RPM package.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 345.4,
+          "end": 352.06,
+          "en": "And this will then show us which files are included in our RPM file If we want to have a look at that,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 352.06,
+          "end": 360.34,
+          "en": "I could now just say RPM minus cpl of my zsh file and then we can see all of those files here will be",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 360.34,
+          "end": 364.03,
+          "en": "installed on our system if we would install this file.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 365.47,
+          "end": 367.66,
+          "en": "I have now entered a clear in my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 367.66,
+          "end": 369.43,
+          "en": "It wasn't, it wasn't visible.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 369.7,
+          "end": 373.1,
+          "en": "Let me just art fix this one here.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 373.46,
+          "end": 377.12,
+          "en": "Um, why was it RPM minus CPL?",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 377.66,
+          "end": 380.93,
+          "en": "The way it works is that we can output the help here.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 380.93,
+          "end": 386.09,
+          "en": "RPM space dash, dash, help, and then we get a list of all the ways we can use this program.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 386.09,
+          "end": 387.74,
+          "en": "You can see here it's quite a bit.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 387.89,
+          "end": 398.61,
+          "en": "And here in this case RPM, we let me scroll up, we used minus P, it was like minus CPL.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 398.75,
+          "end": 404.3,
+          "en": "So we had three parameters minus Q, minus L and minus P and minus P stands for that.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 404.3,
+          "end": 411.05,
+          "en": "We want to query or verify a package file that's not not necessarily installed, but that's an RPM file.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 411.05,
+          "end": 413.63,
+          "en": "So we will need to specify an RPM file.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 414.38,
+          "end": 420.8,
+          "en": "We could, for example, also specify a package name that's already installed.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 420.89,
+          "end": 425.27,
+          "en": "So for example, minus F would work if that would already be installed.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 425.27,
+          "end": 431.45,
+          "en": "But here in our case we need to use minus P because we want to query an RPM file the next thing was",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 431.45,
+          "end": 433.25,
+          "en": "that we want to do something with that.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 433.25,
+          "end": 440.3,
+          "en": "So we keep scrolling down and then we can see here that we would like to query this file and what we",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 440.3,
+          "end": 447.26,
+          "en": "wanted to do that was minus Q And then we needed to use minus L to list the files in our package.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 447.26,
+          "end": 456.32,
+          "en": "So this is why we had minus L So if I now do RPM minus Q minus P minus L or minus Q, p, l without",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 456.32,
+          "end": 460.49,
+          "en": "the dashes in between, then we can see this is the same output here.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 461.15,
+          "end": 466.4,
+          "en": "So we can use either those single parameters or we can use the shortcut here.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 466.4,
+          "end": 469.37,
+          "en": "And this one would then do exactly the same.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 469.73,
+          "end": 476.65999999999997,
+          "en": "If we now wanted to install this one, we can now install this file manually by using RPM minus I,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 476.65999999999997,
+          "end": 481.16,
+          "en": "and then the path or the file that we would like to install.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 481.16,
+          "end": 486.98,
+          "en": "So here in this case, if I wanted to install that one, I could say RPM minus I of this file and then",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 486.98,
+          "end": 489.11,
+          "en": "we can see here we get a permission denied.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 489.14,
+          "end": 496.76,
+          "en": "This is because RPM only allows one RPM process to install packages at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 496.76,
+          "end": 500.87,
+          "en": "And the way it works is that we have a file here and this file can be locked.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 500.87,
+          "end": 505.49,
+          "en": "And if it's locked then no other process can access it here.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 505.49,
+          "end": 509.54,
+          "en": "In this case, RPM isn't running in the background or anything like this.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 509.54,
+          "end": 515.12,
+          "en": "At the same time, the reason why we can't lock it is because we we miss the privileges for that.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 515.15,
+          "end": 521.99,
+          "en": "So we get either this error if RPM is already installing software on our system or if we don't have",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 521.99,
+          "end": 524.84,
+          "en": "the permissions to be able to access that lock here.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 524.84,
+          "end": 526.76,
+          "en": "In this case, we don't have the permissions.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 526.76,
+          "end": 531.08,
+          "en": "So I need to put a pseudo in front to give me additional privileges.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 531.08,
+          "end": 535.28,
+          "en": "And now we can see here this package now here has been installed.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 535.28,
+          "end": 539.57,
+          "en": "So you can see here how here in this case it has installed it.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 539.57,
+          "end": 542.78,
+          "en": "And now we can see here that this package here is now installed.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 542.93,
+          "end": 549.38,
+          "en": "If we want to uninstall this package, which we might want to consider, even though it's from the official",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 549.38,
+          "end": 555.2,
+          "en": "repositories, later we will be using in a package manager that will automate everything for us.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 555.23,
+          "end": 559.1,
+          "en": "We can say RPM, dash, dash, help to see what we how we can do that.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 559.1,
+          "end": 569,
+          "en": "Then we can scroll up here and then we can see here for installing minus I is installing and for uninstalling.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 569.53,
+          "end": 573.4,
+          "en": "We can use minus E, So let's have a look at how that one works.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 573.4,
+          "end": 581.95,
+          "en": "So I can say sudo rpm minus e of my zsh package and this will now just erase or uninstall this package.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 581.95,
+          "end": 586.45,
+          "en": "Here we can see we didn't need to specify the package, the RPM file.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 586.45,
+          "end": 592.06,
+          "en": "The reason for this is that RPM keeps track of which packages are installed on our system and it knows",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 592.06,
+          "end": 596.86,
+          "en": "that we had installed Zsh so we can just uninstall it through that one.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 596.86,
+          "end": 601.6,
+          "en": "In practice, I wouldn't really recommend you to use RPM directly.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 602.2,
+          "end": 609.79,
+          "en": "It might be something useful for installing individual packages, but aside from that it's better to",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 609.79,
+          "end": 616.69,
+          "en": "use a package manager such as DNF because sometimes if we try to install a package through RPM minus",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 616.69,
+          "end": 623.23,
+          "en": "I and then we would install a package, we might for example, run into problems if so-called dependencies",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 623.23,
+          "end": 624.43,
+          "en": "cannot be resolved.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 624.43,
+          "end": 629.57,
+          "en": "And then RPM could, for example, not install the software that we wanted to install.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 629.57,
+          "end": 636.5,
+          "en": "So there are some limitations that we have here how dependencies get resolved and how all of that works.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 636.5,
+          "end": 643.22,
+          "en": "It will be more clear later here in this chapter, but there are limitations here, so it makes sense",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 643.22,
+          "end": 650,
+          "en": "that we use something that builds on top of those RPM or those RPM packages and that just makes it way",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 650,
+          "end": 653.06,
+          "en": "easier so that we don't have to download those manually.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 653.06,
+          "end": 660.83,
+          "en": "That if a package needs other packages, the install doesn't just fail, but those other packages are",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 660.83,
+          "end": 662.15,
+          "en": "just installed as well.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 662.15,
+          "end": 668.57,
+          "en": "So it makes sense that we use an abstraction layer on top and that's DNF and how DNF works.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 668.57,
+          "end": 671.06,
+          "en": "This is the topic of the next lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

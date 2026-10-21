@@ -1,0 +1,1113 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "39603424",
+      "title": "Solution: Write a Backup Script (Part 3: Error Handling I)",
+      "lectureOrder": 559,
+      "videoOrder": 506,
+      "sourceHash": "96bb8793bb4c408415dbff8c063cf2e3f119573dd0aa6b457f3bbced4bfdb8b8",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.23,
+          "end": 7.49,
+          "en": "Let's now have a look at the third part of my solution, in which we will add error handling and logging",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.52,
+          "end": 9.02,
+          "en": "to our backup script.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.79,
+          "end": 12.77,
+          "en": "And let's start here with our tar command.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.79,
+          "end": 16.95,
+          "en": "So here the tar command should usually work, but maybe there's a problem.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 16.96,
+          "end": 23.98,
+          "en": "Maybe tar fails to access a certain files because of permissions or as Linux policy or anything like",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 23.98,
+          "end": 24.31,
+          "en": "that.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 24.31,
+          "end": 26.32,
+          "en": "And we might want to catch this one.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 26.32,
+          "end": 32.88,
+          "en": "And for this I would like to introduce a function here.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 32.89,
+          "end": 34.96,
+          "en": "Why do I want to create a function here?",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 34.96,
+          "end": 37.96,
+          "en": "Because this will make error logging so much easier.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 37.99,
+          "end": 39.67,
+          "en": "I can create a function here.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 39.67,
+          "end": 44.35,
+          "en": "I will just call it log error and this function should do the following.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 44.35,
+          "end": 51.25,
+          "en": "One thing that I want to do is that I just want to access the first parameter and I want to output this,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 51.25,
+          "end": 61.32,
+          "en": "but this error, I don't just want to output it like this, but I want to redirect this to my stderr.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 61.36,
+          "end": 67.66,
+          "en": "So I take my standard output here and I redirect this to my stderr.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 68.28999999999999,
+          "end": 74.15,
+          "en": "Meaning here I'm generating stdout and here I'm turning that into stderr.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 74.3,
+          "end": 81.14,
+          "en": "The next thing that I want to do is that I take the same message and I append that to my log file.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 81.35,
+          "end": 81.71000000000001,
+          "en": "Here.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 81.71000000000001,
+          "end": 84.41,
+          "en": "I will just call that file backup dot log.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 84.62,
+          "end": 91.16,
+          "en": "This now means that I can just invoke this function as a command here and I could say here error.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 93.33,
+          "end": 95.16,
+          "en": "Something like this, for example.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 95.16,
+          "end": 101.82,
+          "en": "And if I would now execute my backup minus three sh file, we can see here a new file has been created",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 101.82,
+          "end": 105.35,
+          "en": "back with oh backup minus three point sh.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 105.36,
+          "end": 107.25,
+          "en": "We will need to fix this.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 107.85,
+          "end": 112.8,
+          "en": "Um, but we can see here this hasn't fully worked.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 112.8,
+          "end": 114.42,
+          "en": "Uh, for sure.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 114.45,
+          "end": 116.91,
+          "en": "This is the first positional argument.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 116.91,
+          "end": 122.58,
+          "en": "This is argument zero or more like the argument zero is the program name that I'm invoking this here",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 122.58,
+          "end": 122.85,
+          "en": "with.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 122.88,
+          "end": 126.48,
+          "en": "It doesn't change when I'm just calling a function.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 126.48,
+          "end": 130.38,
+          "en": "That means here I need to access my first positional argument.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 130.41,
+          "end": 135.03,
+          "en": "The argument dollar zero was my program name because it's set.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 135.03,
+          "end": 139.14,
+          "en": "When I execute it, it's not set if I'm just executing a function here.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 139.29,
+          "end": 139.86,
+          "en": "Okay?",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 139.86,
+          "end": 144.36,
+          "en": "If I'm now outputting this, we can see we are now logging the error here.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 144.36,
+          "end": 150.66,
+          "en": "That's something happens and we are also printing that here to stderr means that means that we can now",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 150.66,
+          "end": 157.53,
+          "en": "use this function in multiple places to just easily log an error and it will perform all the logging",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 157.53,
+          "end": 158.01,
+          "en": "for us.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 158.01,
+          "end": 164.61,
+          "en": "Please note here I'm redirecting that error and I append this to my backup log file.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 164.61,
+          "end": 166.53,
+          "en": "This one would just overwrite that file.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 166.53,
+          "end": 167.97,
+          "en": "This one here will append.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 168.21,
+          "end": 171.63,
+          "en": "Now I want to invoke this function.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 172.47,
+          "end": 175.86,
+          "en": "I will put this actually below my configuration of my script.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 175.86,
+          "end": 182.94,
+          "en": "So we have first our configuration or like the general variables here of our script, actually the folders",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 182.94,
+          "end": 184.56,
+          "en": "are the configuration.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 184.74,
+          "end": 189.81,
+          "en": "And then I know this one I can actually place here.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 189.9,
+          "end": 196.8,
+          "en": "So first we define our configuration of our script, then our log error function and then the date string.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 196.8,
+          "end": 203.57999999999998,
+          "en": "Now I can go back here to my tar command and I can ask if this command has executed successfully for",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 203.57999999999998,
+          "end": 209.31,
+          "en": "this, I need to get the exit code and I want to check this numerically and if that one is.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 210.35,
+          "end": 211.07,
+          "en": "Um.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 212.03,
+          "end": 214.22,
+          "en": "Not equal to zero.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 214.25,
+          "end": 216.05,
+          "en": "Then I want to do something.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 216.05,
+          "end": 219.77,
+          "en": "So here I can add actually a fully fledged if here.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 220.01,
+          "end": 225.82999999999998,
+          "en": "If that is not equal to zero, then I know that an error has happened and then I can be like, okay,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 225.82999999999998,
+          "end": 232.94,
+          "en": "this error should be locked log error and I will be like error star of.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 234.52,
+          "end": 238.06,
+          "en": "Folder could not be created.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 238.82999999999998,
+          "end": 247.77,
+          "en": "And now if something would fail, this error would be locked to our STR and it would also be logged",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 247.77,
+          "end": 248.94,
+          "en": "into our log file.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 248.97,
+          "end": 255.72,
+          "en": "The next thing that I might want to do is that I quit my whole bash script here, meaning that I use",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 255.72,
+          "end": 261.3,
+          "en": "the exit command to set the exit code and to terminate my bash script, meaning that if an error happens",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 261.3,
+          "end": 263.97,
+          "en": "that then I fully terminate my bash script.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 264.15,
+          "end": 272.73,
+          "en": "Another thing that I might want to do is that I turn this into a variable here, meaning I would store",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 272.73,
+          "end": 273.27,
+          "en": "a variable.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 273.27,
+          "end": 277.74,
+          "en": "I will just call that one exit code, and by default I set that to zero.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 277.98,
+          "end": 284.88,
+          "en": "Then whenever an error happens, I will update this variable, for example, to one, and then at the",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 284.88,
+          "end": 288.72,
+          "en": "end I would exit with my variable exit code, my program.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 288.72,
+          "end": 294.09000000000003,
+          "en": "This means that if an error happens here we are just updating this variable here, but we are still",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 294.09000000000003,
+          "end": 299.40999999999997,
+          "en": "continuing with the rest of our backup script because maybe we can still archive and backup another",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 299.40999999999997,
+          "end": 300.07,
+          "en": "script here.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 300.07,
+          "end": 305.8,
+          "en": "So this is a judgment call that we need to do here, whether it's better to just terminate the script",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 305.8,
+          "end": 311.5,
+          "en": "and exit appropriately with an exit code or whether we are like, okay, here we just want to ignore",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 311.5,
+          "end": 312.79,
+          "en": "this error for now.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 313.21,
+          "end": 319.03,
+          "en": "We want to play it safe and we want to continue our script.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 319.03,
+          "end": 322.39,
+          "en": "And then at the end we exit with the correct exit code here.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 322.39,
+          "end": 329.35,
+          "en": "In this case, this is a backup script, so I would tend to go with the solution that we turn this into",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 329.35,
+          "end": 336.43,
+          "en": "a variable here within our bash script, and we still try to back up as much as we can, even if in",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 336.43,
+          "end": 340,
+          "en": "between we kind of failed or something has happened here.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 340.15,
+          "end": 343.24,
+          "en": "So now if I would run this, everything works.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 343.24,
+          "end": 346.96,
+          "en": "But let me now see what happens if I would create a problem here.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 346.96,
+          "end": 350.38,
+          "en": "So let's say in my customers data folder, I would.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 351.28,
+          "end": 356.98,
+          "en": "This file could not be accessed here, so I would need a zone to the user root.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 357.83,
+          "end": 360.71,
+          "en": "Uh, pseudo code to my user.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 360.71,
+          "end": 363.58,
+          "en": "Root for my customers dot csv file.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 363.59,
+          "end": 370.1,
+          "en": "I then need to enter my password and a mod that's extremely restrictive that only the root can do something",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 370.1,
+          "end": 371.24,
+          "en": "with that file.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 371.94,
+          "end": 379.02,
+          "en": "So now if we have a look at our folder here, customers data, we can see here this file is owned by",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 379.02,
+          "end": 382.26,
+          "en": "root and only root can do anything with this CSV file.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 382.26,
+          "end": 389.88,
+          "en": "So if I now run my backup script backup minus three dot h file we can see here tar is indeed generating",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 389.94,
+          "end": 390.81,
+          "en": "stderr.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 390.84,
+          "end": 397.47,
+          "en": "We might need to think what we want to do with that, but we can also see this error here has been printed",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 397.47,
+          "end": 402.33,
+          "en": "here and we can also see in the log file here this error here has been created.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 402.45,
+          "end": 405,
+          "en": "What do we do with this part here?",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 405.15,
+          "end": 414.42,
+          "en": "If Tar doesn't work or can't or prints out some error, This is the standard error of this command.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 414.96,
+          "end": 420.33,
+          "en": "And I personally feel the solution that we found right now is actually quite good in the sense that",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 420.33,
+          "end": 425.1,
+          "en": "it prints that here to our shell, but it doesn't write this into our log file.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 425.1,
+          "end": 432.34,
+          "en": "This means that in our log file we would find the hint that an error has happened and the actual error",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 432.34,
+          "end": 434.62,
+          "en": "information would be printed to the terminal.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 434.62,
+          "end": 441.04,
+          "en": "Whenever, for example, I would find this in a log file, I would then as a programmer or as a system",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 441.04,
+          "end": 443.32,
+          "en": "maintainer, just try to run the script manually.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 443.32,
+          "end": 445.66,
+          "en": "And then I would see, Oh, there are those errors.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 445.66,
+          "end": 449.53,
+          "en": "So actually I do like the current solution that it just prints that out.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 449.53,
+          "end": 457.45,
+          "en": "But of course I could also just say, okay, my errors, I want to redirect them into a file here so",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 457.45,
+          "end": 461.11,
+          "en": "I could also just redirect them, for example, to backup log.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 461.11,
+          "end": 465.85,
+          "en": "And now those errors would be written down here into this file.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 466.21,
+          "end": 468.22,
+          "en": "So that would also be a solution.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 468.22,
+          "end": 473.44,
+          "en": "I personally, though, really prefer if this error would just show up in my standard error here, so",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 473.44,
+          "end": 474.46,
+          "en": "I will leave it at this.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 474.49,
+          "end": 479.74,
+          "en": "If we now go through the whole program here, we can see at the beginning we have our configuration,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 479.74,
+          "end": 486.22,
+          "en": "then a helper function, then a helper variable to remember the exit code that we want to exit, then",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 486.22,
+          "end": 488.11,
+          "en": "another helper variable.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 488.11,
+          "end": 494.52,
+          "en": "Then we go through all of our folders that are defined in our array, calculate here the tar commands,",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 494.52,
+          "end": 498.87,
+          "en": "and then we check if this tar command has worked properly and then we are done.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 498.87,
+          "end": 503.4,
+          "en": "And then at the end we also need to back up our database and that would be this command.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 503.4,
+          "end": 507.99,
+          "en": "And then at the end, of course, we make sure that we exit with the correct exit code.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 508.11,
+          "end": 515.58,
+          "en": "If I now run this file, however, through shell check, we will see that it will be complaining a little",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 515.61,
+          "end": 515.91,
+          "en": "bit.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 515.94,
+          "end": 519.99,
+          "en": "If I go here into this tool, we can see here it's pretty much good.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 519.99,
+          "end": 525.99,
+          "en": "But one thing that it doesn't like double quote to prevent globbing.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 525.99,
+          "end": 528.48,
+          "en": "Oh, here I have an error here.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 528.48,
+          "end": 530.76,
+          "en": "We should put this into double quotes.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 531.63,
+          "end": 532.77,
+          "en": "Because otherwise.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 532.8,
+          "end": 533.4,
+          "en": "Uh globbing.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 533.4,
+          "end": 535.8,
+          "en": "And word splitting would happen here, which we don't want.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 535.83,
+          "end": 537.48,
+          "en": "This would change our message.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 537.48,
+          "end": 537.78,
+          "en": "So.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 537.78,
+          "end": 538.47,
+          "en": "Here.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 538.71,
+          "end": 539.19,
+          "en": "Thank you.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 539.37,
+          "end": 540.39,
+          "en": "Uh shellcheck.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 540.39,
+          "end": 542.16,
+          "en": "I had a problem here.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 542.16,
+          "end": 546.21,
+          "en": "So here I need to put double quotes around to prevent that one.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 547.26,
+          "end": 552.3,
+          "en": "Um, otherwise, for example, an asterisk or something like this would be resolved.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 552.33,
+          "end": 559.05,
+          "en": "By the way, I left this error here in this lecture on purpose because I personally feel great if sometimes",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 559.05,
+          "end": 566.1,
+          "en": "also those mistakes happen to me because it also shows and visualizes in a very good way why Shellcheck",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 566.1,
+          "end": 567.09,
+          "en": "is so important.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 567.09,
+          "end": 574.2,
+          "en": "So I fixed this bug and the next bug that I should try to prevent is that we can see here I'm using",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 574.2,
+          "end": 577.23,
+          "en": "the star command and then I'm using the exit code here.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 577.26,
+          "end": 579.03,
+          "en": "This can easily lead to problems.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 579.03,
+          "end": 579.9,
+          "en": "They are right here.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 579.9,
+          "end": 581.28,
+          "en": "It's more like a style thingy.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 581.31,
+          "end": 583.74,
+          "en": "It's not really a big issue here.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 584.07,
+          "end": 591.15,
+          "en": "Um, that it would be slightly better if I would just check this with, uh, by immediately calling",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 591.15,
+          "end": 591.43,
+          "en": "it.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 591.43,
+          "end": 598.06,
+          "en": "So instead of this, I could also write here and I could just execute the command here and I could then",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 598.06,
+          "end": 600.67,
+          "en": "invert this, negate this information.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 600.67,
+          "end": 607.6,
+          "en": "And if I now execute the script again, it will work in the same way back up minus three point.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 608.17,
+          "end": 609.01,
+          "en": "We can see here.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 609.01,
+          "end": 613.69,
+          "en": "It works in the same way we are able to catch this error, but it's all here in one line.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 613.72,
+          "end": 618.37,
+          "en": "The advantage of this one here is that, well, now it's everything in one line.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 618.37,
+          "end": 623.65,
+          "en": "So if this was in a separate line, it's easy that we might want to add another command in between and",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 623.65,
+          "end": 625.3,
+          "en": "then our if would break.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 625.3,
+          "end": 632.08,
+          "en": "So I see the point that Shellcheck is like, hey, you might want to write everything here in one line.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 632.23,
+          "end": 635.56,
+          "en": "So this is the third part here of this backup script.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 635.56,
+          "end": 637.24,
+          "en": "However, we need one more thing.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 637.24,
+          "end": 644.08,
+          "en": "We need error handling for this command so that this also detects errors and can lock them so that everything",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 644.08,
+          "end": 644.47,
+          "en": "works.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 644.47,
+          "end": 648.13,
+          "en": "And how we do that, That's the topic of the next lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

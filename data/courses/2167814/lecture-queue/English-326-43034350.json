@@ -1,0 +1,1547 @@
+{
+  "version": 1,
+  "courseId": 2167814,
+  "courseSlug": "spring-5-with-spring-boot-2",
+  "courseTitle": "Java Spring Framework, Spring Boot, Spring AI - Gen AI",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "43034350",
+      "title": "Creating a JWT Filter",
+      "lectureOrder": 327,
+      "videoOrder": 326,
+      "sourceHash": "a53a75d08280ae7206f5781d06c3fb30a78295997495204d5d1e93063adcc7ce",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0,
+          "end": 3.18,
+          "en": "(upbeat music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.18,
+          "end": 6.48,
+          "en": "-: So till now we are able to log in.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.48,
+          "end": 9.42,
+          "en": "And then when you log in you also get a token, right?",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.42,
+          "end": 11.13,
+          "en": "And we have seen that in the last video.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 11.13,
+          "end": 14.244,
+          "en": "So basically when you send a request for the login",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 14.244,
+          "end": 18.48,
+          "en": "and once you do a login, you do get a response as a token.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.48,
+          "end": 21.75,
+          "en": "And then we tried to use that token to greet, I mean",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 21.75,
+          "end": 23.886,
+          "en": "to basically when you hit the url, which is, hello,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 23.886,
+          "end": 26.64,
+          "en": "I'm sending the token, if you can see,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 26.64,
+          "end": 27.84,
+          "en": "I'm sending a token here.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 27.84,
+          "end": 29.88,
+          "en": "And of course I've just restarted the application.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 29.88,
+          "end": 31.65,
+          "en": "So maybe I have to use a new token.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 31.65,
+          "end": 34.32,
+          "en": "And also I'm recording this after a long time.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 34.32,
+          "end": 36.168,
+          "en": "So the three minutes expire has done.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 36.168,
+          "end": 39.6,
+          "en": "So if you use the same token, of course this will not work",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 39.6,
+          "end": 40.882,
+          "en": "and the server is not even on.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 40.882,
+          "end": 42.36,
+          "en": "So let's do that.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 42.36,
+          "end": 44.086,
+          "en": "First of all, let's start our server.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 44.086,
+          "end": 45.99,
+          "en": "But even if you start the server,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 45.99,
+          "end": 48.39,
+          "en": "the problem is you are basically sending a token,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 48.39,
+          "end": 50.692,
+          "en": "but on the server side, we are doing nothing",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 50.692,
+          "end": 52.132,
+          "en": "to verify the token.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 52.132,
+          "end": 54.07,
+          "en": "Of course we want to give the resources,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 54.07,
+          "end": 56.32,
+          "en": "but then we have to verify the token first",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 56.32,
+          "end": 59.128,
+          "en": "and no way the server knows that we have",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 59.128,
+          "end": 63.9,
+          "en": "to basically use JW token to verify and to give the access.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 63.9,
+          "end": 65.181,
+          "en": "So let's do that in this video.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 65.181,
+          "end": 67.921,
+          "en": "First of all, let me just relaunch this application.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 67.921,
+          "end": 72.48,
+          "en": "We'll take some time, but I will just make it fast and cool.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 72.48,
+          "end": 73.53,
+          "en": "So server has started",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 73.53,
+          "end": 77.88,
+          "en": "and now let's hit the login with the post request.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 77.88,
+          "end": 79.74,
+          "en": "And I'm sending a login for harsh",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 79.74,
+          "end": 82.65,
+          "en": "and we do have this account in the database.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 82.65,
+          "end": 83.582,
+          "en": "I will say send.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 83.582,
+          "end": 85.257,
+          "en": "And once you do that, you will see you,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 85.257,
+          "end": 86.7,
+          "en": "you can, you got a token here.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 86.7,
+          "end": 89.31,
+          "en": "I will just copy this token and let's use this.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 89.31,
+          "end": 93.53999999999999,
+          "en": "I will go back to, hello URL, the get request and auth.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 93.53999999999999,
+          "end": 97.38,
+          "en": "We have to select bearer here and let's use a new token",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 97.38,
+          "end": 98.7,
+          "en": "because the earlier token is expired.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 98.7,
+          "end": 100.5,
+          "en": "If you see I'm using a old token,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 100.5,
+          "end": 101.982,
+          "en": "if I say send, it's not working.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 101.982,
+          "end": 104.286,
+          "en": "Even the new token will not work.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 104.286,
+          "end": 106.83,
+          "en": "It's because we are not verifying the server.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 106.83,
+          "end": 109.05,
+          "en": "See, by default, when you send a request,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 109.05,
+          "end": 113.169,
+          "en": "there is a way your spring security verifies",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 113.169,
+          "end": 114.63,
+          "en": "the credentials.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 114.63,
+          "end": 116.54599999999999,
+          "en": "It uses something called a username,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 116.54599999999999,
+          "end": 118.66499999999999,
+          "en": "password authentication.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 118.66499999999999,
+          "end": 120.754,
+          "en": "And we don't want to use that.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 120.754,
+          "end": 123.689,
+          "en": "So we want to use our own technique.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 123.689,
+          "end": 125.49,
+          "en": "So what we have to do is we have",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 125.49,
+          "end": 127.333,
+          "en": "to basically add a filter in between.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 127.333,
+          "end": 130.153,
+          "en": "See what happens is whenever we use something",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 130.153,
+          "end": 132.27,
+          "en": "like spring framework here",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 132.27,
+          "end": 135.84,
+          "en": "for the web behind the scene, it is all servlet anyway,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 135.84,
+          "end": 137.19,
+          "en": "we are running on Tomcat.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 137.19,
+          "end": 139.074,
+          "en": "And Tomcat is a servlet container.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 139.074,
+          "end": 141.6,
+          "en": "So that means even if you're using a spring framework,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 141.6,
+          "end": 143.587,
+          "en": "behind the scene is get converted into servlets.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 143.587,
+          "end": 145.305,
+          "en": "So whatever controllers you are creating,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 145.305,
+          "end": 148.154,
+          "en": "they are basically a servlet behind the scene.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 148.154,
+          "end": 151.8,
+          "en": "Now server is responsible to accept a user request",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 151.8,
+          "end": 154.29,
+          "en": "and respond it with some data.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 154.29,
+          "end": 155.256,
+          "en": "So it uses two objects,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 155.256,
+          "end": 157.436,
+          "en": "HTTP request and HTTP response object.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 157.436,
+          "end": 161.97899999999998,
+          "en": "And if we can see we are using a CP server request here.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 161.97899999999998,
+          "end": 163.26,
+          "en": "We don't need that.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 163.26,
+          "end": 165.24,
+          "en": "But basically we have, we were doing something",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 165.24,
+          "end": 166.981,
+          "en": "and we have used it, even if we don't mention",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 166.981,
+          "end": 168.93,
+          "en": "that it perfectly works.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 168.93,
+          "end": 170.833,
+          "en": "But behind the scene, these two objects are there.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 170.833,
+          "end": 172.589,
+          "en": "Request object is responsible",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 172.589,
+          "end": 174.197,
+          "en": "to get the data from the client.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 174.197,
+          "end": 175.94400000000002,
+          "en": "Response object is responsible",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 175.94400000000002,
+          "end": 177.459,
+          "en": "to send the data to the client.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 177.459,
+          "end": 179.961,
+          "en": "But now before hit the servlet,",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 179.961,
+          "end": 182.444,
+          "en": "you can add a filters in between.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 182.444,
+          "end": 185.91,
+          "en": "So what happens is when you use a sensor request,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 185.91,
+          "end": 188.17,
+          "en": "and if you have filters in between, the request first goes",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 188.17,
+          "end": 191.012,
+          "en": "to the filter, then this filter will do certain things",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 191.012,
+          "end": 193.181,
+          "en": "and whatever logic you want to mention.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 193.181,
+          "end": 196.281,
+          "en": "And then you can say, once this filter job is done,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 196.281,
+          "end": 198.39600000000002,
+          "en": "send the request to the servlet.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 198.39600000000002,
+          "end": 200.226,
+          "en": "The beauty is in this filter you can",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 200.226,
+          "end": 201.598,
+          "en": "modify the request data.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 201.598,
+          "end": 203.893,
+          "en": "So what if your client says send some data",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 203.893,
+          "end": 205.986,
+          "en": "and maybe you wanna do some filtering",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 205.986,
+          "end": 208.006,
+          "en": "before you send it to the servlet.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 208.006,
+          "end": 209.494,
+          "en": "So you can do that in the filter",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 209.494,
+          "end": 211.965,
+          "en": "and not just one filter, you can have multiple filters.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 211.965,
+          "end": 215.22,
+          "en": "So maybe you can have filter one, F1",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 215.22,
+          "end": 216.42000000000002,
+          "en": "and then request goes to F1.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 216.42000000000002,
+          "end": 219.39,
+          "en": "And F1 says, okay, my job is done, I'm going",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 219.39,
+          "end": 221.301,
+          "en": "to call a next filter.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 221.301,
+          "end": 223.5,
+          "en": "So that goes to next filter F two,",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 223.5,
+          "end": 225.06,
+          "en": "and then that goes to next filter F three.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 225.06,
+          "end": 227.25,
+          "en": "Once all the filter work is done,",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 227.25,
+          "end": 229.165,
+          "en": "then you can send a request to the server or the servlet.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 229.165,
+          "end": 231.442,
+          "en": "Now basically you can have multiple filters",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 231.442,
+          "end": 233.929,
+          "en": "and the beauty is since we are using spring security",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 233.929,
+          "end": 236.748,
+          "en": "by default it has added few filters",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 236.748,
+          "end": 239.28,
+          "en": "between your client and a servlet.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 239.28,
+          "end": 240.815,
+          "en": "So we do have inbuilt filters.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 240.815,
+          "end": 242.077,
+          "en": "We cannot see that",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 242.077,
+          "end": 245.077,
+          "en": "because we are as a user, we are using it.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 245.077,
+          "end": 246.57,
+          "en": "But behind the scenes,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 246.57,
+          "end": 248.97,
+          "en": "spring security is using certain filters.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 248.97,
+          "end": 250.56,
+          "en": "And the filter who's responsible",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 250.56,
+          "end": 252.68,
+          "en": "to authenticate is your username password filter.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 252.68,
+          "end": 254.096,
+          "en": "So request goes there.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 254.096,
+          "end": 257.347,
+          "en": "Now what we have to do is since we're using JW, we can say,",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 257.347,
+          "end": 258.87,
+          "en": "\"okay, let me do one thing.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 258.87,
+          "end": 262.02,
+          "en": "Let me add one more filter in between the username or",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 262.02,
+          "end": 266.22,
+          "en": "communication filter and I can do my job there\".",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 266.22,
+          "end": 269.186,
+          "en": "And that particular filter I'm talking about is JW filter.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 269.186,
+          "end": 271.972,
+          "en": "So that means we have to add a filter.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 271.972,
+          "end": 273.113,
+          "en": "How do we do that?",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 273.113,
+          "end": 275.53499999999997,
+          "en": "So what we can do is we can go to our configuration",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 275.53499999999997,
+          "end": 277.29,
+          "en": "and here in this chain,",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 277.29,
+          "end": 279.013,
+          "en": "so you can see we have security filter chain.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 279.013,
+          "end": 280.8,
+          "en": "Yes, we do have a filter here.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 280.8,
+          "end": 282.588,
+          "en": "That's what it says, the chain of filters.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 282.588,
+          "end": 285.09000000000003,
+          "en": "So we can add one extra filter here.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 285.09000000000003,
+          "end": 288.01,
+          "en": "So before we do build, I can just go back here",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 288.01,
+          "end": 293.01,
+          "en": "and say dot, I can say add filter before.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 293.385,
+          "end": 295.662,
+          "en": "So we can add a filter after or before.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 295.662,
+          "end": 298.05,
+          "en": "So I'm saying add filter before.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 298.05,
+          "end": 299.64,
+          "en": "Now, before what filter?",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 299.64,
+          "end": 301.724,
+          "en": "So I'm going to say the filter before,",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 301.724,
+          "end": 305.52,
+          "en": "the filter username, password authentication filter.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 305.52,
+          "end": 309.457,
+          "en": "So before this filter, I want to have my own filter here.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 309.457,
+          "end": 314.457,
+          "en": "So maybe I want to say I'm going to create a JWT filter.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 314.46,
+          "end": 316.29,
+          "en": "So which is a filter, which I'm going to use",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 316.29,
+          "end": 317.49,
+          "en": "before this one.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 317.49,
+          "end": 319.535,
+          "en": "And this is where you can do all your checks.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 319.535,
+          "end": 320.46,
+          "en": "Okay?",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 320.46,
+          "end": 321.419,
+          "en": "But this is a string, right?",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 321.419,
+          "end": 323.068,
+          "en": "Okay, so this should not be a string,",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 323.068,
+          "end": 324.488,
+          "en": "this should be an object.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 324.488,
+          "end": 326.379,
+          "en": "So not double coat an object,",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 326.379,
+          "end": 328.088,
+          "en": "but we have to create this object.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 328.088,
+          "end": 330.215,
+          "en": "It's very simple, you can just come back here",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 330.215,
+          "end": 332.25,
+          "en": "and create an object.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 332.25,
+          "end": 334.748,
+          "en": "So I will say auto wired private",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 334.748,
+          "end": 339.748,
+          "en": "JWT filter and JWT filter.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 340.53,
+          "end": 341.97,
+          "en": "So that's the object we have.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 341.97,
+          "end": 343.545,
+          "en": "And using this object, you can pass it here",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 343.545,
+          "end": 346.05,
+          "en": "and it'll do your job.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 346.05,
+          "end": 348.57,
+          "en": "Okay, but the problem is this is not an inbuilt class.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 348.57,
+          "end": 351.99,
+          "en": "If you say control space here, you can see no suggestion.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 351.99,
+          "end": 354.69,
+          "en": "That means we have to create this filter by ourself.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 354.69,
+          "end": 356.64,
+          "en": "So it's very simple, you can just click here",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 356.64,
+          "end": 360.813,
+          "en": "and say, \"Hey, create a class for me\", which is WD filter,",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 362.4,
+          "end": 365.01,
+          "en": "yes, in the same package we'll do in config.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 365.01,
+          "end": 366.81,
+          "en": "Okay, so you can see we got a filter here,",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 366.81,
+          "end": 368.88,
+          "en": "or maybe you can create a new package",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 368.88,
+          "end": 370.29,
+          "en": "where you can have all your filters.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 370.29,
+          "end": 372.27,
+          "en": "That's your choice, at this point, I'm just putting",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 372.27,
+          "end": 374.825,
+          "en": "that in a config package and that's my filter.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 374.825,
+          "end": 377.41,
+          "en": "Now I want this filter to be called",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 377.41,
+          "end": 379.8,
+          "en": "for all the request, okay?",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 379.8,
+          "end": 381.138,
+          "en": "For every request.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 381.138,
+          "end": 385.35,
+          "en": "So example, let's say if you want to get the hello request,",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 385.35,
+          "end": 386.803,
+          "en": "again for that, also I want to call this filter.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 386.803,
+          "end": 389.82,
+          "en": "If someone calls for, let's say add two numbers for that,",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 389.82,
+          "end": 390.773,
+          "en": "also I want to call this filter.",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 390.773,
+          "end": 395.19,
+          "en": "Let's say someone is calling for get a student.",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 395.19,
+          "end": 396.976,
+          "en": "Even for that, I want to call this filter.",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 396.976,
+          "end": 401.061,
+          "en": "That means this filter should be called for every request.",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 401.061,
+          "end": 402.803,
+          "en": "And to give that capability,",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 402.803,
+          "end": 404.92,
+          "en": "what we can do is we can say extends.",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 404.92,
+          "end": 408.54,
+          "en": "There's something called once per request filter.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 408.54,
+          "end": 410.202,
+          "en": "A good name to give a filter.",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 410.202,
+          "end": 412.5,
+          "en": "So for every request we have to call this filter.",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 412.5,
+          "end": 414.03,
+          "en": "That's why we say once per request.",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 414.03,
+          "end": 418.408,
+          "en": "So this filter will be called per request and only once.",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 418.408,
+          "end": 421.2,
+          "en": "Okay, so this is the class we have to do.",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 421.2,
+          "end": 423.423,
+          "en": "And since we are extending a class,",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 423.423,
+          "end": 427.022,
+          "en": "and if you jump to this class, this is an abstract class.",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 427.022,
+          "end": 431.76,
+          "en": "So basically we have to implement the methods, okay?",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 431.76,
+          "end": 433.593,
+          "en": "What method we have here, which we have to implement.",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 433.593,
+          "end": 436.034,
+          "en": "So we'll go back here, I will say implement methods,",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 436.034,
+          "end": 439.62,
+          "en": "and we do, we just have one method called do",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 439.62,
+          "end": 441.211,
+          "en": "filter internal.",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 441.211,
+          "end": 443.348,
+          "en": "I will click on, okay, yeah.",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 443.348,
+          "end": 445.97,
+          "en": "So you can say this is a method we have to work with.",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 445.97,
+          "end": 449.731,
+          "en": "And if you observe, we got two method, two objects, request",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 449.731,
+          "end": 451.74,
+          "en": "and response as I mentioned before.",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 451.74,
+          "end": 454.071,
+          "en": "But also we got one more object called filter chain.",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 454.071,
+          "end": 456.323,
+          "en": "Remember when I talked about F1, F2, F3?",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 456.323,
+          "end": 458.49,
+          "en": "So how F1 will know where",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 458.49,
+          "end": 460.04,
+          "en": "to send the next next request to F2.",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 460.04,
+          "end": 462.78,
+          "en": "F2 will send request to F3.",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 462.78,
+          "end": 464.01,
+          "en": "That's the chain we can create.",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 464.01,
+          "end": 465.54,
+          "en": "So that's a filter chain here, okay?",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 465.54,
+          "end": 468.9,
+          "en": "Now this is where we have to verify or validate our token.",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 468.9,
+          "end": 469.974,
+          "en": "Okay, now you tell me",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 469.974,
+          "end": 474.63,
+          "en": "how exactly we are receiving this token.",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 474.63,
+          "end": 475.876,
+          "en": "So basically in the request object,",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 475.876,
+          "end": 478.701,
+          "en": "we are receiving the token, right?",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 478.701,
+          "end": 480.321,
+          "en": "So we have to use a request object",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 480.321,
+          "end": 482.252,
+          "en": "to get the token and verify it.",
+          "zh": ""
+        },
+        {
+          "id": 204,
+          "start": 482.252,
+          "end": 484.2,
+          "en": "How exactly we're gonna do that,",
+          "zh": ""
+        },
+        {
+          "id": 205,
+          "start": 484.2,
+          "end": 485.582,
+          "en": "let's say in the next video.",
+          "zh": ""
+        },
+        {
+          "id": 206,
+          "start": 485.582,
+          "end": 488.556,
+          "en": "In this video we just created a filter called JWT filter,",
+          "zh": ""
+        },
+        {
+          "id": 207,
+          "start": 488.556,
+          "end": 491.94,
+          "en": "which extends one per request filter.",
+          "zh": ""
+        },
+        {
+          "id": 208,
+          "start": 491.94,
+          "end": 494.743,
+          "en": "And this is where you have to verify your token.",
+          "zh": ""
+        },
+        {
+          "id": 209,
+          "start": 494.743,
+          "end": 497.94,
+          "en": "But then by default this will not be called.",
+          "zh": ""
+        },
+        {
+          "id": 210,
+          "start": 497.94,
+          "end": 500.394,
+          "en": "And that's why we have added a filter here.",
+          "zh": ""
+        },
+        {
+          "id": 211,
+          "start": 500.394,
+          "end": 503.07,
+          "en": "So you can see we added add filter before.",
+          "zh": ""
+        },
+        {
+          "id": 212,
+          "start": 503.07,
+          "end": 504.52,
+          "en": "So before you call this particular filter,",
+          "zh": ""
+        },
+        {
+          "id": 213,
+          "start": 504.52,
+          "end": 506.7,
+          "en": "which is which spring security will do",
+          "zh": ""
+        },
+        {
+          "id": 214,
+          "start": 506.7,
+          "end": 508.29200000000003,
+          "en": "by default we are saying, \"Hey,",
+          "zh": ""
+        },
+        {
+          "id": 215,
+          "start": 508.29200000000003,
+          "end": 511.587,
+          "en": "before you call that, call this particular filter\",",
+          "zh": ""
+        },
+        {
+          "id": 216,
+          "start": 511.587,
+          "end": 514.817,
+          "en": "which is JWT filter and that's how it is going there.",
+          "zh": ""
+        },
+        {
+          "id": 217,
+          "start": 514.817,
+          "end": 516.66,
+          "en": "But again, we are not doing anything here.",
+          "zh": ""
+        },
+        {
+          "id": 218,
+          "start": 516.66,
+          "end": 518.96,
+          "en": "Let's try to implement that in the next video.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

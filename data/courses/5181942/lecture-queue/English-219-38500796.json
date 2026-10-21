@@ -1,0 +1,728 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38500796",
+      "title": "Managing Storage with Partition Tables: MBR vs GPT",
+      "lectureOrder": 249,
+      "videoOrder": 219,
+      "sourceHash": "5b75a61abdd34ab674861ed57db92ca355ad79f94851d79c6baecb13cb87ffc7",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.26,
+          "end": 4.1,
+          "en": "Let's now have a look at the structure of a storage device.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.88,
+          "end": 11.48,
+          "en": "Please note in this lecture I'm mostly referring to hard disk drives, SSDs or USB drives.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 11.6,
+          "end": 16.73,
+          "en": "I'm excluding, for example, optical disk or other storage devices from this lecture.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.73,
+          "end": 22.76,
+          "en": "So other storage devices might, for example, be tape storage, cloud storage and so on because they",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 22.76,
+          "end": 29.21,
+          "en": "may work slightly differently, um, or in case of cloud storage completely differently.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 29.21,
+          "end": 37.16,
+          "en": "So here I'm mostly referring to hard disks, SSDs and USB drives or SD cards or something like this.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 37.28,
+          "end": 41.7,
+          "en": "So let's have a look at the structure of such a storage device.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 41.72,
+          "end": 50.36,
+          "en": "The way it works that we can store many bits on that device in a consecutive order and we want to be",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 50.39,
+          "end": 53.96,
+          "en": "able to define how we want to store the data there.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 53.96,
+          "end": 57.86,
+          "en": "And for that we are able to create a so-called partition table.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 57.95,
+          "end": 65.79,
+          "en": "The partition table is responsible for managing or for dividing that device into areas where we can",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 65.79,
+          "end": 67.02,
+          "en": "store our data.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 67.77,
+          "end": 69.51,
+          "en": "Just to give you an example.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 69.93,
+          "end": 75.53999999999999,
+          "en": "Let's say, for example, we have two operating systems on our computer, maybe a dual boot between",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 75.66,
+          "end": 78.3,
+          "en": "with a Linux and a Windows machine.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 78.3,
+          "end": 82.98,
+          "en": "Both of them want to have their own area where they can just store their data.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 82.98,
+          "end": 84.87,
+          "en": "So we could create a partition.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 85.2,
+          "end": 90.99,
+          "en": "And one partition of that device would be for the Linux part and the other partition would be for the",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 90.99,
+          "end": 96,
+          "en": "Windows part of the computer, and then we could just reboot the computer and then it would boot up",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 96,
+          "end": 96.81,
+          "en": "properly.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 97.14,
+          "end": 103.71000000000001,
+          "en": "So in order to create this structure and we create that structure, even if we only have one partition",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 103.71000000000001,
+          "end": 106.2,
+          "en": "on our computer, we need a partition table.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 106.2,
+          "end": 108.45,
+          "en": "And there are two formats there.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 108.47999999999999,
+          "end": 111.92,
+          "en": "The one is MBR, that's the so-called master boot record.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 111.93,
+          "end": 114.36,
+          "en": "That's the older partitioning scheme.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 114.36,
+          "end": 120.93,
+          "en": "It's limited to four primary partitions and it's limited to about two terabytes of disk size.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 120.93,
+          "end": 123.71,
+          "en": "So nowadays we don't really use it that much anymore.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 123.72,
+          "end": 128.11,
+          "en": "We mostly use the GPT, the Guid partition table.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 128.11,
+          "end": 130.51,
+          "en": "That's a more modern partitioning scheme.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 130.51,
+          "end": 133.36,
+          "en": "It supports up to 128 partitions.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 133.36,
+          "end": 141.4,
+          "en": "So imagine we could have like 100, almost 128 operating systems we could choose from on one drive and",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 141.4,
+          "end": 143.38,
+          "en": "each of those could have their own partition.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 143.38,
+          "end": 147.19,
+          "en": "So you can imagine that's pretty much enough usually.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 147.7,
+          "end": 149.98,
+          "en": "And we also support larger disks.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 149.98,
+          "end": 152.32,
+          "en": "So that's that would be the way to go.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 152.47,
+          "end": 157.11,
+          "en": "We can visualize those partitions with tools like Gparted.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 157.12,
+          "end": 161.8,
+          "en": "So let's have a look at how we can visualize that with a user interface.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 161.8,
+          "end": 168.7,
+          "en": "Later, we will also have a look at how we can visualize or at least see it on the command line so I",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 168.7,
+          "end": 170.02,
+          "en": "can start the program.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 170.02,
+          "end": 171.04,
+          "en": "Gparted.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 171.25,
+          "end": 178.63,
+          "en": "This might not be part of the initial install of ubuntu, so you might have to say sudo apt install",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 178.63,
+          "end": 182.02,
+          "en": "gparted to install that software first.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 182.02,
+          "end": 186.7,
+          "en": "In my case it's already installed so I can just launch that application.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 187.03,
+          "end": 193.3,
+          "en": "If you are running centos a simple sudo yum install gparted is also enough here.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 193.3,
+          "end": 193.6,
+          "en": "Here.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 193.6,
+          "end": 198.94,
+          "en": "In my case i have just installed it before, but otherwise it would now be downloaded and installed.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 199.15,
+          "end": 205.6,
+          "en": "We now want to launch gparted and for that we just open the menu and then we open the program.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 205.6,
+          "end": 208.72,
+          "en": "Gparted Here, it may ask us for our password.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 208.72,
+          "end": 212.07999999999998,
+          "en": "In that case, we will just enter it and click authenticate.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 212.11,
+          "end": 214.39,
+          "en": "I will now switch back to my Ubuntu.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 215.02,
+          "end": 221.53,
+          "en": "So when I launch that one I do need to enter my password here because I'm able to change my devices",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 221.53,
+          "end": 221.8,
+          "en": "here.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 221.8,
+          "end": 227.44,
+          "en": "So if I click wrongly here for example I could exit or it might happen that I delete everything here.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 227.56,
+          "end": 230.77,
+          "en": "We can see here we have on one device.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 230.77,
+          "end": 234.37,
+          "en": "This is the device with the name slash dev SDA.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 234.4,
+          "end": 237.31,
+          "en": "You can see here that we got two partitions.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 237.31,
+          "end": 239.77,
+          "en": "We got one partition for boot f.e.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 240.19,
+          "end": 242.44,
+          "en": "That's about one gigabyte in size.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 242.44,
+          "end": 246.37,
+          "en": "And then we got a second partition with our Linux operating system.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 246.37,
+          "end": 248.01,
+          "en": "Why do we have this one?",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 248.02,
+          "end": 250.51,
+          "en": "This is what the computer is booting from.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 250.51,
+          "end": 256.72,
+          "en": "And there, for example, the boot part of the bootloader is there, at least the part that then actually",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 256.72,
+          "end": 258.91,
+          "en": "loads the bootloader from this drive here.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 258.91,
+          "end": 261.37,
+          "en": "So that's why we have two partitions.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 262.57,
+          "end": 266.17,
+          "en": "And yeah, you can see here how that one works.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 266.17,
+          "end": 271.6,
+          "en": "And we even have about one megabyte of unallocated space that's not partitioned.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 271.6,
+          "end": 276.73,
+          "en": "So we are not able to use this area, but it's only one megabyte, so it's quite all right.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 276.73,
+          "end": 283.54,
+          "en": "So you can see how even here on a normal Linux installation, we already got two partitions here, one",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 283.54,
+          "end": 288.49,
+          "en": "during the boot process and one here for our Linux install.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 289.4,
+          "end": 293.9,
+          "en": "On CentOS, at least the way it installed itself on my virtual machine.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 293.9,
+          "end": 294.74,
+          "en": "It may depend.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 294.77,
+          "end": 297.53,
+          "en": "Maybe it has installed itself differently on yours.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 297.53,
+          "end": 304.43,
+          "en": "But the way CentOS has structured itself here on my computer is that we got a partition just for being",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 304.46,
+          "end": 305.63,
+          "en": "able to boot the system.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 305.63,
+          "end": 307.52,
+          "en": "It's just one gigabyte in size.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 307.85,
+          "end": 314.6,
+          "en": "This is being made available in the folder slash boot on our file system and it has just one gigabyte",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 314.6,
+          "end": 315.27,
+          "en": "in size.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 315.29,
+          "end": 321.83,
+          "en": "The reason is that there's only our only our kernel is stored there and everything that we need to start",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 321.83,
+          "end": 328.07,
+          "en": "the kernel for the initial phase of our operating system of the boot procedure of that one and the rest",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 328.07,
+          "end": 336.17,
+          "en": "is in a so-called logical volume manager here, which is a way to abstract away our physical drives.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 336.17,
+          "end": 342.93,
+          "en": "And then we could, for example, have multiple physical drives combined into one logical volume.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 342.95,
+          "end": 349.17,
+          "en": "What all of that means we will have a look at in a later chapter here in this course where we only look",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 349.17,
+          "end": 352.5,
+          "en": "at the logical volume manager and how all of that works.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 352.92,
+          "end": 359.90999999999997,
+          "en": "Now, for the sake of keeping that course simple, let's use the Ubuntu example here in the next few",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 359.90999999999997,
+          "end": 366.18,
+          "en": "lectures and then on top of that later we will have a look at how CentOS has structured the file system",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 366.18,
+          "end": 369.72,
+          "en": "here and how you can influence the logical volume manager.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 369.96,
+          "end": 376.5,
+          "en": "The reason for this is that this logical volume manager is an additional optional layer between our",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 376.77,
+          "end": 382.11,
+          "en": "partitions and our drives, and it's easier if we first don't have that layer in between.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 382.35,
+          "end": 388.41,
+          "en": "So we will first stick to how it works on Ubuntu and then we will have a look at how it works here.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 388.87,
+          "end": 392.89,
+          "en": "With that out of the way, let's now switch back to my ubuntu.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 393.90999999999997,
+          "end": 400.36,
+          "en": "So we can see how we had one hard drive and we had divided that here into several parts.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 400.39,
+          "end": 407.32,
+          "en": "You can see here something written called File system and maybe you've heard about Fat32 or Ext4, but",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 407.32,
+          "end": 412.54,
+          "en": "in the next lecture we want to have a look at that and we want to examine a little bit what different",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 412.54,
+          "end": 414.97,
+          "en": "file systems do we have and why.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 415,
+          "end": 419.53,
+          "en": "For example on a Linux system we should use ext4 usually at least.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 420.22,
+          "end": 427.81,
+          "en": "So let's now in the next lecture have a look at those file systems and then we will also create or initialize",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 427.81,
+          "end": 428.56,
+          "en": "a disk.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 429.28,
+          "end": 435.67,
+          "en": "So imagine you get a disk fresh from a vendor and you want to initialize it or re initialize it.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 435.7,
+          "end": 437.2,
+          "en": "We will also have a look at that.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 437.2,
+          "end": 440.86,
+          "en": "But let's first have a look at those file systems and how they work.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 440.86,
+          "end": 443.29,
+          "en": "But that's the topic of the next lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

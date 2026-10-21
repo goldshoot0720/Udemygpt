@@ -1,0 +1,1134 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38457330",
+      "title": "Managing Users: The Roles of `/etc/passwd`, `/etc/shadow` & `/etc/group`",
+      "lectureOrder": 149,
+      "videoOrder": 125,
+      "sourceHash": "715125adfae58c8e375a86002279fa5e0089760e42c929ef3c36965ea76dff41",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.47,
+          "end": 6.04,
+          "en": "In this and the next few lectures, we want to have a look at how we can manage users on a Linux machine.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.05,
+          "end": 8.6,
+          "en": "So we need to get an overview first.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.6,
+          "end": 10.64,
+          "en": "How do users in Linux work?",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.87,
+          "end": 15.21,
+          "en": "On a Linux system, we can have different kinds of users.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.23,
+          "end": 17.9,
+          "en": "One user is the root user.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 18.23,
+          "end": 20.93,
+          "en": "This user has the highest privileges.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 21.32,
+          "end": 24.53,
+          "en": "This user can pretty much do anything on our system.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 25.49,
+          "end": 31.17,
+          "en": "This user has the user ID zero to also indicate that this is the root user.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 31.19,
+          "end": 35.99,
+          "en": "There can be only one root user with those privileges on a Linux system.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 37.16,
+          "end": 39.35,
+          "en": "Then we have regular users.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 39.38,
+          "end": 41.69,
+          "en": "Those users have limited privileges.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 41.69,
+          "end": 43.76,
+          "en": "They can't do anything on the system.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 43.76,
+          "end": 49.49,
+          "en": "However, there are ways that we can allow regular users to temporarily get root access, for example,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 49.49,
+          "end": 51.11,
+          "en": "through a command called Sudo.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 51.14,
+          "end": 53.18,
+          "en": "More on that later in this chapter.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 53.51,
+          "end": 55.96,
+          "en": "Then we also have service users.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 55.97,
+          "end": 61.55,
+          "en": "They are meant for specific tasks, so they allow us, for example, to safely run a web server or a",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 61.55,
+          "end": 62.48,
+          "en": "database here.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 62.48,
+          "end": 68.75,
+          "en": "And the idea with those service users is a little bit like, okay, our web server has a separate user",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 68.75,
+          "end": 73.31,
+          "en": "so that this user, for example, could not access the files from our regular users.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 73.32,
+          "end": 79.14,
+          "en": "So the idea is a little bit that we kind of like isolate the service so that even if somebody would",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 79.14,
+          "end": 86.16,
+          "en": "be able to take over our web server, for example, he could still not, for example, access certain",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 86.16,
+          "end": 90.35,
+          "en": "configuration files or files from our other users.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 90.36,
+          "end": 97.02000000000001,
+          "en": "Please note those are the main three big types of users depending on your system and the configuration.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 97.02000000000001,
+          "end": 102.6,
+          "en": "There might also be more types of users, but those three are the most important ones.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 103.2,
+          "end": 107.25,
+          "en": "All of those users can have groups or do have groups.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 107.25,
+          "end": 113.7,
+          "en": "So all users always have a primary group, but they can be assigned zero to unlimited additional groups.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 113.7,
+          "end": 119.31,
+          "en": "I'm making the distinction here because the primary group is stored in a different file than all the",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 119.31,
+          "end": 122.82,
+          "en": "additional groups and the primary group.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 123.12,
+          "end": 125.76,
+          "en": "All users have to have a primary group.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 126.66,
+          "end": 130.2,
+          "en": "Let's now have a look at how managing users work.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 130.2,
+          "end": 134.45,
+          "en": "So on Linux, user information is stored in various files.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 134.46,
+          "end": 142.74,
+          "en": "So for example, we got the Etsy password file and this file contains basic user account information.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 143.16,
+          "end": 148.65,
+          "en": "It contains the username, the user ID, the group ID, the user description, for example, a full",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 148.65,
+          "end": 155.25,
+          "en": "name of our user and information, for example, the home directory and the default shell.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 155.25,
+          "end": 161.73,
+          "en": "It does not contain the password even though the file the file name might suggest that.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 161.79,
+          "end": 164.74,
+          "en": "Why do we have a user ID and a group ID?",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 164.95,
+          "end": 172.78,
+          "en": "The idea here is that each user has its own unique user ID, so a user ID is unique, at least on one",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 172.78,
+          "end": 178.96,
+          "en": "system, and each group also has a unique ID, So each group that exists also has a unique ID.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 179.59,
+          "end": 184.81,
+          "en": "This allows us to easily refer to a user or to a group by its ID.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 185.44,
+          "end": 192.64,
+          "en": "And for example, if we want to store who a file belongs to, we can just use the user ID instead of",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 192.64,
+          "end": 194.89,
+          "en": "the username and the user ID.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 194.89,
+          "end": 196.99,
+          "en": "It's just a number and not a string.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 197.2,
+          "end": 200.41,
+          "en": "Let's now have a look at the Etsy password file.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 201.49,
+          "end": 204.57999999999998,
+          "en": "So here I'm in on my Linux machine.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 204.57999999999998,
+          "end": 206.82999999999998,
+          "en": "However, I don't like this look in the video.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 206.82999999999998,
+          "end": 213.32,
+          "en": "So I'm here also in a terminal and I've connected to the same Linux machine that you see before.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 213.34,
+          "end": 214.03,
+          "en": "More on that.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 214.03,
+          "end": 218.5,
+          "en": "How you can control a remote machine through SSH in a separate chapter.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 218.5,
+          "end": 221.35,
+          "en": "But I think this just looks better on the video.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 221.59,
+          "end": 226.9,
+          "en": "Any time we use a terminal here in this course, it doesn't really matter how you use it, whether you",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 227.14,
+          "end": 232.54,
+          "en": "use one of those that I'm using here or whether you just launch the terminal application.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 232.54,
+          "end": 234.82,
+          "en": "Both have exactly the same effect.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 234.82,
+          "end": 238.21,
+          "en": "You have a terminal in which we can execute our commands.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 238.45,
+          "end": 239.89,
+          "en": "So let me see.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 240.04,
+          "end": 243.46,
+          "en": "You can see here I'm logged in as a regular user already.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 243.46,
+          "end": 246.07,
+          "en": "Yannis That's now here, my name.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 246.85,
+          "end": 249.22,
+          "en": "And I'm on that computer here.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 249.22,
+          "end": 251.67,
+          "en": "Luckily, the shell is, um.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 251.8,
+          "end": 255.46,
+          "en": "The configuration is like this that we can immediately see this.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 255.46,
+          "end": 258.1,
+          "en": "This really depends on our Linux that we are using.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 258.1,
+          "end": 261.13,
+          "en": "What's the default PS1 here?",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 261.13,
+          "end": 264.79,
+          "en": "So let's have a look at the Etsy password file.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 264.79,
+          "end": 271.12,
+          "en": "So I just output that one Etsy password and I just hit enter to output that.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 271.12,
+          "end": 274.42,
+          "en": "Then you can see that we got quite a few lines here.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 274.87,
+          "end": 277.12,
+          "en": "Let's have a quick look at what we got here.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 277.12,
+          "end": 281.35,
+          "en": "So if I scroll up, you can see that we got the root user.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 281.77,
+          "end": 289.42,
+          "en": "This has the, um, the user ID zero and it also has the primary group of zero.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 289.6,
+          "end": 293.77,
+          "en": "Then we can see here, okay, this is the additional information.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 294.37,
+          "end": 300.43,
+          "en": "Then we can see this is the home directory of our root user and this is the default shell that should",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 300.43,
+          "end": 303.76,
+          "en": "be launched when this user log log ins.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 304.12,
+          "end": 308.44,
+          "en": "Then, for example, if we scroll down, you can see that we find this user here.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 308.44,
+          "end": 310.63,
+          "en": "That's the one I'm currently logged into.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 310.63,
+          "end": 316.3,
+          "en": "And we can see here this is the user ID, the group ID, the full name of this user.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 316.33,
+          "end": 322.94,
+          "en": "Um, I've abbreviated my last name here, the path to my home directory and my default shell.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 322.94,
+          "end": 326.6,
+          "en": "So you can kind of see how all of this information is being stored here.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 326.6,
+          "end": 329.06,
+          "en": "Why do we have so many other users?",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 329.06,
+          "end": 334.07,
+          "en": "You can see here, for example, that they all exist on the system.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 334.07,
+          "end": 336.89,
+          "en": "But for example, we could not log in with those.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 336.89,
+          "end": 338.3,
+          "en": "Let me just pick one.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 338.9,
+          "end": 347.15,
+          "en": "So for example, um, this one here is a user for service called Sshd that allows me to connect to the",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 347.15,
+          "end": 347.96,
+          "en": "computer.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 347.96,
+          "end": 353.12,
+          "en": "And we can see here that, for example, here it has not a log in shell.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 353.12,
+          "end": 360.17,
+          "en": "We can't log in there, but this is, for example, is a service user, um, that we can use for that.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 360.17,
+          "end": 363.56,
+          "en": "Or for example, we have this one here to synchronize our time.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 363.56,
+          "end": 367.07,
+          "en": "This is also a service that only has specific rights.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 367.07,
+          "end": 374.36,
+          "en": "So the idea is, for example, that the time synchronization command does not that that should run automatically",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 374.36,
+          "end": 380.09,
+          "en": "in the background, does not need access to our whole system, but only to specific files and only the",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 380.09,
+          "end": 386.24,
+          "en": "stuff that we need to change the time to the current time so we can limit the rights of that user.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 386.24,
+          "end": 389.36,
+          "en": "So that's the reason why you see so many different users.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 389.36,
+          "end": 391.46,
+          "en": "One user here is a normal user.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 391.46,
+          "end": 392.18,
+          "en": "This one here.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 392.21,
+          "end": 397.90999999999997,
+          "en": "This came by default when I installed the Ubuntu in my virtual machine, but that would also be a real",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 397.90999999999997,
+          "end": 398.63,
+          "en": "user here.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 398.63,
+          "end": 401.93,
+          "en": "So you can see how all the users are listed in this file.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 401.93,
+          "end": 408.23,
+          "en": "The root users, all the various service users and a few or at least usually at least one.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 408.23,
+          "end": 411.56,
+          "en": "But here in this case two normal users in between.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 412.62,
+          "end": 416.79,
+          "en": "Let's have a look at more because we have more configuration files.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 417.36,
+          "end": 424.35,
+          "en": "We also have the file e.t.c. shadow and this file stores encrypted user passwords and password aging",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 424.35,
+          "end": 425.23,
+          "en": "information.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 425.25,
+          "end": 426.36,
+          "en": "It also stores.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 426.39,
+          "end": 432.69,
+          "en": "Additional information such as the date of the last password change, the expiry date and all of that",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 432.69,
+          "end": 433.62,
+          "en": "kind of stuff.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 434.19,
+          "end": 440.34,
+          "en": "This one is readable only by root users or users that we gave temporarily root privileges.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 440.34,
+          "end": 442.11,
+          "en": "So let's have a look at that one.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 442.11,
+          "end": 449.7,
+          "en": "So if I try here to output that file e.t.c. shadow, you can see here I'm a normal user and if I try",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 449.7,
+          "end": 452.93,
+          "en": "to open that file, we can see that we get a permission denied.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 452.94,
+          "end": 458.18,
+          "en": "This is because I'm a normal user and as a normal user I'm not allowed to access that file.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 458.19,
+          "end": 461.82,
+          "en": "Some normal users might have sudo enabled.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 461.82,
+          "end": 464.19,
+          "en": "This again, depends on your Linux distribution.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 464.19,
+          "end": 470.34000000000003,
+          "en": "Whether that's the default, it's usually the first user that's being created has this enabled, but",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 470.34000000000003,
+          "end": 476.11,
+          "en": "you can also give this right to other users that could then use that.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 477.01,
+          "end": 485.35,
+          "en": "Here it is enabled so I can gain temporarily root privileges by just putting a pseudo before and then",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 485.35,
+          "end": 487.15,
+          "en": "typing in my password again.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 487.96,
+          "end": 491.17,
+          "en": "If this one doesn't work, don't worry too much about it.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 491.29,
+          "end": 495.61,
+          "en": "We will look into Sudo and how all of that works later in this chapter.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 495.61,
+          "end": 501.4,
+          "en": "But for now we temporarily need additional privileges, so I'll request them here for just this one",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 501.4,
+          "end": 501.82,
+          "en": "command.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 501.82,
+          "end": 507.58,
+          "en": "I enter my password again and then you can see here the configuration of our system here.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 507.58,
+          "end": 512.41,
+          "en": "You can also see that some passwords are or some users have passwords here.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 512.41,
+          "end": 516.82,
+          "en": "So for example, this one here, the parallels user that was the first user.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 516.82,
+          "end": 521.11,
+          "en": "I've also shown you that in the other file before has quite a long password here.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 521.11,
+          "end": 526.36,
+          "en": "And we can also see, for example, that Yana's here also has a password here.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 526.39,
+          "end": 531.73,
+          "en": "This password, the format is by the way, it's called bcrypt written like this.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 531.91,
+          "end": 537.22,
+          "en": "And the idea is that every time we would try to encrypt the password, it would lead to another string.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 537.22,
+          "end": 540.79,
+          "en": "So we can't just put the string into Google or a search engine.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 540.79,
+          "end": 542.77,
+          "en": "Well, we could, but we won't find anything.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 543.25,
+          "end": 545.53,
+          "en": "It's or it's pretty secure.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 545.53,
+          "end": 548.53,
+          "en": "We would really have to brute force all possible passwords.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 548.53,
+          "end": 553.75,
+          "en": "We can't just Google for this one and find what's the original password behind that one.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 553.75,
+          "end": 557.92,
+          "en": "So this is the way how passwords should be encrypted.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 558.31,
+          "end": 561.91,
+          "en": "Let's have a look or a quick look at the other values here, though.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 561.91,
+          "end": 565.33,
+          "en": "So, for example, here, where's the root user?",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 565.33,
+          "end": 565.84,
+          "en": "Here?",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 565.84,
+          "end": 572.74,
+          "en": "You can see this star sign and this one tells that there's not just no password, but also that password",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 572.74,
+          "end": 574.63,
+          "en": "login is disabled for this user.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 574.63,
+          "end": 582.34,
+          "en": "So for example, here, I'm not able to log in as the user root on this system, at least not immediately.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 583.34,
+          "end": 588.98,
+          "en": "There's one more way or one more file that's important for the user management, and let's have a look",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 588.98,
+          "end": 589.85,
+          "en": "at that one.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 590.18,
+          "end": 592.37,
+          "en": "So let me go back to the slide.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 592.37,
+          "end": 594.79,
+          "en": "And that one is the ITC Group file.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 594.8,
+          "end": 598.71,
+          "en": "This contains information about the group and the and their members.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 598.73,
+          "end": 600.35,
+          "en": "It's readable by all users.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 600.35,
+          "end": 604.2,
+          "en": "So the primary group is stored in the ITC password file.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 604.22,
+          "end": 608.03,
+          "en": "However, all the additional groups are stored in ITC group.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 608.06,
+          "end": 609.74,
+          "en": "Let's have a look at that file.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 609.74,
+          "end": 613.31,
+          "en": "So I just open that one ITC group.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 613.31,
+          "end": 614.6,
+          "en": "I just output that one.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 614.6,
+          "end": 618.05,
+          "en": "And then for example, you could see the groups that exists here.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 618.05,
+          "end": 625.73,
+          "en": "So for example, this group here exists and well, there's no user here inside, but this is the group",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 625.73,
+          "end": 633.89,
+          "en": "ID of this group or for example, you see here there's a group, it has this ID and this user is inside",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 633.89,
+          "end": 636.35,
+          "en": "this group or is associated to this group.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 636.95,
+          "end": 639.29,
+          "en": "Or you could see this group here.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 639.56,
+          "end": 642.32,
+          "en": "There are multiple users associated to that group.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 642.32,
+          "end": 646.02,
+          "en": "So you can see how all of this information is being stored.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 646.51,
+          "end": 653.06,
+          "en": "Now that we had a look at those files, it's time that we create users and actually modify those files.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 653.08,
+          "end": 658.48,
+          "en": "We shouldn't modify those files directly because it's really easy that some problems might occur and",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 658.48,
+          "end": 663.64,
+          "en": "all the commands that we'll use also offer additional features that we should really use.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 663.64,
+          "end": 669.49,
+          "en": "So in the next lecture, we will look at how we can do user management on a Linux machine.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

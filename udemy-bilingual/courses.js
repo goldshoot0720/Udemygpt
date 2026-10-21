@@ -26,7 +26,11 @@
     { slug: "introduction-to-computer-networks", title: "Introduction to Computer Networks for Non-Techies", id: 580876, instructor: "Alton Hardin" },
     { slug: "php-for-complete-beginners-includes-msql-object-oriented", title: "PHP for Beginners - Become a PHP Master - CMS Project", id: 405282, instructor: "Edwin Diaz" },
     { slug: "ios-13-app-development-bootcamp", title: "iOS & Swift - The Complete iOS App Development Bootcamp", id: 1778502, instructor: "Dr. Angela Yu" },
-    { slug: "complete-networking-fundamentals-course-ccna-start", title: "The Complete Networking Fundamentals Course. Your CCNA start", id: 751094, instructor: "David Bombal" }
+    { slug: "complete-networking-fundamentals-course-ccna-start", title: "The Complete Networking Fundamentals Course. Your CCNA start", id: 751094, instructor: "David Bombal" },
+    { slug: "spring-5-with-spring-boot-2", title: "Java Spring Framework, Spring Boot, Spring AI - Gen AI", id: 2167814, instructor: "Navin Reddy、Telusko Edutech" },
+    { slug: "laravel-basics-to-advance", title: "Laravel 11 - From Basics to Advance", id: 6117817, instructor: "Web Solution Us、Md Morshedul Arefin" },
+    { slug: "game-development-in-js-the-complete-guide-w-phaser-3", title: "Game Development in JS/TS - The Complete Guide (w/ Phaser 3)", id: 3568507, instructor: "Eincode by Filip Jerga、Filip Jerga" },
+    { slug: "solid-js-firebase-the-complete-guide-twitter-clone-app", title: "Solid JS & Firebase - Complete Guide to X(Twitter) Clone", id: 5011402, instructor: "Eincode by Filip Jerga、Filip Jerga" }
   ].map(course => Object.freeze({ ...course, instructor: course.instructor || "Maximilian Schwarzmüller", known: true })));
   const bySlug = new Map(courses.map(course => [course.slug, course]));
   const unlisted = new Map();

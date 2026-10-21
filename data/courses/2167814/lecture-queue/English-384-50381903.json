@@ -1,0 +1,882 @@
+{
+  "version": 1,
+  "courseId": 2167814,
+  "courseSlug": "spring-5-with-spring-boot-2",
+  "courseTitle": "Java Spring Framework, Spring Boot, Spring AI - Gen AI",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "50381903",
+      "title": "Cosine Similarity implementation",
+      "lectureOrder": 385,
+      "videoOrder": 384,
+      "sourceHash": "0832a71f63b1e47f5d1e3a0bd3868d8b735cc23c8fe2d82b60a51decf878b2d2",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.08,
+          "end": 3.27,
+          "en": "(gentle music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.27,
+          "end": 6.66,
+          "en": "-: Now once we know the theory, let's try to implement this.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.66,
+          "end": 7.86,
+          "en": "So what exactly we need?",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.86,
+          "end": 10.44,
+          "en": "So let's say if I go back to Insomnia,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.44,
+          "end": 11.64,
+          "en": "I don't want to find the embeddings now,",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 11.64,
+          "end": 12.96,
+          "en": "we have done that before.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 12.96,
+          "end": 16.95,
+          "en": "So let's say I want to, so let's change this.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 16.95,
+          "end": 18.12,
+          "en": "So instead of recommend,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 18.12,
+          "end": 21.39,
+          "en": "I want to find the similarity between two words, okay?",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 21.39,
+          "end": 23.7,
+          "en": "And then I will pass those two words here,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 23.7,
+          "end": 26.46,
+          "en": "so maybe the first word is text1,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 26.46,
+          "end": 28.083,
+          "en": "and the second word is text2,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 28.98,
+          "end": 30.51,
+          "en": "and I don't want the third one.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 30.51,
+          "end": 35.43,
+          "en": "So let's say the text1 is dog and cat.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 35.43,
+          "end": 39.09,
+          "en": "In fact, now we know the embeddings are near for them,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 39.09,
+          "end": 41.433,
+          "en": "so it should give a good value.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 43.02,
+          "end": 45.27,
+          "en": "So now if I click on Send,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 45.27,
+          "end": 46.26,
+          "en": "of course this will not work",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 46.26,
+          "end": 48.6,
+          "en": "because we don't have anything to map this",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 48.6,
+          "end": 50.31,
+          "en": "and the server is not even running.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 50.31,
+          "end": 51.143,
+          "en": "So let's do that.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 51.143,
+          "end": 52.2,
+          "en": "So let me go back to my IDE,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 52.2,
+          "end": 53.7,
+          "en": "and let's do the mapping for that.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 53.7,
+          "end": 56.16,
+          "en": "So here I want PostMapping,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 56.16,
+          "end": 61.16,
+          "en": "and this will be /api/similarity public.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 62.37,
+          "end": 63.69,
+          "en": "It will return,",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 63.69,
+          "end": 65.19,
+          "en": "so at this point, I'm just saying double.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 65.19,
+          "end": 67.2,
+          "en": "We'll see that later why I'm saying double.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 67.2,
+          "end": 70.28999999999999,
+          "en": "And I will say getSimilarity.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 70.28999999999999,
+          "end": 72.69,
+          "en": "And then in this, I have to accept two values, right,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 72.69,
+          "end": 73.83,
+          "en": "which we have seen before.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 73.83,
+          "end": 75,
+          "en": "I mean, that's what we are sending, right?",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 75,
+          "end": 76.414,
+          "en": "text1, text2.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 76.414,
+          "end": 79.5,
+          "en": "So I will say RequestParam String text1,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 79.5,
+          "end": 84.48,
+          "en": "string text2 and let me just return zero at this point.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 84.48,
+          "end": 86.19,
+          "en": "Okay so how do you find the similarity?",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 86.19,
+          "end": 87.96000000000001,
+          "en": "So what you do is we have to take those two values.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 87.96000000000001,
+          "end": 89.22,
+          "en": "And as you have seen in theory,",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 89.22,
+          "end": 91.14,
+          "en": "this is the formula which we want to implement.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 91.14,
+          "end": 93.06,
+          "en": "And of course I don't want to type this here,",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 93.06,
+          "end": 95.82,
+          "en": "the entire formula, but what I wanna do is first I want",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 95.82,
+          "end": 97.65,
+          "en": "to take the two text here",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 97.65,
+          "end": 99.42,
+          "en": "and find the embeddings of it.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 99.42,
+          "end": 102.15,
+          "en": "So I'll say float, it'll give me a float adding.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 102.15,
+          "end": 105.42,
+          "en": "And I will say this is embedding one is equal",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 105.42,
+          "end": 106.86,
+          "en": "to this will be from the text1.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 106.86,
+          "end": 109.77000000000001,
+          "en": "So I'm going to use embeddingModel.embed,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 109.77000000000001,
+          "end": 111.66,
+          "en": "and I'm going to pass text1 here.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 111.66,
+          "end": 113.55,
+          "en": "And the same thing for text2.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 113.55,
+          "end": 116.4,
+          "en": "So this is embedding2, this is text2.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 116.4,
+          "end": 120.72,
+          "en": "And once we got it, let's apply a formula to implement this,",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 120.72,
+          "end": 123.3,
+          "en": "or let's try a code to apply this formula.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 123.3,
+          "end": 125.13,
+          "en": "So this is the formula which we have to implement.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 125.13,
+          "end": 127.11,
+          "en": "So basically we have to find the dotProduct as well.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 127.11,
+          "end": 130.41,
+          "en": "So we got this three variables dotProduct, norm1, norm2",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 130.41,
+          "end": 134.07,
+          "en": "and then we are doing that dotProduct.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 134.07,
+          "end": 137.07,
+          "en": "We are getting the embeddings and multiplying that.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 137.07,
+          "end": 139.17000000000002,
+          "en": "And then we have to find the square.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 139.17000000000002,
+          "end": 140.4,
+          "en": "And that's what we are doing here.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 140.4,
+          "end": 143.46,
+          "en": "And then this is the dotProduct divided",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 143.46,
+          "end": 144.96,
+          "en": "by the multiplication.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 144.96,
+          "end": 146.37,
+          "en": "And that's what the formula says, right?",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 146.37,
+          "end": 147.84,
+          "en": "Okay and then instead of returning zero,",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 147.84,
+          "end": 149.46,
+          "en": "it will return this dotProduct.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 149.46,
+          "end": 151.23,
+          "en": "And that's it. This is a formula which you have to do.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 151.23,
+          "end": 153.39,
+          "en": "And of course we don't have to type this by yourself.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 153.39,
+          "end": 155.07,
+          "en": "You can simply use this code. Okay?",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 155.07,
+          "end": 156.99,
+          "en": "Now let's try, this is working.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 156.99,
+          "end": 159.78,
+          "en": "So let's run this code and let's go back to insomnia",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 159.78,
+          "end": 162.9,
+          "en": "and let's try now, click on send.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 162.9,
+          "end": 163.89,
+          "en": "It's doing some calculation,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 163.89,
+          "end": 165.32999999999998,
+          "en": "that means request accepted there",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 165.32999999999998,
+          "end": 168.39,
+          "en": "and you can see it is 0.6, not a good value",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 168.39,
+          "end": 169.65,
+          "en": "between dog and cat.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 169.65,
+          "end": 170.55,
+          "en": "It should be more similar,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 170.55,
+          "end": 172.23,
+          "en": "but that's what we are getting here.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 172.23,
+          "end": 174.93,
+          "en": "Now, based on different models, some models are very good",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 174.93,
+          "end": 176.79,
+          "en": "with this, some models are not that good.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 176.79,
+          "end": 178.53,
+          "en": "So you got these two values there.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 178.53,
+          "end": 181.35,
+          "en": "But if I try between computer",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 181.35,
+          "end": 184.63400000000001,
+          "en": "and a laptop, click on send.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 184.63400000000001,
+          "end": 186.75,
+          "en": "This is how similar they are.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 186.75,
+          "end": 189.06,
+          "en": "And let's try to search for something very opposite,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 189.06,
+          "end": 192.06,
+          "en": "let's say computer and banana.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 192.06,
+          "end": 196.47,
+          "en": "And you can say the 0.2, which is almost opposite, right?",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 196.47,
+          "end": 198.66,
+          "en": "So that's how you basically find the similarities.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 198.66,
+          "end": 203.66,
+          "en": "So the more closer they are to one, they are very similar,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 203.822,
+          "end": 205.07999999999998,
+          "en": "and 0.2 is very less.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 205.07999999999998,
+          "end": 206.88,
+          "en": "Okay now maybe I want",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 206.88,
+          "end": 208.47,
+          "en": "to return the percentage of similarities.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 208.47,
+          "end": 210.84,
+          "en": "So what what you can also do is you can multiply this",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 210.84,
+          "end": 213.12,
+          "en": "with a hundred, and that should be simple",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 213.12,
+          "end": 214.5,
+          "en": "to return the percentage.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 214.5,
+          "end": 219.5,
+          "en": "So let's try for happy and joy, send.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 222.12,
+          "end": 223.44,
+          "en": "I'm not sure how similar they are.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 223.44,
+          "end": 228.32999999999998,
+          "en": "Let's try, it's 53%; happy and computer not that similar.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 228.32999999999998,
+          "end": 229.68,
+          "en": "Okay that's how you basically do it.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 229.68,
+          "end": 230.88,
+          "en": "Now where they can be used.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 230.88,
+          "end": 232.44,
+          "en": "See, sometime when you want to search something,",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 232.44,
+          "end": 235.56,
+          "en": "you can normally do that by searching by word, right?",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 235.56,
+          "end": 237.54,
+          "en": "So if you have document from that document, you will find",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 237.54,
+          "end": 240.63,
+          "en": "by word, but we want to find the semantic.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 240.63,
+          "end": 241.98,
+          "en": "So let's say if I'm searching for a word,",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 241.98,
+          "end": 243.09,
+          "en": "which is not in the document,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 243.09,
+          "end": 245.1,
+          "en": "the document will say no word found,",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 245.1,
+          "end": 246.99,
+          "en": "but maybe I want to do the semantic search.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 246.99,
+          "end": 249.75,
+          "en": "I have a list of documents, I have a list of products,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 249.75,
+          "end": 251.43,
+          "en": "and what I'm entering is not",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 251.43,
+          "end": 252.6,
+          "en": "matching with any of the product.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 252.6,
+          "end": 255.03,
+          "en": "In that case, I want to search by the semantic.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 255.03,
+          "end": 256.95,
+          "en": "Example, let's say I got a list of products",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 256.95,
+          "end": 260.61,
+          "en": "and nowhere it says headphones, but it says a speaker.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 260.61,
+          "end": 264.51,
+          "en": "Maybe it says Bluetooth AirPods, right?",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 264.51,
+          "end": 266.94,
+          "en": "But nowhere says it's headphones.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 266.94,
+          "end": 268.59,
+          "en": "In that case, a normal search",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 268.59,
+          "end": 270.45,
+          "en": "of headphones will not be able to match it.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 270.45,
+          "end": 272.01,
+          "en": "But semantic search can do it.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 272.01,
+          "end": 274.56,
+          "en": "And that's where this embeddings will be helpful.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 274.56,
+          "end": 275.90999999999997,
+          "en": "And that's where we are going now.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 275.90999999999997,
+          "end": 278.31,
+          "en": "So in the upcoming videos, you will see that.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 278.31,
+          "end": 279.6,
+          "en": "If you're searching for something else,",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 279.6,
+          "end": 282.45,
+          "en": "how will you get data which is relevant or related to it.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 282.45,
+          "end": 284.95,
+          "en": "But yeah, that's how you do the similarity search.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

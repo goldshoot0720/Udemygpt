@@ -1,0 +1,1134 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38620002",
+      "title": "Zones in firewalld",
+      "lectureOrder": 382,
+      "videoOrder": 350,
+      "sourceHash": "291d567044f8b3917712f8978c88baeba3f208f3fde88ff2ef487fd9945f37f1",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.4,
+          "end": 4,
+          "en": "In this lecture, I want to talk about zones and firewall.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.05,
+          "end": 12.25,
+          "en": "And the idea behind those zones is that we can set up a zone to define the level of trust that we want",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 12.25,
+          "end": 15.14,
+          "en": "to give to a network connection or an interface.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 15.16,
+          "end": 21.34,
+          "en": "So the way it works is that we can assign network interfaces to specific zones, and then through those",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 21.34,
+          "end": 24.19,
+          "en": "zones we give them a level of trust.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 24.94,
+          "end": 31.51,
+          "en": "The way it works is that we can have multiple zones, but one interface can only be in one zone at the",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 31.51,
+          "end": 31.99,
+          "en": "time.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 31.99,
+          "end": 33.43,
+          "en": "So let me give you an example.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 33.43,
+          "end": 39.97,
+          "en": "Let's say you have a laptop with, let's say two network cards, maybe one Ethernet card and one Wi-Fi",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 40,
+          "end": 43.15,
+          "en": "card for for wireless LAN.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 43.15,
+          "end": 48.22,
+          "en": "In that case, you would have two interfaces, and those two interfaces could be in different zones,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 48.22,
+          "end": 52.9,
+          "en": "but each interface individually can only be in one zone at a time.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 54.13,
+          "end": 58.69,
+          "en": "We need those zones because they give us quite a bit of flexibility.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 58.72,
+          "end": 60.41,
+          "en": "How we can configure firewall.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 61.51,
+          "end": 67.63,
+          "en": "So back to our laptop example, we might want to have different rules for Ethernet and WiFi.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 67.66,
+          "end": 74.74,
+          "en": "For example, we might want to run a web server that can be only accessed through our Ethernet card",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 74.77,
+          "end": 76.99,
+          "en": "but not through our wireless network.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 76.99,
+          "end": 80.53,
+          "en": "And firewall gives us this flexibility.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 80.65,
+          "end": 87.07,
+          "en": "Or another example, we might have a server with two network cards, one public network and one for",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 87.07,
+          "end": 92.38,
+          "en": "our internal network, and then we can have different firewall rules for both of them.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 92.38,
+          "end": 98.8,
+          "en": "For example, the internal network could have more privileges or more rights to access services on our",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 98.8,
+          "end": 102.16,
+          "en": "computer than, for example, the public network card.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 103.31,
+          "end": 104.6,
+          "en": "We will have a look at this.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 104.6,
+          "end": 109.97,
+          "en": "But in the context of a single network card, because this is the way our virtual machine works.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 109.97,
+          "end": 112.78999999999999,
+          "en": "And I just want to give you an overview here for Firewall.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 113.50999999999999,
+          "end": 116.66,
+          "en": "And Firewall comes with built in zones.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 116.66,
+          "end": 124.76,
+          "en": "So they define or they provide several predefined zones and they are ranging from really trusted zones",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 124.76,
+          "end": 126.68,
+          "en": "to least trusted zones.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 126.68,
+          "end": 132.02,
+          "en": "So, for example, the most trusted zone would be trusted and the least trusted zone would be drop.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 132.62,
+          "end": 136.76,
+          "en": "Examples here would be trusted, home work, public and drop.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 136.76,
+          "end": 139.7,
+          "en": "So here we can see this is the most trusted network.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 139.7,
+          "end": 145.46,
+          "en": "And the more we go here to our zones, the more restrictive our firewall should become.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 145.88,
+          "end": 153.17000000000002,
+          "en": "This is just a subset of all zones, but there might be additional zones on your system.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 153.68,
+          "end": 160.13,
+          "en": "We are able to list all the available zones with the following command firewall minus cmd minus, minus",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 160.13,
+          "end": 161.54,
+          "en": "get minus zones.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 161.84,
+          "end": 169.89,
+          "en": "So if I now execute this sudo firewall, minus cmd minus, minus, get minus zones, then we can see",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 169.89,
+          "end": 176.04,
+          "en": "that there are a few more additional zones available, at least in my install here of my system.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 176.04,
+          "end": 177.57,
+          "en": "It might vary depending.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 177.6,
+          "end": 183.51,
+          "en": "Probably they might update this sometime, but we can see here there are a few more zones available.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 184.05,
+          "end": 187.44,
+          "en": "Um, those zones.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 187.44,
+          "end": 193.02,
+          "en": "If we want to inspect those, we can also just list the rules for a zone.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 193.02,
+          "end": 199.35,
+          "en": "And the way Firewall command works is that it by default, it always uses our current zone.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 200.01,
+          "end": 206.25,
+          "en": "But if we want to specify the zone, we can just add minus minus zone, and then we can say, okay,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 206.25,
+          "end": 209.22,
+          "en": "what are the rules for our zone called work?",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 209.22,
+          "end": 217.59,
+          "en": "So let's have a look at this sudo firewall cmd dash dash zone equals work dash dash list all.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 217.59,
+          "end": 224.3,
+          "en": "And then I just press enter and then we can see here, for example, for our zone work, those are this",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 224.3,
+          "end": 232.46,
+          "en": "is our firewall configuration and those services here, they are allowed, um, the zones are configured",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 232.46,
+          "end": 233.9,
+          "en": "through the following folders.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 233.9,
+          "end": 240.65,
+          "en": "They are our default zones that are shipped with firewall D in our USR lib firewall zones folder.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 240.65,
+          "end": 247.64,
+          "en": "They are just XML files and if we would do any changes they would appear in our firewall zones folder.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 247.64,
+          "end": 256.7,
+          "en": "So we could also have a look at those raw files usr lib firewall d zones.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 256.7,
+          "end": 258.89,
+          "en": "There we can see those XML files.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 258.89,
+          "end": 264.29,
+          "en": "So for example here, let's have a look at the this should usually be be the default zone.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 264.68,
+          "end": 266.15,
+          "en": "That should be the public zone.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 266.15,
+          "end": 272.09000000000003,
+          "en": "So we can have a look at its configuration here, public dot XML and then we can see here certain services",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 272.09000000000003,
+          "end": 274.61,
+          "en": "are enabled in this public zone.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 274.61,
+          "end": 281.33,
+          "en": "But if we do any changes or even by the default install, CentOS might do some changes there.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 281.33,
+          "end": 288.89,
+          "en": "All of those changes are in our Etsy firewall folder that we can only access if we become root.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 288.89,
+          "end": 295.79,
+          "en": "And then I can go into Etsy Firewall D and then into the Zones folder and then we can see here there's",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 295.79,
+          "end": 304.55,
+          "en": "a public XML file that we can now list cat public dot XML, and then we can see here this is now our",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 304.55,
+          "end": 305.21,
+          "en": "public zone.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 305.21,
+          "end": 308.84,
+          "en": "So you can see here if any changes had been made.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 309.44,
+          "end": 314.66,
+          "en": "This zone will be copied and the changes will only be made into our Etsy folder.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 314.66,
+          "end": 323.12,
+          "en": "But I think on my system here, CentOS it even shipped with public dot XML file already in our Etsy",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 323.15,
+          "end": 325.7,
+          "en": "firewall the zones folder by default.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 326.03,
+          "end": 327.2,
+          "en": "Ubuntu did not.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 327.47,
+          "end": 335.03,
+          "en": "Um, but we can see here how anything that we change from the default configuration happens in our etsy",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 335.03,
+          "end": 335.51,
+          "en": "folder.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 335.51,
+          "end": 338.33,
+          "en": "We should not edit those files at any time.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 338.93,
+          "end": 342.17,
+          "en": "Um, by default we are usually in the public zone.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 342.17,
+          "end": 345.83,
+          "en": "It may be different depending on how you install the system.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 345.83,
+          "end": 348.14,
+          "en": "So you should not take this for granted.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 348.68,
+          "end": 354.08,
+          "en": "But the way we can find this out is just through firewall minus cmd get default zone.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 354.08,
+          "end": 363.68,
+          "en": "So if we do this sudo firewall, um, sudo firewall minus cmd dash dash get default zone, then we can",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 363.68,
+          "end": 367.07,
+          "en": "see here this is our default zone that's public.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 367.82,
+          "end": 368.96,
+          "en": "We can change it.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 368.99,
+          "end": 372.2,
+          "en": "For example, we could set our default zone to work.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 372.47,
+          "end": 374.75,
+          "en": "Let's just have a look at how this one works.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 374.75,
+          "end": 381.53,
+          "en": "Sudo firewall cmd dash dash set default zone equals to work.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 381.53,
+          "end": 384.95,
+          "en": "And we can see here now our default zone is work.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 384.95,
+          "end": 392.09000000000003,
+          "en": "So now if I would for example, do this one here list all we can see here we are right now in our work",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 392.09000000000003,
+          "end": 399.29,
+          "en": "zone, because if I do not specify a minus minus zone here, it will our dash dash zone here.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 399.68,
+          "end": 401.96,
+          "en": "Then it will always take our default zone.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 401.96,
+          "end": 402.62,
+          "en": "And here we can.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 402.81,
+          "end": 407.43,
+          "en": "See here this zone, this interface is part of that zone zone now.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 407.43,
+          "end": 414.65999999999997,
+          "en": "So this is now our current, um, our current network configuration or our current firewall configuration.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 414.65999999999997,
+          "end": 420.78,
+          "en": "And we can see here Mdms and Http are not enabled here right now.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 421.11,
+          "end": 424.32,
+          "en": "So this is now here our work zone.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 424.86,
+          "end": 432.63,
+          "en": "Um, so if we want to change the rules for a specific zone, we can also specify the zone as with the",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 432.63,
+          "end": 433.86,
+          "en": "firewall command.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 433.86,
+          "end": 439.44,
+          "en": "If we do not specify the zone parameter, it will just use the default zone, which is now work because",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 439.44,
+          "end": 441.33,
+          "en": "we had just set it to work.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 442.17,
+          "end": 448.62,
+          "en": "But if we want to specify this, we could for example say firewall minus cmd dash, dash or minus minus",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 448.62,
+          "end": 450.09,
+          "en": "zone equals our zone.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 450.09,
+          "end": 457.14,
+          "en": "And then we could use this add servers or add port, whatever we want to do, but we can just add this",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 457.14,
+          "end": 458.54,
+          "en": "additional parameter.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 458.55,
+          "end": 465.4,
+          "en": "The same works also for if we want to add something permanently and of course we may then also need",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 465.4,
+          "end": 471.67,
+          "en": "to do a reload of our firewall configuration whenever we do something that only affects the permanent",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 471.67,
+          "end": 474.64,
+          "en": "version on our system here.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 474.64,
+          "end": 481.75,
+          "en": "In this case, for example, if I wanted to add, um mdms here, let me just clear my screen first.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 481.75,
+          "end": 483.7,
+          "en": "I could do a pseudo firewall.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 483.7,
+          "end": 494.98,
+          "en": "CMD dash dash zone equals work dash dash, add dash service mdms and I would like to do this permanent",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 494.98,
+          "end": 496.42,
+          "en": "so I could do this.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 496.42,
+          "end": 499.42,
+          "en": "This would work, but this is now my default zone.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 499.42,
+          "end": 502.36,
+          "en": "So technically this one here is redundant and I wouldn't need it.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 502.36,
+          "end": 508.42,
+          "en": "But we can see here how I could specify that one or here I could also specify another zone.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 508.42,
+          "end": 513.76,
+          "en": "For example, here I could also specify the zone home, and I could also add it here.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 513.76,
+          "end": 518.65,
+          "en": "And we can see here MDS is already enabled for our home zone.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 518.65,
+          "end": 524.83,
+          "en": "So we can see here how this zone changes, which south zone.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 524.83,
+          "end": 526.51,
+          "en": "We want this to be applied.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 526.81,
+          "end": 529.3,
+          "en": "Of course, this works with pretty much everything.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 529.3,
+          "end": 535.63,
+          "en": "So we could also here, for example, do a list all then and then we can see here, this is now the",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 535.63,
+          "end": 537.94,
+          "en": "configuration for our home networks.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 538.09,
+          "end": 546.19,
+          "en": "Again, if we do change something here with permanent, be sure to do a firewall cmd dash, dash, reload",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 546.19,
+          "end": 551.2,
+          "en": "to read in those permanent configuration and apply it right now already.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 551.26,
+          "end": 560.17,
+          "en": "So this is how we can, um, have those zones and how we can use those zones to have different rules",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 560.17,
+          "end": 561.79,
+          "en": "for different environments.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 562.45,
+          "end": 566.02,
+          "en": "Um, we are also able to assign an interface to a zone.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 566.02,
+          "end": 572.83,
+          "en": "So the way it works is that we can say, okay, for this zone, we would like to change the interface",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 572.98,
+          "end": 580.03,
+          "en": "to this interface and this will then cause this interface to be applied to this zone or the rules of",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 580.03,
+          "end": 582.73,
+          "en": "this zone will be applied to that interface then.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 582.73,
+          "end": 591.55,
+          "en": "So if we have a look at this here sudo firewall cmd dash dash list, all we can see here, this is our",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 591.55,
+          "end": 594.1,
+          "en": "interface here, this is our network card.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 594.1,
+          "end": 601.75,
+          "en": "And I could for example do a firewall cmd dash dash zone equals for example, public.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 601.75,
+          "end": 608.59,
+          "en": "And then for example, I could say, okay, change my interface to impose five.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 608.62,
+          "end": 615.28,
+          "en": "So this will now take my interface ENP OS five and this will then no longer be in our work zone, but",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 615.28,
+          "end": 617.2,
+          "en": "it will now be in our public zone.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 617.2,
+          "end": 625.6,
+          "en": "So if we now have a look at this, we can see here our default zone, we can see here, um, is still",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 625.6,
+          "end": 628.78,
+          "en": "work because this is the default zone that we had set.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 628.78,
+          "end": 636.49,
+          "en": "But my connection or interfaces are all in our zone public because, well, we have assigned our this,",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 636.49,
+          "end": 640.03,
+          "en": "this interface, our network interface to our public zone.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 640.03,
+          "end": 646.42,
+          "en": "So here, this list all now only prints our default zone, but there's no interface connected to it.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 646.42,
+          "end": 652.12,
+          "en": "And our interface, the ENP OS five, that one is now in our public zone.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 652.12,
+          "end": 662.29,
+          "en": "And if we do a uh, sudo firewall, cmd dash dash zone equals public dash dash list all, then we can",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 662.29,
+          "end": 668.5,
+          "en": "see here this public zone is actually quite open in the sense that people can access our Http server",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 668.5,
+          "end": 670.9,
+          "en": "and mdms is enabled and so on.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 670.9,
+          "end": 678.58,
+          "en": "If we have a look at this, then we can see here everything here works properly and we are now able",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 678.58,
+          "end": 680.05,
+          "en": "to access this one here.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 680.08,
+          "end": 686.92,
+          "en": "Of course, probably the best pattern here would be not to have Http and DNS enabled in our public zone.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 686.92,
+          "end": 688.84,
+          "en": "It should then more be our home zone.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 688.99,
+          "end": 691.81,
+          "en": "But I'll leave it at this here for now.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 692.73,
+          "end": 697.17,
+          "en": "So we can see here that we can change those interfaces to the zones.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 697.17,
+          "end": 703.2,
+          "en": "And this can work temporarily and also permanently if we just add this permanent parameter here.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 704.42,
+          "end": 711.47,
+          "en": "You can imagine that if you had a real laptop, for example, that had multiple network interfaces,",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 711.47,
+          "end": 717.05,
+          "en": "that then you could have different zones for those two network interfaces and that this can be quite",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 717.05,
+          "end": 717.89,
+          "en": "convenient.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 717.92,
+          "end": 720.05,
+          "en": "Here, in my case I only have a VM.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 720.08,
+          "end": 725.9,
+          "en": "Of course I could add an additional network card, but at the end it's somehow still connected to the",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 725.9,
+          "end": 726.62,
+          "en": "same network.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 726.62,
+          "end": 731.93,
+          "en": "So I don't really feel like I can really show you that you can have multiple network interfaces with",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 731.93,
+          "end": 733.79,
+          "en": "different rules.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 734.15,
+          "end": 736.28,
+          "en": "So I will leave it at that.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 736.28,
+          "end": 742.58,
+          "en": "I just wanted to make you aware that there are things like zones here in Firewall that do allow you",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 742.58,
+          "end": 750.56,
+          "en": "to further change the way the firewall is configured, and it makes it really, really easy to do all",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 750.56,
+          "end": 751.88,
+          "en": "of those changes.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 752.98,
+          "end": 757.96,
+          "en": "So now you know how you can protect your computer with a firewall.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 757.99,
+          "end": 761.77,
+          "en": "How you can define those rules that block incoming connections.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 761.92,
+          "end": 766.56,
+          "en": "But I still want to give you an overview about what more can Firewall do.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 766.57,
+          "end": 770.29,
+          "en": "And this is what I will provide you in the next lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

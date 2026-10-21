@@ -1,0 +1,5580 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38500934",
+      "title": "Efficient Drive Mounting with /etc/fstab",
+      "lectureOrder": 258,
+      "videoOrder": 228,
+      "sourceHash": "45919a4eeab041466b4982a9bf4e9f78f0b43b46a24972dd1fe6af5c1beb869a",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.41,
+          "end": 6.92,
+          "en": "Now we have seen a lot how we can manually mount drives, but if we restart our system, all of this,",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.1,
+          "end": 8.48,
+          "en": "those mounts are lost.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.51,
+          "end": 13.88,
+          "en": "Isn't there a way that we can just define the mount in a specific file and yes, there is.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.88,
+          "end": 22.19,
+          "en": "There's the file etcd fstab where we can specify our mount configuration and during boot or in general,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 22.19,
+          "end": 24.68,
+          "en": "this will then apply to our whole system.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 24.83,
+          "end": 32.24,
+          "en": "So the etcd fstab file, it's a system configuration file in Linux to define how storage devices and",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.24,
+          "end": 40.91,
+          "en": "partition should be mounted and it also allows us to automatically mount those devices during boot.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 41.75,
+          "end": 43.46,
+          "en": "The format is as follows.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 43.67,
+          "end": 45.53,
+          "en": "It consists out of multiple lines.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 45.53,
+          "end": 48.71,
+          "en": "Each line represents a file system that should be mounted.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 48.74,
+          "end": 55.94,
+          "en": "Fields are separated by spaces or tabs, and the fields are first, a device identifier that could be",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 55.94,
+          "end": 60.36,
+          "en": "the Uuid of the partition or the path of the device.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 60.36,
+          "end": 64.45,
+          "en": "Then the mount point where we want this file, this drive to be mounted to.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 64.47,
+          "end": 66.21,
+          "en": "Then the type of the file system.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 66.21,
+          "end": 68.12,
+          "en": "We do need to specify that here.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 68.13,
+          "end": 73.01,
+          "en": "Then we can also add some mount options that should apply.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 73.02,
+          "end": 75.83,
+          "en": "Then we can set a so-called dump option.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 75.84,
+          "end": 77.46000000000001,
+          "en": "Dump is a backup utility.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 77.49,
+          "end": 80.03999999999999,
+          "en": "Usually nowadays we don't use it anymore.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 80.03999999999999,
+          "end": 87.45,
+          "en": "We handle the backups on a user level, so we usually just set it to zero.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 87.96000000000001,
+          "end": 90.53999999999999,
+          "en": "Then we go to file system check order.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 90.69,
+          "end": 97.62,
+          "en": "It's when we run file system check because of problems or routine file system checks in which order",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 97.62,
+          "end": 100.47,
+          "en": "those drives should be checked.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 100.47,
+          "end": 107.49000000000001,
+          "en": "One we should the number one here we should use for the root device and two, for all the other additional",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 107.49000000000001,
+          "end": 109.41,
+          "en": "partitions we want to mount.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 109.97999999999999,
+          "end": 113.88,
+          "en": "So before we write this ourselves, let's just have a look at that file.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 113.88,
+          "end": 121.73,
+          "en": "So here I am and I can just open that file etcd fstab and then we can see what's written in that file.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 121.74,
+          "end": 125.61,
+          "en": "So here we can see the format here.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 125.61,
+          "end": 128.97,
+          "en": "Here we can see dev disk by Uuid.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 129,
+          "end": 132.93,
+          "en": "This is the dev probably dev sda2.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 132.93,
+          "end": 137.7,
+          "en": "At least it was that during the installation and there's no reason why it should have changed.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 137.7,
+          "end": 139.07999999999998,
+          "en": "But this would be the drive.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 139.07999999999998,
+          "end": 148.2,
+          "en": "Dev Sda2 we are just identifying that by the Uuid because well for example, imagine we had several",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 148.2,
+          "end": 153.09,
+          "en": "drives attached to our computer and we just would replace those drives to another port.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 153.09,
+          "end": 158.91,
+          "en": "So we would just change the physical position of those drives and then they might become detected or",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 158.91,
+          "end": 163.56,
+          "en": "might be detected in another order and maybe on some system.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 163.56,
+          "end": 166.82999999999998,
+          "en": "This order might not be as stable, though I never encountered that.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 167.1,
+          "end": 173.49,
+          "en": "But especially if we would just replace those drives or swap them out with each other, the order might",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 173.49,
+          "end": 177.42000000000002,
+          "en": "be different, but the Uuid, it's a unique identifier of each partition.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 177.42000000000002,
+          "end": 183.72,
+          "en": "This one will always be the same, so this one is a little bit more stable, even if our hardware configuration",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 183.72,
+          "end": 189.36,
+          "en": "would change a little bit and here we can see, okay, this drive should be mounted to our root directory",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 189.36,
+          "end": 191.13,
+          "en": "or this is our root directory.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 191.49,
+          "end": 193.29,
+          "en": "It's an ext4 drive.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 193.29,
+          "end": 197.13,
+          "en": "We want to just use the default mount options.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 197.52,
+          "end": 200.43,
+          "en": "The dump is zero and it's our root device.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 200.43,
+          "end": 201.78,
+          "en": "So we use one here.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 201.78,
+          "end": 203.88,
+          "en": "Then we also see this one here.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 203.88,
+          "end": 206.19,
+          "en": "This is a Fat32 device.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 206.19,
+          "end": 209.43,
+          "en": "We see this here as the type is vfat.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 210,
+          "end": 215.25,
+          "en": "The uuids of Fat32 are shorter, so this is now just a shorter Uuid here.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 215.61,
+          "end": 221.07,
+          "en": "And also here you can see the mount option and here this one is also part of our root device.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 221.61,
+          "end": 224.85,
+          "en": "It's mounted into the folder boot slash EFI.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 225.9,
+          "end": 228.12,
+          "en": "This is part of the boot process.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 229.18,
+          "end": 233.41,
+          "en": "And, uh, yeah, that's why pass is also a one here.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 233.82999999999998,
+          "end": 237.19,
+          "en": "Um, then we can see here this swapped EMG file.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 237.19,
+          "end": 244.15,
+          "en": "It's a swap file, which means that, for example, if our memory would not be enough, then stuff can",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 244.15,
+          "end": 245.59,
+          "en": "be written to that one.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 245.92,
+          "end": 249.34,
+          "en": "We can see the options at swap, and we don't need to dump that.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 249.34,
+          "end": 252.42,
+          "en": "And we don't need to run a file check on that one.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 252.43,
+          "end": 257.86,
+          "en": "Please note the step might be different between different linux's, but the general format will be the",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 257.86,
+          "end": 258.49,
+          "en": "same.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 258.58,
+          "end": 264.94,
+          "en": "But for example, instead of writing a device like this, um, referring to it by a path, we could",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 264.94,
+          "end": 271.24,
+          "en": "also just say Uuid equals this one here and that would then still refer to the same drive.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 271.84,
+          "end": 277.96,
+          "en": "We could also, uh, for example, still use uh, dev SDA over here.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 277.96,
+          "end": 280.3,
+          "en": "That would still be completely All right.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 280.3,
+          "end": 285.79,
+          "en": "So just be aware, probably this file will look a little bit different because it will probably the",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 285.79,
+          "end": 291.58,
+          "en": "default might change a little bit over time, but this is how it looks like on my system for now.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 291.59000000000003,
+          "end": 296.06,
+          "en": "Please note also this files is not writable by a normal user.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 296.06,
+          "end": 299.12,
+          "en": "We need additional privileges to write to that file.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 299.78,
+          "end": 303.23,
+          "en": "So let's now see how we can write this ourselves.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 303.23,
+          "end": 305.21,
+          "en": "So we could write it like this.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 305.21,
+          "end": 309.05,
+          "en": "First we get the Uuid of the corresponding partition.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 309.05,
+          "end": 311.45,
+          "en": "Then we say where we want to mount it to.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 311.69,
+          "end": 315.95,
+          "en": "So we would have the Uuid, the mount point, then the file system type.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 315.95,
+          "end": 323.78,
+          "en": "Then we got the defaults mount options they equal to rw suid dev exec auto, no user and async.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 324.29,
+          "end": 331.01,
+          "en": "So just to mention a few of that suid means for example that suid is supported here on that device.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 331.01,
+          "end": 338.09000000000003,
+          "en": "So there can be files if we execute that them and the suid flag is or bit is set.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 338.42,
+          "end": 342.74,
+          "en": "Um, that will also have the permissions of the owner of that file.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 343.31,
+          "end": 347.45,
+          "en": "Um, so we should avoid that, for example for external drives.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 347.45,
+          "end": 353.99,
+          "en": "But this is if this was an internal drive, we could argue it's sufficiently safe, it's not unsafe.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 354.02,
+          "end": 360.83,
+          "en": "Whereas if we would just write the sa, uh, the file on our um, system drive, then dev stands for",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 360.86,
+          "end": 361.04,
+          "en": "that.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 361.04,
+          "end": 365.87,
+          "en": "We allow specific kind of files that represent other devices.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 365.87,
+          "end": 372.47,
+          "en": "We would theoretically allow those files on that drive, but it's technically something we mostly only",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 372.47,
+          "end": 373.52,
+          "en": "have on our system drive.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 373.52,
+          "end": 373.94,
+          "en": "Anyway.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 373.94,
+          "end": 375.59,
+          "en": "That's our slash dev folder.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 375.89,
+          "end": 380.69,
+          "en": "Um, and yeah, another one would be for example here that's really important.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 380.99,
+          "end": 391.1,
+          "en": "Um, auto that means that this should be mounted automatically and then no user means that, um, it",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 391.1,
+          "end": 393.77,
+          "en": "can only be mounted with root privileges.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 393.77,
+          "end": 400.73,
+          "en": "So we need root privileges to unmount or mount that drive, but by default it gets auto mounted automatically.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 400.73,
+          "end": 404.39,
+          "en": "So this means that a normal user can't just unmount that drive.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 404.39,
+          "end": 408.14,
+          "en": "And async, for example, means that read and write should be async.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 408.17,
+          "end": 415.64,
+          "en": "If this can improve important performance, yes, but it can be bad for um, data integrity on a power",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 415.64,
+          "end": 416.21,
+          "en": "loss.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 416.21,
+          "end": 422.27,
+          "en": "So maybe the files might not be written completely there, but it greatly improves performance.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 422.63,
+          "end": 426.62,
+          "en": "Um, and those are the default mount options.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 426.62,
+          "end": 433.13,
+          "en": "So usually we say here defaults to apply all of those defaults and then if we want to change something,",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 433.13,
+          "end": 437.96,
+          "en": "we can just add a comma here and then overwrite those defaults here again.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 438.05,
+          "end": 443.18,
+          "en": "Then the dump option that's of course here, the zero here, and then the file system check.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 443.18,
+          "end": 447.02,
+          "en": "Um, order would be two because it's a non root file system.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 447.29,
+          "end": 452.33,
+          "en": "Um, so this is something that can be checked after our root file system.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 452.33,
+          "end": 454.49,
+          "en": "So let's just see how that works.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 454.64,
+          "end": 459.44,
+          "en": "And first, what I need to get is that I need to get the Uuid of my backups drive.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 459.47,
+          "end": 461.36,
+          "en": "That was the ext4 partition.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 461.36,
+          "end": 465.68,
+          "en": "So I used the Lsblk command dash f to get the Uuid.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 465.95,
+          "end": 473.18,
+          "en": "And then you can see here, this is the Uuid that is currently mounted to slash backups.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 473.18,
+          "end": 480.14,
+          "en": "So I need to get that Uuid and oh, if it's mounted right now it's best to just unmount it for now.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 480.44,
+          "end": 481.85,
+          "en": "So I just unmount it.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 481.85,
+          "end": 485.81,
+          "en": "But here you can see this is the Uuid that I will be using.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 485.81,
+          "end": 494.75,
+          "en": "Now I can say edit my file f etcd fstab and I will now want to add an entry here for Uuid.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 494.78,
+          "end": 495.86,
+          "en": "This one here.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 495.86,
+          "end": 499.37,
+          "en": "Then I say this should be mounted to mNt backups.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 499.37,
+          "end": 500.98,
+          "en": "This folder should exist.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 501.02,
+          "end": 503.3,
+          "en": "Of course it's an ext4 drive.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 503.3,
+          "end": 507.29,
+          "en": "I want all the defaults options, but maybe I want to overwrite a little bit.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 507.29,
+          "end": 508.67,
+          "en": "So maybe I want to.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 508.7,
+          "end": 517.49,
+          "en": "We had seen on the slide before we had this suid flag here that permissions that there might be executable",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 517.49,
+          "end": 525.41,
+          "en": "files that might be executed not just with the permissions of us that are currently executing that file,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 525.41,
+          "end": 528.8,
+          "en": "but also of the owner of that file if this flag or if.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 528.83,
+          "end": 531.41,
+          "en": "This bit is set, so I want to disable that.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 531.41,
+          "end": 535.76,
+          "en": "So I add the, uh, no ID option here.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 535.76,
+          "end": 542.37,
+          "en": "We had seen that option earlier on one of those slides and the other one was no access.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 542.42,
+          "end": 548.6,
+          "en": "So for example, here I want to disable that there can be executable files on that drive and then I",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 548.6,
+          "end": 553.7,
+          "en": "could say, okay, dump option this and the priority should be that one.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 553.7,
+          "end": 555.56,
+          "en": "So I now just save that one.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 555.56,
+          "end": 556.76,
+          "en": "Let's see how it goes.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 556.76,
+          "end": 559.97,
+          "en": "And now I want to apply what we have written here.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 559.97,
+          "end": 567.77,
+          "en": "So I have now updated my fstab with this entry and now to apply that one to refresh our mounts after",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 567.77,
+          "end": 572.15,
+          "en": "editing, I can use Mount Dash A to just mount all the changes.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 572.15,
+          "end": 578.42,
+          "en": "So let's have a look at this so I can say sudo mount dash a and now we can see there is now this backups",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 578.42,
+          "end": 585.14,
+          "en": "folder here and we can see now it has been mounted here automatically with all those options.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 585.14,
+          "end": 591.24,
+          "en": "And the good thing now is that even if I would now reboot my computer, all this drive would be mounted",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 591.24,
+          "end": 595.56,
+          "en": "into this one with all the options that we have specified in our fstab.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 595.56,
+          "end": 602.94,
+          "en": "So you can see how this fstab kind of like automates the mounting for us and it makes sure that the",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 602.94,
+          "end": 608.73,
+          "en": "drive gets auto mounted automatically after every boot, especially because because of this defaults",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 608.73,
+          "end": 617.31,
+          "en": "here when there's defaults written, this auto option here is set and this means that this drive will",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 617.31,
+          "end": 619.53,
+          "en": "be mounted by default.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 619.98,
+          "end": 621.99,
+          "en": "So you can see how all of that works.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 621.99,
+          "end": 628.98,
+          "en": "By the way, of course, there would also be a we could also override that, for example, here by adding",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 628.98,
+          "end": 630.15,
+          "en": "a no auto here.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 630.15,
+          "end": 633.78,
+          "en": "And then, of course, this would not be mounted automatically.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 634.08,
+          "end": 639.81,
+          "en": "But you can see here how this fstab file works and how you can specify the partitions and where they",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 639.81,
+          "end": 641.01,
+          "en": "should mount to.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 641.55,
+          "end": 647.1,
+          "en": "Let's now have a special case that we want to look at, and let's now have a look at how we can mount",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 647.13,
+          "end": 655.95,
+          "en": "an FTP drive into our normal file system so we can, for example, then later on top of that, write",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 655.95,
+          "end": 657.24,
+          "en": "an easy backup script.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 657.24,
+          "end": 661.05,
+          "en": "But how that one works, how we can mount a remote drive.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 661.05,
+          "end": 663.57,
+          "en": "We will have a look at that in the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38500946",
+      "title": "Extra lecture (optional): Mounting FTP Servers with curlftpfs",
+      "lectureOrder": 259,
+      "videoOrder": 229,
+      "sourceHash": "3580f5ff7ab27beef6f22b2ac4dde4b443acbdaf478951dee2c6cef2b66e92e3",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.44,
+          "end": 6.56,
+          "en": "In this lecture, we want to talk about how we can mount an FTP server into our file system.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.18,
+          "end": 12.73,
+          "en": "I want to give you a quick heads up for the next few lectures, the next this and the next two lectures",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 12.73,
+          "end": 14.05,
+          "en": "only work on Ubuntu.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 14.08,
+          "end": 17.89,
+          "en": "The reason is that the software that we use curl ftpfs.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 18.49,
+          "end": 21.45,
+          "en": "It's not part of the CentOS repository.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 21.46,
+          "end": 26.77,
+          "en": "Yes, we might be able to download the source code and compile it, but this is nothing that we would",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 26.77,
+          "end": 33.07,
+          "en": "want to do on a production server that we manually download the source code and compile it at least",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 33.07,
+          "end": 34.62,
+          "en": "as long as we can avoid it.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 34.63,
+          "end": 40.84,
+          "en": "But on Ubuntu, the tool that we'll be using is in the repositories and we can easily use it so it only",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 40.84,
+          "end": 41.92,
+          "en": "works on ubuntu.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 42.04,
+          "end": 45.94,
+          "en": "The next thing is that we will connect to a remote ftp server.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 45.94,
+          "end": 48.13,
+          "en": "I will be using a server of mine.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 48.73,
+          "end": 56.44,
+          "en": "It's part of my web hosting server or package that I need for my website anyway, but to follow along",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 56.47,
+          "end": 60.7,
+          "en": "you will need FTP credentials to a remote server that you want to access.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 60.7,
+          "end": 68.06,
+          "en": "If you don't have that, you will not really be able to use or to connect to a remote FTP server.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 68.06,
+          "end": 73.88,
+          "en": "Yes, we could have a look at how we could set up our own, but that's not the reason why those lectures",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 73.88,
+          "end": 75.17,
+          "en": "here are in the course.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 75.17,
+          "end": 83.15,
+          "en": "They're mostly meant as an example to illustrate how you can use Fuse to allow access to additional",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 83.15,
+          "end": 89.36,
+          "en": "file system types and to illustrate that our file systems that we mount don't necessarily have to be",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 89.36,
+          "end": 95.03,
+          "en": "on our local machine, but that they can also be on our remote machine or they can be completely different",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 95.03,
+          "end": 103.53999999999999,
+          "en": "protocols in practice anyway, which would try to avoid using FTP because it may or may not be encrypt",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 103.82,
+          "end": 111.08,
+          "en": "encrypted properly depending on the configuration, but usually we would use something like Sftp, but",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 111.08,
+          "end": 115.94,
+          "en": "therefore we need to have a look at SSH, which will be part of a later chapter.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 115.94,
+          "end": 121.88,
+          "en": "Or another example also for Fuse would for example be mounting of an S3 drive.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 121.91,
+          "end": 126.92,
+          "en": "That would be the storage service of Amazon and we can make that one for example.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 126.92,
+          "end": 130.01,
+          "en": "Also show up in our file system through Fuse.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 130.01,
+          "end": 137.09,
+          "en": "But this really depends on the way how you want to use Fuse, and it really depends on your application.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 137.09,
+          "end": 141.07999999999998,
+          "en": "So all I can do here is to give you a general overview.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 141.07999999999998,
+          "end": 148.31,
+          "en": "That's something like Fuse exists and how that would work and the way to apply it would really depend",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 148.31,
+          "end": 153.38,
+          "en": "on your on your application or what you want to do with that server.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 153.38,
+          "end": 159.5,
+          "en": "So I want to emphasize there's no need to follow along here with those lectures, especially if you're",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 159.5,
+          "end": 163.85,
+          "en": "using CentOS and or you don't have FTP credentials to another server.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 163.88,
+          "end": 166.16,
+          "en": "There's really no need to follow along.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 166.16,
+          "end": 173.66,
+          "en": "This is more an illustration how you could access a remote file system or a remote server through Fuse.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 173.66,
+          "end": 176.42000000000002,
+          "en": "So this is more an illustration of a concept.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 176.42000000000002,
+          "end": 181.88,
+          "en": "I was even thinking about deleting those lectures, but then decided against it because I really like",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 181.88,
+          "end": 184.34,
+          "en": "to have those illustrations here in my course.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 184.34,
+          "end": 188.66,
+          "en": "Anyway, with all of that in mind, no need to follow along in those lectures.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 188.66,
+          "end": 192.41,
+          "en": "Just sit back and see me debug and see me struggle.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 192.41,
+          "end": 193.94,
+          "en": "But it's going to work out.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 193.94,
+          "end": 196.04,
+          "en": "So now let's just get started.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 196.04,
+          "end": 198.65,
+          "en": "But first we need to have a look at what is FTP.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 199.28,
+          "end": 206.57,
+          "en": "FTP stands for file transfer protocol and it allows us to transfer files from and to other computers.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 206.96,
+          "end": 213.38,
+          "en": "It's so we can connect with FTP to another computer and then we can have a folder and file structure",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 213.38,
+          "end": 218.96,
+          "en": "over there where we can, for example, upload files to that one or download files from that one.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 219.2,
+          "end": 223.37,
+          "en": "It's one of the most common protocols for achieving this.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 224.03,
+          "end": 228.92000000000002,
+          "en": "One thing you should be aware of, and I feel responsible that I mentioned this here.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 229.49,
+          "end": 235.07,
+          "en": "File transfer protocol by default is unencrypted, so this means all the files, but also the login",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 235.07,
+          "end": 239.75,
+          "en": "data is transferred, unencrypted to to and from the remote server.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 239.75,
+          "end": 246.71,
+          "en": "So even if you would encrypt all the data because the whole connection is completely unencrypted, if",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 246.71,
+          "end": 252.8,
+          "en": "somebody would tap that wire or would collect the Wi-Fi signal because it's an open Wi-Fi in which you",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 252.8,
+          "end": 259.91,
+          "en": "are right now, or if anybody had access to the connection between your computer and the remote server,",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 259.91,
+          "end": 266.87,
+          "en": "he might just be able to get the login data and maybe even get the data itself if it's not sufficiently",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 266.87,
+          "end": 267.74,
+          "en": "encrypted.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 268.58,
+          "end": 270.8,
+          "en": "So you need to be aware of that.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 270.92,
+          "end": 278.24,
+          "en": "A lot of file transfer protocol, a lot of FTP hosters do provide the option to connect, for example",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 278.24,
+          "end": 286.01,
+          "en": "through FTP, which stands for FTP over SSL, which works the same as Http and Https.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 286.01,
+          "end": 292.97,
+          "en": "So this in that case then should be encrypted and safe and there's also Sftp, but that's a completely",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 292.97,
+          "end": 294.29,
+          "en": "different protocol.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 294.5,
+          "end": 296.45,
+          "en": "It's over an SSH connection.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 296.54,
+          "end": 305.96,
+          "en": "Ssh connections are or it uses the SSH protocol as FTP though is something different and it will not",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 305.96,
+          "end": 306.65,
+          "en": "work with the.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 306.69,
+          "end": 308.1,
+          "en": "Tool in this lecture.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 308.1,
+          "end": 310.35,
+          "en": "So with the tool that I will introduce you to.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 310.38,
+          "end": 315.15,
+          "en": "In this lecture, we will only be able to use FTP, unencrypted or FTP.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 315.54,
+          "end": 317.7,
+          "en": "Which is sufficiently encrypted.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 317.82,
+          "end": 320.58,
+          "en": "So how can we mount an FTP server?",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 320.61,
+          "end": 327.75,
+          "en": "Well, we are able to mount FTP servers, but first we do need to install all required software.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 327.78,
+          "end": 329.73,
+          "en": "Those are two tools that we need.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 329.76,
+          "end": 333.36,
+          "en": "The one thing is fuse and the other one is curl ftp.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 333.42,
+          "end": 333.74,
+          "en": "FS.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 333.87,
+          "end": 335.07,
+          "en": "What's fuse?",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 335.1,
+          "end": 337.71,
+          "en": "Fuse is filesystem in userspace.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 337.71,
+          "end": 344.04,
+          "en": "The idea is that a lot of those file systems that we have been using, our kernel was providing that",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 344.04,
+          "end": 348.18,
+          "en": "functionality because it was writing that to the disk and all of that stuff.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 348.27,
+          "end": 355.32,
+          "en": "Fuse The idea is that we can have a file system that's not running in the context of our kernel, but",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 355.32,
+          "end": 359.07,
+          "en": "it's running outside our kernel in the so-called user space.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 359.07,
+          "end": 365.55,
+          "en": "And this is what we need here, because we then can just build a network connection, for example,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 365.55,
+          "end": 372.69,
+          "en": "to the FTP server, but the kernel pretty much just forwards that through the fuse, um, through the",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 372.69,
+          "end": 379.35,
+          "en": "file system and user space and the file system and user space then sends that to the server.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 379.35,
+          "end": 386.97,
+          "en": "So that's why we need this fuse and we need curl ftpfs which allows us to use FTP servers as a and we",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 386.97,
+          "end": 387.66,
+          "en": "can mount them.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 387.66,
+          "end": 390.15,
+          "en": "So this is the first step that we need to do.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 390.15,
+          "end": 399.21,
+          "en": "So if I'm here I need to say sudo apt install, fuse curl, ftp fs then I just wait and we can see here",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 399.24,
+          "end": 402.06,
+          "en": "a few packages need to be installed but it's not a lot.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 402.06,
+          "end": 404.28,
+          "en": "And now everything should work.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 404.76,
+          "end": 409.56,
+          "en": "Um, so once that install is complete we are then able to use it.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 409.56,
+          "end": 419.07,
+          "en": "For example, we could create a new folder and then we could use curl Ftpfs to mount an FTP path here.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 419.1,
+          "end": 427.23,
+          "en": "The way we rewrite it is we can say FTP, colon slash slash, then the user, then a colon, then the",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 427.33,
+          "end": 432.67,
+          "en": "password, then the server, and then the path on the server and then where we want this to be mounted",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 432.67,
+          "end": 433.15,
+          "en": "to.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 433.15,
+          "end": 435.25,
+          "en": "So let's just have a look at this.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 435.25,
+          "end": 441.22,
+          "en": "Please note in order to do this chapter you do need to have login data to an FTP server.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 441.22,
+          "end": 447.64,
+          "en": "In my case, I use an old web hosting provider for that, but the username I've created through the",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 447.64,
+          "end": 448.72,
+          "en": "server backend there.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 448.77,
+          "end": 450.52,
+          "en": "Another FTP user.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 451.06,
+          "end": 456.49,
+          "en": "Please note this user will be deleted once this course is published so you will not be able to access",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 456.49,
+          "end": 457.39,
+          "en": "my web hosting.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 457.39,
+          "end": 460.84000000000003,
+          "en": "You could try of course, but it's not going to work.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 460.84000000000003,
+          "end": 461.26,
+          "en": "So you don't.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 461.29,
+          "end": 466.65999999999997,
+          "en": "You don't even need to try the to use the same log in data that I'm using here in the video.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 466.65999999999997,
+          "end": 468.7,
+          "en": "So let's now just connect.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 468.7,
+          "end": 474.7,
+          "en": "So the first thing is that I need to create a folder where I want to mount my FTP drive to.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 474.73,
+          "end": 483.22,
+          "en": "So for example, I could mount, I could later mount that to FTP FTP and of course I need additional",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 483.22,
+          "end": 484.69,
+          "en": "privileges for that.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 484.87,
+          "end": 486.82,
+          "en": "So I need to put a pseudo in front of that.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 486.82,
+          "end": 493.57,
+          "en": "So now it's just an empty folder and now I want to mount something into that so I can say sudo curl,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 493.69,
+          "end": 502.87,
+          "en": "ftp, ftps ftp and then I need to use my username password and the server.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 503.67,
+          "end": 504.96,
+          "en": "So here we go.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 504.99,
+          "end": 506.04,
+          "en": "This is my username.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 506.04,
+          "end": 507.21,
+          "en": "This is my password.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 507.21,
+          "end": 513.24,
+          "en": "This is the server that I want to connect to and this is the path on the on the server.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 513.87,
+          "end": 521.82,
+          "en": "Then I can say, okay, I want this to be mounted into the folder slash FTP and if I now hit enter,",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 521.82,
+          "end": 524.64,
+          "en": "we can see here we do get an access denied here.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 524.67,
+          "end": 526.8,
+          "en": "Why is this by the way?",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 526.8,
+          "end": 530.16,
+          "en": "This is really common that the first time we try it, it doesn't work.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 530.16,
+          "end": 531.84,
+          "en": "It's not because it's the first time.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 531.84,
+          "end": 539.55,
+          "en": "It's because a lot of hosters support different subsets of FTP and we might need to add some options",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 539.55,
+          "end": 540.96,
+          "en": "in order to make it work.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 540.96,
+          "end": 542.85,
+          "en": "So why isn't it working here?",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 542.85,
+          "end": 547.17,
+          "en": "In my case, my hoster doesn't support FTP.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 547.86,
+          "end": 551.37,
+          "en": "I do need to use FTP to support that one.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 551.97,
+          "end": 553.8,
+          "en": "So I took that error.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 553.8,
+          "end": 558.45,
+          "en": "I tried to Google and then eventually I was like, okay, let's just try FTP as my host.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 558.45,
+          "end": 560.43,
+          "en": "That doesn't even mention that they support FTP.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 560.7,
+          "end": 567.61,
+          "en": "So I tried to connect through FTP and we can see here, yeah, it's, it looks like it's connecting",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 567.61,
+          "end": 569.8,
+          "en": "or at least sending some packets packages.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 569.8,
+          "end": 573.67,
+          "en": "In a sense it's still not ready yet, but it also doesn't look like it's working.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 574.09,
+          "end": 580.45,
+          "en": "So I use control and C to cancel that one here and now I can go back and I can add some options here.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 580.45,
+          "end": 587.59,
+          "en": "I can say minus D and minus V, minus D stands for debug and this one here for verbose.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 587.59,
+          "end": 593.35,
+          "en": "So just that I get a few options here and we can see here it's trying to connect to that server once",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 593.35,
+          "end": 601.3,
+          "en": "through IPV four on port 990 zero and one through IPv6, IPV six on port 990 zero.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 601.45,
+          "end": 604.39,
+          "en": "In my case, my hoster doesn't support this.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 604.39,
+          "end": 610.18,
+          "en": "My host wants even for an FTP connection that this connection happens on Port 21.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 610.21,
+          "end": 616.69,
+          "en": "This is written in my back end ftps supported on port 21, so I need to change this one here.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 616.69,
+          "end": 621.4,
+          "en": "And now we can see here an unexpected TLS packet was received.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 621.4,
+          "end": 625.33,
+          "en": "So something here with the encryption doesn't really work.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 625.33,
+          "end": 632.44,
+          "en": "And the reason for that I had to Google one more time is that I have to tell it here to use a normal",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 632.5,
+          "end": 639.1,
+          "en": "FTP and then as an option I have to use here that I want to use SSL.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 640,
+          "end": 643.69,
+          "en": "Those options pretty much override what we are writing here.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 643.69,
+          "end": 649.99,
+          "en": "But if I do this one here, we can just see that it now works and that the connection now has been established.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 650.02,
+          "end": 655.96,
+          "en": "We can see also here that we are using an SSL connection here, also using TLS.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 656.54,
+          "end": 663.1,
+          "en": "Um, I don't to be honest, I don't fully understand why it was failing here.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 663.7,
+          "end": 666.85,
+          "en": "And I try to research for Colonel Ftpfs.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 666.88,
+          "end": 668.68,
+          "en": "What's exactly the difference?",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 668.68,
+          "end": 670.06,
+          "en": "I could not find anything.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 670.06,
+          "end": 676,
+          "en": "But at least here, if I specify this SSL option here, we can see that this one here works.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 676.09,
+          "end": 679.12,
+          "en": "And now this program here, it stays active.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 679.12,
+          "end": 682.96,
+          "en": "If I want to cancel that one, I can use control C to cancel it.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 682.96,
+          "end": 689.74,
+          "en": "And the way to go is that I now can just repeat my command here and I can just remove this minus D and",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 689.74,
+          "end": 695.68,
+          "en": "minus V here and now it's just mounting that into the FTP folder.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 695.68,
+          "end": 700.9,
+          "en": "Now I can just change my directory to this one here and we can see here.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 700.93,
+          "end": 702.67,
+          "en": "Okay, we do get a permission denied.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 702.67,
+          "end": 704.74,
+          "en": "So I need to change my user to root.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 704.74,
+          "end": 711.88,
+          "en": "But if I'm the root user now and I change into that directory, I can just use an LS command here and",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 711.88,
+          "end": 718.45,
+          "en": "we can see the contents here of this FTP folder and this is now no longer on my machine.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 718.45,
+          "end": 720.13,
+          "en": "This is now an FTP server.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 720.13,
+          "end": 725.63,
+          "en": "So if I would now for example, just create a new file here, this file would not be created locally.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 725.63,
+          "end": 728.09,
+          "en": "You can see it takes a little bit longer than usual.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 728.3,
+          "end": 734.66,
+          "en": "And also this LS takes a little bit longer than usual, but we are now working with the remote server",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 734.66,
+          "end": 740.99,
+          "en": "here and we can work with it just as if we would work with a normal directory on our computer.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 740.99,
+          "end": 745.88,
+          "en": "And you can imagine if you're trying to write a backup script or you want to have one central place",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 745.88,
+          "end": 752.36,
+          "en": "to store specific kinds of data, mounting it as an FTP drive could be an option though you will have",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 752.36,
+          "end": 753.83,
+          "en": "to consider the edge cases.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 753.83,
+          "end": 756.29,
+          "en": "So, for example, what happens if the server is down?",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 756.29,
+          "end": 758.72,
+          "en": "What happens if the connection gets dropped?",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 758.72,
+          "end": 765.17,
+          "en": "You might have to do some work there to consider those edge cases, but at least for a backup script",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 765.17,
+          "end": 771.77,
+          "en": "where you just temporarily want to push a backup to another server, that could be a solution here.",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 771.77,
+          "end": 779.12,
+          "en": "And we can now work with FTP just as if it was a normal folder here on our system.",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 779.51,
+          "end": 786.23,
+          "en": "By the way, one last thing, if you want to unmount that folder, you should use a special command",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 786.23,
+          "end": 786.62,
+          "en": "for that.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 786.62,
+          "end": 792.44,
+          "en": "Not you mount the normal mount, but because it's a fuse file system that's provided by a server that",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 792.44,
+          "end": 799.52,
+          "en": "runs in the background, we should use fuser or fuse or mount dash u slash M-A slash ftp.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 800.09,
+          "end": 802,
+          "en": "This is for file system like this.",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 802.06,
+          "end": 807.53,
+          "en": "Fuse those fuse file system that they run in user space, not from the kernel.",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 808.01,
+          "end": 810.35,
+          "en": "And this is the command to control those.",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 810.38,
+          "end": 813.35,
+          "en": "And then we just say which path we would like to unmount.",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 813.35,
+          "end": 822.65,
+          "en": "So if I want to eject this drive or unmount it, I can just say Fuser Mount dash u for unmount and I",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 822.65,
+          "end": 829.97,
+          "en": "want to unmount that FTP folder and now we can see the FTP folder is empty again because it's now no",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 829.97,
+          "end": 832.22,
+          "en": "longer connected to our FTP server.",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 832.77,
+          "end": 838.36,
+          "en": "So this is how we can use an FTP server as a mount and how we can also unmount it.",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 838.37,
+          "end": 843.62,
+          "en": "We had a small problems here though in our command the user and the password was visible.",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 843.62,
+          "end": 847.46,
+          "en": "So we will have a look at this, how we can hide that in the next lecture.",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 847.46,
+          "end": 854.96,
+          "en": "And we will also have a look at how we can make this directory accessible for all users because so far",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 854.96,
+          "end": 857.9,
+          "en": "only the root user was able to access that folder.",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 857.9,
+          "end": 863.57,
+          "en": "And if we would want to write a backup script, we usually would not want to run the backup script as",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 863.57,
+          "end": 864.74,
+          "en": "the user root.",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 864.74,
+          "end": 867.32,
+          "en": "So we will have a look at that in the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38500950",
+      "title": "Extra lecture (optional): Securing FTP Server Mounts with .netrc Files",
+      "lectureOrder": 260,
+      "videoOrder": 230,
+      "sourceHash": "4c5f05776e6ca4e0f3e9325a97e0d1f41ba25d054e587056a4394126cc320513",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.37,
+          "end": 6.94,
+          "en": "So in the last lecture, we had to be the use of root to actually allow or to be able to access the",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.94,
+          "end": 9.34,
+          "en": "folder that we just mounted in this lecture.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.34,
+          "end": 13.84,
+          "en": "We want to have a look at this and we want to have a look at how we can hide the credentials from the",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.84,
+          "end": 14.5,
+          "en": "command.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 14.53,
+          "end": 22.51,
+          "en": "This will prepare us to then in the next lecture automatically mount an FTP drive through the Etcd fstab.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.51,
+          "end": 25.87,
+          "en": "So let's have a look at how we can allow access to all users.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 25.87,
+          "end": 30.88,
+          "en": "First, to allow access to all users, we do need to add another option.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 30.88,
+          "end": 36.67,
+          "en": "That's the allow underscore other option here and this allows everybody to access this drives.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 36.67,
+          "end": 44.77,
+          "en": "So before only the user who mounted it was allowed to access that drive and that user was the user root",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 44.77,
+          "end": 46.78,
+          "en": "because we had the sudo here in front.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 46.78,
+          "end": 53.77,
+          "en": "So I add this new option, allow underscore others here, allow underscore others.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 53.77,
+          "end": 56.8,
+          "en": "And now I just need to mount that one.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 56.8,
+          "end": 63.01,
+          "en": "And we can see here we do get an error here that this is an unknown option.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 63.81,
+          "end": 65.76,
+          "en": "But this is just a small typo.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 65.79,
+          "end": 68.94,
+          "en": "I can just remove the s here and then everything should work.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 68.94,
+          "end": 70.44,
+          "en": "So now we can see here.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 70.44,
+          "end": 76.71000000000001,
+          "en": "I have now mounted that one and now I can be just a normal user and I'm now able to access here that",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 76.71000000000001,
+          "end": 77.34,
+          "en": "folder.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 77.34,
+          "end": 82.53,
+          "en": "Or I could create a file over here and we can see here how this file is now being created.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 82.53,
+          "end": 88.05,
+          "en": "Everything takes a while again because this is again an FTP drive and it needs to communicate with the",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 88.05,
+          "end": 93.3,
+          "en": "internet to the remote server, but we can see how we can just work with this and for example, just",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 93.3,
+          "end": 99.6,
+          "en": "create a file or we could just copy that file to somewhere else and everything would work as expected.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 99.6,
+          "end": 102.36,
+          "en": "So this is the way to go.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 102.36,
+          "end": 107.28,
+          "en": "If this, for example, would be inside a backup script, because then we wouldn't want the whole backup",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 107.28,
+          "end": 110.46000000000001,
+          "en": "script to run as the root user.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 111.15,
+          "end": 120.75,
+          "en": "If I now want to unmount that one again, I need here to fuser mount minus U of mnt ftp and now this",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 120.75,
+          "end": 122.1,
+          "en": "drive is unmounted again.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 122.1,
+          "end": 128.29,
+          "en": "The next thing I would like to show you is how we can store the credentials at a secure place because",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 128.29,
+          "end": 133.6,
+          "en": "this will be important for the next lecture when we want to automatically mount this drive through the",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 133.61,
+          "end": 141.22,
+          "en": "etcd fstab and then because etcd fstab will be readable from the whole system, we should avoid storing",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 141.22,
+          "end": 142.84,
+          "en": "the credentials in that file.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 142.84,
+          "end": 146.44,
+          "en": "So we need to find another way where we can store those credentials.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 146.44,
+          "end": 156.46,
+          "en": "Luckily, curl ftp fs is based on curl or curl and if we use that tool we are able to create a file",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 156.46,
+          "end": 159.25,
+          "en": "in the user folder called dotnet.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 159.31,
+          "end": 162.55,
+          "en": "RC In this case for the user root.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 162.55,
+          "end": 167.89,
+          "en": "And there we can just say, okay, this machine, we want to log in with this username and with this",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 167.89,
+          "end": 174.94,
+          "en": "password and we can just leave our credentials there and then we can use curl ftp, FS without a username",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 174.94,
+          "end": 179.02,
+          "en": "or password and we can just specify the server here.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 179.02,
+          "end": 181.54,
+          "en": "So let's have a look at how this one works.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 181.54,
+          "end": 191.64,
+          "en": "So let me just copy my this one here that I get this whole command copy and now I just cancel that command.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 191.67,
+          "end": 194.85,
+          "en": "Now I, I switch to the root user.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 194.85,
+          "end": 201.96,
+          "en": "So I say sudo and then I want to edit something and I want to edit the file slash root dot net ask why",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 201.96,
+          "end": 203.85,
+          "en": "can't I just use this one?",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 204.51,
+          "end": 213.06,
+          "en": "This symbol is a bash expansion, so it is executed or the home directory is being placed into that",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 213.06,
+          "end": 216.93,
+          "en": "part of our command before the command is even executed.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 216.93,
+          "end": 219.93,
+          "en": "So this one is my home directory here.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 219.93,
+          "end": 226.65,
+          "en": "It's not the user root home directory because the bash is rewriting this command before it's even executing.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 227.07,
+          "end": 234.36,
+          "en": "So this one is not the root folder because again, Bash rewrites the command before it's executed.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 234.36,
+          "end": 239.46,
+          "en": "So I need to switch to my or I need to specify the full path here in my root folder.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 239.46,
+          "end": 241.26,
+          "en": "I want to edit the file dot net.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 241.27,
+          "end": 244.84,
+          "en": "RC Now I can just create that one.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 245.02,
+          "end": 251.98,
+          "en": "Let me just copy here the, the, the stuff that I need and now I can say, okay, I want to connect",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 251.98,
+          "end": 253.9,
+          "en": "to this machine here.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 254.86,
+          "end": 257.35,
+          "en": "I want to use the username as follows.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 257.35,
+          "end": 264.13,
+          "en": "I want to use this username here and this username should have the following password and it should",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 264.13,
+          "end": 266.05,
+          "en": "have this password over here.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 266.05,
+          "end": 269.2,
+          "en": "So I can just write it like this and I can just save it.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 269.2,
+          "end": 274.75,
+          "en": "This one here is a comment so we can just it will be ignored, but I could of course also just remove",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 274.75,
+          "end": 275.73,
+          "en": "that line now.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 275.74,
+          "end": 277.78,
+          "en": "So now I quit that one.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 277.78,
+          "end": 282.55,
+          "en": "And now I can also set the permissions here really restrictive.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 282.55,
+          "end": 287.35,
+          "en": "So for example, here I can say, okay, only Root is able to do something with that file.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 287.35,
+          "end": 291.25,
+          "en": "So I set the mode of that file to 700.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 291.31,
+          "end": 296.68,
+          "en": "It should be restricted anyway from the rest of the system because it's a it's the home folder of the",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 296.68,
+          "end": 301.63,
+          "en": "root user and usually other users can't read files in that anyway.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 301.63,
+          "end": 305.95,
+          "en": "But I can make sure with one mod that this is actually the case.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 305.95,
+          "end": 310.39,
+          "en": "So now I can use my curl FTP command again.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 310.39,
+          "end": 320.17,
+          "en": "I can now just say sudo curl, ftp, fs, SSL, allow others and I want to connect to the following",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 320.26,
+          "end": 328.15,
+          "en": "server w for 67. your server dot on port 21.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 328.33,
+          "end": 333.49,
+          "en": "And now I want to mount this to the folder mnt ftp.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 333.76,
+          "end": 344.59000000000003,
+          "en": "And now we can see here yet again I can't use the s here and now you can see I can just mount this without",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 344.59000000000003,
+          "end": 346.45,
+          "en": "me being asked for a password.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 346.45,
+          "end": 353.92,
+          "en": "So now I'm allowed to, for example, execute that command and I did not need to specify the password.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 353.92,
+          "end": 356.02,
+          "en": "You can see here the mounting has still worked.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 356.02,
+          "end": 359.08,
+          "en": "This is still the contents here of my FTP folder.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 359.08,
+          "end": 362.74,
+          "en": "So you can see how now we have been able to.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 363.14,
+          "end": 369.5,
+          "en": "Pretty much mount this without needing to specify the password here on the command line.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 370.01,
+          "end": 377.29,
+          "en": "Um, this becomes especially useful once we want to automatically mount this drive through our etcd",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 377.3,
+          "end": 381.45,
+          "en": "fstab file and this will be the topic in the next lecture.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 381.47,
+          "end": 386.24,
+          "en": "Before we switch over to the next lecture, one last thing that I would like to mention.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 387.08,
+          "end": 393.12,
+          "en": "Please just unmount the drive in case you are doing this on your own system as well.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 393.14,
+          "end": 401.24,
+          "en": "Fuser Mount Dash you and we want to unmount the etcd ftp drive because after in the next lecture we",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 401.24,
+          "end": 408.23,
+          "en": "will use the etcd fstab to to mount this shared folder or this ftp server.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 408.23,
+          "end": 410.51,
+          "en": "But this is the topic of the next lecture.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 410.51,
+          "end": 413.09000000000003,
+          "en": "Let's have a look at how we can automatically mount it.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38500956",
+      "title": "Extra lecture (optional): Automatically Mounting FTP Servers through /etc/fstab",
+      "lectureOrder": 261,
+      "videoOrder": 231,
+      "sourceHash": "638f25c09368cf4a962cf36a9a3e0154634d3c245c03c3b44d67fe86901bd8a6",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.29,
+          "end": 6.47,
+          "en": "So let's now see how we can mount an FTP server through, for example, the Etcd fstab file.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.5,
+          "end": 11.66,
+          "en": "The way to go is that we add a new entry here with call ftpfs.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 12.38,
+          "end": 15.83,
+          "en": "Let's have a look at the format again in our Etsy tab.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 15.83,
+          "end": 22.13,
+          "en": "The format was as follows First the device, then where we want to mount it to, then the file system",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 22.13,
+          "end": 28.46,
+          "en": "type, then the mount options, and then whether this backup utility dump where we can always set it",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 28.46,
+          "end": 31.58,
+          "en": "to zero and then how to deal with file system checks.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 31.58,
+          "end": 33.08,
+          "en": "And here it's a remote drive.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 33.08,
+          "end": 34.82,
+          "en": "So of course that's a zero.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 34.82,
+          "end": 39.02,
+          "en": "So we can see here this is pretty much the name of the device.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 39.02,
+          "end": 40.4,
+          "en": "This one is the Mount Point.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 40.4,
+          "end": 41.45,
+          "en": "Okay, that's clear.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 41.45,
+          "end": 43.64,
+          "en": "And this one here is the file system.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 43.64,
+          "end": 46.1,
+          "en": "Why is the file system fuse and not FTP?",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 46.4,
+          "end": 51.68,
+          "en": "Well, fuse is a way that we can define a filesystem in userspace.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 51.68,
+          "end": 52.76,
+          "en": "What does it mean?",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 52.76,
+          "end": 56.93,
+          "en": "So far the file systems were implemented by the kernel and being.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 57.05,
+          "end": 61.82,
+          "en": "This means the kernel had to support for example ext4 and would handle everything.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 61.85,
+          "end": 68.27,
+          "en": "Fuse means that the file system isn't provided by the kernel, but that the kernel gives the file system",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 68.27,
+          "end": 71.36,
+          "en": "handling to a program that runs on the computer.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 71.36,
+          "end": 75.48,
+          "en": "So this mechanism is called fuse or this tool.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 75.48,
+          "end": 81.83,
+          "en": "And one way we can use Fuse would be, for example, here with the kernel ftpfs.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 81.84,
+          "end": 86.64,
+          "en": "So you can imagine it a little bit like this, the system will see, okay, this is not a normal file",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 86.64,
+          "end": 87.21000000000001,
+          "en": "system.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 87.21000000000001,
+          "end": 89.88,
+          "en": "It's a file system that's implemented through Fuse.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 89.88,
+          "end": 97.97999999999999,
+          "en": "And then this string that identifies the device tells, okay fuse, this is you need to call kernel",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 98.03999999999999,
+          "end": 102.42,
+          "en": "ftpfs for this and this is the username and the password at this server.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 102.42,
+          "end": 106.5,
+          "en": "And we want to start at this path and then fuse takes care of that.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 106.5,
+          "end": 112.32,
+          "en": "So this is why it's written fuse here and we have the long kernel ftpfs command over here.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 112.8,
+          "end": 116.13,
+          "en": "Then you can see a few mount options that you can see here.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 116.13,
+          "end": 119.97,
+          "en": "No auto means that we don't want this to be automatically mounted.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 119.97,
+          "end": 125.31,
+          "en": "Sounds a bit weird when we are trying to automatically mount it at the beginning, but the idea here",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 125.31,
+          "end": 129.54,
+          "en": "is that we say okay, when mounting drives, we don't want this to be mounted.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 129.54,
+          "end": 133.88,
+          "en": "We want to be this to be mounted through other means.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 133.88,
+          "end": 136.97,
+          "en": "Then we see this, allow others or allow other.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 137,
+          "end": 141.23,
+          "en": "This just means that every user can write to that file or to that drive.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 141.23,
+          "end": 146.27,
+          "en": "And then we see something important here x minus system dot auto mount.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 146.45,
+          "end": 153.77,
+          "en": "This means that we are telling systemd that if we try to use this path later, that then systemd should",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 153.77,
+          "end": 156.98,
+          "en": "handle the mounting or should initiate the mounting here.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 156.98,
+          "end": 162.92000000000002,
+          "en": "The idea is that we don't even mount that path all the time, but that the first time we try to access",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 162.92000000000002,
+          "end": 167.99,
+          "en": "that, for example, because we want to list the contents there or we want to copy a file into that",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 167.99,
+          "end": 171.5,
+          "en": "folder or anything like this, then the mount will be triggered.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 171.5,
+          "end": 177.11,
+          "en": "So that's why we have here no auto because we don't want this to be done during boot because quite often",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 177.11,
+          "end": 179.45,
+          "en": "the network connection might not be ready at that time.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 179.45,
+          "end": 181.73,
+          "en": "I've tried it actually didn't work properly.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 181.73,
+          "end": 187.19,
+          "en": "So the way to go is with X system dot auto mount here that systemd handles the mount.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 187.22,
+          "end": 195.47,
+          "en": "By the way, this is not the full the command that I will use in an sec fstab because it does contain",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 195.47,
+          "end": 197.93,
+          "en": "the username and the password in plain text.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 197.93,
+          "end": 204.65,
+          "en": "And the problem, as I've told you earlier, I think is that the etcd fstab is readable for all users",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 204.65,
+          "end": 205.61,
+          "en": "on our system.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 205.61,
+          "end": 208.7,
+          "en": "So we would leak this username and password.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 208.7,
+          "end": 212.09,
+          "en": "The way to go is that we just use the server name here.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 212.09,
+          "end": 220.49,
+          "en": "But then of course the root user needs to have the network file with the corresponding connection information",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 220.49,
+          "end": 221.9,
+          "en": "written in that one.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 221.9,
+          "end": 223.91,
+          "en": "So we need to be aware of that.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 223.91,
+          "end": 231.89,
+          "en": "So this is the line that we can use and I can now just start editing my etcd fstab so I can say etcd",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 231.89,
+          "end": 241.7,
+          "en": "fstab and I want to open that one and now I can just create that line so I can say here, curl ftp fs",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 241.7,
+          "end": 244.31,
+          "en": "and then I need the server URL.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 245.03,
+          "end": 245.96,
+          "en": "In my case.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 245.96,
+          "end": 247.43,
+          "en": "And that would be also my advice.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 247.43,
+          "end": 252.41,
+          "en": "If you use something like this, I will just use exactly the same options that I've used on the command",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 252.41,
+          "end": 256.64,
+          "en": "line before, because then probably everything will work without any problems.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 256.64,
+          "end": 259.63,
+          "en": "So I copy this, including this FTP here in front.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 259.64,
+          "end": 268.3,
+          "en": "Technically, I think I or we can usually omit that, but I will just leave it in the URL here as well.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 268.31,
+          "end": 272.45,
+          "en": "Then I say okay, this I want to mount into the folder mount FTP.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 272.72,
+          "end": 278.63,
+          "en": "This is a fuse file system and I want this not to be mounted automatically.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 279.05,
+          "end": 283.79,
+          "en": "I want others like normal users to be allowed to access that drive.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 284.27,
+          "end": 286.15999999999997,
+          "en": "Um, what else did I need?",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 286.15999999999997,
+          "end": 292.61,
+          "en": "I needed the SSL option from the command line in my specific case to be able to connect to this FTP",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 292.61,
+          "end": 293.33,
+          "en": "server.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 293.33,
+          "end": 295.88,
+          "en": "And what else did I need?",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 295.88,
+          "end": 305.31,
+          "en": "That was the X system D dot auto, auto mount here and then two zeros over here.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 305.31,
+          "end": 309.3,
+          "en": "So I would say this looks like the command, so let's just save it.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 309.3,
+          "end": 311.31,
+          "en": "And now I can just close my file.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 311.31,
+          "end": 314.19,
+          "en": "So let's now just mount everything.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 314.43,
+          "end": 322.56,
+          "en": "Let's now navigate to the um, FTP folder and we can see here this folder is completely empty.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 322.56,
+          "end": 329.82,
+          "en": "This is because we told System D, Hey, whenever this folder is accessed, it should be mounted.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 329.82,
+          "end": 336.48,
+          "en": "But in order for system D to read that in, I think the easiest way is that we just trigger a reboot.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 336.48,
+          "end": 338.67,
+          "en": "So I will now just reboot my system.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 339.09000000000003,
+          "end": 340.5,
+          "en": "So here we go.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 340.5,
+          "end": 344.01,
+          "en": "Let's now just navigate into the FTP folder.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 344.01,
+          "end": 348.84000000000003,
+          "en": "We can see it took a little bit because probably now the connection has been built and now we can see",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 348.84000000000003,
+          "end": 355.08,
+          "en": "here, this is now our FTP drive that we can just now use just as a normal FTP server.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 355.53,
+          "end": 360.39,
+          "en": "And it's in our, it's just a folder now on our file system.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 360.39,
+          "end": 365.9,
+          "en": "So even if I would now log in through the GUI or through the user interface like this for example,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 365.9,
+          "end": 373.31,
+          "en": "I'm now just logging in and now I could just for example use my normal file browser here, go through",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 373.34,
+          "end": 381.56,
+          "en": "my computer, go into the mNt folder and I could now access this FTP folder and you can see here how",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 381.56,
+          "end": 387.98,
+          "en": "I could now literally just copy a file here and then for example, just paste it to my it doesn't let",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 387.98,
+          "end": 389.48,
+          "en": "me paste to my desktop.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 389.96,
+          "end": 398.24,
+          "en": "I could now just go to my home folder here to my desktop and just paste that file and we can see it's",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 398.24,
+          "end": 401.3,
+          "en": "now just a normal file transfer that's happening here.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 401.3,
+          "end": 402.71,
+          "en": "We can see the progress here.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 402.71,
+          "end": 407.63,
+          "en": "Of course, it's a little bit slower because it's communicating through the internet, but we can see",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 407.63,
+          "end": 412.67,
+          "en": "here how we are now able to use FTP at least in the background.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 412.67,
+          "end": 418.88,
+          "en": "But from an application perspective, this is now literally just a normal copy from one folder to another",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 418.88,
+          "end": 425.91,
+          "en": "with a small exception that of course it's quite a bit slower, but you can see how this works and how",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 425.91,
+          "end": 432.72,
+          "en": "you could, for example, combine this with a backup script that will just copy a file into a specific",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 432.72,
+          "end": 442.26,
+          "en": "folder and then curl Ftpfs takes care of the rest in in when you want to use this for real backup script,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 442.26,
+          "end": 445.26,
+          "en": "for example, or to automate certain tasks.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 445.32,
+          "end": 447.9,
+          "en": "This curl Ftpfs is an example.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 447.9,
+          "end": 454.95,
+          "en": "Of course in production we might want to add a few more options, maybe a Uuid or a Gid to not allow",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 454.95,
+          "end": 460.02,
+          "en": "all users to write to that file, but just the one user that's responsible for the backups.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 460.02,
+          "end": 466.68,
+          "en": "So of course we would try to restrict the permissions to the mounted folder a little bit with additional",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 466.68,
+          "end": 469.95,
+          "en": "mount options as you've seen, for example for Exfat.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 470.52,
+          "end": 475.83,
+          "en": "But aside from that, there would be a totally valid setup and all the programs would just work with",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 475.83,
+          "end": 476.19,
+          "en": "it.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 476.22,
+          "end": 480.48,
+          "en": "Please also note that few supports way more file systems.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 480.48,
+          "end": 486.15,
+          "en": "The idea is that we can just write the file system implementation without touching the kernel.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 486.15,
+          "end": 490.71,
+          "en": "So there can be a lot of developers that develop their own implementations.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 490.71,
+          "end": 495.93,
+          "en": "So for example, we could have a file system implementation for SSH FS.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 495.96,
+          "end": 500.7,
+          "en": "That's another protocol that we can communicate to another server with.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 501.33,
+          "end": 507.7,
+          "en": "Or there's another file system for Amazon S3 to connect that to a folder on your hard drive.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 507.72,
+          "end": 514.23,
+          "en": "So there are a lot of options that you have here, and I wanted to make sure here in this course that",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 514.23,
+          "end": 522.66,
+          "en": "I just show you the power of Fuse and how we can use it to mount drives through a network protocol.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 522.66,
+          "end": 525.72,
+          "en": "And you can adapt this to your own use case.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 525.72,
+          "end": 530.75,
+          "en": "And there are so many implementations there that this might greatly help you.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 530.76,
+          "end": 538.14,
+          "en": "For example, when you deploy your application or when you need to store your backups or access files",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 538.14,
+          "end": 539.46,
+          "en": "on another computer.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 539.46,
+          "end": 546.63,
+          "en": "So this is how it can work and you're now able to mount remote drives into your normal file system on",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 546.63,
+          "end": 548.04,
+          "en": "Linux through Fuse.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38500962",
+      "title": "The SMART Protocol: Proactive Drive Health Monitoring",
+      "lectureOrder": 262,
+      "videoOrder": 232,
+      "sourceHash": "69c635489eca3be38b762902fd34a7285d07dae19c061dacc08b21ba50d5674d",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.47,
+          "end": 6.17,
+          "en": "Now that we have learned a lot about file systems and how volumes work, let's now have a look at what",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.17,
+          "end": 9.53,
+          "en": "can possibly go wrong and how can we prevent errors.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.53,
+          "end": 11.66,
+          "en": "In one way is smart.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.99,
+          "end": 12.89,
+          "en": "What is that?",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.89,
+          "end": 15.92,
+          "en": "So physical drives deteriorate over time.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.92,
+          "end": 17,
+          "en": "They don't get better.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 17.18,
+          "end": 24.23,
+          "en": "They some errors might happen, but maybe the errors are just minor so they don't break the drive.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 24.26,
+          "end": 28.79,
+          "en": "But maybe the drive starts to have more and more errors.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 29.33,
+          "end": 35.36,
+          "en": "So because that might be an issue or it might tell us, okay, maybe here we need to replace that hard",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 35.36,
+          "end": 39.86,
+          "en": "drive those drives self-report their health through smart.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 40.37,
+          "end": 41.81,
+          "en": "That's a protocol.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 41.81,
+          "end": 48.98,
+          "en": "We can use the smart utility to check for errors so we can use smart Ctl all and then the name of the",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 48.98,
+          "end": 52.13,
+          "en": "device to get a list of those smart values.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 52.13,
+          "end": 55.04,
+          "en": "If we see something like this, everything is all right.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 55.04,
+          "end": 60.75,
+          "en": "So here, for example, the smart overall health self-assessment test result passed and if we get a",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 60.75,
+          "end": 63.57,
+          "en": "pass there, then probably everything is all right.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 63.57,
+          "end": 67.2,
+          "en": "It will also usually print out a lot of additional information.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 67.2,
+          "end": 69.72,
+          "en": "But we'll have a look at that later in this lecture.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 69.72,
+          "end": 70.74,
+          "en": "Important.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 70.95,
+          "end": 75.51,
+          "en": "This only evaluates the physical drive on a self reported hardware level.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 75.51,
+          "end": 80.78999999999999,
+          "en": "So, for example, if our hard drive would detect, hey, I do have quite a few read errors, I just",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 80.78999999999999,
+          "end": 87.6,
+          "en": "have to read sectors again until I get the results that everything matches.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 87.87,
+          "end": 95.03999999999999,
+          "en": "Um, it may not even show up on our operating system because maybe our operating system can still just",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 95.03999999999999,
+          "end": 95.72999999999999,
+          "en": "read it.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 96.6,
+          "end": 98.97,
+          "en": "But the drive might be struggling.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 98.97,
+          "end": 105.15,
+          "en": "So this smart is a way that the drive can communicate to us, Hey, I'm having some problems here.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 105.15,
+          "end": 107.94,
+          "en": "They are not urgent, they are not major.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 107.94,
+          "end": 114.6,
+          "en": "But maybe it's a good time to replace this drive here, for example, or an SSD could be like, Hey,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 114.6,
+          "end": 118.08,
+          "en": "I'm having quite a few problems with reading those sectors.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 118.08,
+          "end": 119.67,
+          "en": "I could correct those errors.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 119.67,
+          "end": 124.19,
+          "en": "Everything had been all right, but I'm having more and more of those problems.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 124.19,
+          "end": 131.15,
+          "en": "And this would then mean to us that it's also time to just replace that SSD just for the sake of preventing",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 131.15,
+          "end": 134.93,
+          "en": "any major problems when this error correction, for example, would not work.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 134.93,
+          "end": 141.05,
+          "en": "So this is a way that we can check for errors before usually before they actually happen.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 141.05,
+          "end": 143.84,
+          "en": "And if they happen, it also gives us some hints.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 144.29,
+          "end": 149.81,
+          "en": "Um, it's important to note that this only affects the physical drive on a hardware level.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 149.81,
+          "end": 154.64,
+          "en": "So if it's a hard disk or SSD, it only affects this drive on a hardware level.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 155.09,
+          "end": 157.57999999999998,
+          "en": "There might be other problems with our drive.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 157.57999999999998,
+          "end": 163.07,
+          "en": "So for example, with the partition table or with a file system that are on top of that physical layer,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 163.1,
+          "end": 166.01,
+          "en": "those of course will not be caught with smart.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 166.46,
+          "end": 168.92000000000002,
+          "en": "We will have to catch them in another way.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 169.1,
+          "end": 174.56,
+          "en": "By the way, another note, please note that we might have to install smart Ctl through, for example,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 174.56,
+          "end": 177.38,
+          "en": "the package smartmontools on our system.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 177.53,
+          "end": 179.63,
+          "en": "Let's just have a look at how that one works.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 179.63,
+          "end": 185.6,
+          "en": "So here you can see I've tried to execute the Smart Ctl program and we can see here command not found.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 185.63,
+          "end": 188.15,
+          "en": "This means we need to install this package.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 188.48,
+          "end": 190.52,
+          "en": "Smartmontools.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 190.52,
+          "end": 195.74,
+          "en": "I can install that on my system and we can see here it's now downloading and installing and everything",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 195.74,
+          "end": 196.55,
+          "en": "has worked.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 196.57999999999998,
+          "end": 204.2,
+          "en": "Now I can just repeat my previous command here, Smart Ctl all and then the device and we can see here,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 204.92000000000002,
+          "end": 208.7,
+          "en": "this is the the SSD here that's plugged in.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 208.73,
+          "end": 210.07999999999998,
+          "en": "The name of that SSD.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 210.38,
+          "end": 214.73,
+          "en": "It's a little bit uncommon name, but this is a virtual machine.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 214.73,
+          "end": 219.65,
+          "en": "So the the the virtual machine software has created that device.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 219.65,
+          "end": 223.73,
+          "en": "And probably given that that name, we can also see here it's an SSD.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 224.42000000000002,
+          "end": 228.53,
+          "en": "Um, and we can see here smart support is unavailable.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 228.53,
+          "end": 233.66,
+          "en": "This drive here does not support smart, which is kind of to be expected because it's not an actual",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 233.66,
+          "end": 237.86,
+          "en": "physical drive because this is an Ubuntu that's running in a virtual machine.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 237.86,
+          "end": 242.61,
+          "en": "So we can't really work with smart through this device here.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 242.61,
+          "end": 250.59,
+          "en": "But I have a network attached storage on my computer or in my network and there I have also quite a",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 250.59,
+          "end": 255.18,
+          "en": "few hard disks in that one and I've now connected to that one.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 255.18,
+          "end": 262.53,
+          "en": "And here I can also use smart Ctl and I can just use that one for example, on the device dev SDA to",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 262.53,
+          "end": 264.63,
+          "en": "check the health of that device.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 265.47,
+          "end": 270.9,
+          "en": "I have now just entered my password and we can see here now we do get quite a bit of output here.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 270.9,
+          "end": 276.99,
+          "en": "So if we go through this one here, we can see here smart support here is available.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 276.99,
+          "end": 282.03,
+          "en": "We can also see this is the name of that device, iron wall, for example.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 282.03,
+          "end": 287.07,
+          "en": "We can see here how large it is and we can see this device supports smart.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 287.1,
+          "end": 293.19,
+          "en": "We can also see overall everything looks all right, but we can see quite a few smart values here.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 294.28,
+          "end": 300.88,
+          "en": "So for example here, um, self text, self test execution status looks all right.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 300.88,
+          "end": 306.88,
+          "en": "And here it tells us how long it took there so we can see what has happened here.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 307.31,
+          "end": 312.99,
+          "en": "Um, and yeah, these are just some information about this drive, what it's self reporting there.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 313,
+          "end": 318.94,
+          "en": "I have to say it's reporting quite a bit, but the idea is that we could, for example, monitor that",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 318.94,
+          "end": 323.35,
+          "en": "and then for example, compare it between different drives if we were like a big data center.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 323.35,
+          "end": 325.15,
+          "en": "So I guess it does make sense.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 325.3,
+          "end": 329.65,
+          "en": "We also have a few vendor specific smart attributes here.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 329.65,
+          "end": 338.02,
+          "en": "So for example, here my drive is reporting an error rate here and we can see here, um, this entry",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 338.02,
+          "end": 340.45,
+          "en": "here, it's this two lines here.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 340.45,
+          "end": 345.76,
+          "en": "We can see here the current value, the worst value after one when it's critical.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 345.76,
+          "end": 352.27,
+          "en": "I think here for the raw error rate, the way it's calculated is that if it's higher than the threshold,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 352.27,
+          "end": 353.40999999999997,
+          "en": "everything is all right.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 353.40999999999997,
+          "end": 356.48,
+          "en": "So then my drive was able to correct it automatically.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 356.48,
+          "end": 357.95,
+          "en": "And there's no risk here.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 358.37,
+          "end": 359,
+          "en": "Apparently.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 359,
+          "end": 360.8,
+          "en": "Here a higher value is better.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 361.34,
+          "end": 369.29,
+          "en": "We can also see, for example, the start stop count how often our drive has been started and stopped.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 369.29,
+          "end": 375.68,
+          "en": "So we do have quite a few additional information here or how many hours my drive was running here,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 375.68,
+          "end": 376.67,
+          "en": "for example.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 376.94,
+          "end": 383.3,
+          "en": "Um, so you can see how that could give us some hints about the health of our drive or even here, the",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 383.3,
+          "end": 391.85,
+          "en": "temperature here in this case, in this computer, there's not just one drive, but also a second one",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 391.85,
+          "end": 398.72,
+          "en": "that would be dev SDB, a third one here and up to I think I have five drives in that computer.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 398.72,
+          "end": 401.6,
+          "en": "So we can also check that for the other ones.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 401.6,
+          "end": 406.46,
+          "en": "And there we can see, for example, another drive is two degrees higher, probably because those drives",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 406.49,
+          "end": 408.83,
+          "en": "are stacked next to each other.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 408.83,
+          "end": 410.27,
+          "en": "But but everything is all right.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 410.42,
+          "end": 414.5,
+          "en": "The threshold here, I think it's 40.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 414.92,
+          "end": 421.64,
+          "en": "Yeah, it's probably 40 degrees after what When it's critical or it would be it would be a notice then.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 421.64,
+          "end": 425.69,
+          "en": "But that's totally all right So you can see how that one here works.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 425.69,
+          "end": 430.04,
+          "en": "By the way, also, for example, on my Mac, I can also use Smart here.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 430.04,
+          "end": 437,
+          "en": "I can say smart Ctl Dash Dash All def Disc one, I think it's called The Drive.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 437,
+          "end": 443.15,
+          "en": "Names are a little bit different on Mac, but if I use that one, for example, you could see the result",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 443.15,
+          "end": 444.65,
+          "en": "of my SSD here.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 445.34,
+          "end": 454.25,
+          "en": "We can see, for example here that it's only, um, the uh, the SSD health is only 99%.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 454.43,
+          "end": 462.68,
+          "en": "The way SSDs work is that at some point sectors break and there's a spare SSD have a spare that they",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 462.68,
+          "end": 463.22,
+          "en": "can use.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 463.22,
+          "end": 470.24,
+          "en": "Then instead of those sectors and we can see here that 1% of this spare is already used here in my case.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 470.24,
+          "end": 477.14,
+          "en": "So if it would keep deteriorating in the same speed as it was right now, probably it would accelerate",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 477.14,
+          "end": 479.15,
+          "en": "at the end of this the life of the SSD.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 479.15,
+          "end": 484.67,
+          "en": "But if it would keep at the same rate, I could probably use this computer for another 100 years so",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 484.67,
+          "end": 487.31,
+          "en": "everything would be all right, but I should still catch it.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 488.03,
+          "end": 494.69,
+          "en": "Watch this one because maybe this one here, the percentage use starts to grow faster and faster and",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 494.69,
+          "end": 496.22,
+          "en": "then I would know, okay, here.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 496.22,
+          "end": 502.52,
+          "en": "I do need to be a little bit more careful to replace this SSD or if I can't replace it, to replace",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 502.52,
+          "end": 503.99,
+          "en": "the whole computer.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 503.99,
+          "end": 511.73,
+          "en": "So this is the smart status and how you can use it to detect potential errors on your devices.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38500964",
+      "title": "Ensuring Data Integrity: File System Checks",
+      "lectureOrder": 263,
+      "videoOrder": 233,
+      "sourceHash": "fbf8302f0700dc8e9859d0a0b44d18cb71392d75d4b8cd871458fb4dbd03c3ee",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.29,
+          "end": 4.26,
+          "en": "Let's now have a look at how we can check our file system for errors.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.28,
+          "end": 6.2,
+          "en": "Why is this important?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.29,
+          "end": 10.85,
+          "en": "Well, if everything works, this is not important.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.85,
+          "end": 15.68,
+          "en": "But once something doesn't work, for example, a file system can't be mounted or there would be a boot",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.68,
+          "end": 17.45,
+          "en": "problem or anything like this.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 17.45,
+          "end": 24.17,
+          "en": "Then file checking or file system checking would be the way to go to just see if everything is fine",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 24.17,
+          "end": 26.63,
+          "en": "from a file system perspective.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 26.78,
+          "end": 31.7,
+          "en": "So in this lecture we'll have a look at how we can check the file system for errors.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 32.24,
+          "end": 35.18,
+          "en": "When does it happen that a file system has errors?",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 35.6,
+          "end": 36.68,
+          "en": "This happens.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 36.83,
+          "end": 42.83,
+          "en": "For example, if there was a bug in the driver of a file system, this might sometimes happen.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 42.83,
+          "end": 48.11,
+          "en": "Actually, it sometimes also happens during unexpected power loss loss.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 48.11,
+          "end": 51.2,
+          "en": "So, for example, if the system didn't shut down properly.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 51.23,
+          "end": 54.05,
+          "en": "This was especially worse back in the days.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 54.05,
+          "end": 55.94,
+          "en": "It got way better nowadays.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 56.33,
+          "end": 64.89,
+          "en": "But even just like 10 or 20 years ago when I used Linux the first time, I routinely had problems whenever",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 64.89,
+          "end": 70.83,
+          "en": "there was, for example, a power outage for even just a few seconds, then the system has an unexpected",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 70.83,
+          "end": 74.64,
+          "en": "power loss and then during boot there might be some errors on the file system.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 74.64,
+          "end": 77.43,
+          "en": "Again, it's way better now, but it still might happen.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 77.94,
+          "end": 84.24,
+          "en": "Um, or another reason might be that the hard drive or SSD might just be old and lose data and maybe",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 84.24,
+          "end": 86.49,
+          "en": "not even fail in a visible way.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 86.49,
+          "end": 91.47,
+          "en": "I mean, maybe we can see it through smart, but maybe we haven't used Smart to see that ahead of time.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 91.47,
+          "end": 98.4,
+          "en": "So that might also be a reason for a file system error when the underlying physical media medium isn't",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 98.4,
+          "end": 99.50999999999999,
+          "en": "working properly.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 99.6,
+          "end": 107.22,
+          "en": "Important is that we should check our drives regularly and this can help to prevent data loss.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 107.84,
+          "end": 115.37,
+          "en": "However, there are quite a few limitations to when we can do the file checking or the file system checking",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 115.91,
+          "end": 123.68,
+          "en": "that make it really difficult to justify just checking our data on a production server if that server",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 123.68,
+          "end": 130.79,
+          "en": "needs to be running, for example, 24 over seven because well, one reason is that when we want to",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 130.79,
+          "end": 136.31,
+          "en": "check a file system for errors, at least for ext4, the normal file system on Linux, the drive needs",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 136.31,
+          "end": 139.82,
+          "en": "to be unmounted and should not be encrypted, not be encrypted.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 139.82,
+          "end": 143.27,
+          "en": "It's not that difficult because that's the default.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 143.27,
+          "end": 149.51,
+          "en": "But the drive needs to be unmounted and that pretty much means we can't use our server at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 149.9,
+          "end": 155.69,
+          "en": "So the way I solve that for a previous project of mine was that I would do it maybe like once or twice",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 155.69,
+          "end": 161.66,
+          "en": "a year, and then during a time where I knew there was a holiday day and there would be no nobody would",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 161.66,
+          "end": 163.1,
+          "en": "be using that system.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 163.55,
+          "end": 165.23,
+          "en": "In my case, that was possible.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 165.23,
+          "end": 171.15,
+          "en": "But I do agree probably for, for example, for a public website, this might not be possible.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 171.15,
+          "end": 177.6,
+          "en": "And there the way to go would be to, well, if you really want to do this to, for example, use a",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 177.6,
+          "end": 182.22,
+          "en": "cloud and then you can just turn off one machine and the other machine could take over.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 182.22,
+          "end": 184.44,
+          "en": "So in that case, that would be the way to go.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 184.44,
+          "end": 190.62,
+          "en": "If you do want to insist on doing those file system checks every now and then.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 190.62,
+          "end": 195.48,
+          "en": "But yeah, so at least for ext4, the drive needs to be unmounted.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 195.51,
+          "end": 203.04,
+          "en": "The next thing is that we then can trigger a check, we can say f check and then on the device, please",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 203.04,
+          "end": 205.74,
+          "en": "note we usually need additional privileges for that.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 205.74,
+          "end": 207.42000000000002,
+          "en": "So we need root privileges for that.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 207.42000000000002,
+          "end": 212.97,
+          "en": "So we need a pseudo in front, but this would then trigger a check on a specific partition.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 213.6,
+          "end": 218.07,
+          "en": "On some systems, it might be necessary to also specify the file system.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 218.07,
+          "end": 224.31,
+          "en": "So for example, like this, the way it works is that this is a program and if this one here detects",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 224.31,
+          "end": 230.61,
+          "en": "that on this partition, there's Ext4, then this program will internally call this program to do the",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 230.61,
+          "end": 231.6,
+          "en": "actual check.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 231.81,
+          "end": 238.23,
+          "en": "But if that one doesn't work, we would have to write it like this to run the check on our on our file",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 238.23,
+          "end": 238.92000000000002,
+          "en": "system.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 239.04,
+          "end": 241.5,
+          "en": "So let's just have a look at how that works.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 241.5,
+          "end": 250.53,
+          "en": "So I can just say sudo f filesystem check on the device dev SDB one, I think it was here.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 250.53,
+          "end": 255.87,
+          "en": "And in that case, okay, I do need to enter my password first, but then we can see here right now",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 255.87,
+          "end": 260.28,
+          "en": "this file or this device is mounted so we can't continue.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 261.42,
+          "end": 265.38,
+          "en": "So now what I need to do is that I need to unmount that drive.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 266.53,
+          "end": 269.47,
+          "en": "Step one, I can just unmount it and now repeat it.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 269.47,
+          "end": 272.11,
+          "en": "And now we can see here everything has worked properly.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 272.11,
+          "end": 273.04,
+          "en": "It looks clean.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 273.04,
+          "end": 274.27,
+          "en": "Everything looks all right.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 274.27,
+          "end": 278.92,
+          "en": "There are not a lot of files on that in that file system.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 278.92,
+          "end": 281.29,
+          "en": "So it goes really, really fast.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 281.29,
+          "end": 288.07,
+          "en": "But if it was a bigger, um, hard drive with more, um, space used, then of course this would take",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 288.07,
+          "end": 288.7,
+          "en": "longer.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 289.39,
+          "end": 292.15,
+          "en": "Um, how can we check the root file system then?",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 292.18,
+          "end": 294.77,
+          "en": "If I told you before it needs to be unmounted?",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 294.79,
+          "end": 301.45,
+          "en": "Well, if we have grub enabled and we do have access to grub, then we can set check mode equals to",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 301.45,
+          "end": 301.9,
+          "en": "force.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 301.9,
+          "end": 302.98,
+          "en": "To force.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 303.4,
+          "end": 307.51,
+          "en": "Um, um, uh, file check during the next boot.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 307.87,
+          "end": 312.67,
+          "en": "By the way, if grub doesn't show up, we have seen that in the chapter about the boot process.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 312.67,
+          "end": 315.97,
+          "en": "We had a lecture there, how grub works and how you can enable it.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 316.48,
+          "end": 321.04,
+          "en": "So this will force a file check during the next boot.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 321.07,
+          "end": 322.36,
+          "en": "We can just see it here.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 322.36,
+          "end": 327.17,
+          "en": "So, for example, here, I could now just trigger a reboot here on my machine.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 327.92,
+          "end": 329.3,
+          "en": "Um, restart.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 329.66,
+          "end": 337.94,
+          "en": "So now my computer is restarting and now here in the grub menu, I could press the key to edit this,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 337.94,
+          "end": 340.22,
+          "en": "um, this grub entry here.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 340.28,
+          "end": 344.12,
+          "en": "And this is the way how my Linux system will be started.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 344.12,
+          "end": 347.21,
+          "en": "And here I could now just add an option here.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 347.42,
+          "end": 352.31,
+          "en": "Check mode equals force to my Linux line to my boot options here.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 352.31,
+          "end": 363.29,
+          "en": "So I could add here the line FS check mode equals to force force and then I can just press F10 to boot.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 363.29,
+          "end": 368.66,
+          "en": "So I now press that key and now we are booting it with this additional boot option.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 368.66,
+          "end": 370.94,
+          "en": "So let's see what's going to happen now.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 370.94,
+          "end": 376.94,
+          "en": "And let me now just freeze the frame because it really goes really, really fast here.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 376.94,
+          "end": 380.57,
+          "en": "You can see how it has checked the file system during mount.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 380.87,
+          "end": 386.03,
+          "en": "By the way, if you don't see those text messages during boot, but more like a loading screen, that",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 386.03,
+          "end": 387.74,
+          "en": "was the case for me on CentOS.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 387.77,
+          "end": 393.83,
+          "en": "It should be enough to just press the escape key and then you should be able to see all of those messages",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 393.83,
+          "end": 395.12,
+          "en": "on your screen as well.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 395.15,
+          "end": 401.63,
+          "en": "Please note you might have to reboot because it might only show future messages here, but that would",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 401.63,
+          "end": 402.92,
+          "en": "be then the way to go.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 403.19,
+          "end": 404.69,
+          "en": "If that was too fast.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 404.69,
+          "end": 413.42,
+          "en": "I could also just use Journal Ctl and I could say, okay, let's just print the logs and I could for",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 413.42,
+          "end": 416.58,
+          "en": "example, now filter for those file system checks.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 416.58,
+          "end": 421.91,
+          "en": "So I'm only interested in the logs for the current boot logs and those boot logs.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 421.91,
+          "end": 427.37,
+          "en": "I want to filter with grep for example, by file system or something like this.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 427.37,
+          "end": 433.85,
+          "en": "And then you can see here file system check for this Uuid, this has been finished and then the next",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 433.85,
+          "end": 435.08,
+          "en": "one and the next one.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 435.08,
+          "end": 439.19,
+          "en": "And you can see how now this check has been executed here.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 439.83,
+          "end": 442.29,
+          "en": "This one has also worked on S.o.s for me.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 442.29,
+          "end": 449.1,
+          "en": "So here I can just say journalctl minus B to show everything since the last boot and then we can see",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 449.1,
+          "end": 452.7,
+          "en": "all those boot messages and it's logging quite a bit.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 452.7,
+          "end": 458.37,
+          "en": "So in my case, on my machine I had to scroll down about 650 lines.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 458.37,
+          "end": 461.61,
+          "en": "So I'm now just scrolling down with the arrow key.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 461.61,
+          "end": 469.11,
+          "en": "I could also use the page down key to do it a little bit faster, but at some point at about line 650,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 469.59000000000003,
+          "end": 475.71,
+          "en": "we should see that our file system check is running here and here we can see starting file system check",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 475.71,
+          "end": 478.74,
+          "en": "and it's running that on our llVM volume.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 478.74,
+          "end": 482.1,
+          "en": "That's why we have this mapper here, this def mapper.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 482.1,
+          "end": 483.12,
+          "en": "It's an llVM volume.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 483.12,
+          "end": 485.82,
+          "en": "But again, llVM is a topic of a later chapter.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 485.82,
+          "end": 489.39,
+          "en": "But here we can see how it's checking this file system.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 489.39,
+          "end": 494.82,
+          "en": "It looks a little bit different first because we are running, in my case at least, my center is running",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 494.82,
+          "end": 495.81,
+          "en": "on an llVM.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 495.81,
+          "end": 500.74,
+          "en": "And the second difference to Ubuntu is that's a different type of file system.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 500.74,
+          "end": 505.93,
+          "en": "So that's also why it looks a little bit different here, but we can see that the general concept is",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 505.93,
+          "end": 510.1,
+          "en": "the same in a sense that our file system is being verified on boot.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 510.43,
+          "end": 517.87,
+          "en": "So this is the way if you want to trigger a full file system, check If this one doesn't work, you",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 517.87,
+          "end": 522.31,
+          "en": "could, of course, if you don't, for example, because you don't have access to grub and you are unable",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 522.31,
+          "end": 528.1,
+          "en": "to change any boot options there, you could always boot a live Linux from a USB drive or when you have",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 528.1,
+          "end": 532.03,
+          "en": "a server from the back end there and then check the file system from there.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 532.03,
+          "end": 533.89,
+          "en": "How you can use a live system.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 533.89,
+          "end": 540.79,
+          "en": "We will have a look at this in a full software upgrade chapter here where the full software upgrade",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 540.79,
+          "end": 542.47,
+          "en": "will break the whole system.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 542.47,
+          "end": 544.69,
+          "en": "But that's one of the next chapters.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 544.69,
+          "end": 548.59,
+          "en": "But you could use the same live Linux to fix your file system.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 548.59,
+          "end": 553.87,
+          "en": "Again, if the server needs to be available 24 over seven, it's a judgment call whether you actually",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 553.87,
+          "end": 559.15,
+          "en": "want to check the file system and reboot the server just for that and then it's offline for a while.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 559.3,
+          "end": 564.43,
+          "en": "The next thing that I would like to show you is how you can enable automatic file system checks.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 564.43,
+          "end": 569.98,
+          "en": "Those are especially useful on desktop machines where it's okay if the boot procedure might take a few",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 569.98,
+          "end": 574.9,
+          "en": "minutes longer every now and then, but we will have a look at that in the next lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

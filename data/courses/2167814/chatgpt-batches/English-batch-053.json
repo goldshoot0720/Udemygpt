@@ -1,0 +1,5111 @@
+{
+  "version": 1,
+  "courseId": 2167814,
+  "courseSlug": "spring-5-with-spring-boot-2",
+  "courseTitle": "Java Spring Framework, Spring Boot, Spring AI - Gen AI",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "41665568",
+      "title": "Dispatcher Servlet",
+      "lectureOrder": 221,
+      "videoOrder": 220,
+      "sourceHash": "e4443f8b6cbb3f2ea1cdad5cc663a56b1eaafb90e621ecf6fa17567a69af6dac",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0,
+          "end": 3.21,
+          "en": "(gentle music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.21,
+          "end": 6.27,
+          "en": "-: So, we have created this project off SpringMVC,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.27,
+          "end": 7.77,
+          "en": "and that is a Maven project, right?",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.77,
+          "end": 9.63,
+          "en": "And then, when we were trying to run the project,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 9.63,
+          "end": 10.98,
+          "en": "it is not working.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 10.98,
+          "end": 12.81,
+          "en": "Now, mind you, we do have a controller.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 12.81,
+          "end": 15.66,
+          "en": "So if you see the code, we do have a controller here,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 15.66,
+          "end": 16.65,
+          "en": "which is HomeController.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 16.65,
+          "end": 20.34,
+          "en": "And then, we do have a mapping for the homepage.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 20.34,
+          "end": 22.44,
+          "en": "It should return the index.jsp,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 22.44,
+          "end": 25.62,
+          "en": "but what you got here is not found.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 25.62,
+          "end": 26.97,
+          "en": "What went wrong here?",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 26.97,
+          "end": 29.01,
+          "en": "See, the thing is, this is not a Spring Boot project.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 29.01,
+          "end": 31.59,
+          "en": "This is a normal Maven project.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 31.59,
+          "end": 34.86,
+          "en": "Now even if you added your Spring dependencies here,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 34.86,
+          "end": 37.65,
+          "en": "your Maven has no idea that it has to call",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 37.65,
+          "end": 38.7,
+          "en": "this particular controller.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 38.7,
+          "end": 40.41,
+          "en": "It's because in this Maven project,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 40.41,
+          "end": 42.09,
+          "en": "which we are running on Tomcat,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 42.09,
+          "end": 44.7,
+          "en": "now Tomcat being a Servlet Container,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 44.7,
+          "end": 47.4,
+          "en": "it is responsible to run the servlets.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 47.4,
+          "end": 49.32,
+          "en": "But then there has to be mapping, right?",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 49.32,
+          "end": 53.76,
+          "en": "So there have to be a mapping for a request and a servlet.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 53.76,
+          "end": 54.99,
+          "en": "And we are not doing that.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 54.99,
+          "end": 56.64,
+          "en": "Of course, we will say there is a controller,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 56.64,
+          "end": 59.28,
+          "en": "but then your Tomcat has no idea.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 59.28,
+          "end": 60.87,
+          "en": "The thing is, in Spring Framework,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 60.87,
+          "end": 62.58,
+          "en": "we can have multiple controllers, right?",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 62.58,
+          "end": 64.47,
+          "en": "As I mentioned before, for different requests,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 64.47,
+          "end": 65.76,
+          "en": "we'll be having different controllers.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 65.76,
+          "end": 67.8,
+          "en": "And to navigate to different controllers,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 67.8,
+          "end": 69.15,
+          "en": "we have our Front controllers.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 69.15,
+          "end": 71.1,
+          "en": "So basically, you have a client,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 71.1,
+          "end": 73.56,
+          "en": "and then you have a lot of controllers on the other side.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 73.56,
+          "end": 75.18,
+          "en": "But when a client sends a request,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 75.18,
+          "end": 77.52,
+          "en": "the request will not directly go to a particular controller.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 77.52,
+          "end": 80.25,
+          "en": "The request will go to something called a Front controller.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 80.25,
+          "end": 82.2,
+          "en": "Now, this sits in between.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 82.2,
+          "end": 84.75,
+          "en": "And your Front controller is responsible",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 84.75,
+          "end": 86.13,
+          "en": "to send a particular request",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 86.13,
+          "end": 87.33,
+          "en": "to a particular controller.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 87.33,
+          "end": 89.13,
+          "en": "So let's say if you request for the homepage,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 89.13,
+          "end": 91.5,
+          "en": "it is a job of your Front controller to know",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 91.5,
+          "end": 92.88,
+          "en": "that I have a controller here",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 92.88,
+          "end": 95.67,
+          "en": "who can accept the request for the homepage.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 95.67,
+          "end": 97.44,
+          "en": "Let's say you request for an addition of two numbers.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 97.44,
+          "end": 98.61,
+          "en": "You are saying add.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 98.61,
+          "end": 99.9,
+          "en": "Now, you have a controller there",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 99.9,
+          "end": 101.88,
+          "en": "who is responsible to add two numbers.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 101.88,
+          "end": 103.56,
+          "en": "Now, your front controller will know that,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 103.56,
+          "end": 105.87,
+          "en": "hey, we have a controller there who can add two numbers",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 105.87,
+          "end": 107.55,
+          "en": "with a request \"add\".",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 107.55,
+          "end": 108.9,
+          "en": "Now, this controller,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 108.9,
+          "end": 110.7,
+          "en": "the Front controller in Spring Framework",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 110.7,
+          "end": 113.34,
+          "en": "is called a DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 113.34,
+          "end": 116.58,
+          "en": "So this is the first servlet which you have to go to.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 116.58,
+          "end": 119.00999999999999,
+          "en": "And then this will navigate to different controllers.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 119.00999999999999,
+          "end": 121.53,
+          "en": "Now, in this project, we do have a controller,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 121.53,
+          "end": 123.75,
+          "en": "but we don't have a DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 123.75,
+          "end": 127.2,
+          "en": "Now, do we have to create our own DispatcherServlet? No.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 127.2,
+          "end": 128.25,
+          "en": "Basically, Spring says,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 128.25,
+          "end": 130.32,
+          "en": "don't worry, I do have a DispatcherServlet,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 130.32,
+          "end": 131.88,
+          "en": "you just have to configure it.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 131.88,
+          "end": 133.5,
+          "en": "So you have to tell your Tomcat,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 133.5,
+          "end": 135.63,
+          "en": "hey, you know, every time you send a request,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 135.63,
+          "end": 138.21,
+          "en": "send the request to the DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 138.21,
+          "end": 139.44,
+          "en": "DispatcherServlet will take care",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 139.44,
+          "end": 141.24,
+          "en": "of the remaining operations.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 141.24,
+          "end": 142.98,
+          "en": "Now, how will you configure that?",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 142.98,
+          "end": 145.26,
+          "en": "Now see, one of the file which goes,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 145.26,
+          "end": 146.94,
+          "en": "I mean every time you run this project,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 146.94,
+          "end": 149.25,
+          "en": "your Tomcat goes to one file,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 149.25,
+          "end": 151.35,
+          "en": "which is the web.xml.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 151.35,
+          "end": 152.7,
+          "en": "Now, this is where you have to mention,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 152.7,
+          "end": 153.96,
+          "en": "hey, you know, when you send a request,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 153.96,
+          "end": 156,
+          "en": "send request to this particular servlet.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 156,
+          "end": 159.45,
+          "en": "And the way you do that is by providing two tags.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 159.45,
+          "end": 163.05,
+          "en": "So basically the first tag is the servlet tag",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 163.05,
+          "end": 167.55,
+          "en": "and the second one is the servlet-mapping tag.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 167.55,
+          "end": 169.82999999999998,
+          "en": "So basically, we have to use this too,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 169.82999999999998,
+          "end": 171.78,
+          "en": "which is servlet tag and servlet-mapping tag.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 171.78,
+          "end": 173.49,
+          "en": "Now, in this servlet mapping,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 173.49,
+          "end": 177.32999999999998,
+          "en": "basically this is where you mention the url-pattern.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 177.32999999999998,
+          "end": 179.25,
+          "en": "So you can say for all the requests,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 179.25,
+          "end": 181.44,
+          "en": "doesn't matter what request we are getting.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 181.44,
+          "end": 183.21,
+          "en": "For all the requests,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 183.21,
+          "end": 185.67,
+          "en": "send the request to this particular servlet.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 185.67,
+          "end": 187.02,
+          "en": "Now, which servlet I am talking about?",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 187.02,
+          "end": 190.44,
+          "en": "I'm talking about the DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 190.44,
+          "end": 191.79,
+          "en": "Now, how do you get DispatcherServlet?",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 191.79,
+          "end": 193.47,
+          "en": "So, if you go to your dependency,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 193.47,
+          "end": 194.85,
+          "en": "of course, I know the full name,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 194.85,
+          "end": 196.5,
+          "en": "but if you want to know the full name,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 196.5,
+          "end": 198.87,
+          "en": "even we can forgot that, right?",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 198.87,
+          "end": 200.73,
+          "en": "So if you expand your Maven Dependencies,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 200.73,
+          "end": 202.53,
+          "en": "we see something called webmvc.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 202.53,
+          "end": 204.15,
+          "en": "If you expand this,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 204.15,
+          "end": 208.2,
+          "en": "there's something called \"org.springframework.web.servlet.\"",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 208.2,
+          "end": 209.25,
+          "en": "And if you expand this,",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 209.25,
+          "end": 212.16,
+          "en": "you will find a DispatcherServlet here.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 212.16,
+          "end": 214.53,
+          "en": "This is the class you have to use.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 214.53,
+          "end": 218.4,
+          "en": "So I can simply copy the qualified name for it",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 218.4,
+          "end": 222.03,
+          "en": "and paste it here without the \".class\" extension.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 222.03,
+          "end": 222.863,
+          "en": "And that's done.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 222.863,
+          "end": 224.07,
+          "en": "So what we are saying is,",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 224.07,
+          "end": 226.5,
+          "en": "every time someone sends a request for the url-mapping",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 226.5,
+          "end": 229.89,
+          "en": "or this particular URL, which is the homepage,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 229.89,
+          "end": 232.35,
+          "en": "you have to call the DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 232.35,
+          "end": 234.48,
+          "en": "In fact, not just the homepage, any request.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 234.48,
+          "end": 236.52,
+          "en": "But then to map these two,",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 236.52,
+          "end": 237.864,
+          "en": "basically there are different tags, right?",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 237.864,
+          "end": 240.15,
+          "en": "Servlet and servlet-mapping are two different tags.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 240.15,
+          "end": 241.62,
+          "en": "If you want to connect these two,",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 241.62,
+          "end": 243.72,
+          "en": "you have to add one more tag here,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 243.72,
+          "end": 246.09,
+          "en": "which is your servlet-name.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 246.09,
+          "end": 247.53,
+          "en": "Of course, you can name anything here.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 247.53,
+          "end": 249.99,
+          "en": "I can say \"dispatcher\" or I can say \"telusko\".",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 249.99,
+          "end": 252.72,
+          "en": "Let's say I'm going for the servlet name as \"telusko\".",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 252.72,
+          "end": 254.203,
+          "en": "And here also, you have to do the same thing,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 254.203,
+          "end": 256.2,
+          "en": "\"<servlet-name>telusko\".",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 256.2,
+          "end": 258.09,
+          "en": "You have to make sure these two are the same",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 258.09,
+          "end": 260.4,
+          "en": "because you can have multiple servlet tags",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 260.4,
+          "end": 261.63,
+          "en": "in this particular file",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 261.63,
+          "end": 263.76,
+          "en": "for different URL or mapping.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 263.76,
+          "end": 266.85,
+          "en": "But at this point, I want to make sure that I only have one.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 266.85,
+          "end": 270.42,
+          "en": "So for all of the requests, call the display servlet.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 270.42,
+          "end": 273.45,
+          "en": "And to map these two, we have to use \"telusko\", \"telusko\".",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 273.45,
+          "end": 275.25,
+          "en": "Okay, now we have done the mapping.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 275.25,
+          "end": 277.53,
+          "en": "Now we are saying, hey Tomcat,",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 277.53,
+          "end": 278.90999999999997,
+          "en": "every time you get a request,",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 278.90999999999997,
+          "end": 280.68,
+          "en": "send the request to the DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 280.68,
+          "end": 283.47,
+          "en": "DispatcherServlet will take care of the other operations.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 283.47,
+          "end": 285.27,
+          "en": "I hope this time this will work now.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 285.27,
+          "end": 287.01,
+          "en": "Let's run this application.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 287.01,
+          "end": 289.11,
+          "en": "You can see there is no problem.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 289.11,
+          "end": 290.76,
+          "en": "Tomcat started.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 290.76,
+          "end": 293.28,
+          "en": "So let me go to the browser and run.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 293.28,
+          "end": 295.26,
+          "en": "Okay, I think I missed one more.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 295.26,
+          "end": 296.4,
+          "en": "Let me just change the configuration,",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 296.4,
+          "end": 297.6,
+          "en": "this is still not working.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 297.6,
+          "end": 298.74,
+          "en": "So I will go to the Build Path.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 298.74,
+          "end": 302.04,
+          "en": "I'm not sure if it is accepting our Tomcat data.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 302.04,
+          "end": 302.873,
+          "en": "We'll go to library.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 302.873,
+          "end": 305.31,
+          "en": "Okay, so we have forgot to add the Tomcat library here.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 305.31,
+          "end": 307.35,
+          "en": "So sometimes, if it doesn't work,",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 307.35,
+          "end": 309.12,
+          "en": "please check your Build Path.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 309.12,
+          "end": 313.14,
+          "en": "So what I did, is I right-clicked on my project,",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 313.14,
+          "end": 314.61,
+          "en": "go to the Build Path.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 314.61,
+          "end": 315.443,
+          "en": "And that's what, you know,",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 315.443,
+          "end": 317.1,
+          "en": "when you work with normal SpringMVC",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 317.1,
+          "end": 318.311,
+          "en": "or normal Spring Framework,",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 318.311,
+          "end": 319.86,
+          "en": "you have to do a lot of configuration.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 319.86,
+          "end": 321.63,
+          "en": "And if you're thinking you'll be doing this every time,",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 321.63,
+          "end": 322.463,
+          "en": "not exactly.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 322.463,
+          "end": 324.57,
+          "en": "This configuration will be done only once",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 324.57,
+          "end": 325.71,
+          "en": "when you start the project.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 325.71,
+          "end": 326.64,
+          "en": "So click on library.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 326.64,
+          "end": 329.25,
+          "en": "First of all, I will change my Java version to Java 21",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 329.25,
+          "end": 330.87,
+          "en": "because that's what I'm using.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 330.87,
+          "end": 331.74,
+          "en": "Finish.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 331.74,
+          "end": 335.7,
+          "en": "And then here, I want to add the Runtime as well.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 335.7,
+          "end": 336.84000000000003,
+          "en": "Just on the safer side.",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 336.84000000000003,
+          "end": 338.94,
+          "en": "Click on Apply and Close.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 338.94,
+          "end": 340.2,
+          "en": "Let's see if this works now.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 340.2,
+          "end": 342.36,
+          "en": "Restart the server, go back, refresh.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 342.36,
+          "end": 343.47,
+          "en": "Still not working.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 343.47,
+          "end": 345.33,
+          "en": "Okay, so now when I'm running this,",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 345.33,
+          "end": 348.3,
+          "en": "there was some issue with the cashier or something.",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 348.3,
+          "end": 350.01,
+          "en": "So you can see when I run this now,",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 350.01,
+          "end": 351.36,
+          "en": "we got a different error.",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 351.36,
+          "end": 353.13,
+          "en": "So this time you're not getting 404.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 353.13,
+          "end": 354.78,
+          "en": "That means it was able to find it.",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 354.78,
+          "end": 356.94,
+          "en": "We got a different error, which is the 500.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 356.94,
+          "end": 359.37,
+          "en": "It says \"Internal Server Error\".",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 359.37,
+          "end": 361.53,
+          "en": "Now, if you read the error",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 361.53,
+          "end": 363.75,
+          "en": "and that's what you do when you get the errors, right?",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 363.75,
+          "end": 366.24,
+          "en": "So it says, if you see the Root Cause,",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 366.24,
+          "end": 369.3,
+          "en": "it says there is a problem with the IOException",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 369.3,
+          "end": 370.38,
+          "en": "with the XML file.",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 370.38,
+          "end": 372.87,
+          "en": "It's because it is not able to.",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 372.87,
+          "end": 376,
+          "en": "I mean, from this file, which is called telusko-servlet.xml.",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 376,
+          "end": 377.28,
+          "en": "Okay, now this is weird",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 377.28,
+          "end": 379.08,
+          "en": "because we don't even have this file",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 379.08,
+          "end": 381.39,
+          "en": "and if you go down it actually says",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 381.39,
+          "end": 383.43,
+          "en": "you don't have this file.",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 383.43,
+          "end": 385.47,
+          "en": "But why do we need this file?",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 385.47,
+          "end": 388.35,
+          "en": "I mean that's crazy, right? We got the DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 388.35,
+          "end": 390.495,
+          "en": "It should send the request to DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 390.495,
+          "end": 391.328,
+          "en": "And you know what?",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 391.328,
+          "end": 394.073,
+          "en": "It is actually sending the request to the DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 394.073,
+          "end": 396.06,
+          "en": "But DispatcherServlet has its own problem.",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 396.06,
+          "end": 397.89,
+          "en": "DispatcherServlet says, if you want me to work,",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 397.89,
+          "end": 400.86,
+          "en": "and if you want me to understand different controllers",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 400.86,
+          "end": 403.77,
+          "en": "and mapping, you have to configure me.",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 403.77,
+          "end": 406.14,
+          "en": "Of course, we were expecting that the DispatcherServlet",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 406.14,
+          "end": 410.07,
+          "en": "will be a magician to know all the controllers, but not.",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 410.07,
+          "end": 411.96,
+          "en": "We have to configure that as well.",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 411.96,
+          "end": 413.04,
+          "en": "And how do you configure?",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 413.04,
+          "end": 415.62,
+          "en": "How do you talk to dispatch servlet?",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 415.62,
+          "end": 417.27,
+          "en": "And that's where we have to create this file,",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 417.27,
+          "end": 419.61,
+          "en": "which is telusko-servlet.",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 419.61,
+          "end": 420.443,
+          "en": "How do we do that?",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 420.443,
+          "end": 421.79,
+          "en": "Let's see in the next video.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "41665570",
+      "title": "Configuring the DispatcherServlet",
+      "lectureOrder": 222,
+      "videoOrder": 221,
+      "sourceHash": "11ebfa47ca128eb8bf681840669394e349c389f2d7f0af03b7663bd74a5229d9",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0,
+          "end": 3.24,
+          "en": "(gentle music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.24,
+          "end": 6.81,
+          "en": "-: It's time to configure our DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.81,
+          "end": 8.46,
+          "en": "And the way you do that, the way you talk",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.46,
+          "end": 10.92,
+          "en": "to a DispatcherServlet is with the help of this file.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.92,
+          "end": 12.39,
+          "en": "See, there are multiple ways of doing this.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 12.39,
+          "end": 15.09,
+          "en": "You can also use the Java based configuration",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 15.09,
+          "end": 18.24,
+          "en": "using annotations, but then we'll be using XML here,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 18.24,
+          "end": 20.82,
+          "en": "just to understand what happens behind the scene.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 20.82,
+          "end": 22.144,
+          "en": "Okay, so I will create this file.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 22.144,
+          "end": 25.481,
+          "en": "So this is telusko-servlet.xml.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 25.481,
+          "end": 27.78,
+          "en": "I will create this file. But then where?",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 27.78,
+          "end": 29.7,
+          "en": "The folder is /WEB-INF.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 29.7,
+          "end": 31.44,
+          "en": "This is where it is expecting it to be.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 31.44,
+          "end": 32.4,
+          "en": "That's the first thing.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 32.4,
+          "end": 35.97,
+          "en": "Second, why it has this name, telusko-servlet?",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 35.97,
+          "end": 37.29,
+          "en": "Why not something else?",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 37.29,
+          "end": 41.22,
+          "en": "It's because if you look at your project, the name",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 41.22,
+          "end": 43.86,
+          "en": "of your servlet we are mentioning as telusko, right?",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 43.86,
+          "end": 46.59,
+          "en": "That's why it says telusko-servlet.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 46.59,
+          "end": 48.09,
+          "en": "If you give a different name, let's say",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 48.09,
+          "end": 51.69,
+          "en": "if you give a name, t1, t2, or whatever you want to,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 51.69,
+          "end": 55.44,
+          "en": "so it will be that, what the name, -servlet.xml.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 55.44,
+          "end": 57.72,
+          "en": "And that's why we got that particular file.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 57.72,
+          "end": 60.45,
+          "en": "So let's create the file. So I will just right click here.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 60.45,
+          "end": 61.56,
+          "en": "And say, \"Hey,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 61.56,
+          "end": 66.33,
+          "en": "I want to create a new XML file,\" which is here.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 66.33,
+          "end": 71.33,
+          "en": "Click on Next. Name this file, which is telusko-servlet.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 71.46000000000001,
+          "end": 73.71000000000001,
+          "en": "And if you Enter, you got your file.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 73.71000000000001,
+          "end": 75.93,
+          "en": "And now in this, we have to do the configuration.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 75.93,
+          "end": 77.73,
+          "en": "Now what configuration I'm talking about?",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 77.73,
+          "end": 79.74,
+          "en": "See, basically we are not, we don't have",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 79.74,
+          "end": 82.56,
+          "en": "to actually manually mention each controller.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 82.56,
+          "end": 86.22,
+          "en": "Reason being, we are using annotations here,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 86.22,
+          "end": 88.17,
+          "en": "you can see we are doing the mapping here.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 88.17,
+          "end": 89.76,
+          "en": "But what if you don't want to do mapping",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 89.76,
+          "end": 91.83,
+          "en": "in the controller or in the class?",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 91.83,
+          "end": 93.57,
+          "en": "In that case, in this particular file,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 93.57,
+          "end": 94.65,
+          "en": "you have to do all the mapping.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 94.65,
+          "end": 96.75,
+          "en": "For this request, call this particular method,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 96.75,
+          "end": 99,
+          "en": "for this request, call this particular method.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 99,
+          "end": 100.08,
+          "en": "And I don't wanna do that, right?",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 100.08,
+          "end": 102.18,
+          "en": "So we do have annotation there.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 102.18,
+          "end": 105.09,
+          "en": "So we just have to mention to your DispatcherServlet",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 105.09,
+          "end": 107.28,
+          "en": "by saying, \"Hey, you know, I'm using annotations",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 107.28,
+          "end": 109.53,
+          "en": "on the controllers, just use them.\"",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 109.53,
+          "end": 111.09,
+          "en": "And the way you can do that is",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 111.09,
+          "end": 112.74000000000001,
+          "en": "first of all, you can mention that \"Hey, you know,\"",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 112.74000000000001,
+          "end": 114.53999999999999,
+          "en": "you can say, \"Hey, DispatcherServlet,\"",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 114.53999999999999,
+          "end": 119.53999999999999,
+          "en": "I can say DS, \"Find the classes in this package.\"",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 119.82,
+          "end": 120.9,
+          "en": "You can mention the package name.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 120.9,
+          "end": 122.46,
+          "en": "That's the first thing you have to mention.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 122.46,
+          "end": 126.54,
+          "en": "And second, you have to mention that I'm using annotations.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 126.54,
+          "end": 131.54,
+          "en": "So you can say, \"I'm using annotations,\" that's it.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 131.94,
+          "end": 133.56,
+          "en": "DispatcherServlet will know that I have",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 133.56,
+          "end": 135.03,
+          "en": "to find this file in this package,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 135.03,
+          "end": 136.65,
+          "en": "whatever package you mention here.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 136.65,
+          "end": 139.26,
+          "en": "And then you are saying that I'm using annotations.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 139.26,
+          "end": 140.67000000000002,
+          "en": "Will it work? Of course not.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 140.67000000000002,
+          "end": 143.46,
+          "en": "You know, this is XML file, not a essay book, right?",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 143.46,
+          "end": 146.07,
+          "en": "This will not work, so this is not how you write a letter",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 146.07,
+          "end": 147.9,
+          "en": "to DispatcherServlet, okay?",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 147.9,
+          "end": 149.49,
+          "en": "But then we have to do the same thing.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 149.49,
+          "end": 151.68,
+          "en": "For that, we have to use some tags.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 151.68,
+          "end": 153.9,
+          "en": "And whenever you use tags in XML,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 153.9,
+          "end": 156.36,
+          "en": "we have to also define those tags.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 156.36,
+          "end": 159.12,
+          "en": "So for definition, I don't want to type it, everything,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 159.12,
+          "end": 161.34,
+          "en": "because a lengthy file, so I do have a file with me.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 161.34,
+          "end": 162.81,
+          "en": "You will find that in resources.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 162.81,
+          "end": 165.63,
+          "en": "So this is the definition for those beans",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 165.63,
+          "end": 167.73,
+          "en": "or to those tags which you are going to use.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 167.73,
+          "end": 171.3,
+          "en": "So let's end this. So this is what we wanted, right?",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 171.3,
+          "end": 173.46,
+          "en": "So this is the bean definition,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 173.46,
+          "end": 177.12,
+          "en": "and now we can talk to the DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 177.12,
+          "end": 179.67000000000002,
+          "en": "So the first thing you will mention is component scan.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 179.67000000000002,
+          "end": 183.15,
+          "en": "Now you want to mention which package you have",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 183.15,
+          "end": 184.62,
+          "en": "to scan for the components.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 184.62,
+          "end": 187.922,
+          "en": "So you will say ctx. So what is ctx here? Just context.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 187.922,
+          "end": 191.49,
+          "en": "You can see we are defining the context definition as well.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 191.49,
+          "end": 192.777,
+          "en": "So that's it, refer with ctx,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 192.777,
+          "end": 194.67,
+          "en": "and that's what we are mentioning here.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 194.67,
+          "end": 196.91,
+          "en": "So ctx:component-scan, and then the base package, you have",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 196.91,
+          "end": 200.25,
+          "en": "to mention the package name, which is com.telusko here.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 200.25,
+          "end": 201.63,
+          "en": "You can be specific here,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 201.63,
+          "end": 203.22,
+          "en": "you can mention the exact package name.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 203.22,
+          "end": 207.09,
+          "en": "But com.telusko works. And that's the first thing.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 207.09,
+          "end": 210.57,
+          "en": "Next you have to mention that you are using annotations.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 210.57,
+          "end": 213.15,
+          "en": "And for that, you'll be using annotation-config.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 213.15,
+          "end": 216,
+          "en": "In fact, you can also do a self-closing tags here",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 216,
+          "end": 217.77,
+          "en": "instead of typing everything.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 217.77,
+          "end": 219.36,
+          "en": "That's it, these two things you have to mention",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 219.36,
+          "end": 222.87,
+          "en": "that you have to scan the package in this package.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 222.87,
+          "end": 225,
+          "en": "And then you have to use,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 225,
+          "end": 227.76,
+          "en": "I mean we are using annotation configuration, that's it.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 227.76,
+          "end": 229.62,
+          "en": "Now this is how you talk to DispatcherServlet,",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 229.62,
+          "end": 232.5,
+          "en": "not by writing those two lines, but will this work?",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 232.5,
+          "end": 234.96,
+          "en": "Let's try it out. Of course we learn from the errors.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 234.96,
+          "end": 236.91,
+          "en": "So I will just rerun this application,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 236.91,
+          "end": 239.25,
+          "en": "and go back",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 239.25,
+          "end": 242.22,
+          "en": "to my code, run.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 242.22,
+          "end": 244.68,
+          "en": "Okay, now this time we got a different error,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 244.68,
+          "end": 246.45,
+          "en": "but at least every time we do something,",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 246.45,
+          "end": 248.82,
+          "en": "errors are changing, so that's a good thing, right?",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 248.82,
+          "end": 251.28,
+          "en": "But what is the problem now?",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 251.28,
+          "end": 253.05,
+          "en": "Is it the DispatcherServlet is not able to find?",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 253.05,
+          "end": 255.06,
+          "en": "Yes, DispatcherServlet was able",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 255.06,
+          "end": 257.64,
+          "en": "to find this particular file.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 257.64,
+          "end": 260.55,
+          "en": "Now it knows that which package you have to scan,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 260.55,
+          "end": 261.93,
+          "en": "which annotation you have to, I mean",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 261.93,
+          "end": 264.75,
+          "en": "we have been using annotation configuration, what's wrong?",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 264.75,
+          "end": 265.95,
+          "en": "And if you observe here,",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 265.95,
+          "end": 269.19,
+          "en": "in the console it says home method called,",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 269.19,
+          "end": 273.54,
+          "en": "which means it was able to call the controller.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 273.54,
+          "end": 277.74,
+          "en": "So we have reached till here, but it's not going after that.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 277.74,
+          "end": 279.39,
+          "en": "You know what's going wrong?",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 279.39,
+          "end": 284.04,
+          "en": "Let's go back to our page and it says 404. That's right.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 284.04,
+          "end": 285,
+          "en": "But look at the message.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 285,
+          "end": 288.63,
+          "en": "It says, no endpoint GET, for the GET request,",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 288.63,
+          "end": 291.93,
+          "en": "and the URL you're searching for is index.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 291.93,
+          "end": 295.32,
+          "en": "Now from where we got index? Let's go back.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 295.32,
+          "end": 298.02,
+          "en": "We are returning a index.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 298.02,
+          "end": 301.05,
+          "en": "DispatcherServlet says, \"You are telling me to call index.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 301.05,
+          "end": 302.58,
+          "en": "But what is index?\"",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 302.58,
+          "end": 304.08,
+          "en": "If you remember, when we were working",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 304.08,
+          "end": 308.7,
+          "en": "with this Spring Boot application, we did the same thing.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 308.7,
+          "end": 310.86,
+          "en": "We are returning index there,",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 310.86,
+          "end": 313.32,
+          "en": "but in the property files we have mentioned",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 313.32,
+          "end": 316.623,
+          "en": "that you have to find the index in this particular folder,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 317.67,
+          "end": 320.19,
+          "en": "and the extension for that index is .jsp.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 320.19,
+          "end": 323.16,
+          "en": "Nowhere we are doing that in this particular project.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 323.16,
+          "end": 326.19,
+          "en": "So that means you have to also configure the resolver.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 326.19,
+          "end": 328.53,
+          "en": "Remember when I mentioned that, when you return this,",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 328.53,
+          "end": 331.02,
+          "en": "behind the scene, it uses something called a resolver.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 331.02,
+          "end": 333.93,
+          "en": "So there's something called view resolver, or in full name,",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 333.93,
+          "end": 336.87,
+          "en": "it is called InternalResourceViewResolver.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 336.87,
+          "end": 339.42,
+          "en": "So we have to configure that. Okay, how do we do that?",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 339.42,
+          "end": 342.65999999999997,
+          "en": "How do we configure the InternalResourceViewResolver?",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 342.65999999999997,
+          "end": 344.31,
+          "en": "Let's see that in the next video.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "41665574",
+      "title": "Internal Resource View Resolver",
+      "lectureOrder": 223,
+      "videoOrder": 222,
+      "sourceHash": "09207864cad2a9653db6de175cba96af12e08fa912f0708279f2f229fb9f26c4",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.035,
+          "end": 3.21,
+          "en": "(bright music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.21,
+          "end": 5.61,
+          "en": "-: Now it's time to configure",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.61,
+          "end": 8.25,
+          "en": "the Internal Resource View Resolver.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.25,
+          "end": 9.99,
+          "en": "It's because when you return index here,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 9.99,
+          "end": 12.48,
+          "en": "despite server has no idea where this index is",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 12.48,
+          "end": 14.823,
+          "en": "and what is extension for this, okay.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 14.823,
+          "end": 17.773,
+          "en": "And the way you do that is again, go back to the the server",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 18.852,
+          "end": 20.82,
+          "en": "teluskoserver.xml because this is where you",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 20.82,
+          "end": 22.95,
+          "en": "talk to your dispatch satellite.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 22.95,
+          "end": 26.52,
+          "en": "Now to configure that, we have to use a bean tag here.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 26.52,
+          "end": 29.07,
+          "en": "So I have to say bean. Now, which bean I'm talking about?",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 29.07,
+          "end": 31.77,
+          "en": "So let's enter this. Now, which bean I'm talking about?",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 31.77,
+          "end": 34.32,
+          "en": "So there's something called internal resource resolver",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 34.32,
+          "end": 38.04,
+          "en": "and we have to mention the qualified path,",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 38.04,
+          "end": 40.14,
+          "en": "which is the full path for the class.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 40.14,
+          "end": 41.22,
+          "en": "And the way you get that",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 41.22,
+          "end": 43.35,
+          "en": "is if you go back to Maven Dependencies",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 43.35,
+          "end": 44.4,
+          "en": "The same package.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 44.4,
+          "end": 45.565,
+          "en": "Again, we have to go with this",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 45.565,
+          "end": 50.28,
+          "en": "org.springframework.web.servlet, but a different sub folder.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 50.28,
+          "end": 53.04,
+          "en": "If you go down, you can see something called view.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 53.04,
+          "end": 55.8,
+          "en": "And if you expand this, you will get the name,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 55.8,
+          "end": 58.98,
+          "en": "which is Internal Resource View Resolver, which is this.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 58.98,
+          "end": 62.43,
+          "en": "I will copy this name, qualified copy, qualified name.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 62.43,
+          "end": 65.088,
+          "en": "And in this you have to mention the class equal to",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 65.088,
+          "end": 68.25,
+          "en": "and in the double codes, just mention",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 68.25,
+          "end": 70.082,
+          "en": "that without the class extension.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 70.082,
+          "end": 71.19,
+          "en": "That's it.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 71.19,
+          "end": 72.36,
+          "en": "This is how you mention that.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 72.36,
+          "end": 75.48,
+          "en": "I'm going to configure the internal view resolver,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 75.48,
+          "end": 77.19,
+          "en": "but you have to set two properties.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 77.19,
+          "end": 80.07,
+          "en": "The first is prefix and the second is suffix.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 80.07,
+          "end": 83.67,
+          "en": "So properties, and again we have used the same thing.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 83.67,
+          "end": 87.87,
+          "en": "If you remember prefix suffix, let's set that.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 87.87,
+          "end": 89.52,
+          "en": "So property is prefix.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 89.52,
+          "end": 91.92,
+          "en": "The value is slash views slash",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 91.92,
+          "end": 93.45,
+          "en": "because that's a folder I think.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 93.45,
+          "end": 96.771,
+          "en": "Let's see, yeah, the folder name is views.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 96.771,
+          "end": 100.05,
+          "en": "And next we have to mention the property,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 100.05,
+          "end": 103.959,
+          "en": "which is the suffix, which is in this case is .gsp.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 103.959,
+          "end": 104.792,
+          "en": "That's it.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 104.792,
+          "end": 107.67,
+          "en": "That's how basically you configure things",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 107.67,
+          "end": 109.92,
+          "en": "and now you know the importance of Spring Boot, right?",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 109.92,
+          "end": 112.62,
+          "en": "How easy it is to do everything in Spring Boot.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 112.62,
+          "end": 116.49000000000001,
+          "en": "So now after making the changes, let's reload",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 116.49000000000001,
+          "end": 118.14,
+          "en": "or relaunch the application.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 118.14,
+          "end": 121.02,
+          "en": "Let's go back and refresh.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 121.02,
+          "end": 123.75,
+          "en": "Oh, and this time we got a different error.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 123.75,
+          "end": 124.583,
+          "en": "Good thing, right?",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 124.583,
+          "end": 125.52,
+          "en": "Every time we do something you get",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 125.52,
+          "end": 127.92,
+          "en": "different error, but it looks like I made a mistake.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 127.92,
+          "end": 130.77,
+          "en": "Line number 20. Let's see, line number 20.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 130.77,
+          "end": 134.91,
+          "en": "It says perfect property things are looking good.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 134.91,
+          "end": 137.94,
+          "en": "What is wrong there? Oh, this is not how you do it.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 137.94,
+          "end": 139.71,
+          "en": "I still went into a different way.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 139.71,
+          "end": 140.57999999999998,
+          "en": "So I have to set the value.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 140.57999999999998,
+          "end": 142.41,
+          "en": "Remember in Spring Boot we have talked about the values.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 142.41,
+          "end": 145.71,
+          "en": "I will say slash views slash,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 145.71,
+          "end": 147.867,
+          "en": "and this should be also value.jsp.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 147.867,
+          "end": 150.81,
+          "en": "Sometime you just go with the intuitions, right?",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 150.81,
+          "end": 152.43,
+          "en": "And then it doesn't work. Anyway.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 152.43,
+          "end": 155.49,
+          "en": "So you have to set the values like this, not in the bracket.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 155.49,
+          "end": 159.09,
+          "en": "Let's relaunch and go back here, relaunch the application",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 159.09,
+          "end": 161.73,
+          "en": "and voila, we got our page.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 161.73,
+          "end": 163.47,
+          "en": "So this is working, but let's see",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 163.47,
+          "end": 165.78,
+          "en": "if the actual output also works.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 165.78,
+          "end": 168.3,
+          "en": "So I will say 121.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 168.3,
+          "end": 171.48,
+          "en": "And here I will say, Navin, enter, submit. And you got it.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 171.48,
+          "end": 173.4,
+          "en": "You got the output. Not exactly,",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 173.4,
+          "end": 175.039,
+          "en": "I mean we have not seen this problem before,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 175.039,
+          "end": 177.72,
+          "en": "but you can see we are not getting the value.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 177.72,
+          "end": 179.88,
+          "en": "We wanted the value, which is data",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 179.88,
+          "end": 181.71,
+          "en": "and we wanted it to print.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 181.71,
+          "end": 183.926,
+          "en": "Welcome to the Java world. What is not working?",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 183.926,
+          "end": 186.54,
+          "en": "Let's go back to our code.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 186.54,
+          "end": 188.108,
+          "en": "And if you go to the home controller,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 188.108,
+          "end": 192.19,
+          "en": "if you can see we do have this alien object here",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 193.11,
+          "end": 195.09,
+          "en": "and we are returning the result page.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 195.09,
+          "end": 197.91,
+          "en": "And we do have the course model attribute,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 197.91,
+          "end": 198.99,
+          "en": "which returns Java.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 198.99,
+          "end": 200.82,
+          "en": "So it should work, right? See, sometime",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 200.82,
+          "end": 203.793,
+          "en": "what happens is in your JSP because of some,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 205.184,
+          "end": 207.45,
+          "en": "because of some support, JSTL might not work.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 207.45,
+          "end": 209.04,
+          "en": "So if you go back to result page, you have",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 209.04,
+          "end": 213.03,
+          "en": "to add one more attribute here, which is isELIgnored.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 213.03,
+          "end": 215.46,
+          "en": "So you have to make sure this is always false",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 215.46,
+          "end": 217.23,
+          "en": "and you have to put that in double quotes.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 217.23,
+          "end": 219.24,
+          "en": "So sometime the expression language,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 219.24,
+          "end": 221.04,
+          "en": "so this is called the expression language",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 221.04,
+          "end": 223.8,
+          "en": "and sometime your framework ignores it.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 223.8,
+          "end": 226.26,
+          "en": "So you have to make sure that you say, Hey, don't ignore it,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 226.26,
+          "end": 228.99,
+          "en": "convert this value and let's see if this works.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 228.99,
+          "end": 233.22,
+          "en": "Let's go back to the output page refresh. And it worked.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 233.22,
+          "end": 235.17000000000002,
+          "en": "So that's how basically it works.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 235.17000000000002,
+          "end": 238.95,
+          "en": "And we were able to convert our project,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 238.95,
+          "end": 241.32,
+          "en": "the entire project from Spring Boot",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 241.32,
+          "end": 243.578,
+          "en": "to normal spring MVC without using Spring Boot of course.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 243.578,
+          "end": 248.25,
+          "en": "And we have done a lot of configuration.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 248.25,
+          "end": 250.02,
+          "en": "So let's do a quick recap in the next video.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 250.02,
+          "end": 251.46,
+          "en": "Whatever we have done, step by step so",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 251.46,
+          "end": 253.68,
+          "en": "that you will remember what to do when you want",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 253.68,
+          "end": 255.573,
+          "en": "to build a Spring MBC application.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "41665576",
+      "title": "Summary",
+      "lectureOrder": 224,
+      "videoOrder": 223,
+      "sourceHash": "568f2f065c3f8517017a0bf513ca623045c1807aba9500adf4ca33acf7754523",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.216,
+          "end": 3.18,
+          "en": "(gentle music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.18,
+          "end": 5.97,
+          "en": "-: So let's do a quick recap of this app.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.97,
+          "end": 7.47,
+          "en": "So what we have done is,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.47,
+          "end": 8.79,
+          "en": "initially when you build this project,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 8.79,
+          "end": 10.44,
+          "en": "you will get a Maven project.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 10.44,
+          "end": 12.57,
+          "en": "You have to make sure that you add",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 12.57,
+          "end": 14.52,
+          "en": "this dependency for SpringMVC.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 14.52,
+          "end": 17.55,
+          "en": "Now this is SpringMVC, not Spring Boot,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 17.55,
+          "end": 19.47,
+          "en": "and the version I'm going for is 6.1.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 19.47,
+          "end": 20.547,
+          "en": "Now. depending upon when you're watching this,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 20.547,
+          "end": 22.98,
+          "en": "you can try out your own version.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 22.98,
+          "end": 26.43,
+          "en": "And once we do this, we can create our controller.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 26.43,
+          "end": 28.71,
+          "en": "So if you can see, I am creating a home controller here",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 28.71,
+          "end": 30.12,
+          "en": "in which I have different methods.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 30.12,
+          "end": 32.85,
+          "en": "Of course, we are using annotations here for the mapping.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 32.85,
+          "end": 34.59,
+          "en": "But then to make this work,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 34.59,
+          "end": 37.8,
+          "en": "we have to make sure that you ask your Tomcat,",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 37.8,
+          "end": 40.14,
+          "en": "because Tomcat by default have no idea",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 40.14,
+          "end": 43.32,
+          "en": "that you are using a Spring project or SpringMVC project.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 43.32,
+          "end": 45.09,
+          "en": "So you have to tell, \"Hey, you know,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 45.09,
+          "end": 47.04,
+          "en": "I want to use SpringMVC here.\"",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 47.04,
+          "end": 49.26,
+          "en": "And the first controller",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 49.26,
+          "end": 51.66,
+          "en": "or the first servlet you have to interact with",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 51.66,
+          "end": 53.19,
+          "en": "is a DispatcherServlet",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 53.19,
+          "end": 55.41,
+          "en": "which is given by the Spring Framework.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 55.41,
+          "end": 59.76,
+          "en": "For all the requests, you have to call a DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 59.76,
+          "end": 62.13,
+          "en": "That's what we are doing in the web.xml file.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 62.13,
+          "end": 64.14,
+          "en": "Now, whom we are talking to using web.xml?",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 64.14,
+          "end": 65.34,
+          "en": "We are talking to Tomcat, okay?",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 65.34,
+          "end": 68.85,
+          "en": "So every file here is responsible for talking to something.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 68.85,
+          "end": 71.94,
+          "en": "So web.xml is a way to talk to Tomcat.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 71.94,
+          "end": 74.169,
+          "en": "And then when you call DispatcherServlet,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 74.169,
+          "end": 75.33,
+          "en": "now DispatcherServlet has no idea",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 75.33,
+          "end": 76.38,
+          "en": "that you're using a controller.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 76.38,
+          "end": 78.06,
+          "en": "Now, we have to talk to DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 78.06,
+          "end": 81.15,
+          "en": "And the way you do that is using the DispatcherServlet name,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 81.15,
+          "end": 84.6,
+          "en": "which is TELUSKO in this case, -servlet.xml.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 84.6,
+          "end": 87.3,
+          "en": "This is our file which will be there in the WEB-INF folder.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 87.3,
+          "end": 91.11,
+          "en": "In this, you have to mention that I am using annotations",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 91.11,
+          "end": 92.49000000000001,
+          "en": "using annotation-config.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 92.49000000000001,
+          "end": 94.74000000000001,
+          "en": "And the package you will find all these classes",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 94.74000000000001,
+          "end": 96.06,
+          "en": "is com.telusko.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 96.06,
+          "end": 98.25,
+          "en": "And then this basically knows that, hey,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 98.25,
+          "end": 100.22999999999999,
+          "en": "I have to look at this controller,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 100.22999999999999,
+          "end": 102,
+          "en": "I have to map it,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 102,
+          "end": 104.03999999999999,
+          "en": "and then I have to call a particular page.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 104.03999999999999,
+          "end": 106.8,
+          "en": "So like I'm calling the home method here,",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 106.8,
+          "end": 108.3,
+          "en": "which is calling \"index\".",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 108.3,
+          "end": 110.52000000000001,
+          "en": "So DispatcherServlet has no idea what \"index\" is.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 110.52000000000001,
+          "end": 112.41,
+          "en": "So I have to mention the location of Index",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 112.41,
+          "end": 113.43,
+          "en": "and the extension.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 113.43,
+          "end": 115.08,
+          "en": "The way you can do that",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 115.08,
+          "end": 117.93,
+          "en": "is with the help of Internal View Resolver,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 117.93,
+          "end": 119.46000000000001,
+          "en": "which we have configured here.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 119.46000000000001,
+          "end": 121.23,
+          "en": "So Internal Resource View Resolver.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 121.23,
+          "end": 122.67,
+          "en": "In which you have to mention the prefix,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 122.67,
+          "end": 124.74,
+          "en": "that means the location of the file,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 124.74,
+          "end": 126.66,
+          "en": "and the extension for the file, which is suffix,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 126.66,
+          "end": 128.61,
+          "en": "and that is your .jsp.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 128.61,
+          "end": 131.04,
+          "en": "And that's how the entire project is working.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 131.04,
+          "end": 133.35,
+          "en": "So again, you have to do this configuration,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 133.35,
+          "end": 135.09,
+          "en": "but remember, for a big project,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 135.09,
+          "end": 137.46,
+          "en": "you will do this configuration only once.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 137.46,
+          "end": 140.31,
+          "en": "As you add more features, you have to do more configuration.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 140.31,
+          "end": 141.36,
+          "en": "But again, remember,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 141.36,
+          "end": 142.95,
+          "en": "you will do this configuration only once",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 142.95,
+          "end": 144.32999999999998,
+          "en": "for the entire project.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 144.32999999999998,
+          "end": 146.64,
+          "en": "So is it worth building project in SpringMVC?",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 146.64,
+          "end": 148.2,
+          "en": "Yes, you get more controls.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 148.2,
+          "end": 150.39,
+          "en": "And is it worth building project in Spring Boot?",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 150.39,
+          "end": 151.92000000000002,
+          "en": "Yes, if it will save your time.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 151.92000000000002,
+          "end": 154.56,
+          "en": "So it depends upon what kind of project you're building.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 154.56,
+          "end": 157.05,
+          "en": "I have seen projects also built in normal SpringMVC,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 157.05,
+          "end": 158.49,
+          "en": "without Spring Boot.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 158.49,
+          "end": 160.8,
+          "en": "But most of the projects are using Spring Boot.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 160.8,
+          "end": 164.55,
+          "en": "So after this, we'll add some more features into Spring,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 164.55,
+          "end": 166.2,
+          "en": "but with the help of Spring Boot.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "41721726",
+      "title": "Building Job App",
+      "lectureOrder": 225,
+      "videoOrder": 224,
+      "sourceHash": "332bd5c60f15ad32b5ded473a25bfd70fa4e1484fa921d076f452e0ab7f58630",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0,
+          "end": 3.24,
+          "en": "(bright music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.24,
+          "end": 4.92,
+          "en": "-: With whatever we have learned 'til now,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 4.92,
+          "end": 7.17,
+          "en": "basically we have talked about Spring, Spring Boot,",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.17,
+          "end": 9.63,
+          "en": "and we also know how do you build a web application",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 9.63,
+          "end": 10.95,
+          "en": "with the help of Spring framework.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 10.95,
+          "end": 12.99,
+          "en": "Now, when you talk about web application",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 12.99,
+          "end": 15.24,
+          "en": "and if you try to build a view",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 15.24,
+          "end": 16.89,
+          "en": "inside your Spring project as well,",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 16.89,
+          "end": 18.39,
+          "en": "we can do that with the help of JSP.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 18.39,
+          "end": 20.25,
+          "en": "And that's what we have done 'til now, right?",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 20.25,
+          "end": 22.47,
+          "en": "Now on that, let's build an application.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 22.47,
+          "end": 25.83,
+          "en": "Now what we are building, we are building a job application,",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 25.83,
+          "end": 27.57,
+          "en": "or you can say a job portal,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 27.57,
+          "end": 29.82,
+          "en": "where people can, or companies can post",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 29.82,
+          "end": 31.05,
+          "en": "about a particular job.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 31.05,
+          "end": 35.58,
+          "en": "And then as a job seeker, you can search for a job.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 35.58,
+          "end": 37.05,
+          "en": "So this is what we are building here.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 37.05,
+          "end": 38.575,
+          "en": "So let's say if you are searching for a job",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 38.575,
+          "end": 40.08,
+          "en": "and then you want to see",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 40.08,
+          "end": 41.55,
+          "en": "what are the different jobs available,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 41.55,
+          "end": 43.44,
+          "en": "or the the requirements,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 43.44,
+          "end": 45.84,
+          "en": "you can simply click on View All Jobs here.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 45.84,
+          "end": 48.75,
+          "en": "And this will list the number of jobs available.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 48.75,
+          "end": 51.09,
+          "en": "You can see they're looking for Java developers",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 51.09,
+          "end": 53.43,
+          "en": "with the experience in core Java, advanced Java,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 53.43,
+          "end": 56.37,
+          "en": "experience two years, and then the tech stack.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 56.37,
+          "end": 58.32,
+          "en": "Then we have front developer, three years.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 58.32,
+          "end": 62.76,
+          "en": "Now all these are just data which we randomly inserted,",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 62.76,
+          "end": 63.593,
+          "en": "but it doesn't matter, right?",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 63.593,
+          "end": 64.71,
+          "en": "We got this data here,",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 64.71,
+          "end": 67.05,
+          "en": "and now if you want to apply for a job,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 67.05,
+          "end": 68.01,
+          "en": "you can see a particular thing.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 68.01,
+          "end": 69.3,
+          "en": "And of course there should be a button here",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 69.3,
+          "end": 70.65,
+          "en": "for applying a job.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 70.65,
+          "end": 72.3,
+          "en": "And also there should be a company name.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 72.3,
+          "end": 73.71000000000001,
+          "en": "But just to keep it simple,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 73.71000000000001,
+          "end": 75.69,
+          "en": "we went for these different profiles here.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 75.69,
+          "end": 76.83,
+          "en": "That's one.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 76.83,
+          "end": 80.1,
+          "en": "Next, what if you are an employer,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 80.1,
+          "end": 81.36,
+          "en": "and you want to post about a job?",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 81.36,
+          "end": 82.965,
+          "en": "So you can click on this Add Job",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 82.965,
+          "end": 84.42,
+          "en": "and you can post a requirement.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 84.42,
+          "end": 86.37,
+          "en": "Of course this should be auto-generated,",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 86.37,
+          "end": 87.203,
+          "en": "but at this point,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 87.203,
+          "end": 89.07,
+          "en": "let's say we have some hardware values there,",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 89.07,
+          "end": 90.6,
+          "en": "and then we have a post profile.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 90.6,
+          "end": 95.13,
+          "en": "Let's say we are looking for a Spring dev",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 95.13,
+          "end": 96.185,
+          "en": "and some requirement,",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 96.185,
+          "end": 98.88,
+          "en": "let's say experience of one year in Spring.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 98.88,
+          "end": 102.18,
+          "en": "And I want the person to know Java,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 102.18,
+          "end": 104.13,
+          "en": "and there should be Spring as well here.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 104.13,
+          "end": 105.15,
+          "en": "And I'm not able to find.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 105.15,
+          "end": 107.91,
+          "en": "Let's say I want someone who knows Java and TypeScript.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 107.91,
+          "end": 109.97999999999999,
+          "en": "I will click on Submit and we got an error.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 109.97999999999999,
+          "end": 112.92,
+          "en": "Not expected, but it should bring something, right?",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 112.92,
+          "end": 114.06,
+          "en": "So there's something wrong with the code.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 114.06,
+          "end": 115.65,
+          "en": "Again, we'll figure it out, and we'll make it work,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 115.65,
+          "end": 117,
+          "en": "but it should add the job.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 117,
+          "end": 119.64,
+          "en": "And when you go back to View All Jobs,",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 119.64,
+          "end": 120.78,
+          "en": "of course it should be there, right?",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 120.78,
+          "end": 122.104,
+          "en": "This is what we want to build now.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 122.104,
+          "end": 124.5,
+          "en": "It's not complete, and that's why we got the error.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 124.5,
+          "end": 125.7,
+          "en": "But let's build this.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 125.7,
+          "end": 127.38,
+          "en": "Now, how we are going to start this?",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 127.38,
+          "end": 129.27,
+          "en": "Of course, we don't want to focus on the views here",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 129.27,
+          "end": 131.044,
+          "en": "because there are a lot of CSS involved here.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 131.044,
+          "end": 133.95,
+          "en": "So I have the view theories.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 133.95,
+          "end": 135.688,
+          "en": "We want to build the backend, okay?",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 135.688,
+          "end": 137.82,
+          "en": "So in the next video I will show you",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 137.82,
+          "end": 139.26,
+          "en": "how we have built that view.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 139.26,
+          "end": 140.91,
+          "en": "In fact, we'll create the project first,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 140.91,
+          "end": 143.31,
+          "en": "and then we'll add some views which I've already created,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 143.31,
+          "end": 145.68,
+          "en": "and we'll see how those views looks like.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 145.68,
+          "end": 148.233,
+          "en": "And then we'll start coding the Java part of it.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "41721760",
+      "title": "Creating a Project",
+      "lectureOrder": 226,
+      "videoOrder": 225,
+      "sourceHash": "4aa7953f0f9f45a155db57b83461227b38156365ba2011446ee47b06b54ad2d6",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0,
+          "end": 3.076,
+          "en": "(gentle music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.076,
+          "end": 4.5,
+          "en": "-: So let's create a project now.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 4.5,
+          "end": 6.12,
+          "en": "Now, how do we create a project in Spring?",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 6.12,
+          "end": 8.22,
+          "en": "Of course, we are building a Spring Boot project.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 8.22,
+          "end": 9.74,
+          "en": "And if you're using the community version",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 9.74,
+          "end": 10.95,
+          "en": "of IntelliJ IDEA,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 10.95,
+          "end": 13.92,
+          "en": "we have to use the start.spring.io,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 13.92,
+          "end": 15.51,
+          "en": "which is the Spring Initializr.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 15.51,
+          "end": 17.28,
+          "en": "So what I will do is I will just create,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 17.28,
+          "end": 18.57,
+          "en": "I will just go to a new tab",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 18.57,
+          "end": 21.27,
+          "en": "and I will go to the start.spring.io",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 21.27,
+          "end": 22.8,
+          "en": "and let's create a project.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 22.8,
+          "end": 24.39,
+          "en": "So I want to create a Maven project,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 24.39,
+          "end": 27.54,
+          "en": "and the language is Java, the snapshot version is this.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 27.54,
+          "end": 29.34,
+          "en": "So while we're making this video,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 29.34,
+          "end": 31.777,
+          "en": "we got a new sub version, which is 3.2.1.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 32.88,
+          "end": 33.72,
+          "en": "Let's use that.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 33.72,
+          "end": 36.24,
+          "en": "And then this should become score.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 36.24,
+          "end": 39.24,
+          "en": "The artifact is I'm making a job app.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 39.24,
+          "end": 42.21,
+          "en": "And okay, let's skip it as it is.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 42.21,
+          "end": 44.19,
+          "en": "I'm using the version Java21.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 44.19,
+          "end": 46.32,
+          "en": "Okay, now what are the dependencies we have to add?",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 46.32,
+          "end": 48.6,
+          "en": "So the first dependency I want to add is spring web,",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 48.6,
+          "end": 50.85,
+          "en": "because that's what we're building, web application.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 50.85,
+          "end": 53.97,
+          "en": "And next I want to also use Lombok.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 53.97,
+          "end": 56.82,
+          "en": "Now again, once we start coding, I will talk about Lombok.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 56.82,
+          "end": 57.653,
+          "en": "What is Lombok?",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 57.653,
+          "end": 59.64,
+          "en": "So Lombok basically helps reduce the number of lines",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 59.64,
+          "end": 60.57,
+          "en": "you write in your code.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 60.57,
+          "end": 61.53,
+          "en": "Okay, how?",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 61.53,
+          "end": 62.49,
+          "en": "We'll see that in some time,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 62.49,
+          "end": 65.31,
+          "en": "but we have added two libraries here, or two dependencies.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 65.31,
+          "end": 68.16,
+          "en": "One is Spring Web and second is Lombok.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 68.16,
+          "end": 71.22,
+          "en": "After doing these changes, click on generate",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 71.22,
+          "end": 75.18,
+          "en": "and okay, allow, it'll download the project",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 75.18,
+          "end": 76.41,
+          "en": "and you can see I got it.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 76.41,
+          "end": 77.43,
+          "en": "I have to unzip it",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 77.43,
+          "end": 81.09,
+          "en": "and open that in IntelliJ IDEA committee version.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 81.09,
+          "end": 84.27,
+          "en": "So I will open this, let me open my IntelliJ IDEA",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 84.27,
+          "end": 85.89,
+          "en": "and open this project.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 85.89,
+          "end": 87.03,
+          "en": "And here we go.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 87.03,
+          "end": 88.65,
+          "en": "So I'm opening this project, which is,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 88.65,
+          "end": 90.63,
+          "en": "you can see we have a job app here.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 90.63,
+          "end": 93.63,
+          "en": "And now if you look at your palm.xml,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 93.63,
+          "end": 95.28,
+          "en": "we got two dependencies here.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 95.28,
+          "end": 98.03999999999999,
+          "en": "One is Spring Startup Web and Lombok.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 98.03999999999999,
+          "end": 100.11,
+          "en": "Also, we have a test library if you want to use it.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 100.11,
+          "end": 102.27000000000001,
+          "en": "But we got two, which is which you're going to use now.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 102.27000000000001,
+          "end": 105.06,
+          "en": "Okay, now, apart from this, since we are going to use JSP,",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 105.06,
+          "end": 107.91,
+          "en": "and then in JSP, we are going to use JSTL.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 107.91,
+          "end": 110.4,
+          "en": "I will show you what JSP I'm talking about.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 110.4,
+          "end": 113.31,
+          "en": "And to make it work, we have to add two more dependencies.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 113.31,
+          "end": 114.42,
+          "en": "In fact, three dependencies.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 114.42,
+          "end": 117.53999999999999,
+          "en": "Remember when we use JSP, we have to also use Jasper,",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 117.53999999999999,
+          "end": 118.37299999999999,
+          "en": "remember?",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 118.37299999999999,
+          "end": 120.12,
+          "en": "So instead of going to Maven repository,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 120.12,
+          "end": 122.01,
+          "en": "I do have those dependencies with me.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 122.01,
+          "end": 123.72,
+          "en": "I'll just paste it here.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 123.72,
+          "end": 125.01,
+          "en": "Now these are the dependency you need.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 125.01,
+          "end": 128.43,
+          "en": "So basically we need Jasper to convert your JSP pages.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 128.43,
+          "end": 130.29,
+          "en": "We need JST API because",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 130.29,
+          "end": 134.97,
+          "en": "after Tomcat 10, we went from Java X to Jakarta.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 134.97,
+          "end": 137.46,
+          "en": "So we'll be using that and the JSP library.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 137.46,
+          "end": 138.69,
+          "en": "So basically we need this two",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 138.69,
+          "end": 142.02,
+          "en": "and we need Jasper to convert JSV pages",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 142.02,
+          "end": 144.57,
+          "en": "and we need to reduce number lines.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 144.57,
+          "end": 146.67000000000002,
+          "en": "And of course, Spring Start.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 146.67000000000002,
+          "end": 149.34,
+          "en": "Now, once you have all this dependency,",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 149.34,
+          "end": 150.87,
+          "en": "that's our first step.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 150.87,
+          "end": 153.27,
+          "en": "The next step is to get the views here.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 153.27,
+          "end": 155.25,
+          "en": "Now, where you will put the views,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 155.25,
+          "end": 157.82999999999998,
+          "en": "you will open your SRC inside main folder,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 157.82999999999998,
+          "end": 160.68,
+          "en": "you will create a folder inside main.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 160.68,
+          "end": 163.14,
+          "en": "And for web, we have to create a folder",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 163.14,
+          "end": 165.84,
+          "en": "called web app, that's done.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 165.84,
+          "end": 168.21,
+          "en": "And in this web app, I want to put my views.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 168.21,
+          "end": 171.24,
+          "en": "So I'll be using CSS files here.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 171.24,
+          "end": 174.63,
+          "en": "So in the web app, I want views and CSS.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 174.63,
+          "end": 176.88,
+          "en": "So you'll get all the files in the project resources,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 176.88,
+          "end": 177.713,
+          "en": "you will get there.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 177.713,
+          "end": 180.45,
+          "en": "So you have an option here. I mean you have views here.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 180.45,
+          "end": 182.43,
+          "en": "And you can see we have multiple views.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 182.43,
+          "end": 186.363,
+          "en": "In fact, I don't need JSP, Index.jsp, I can delete that.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 187.8,
+          "end": 191.79,
+          "en": "I only need this folder, Add Job Home success.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 191.79,
+          "end": 193.533,
+          "en": "Are we even using success?",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 195.06,
+          "end": 198.21,
+          "en": "Yeah, we got success and we got View All Jobs.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 198.21,
+          "end": 200.19,
+          "en": "Now, which page does what?",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 200.19,
+          "end": 201.9,
+          "en": "Now if you want the homepage,",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 201.9,
+          "end": 204,
+          "en": "remember when we talked about the homepage,",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 204,
+          "end": 205.68,
+          "en": "I'm talking about this page here.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 205.68,
+          "end": 207.15,
+          "en": "So when we talk about this homepage,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 207.15,
+          "end": 210.06,
+          "en": "this is your homepage here, which is this.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 210.06,
+          "end": 212.64,
+          "en": "Next, if you want to view all the jobs,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 212.64,
+          "end": 214.41,
+          "en": "this is this view all jobs.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 214.41,
+          "end": 219.32999999999998,
+          "en": "And if you want this add job for this, we have a page,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 219.32999999999998,
+          "end": 220.5,
+          "en": "which is add job.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 220.5,
+          "end": 222.15,
+          "en": "And once you add a particular job.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 222.15,
+          "end": 223.82999999999998,
+          "en": "So last time it was not working,",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 223.82999999999998,
+          "end": 225.39,
+          "en": "so let me just try once again,",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 225.39,
+          "end": 227.19,
+          "en": "there was small bug which I resolved.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 227.19,
+          "end": 229.59,
+          "en": "And again, we'll talk about that bug in some time.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 229.59,
+          "end": 230.79,
+          "en": "And then pros profile.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 230.79,
+          "end": 233.94,
+          "en": "Let's say I want to hire a React developer,",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 233.94,
+          "end": 236.37,
+          "en": "and then some description doesn't matter nowadays",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 236.37,
+          "end": 238.74,
+          "en": "because people are in their own way.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 238.74,
+          "end": 241.17,
+          "en": "Let's say I'm looking for years experience one,",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 241.17,
+          "end": 243.03,
+          "en": "I want someone who knows TypeScript",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 243.03,
+          "end": 245.16,
+          "en": "and JavaScript and also React.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 245.16,
+          "end": 246.9,
+          "en": "But I think it'll take some time for me",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 246.9,
+          "end": 250.47,
+          "en": "to search React here, not React native to you, anyway.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 250.47,
+          "end": 253.5,
+          "en": "Let's say we have TypeScript in JavaScript, click on submit",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 253.5,
+          "end": 255.24,
+          "en": "and you can see this is the page we want.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 255.24,
+          "end": 259.41,
+          "en": "So React developer, some description, experience one year.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 259.41,
+          "end": 263.61,
+          "en": "And Tech Stack needs is JavaScript and TypeScript both.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 263.61,
+          "end": 265.86,
+          "en": "And if you click on, so this is the success page, okay,",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 265.86,
+          "end": 268.44,
+          "en": "so this is what we want here.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 268.44,
+          "end": 270.93,
+          "en": "And then if I click on All Jobs, it should be there.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 270.93,
+          "end": 272.97,
+          "en": "So you can see we got React developer,",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 272.97,
+          "end": 275.94,
+          "en": "this is what we want to build, right?",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 275.94,
+          "end": 278.34000000000003,
+          "en": "And for that, we got all these views here,",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 278.34000000000003,
+          "end": 280.32,
+          "en": "but then none of this view will actually work",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 280.32,
+          "end": 283.02,
+          "en": "because I mean, of course we do have a view there,",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 283.02,
+          "end": 285.3,
+          "en": "but we have to build a backend.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 285.3,
+          "end": 287.58,
+          "en": "But before we build a backend, I want to show you the code",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 287.58,
+          "end": 290.88,
+          "en": "inside this to show you what we really trying to build",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 290.88,
+          "end": 293.46,
+          "en": "and what should be the backend for it.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 293.46,
+          "end": 295.26,
+          "en": "So we'll see that in the next video.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

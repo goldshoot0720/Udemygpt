@@ -1,0 +1,5523 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "39471604",
+      "title": "The `getopts` command",
+      "lectureOrder": 516,
+      "videoOrder": 468,
+      "sourceHash": "6e1ff1ab7af64f0e6efd4cdb4e556a11419fb2f9a4fb64aa1a73c3328d8b16e6",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.61,
+          "end": 4.87,
+          "en": "Let's now have a look at how we can accept arguments as options.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.9,
+          "end": 6.91,
+          "en": "What's the problem so far?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.63,
+          "end": 10.54,
+          "en": "I will just call this file options dot h.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.57,
+          "end": 12.34,
+          "en": "Let me just visualize that.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.37,
+          "end": 20.26,
+          "en": "USR bin env bash and let me now just output here my variable one.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 20.29,
+          "end": 21.76,
+          "en": "Just as an example.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 21.76,
+          "end": 24.49,
+          "en": "And I will also output my variable two.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 24.58,
+          "end": 29.62,
+          "en": "So this is now just a simple bash script where we will just output those two variables.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 29.65,
+          "end": 37.78,
+          "en": "Then I make this file executable and now I could try to launch this program and let's say now we don't",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 37.78,
+          "end": 44.02,
+          "en": "want to pass in like normal arguments, but we want to do something like this minus a L, for example.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 44.05,
+          "end": 50.5,
+          "en": "Then we can see this has been accepted as an argument and it would now be up to US programmers to look",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 50.5,
+          "end": 54.4,
+          "en": "into that variable and detect which argument we met.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 54.4,
+          "end": 61.67,
+          "en": "Or we could also write it like this minus a space, minus L, and then we could see this would be our",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 61.67,
+          "end": 66.8,
+          "en": "variable one and this would be our variable two, and then we would need to parse this.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 66.89,
+          "end": 74,
+          "en": "The problem here is the following For a lot of Linux commands, we want those two commands to be completely",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 74,
+          "end": 74.69,
+          "en": "equivalent.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 74.69,
+          "end": 75.95,
+          "en": "Just as an example.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 75.95,
+          "end": 80.12,
+          "en": "LS minus L prints out those arguments or those files here.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 80.12,
+          "end": 85.52,
+          "en": "Or I could also use it like this and it would print out exactly the same information.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 85.52,
+          "end": 87.74,
+          "en": "Or I could also write it like this.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 87.77,
+          "end": 92.44,
+          "en": "LS minus L a and we can see the output here is completely the same.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 92.45,
+          "end": 98.24000000000001,
+          "en": "So whenever we want to accept those arguments, we want to be a little bit more flexible and having",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 98.24000000000001,
+          "end": 101.57,
+          "en": "to write all of this ourselves as we've seen here.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 101.66,
+          "end": 107.87,
+          "en": "This would be extremely tedious and it would be a lot of effort and it would be so much effort that",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 107.87,
+          "end": 110.9,
+          "en": "probably we would not want to use those arguments then.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 111.14,
+          "end": 117.8,
+          "en": "So to accept this kind of arguments, we can use the Getopts command that Bash provides for us.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 117.83,
+          "end": 124.94,
+          "en": "This helps us to parse CLI or command line options such as minus A minus L, minus H, and so on.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 124.97,
+          "end": 126.17,
+          "en": "How does it work?",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 126.2,
+          "end": 132.38,
+          "en": "It goes through our arguments and checks for arguments that start with a dash or a minus symbol, and",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 132.38,
+          "end": 138.53,
+          "en": "they are not exactly just the minus or the dash symbol or the double minus symbol.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 138.82999999999998,
+          "end": 145.22,
+          "en": "The reason for this is that those dash or double dash symbols usually on Unix have a different meaning.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 145.82,
+          "end": 152.81,
+          "en": "Just as an example, echo minus E, for example, will go through all the through this argument here",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 152.81,
+          "end": 156.32,
+          "en": "and it will convert a backslash n into a real line break.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 156.32,
+          "end": 159.32,
+          "en": "And we can see here a real line break is then outputted.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 159.32,
+          "end": 161.46,
+          "en": "This is why we are having two lines here.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 161.48,
+          "end": 166.22,
+          "en": "However, those double dashes, for example, they have a different meaning and they mean that everything",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 166.22,
+          "end": 171.2,
+          "en": "that comes after them will no longer be understood as an argument.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 171.2,
+          "end": 176.24,
+          "en": "And this is why the Getopts command will ignore those here.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 176.75,
+          "end": 183.73,
+          "en": "Also, a single one here also just means that after that here everything will no longer be understood",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 183.73,
+          "end": 184.63,
+          "en": "as an argument.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 184.63,
+          "end": 187.24,
+          "en": "So this is why those are excluded.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 187.39,
+          "end": 192.55,
+          "en": "Of course, if we wanted our bash script to understand this syntax, we would have to manually code",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 192.55,
+          "end": 192.94,
+          "en": "it.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 192.97,
+          "end": 195.22,
+          "en": "Let's now go back to our slides.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 195.79,
+          "end": 198.03,
+          "en": "The syntax is as following Getopts.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 198.04,
+          "end": 204.73,
+          "en": "Then we need to define the available arcs, how they should be parsed, and then we need to specify",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 204.73,
+          "end": 208.41,
+          "en": "a variable in which those arguments should be written.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 208.42000000000002,
+          "end": 209.86,
+          "en": "Each time we call it.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 209.86,
+          "end": 214.96,
+          "en": "It will then try to find one more argument for our bash script and it will provide it.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 214.96,
+          "end": 220.24,
+          "en": "Then in a variable it keeps track in an internal op find variable.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 220.54,
+          "end": 226.69,
+          "en": "So this is why we can call this program multiple times to get all of our options here.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 227.32,
+          "end": 232.42000000000002,
+          "en": "I think I should just present an example and then it's more clear how exactly that works.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 232.42000000000002,
+          "end": 239.05,
+          "en": "So let me go into my options file and I will now just use the Getopts command.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 239.05,
+          "end": 245.72,
+          "en": "And what I want to do is that I want to be like, Hey, okay, in general, l a and l are commands or",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 245.72,
+          "end": 248.45,
+          "en": "r options that I want my program to accept.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 248.57,
+          "end": 254.27,
+          "en": "This is just important so that getopts know what knows what to look for and l stands for.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 254.27,
+          "end": 259.19,
+          "en": "Hey, minus a minus L both of those are supported.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 259.19,
+          "end": 266.66,
+          "en": "Or also they can also be combined and shortened to minus a L and that would stand for minus A and minus",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 266.66,
+          "end": 268.76,
+          "en": "L at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 268.76,
+          "end": 276.29,
+          "en": "So here A and l I want to allow and then I can say, okay, I want to, I want this to be provided in",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 276.29,
+          "end": 276.92,
+          "en": "a variable.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 276.92,
+          "end": 282.82,
+          "en": "I will just call this variable option and then I can just output this variable option.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 282.83,
+          "end": 287.69,
+          "en": "Let me now just save this and just execute it and then we'll have a look at what happens.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 287.69,
+          "end": 291.68,
+          "en": "Because I feel like then it's way more clear what this program is doing.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 291.68,
+          "end": 299.54,
+          "en": "So if I now call this and I do minus a here, we can see here this option has been detected and now",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 299.54,
+          "end": 300.11,
+          "en": "we could work with.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 300.49,
+          "end": 305.62,
+          "en": "So it has parsed those arguments and it has been like, hey, I found an A there.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 305.77,
+          "end": 311.86,
+          "en": "This is the first argument or the the first option that you as a programmer now might want to have a",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 311.86,
+          "end": 312.36,
+          "en": "look at.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 312.37,
+          "end": 318.91,
+          "en": "Or if I specify multiple here, it also takes a look at all of those and it's like, Hey, A is the",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 318.91,
+          "end": 319.83,
+          "en": "first option.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 319.84,
+          "end": 321.94,
+          "en": "You might now want to have a look at this.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 322.68,
+          "end": 331.51,
+          "en": "Um, if we go here again and I just repeat this getopts command here with the same, um, code, it",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 331.51,
+          "end": 335.05,
+          "en": "keeps track of which options it has detected already.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 335.05,
+          "end": 341.5,
+          "en": "So if we execute it multiple times, we can see the first time that we execute it, we get this a and",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 341.5,
+          "end": 343.3,
+          "en": "the second time we get this here.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 343.3,
+          "end": 349.12,
+          "en": "Or if I would do something like this, we could see here, we would first get the option and then the",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 349.12,
+          "end": 349.87,
+          "en": "a option.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 349.87,
+          "end": 355.72,
+          "en": "Or if I would write it like this, then we would also see we would first get the option and then also",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 355.72,
+          "end": 356.53,
+          "en": "the A option.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 356.53,
+          "end": 364.43,
+          "en": "So here we can accept those single letter options through our bash script and we also allow the user",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 364.43,
+          "end": 371.33,
+          "en": "to combine them into one block because that's common Unix philosophy and that's how a lot of programs",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 371.33,
+          "end": 371.81,
+          "en": "do it.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 371.81,
+          "end": 379.91,
+          "en": "So our Shell script should accept this combination of options as well, and then we can here accept",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 379.91,
+          "end": 380.96,
+          "en": "those options.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 381.64,
+          "end": 387.31,
+          "en": "Of course, if we want to be able to accept multiple options, we might want to combine the getopts",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 387.31,
+          "end": 388.6,
+          "en": "with a while loop.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 389.05,
+          "end": 391.36,
+          "en": "Actually, that's quite a best practice here.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 391.36,
+          "end": 397.51,
+          "en": "And how we do that, we will have a look at in the next lecture because this will then allow you to",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 397.84000000000003,
+          "end": 402.28,
+          "en": "check multiple options here and then everything is way more convenient.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 402.28,
+          "end": 405.1,
+          "en": "But that's the topic of the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "39471610",
+      "title": "Accepting Multiple Options (`getopts`, `while`)",
+      "lectureOrder": 517,
+      "videoOrder": 469,
+      "sourceHash": "345e8a0355990cf56842d9ca902e3049c7f065feebd063f9719387e76c9004dc",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.29,
+          "end": 1.34,
+          "en": "In this lecture.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 1.34,
+          "end": 4.89,
+          "en": "Let's now have a look at how we can combine getopts with while.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 4.97,
+          "end": 10.46,
+          "en": "So if we want to accept multiple arguments, we can do this with a while loop here.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.46,
+          "end": 14.93,
+          "en": "And what I've written here is that we are calling the Getopts command.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 14.96,
+          "end": 21.8,
+          "en": "We are like, Hey, A and L are options that are supported and we want all of those to be provided in",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 21.8,
+          "end": 22.4,
+          "en": "a variable.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 22.4,
+          "end": 25.67,
+          "en": "They're just this variable is just called opt here.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 25.67,
+          "end": 27.96,
+          "en": "Why do we have this redirect here?",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 28.01,
+          "end": 32.96,
+          "en": "Well, we are here telling Getopts here that we are trying to get the next option.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 32.96,
+          "end": 39.05,
+          "en": "And if an option is not allowed listed in the pattern, get opts by default, will print an error.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 39.08,
+          "end": 42.71,
+          "en": "The program will continue then, but still it will print an error.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 42.71,
+          "end": 48.95,
+          "en": "And we want to redirect this error to dev null, meaning that we want to throw this error message away.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 48.98,
+          "end": 56.24,
+          "en": "So here we are like Hey A and L are supported options, but other options are supported as well.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 56.24,
+          "end": 58.67,
+          "en": "And the error we suppress that one.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 58.76,
+          "end": 65.22,
+          "en": "Then we start our do block and then we just output the the option that we want to do.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 65.22,
+          "end": 75.33,
+          "en": "So if we have a look at this, I will now just create a new file options w dot usr bin bash and I will",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 75.33,
+          "end": 77.58,
+          "en": "now just use the code from the lecture.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 79.09,
+          "end": 80.38,
+          "en": "So here we go.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 80.38,
+          "end": 82.18,
+          "en": "And let's now just execute this.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 82.18,
+          "end": 93.4,
+          "en": "So I save this, close this mod plus x options w dot h and I will now just launch that file and I will",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 93.4,
+          "end": 100.09,
+          "en": "set the L option and the A option and maybe also the H option if I now execute this, we can see here",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 100.09,
+          "end": 102.19,
+          "en": "those are the options that have been found.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 102.22,
+          "end": 107.89,
+          "en": "L and A are supported and the option that was not supported, it's just turned or it's being turned",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 107.89,
+          "end": 109.18,
+          "en": "into a question mark.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 109.36,
+          "end": 116.5,
+          "en": "So here Getopts didn't know what to do with it and then it will just set the question mark to our variable",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 117.91,
+          "end": 119.77000000000001,
+          "en": "opt that you can see here.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 120.16,
+          "end": 126.28,
+          "en": "This means through this parameter we are allow listing which options we allow and everything else.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 126.28,
+          "end": 131.17,
+          "en": "All other options will be turned into question mark when they are written into this variable.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 131.2,
+          "end": 137.11,
+          "en": "Of course, this variable we could configure, it's just a variable name and it just happens to be called",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 137.11,
+          "end": 138.19,
+          "en": "opt here.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 138.19,
+          "end": 143.66,
+          "en": "Also, if I do not have this redirect here, the code still works.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 143.69,
+          "end": 149.36,
+          "en": "If I now close this file and just re execute it, then we can see here we are just getting this illegal",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 149.39,
+          "end": 150.35,
+          "en": "option message.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 150.35,
+          "end": 156.71,
+          "en": "So this might be something that we might want to do if we want our program to complain.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 156.71,
+          "end": 164,
+          "en": "But if we don't want our program not to complain, then we need to add this redirect here where we take",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 164,
+          "end": 168.29,
+          "en": "this error message, this STD error, and we redirect it to dev null.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 169.4,
+          "end": 176.24,
+          "en": "Now this means that we are now able to parse those options, but now we want to do something with those",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 176.27,
+          "end": 176.93,
+          "en": "options.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 176.93,
+          "end": 181.63,
+          "en": "And for that we usually combine all of this into or with a case.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 181.64,
+          "end": 184.85,
+          "en": "So the way we write it is that we do that.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 184.85,
+          "end": 192.26,
+          "en": "We still have our getopts command here, and then we have a case here where we check the opt variable",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 192.26,
+          "end": 195.53,
+          "en": "for certain patterns and then we can be like, Hey, for the pattern.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 195.56,
+          "end": 199.16,
+          "en": "A we want to just print out option A for the pattern.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 199.37,
+          "end": 206.87,
+          "en": "We want to print out option L, and for an unknown option, that's always in that case, our variable",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 206.9,
+          "end": 209.57,
+          "en": "opt is always being turned into the question mark.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 209.6,
+          "end": 215.75,
+          "en": "Then we want to print out a custom error message that an option has been supplied that is not supported.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 216.02,
+          "end": 220.16,
+          "en": "Let's just change our script options.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 220.16,
+          "end": 228.32,
+          "en": "W and I will just comment those lines out and I will now just use the lines from our slide here in my",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 228.32,
+          "end": 229.31,
+          "en": "script.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 229.31,
+          "end": 231.98,
+          "en": "This is now exactly the code from our slide.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 231.98,
+          "end": 234.02,
+          "en": "We can see here, this is our while loop.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 234.02,
+          "end": 235.94,
+          "en": "Then we got our case here and there.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 235.94,
+          "end": 237.82999999999998,
+          "en": "We are checking all of those options.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 237.82999999999998,
+          "end": 246.8,
+          "en": "If I now close this, then I can just re execute the my script options w.la and then we can see option",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 246.8,
+          "end": 250.22,
+          "en": "L has been detected and option A has been detected here.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 250.22,
+          "end": 255.56,
+          "en": "Or if I would write it in any other way, we could also see that those options get detected.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 255.56,
+          "end": 261.08,
+          "en": "Or if I add an option that's not supported, then we can also see that an error has happened.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 261.41,
+          "end": 263.48,
+          "en": "Why would we do all of this?",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 263.48,
+          "end": 270.02,
+          "en": "So usually when we write programs to accept those options, the way to go is that we have one while",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 270.02,
+          "end": 276.05,
+          "en": "loop where we just go through all of those options and then instead of actually doing something here",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 276.05,
+          "end": 278.18,
+          "en": "we are just setting variables.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 278.18,
+          "end": 284.78,
+          "en": "So I could have a variable, let's call that variable whether we want to show the help menu.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 284.78,
+          "end": 290.04,
+          "en": "And I could here, um, set this variable.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 290.04,
+          "end": 295.26,
+          "en": "L Um, I uh, what to do in my program.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 296.17,
+          "end": 300.22,
+          "en": "Um, to let's call it to the empty string.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 300.34,
+          "end": 309.43,
+          "en": "And then if, let's say we want to also accept the option H, then I could check for my option H here.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 309.43,
+          "end": 313.39,
+          "en": "And in that case, what I want to do, I will write it like this.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 313.39,
+          "end": 316.18,
+          "en": "I will set the what variable to help.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 316.3,
+          "end": 323.32,
+          "en": "And then I would not just, uh, skip my case, but I would break my complete while loop.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 323.32,
+          "end": 328.54,
+          "en": "I would be like, okay, uh, the user wants to see the help menu, and then I want this help to be",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 328.54,
+          "end": 335.35,
+          "en": "reached and I still need to quit my current case of the, um, uh, this case, uh, always needs the",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 335.38,
+          "end": 337.15,
+          "en": "double semicolon here at the end.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 337.15,
+          "end": 345.61,
+          "en": "So even though this breaks my whole while loop, and by that also my case and it's finished, then this",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 345.61,
+          "end": 352.51,
+          "en": "one is still needed for syntax reasons so that I can list the other cases here and now.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 352.51,
+          "end": 358.43,
+          "en": "The idea is that we just set those variables here, and then after my while loop I could start with",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 358.43,
+          "end": 366.26,
+          "en": "an if and I could check if this variable what we want to do is equal to help.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 366.26,
+          "end": 369.86,
+          "en": "And in that case I could print out a help menu.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 372.79,
+          "end": 374.98,
+          "en": "And accept my program.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 374.98,
+          "end": 378.51,
+          "en": "So here I would then have have an exit written here.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 378.52,
+          "end": 387.94,
+          "en": "So if we now, um, uh, save this and execute our script options double w dot h and I add this h option,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 387.94,
+          "end": 394.54,
+          "en": "then we can see that we are now able to reach our help menu and all the other options will, in that",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 394.54,
+          "end": 395.86,
+          "en": "case, be ignored.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 396.13,
+          "end": 397.6,
+          "en": "They are still being printed here.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 397.6,
+          "end": 402.04,
+          "en": "But the the idea here is that we just set variables within our loop.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 402.04,
+          "end": 410.26,
+          "en": "So if I now go back here, it would be best practice to turn this one also or to replace those echo",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 410.26,
+          "end": 416.65,
+          "en": "statements here when parsing, parsing those options that we turn that also into local variables that",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 416.65,
+          "end": 418.42,
+          "en": "are valid within our bash script.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 418.42,
+          "end": 425.98,
+          "en": "And here we could set okay, maybe this option should be set or we want to add another option.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 425.98,
+          "end": 427.24,
+          "en": "I will now do this here.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 427.24,
+          "end": 428.74,
+          "en": "An option quiet.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 428.77,
+          "end": 436,
+          "en": "We could add it like this and then I would have a variable called quiet that would by default be set",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 436,
+          "end": 439.12,
+          "en": "to one meaning standing for false.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 439.39,
+          "end": 446.92,
+          "en": "And then when working or when accepting those options here, I could say, okay, if Q is being set,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 446.95,
+          "end": 452.95,
+          "en": "then I want to set the variable quiet to zero.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 453.51,
+          "end": 458.07,
+          "en": "And I want to continue parsing all the other options.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 458.07,
+          "end": 460.47,
+          "en": "So in that case, I would not need a break here.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 460.47,
+          "end": 467.49,
+          "en": "So this would now also accept the minus Q option to prevent messages from being written.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 467.52,
+          "end": 472.29,
+          "en": "Of course we would have to implement that logic later in our script, but we now have a variable here",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 472.29,
+          "end": 476.88,
+          "en": "that by default it's set to false or to one.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 477.69,
+          "end": 482.91,
+          "en": "And providing this option now will set this variable to zero.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 482.91,
+          "end": 489.09,
+          "en": "And then of course, later we could have an if here if we want to print a message, for example, only",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 489.09,
+          "end": 493.77,
+          "en": "if this variable is enabled or disabled or set to 0 or 1 or whatever.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 494.16,
+          "end": 500.25,
+          "en": "Just as an example, I might have want to have a message that prints out the current time.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 500.34,
+          "end": 504.3,
+          "en": "The current time is and then I need to get the current time.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 504.91,
+          "end": 511.15,
+          "en": "We can get the time with the date command, and then we need to set a few parameters and that would",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 511.33,
+          "end": 517.82,
+          "en": "be the plus percentage uppercase t parameter that I need to set.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 517.84,
+          "end": 522.88,
+          "en": "I think I will put this into single quotes and see if this one works.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 522.88,
+          "end": 526.18,
+          "en": "So our script will now always print the current time.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 526.99,
+          "end": 534.67,
+          "en": "Let's just have a look at this dot slash options and we can see the current time is this and if I want",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 534.67,
+          "end": 540.46,
+          "en": "to have the option to suppress this message, we have now implemented this quiet variable that we can",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 540.46,
+          "end": 544.78,
+          "en": "set to zero through a CLI or through a command line option.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 544.78,
+          "end": 552.46,
+          "en": "So now I could put an if around here and I could check if the variable quiet, it's a numeric variable",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 552.46,
+          "end": 553.96,
+          "en": "so I can write it like this.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 553.99,
+          "end": 554.89,
+          "en": "Quiet.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 554.89,
+          "end": 561.1,
+          "en": "If this one equals to one here.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 561.1,
+          "end": 563.32,
+          "en": "In this case this stands for a false.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 563.32,
+          "end": 566.78,
+          "en": "I use the concept of the exit codes here as well.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 566.78,
+          "end": 572.18,
+          "en": "So this is why here in this case, the one equals to a false.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 572.18,
+          "end": 578.36,
+          "en": "So if this acquired variable is set to false, then I want to be a bit more verbose and print out this",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 578.36,
+          "end": 581.66,
+          "en": "message here and then my if is done here.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 581.66,
+          "end": 589.1,
+          "en": "So if I now just save this and I now just execute my scripts options by default, it will print the",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 589.1,
+          "end": 589.88,
+          "en": "current time.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 589.88,
+          "end": 594.5,
+          "en": "But I am now able to suppress this output by just adding an option here.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 594.5,
+          "end": 598.31,
+          "en": "Or I could reach the help menu by adding the H option here.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 598.31,
+          "end": 606.8,
+          "en": "So this is how those options or this Getopts command allows you to make your Bash scripts configurable",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 607.25,
+          "end": 609.26,
+          "en": "and more easy to use.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 609.26,
+          "end": 614.93,
+          "en": "At least I do admit it's a little bit of additional logic that we need here that we need to specify",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 614.93,
+          "end": 618.47,
+          "en": "which options are allowed here and then we need to go through them.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 618.74,
+          "end": 625.13,
+          "en": "But this is the way to go if you want your program to be customizable through those options and then",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 625.13,
+          "end": 628.43,
+          "en": "you can work with those variables later in your bash script.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 628.99,
+          "end": 630.85,
+          "en": "By the way, one last thing.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 630.85,
+          "end": 637.45,
+          "en": "If we wanted to get rid of this redirect here, we could also enable a silent mode for Getopts by adding",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 637.45,
+          "end": 642.07,
+          "en": "a colon here before at the start of our option string.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 642.07,
+          "end": 646.33,
+          "en": "This just means that we want a silent mode and then no errors are generated.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 646.33,
+          "end": 650.65,
+          "en": "In that case, I could get rid of this redirect and this would work as well.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 650.65,
+          "end": 655.87,
+          "en": "However, I've used this redirect and that one works as well, but I just feel like I should mention",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 655.87,
+          "end": 662.11,
+          "en": "that there's also this different option that might even be a little bit more or a bit shorter here.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 662.71,
+          "end": 669.13,
+          "en": "So yeah, there's one more thing about this Getopts command that I would like to present you because",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 669.13,
+          "end": 675.37,
+          "en": "this also supports options that allow us to specify additional parameters and how we can do that.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 675.37,
+          "end": 679.99,
+          "en": "And what this is, this is going to be the topic of the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "39471616",
+      "title": "Accepting Options with Arguments",
+      "lectureOrder": 518,
+      "videoOrder": 470,
+      "sourceHash": "3700d1a806b93e84cbf1af83b3952c97d51d40bfe4fa32aa5f34495c898a258c",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.23,
+          "end": 4.43,
+          "en": "Let's now have a look at how we can accept parameters with Getopts.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.52,
+          "end": 9.34,
+          "en": "We can also use Getopts to accept parameters for our bash script.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.35,
+          "end": 14.42,
+          "en": "Here we can see that we use the letter F here and after that a colon.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 14.45,
+          "end": 19.51,
+          "en": "This colon changes the behavior of our getopts command slightly.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 19.52,
+          "end": 25.1,
+          "en": "The colon after the F means that we want to require a parameter for the minus F option.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 25.49,
+          "end": 32.66,
+          "en": "Important here in each iteration of the Getopts command, we will still only find one option, so we",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 32.66,
+          "end": 36.02,
+          "en": "should still call this Getopts in a while loop.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 36.02,
+          "end": 40.88,
+          "en": "But if we find the minus F option then we require a parameter after it.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 40.88,
+          "end": 45.17,
+          "en": "This then enables the following ways to call our program.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 45.17,
+          "end": 52.79,
+          "en": "We can say here we want to enable the option minus A and the option minus F That in this case requires",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 52.79,
+          "end": 53.54,
+          "en": "a parameter.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 53.54,
+          "end": 56.51,
+          "en": "And in this case the parameter is file name, dot txt.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 56.66,
+          "end": 63.81,
+          "en": "Or we could also completely omit a parameter or an option even if it requires a parameter.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 63.81,
+          "end": 65.43,
+          "en": "So that would still work.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 65.43,
+          "end": 72.09,
+          "en": "Or we could also of course omit or leave out the A, but if we use the minus F, then we need to specify",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 72.09,
+          "end": 73.35,
+          "en": "the value for that.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 73.44,
+          "end": 79.13,
+          "en": "The value can then be found in a variable called opt arg.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 79.2,
+          "end": 85.86,
+          "en": "So if we then access this variable, we can access the the parameter here.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 85.86,
+          "end": 87.84,
+          "en": "In this case the file name dot txt.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 88.14,
+          "end": 89.78999999999999,
+          "en": "So if I'm here.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 90.75,
+          "end": 95.64,
+          "en": "Um, and I create yet another bash script usr bin env bash.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 95.67,
+          "end": 106.62,
+          "en": "Now I need to use this getopts command so I can do while getopts aff opt do and then a done.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 106.62,
+          "end": 112.11,
+          "en": "And now I have the option here to just print out which options have been found.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 112.11,
+          "end": 115.02000000000001,
+          "en": "So first time we might find the a option.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 115.02000000000001,
+          "end": 117.27000000000001,
+          "en": "The next time we might find the f option.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 117.27000000000001,
+          "end": 118.56,
+          "en": "Let's just have a look.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 118.56,
+          "end": 127.89,
+          "en": "So here, if I now execute this file params dot h and I set minus a and minus f, then we can see here",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 127.89,
+          "end": 130.35,
+          "en": "minus a could be found and minus f.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 130.38,
+          "end": 137.1,
+          "en": "We can see here that this option now requires a parameter or an argument that has not been provided.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 137.1,
+          "end": 138.57,
+          "en": "So we are getting an error.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 138.57,
+          "end": 142.35,
+          "en": "And then of course, this option is being set to a question mark.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 143.1,
+          "end": 151.95,
+          "en": "But with this minus F, I can provide now let's say a file name or anything else, I will now just provide",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 151.95,
+          "end": 154.74,
+          "en": "a file name here of a file that exists.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 154.74,
+          "end": 155.72,
+          "en": "Let's call file.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 155.94,
+          "end": 162.09,
+          "en": "The file could be file one dot txt and then we can see this option here now has been found.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 162.54,
+          "end": 170.78,
+          "en": "I can now go back into my params and I can now also access the variable opt arg.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 172.43,
+          "end": 178.67000000000002,
+          "en": "And this will then be the the parameter or the argument to our option here.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 178.67000000000002,
+          "end": 185.27,
+          "en": "So if I now close this and I just re execute this, we can see here the minus A did not need an opt",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 185.27,
+          "end": 188.39,
+          "en": "arg, but the minus F needed this opt arg.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 188.39,
+          "end": 190.91,
+          "en": "And this is the value that we have provided here.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 190.94,
+          "end": 195.08,
+          "en": "The advantage of this is that the order here doesn't really matter.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 195.08,
+          "end": 200.9,
+          "en": "So I could also use the minus F here and then at the end I could set the minus A or I could leave out",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 200.9,
+          "end": 207.05,
+          "en": "the minus A And we are really flexible here in a way how we are parsing those options.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 207.05,
+          "end": 212.99,
+          "en": "So this getopts command greatly allows us to more easily parse all of those options.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 212.99,
+          "end": 224,
+          "en": "Of course, if we if this was an actual program, we would have a case here like case opt and um, then",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 224,
+          "end": 225.62,
+          "en": "I would do my tests here.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 225.62,
+          "end": 229.43,
+          "en": "So for option A, maybe I would set a variable here.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 229.43,
+          "end": 229.76,
+          "en": "Here.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 229.76,
+          "end": 235.35,
+          "en": "In this case, I just leave it empty because it's not that important for this visualization here.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 235.35,
+          "end": 238.77,
+          "en": "But for option F, I would set a variable.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 238.77,
+          "end": 245.46,
+          "en": "Let's, let's call the variable file name and I would set that variable, for example, to opt arg y",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 245.49,
+          "end": 251.64,
+          "en": "opt arg, because if we found this minus F option, we want to parse the parameter or the argument there",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 251.88,
+          "end": 255.42,
+          "en": "that's corresponding to the minus F option.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 255.42,
+          "end": 260.76,
+          "en": "So I would set this variable and then I would be done so I can here write everything in one line as",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 260.76,
+          "end": 261.06,
+          "en": "well.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 261.06,
+          "end": 262.53,
+          "en": "That's totally all right.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 263.1,
+          "end": 268.14,
+          "en": "And then we might even argue this is simple to see what's happening here.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 268.14,
+          "end": 276.24,
+          "en": "Of course, if I overwrite a variable here, I could declare it here already just to make sure that",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 276.24,
+          "end": 280.38,
+          "en": "other programmers easily see that this a variable exists in our script.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 280.38,
+          "end": 282.9,
+          "en": "So that's something we might want to do.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 282.9,
+          "end": 287.15999999999997,
+          "en": "Oh, and of course I need to finish my case with an sec.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 287.37,
+          "end": 293.37,
+          "en": "Then at the end or after this while loop, I could do my test and I could check here.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 293.37,
+          "end": 302.01,
+          "en": "If this variable is not empty and if it's not empty, then I want to say or I want to output something",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 302.01,
+          "end": 308.76,
+          "en": "the file name is and print out my variable and otherwise.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 310.42,
+          "end": 317.02,
+          "en": "I would output an error message here and this error message I would then of course redirect to stdout",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 317.35,
+          "end": 320.05,
+          "en": "and then my if would be complete here.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 320.05,
+          "end": 323.59,
+          "en": "So let's now just have a look at if everything works here.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 323.59,
+          "end": 331.21,
+          "en": "So if I now execute this file and I do not enter a file name here, we can see we got an error parsing",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 331.21,
+          "end": 332.17,
+          "en": "the file name.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 332.17,
+          "end": 338.32,
+          "en": "But if I do provide a file name here, we can see here the file name has been accepted by my program",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 338.32,
+          "end": 340.09000000000003,
+          "en": "and it's printing out the file name.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 340.09000000000003,
+          "end": 346.24,
+          "en": "Of course, in practice it would rather then do something actual useful here and not just output an",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 346.24,
+          "end": 346.84000000000003,
+          "en": "echo here.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 346.84000000000003,
+          "end": 354.43,
+          "en": "But this is the way how this getopts would allow you to accept additional arguments to your shell scripts",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 354.61,
+          "end": 362.14,
+          "en": "and this way your shell script are even more flexible and you cannot just accept those options, but",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 362.14,
+          "end": 366.52,
+          "en": "you can also accept this kind of option with an argument after it.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 367.18,
+          "end": 373.99,
+          "en": "This can be extremely useful for our Shell scripts because now we have this possibility here to parse",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 373.99,
+          "end": 379.63,
+          "en": "those options and those arguments and we can accept them for our Shell scripts.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "39471630",
+      "title": "Intro",
+      "lectureOrder": 519,
+      "videoOrder": 471,
+      "sourceHash": "38b37810a8824d6261bde1c647b9af5c93601bcc6f749d3ab7b329ae35d3cfd3",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.53,
+          "end": 4.58,
+          "en": "In this chapter, we want to have a look at how functions work in Bash.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5,
+          "end": 9.35,
+          "en": "Functions allow us to create code that is more modular.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.38,
+          "end": 16.64,
+          "en": "This means that we can create reusable code blocks and from another position in our program we can just",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 16.64,
+          "end": 18.95,
+          "en": "invoke those reusable code blocks.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 18.98,
+          "end": 23.51,
+          "en": "This helps us to modularize our code though.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 23.51,
+          "end": 24.71,
+          "en": "Be careful.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 24.71,
+          "end": 29.06,
+          "en": "This would theoretically allow us to write more complex bash scripts.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 29.09,
+          "end": 32.87,
+          "en": "The main purpose of Bash script stays the same.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 33.02,
+          "end": 38.96,
+          "en": "The main purpose of Bash script is that we have a simple language to write Small utilities.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 38.99,
+          "end": 42.44,
+          "en": "Bash Scripts are not meant for complex logic.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 42.47,
+          "end": 49.25,
+          "en": "Still, if we are able to modularize our code a little bit, this can still be helpful.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 49.25,
+          "end": 55.37,
+          "en": "And with a function we can get a little bit more structure into our program.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 56.21,
+          "end": 57.56,
+          "en": "Important here.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 57.77,
+          "end": 64.08,
+          "en": "I have programmed a lot with different programming languages before and to me it feels like Bash has",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 64.08,
+          "end": 69.84,
+          "en": "kind of like its own concepts of how functions work, how they are being treated, how arguments are",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 69.84,
+          "end": 73.26,
+          "en": "passed to functions, how variables work within function.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 73.26,
+          "end": 81.03999999999999,
+          "en": "And those concepts in Bash don't necessarily match the concepts that I knew from other programming languages.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 81.06,
+          "end": 84.96000000000001,
+          "en": "So my advice, or at least this is how I see it.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 84.96000000000001,
+          "end": 91.02,
+          "en": "If you have programmed before, I would suggest that you try to forget many concepts that you know from",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 91.02,
+          "end": 97.92,
+          "en": "other programming languages such as Cplusplus, Python, JavaScript, PHP and so on, and that you treat",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 97.92,
+          "end": 99.78,
+          "en": "Bash as a separate language.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 100.45,
+          "end": 104.84,
+          "en": "In which certain concepts are implemented in a very interesting way.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 104.86,
+          "end": 106.27000000000001,
+          "en": "Let me say it like this.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 107.16,
+          "end": 109.38,
+          "en": "If you have not programmed before.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 109.38,
+          "end": 111.12,
+          "en": "Also, don't worry about that.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 111.15,
+          "end": 115.78999999999999,
+          "en": "We will learn everything here in this chapter or in general here in this course from scratch.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 115.8,
+          "end": 117.45,
+          "en": "You can then also follow along.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 117.45,
+          "end": 122.08,
+          "en": "But I just want to mention this for the people that have programmed before.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 122.1,
+          "end": 129.48,
+          "en": "Some things work quite unexpectedly or they work in interesting ways in Bash, as you maybe already",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 129.48,
+          "end": 132.09,
+          "en": "have experienced that in some previous chapters.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 132.09,
+          "end": 139.38,
+          "en": "Bash has some interesting concepts in the way it works, but it kind of all makes sense in the grand",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 139.38,
+          "end": 140.52,
+          "en": "scheme of things.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 141,
+          "end": 147.32999999999998,
+          "en": "Let's now get started and let's now have a look at our first function and how that allows us to structure",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 147.32999999999998,
+          "end": 148.14,
+          "en": "our code.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "39471634",
+      "title": "Creating a first Function",
+      "lectureOrder": 520,
+      "videoOrder": 472,
+      "sourceHash": "be2abb8ac4c61cd47210f0e90bb9c2be2fb8e1c6032b95c5e896e10d632bbbb9",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.44,
+          "end": 3.71,
+          "en": "Let's now have a look at how functions work in bash.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.92,
+          "end": 7.25,
+          "en": "Functions allow us to reuse code blocks.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.25,
+          "end": 11.39,
+          "en": "This helps us to improve the code organisation and the maintainability.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.42,
+          "end": 17.03,
+          "en": "The syntax to create such a function is that we first come up with a function name.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.03,
+          "end": 22.22,
+          "en": "Here I've just written it as function underscore name, but it could be any name that we wanted.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.31,
+          "end": 27.41,
+          "en": "And within that function, we can then place the code that we want to be executed.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 27.68,
+          "end": 32.93,
+          "en": "This code is not executed immediately, it's just being declared.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 32.93,
+          "end": 36.89,
+          "en": "So we are just writing the code, but it's not executed yet.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 37.04,
+          "end": 43.7,
+          "en": "To execute or to invoke this function, we can simply write its name and then this function is being",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 43.7,
+          "end": 44.54,
+          "en": "executed.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 44.54,
+          "end": 46.1,
+          "en": "Let's have a look at this.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 46.1,
+          "end": 51.71,
+          "en": "So here I'm in a shell script called functions.sh.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 52.55,
+          "end": 54.98,
+          "en": "This file I've already created it.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 54.98,
+          "end": 56.78,
+          "en": "And this file is also executable.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 56.78,
+          "end": 59.27,
+          "en": "So I can just start writing my function here.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 59.27,
+          "end": 64.58,
+          "en": "Let's say I want to create a function called greet underscore world.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 64.58,
+          "end": 67.19,
+          "en": "So this is the function that I want to declare.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 67.19,
+          "end": 73.19,
+          "en": "And the syntax is that I use this, uh, like, around, uh, like the normal brackets.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 73.19,
+          "end": 75.14,
+          "en": "And then I use the curly brackets.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 75.14,
+          "end": 79.61,
+          "en": "And within those curly brackets I need to specify my code for this function.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 79.61,
+          "end": 86.12,
+          "en": "And here I could now specify that the code that should be executed if this function is executed should",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 86.12,
+          "end": 87.62,
+          "en": "be hello world.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 87.62,
+          "end": 90.41,
+          "en": "That this should just be outputted through an echo.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 90.44,
+          "end": 97.58,
+          "en": "If I now save this file and I now try to execute this file again, this file is already executable.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 97.58,
+          "end": 98.69,
+          "en": "So this works now.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 98.69,
+          "end": 100.7,
+          "en": "And we can see nothing happens here.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 100.72999999999999,
+          "end": 101.9,
+          "en": "Why is that.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 101.9,
+          "end": 104.45,
+          "en": "Because I've just declared this function.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 104.45,
+          "end": 107.06,
+          "en": "But this function is never being executed.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 107.06,
+          "end": 112.34,
+          "en": "If I want to execute this function I need to call greet underscore world.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 112.58,
+          "end": 118.58,
+          "en": "In a lot of programming languages, I would call or invoke that function or execute that function like",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 118.58,
+          "end": 118.94,
+          "en": "this.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 118.97,
+          "end": 121.13,
+          "en": "In bash we do not even need those.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 121.13,
+          "end": 123.05,
+          "en": "We should not even write those.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 123.32,
+          "end": 125.93,
+          "en": "Um, we can just use the function name.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 125.93,
+          "end": 127.49,
+          "en": "Now as a new command.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 127.49,
+          "end": 129.41,
+          "en": "And this is now a new command.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 129.41,
+          "end": 137.44,
+          "en": "And this will now trigger the execution of this function if I now just re-execute that file, we can",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 137.44,
+          "end": 139.9,
+          "en": "see this function is now being executed.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 139.93,
+          "end": 142.54,
+          "en": "Let me now go back into my functions file.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 142.54,
+          "end": 149.74,
+          "en": "And the advantage here is that I now have the possibility to split my code into multiple those functions.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 149.74,
+          "end": 153.55,
+          "en": "And then I can just call those functions later here.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 154.09,
+          "end": 155.86,
+          "en": "Let me give you another example.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 155.86,
+          "end": 160.03,
+          "en": "I could also create another function here.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 160.03,
+          "end": 163.93,
+          "en": "I could call that function print underscore help.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 163.93,
+          "end": 169.66,
+          "en": "And here in this function I could print out everything that the user needs to know about my bash script.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 169.66,
+          "end": 175.69,
+          "en": "So here I would write about the parameters or the options that this program accepts.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 175.69,
+          "end": 181,
+          "en": "But for the sake of simplifying that, I don't need to type this much.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 181,
+          "end": 182.41,
+          "en": "I will just echo here.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 182.41,
+          "end": 185.2,
+          "en": "This is the help menu.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 185.2,
+          "end": 193.27,
+          "en": "And now I could just print the help menu by just invoking this function at any point later here in my",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 193.54,
+          "end": 194.23,
+          "en": "sh file.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 194.23,
+          "end": 199.93,
+          "en": "So if I now save this and I now execute this, we can see here we now have those two functions.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 199.96,
+          "end": 207.04,
+          "en": "Of course this one here would not be, um, like, usually we would not invoke that function immediately",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 207.04,
+          "end": 210.16,
+          "en": "here, especially if it's responsible for printing a help menu.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 210.16,
+          "end": 217.03,
+          "en": "But it would more be like, hey, we would want to accept parameters or options, and if a certain option",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 217.03,
+          "end": 220.18,
+          "en": "is matched only then we want to print the help menu.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 220.18,
+          "end": 224.65,
+          "en": "So usually I would use the getopts command and a while loop.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 224.65,
+          "end": 227.74,
+          "en": "And the case as we've seen that in the last chapter.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 227.74,
+          "end": 237.07,
+          "en": "But I will just use an if here, and I will check whether the uh, first parameter is exactly minus",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 237.07,
+          "end": 237.61,
+          "en": "h.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 237.61,
+          "end": 244.42,
+          "en": "And if that is the case, then and only then I want to print the help menu here.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 244.63,
+          "end": 248.35,
+          "en": "And otherwise I want to greet the world for example.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 248.35,
+          "end": 255.76,
+          "en": "So if I now save this, um, and my first argument or positional argument here to this program is minus",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 255.76,
+          "end": 258.79,
+          "en": "h, then we will print the help menu again.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 258.79,
+          "end": 264.25,
+          "en": "I should use getopts and a while loop with a case there.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 264.49,
+          "end": 271.26,
+          "en": "Um, because now something like this would not print out the help menu, but we can see here how those",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 271.26,
+          "end": 274.83,
+          "en": "functions allow us to structure our program.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 274.83,
+          "end": 280.2,
+          "en": "And now it's more visible that this part of our program here is responsible for the help menu.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 280.23,
+          "end": 282.81,
+          "en": "This is responsible for greeting the world.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 283.32,
+          "end": 288.93,
+          "en": "And then we have our actual logic um implemented here below.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 288.96,
+          "end": 294.21,
+          "en": "Also, I want to emphasize that it's possible to invoke a function multiple times.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 294.21,
+          "end": 299.13,
+          "en": "So it's not like when we declare a function that we can only execute it once.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 299.15999999999997,
+          "end": 302.7,
+          "en": "It's more like we can execute it as often as we want.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 303,
+          "end": 307.98,
+          "en": "So here I have now one function that I've just invoked multiple times.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 308.01,
+          "end": 316.11,
+          "en": "Or the greet world function will either be invoked one time here or zero times here, and then always",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 316.35,
+          "end": 318.72,
+          "en": "invoked two additional times here.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 318.72,
+          "end": 322.35,
+          "en": "So if I now execute this we can see here help menu.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 322.35,
+          "end": 330.03,
+          "en": "And then this hello world or this uh greet function is being executed two times after that.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 330.48,
+          "end": 338.4,
+          "en": "Um, those functions thus allow us to reuse those code blocks because we can execute that code multiple",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 338.4,
+          "end": 339.45,
+          "en": "times then.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 339.51,
+          "end": 343.17,
+          "en": "By the way, there's also an alternative way to define a function.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 343.17,
+          "end": 346.86,
+          "en": "We can also use the function keyword in front of the name.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 346.86,
+          "end": 348.63,
+          "en": "So here we have the function keyword.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 348.63,
+          "end": 349.65,
+          "en": "This is always function.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 349.65,
+          "end": 352.98,
+          "en": "And this we would replace with the actual name of our function.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 352.98,
+          "end": 357.69,
+          "en": "And if we use the function keyword we can then also omit the round brackets.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 357.69,
+          "end": 361.2,
+          "en": "So uh bracket open bracket close of the round ones.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 361.2,
+          "end": 362.13,
+          "en": "We can then omit.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 362.13,
+          "end": 367.02,
+          "en": "But the curly braces we still need around our code that we want to execute.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 367.35,
+          "end": 373.14,
+          "en": "Um, this will um, or this is another way how we could define a function.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 373.14,
+          "end": 376.95,
+          "en": "One thing that the Google Style Guide recommends that we should be consistent.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 377.19,
+          "end": 383.37,
+          "en": "And here in this course, we will always omit the function keyword, um, and use the first way to define",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 383.4,
+          "end": 383.91,
+          "en": "a function.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 383.91,
+          "end": 391.2,
+          "en": "But just um, if you see it in other scripts, this would be another way how we could define a function.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 391.2,
+          "end": 397.95,
+          "en": "In the next lecture, we want to have a look at how variables work within functions in our shell or",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 397.95,
+          "end": 399.09000000000003,
+          "en": "in our shell scripts.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 399.09000000000003,
+          "end": 402.21,
+          "en": "So let's just continue with the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "39471636",
+      "title": "Variables within a Function",
+      "lectureOrder": 521,
+      "videoOrder": 473,
+      "sourceHash": "03ee388f996357c4d573ea81fd122a1a44f98c6873b7efbce3197864955279e9",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.29,
+          "end": 4.34,
+          "en": "Now we want to have a look at how variables work within functions.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.34,
+          "end": 7.7,
+          "en": "And for that, I have already prepared a simple script.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.73,
+          "end": 13.52,
+          "en": "We see here we have a function called greet that we define, and this one just greets the world and",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.52,
+          "end": 15.35,
+          "en": "then we execute this function.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 15.86,
+          "end": 21.65,
+          "en": "So far, variables work normally within those functions as we are used to.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 21.65,
+          "end": 28.64,
+          "en": "So I could here create a variable with let's we could call it name and I could that set that name to",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 28.67,
+          "end": 38.66,
+          "en": "Max and then I could just read my the user Max by just accessing that variable in our echo command.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 38.66,
+          "end": 40.08,
+          "en": "And this now should work.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 40.1,
+          "end": 48.83,
+          "en": "If I now just execute this file dot slash variables dot h we can see Hello Max is being outputted here.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 49.25,
+          "end": 53.81,
+          "en": "Let's change this code so that the variable actually does something.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 53.81,
+          "end": 56.58,
+          "en": "And I can do that by just using the read command.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 56.6,
+          "end": 60.39,
+          "en": "I can say please enter your name and.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 60.39,
+          "end": 65.7,
+          "en": "And then I want to assign this input to my variable with the name name.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 65.7,
+          "end": 70.25,
+          "en": "And then I just access this variable and everything should work properly.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 70.26,
+          "end": 74.73,
+          "en": "If we now execute this file again, we can see I can enter my name.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 75.39,
+          "end": 79.86,
+          "en": "Let's say Lauren and we can see here, Hello, Lauren is being printed here.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 80.13,
+          "end": 81.45,
+          "en": "Let's go back here.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 81.45,
+          "end": 87.66,
+          "en": "And why is this something that I need to dedicate a complete lecture to?",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 87.69,
+          "end": 90.12,
+          "en": "Well, let's have a look at the slides.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 91.08,
+          "end": 95.34,
+          "en": "Important in bash is that variables are global by default.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 95.37,
+          "end": 99.97999999999999,
+          "en": "This means that this code here will print out Max.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 99.99000000000001,
+          "end": 105.81,
+          "en": "Here we have a function, and there we just set a variable to a specific value.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 105.84,
+          "end": 111.93,
+          "en": "Then we execute this function and we can access this variable outside of that function.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 111.93,
+          "end": 117.69,
+          "en": "This is really uncommon, at least in most languages, in most programming languages.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 117.69,
+          "end": 121.5,
+          "en": "This variable would then only exists within our function.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 121.5,
+          "end": 123.48,
+          "en": "This is not the case in Bash.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 123.51,
+          "end": 127.29,
+          "en": "In Bash, all of our variables are global by default.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 127.47,
+          "end": 135.09,
+          "en": "That means if I create a variable called name in this function and let's say here, I then output or",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 135.09,
+          "end": 141.27,
+          "en": "try to access this variable outside of that function, once this variable has been created, it also",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 141.27,
+          "end": 143.7,
+          "en": "exists outside of my function.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 143.7,
+          "end": 151.98,
+          "en": "If I now just re-execute this, I can now enter a name here and we can see here also from outside of",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 152.01,
+          "end": 155.13,
+          "en": "that function I am able to access this variable.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 155.43,
+          "end": 162.51,
+          "en": "Also, this is important because if our program is rather long, we might have something here in the",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 162.51,
+          "end": 165.9,
+          "en": "code that tests whether a variable exists.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 165.9,
+          "end": 174.69,
+          "en": "So I might have an if here and I might test like, hey, if this variable name is empty only then I",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 174.69,
+          "end": 181.56,
+          "en": "want to ask the user to provide their name so I can have a code like this here in my bash script and",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 181.56,
+          "end": 187.46,
+          "en": "now if this variable is empty, then the user is being asked for for the name.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 187.47,
+          "end": 188.61,
+          "en": "What happens now?",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 188.61,
+          "end": 194.88,
+          "en": "If I want to greet this user multiple times, I will now just save this and I will now just execute",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 194.88,
+          "end": 195.45,
+          "en": "this file.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 195.45,
+          "end": 201.54,
+          "en": "So if I now execute this file, Lauren and we can see here that the second time that we invoked that",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 201.54,
+          "end": 203.6,
+          "en": "function, the name already existed.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 203.61,
+          "end": 204.81,
+          "en": "Why is that?",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 204.84,
+          "end": 207.15,
+          "en": "Because this variable is global.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 207.15,
+          "end": 209.49,
+          "en": "It's part of our whole Shell script.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 209.52,
+          "end": 215.7,
+          "en": "The first time that this function is executed here, it's like, Hey, yeah, this is the empty string.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 215.7,
+          "end": 217.26,
+          "en": "I need to ask for the name.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 217.26,
+          "end": 217.71,
+          "en": "Okay?",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 217.71,
+          "end": 219.36,
+          "en": "And then we print out Hello name.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 219.36,
+          "end": 225.75,
+          "en": "The second time this function is being executed or invoked, we go back here and then it's like, Yeah,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 225.75,
+          "end": 228.39,
+          "en": "this variable exists, It's global.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 228.39,
+          "end": 230.43,
+          "en": "It's valid for our whole shell script.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 230.43,
+          "end": 234.15,
+          "en": "We already have a variable there with the name name.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 234.32999999999998,
+          "end": 236.94,
+          "en": "So we don't need this is not empty.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 236.94,
+          "end": 239.91,
+          "en": "There's a name in, so I don't need to execute this code.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 239.91,
+          "end": 244.08,
+          "en": "I can go immediately here to this echo command and just output the name.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 244.5,
+          "end": 248.28,
+          "en": "This is something that's not the case in most programming languages.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 248.28,
+          "end": 253.86,
+          "en": "In most programming languages, whenever we declare a function, variables have their own scope.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 253.86,
+          "end": 257.58,
+          "en": "They are only valid for the function in which we write them.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 257.67,
+          "end": 259.02,
+          "en": "Here in Bash.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 259.02,
+          "end": 260.82,
+          "en": "Those variables are global.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 260.82,
+          "end": 263.94,
+          "en": "And this leads or this can easily lead to problems.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 263.94,
+          "end": 270.99,
+          "en": "Let's say this was not just a few lines of code, but just imagine this were like 20, 30, 40 lines",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 270.99,
+          "end": 271.5,
+          "en": "of code.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 271.5,
+          "end": 275.73,
+          "en": "And then we had another function that would also be like 20, 30, 40 lines of code.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 275.73,
+          "end": 281.76,
+          "en": "And we would decide for whatever reasons, we don't want to rewrite our script into another programming",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 281.76,
+          "end": 282.06,
+          "en": "language.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 282.06,
+          "end": 282.9,
+          "en": "We want to stick to.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 282.9,
+          "end": 290.49,
+          "en": "Bash But let's say we had many functions here and at some point we would create a name variable that",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 290.49,
+          "end": 295.26,
+          "en": "would mean something completely different than this name variable up here in this greet function.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 295.35,
+          "end": 298.89,
+          "en": "And this name would just be set to whatever value.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 298.89,
+          "end": 299.61,
+          "en": "It doesn't really matter.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 299.63,
+          "end": 299.81,
+          "en": "Her.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 300.26,
+          "end": 308.87,
+          "en": "If I now would execute this, our greet function would behave in a well, not really in an unpredicted",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 308.87,
+          "end": 313.97,
+          "en": "way because we are accessing, technically speaking, the same variable here.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 313.97,
+          "end": 317.03,
+          "en": "But we as programmers had forgotten about that.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 317.03,
+          "end": 323.6,
+          "en": "This greet function was using this variable name and we we didn't mean that this name variable should",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 323.6,
+          "end": 325.49,
+          "en": "be the same variable as here.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 325.97,
+          "end": 332.93,
+          "en": "This easily happens when our programs get longer, and the way to solve this is that whenever we use",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 332.93,
+          "end": 337.49,
+          "en": "a variable in a function that we should introduce it with the local keyword.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 337.52,
+          "end": 342.77,
+          "en": "This will mean that this variable will be local and it's valid within the function only.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 342.77,
+          "end": 348.23,
+          "en": "This will then print nothing here because this variable is now local.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 348.23,
+          "end": 355.55,
+          "en": "So here we have a function with a local variable and this variable is now only accessible within that",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 355.55,
+          "end": 356.3,
+          "en": "function.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 356.39,
+          "end": 361.83,
+          "en": "And if we now invoke that function, this variable is no longer set on a global level.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 361.83,
+          "end": 364.02,
+          "en": "It's no longer valid for our whole script.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 364.02,
+          "end": 367.71,
+          "en": "This local variable is only valid for within our function.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 367.71,
+          "end": 370.23,
+          "en": "So this echo here will not print anything.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 370.23,
+          "end": 377.94,
+          "en": "Or to use this example here, if I would introduce my name variable here as local.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 377.94,
+          "end": 384.24,
+          "en": "Now we are telling Bash, okay, if we want to access a variable name, this is a local variable name",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 384.24,
+          "end": 386.91,
+          "en": "that only exists within this function here.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 386.91,
+          "end": 391.17,
+          "en": "So this variable now is something completely different than this variable.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 391.17,
+          "end": 394.65,
+          "en": "And this is usually something that we want if we have a look at this.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 394.65,
+          "end": 403.5,
+          "en": "Now, if I now save this and now execute this, we can see here I now I'm now always asked for my name",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 403.5,
+          "end": 410.94,
+          "en": "because this name variable within our function is completely a different variable than this variable",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 410.97,
+          "end": 411.57,
+          "en": "out here.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 411.57,
+          "end": 419.46,
+          "en": "And again, just imagine, our script would be way more complex and we had multiple functions in between.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 419.49,
+          "end": 426.84,
+          "en": "Then having this as a local variable here only would prevent a lot of potential bugs, especially if",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 426.84,
+          "end": 432.06,
+          "en": "we accidentally created a variable with the same name later down in our script.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 432.09,
+          "end": 438.87,
+          "en": "Thus, the best practice is that whenever you want to create a variable within a function in a shell",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 438.87,
+          "end": 445.89,
+          "en": "script, that you put the local keyword in front, and this will then tell Bash that this variable is",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 445.89,
+          "end": 452.82,
+          "en": "local to this function only, and it should not influence any other variables in our script, even if",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 452.82,
+          "end": 454.38,
+          "en": "they have the same name.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 454.38,
+          "end": 461.76,
+          "en": "And this leads to way more bulletproof code and it will prevent a lot of issues in the long run.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 462.42,
+          "end": 468.21,
+          "en": "By the way, one really, really important thing in a lot of programming languages, using those global",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 468.21,
+          "end": 471.54,
+          "en": "variables would be considered totally bad.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 471.54,
+          "end": 474.06,
+          "en": "And we shouldn't do this here.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 474.06,
+          "end": 481.44,
+          "en": "I just want to emphasize that they are potential problems and I feel like I should really make this",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 481.44,
+          "end": 484.92,
+          "en": "clear that global variables can be dangerous.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 484.92,
+          "end": 491.22,
+          "en": "But in Bash, sometimes storing data in global variables is useful in bash and that we can create a",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 491.22,
+          "end": 493.71,
+          "en": "variable in one function and use it in another.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 493.95,
+          "end": 499.83,
+          "en": "The reason is that otherwise we might need a lot of additional code just to bring data from one function",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 499.83,
+          "end": 500.55,
+          "en": "to another.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 500.55,
+          "end": 506.85,
+          "en": "And the goal of our Shell script is that we can write short programs up to like 80 lines of code.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 507.18,
+          "end": 512.43,
+          "en": "And for everything above that, we should reconsider whether Bash is actually the right programming",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 512.43,
+          "end": 513.57,
+          "en": "language for that.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 513.75,
+          "end": 524.25,
+          "en": "So the argument that global variables this or can be detrimental to other functions, yes, it's true,",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 524.64,
+          "end": 531.15,
+          "en": "but only if our script keeps growing and it shouldn't grow that much because we should then at some",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 531.15,
+          "end": 534.39,
+          "en": "point rewrite it into Python or anything else.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 534.39,
+          "end": 539.07,
+          "en": "So there are use cases for global variables in Bash.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 539.07,
+          "end": 544.86,
+          "en": "So if you do decide to use global variables, be sure to add a comment above each function that uses",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 544.86,
+          "end": 552.3,
+          "en": "them and really make sure to document their use so that another programmer can easily see, Hey, okay,",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 552.3,
+          "end": 552.69,
+          "en": "here.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 552.69,
+          "end": 556.47,
+          "en": "This is a global variable that we are using here within this script.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 556.71,
+          "end": 563.37,
+          "en": "Yeah, I would say this much about variables, how those local variables work, how the global variables",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 563.37,
+          "end": 563.73,
+          "en": "work.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 563.73,
+          "end": 566.13,
+          "en": "And I would say let's now continue here.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "39471638",
+      "title": "Getting Data into a Function",
+      "lectureOrder": 522,
+      "videoOrder": 474,
+      "sourceHash": "d987173e9fb3b82da5e1ac2120c9fb43e3f9f7477ab7e492d2b0222ab8624c6f",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.35,
+          "end": 4.19,
+          "en": "Let's now have a look at how we can get data into our function.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.43,
+          "end": 6.2,
+          "en": "What's the problem here?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.07,
+          "end": 8.75,
+          "en": "Let me show you an example.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.29,
+          "end": 14.9,
+          "en": "Here I have a bash script, and every time that we invoke the script function, it's always the same",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 14.9,
+          "end": 15.98,
+          "en": "that will be printed here.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.98,
+          "end": 22.28,
+          "en": "There will always be a Hello world printed here, but maybe what I want to greet should be configurable,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 22.64,
+          "end": 30.68,
+          "en": "that I can set this in some shape or form from the outside so that I can use the same function multiple",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 30.68,
+          "end": 34.75,
+          "en": "times, maybe to one time greet the world and the next time to greet the Mars.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 34.76,
+          "end": 35.63,
+          "en": "Who knows?",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 35.66,
+          "end": 39.82,
+          "en": "Or of course, let's say this function would work with a specific file.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 39.83,
+          "end": 46.4,
+          "en": "Maybe I want to be able to apply the same function to multiple files one after another, and then we",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 46.43,
+          "end": 49.31,
+          "en": "somehow need to get this information into the function.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 49.4,
+          "end": 53.95,
+          "en": "One way would be that we pass data as STD in into a function.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 53.96,
+          "end": 61.86,
+          "en": "Here we have a function that just uses the read command to accept data from standard input of our shell.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 61.95,
+          "end": 68.55,
+          "en": "And then what we can see here is that I'm outputting something this as STD out through this echo.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 68.55,
+          "end": 74.52,
+          "en": "But the STD out of this command is being used as the standard input for our greet function.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 74.52,
+          "end": 78.33,
+          "en": "So this will mean that this read command will read the standard input.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 78.33,
+          "end": 86.4,
+          "en": "But for our greet function, the standard input is this Olivia here and this is one way to get input",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 86.4,
+          "end": 87.53999999999999,
+          "en": "into a function.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 87.72,
+          "end": 96.27000000000001,
+          "en": "If I change this here, I can say read name and then I want to greet the person with a and access this",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 96.27000000000001,
+          "end": 96.9,
+          "en": "variable.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 96.9,
+          "end": 102.53999999999999,
+          "en": "And now if I would just execute it like this, we will see that the script will ask for the name or",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 102.53999999999999,
+          "end": 107.94,
+          "en": "data and I can now provide the name and then it greets us.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 107.94,
+          "end": 111.72,
+          "en": "But I can automate this by using this pipe.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 111.72,
+          "end": 113.75999999999999,
+          "en": "So here, Echo Olivia.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 115.24000000000001,
+          "end": 120.52,
+          "en": "Olivia and I pipe this into the greet function, and then it will print out.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 120.55,
+          "end": 121.72,
+          "en": "Hello, Olivia.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 121.75,
+          "end": 126.82,
+          "en": "So I will now save this and re-execute this and we can see Hello.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 126.82,
+          "end": 128.59,
+          "en": "Olivia is being printed here.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 129.22,
+          "end": 133.54,
+          "en": "That would be one way to get data into a function.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 133.54,
+          "end": 139.81,
+          "en": "It's not the most convenient one, but the advantage here is that this allows us to just push this data",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 139.81,
+          "end": 144.22,
+          "en": "into the function and it can sometimes be quite convenient.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 144.49,
+          "end": 148.87,
+          "en": "Another way is that we use arguments to get data into a function.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 148.9,
+          "end": 154.66,
+          "en": "Functions can also accept arguments, but there's no special syntax here for this.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 154.87,
+          "end": 159.91,
+          "en": "Those arguments work just the same as positional arguments for Bash scripts.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 160.06,
+          "end": 166.69,
+          "en": "As an example, here we have a greet function and we are trying to access the first positional argument.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 166.69,
+          "end": 172.81,
+          "en": "And here we just happen to invoke this function with one positional argument which would be called here",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 172.81,
+          "end": 176.32999999999998,
+          "en": "in this case, and then Hello world would be outputted here.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 176.63,
+          "end": 179.44,
+          "en": "Let's also have a look at this Datacache.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 179.54,
+          "end": 188.3,
+          "en": "I will create a new function for this greet positional and here I will just say hello and then my positional",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 188.3,
+          "end": 189.29,
+          "en": "argument here.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 189.77,
+          "end": 197.69,
+          "en": "And then I finish this function and then I can use this function and here I will use a different name",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 197.69,
+          "end": 202.52,
+          "en": "or actually I will use Linux here and let's see if this one will work as well.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 202.67000000000002,
+          "end": 209.15,
+          "en": "So now I will close this and execute it and we can see hello, Linux is being printed here.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 209.36,
+          "end": 215.09,
+          "en": "Those positional arguments work exactly the same way as you know this from the Bash script.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 215.09,
+          "end": 223.04,
+          "en": "So also the shift command could shift those positional arguments or you could even use Getopts to accept",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 223.64,
+          "end": 224.9,
+          "en": "something like.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 226.89,
+          "end": 233.46,
+          "en": "This kind of arguments or those options with an argument after it to accept those you could even use",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 233.46,
+          "end": 236.1,
+          "en": "the Getopts opts with a while and a case.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 236.1,
+          "end": 243.09,
+          "en": "All of this kind of construct though I have not seen that that often in bash functions because it's",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 243.09,
+          "end": 245.13,
+          "en": "best practice to keep them rather simple.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 245.13,
+          "end": 248.61,
+          "en": "And parsing all of those arguments would be a little bit too much to do.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 248.61,
+          "end": 251.58,
+          "en": "In one function though, we do have the option to do it.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 251.58,
+          "end": 258.63,
+          "en": "I just want to emphasize that my suggestion would be to either use standard input, especially if it's",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 258.63,
+          "end": 264.42,
+          "en": "maybe like a little bit more text or something like this, or to use those positional arguments and",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 264.42,
+          "end": 270.15,
+          "en": "then you are able to get the data that you need into your function.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 271.63,
+          "end": 277.63,
+          "en": "If you want to have a function that can be invoked either with a positional argument or without one,",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 277.63,
+          "end": 280.06,
+          "en": "you might want to provide a default value.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 280.09000000000003,
+          "end": 284.2,
+          "en": "Just as an example, I will create yet another function here.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 284.2,
+          "end": 286.54,
+          "en": "I will call that one greet default.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 286.54,
+          "end": 296.74,
+          "en": "And here I want to say hello something and I want that I'm able to just call this the function like",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 296.74,
+          "end": 300.73,
+          "en": "this, and I want to be able that I can call the function like this.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 301.06,
+          "end": 306.4,
+          "en": "And in this case, I want, for example, to just print out Hello world.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 306.4,
+          "end": 308.95,
+          "en": "And in this case I want to print out hello Linux.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 308.95,
+          "end": 315.67,
+          "en": "So I want this to have like a default value in case no positional argument is specified, then something",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 315.67,
+          "end": 317.17,
+          "en": "is still being printed here.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 317.38,
+          "end": 324.31,
+          "en": "And also for those default values, there's no way in bash to provide us with a default value for an",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 324.31,
+          "end": 326.32,
+          "en": "argument that's not supported.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 326.32,
+          "end": 330.37,
+          "en": "But we can use the default value expansion here.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 330.37,
+          "end": 336.40999999999997,
+          "en": "We can use dollar, then the curly braces, then the variable name, then a colon and then minus, and",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 336.40999999999997,
+          "end": 339.05,
+          "en": "then the default value for this variable.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 339.05,
+          "end": 346.67,
+          "en": "And this will resolve to either the variable if it's not empty or to this default value that we have",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 346.67,
+          "end": 347.72,
+          "en": "specified here.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 347.72,
+          "end": 351.29,
+          "en": "In our case, the code would then somewhat look like this.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 351.32,
+          "end": 357.29,
+          "en": "We would try to access the first positional argument and if this one is empty, then we just use the",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 357.29,
+          "end": 362.84,
+          "en": "default value that we have specified here and here we specify the default value to be world.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 362.87,
+          "end": 369.97,
+          "en": "We also don't, in this case here immediately use it in our echo, but we turn this into a local variable.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 369.98,
+          "end": 375.32,
+          "en": "The idea here is that then our code is a little bit easier to read because now suddenly this variable",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 375.32,
+          "end": 383.15,
+          "en": "is named in a sense that it has a meaningful name and this is then a little bit easier to use in our",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 383.15,
+          "end": 383.81,
+          "en": "function later.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 383.81,
+          "end": 390.11,
+          "en": "But theoretically, we could have used this dollar block also here in this line.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 390.68,
+          "end": 392.84000000000003,
+          "en": "But here we turn it into a local variable.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 392.84000000000003,
+          "end": 400.28,
+          "en": "First, I want to use this here now, I will now create a local variable here and I will say, okay,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 400.28,
+          "end": 406.49,
+          "en": "I want to try to use the first positional argument, but if this one doesn't work, I want to replace",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 406.49,
+          "end": 408.53,
+          "en": "this with a world word.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 409.07,
+          "end": 414.71,
+          "en": "I should put quotes around this one in case there would be a wide space.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 414.8,
+          "end": 419.09000000000003,
+          "en": "It's a little bit safer to always put those quotes around though.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 419.09000000000003,
+          "end": 419.33,
+          "en": "Here.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 419.33,
+          "end": 425.03,
+          "en": "In this case, they would not be absolutely necessary even for multiple words separated by space.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 425.03,
+          "end": 431.35,
+          "en": "They would not necessarily be extremely necessary here, but it's still always safer to use those.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 431.36,
+          "end": 438.41,
+          "en": "We could also replace those with single quotes if we want to disable using the usage of variables within",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 438.41,
+          "end": 439.46,
+          "en": "that part.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 440.42,
+          "end": 448.43,
+          "en": "Now I can also or now I can just access this here and now we have a function that for which we can either",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 448.43,
+          "end": 454.07,
+          "en": "set no positional argument, then it will print out Hello world or we have the possibility to set a",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 454.07,
+          "end": 457.28,
+          "en": "positional argument and then it will print out here in this case.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 457.28,
+          "end": 458.42,
+          "en": "Hello Linux.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 458.6,
+          "end": 461.9,
+          "en": "I want to show you this and this is now our function.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 461.9,
+          "end": 467.84000000000003,
+          "en": "If we don't provide a positional argument or if we provide a positional argument, it will take that",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 467.84000000000003,
+          "end": 468.38,
+          "en": "one.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 469.15999999999997,
+          "end": 477.11,
+          "en": "This is extremely helpful because this allows you to write functions that can be configured by the program",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 477.11,
+          "end": 479.6,
+          "en": "by just providing additional arguments here.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 479.6,
+          "end": 485.69,
+          "en": "But for the default case, you can set safe defaults that people then can use.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 486.79,
+          "end": 491.2,
+          "en": "As you can see, there are multiple ways how we can get data into a function.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 491.23,
+          "end": 494.08,
+          "en": "Again, it depends a little bit on the use case.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 494.08,
+          "end": 501.58,
+          "en": "Sometimes here, accepting standard input can be useful, especially because this would allow us to",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 501.58,
+          "end": 511.09,
+          "en": "read something just line by line as an example and call this read command in a while loop within our",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 511.09,
+          "end": 516.31,
+          "en": "function and then accepting standard input in our function can be extremely useful.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 516.31,
+          "end": 523.99,
+          "en": "But also those positional arguments can be extremely useful or even those positional arguments.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 523.99,
+          "end": 529.54,
+          "en": "And then we turn it into a local variable and we provide a default value that can also be extremely",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 529.54,
+          "end": 530.29,
+          "en": "useful.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 530.71,
+          "end": 534.4,
+          "en": "However, how can we get data out of the function?",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 534.4,
+          "end": 540.31,
+          "en": "So now we have seen how we can get data into the function, but how can we return data from within the",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 540.31,
+          "end": 543.67,
+          "en": "function back to our program and how we can do that?",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 543.67,
+          "end": 545.92,
+          "en": "This is the topic of the next lecture.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "39471642",
+      "title": "Getting Data out of a Function",
+      "lectureOrder": 523,
+      "videoOrder": 475,
+      "sourceHash": "4cdc93a4a30c0cab6a3501d4eb2418ff1e864ac2b0deaf68391759962a960368",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.44,
+          "end": 6.62,
+          "en": "Let's now have a look at how we can get data out of the function, how we can return values from a function",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.04,
+          "end": 8,
+          "en": "in Bash.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.03,
+          "end": 13.04,
+          "en": "The return value of a bash function is equal to the return value of a program.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.04,
+          "end": 17.85,
+          "en": "That means the return value is identical to the exit code.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.87,
+          "end": 24.54,
+          "en": "As an example, I can use the return command here to return from my function.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 24.56,
+          "end": 31,
+          "en": "This terminates my function, so if there was code after that would not be executed in that case.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 31.01,
+          "end": 33.23,
+          "en": "And it also sets the exit code.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 33.23,
+          "end": 40.55,
+          "en": "If I omit that, if I leave this one out by default, it will exit with exit code zero, thus returning",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 40.55,
+          "end": 44.45,
+          "en": "zero here because this return represents an exit code.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 44.45,
+          "end": 50.54,
+          "en": "Returning zero means that everything worked properly and returning any other integer means that an error",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 50.54,
+          "end": 51.44,
+          "en": "has happened.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 52.25,
+          "end": 57.98,
+          "en": "This is a little bit different than a return statement in a lot of other programming languages because",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 57.98,
+          "end": 63.03,
+          "en": "here in Bash, those functions really just represent a command that we define here.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 63.15,
+          "end": 69.33,
+          "en": "I have a file here, returns, and there we can see here a little bit of code in here.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 69.33,
+          "end": 73.65,
+          "en": "Let me let let me try to visualize what this return is doing.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 73.65,
+          "end": 78.36,
+          "en": "So whenever this return is reached, code after is not going to be executed.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 78.36,
+          "end": 85.98,
+          "en": "So I will place a return here and I will now just call this greet function and then I will output the",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 85.98,
+          "end": 87.99,
+          "en": "exit code of the previous command.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 87.99,
+          "end": 92.1,
+          "en": "So now I close this file and I can just execute this file.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 92.1,
+          "end": 96.99000000000001,
+          "en": "I can execute it directly because I've already set it the executable bit.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 97.02000000000001,
+          "end": 103.14,
+          "en": "This mod plus x, I've already executed that on that file so I can immediately execute it.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 103.14,
+          "end": 107.37,
+          "en": "And we can see here this function has exited with exit code zero.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 107.72999999999999,
+          "end": 110.46000000000001,
+          "en": "We can return another exit code here.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 110.46000000000001,
+          "end": 115.65,
+          "en": "So I could also return, let's say the exit code three here and everything.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 115.65,
+          "end": 118.2,
+          "en": "Every exit code that's not zero stands for that.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 118.2,
+          "end": 119.46000000000001,
+          "en": "An error has happened.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 119.46000000000001,
+          "end": 125.28,
+          "en": "So if I now close this and re re execute this again, we can see here, this is now here.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 125.28,
+          "end": 130.02,
+          "en": "The number one thing that does not work is that we can return a string here.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 130.02,
+          "end": 131.28,
+          "en": "This does not work.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 131.31,
+          "end": 136.38,
+          "en": "This would work in a lot of other programming languages where we could just return an artificial value.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 136.38,
+          "end": 140.22,
+          "en": "But this is not the way return works here in a shell script.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 140.34,
+          "end": 145.5,
+          "en": "A return here in a shell script is only meant to communicate the exit code.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 145.5,
+          "end": 151.2,
+          "en": "You should not use this to communicate a number to your outer program here.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 151.56,
+          "end": 158.13,
+          "en": "You should definitely avoid that and you should reuse this return only to communicate about the exit",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 158.13,
+          "end": 159.06,
+          "en": "code here.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 159.06,
+          "end": 164.82,
+          "en": "I will now leave in this return statement though, if I would leave it out, a return zero, the exit",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 164.82,
+          "end": 170.43,
+          "en": "code zero would be the default exit code and it would not necessary to write it here.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 170.43,
+          "end": 176.1,
+          "en": "But I will leave it in just for the sake of having that return statement somewhere here in one of those",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 176.1,
+          "end": 176.76,
+          "en": "files.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 177.39,
+          "end": 182.75,
+          "en": "So how do we get data out of a function if we calculate a value there?",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 182.75,
+          "end": 190.01,
+          "en": "Well, the simple answer is that we don't, but we can either write it to a non-local variable and use",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 190.01,
+          "end": 191.12,
+          "en": "it in another function.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 191.12,
+          "end": 198.89,
+          "en": "So let's say we had a function here and we didn't want this to be outputted, but we wanted this to",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 198.89,
+          "end": 201.35,
+          "en": "be used somewhere else in our program.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 201.35,
+          "end": 206.03,
+          "en": "Instead of outputting this, we could just create a variable here.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 206.03,
+          "end": 212.48,
+          "en": "I will just call it text and then I could launch this greet program and then I could just access this",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 212.48,
+          "end": 214.31,
+          "en": "variable text down here.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 214.31,
+          "end": 218.69,
+          "en": "We have seen this before when I introduced how variables work in our program.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 219.11,
+          "end": 224.96,
+          "en": "And as long as we don't declare this variable to be local, we can access it from anywhere.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 224.96,
+          "end": 227.48,
+          "en": "And this includes the rest of our program.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 227.48,
+          "end": 233.9,
+          "en": "If I now just execute this program, we can see a dot slash return dot.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 234.29,
+          "end": 236.87,
+          "en": "We can see this one here works this.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 236.87,
+          "end": 240.11,
+          "en": "Hello World World is now being outputted.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 240.29,
+          "end": 244.47,
+          "en": "But the way it's outputted it is through this echo statement here.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 244.47,
+          "end": 248.37,
+          "en": "So we are able to get data out of a function.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 248.37,
+          "end": 255.24,
+          "en": "But this is something that I would highly recommend against because this is extremely ugly in a sense",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 255.24,
+          "end": 258.87,
+          "en": "that where is it defined or documented?",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 258.87,
+          "end": 261.66,
+          "en": "Which variables are not local here?",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 263.04,
+          "end": 267.6,
+          "en": "Are we sure that we don't use the same variable name anywhere else in our program?",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 267.6,
+          "end": 271.89,
+          "en": "Also not in the future that we might accidentally create a variable with that name.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 271.89,
+          "end": 277.53,
+          "en": "So I would extremely recommend you or highly recommend you not to write it like this.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 277.53,
+          "end": 282.03,
+          "en": "So how do we now get data out of that function?",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 282.87,
+          "end": 289.29,
+          "en": "So I will return this program back to our Echo, and I've commented those lines out because now what's",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 289.29,
+          "end": 293.3,
+          "en": "the best practice here to get this data out of our greet function?",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 293.31,
+          "end": 299.61,
+          "en": "Well, if we need this data somewhere else, the easiest way is that we have our function and we just",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 299.61,
+          "end": 299.88,
+          "en": "have our.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 300.36,
+          "end": 302.61,
+          "en": "Write the output to stdout.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 302.85,
+          "end": 306.51,
+          "en": "Here we have an echo that's writing to stdout.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 306.54,
+          "end": 309.45,
+          "en": "Here we don't have a local variable, but it doesn't really matter.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 309.72,
+          "end": 316.59,
+          "en": "Here we generate output and this output we just collect with our command substitution and then we write",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 316.59,
+          "end": 320.67,
+          "en": "this into a variable and then we can just use this variable somewhere else.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 321.3,
+          "end": 328.14,
+          "en": "This means that this function is being executed and here we just collect the output and this is really",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 328.14,
+          "end": 331.47,
+          "en": "the best way to get data out of a function in a in bash.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 332.37,
+          "end": 338.7,
+          "en": "The idea here with those function or the concept here, especially if you've programmed in other languages,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 338.7,
+          "end": 342.93,
+          "en": "is not that we have a function in like a normal programming language sense.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 342.93,
+          "end": 349.38,
+          "en": "It's more like a function in bash equals more like an additional command that we have available in our",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 349.38,
+          "end": 356.04,
+          "en": "shell script and commands communicate through standard input, standard output arguments and all of",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 356.04,
+          "end": 356.46,
+          "en": "this.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 356.46,
+          "end": 364.2,
+          "en": "So all of those concepts can be applied exactly in the same way also to our bash functions.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 364.32,
+          "end": 370.32,
+          "en": "And they really behave almost like a command that's only available for our script.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 370.59,
+          "end": 371.93,
+          "en": "Let's have a look at this.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 371.94,
+          "end": 373.8,
+          "en": "Here we have our normal grid function.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 373.8,
+          "end": 379.71,
+          "en": "Those lines I've commented out already, and if I now want to get this message, I could just call this",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 379.71,
+          "end": 382.47,
+          "en": "greet function pass in a parameter.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 385.79,
+          "end": 392.21,
+          "en": "Uh, let's, uh, have a name like this, and then I could just access this variable.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 392.54,
+          "end": 400.04,
+          "en": "And here we are now, collecting the standard output of our grid, not program, but of our grid function.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 400.55,
+          "end": 409.88,
+          "en": "Um, and yeah, this writes to stdout this, I mean this one writes to stdout, this one collects it",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 409.88,
+          "end": 412.85,
+          "en": "and makes it available in a variable called message.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 412.85,
+          "end": 420.23,
+          "en": "And then we just output this message here and if I now execute this we can see here this has now been",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 420.23,
+          "end": 422.87,
+          "en": "collected and also outputted correctly.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 422.87,
+          "end": 429.8,
+          "en": "This is one of the best ways to handle output here in a shell script or to get data out of a function",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 429.8,
+          "end": 431.06,
+          "en": "back into the main program.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 431.06,
+          "end": 435.71,
+          "en": "Just write it to stdout and then collect it again and then you can use it.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 436.42,
+          "end": 439.96,
+          "en": "So this is how functions work in Bash.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -22,8 +22,8 @@
 | [JavaScript - The Complete Guide (Beginner + Advanced)](2508942/README.md) | 2508942 | 540 | 540（全部完成） | [查看譯文](2508942/translations/README.md) |
 | [ChatGPT & Generative AI - The Complete Guide](5291332/README.md) | 5291332 | 339 | 339（翻譯中） | [查看譯文](5291332/translations/README.md) |
 | [Vue.js - The Complete Guide（日文版）](2426224/README.md) | 2426224 | 159 | 159（全部完成） | [查看譯文](2426224/translations/README.md) |
-| [100 Days of Code: JavaScript Data Structures and Algorithms](4905690/README.md) | 4905690 | 待匯出 | 0（尚未匯出英文字幕） | — |
-| [Mastering Linux: The Comprehensive Guide](5181942/README.md) | 5181942 | 待匯出 | 0（尚未匯出英文字幕） | — |
+| [100 Days of Code: JavaScript Data Structures and Algorithms](4905690/README.md) | 4905690 | 306 | 1／306（44 段） | [tw-001-050.json](4905690/translations/tw-001-050.json) |
+| [Mastering Linux: The Comprehensive Guide](5181942/README.md) | 5181942 | 555 | 1／555（63 段） | [tw-001-050.json](5181942/translations/tw-001-050.json) |
 | [The Complete Flutter Development Bootcamp with Dart](2259120/README.md) | 2259120 | 待匯出 | 0（尚未匯出英文字幕） | — |
 | [Complete Angular 22 - Ultimate Guide - with Real World App](1633166/README.md) | 1633166 | 待匯出 | 0（尚未匯出英文字幕） | — |
 | [The Complete Ruby on Rails Developer Course](519442/README.md) | 519442 | 待匯出 | 0（尚未匯出英文字幕） | — |
@@ -31,8 +31,12 @@
 | [PHP for Beginners - Become a PHP Master - CMS Project](405282/README.md) | 405282 | 待匯出 | 0（尚未匯出英文字幕） | — |
 | [iOS & Swift - The Complete iOS App Development Bootcamp](1778502/README.md) | 1778502 | 待匯出 | 0（尚未匯出英文字幕） | — |
 | [The Complete Networking Fundamentals Course. Your CCNA start](751094/README.md) | 751094 | 待匯出 | 0（尚未匯出英文字幕） | — |
+| [Java Spring Framework, Spring Boot, Spring AI - Gen AI](2167814/README.md) | 2167814 | 499 | 2／499（283 段） | [tw-051-100.json](2167814/translations/tw-051-100.json) |
+| [Laravel 11 - From Basics to Advance](6117817/README.md) | 6117817 | 253 | 5／253（1,031 段） | [tw-001-050.json](6117817/translations/tw-001-050.json) |
+| [Game Development in JS/TS - The Complete Guide (w/ Phaser 3)](3568507/README.md) | 3568507 | 247 | 1／247（136 段） | [tw-001-050.json](3568507/translations/tw-001-050.json) |
+| [Solid JS & Firebase - Complete Guide to X(Twitter) Clone](5011402/README.md) | 5011402 | 215 | 33／215（3,967 段） | [tw-001-050.json](5011402/translations/tw-001-050.json) |
 
-13 門已完成課程影片講座合計 4,672 堂（不含文章與測驗）；第 14 門 ChatGPT & Generative AI（339 堂）已完成 339 堂、24,949 段（100.0%）。第 15 門 JavaScript Data Structures and Algorithms（課程 ID 4905690，講師 Elshad Karimov）、第 16 門 Mastering Linux（課程 ID 5181942，講師 Jannis Seemann、Denis Panjuta）、第 17 門 The Complete Flutter Development Bootcamp with Dart（課程 ID 2259120，講師 Dr. Angela Yu）、第 18 門 Complete Angular 22（課程 ID 1633166，講師 Harsha Vardhan）、第 19 門 The Complete Ruby on Rails Developer Course（課程 ID 519442，講師 Rob Percival、Mashrur Hossain）、第 20 門 Introduction to Computer Networks for Non-Techies（課程 ID 580876，講師 Alton Hardin）、第 21 門 PHP for Beginners - Become a PHP Master - CMS Project（課程 ID 405282，講師 Edwin Diaz）、第 22 門 iOS & Swift - The Complete iOS App Development Bootcamp（課程 ID 1778502，講師 Dr. Angela Yu）與第 23 門 The Complete Networking Fundamentals Course. Your CCNA start（課程 ID 751094，講師 David Bombal）已加入清單，英文字幕尚未匯出。
+13 門已完成課程影片講座合計 4,672 堂（不含文章與測驗）；第 14 門 ChatGPT & Generative AI（339 堂）已完成 339 堂、24,949 段（100.0%）。第 15 門 JavaScript Data Structures and Algorithms（課程 ID 4905690，306 堂、30,436 段）與第 16 門 Mastering Linux（課程 ID 5181942，555 堂、58,381 段）英文已驗證，中文翻譯進行中。第 17 門 The Complete Flutter Development Bootcamp with Dart（課程 ID 2259120）、第 18 門 Complete Angular 22（課程 ID 1633166）、第 19 門 The Complete Ruby on Rails Developer Course（課程 ID 519442）、第 20 門 Introduction to Computer Networks for Non-Techies（課程 ID 580876）、第 21 門 PHP for Beginners（課程 ID 405282）、第 22 門 iOS & Swift（課程 ID 1778502）與第 23 門 CCNA Networking Fundamentals（課程 ID 751094）已加入清單，英文字幕尚未匯出。第 24 門 Java Spring Framework（課程 ID 2167814，499／499 堂、83,763 段，中文 2 堂）、第 25 門 Laravel 11（課程 ID 6117817，253／253 堂、50,046 段，中文 5 堂）、第 26 門 Game Development in JS/TS（課程 ID 3568507，247 堂、32,565 段）與第 27 門 Solid JS & Firebase（課程 ID 5011402，215 堂、26,692 段，中文 33／215、3,967 段，尚未匯入）英文已驗證。Spring 與 Laravel 原先沒有原始字幕的 5 堂已用音訊轉錄補上。
 
 13 門課影片講座合計 4,672 堂（不含文章與測驗）。React 優先處理、678 堂已全部完成（每 25 堂自動提交）。Remix 106 堂已全部完成（10,422 段）；Svelte 171 堂已全部完成（10,409 段）；NativeScript 217 堂已全部完成（15,428 段）。Vue 294 堂已全部完成。Ionic 242 堂已全部完成；React Native 275 堂已全部完成；CSS 266 堂已全部完成；Flutter 已完成 286 堂（全部完成，36,671 段）；Next.js 417 堂已全部完成（46,195 段）；NodeJS 已全部完成 479 堂（31,419 段）；JavaScript 已全部完成 540 堂（37,567 段）；Angular 已完成 701 堂；Svelte 含 3 堂音訊補件譯文。剩餘課程依各課即時翻譯進度接續處理。
 

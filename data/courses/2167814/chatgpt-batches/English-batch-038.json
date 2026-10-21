@@ -1,0 +1,5388 @@
+{
+  "version": 1,
+  "courseId": 2167814,
+  "courseSlug": "spring-5-with-spring-boot-2",
+  "courseTitle": "Java Spring Framework, Spring Boot, Spring AI - Gen AI",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "48336285",
+      "title": "Embeddable",
+      "lectureOrder": 142,
+      "videoOrder": 141,
+      "sourceHash": "377b29b14649d673f79133bf01a72b83e79fdaf894cb2eb2d283897241e4f640",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 3.28,
+          "end": 9.04,
+          "en": "So till this point we were able to store the object because this object has very simple values.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 9.08,
+          "end": 13.44,
+          "en": "Talking about integer string, all this are basic Java types.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 13.44,
+          "end": 20,
+          "en": "And also on the database side, since we are using JDBC here, there is something called a JDBC type",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 20,
+          "end": 20.8,
+          "en": "which checks.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 20.84,
+          "end": 21.08,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 21.12,
+          "end": 22.04,
+          "en": "So we have int.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 22.12,
+          "end": 23.6,
+          "en": "So what we need in database right.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 23.64,
+          "end": 25.2,
+          "en": "So it basically try to match it.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 25.4,
+          "end": 26.4,
+          "en": "So it makes sense.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 26.4,
+          "end": 27.64,
+          "en": "We got integer there.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 27.64,
+          "end": 30.2,
+          "en": "We got string we got text there or varchar.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 30.6,
+          "end": 33.16,
+          "en": "But what if you have a complex type something like this.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 33.16,
+          "end": 37.48,
+          "en": "Let's say if you go back to our example first of all before we do anything, in fact in this video we're",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 37.48,
+          "end": 40.92,
+          "en": "going to talk about Embeddables, just to give you a hint.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 41.08,
+          "end": 43.6,
+          "en": "But before we do that, I just want to make few changes.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 43.6,
+          "end": 46.12,
+          "en": "I don't want to work with transient anymore.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 46.16,
+          "end": 47.72,
+          "en": "I want to have this text data.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 47.72,
+          "end": 51,
+          "en": "So I will remove that and the column name I want to stick to a name.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 51,
+          "end": 55.56,
+          "en": "I'm just trying to keep the example simple so that you will focus on the main part of this example.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 55.56,
+          "end": 59.64,
+          "en": "I don't even want to change the table name, so I will just stick to the entity.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 59.64,
+          "end": 65.3,
+          "en": "So if I go back to my database we got alien table, we got alien underscore table, we got Regard student.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 65.3,
+          "end": 69.26,
+          "en": "But since we are not going to work with Alien Table anymore, I will just remove that.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 69.26,
+          "end": 73.7,
+          "en": "And before I do anything, I just want to verify one thing we have created.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 73.74,
+          "end": 74.46000000000001,
+          "en": "Okay, cool.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 74.5,
+          "end": 77.1,
+          "en": "So it will drop the old table and prepare the new one.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 77.34,
+          "end": 78.5,
+          "en": "So we got these three fields.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 78.53999999999999,
+          "end": 80.38,
+          "en": "Nothing fancy here, simple stuff.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 80.66,
+          "end": 84.26,
+          "en": "But now what I do is I want to have a complex type here.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 84.26,
+          "end": 88.18,
+          "en": "So let's say every alien as a programmer you need a machine.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 88.18,
+          "end": 89.42,
+          "en": "So let's say you need a laptop.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 89.42,
+          "end": 92.94,
+          "en": "If you're getting a laptop from your company, or maybe you're buying it by yourself.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 92.94,
+          "end": 96.58,
+          "en": "So in that case, you will mention which laptop you have here.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 96.58,
+          "end": 102.94,
+          "en": "And this particular thing will have everything about a laptop, laptop, brand, laptop model, the",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 102.94,
+          "end": 106.78,
+          "en": "amount of Ram you have, the CPU type you have, or the graphic card type you have.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 106.78,
+          "end": 110.62,
+          "en": "So all the details are there in this particular string, right?",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 110.7,
+          "end": 111.94,
+          "en": "And this becomes very simple.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 111.94,
+          "end": 114.9,
+          "en": "And we can make it work and we can store data.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 115.42,
+          "end": 116.86,
+          "en": "But I want to make some change.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 116.86,
+          "end": 121.7,
+          "en": "What I will do is when I talk about laptop, of course we can put everything in one string, something",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 121.7,
+          "end": 122.18,
+          "en": "like this.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 122.22,
+          "end": 123.66,
+          "en": "You know, we have a string of laptop.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 123.7,
+          "end": 131.35,
+          "en": "We were talking about the brand, let's say Asus, and the model is ROG 16 GB Ram, let's say i7 and",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 131.35,
+          "end": 132.43,
+          "en": "then graphic card.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 132.47,
+          "end": 137.35,
+          "en": "Whatever fancy now graphics card you have, you can mention that I'm talking to editor.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 137.35,
+          "end": 141.07,
+          "en": "But anyway, the point is what if I want to store that in a separate values?",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 141.07,
+          "end": 143.11,
+          "en": "Maybe you want to fetch the brand of a laptop.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 143.11,
+          "end": 146.71,
+          "en": "Maybe you want to fetch up the CPU mode of a laptop.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 146.82999999999998,
+          "end": 149.67000000000002,
+          "en": "Now in that case, saving that in a string.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 149.71,
+          "end": 150.51,
+          "en": "Not a good idea.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 150.51,
+          "end": 155.75,
+          "en": "So what we can do is we can create a separate class here, which is of type laptop.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 155.99,
+          "end": 159.31,
+          "en": "And in this class I can have all those details separately.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 159.31,
+          "end": 162.39,
+          "en": "So the first one is let's say the brand.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 162.59,
+          "end": 164.39,
+          "en": "Then we got the model.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 164.75,
+          "end": 167.87,
+          "en": "Then we let's say we are talking about the amount of Ram you have.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 168.03,
+          "end": 169.87,
+          "en": "And let's say we got this three details.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 169.87,
+          "end": 172.79,
+          "en": "So let's not get into the CPU and graphic card.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 172.79,
+          "end": 174.47,
+          "en": "It will increase the number of fields we have.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 174.71,
+          "end": 179.19,
+          "en": "And for this particular variables I need we need to generate getters setters.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 179.31,
+          "end": 182.07,
+          "en": "And I also need a two string.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 182.11,
+          "end": 186.07,
+          "en": "Of course I can use keyboard shortcuts but keyboard shortcuts will not be visible on the screen.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 186.07,
+          "end": 188.07,
+          "en": "So mouse works okay.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 188.11,
+          "end": 190.19,
+          "en": "And then uh, this is what I have.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 190.23,
+          "end": 191.11,
+          "en": "Very simple stuff.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 191.11,
+          "end": 196.77,
+          "en": "There is no primary key here if you observe, I don't have an intention of creating a separate table",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 196.77,
+          "end": 198.53,
+          "en": "for laptop, so there is no primary key.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 198.77,
+          "end": 204.93,
+          "en": "But if I go back to alien now, what I do is instead of having a string here, I want to specify, hey,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 204.97,
+          "end": 206.81,
+          "en": "this is a complex type.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 206.81,
+          "end": 208.65,
+          "en": "This is a reference variable here.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 208.69,
+          "end": 209.17000000000002,
+          "en": "Laptop.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 209.17000000000002,
+          "end": 211.25,
+          "en": "Not a simple type like int string.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 211.29,
+          "end": 214.65,
+          "en": "String is itself is a class, but we have a convention for it.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 214.65,
+          "end": 215.45,
+          "en": "It's an inbuilt thing.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 215.45,
+          "end": 222.45,
+          "en": "And for those particular laptop here I want to also need I also need here the status for laptop.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 222.45,
+          "end": 224.77,
+          "en": "And I want to update this two string.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 224.93,
+          "end": 229.69,
+          "en": "So the better way is delete it and recreate the fastest option.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 229.73,
+          "end": 231.73,
+          "en": "Okay things are looking good.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 232.21,
+          "end": 238.69,
+          "en": "And if I go back to main with the alien data, I want to have data for the laptop as well.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 238.89,
+          "end": 241.57,
+          "en": "So A1 dot set laptop.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 241.57,
+          "end": 245.49,
+          "en": "But then I can't pass a string here to pass the laptop object.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 245.65,
+          "end": 248.77,
+          "en": "So before you create the alien, let's create the laptop object.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 248.77,
+          "end": 261.86,
+          "en": "I'll say laptop L1 is equal to new laptop and L1 dot set brand, And let's say ss l1 dot set model.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 262.14,
+          "end": 265.98,
+          "en": "My favorite as of now is ROG works.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 266.5,
+          "end": 269.54,
+          "en": "Or maybe you can also say Strix or Cypress.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 269.58,
+          "end": 275.78,
+          "en": "I forgot the spelling for cypress, so I'll stick to ROG and then the set Ram.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 275.78,
+          "end": 277.46,
+          "en": "Let's say 16 GB ram.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 277.65999999999997,
+          "end": 281.5,
+          "en": "So I got this detail here, and once I got the object I can put that here.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 281.54,
+          "end": 282.06,
+          "en": "Simple stuff.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 282.06,
+          "end": 283.22,
+          "en": "Nothing fancy, right?",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 283.3,
+          "end": 286.94,
+          "en": "Instead of having a int or a string I'm going for a complex type.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 286.98,
+          "end": 290.18,
+          "en": "Now the question is if I run this code, will it work?",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 290.86,
+          "end": 292.22,
+          "en": "That's the biggest question.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 292.54,
+          "end": 297.78,
+          "en": "Let's try and let's understand from the errors in case if we get the errors yeah we got the error.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 297.78,
+          "end": 299.78,
+          "en": "So that means it's a new learning opportunity.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 300.1,
+          "end": 303.9,
+          "en": "So it says could not determine the recommended JDBC type.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 303.9,
+          "end": 309.18,
+          "en": "This is I was talking about for int it says okay I know the JDBC type for string it knows float it knows.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 309.66,
+          "end": 313.26,
+          "en": "But for laptop it says hey I don't have an idea what is this type.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 313.26,
+          "end": 314.38,
+          "en": "It is laptop here.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 315.14,
+          "end": 316.62,
+          "en": "So am I missing something?",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 317.18,
+          "end": 323.6,
+          "en": "If you go back to alien we are saying entity here because the hibernate should know about alien laptop.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 323.64,
+          "end": 326.04,
+          "en": "We are not putting anything on the top here.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 326.04,
+          "end": 327.4,
+          "en": "So how it will work now?",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 327.4,
+          "end": 330.64,
+          "en": "We don't want to put entity here because it will create its own table.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 330.64,
+          "end": 331.92,
+          "en": "I don't want to have its own table.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 331.92,
+          "end": 337.68,
+          "en": "What I want is I want a table structure, something like this where you have ID, we got a name, we",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 337.68,
+          "end": 338.52,
+          "en": "got tech.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 338.92,
+          "end": 340.64,
+          "en": "But for laptop, I don't want a single field.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 340.64,
+          "end": 344.96,
+          "en": "I want the laptop fields as three different fields in the same table.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 345,
+          "end": 350.52,
+          "en": "Now, what we're trying to do is we are trying to embed the laptop details inside the alien.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 350.56,
+          "end": 354.72,
+          "en": "That means if you want to make it work, the laptop need to be embeddable.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 355.04,
+          "end": 358.72,
+          "en": "And to achieve that I will simply say M table.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 358.72,
+          "end": 364.52,
+          "en": "And once I do that, if I go back here, no changes, just one particular annotation which is embeddable.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 364.52,
+          "end": 367,
+          "en": "So I'm giving the permission that this can be embedded.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 367.24,
+          "end": 372.2,
+          "en": "And now if I run this and no problem, you can see now it says, hey, I'm not able to understand what",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 372.2,
+          "end": 373.36,
+          "en": "the database type is now.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 373.36,
+          "end": 375.08,
+          "en": "It knows because that's embeddable.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 375.08,
+          "end": 377.12,
+          "en": "And look at the alien table here.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 377.16,
+          "end": 379.2,
+          "en": "We got ID and make sense.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 379.2,
+          "end": 380.2,
+          "en": "We got a name.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 380.2,
+          "end": 382.48,
+          "en": "We got a tag.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 382.48,
+          "end": 384.56,
+          "en": "But what about the Ram brand and model?",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 384.56,
+          "end": 385.9,
+          "en": "This is coming from the laptop.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 385.94,
+          "end": 386.18,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 386.22,
+          "end": 388.58,
+          "en": "Now we can also verify that from the database.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 388.58,
+          "end": 394.74,
+          "en": "So if I go back to database and I will just refresh this so we can see we got alien.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 394.94,
+          "end": 398.74,
+          "en": "And if I try to see the data of aliens and this is the data.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 398.74,
+          "end": 405.65999999999997,
+          "en": "So you can see we got 101 16 Ram name brand model and tech okay.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 405.7,
+          "end": 407.65999999999997,
+          "en": "That's not the brand Asus.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 408.34000000000003,
+          "end": 410.18,
+          "en": "Uh, this is the laptop details.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 410.22,
+          "end": 413.46,
+          "en": "Yeah, quite confusing is because you have everything in one table.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 413.62,
+          "end": 415.34000000000003,
+          "en": "You know which example makes more sense?",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 415.34000000000003,
+          "end": 419.74,
+          "en": "Let's say if you want to have if you want to store a student and you want the address as well.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 419.74,
+          "end": 424.94,
+          "en": "So instead of storing address as a string, you can create a separate class of address where you have,",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 425.18,
+          "end": 432.78,
+          "en": "let's say the room number, the building number, the area, the street, the pin code, the city.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 432.82,
+          "end": 435.46,
+          "en": "So you can mention all those things in separate variables.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 435.46,
+          "end": 436.7,
+          "en": "So those are things you can do.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 436.86,
+          "end": 438.94,
+          "en": "But yeah, that's how basically embeddable works.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 438.98,
+          "end": 439.9,
+          "en": "Example works.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 439.94,
+          "end": 440.62,
+          "en": "We are happy.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 440.66,
+          "end": 443.5,
+          "en": "Maybe one more thing we can do is we can fetch this data.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 443.5,
+          "end": 450.79,
+          "en": "So after storing it here I after the committing before we close the session I will fetch the not student.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 450.79,
+          "end": 452.03,
+          "en": "We are not working with student anymore.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 452.03,
+          "end": 453.19,
+          "en": "We are working with alien.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 453.47,
+          "end": 456.35,
+          "en": "I will say alien A2 equal to new, not new alien.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 456.35,
+          "end": 459.75,
+          "en": "I want to fetch it from the session dot get.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 459.75,
+          "end": 463.15,
+          "en": "And in this get I will say what was the ID?",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 463.19,
+          "end": 469.63,
+          "en": "It's 101, so it's 101 and maybe I will just print it here.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 470.11,
+          "end": 475.43,
+          "en": "We got an error because we have to first pass the type of data you're going to get which is alien.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 476.03,
+          "end": 478.47,
+          "en": "And here I will print A2.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 478.51,
+          "end": 479.63,
+          "en": "So let's run this.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 479.67,
+          "end": 481.31,
+          "en": "It should print the details of the alien.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 481.31,
+          "end": 482.95,
+          "en": "And we got it here.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 483.63,
+          "end": 484.11,
+          "en": "Cool.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 484.67,
+          "end": 489.31,
+          "en": "But it is inserting it is not firing the query for select.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 489.79,
+          "end": 490.07,
+          "en": "Yeah.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 490.11,
+          "end": 496.07,
+          "en": "This is what we are going to talk about why it is not sending a Select query.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 496.07,
+          "end": 497.23,
+          "en": "This is interesting okay.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 497.27,
+          "end": 498.75,
+          "en": "We'll talk about this in the upcoming videos.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 498.75,
+          "end": 504.47,
+          "en": "Why it is not firing the Select query when you are saying get it is interesting we'll talk about in",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 504.47,
+          "end": 505.59,
+          "en": "the upcoming videos.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 505.59,
+          "end": 510.83,
+          "en": "But at this point uh it is printing it not not from the database directly from this object.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 510.83,
+          "end": 512.43,
+          "en": "And I don't want to reveal the suspense.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 512.43,
+          "end": 514.51,
+          "en": "Now we'll talk about in the upcoming videos.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "48336341",
+      "title": "Mapping Relationship Theory",
+      "lectureOrder": 143,
+      "videoOrder": 142,
+      "sourceHash": "bf3c2ddd46e5a1440abeb67c336b1ad97f0a5b7ef0124a82695a2936c64f9c8b",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.2,
+          "end": 2.783,
+          "en": "(gentle music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.72,
+          "end": 6.6,
+          "en": "-: It's time to give justice to the laptop.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.6,
+          "end": 9.33,
+          "en": "It's because alien, it has its own table.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.33,
+          "end": 10.38,
+          "en": "What about laptop?",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 10.38,
+          "end": 12.03,
+          "en": "Laptop is embeddable.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 12.03,
+          "end": 13.83,
+          "en": "So, basically, in the alien table itself,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 13.83,
+          "end": 15.75,
+          "en": "you got laptop details.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 15.75,
+          "end": 17.31,
+          "en": "Now, it has its own issue.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 17.31,
+          "end": 19.05,
+          "en": "Because laptop is an object,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 19.05,
+          "end": 21.57,
+          "en": "it should be having its own identity,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 21.57,
+          "end": 24.48,
+          "en": "so, it should have a separate table as an entity.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 24.48,
+          "end": 25.313,
+          "en": "That's one.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 25.313,
+          "end": 28.47,
+          "en": "Next is what if one person has multiple laptops,",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 28.47,
+          "end": 30.51,
+          "en": "or one alien has multiple laptops?",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 30.51,
+          "end": 33.42,
+          "en": "You can't simply put adding the columns, right?",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 33.42,
+          "end": 35.16,
+          "en": "And this will create inconsistency,",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 35.16,
+          "end": 37.86,
+          "en": "because different alien will have different amount",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 37.86,
+          "end": 39.03,
+          "en": "of laptops.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 39.03,
+          "end": 42.36,
+          "en": "Maybe one laptop, maybe zero laptop, maybe two, three, 10.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 42.36,
+          "end": 44.1,
+          "en": "You never know, right?",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 44.1,
+          "end": 47.31,
+          "en": "So, it's better to have a separate entity laptop,",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 47.31,
+          "end": 48.81,
+          "en": "because it can be given to someone else.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 48.81,
+          "end": 51.06,
+          "en": "Let's say, if you're working for a company",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 51.06,
+          "end": 52.35,
+          "en": "and then they give you a laptop,",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 52.35,
+          "end": 53.37,
+          "en": "maybe after some time,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 53.37,
+          "end": 56.16,
+          "en": "they will take your laptop and give it to someone else.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 56.16,
+          "end": 58.44,
+          "en": "And maybe, you will get a brand-new laptop.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 58.44,
+          "end": 60.03,
+          "en": "Okay, those are the dreams we are living in.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 60.03,
+          "end": 63.36,
+          "en": "But the point is, what if you want to have a separate table?",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 63.36,
+          "end": 64.98,
+          "en": "So, let's say we got alien table here",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 64.98,
+          "end": 67.32,
+          "en": "and we got a laptop table, simple stuff.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 67.32,
+          "end": 69.57,
+          "en": "Alien table will have its own details,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 69.57,
+          "end": 72.53999999999999,
+          "en": "we got alien ID, alien name, alien tech.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 72.53999999999999,
+          "end": 74.01,
+          "en": "The laptop, on the other side,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 74.01,
+          "end": 76.28999999999999,
+          "en": "now, since this is a different table,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 76.28999999999999,
+          "end": 79.28999999999999,
+          "en": "we need to have the primary key as well.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 79.28999999999999,
+          "end": 81.87,
+          "en": "So, let's say we got LID, which is laptop ID,",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 81.87,
+          "end": 83.78999999999999,
+          "en": "then, we got brand, model",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 83.78999999999999,
+          "end": 86.34,
+          "en": "and I mean, let's remove all the extra columns we had,",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 86.34,
+          "end": 87.84,
+          "en": "which is RAM and other stuff.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 87.84,
+          "end": 89.85,
+          "en": "Let's stick to three columns each,",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 89.85,
+          "end": 92.00999999999999,
+          "en": "so that we can put that in this video.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 92.00999999999999,
+          "end": 95.46000000000001,
+          "en": "Now, if you want to say, \"Okay, we got these two tables.\"",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 95.46000000000001,
+          "end": 96.457,
+          "en": "So, now, I want to say,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 96.457,
+          "end": 100.65,
+          "en": "\"This particular alien has a laptop, this one,\"",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 100.65,
+          "end": 102.15,
+          "en": "how will I do that?",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 102.15,
+          "end": 103.32,
+          "en": "How will you map it?",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 103.32,
+          "end": 106.53,
+          "en": "And that's where the concept of mapping comes into picture.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 106.53,
+          "end": 108.63,
+          "en": "And this is not the concept of Hibernate.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 108.63,
+          "end": 110.34,
+          "en": "This is the database concepts, right?",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 110.34,
+          "end": 112.47,
+          "en": "When you have two tables, you have two connect them.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 112.47,
+          "end": 113.67,
+          "en": "And that's why we have a concept",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 113.67,
+          "end": 115.83,
+          "en": "of primary key or a foreign key,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 115.83,
+          "end": 117.75,
+          "en": "which you connect with other table",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 117.75,
+          "end": 120.48,
+          "en": "and you make them as a parent table or child table.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 120.48,
+          "end": 123.33,
+          "en": "I'm just assuming that you know the concept of DBMS,",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 123.33,
+          "end": 124.163,
+          "en": "this much.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 124.163,
+          "end": 125.58,
+          "en": "Okay, now, how will you represent it?",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 125.58,
+          "end": 126.45,
+          "en": "So, now, we want to say",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 126.45,
+          "end": 129.36,
+          "en": "that \"This alien has a laptop, this laptop.\"",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 129.36,
+          "end": 131.85,
+          "en": "Now, if you want to achieve that, there should be some link.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 131.85,
+          "end": 134.82,
+          "en": "So, normally, what you do is you keep one of the column",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 134.82,
+          "end": 137.94,
+          "en": "of a laptop in the alien or vice versa.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 137.94,
+          "end": 138.773,
+          "en": "So, we can say,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 138.773,
+          "end": 141.18,
+          "en": "\"Okay, we got the laptop table, we got the alien table.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 141.18,
+          "end": 142.89,
+          "en": "What if in the alien table,",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 142.89,
+          "end": 147.6,
+          "en": "you can put the primary key of a laptop as a foreign key?\"",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 147.6,
+          "end": 150.03,
+          "en": "Now, as a alien, I know which laptop I have.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 150.03,
+          "end": 151.44,
+          "en": "And you can also write a query",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 151.44,
+          "end": 155.1,
+          "en": "to fetch a detail of the alien and a detail of a laptop.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 155.1,
+          "end": 156.75,
+          "en": "And that's straightforward.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 156.75,
+          "end": 158.49,
+          "en": "Now, when you have this type of relationship,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 158.49,
+          "end": 161.85,
+          "en": "it simply means that you have one alien has one laptop",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 161.85,
+          "end": 165.72,
+          "en": "and this is called OneToOne relationship.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 165.72,
+          "end": 166.92000000000002,
+          "en": "And this is very easy.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 166.92000000000002,
+          "end": 168.57,
+          "en": "So, basically, after this relationship,",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 168.57,
+          "end": 170.01,
+          "en": "this is how it'll look like.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 170.01,
+          "end": 171.9,
+          "en": "And one alien will have one laptop,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 171.9,
+          "end": 173.57999999999998,
+          "en": "another alien will have another laptop,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 173.57999999999998,
+          "end": 175.07999999999998,
+          "en": "another alien will have another laptop.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 175.07999999999998,
+          "end": 177.54,
+          "en": "One alien has multiple laptops.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 177.54,
+          "end": 178.74,
+          "en": "Now, this is tricky.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 178.74,
+          "end": 181.32,
+          "en": "Because in this case, we are going for OneToMany.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 181.32,
+          "end": 184.11,
+          "en": "So, from a alien perspective, this is OneToMany, right?",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 184.11,
+          "end": 186.3,
+          "en": "So, one alien has multiple laptops.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 186.3,
+          "end": 189.24,
+          "en": "But from a laptop perspective, it is ManyToOne,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 189.24,
+          "end": 192.99,
+          "en": "because multiple laptop can belong to one alien, okay?",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 192.99,
+          "end": 194.13,
+          "en": "That's how it works.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 194.13,
+          "end": 196.07999999999998,
+          "en": "So, we got OneToMany from alien side",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 196.07999999999998,
+          "end": 197.94,
+          "en": "and ManyToOne from laptop side.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 197.94,
+          "end": 199.177,
+          "en": "Now, question arise,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 199.177,
+          "end": 201.72,
+          "en": "\"If you want to represent the table, how will you do that?\"",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 201.72,
+          "end": 203.64,
+          "en": "So, the case is very simple.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 203.64,
+          "end": 204.48,
+          "en": "What you can do is instead",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 204.48,
+          "end": 207.39,
+          "en": "of putting that column in the alien table,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 207.39,
+          "end": 209.7,
+          "en": "what if you can put that in the laptop table?",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 209.7,
+          "end": 211.05,
+          "en": "It's because the laptop will belong",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 211.05,
+          "end": 213.15,
+          "en": "to only one alien, right?",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 213.15,
+          "end": 215.28,
+          "en": "So, we can't put that in the alien table.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 215.28,
+          "end": 217.38,
+          "en": "It's because alien cannot have,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 217.38,
+          "end": 218.85,
+          "en": "let's say laptop, we have three laptops,",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 218.85,
+          "end": 220.44,
+          "en": "101, 102, 103.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 220.44,
+          "end": 222.57,
+          "en": "So, we can't simply say alien details",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 222.57,
+          "end": 224.94,
+          "en": "and then 101, 102, 103.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 224.94,
+          "end": 226.2,
+          "en": "Database will not accept it.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 226.2,
+          "end": 228.03,
+          "en": "But we can do that in the laptop.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 228.03,
+          "end": 229.82999999999998,
+          "en": "In laptop, we say we can create one more column.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 229.82999999999998,
+          "end": 232.77,
+          "en": "So, this time, we are not creating that column in the alien,",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 232.77,
+          "end": 233.88,
+          "en": "but in the laptop.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 233.88,
+          "end": 235.44,
+          "en": "And we are saying, \"Okay, this laptop belongs",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 235.44,
+          "end": 236.55,
+          "en": "to this alien.\"",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 236.55,
+          "end": 239.31,
+          "en": "So, in the laptop table, you'll be having AIDs,",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 239.31,
+          "end": 241.59,
+          "en": "which is a foreign key in this case, okay?",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 241.59,
+          "end": 243.24,
+          "en": "And that's how we can refer.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 243.24,
+          "end": 245.25,
+          "en": "Things are very simple, right?",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 245.25,
+          "end": 248.64,
+          "en": "But the problem is if you try to achieve this,",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 248.64,
+          "end": 249.9,
+          "en": "which attrition you're going to use?",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 249.9,
+          "end": 252.3,
+          "en": "And we'll see that in the upcoming videos,",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 252.3,
+          "end": 253.17,
+          "en": "which attrition we have to use.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 253.17,
+          "end": 254.31,
+          "en": "So, we have to use OneToMany",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 254.31,
+          "end": 256.59,
+          "en": "and from the laptop side, we have to use ManyToOne.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 256.59,
+          "end": 259.38,
+          "en": "And we want the mapping to be done in the laptop.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 259.38,
+          "end": 263.01,
+          "en": "But what if you choose not to do that in the laptop?",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 263.01,
+          "end": 264.66,
+          "en": "Let's keep alien table as it is",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 264.66,
+          "end": 267.21,
+          "en": "and laptop table as it is, no linking.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 267.21,
+          "end": 268.38,
+          "en": "Then, how will you link it?",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 268.38,
+          "end": 271.17,
+          "en": "In that case, you can create a third table,",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 271.17,
+          "end": 273.06,
+          "en": "which is a alien_laptop",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 273.06,
+          "end": 275.07,
+          "en": "and this will have the entire details.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 275.07,
+          "end": 277.02,
+          "en": "So, this particular alien has this laptop,",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 277.02,
+          "end": 278.85,
+          "en": "this particular alien has this laptop.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 278.85,
+          "end": 280.98,
+          "en": "One alien can have multiple laptops.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 280.98,
+          "end": 282.27,
+          "en": "Quite simple, right?",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 282.27,
+          "end": 284.19,
+          "en": "This is OneToMany and ManyToOne.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 284.19,
+          "end": 285.42,
+          "en": "But let's change scenario.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 285.42,
+          "end": 287.1,
+          "en": "Let's say we have ManyToMany relationship.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 287.1,
+          "end": 289.08,
+          "en": "So, let's say you have a lab setup in the college",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 289.08,
+          "end": 292.44,
+          "en": "where any student can use any laptop to work on.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 292.44,
+          "end": 293.85,
+          "en": "So, that means there is many to many.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 293.85,
+          "end": 296.07,
+          "en": "And one laptop can be used by many students.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 296.07,
+          "end": 298.40999999999997,
+          "en": "So, in this scenario, we have ManyToMany.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 298.40999999999997,
+          "end": 301.08,
+          "en": "So, in a college system, we have a lab.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 301.08,
+          "end": 304.14,
+          "en": "Many students go, can use the same laptop in rotation,",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 304.14,
+          "end": 306.42,
+          "en": "or one student can use multiple laptops",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 306.42,
+          "end": 307.83,
+          "en": "in every different day.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 307.83,
+          "end": 309.96,
+          "en": "Now, in ManyToMany, what you do?",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 309.96,
+          "end": 314.07,
+          "en": "So, of course, you cannot have a column in any table here.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 314.07,
+          "end": 316.56,
+          "en": "Because then, you have to put commas there,",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 316.56,
+          "end": 318.81,
+          "en": "not recommend it and it'll not work.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 318.81,
+          "end": 321.33,
+          "en": "In that case, you need to create a third table.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 321.33,
+          "end": 322.44,
+          "en": "You don't have a choice.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 322.44,
+          "end": 326.28,
+          "en": "And that's where we can use annotation called @ManyToMany.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 326.28,
+          "end": 328.17,
+          "en": "This will create a third table.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 328.17,
+          "end": 329.7,
+          "en": "And in third table, basically,",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 329.7,
+          "end": 332.19,
+          "en": "you'll have two columns, AID and LID.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 332.19,
+          "end": 335.07,
+          "en": "And in this, you can have multiple values.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 335.07,
+          "end": 337.26,
+          "en": "But there is a issue here.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 337.26,
+          "end": 338.64,
+          "en": "If you directly use ManyToMany,",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 338.64,
+          "end": 340.89,
+          "en": "it'll not work the way you want.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 340.89,
+          "end": 342.3,
+          "en": "And why that will happen?",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 342.3,
+          "end": 344.7,
+          "en": "That we'll say in the practical implementation.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 344.7,
+          "end": 346.92,
+          "en": "But at least you know now there are different relationship,",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 346.92,
+          "end": 347.753,
+          "en": "which you can work with,",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 347.753,
+          "end": 351.48,
+          "en": "OneToOne, OneToMany, ManyToOne and ManyToMany.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 351.48,
+          "end": 352.73,
+          "en": "See you in the practical.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "48336355",
+      "title": "OneToOne Mapping",
+      "lectureOrder": 144,
+      "videoOrder": 143,
+      "sourceHash": "beb91fa85f59e8e52117881e9f88d7cb2cb601f8e79c45b99a2df1e3a5a9671c",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 3.44,
+          "end": 7.56,
+          "en": "So now let's implement 1 to 1 relationship.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.56,
+          "end": 10.96,
+          "en": "So when you look at the example we got alien and we got a laptop there.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 11.08,
+          "end": 13.04,
+          "en": "But laptop is embeddable.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.04,
+          "end": 19.2,
+          "en": "What we're going to do is the first thing is just to make it as entity not embeddable anymore a simple",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 19.24,
+          "end": 19.8,
+          "en": "entity.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.84,
+          "end": 22.72,
+          "en": "And when you say entity, of course we need a primary key.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 22.72,
+          "end": 29.28,
+          "en": "So I will say int l id and then we'll make it at ID because that's a primary key.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 29.44,
+          "end": 31.12,
+          "en": "So this thing is clear.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 31.16,
+          "end": 32.4,
+          "en": "Nothing fancy here.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 32.44,
+          "end": 33.76,
+          "en": "We got all the same detail.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 33.8,
+          "end": 34.72,
+          "en": "Just wanted to verify.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 34.76,
+          "end": 35.84,
+          "en": "Yeah we need one thing.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 35.84,
+          "end": 36.84,
+          "en": "In fact two things.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 37.36,
+          "end": 41.36,
+          "en": "We need the data centers for this for the ID.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 41.36,
+          "end": 48,
+          "en": "And I want to change that two string generate two string for all the details done.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 48.4,
+          "end": 49.44,
+          "en": "Let's go back here.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 49.44,
+          "end": 51.96,
+          "en": "And now we got laptop and laptop.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 52.8,
+          "end": 54.16,
+          "en": "Nothing to change here.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 54.4,
+          "end": 55.4,
+          "en": "Go back to main.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 55.84,
+          "end": 58.44,
+          "en": "Now the difference is I think there's no difference.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 58.44,
+          "end": 62.01,
+          "en": "We are creating a laptop first and then we don't have the ID.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 62.25,
+          "end": 65.77,
+          "en": "I will say L1 dot set L id as one.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 66.09,
+          "end": 68.81,
+          "en": "So the alien series start from 101.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 68.85,
+          "end": 75.85,
+          "en": "The laptop series starts with one just to differentiate this two and we are storing the alien as well.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 76.49,
+          "end": 82.81,
+          "en": "Now one thing to observe is when you say persist, we have to also persist the laptop.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 83.45,
+          "end": 83.89,
+          "en": "Right?",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 84.05,
+          "end": 89.81,
+          "en": "And the sequence I would follow is laptop first, then alien because laptop is a primary table.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 89.81,
+          "end": 92.81,
+          "en": "Now laptop is a parent table and the alien is a child table.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 92.81,
+          "end": 93.85,
+          "en": "I'm printing it here.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 93.85,
+          "end": 98.00999999999999,
+          "en": "It's of no use because it's getting from the memory, and we'll talk about it in detail later.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 98.85,
+          "end": 99.41,
+          "en": "Cool.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 100.25,
+          "end": 101.09,
+          "en": "One more thing.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 101.45,
+          "end": 103.13,
+          "en": "I mean, we will get the error for sure.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 103.13,
+          "end": 106.33,
+          "en": "I will tell you why I wanted to show you what the error is.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 106.61,
+          "end": 114.05,
+          "en": "If I run this, you can see it says could not determine the type as laptop is because we forgot to put",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 114.05,
+          "end": 114.69,
+          "en": "one more thing.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 114.69,
+          "end": 120.25,
+          "en": "We'll say add and the class which is com dot telescope dot Alien or not?",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 120.29,
+          "end": 121.05,
+          "en": "Alien this time.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 121.05,
+          "end": 121.73,
+          "en": "This is laptop.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 121.73,
+          "end": 123.53,
+          "en": "I was just copying the earlier line.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 125.13,
+          "end": 127.41,
+          "en": "And that's why you should be very attentive when you type the code.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 127.77,
+          "end": 130.81,
+          "en": "Okay, so we have added alien and we have added the laptop.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 131.09,
+          "end": 133.49,
+          "en": "Looks good now and we might get the error.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 133.49,
+          "end": 134.41,
+          "en": "We'll sort it later.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 134.41,
+          "end": 136.17000000000002,
+          "en": "But at this point this error should be solved.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 136.17000000000002,
+          "end": 139.57,
+          "en": "We got the error and the same error okay.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 139.61,
+          "end": 141.05,
+          "en": "Now one thing more.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 141.41,
+          "end": 145.85,
+          "en": "If you go back to alien, remember when we talked about the theory that there should be a relationship",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 145.85,
+          "end": 146.89,
+          "en": "of 1 to 1?",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 147.09,
+          "end": 148.81,
+          "en": "And we have to mention that here.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 149.29,
+          "end": 154.89,
+          "en": "So we have to say this is 1 to 1 relationship okay.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 154.93,
+          "end": 157.69,
+          "en": "And this is something you have to add to make it work.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 157.69,
+          "end": 158.61,
+          "en": "Let's run this.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 159.17000000000002,
+          "end": 161.17000000000002,
+          "en": "I hope this time it will work.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 161.57,
+          "end": 162.53,
+          "en": "Yeah it worked.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 162.57,
+          "end": 165.01,
+          "en": "You can see first it creates the laptop table.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 165.01,
+          "end": 168.17000000000002,
+          "en": "In fact it creates the alien table and then alien.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 168.32999999999998,
+          "end": 170.61,
+          "en": "We got this laptop ID because this is 1 to 1.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 170.61,
+          "end": 171.49,
+          "en": "So it will be unique.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 171.97,
+          "end": 178.66,
+          "en": "And then it creates a laptop table and then it adds the foreign key because that's important too for",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 178.66,
+          "end": 179.34,
+          "en": "the reference.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 179.66,
+          "end": 181.7,
+          "en": "And then we are inserting data as well.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 181.7,
+          "end": 183.7,
+          "en": "So 1 to 1 is working.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 183.7,
+          "end": 185.62,
+          "en": "We can verify that from the database.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 185.62,
+          "end": 191.02,
+          "en": "Let me refresh this alien and say all data okay.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 193.1,
+          "end": 195.02,
+          "en": "I think I have to refresh the tables.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 195.3,
+          "end": 195.46,
+          "en": "Yeah.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 195.46,
+          "end": 199.14,
+          "en": "So first let's do the laptop I will say view all data.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 199.14,
+          "end": 201.1,
+          "en": "So we got laptop details with ID one.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 201.57999999999998,
+          "end": 203.7,
+          "en": "And now let's fetch the alien data.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 203.7,
+          "end": 205.02,
+          "en": "So you can see we got the alien.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 205.02,
+          "end": 207.78,
+          "en": "We got 101 and then we got laptop reference.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 207.78,
+          "end": 213.06,
+          "en": "So every time you add a new alien with a new laptop, it will just add the reference here, the foreign",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 213.06,
+          "end": 216.74,
+          "en": "key value one, 2 or 3, whatever number you have for the laptop.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 217.42000000000002,
+          "end": 219.34,
+          "en": "That's how basically you use 1 to 1.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 219.34,
+          "end": 223.34,
+          "en": "So one alien will have one laptop and one laptop belongs to one alien.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 223.34,
+          "end": 224.26,
+          "en": "And that's straightforward.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 224.26,
+          "end": 229.42000000000002,
+          "en": "When you say 1 to 1, things get a bit messier when you go for one to many, let's say in this case,",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 229.42000000000002,
+          "end": 231.26,
+          "en": "I don't want to say alien.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 231.26,
+          "end": 232.46,
+          "en": "One alien will have one laptop.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 232.46,
+          "end": 234.3,
+          "en": "Let's say one alien has multiple laptops.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 234.7,
+          "end": 235.98,
+          "en": "How will that work?",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 236.14,
+          "end": 237.94,
+          "en": "Let's see that in the next video.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "48336367",
+      "title": "OneToMany and ManyToOne",
+      "lectureOrder": 145,
+      "videoOrder": 144,
+      "sourceHash": "d67935e4304f737b6ee68e8cc453477d201748bbe9cf102d0cc04b0cd5760eec",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 3.68,
+          "end": 6.68,
+          "en": "So now let's work with one to many.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.68,
+          "end": 10.52,
+          "en": "So what I want to do now is as an alien, we can have multiple laptops.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 10.52,
+          "end": 12.04,
+          "en": "We just got one here.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.04,
+          "end": 18.64,
+          "en": "And when you say multiple we have to provide the list of laptop, not a single laptop, but a list of",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 18.64,
+          "end": 19.04,
+          "en": "laptops.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.04,
+          "end": 23.88,
+          "en": "So I will just import the package and I will change this to laptops, not laptop.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 24.08,
+          "end": 26.28,
+          "en": "And then we have to make the changes here as well.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 26.28,
+          "end": 32.92,
+          "en": "So instead of typing and changing I'll delete it preferred way and get data for this.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 32.92,
+          "end": 36.2,
+          "en": "Because this time we'll work with the list of laptops.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 36.2,
+          "end": 38.52,
+          "en": "And then we have to change here as well I will say laptops.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 38.52,
+          "end": 41.32,
+          "en": "We already have two string in laptop so this will work.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 41.32,
+          "end": 43.16,
+          "en": "Nothing changes much.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 43.2,
+          "end": 47.48,
+          "en": "We are just saying 1 to 1 and list of laptops, but 1 to 1 will not work.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 47.76,
+          "end": 51.92,
+          "en": "So this should be one to many and our job is done.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 51.96,
+          "end": 53,
+          "en": "Do you think this will work?",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 53.24,
+          "end": 55.92,
+          "en": "Okay, first of all, I don't want to import all.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 56.04,
+          "end": 57.84,
+          "en": "I don't know why we got all that.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 57.92,
+          "end": 60.36,
+          "en": "I will separately add them.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 60.72,
+          "end": 61.16,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 61.2,
+          "end": 62.44,
+          "en": "Looks good.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 63.17,
+          "end": 64.37,
+          "en": "Remove this embeddable.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 64.57,
+          "end": 66.33,
+          "en": "Okay, so nothing changes much, right?",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 66.33,
+          "end": 69.09,
+          "en": "We are just changed from the laptop to list of laptops.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 69.28999999999999,
+          "end": 70.89,
+          "en": "The question is, will this work?",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 71.05,
+          "end": 77.33,
+          "en": "Let's try I mean, this will not work actually, because if you look here alien says set laptops.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 77.33,
+          "end": 78.93,
+          "en": "Now we don't have one laptop.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 78.97,
+          "end": 80.13,
+          "en": "We have multiple laptops.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 80.13,
+          "end": 81.73,
+          "en": "At least we have a list there.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 82.01,
+          "end": 85.81,
+          "en": "So when you say set, we have to say set laptops.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 85.97,
+          "end": 88.53,
+          "en": "And then we have to pass a list of laptops.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 88.53,
+          "end": 89.77,
+          "en": "I can't pass one.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 90.21000000000001,
+          "end": 92.17,
+          "en": "And since we only have one laptop here.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 92.17,
+          "end": 97.72999999999999,
+          "en": "So either we can say list or arrays dot as list and we can pass L1.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 97.77000000000001,
+          "end": 102.72999999999999,
+          "en": "The better option is using list off, which it says here replace with list off.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 102.89,
+          "end": 104.93,
+          "en": "But maybe in future we want to add more.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 104.93,
+          "end": 108.13,
+          "en": "So it's better to have uh, in fact let's do that.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 108.13,
+          "end": 108.65,
+          "en": "Let's do that.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 108.65,
+          "end": 110.21000000000001,
+          "en": "Let's have one more laptop here.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 111.05,
+          "end": 115.85,
+          "en": "I will just copy this and paste maybe code reuse.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 116.37,
+          "end": 117.49000000000001,
+          "en": "This is L2.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 117.72999999999999,
+          "end": 120.05,
+          "en": "So I've changed all the reference here.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 120.09,
+          "end": 120.93,
+          "en": "Make sure that you do that.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 120.93,
+          "end": 122.33,
+          "en": "And this is ID two.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 122.93,
+          "end": 127.19,
+          "en": "Let's say this is Says Dell XPS.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 127.23,
+          "end": 130.47,
+          "en": "One of my favorite laptop, but I've never used it.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 130.51,
+          "end": 131.35,
+          "en": "And that's weird.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 131.59,
+          "end": 134.99,
+          "en": "And let's try to GB whenever I want to buy a Dell machine.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 134.99,
+          "end": 136.91,
+          "en": "I don't know why I buy another one.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 137.35,
+          "end": 139.31,
+          "en": "And here I will pass L2.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 139.35,
+          "end": 142.87,
+          "en": "So now once alien will have multiple laptops let's say two laptops here.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 142.87,
+          "end": 144.47,
+          "en": "And the question is will this work.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 144.51,
+          "end": 145.47,
+          "en": "Let's try out.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 145.75,
+          "end": 146.31,
+          "en": "Let's.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 146.79,
+          "end": 150.35,
+          "en": "Okay I think I think we have to do one more thing.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 150.71,
+          "end": 153.51,
+          "en": "I have to add this L2 as well.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 153.75,
+          "end": 155.15,
+          "en": "So now let's run.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 155.39,
+          "end": 156.35,
+          "en": "And it worked.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 156.35,
+          "end": 159.31,
+          "en": "You can see we have when we are printing alien 101.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 159.31,
+          "end": 160.39,
+          "en": "We got two laptops here.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 160.39,
+          "end": 162.47,
+          "en": "We got the array of laptops.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 162.47,
+          "end": 165.79,
+          "en": "We got the first one as lady one and second is lady two.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 166.39,
+          "end": 167.87,
+          "en": "And that's what is happening.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 167.87,
+          "end": 171.27,
+          "en": "But interesting thing would be what is happening from the database side.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 171.51,
+          "end": 174.55,
+          "en": "Is it creating a reference table a separate table third table.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 174.55,
+          "end": 175.91,
+          "en": "So of course there should be a laptop table.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 175.91,
+          "end": 177.11,
+          "en": "There should be alien table.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 177.39,
+          "end": 179.67000000000002,
+          "en": "But what about the references.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 180.03,
+          "end": 182.03,
+          "en": "So if I go back here we got alien.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 182.03,
+          "end": 184.27,
+          "en": "We got laptop okay first of all I have to refresh this.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 185.07,
+          "end": 187.28,
+          "en": "So we got three tables, we got alien.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 187.28,
+          "end": 188.84,
+          "en": "Let's see the structure for alien.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 189.4,
+          "end": 192.64,
+          "en": "And this has no entry for laptop.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 192.84,
+          "end": 193.72,
+          "en": "Earlier we had.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 194.04,
+          "end": 195.32,
+          "en": "Let's see the laptop.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 195.8,
+          "end": 198.24,
+          "en": "This has no reference of alien.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 198.28,
+          "end": 199.36,
+          "en": "A separate table, right?",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 199.4,
+          "end": 200.6,
+          "en": "Alien has its own table.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 200.64,
+          "end": 202,
+          "en": "Laptop has its own table.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 202.4,
+          "end": 204.96,
+          "en": "But this common table, which is a join table here.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 205.24,
+          "end": 206.88,
+          "en": "This shows the actual data.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 206.88,
+          "end": 209.84,
+          "en": "So you can see alien 101 has two laptops.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 210.04,
+          "end": 216.2,
+          "en": "Now, if you are thinking we got a third table and none of the column is primary key because even laptops",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 216.2,
+          "end": 217.04,
+          "en": "can be repeated.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 217.04,
+          "end": 222.92000000000002,
+          "en": "So how it is happening, in fact, if you see the structure as well, if you see the properties column,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 223.52,
+          "end": 227.07999999999998,
+          "en": "none of its primary key, it's because this works with a composite key.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 227.07999999999998,
+          "end": 229.96,
+          "en": "So both of this column combined to become a composite key.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 230.44,
+          "end": 231.72,
+          "en": "And that will be unique.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 231.72,
+          "end": 234.07999999999998,
+          "en": "So yeah this is how you create third table.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 234.07999999999998,
+          "end": 236.68,
+          "en": "But what if I don't want a third table.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 237.04,
+          "end": 238.52,
+          "en": "So I will just delete this.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 238.52,
+          "end": 241.12,
+          "en": "And next time I run this I don't want the third table.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 241.16,
+          "end": 242,
+          "en": "How will I do that?",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 242.04,
+          "end": 244.28,
+          "en": "Now if you go back to the theory part we have talked about it.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 244.64,
+          "end": 245.88,
+          "en": "Why we need a third table?",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 245.92,
+          "end": 247.76,
+          "en": "Because we can't change the table.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 247.8,
+          "end": 250.13,
+          "en": "We can't we can't have two laptops there.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 250.37,
+          "end": 254.73,
+          "en": "In the earlier example, when you have 1 to 1, we had one laptop reference in the alien table.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 254.73,
+          "end": 261.17,
+          "en": "So we can create a reference in the laptop table because one laptop belongs to a laptop, belongs to",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 261.21,
+          "end": 263.17,
+          "en": "one alien, not two aliens or three aliens.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 263.65,
+          "end": 264.49,
+          "en": "How will I do that?",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 264.49,
+          "end": 269.61,
+          "en": "So in that case, what you can do is you can create alien reference here.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 269.61,
+          "end": 273.01,
+          "en": "And for this alien reference, I need the getter setter.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 273.25,
+          "end": 274.73,
+          "en": "I'll just do that here.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 275.01,
+          "end": 277.25,
+          "en": "I don't want to print the alien here.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 277.25,
+          "end": 280.97,
+          "en": "It might go for the cyclic calls.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 281.45,
+          "end": 282.97,
+          "en": "So stick to this.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 283.01,
+          "end": 286.01,
+          "en": "We are printing alien and we got alien here.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 286.33,
+          "end": 286.93,
+          "en": "Looks good.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 286.97,
+          "end": 287.61,
+          "en": "Alien in alien.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 287.61,
+          "end": 288.33,
+          "en": "We got laptops.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 288.33,
+          "end": 290.01,
+          "en": "In laptop, we got alien reference.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 290.01,
+          "end": 293.97,
+          "en": "So what I want is now I want the alien entry in the laptop table.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 294.37,
+          "end": 294.73,
+          "en": "Okay?",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 294.77,
+          "end": 296.45,
+          "en": "And by doing this, it will happen.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 296.49,
+          "end": 299.29,
+          "en": "The only change you have to make is the laptop.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 299.29,
+          "end": 300.41,
+          "en": "Should know about the alien now.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 300.41,
+          "end": 303.49,
+          "en": "So L1 dot set alien A1.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 303.49,
+          "end": 305.13,
+          "en": "So this laptop belongs to A1.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 305.73,
+          "end": 308.17,
+          "en": "And L2 also belongs to alien.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 308.17,
+          "end": 309.81,
+          "en": "So both the laptop belongs to alien now.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 310.75,
+          "end": 313.19,
+          "en": "and we are already saving it, so this should work.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 313.23,
+          "end": 313.67,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 314.15,
+          "end": 315.39,
+          "en": "I'm hoping this will work.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 315.39,
+          "end": 316.23,
+          "en": "Let's restart anyway.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 316.23,
+          "end": 318.99,
+          "en": "It will drop the old table so we'll get a new structure.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 319.27,
+          "end": 320.83,
+          "en": "But we got an error.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 320.87,
+          "end": 322.55,
+          "en": "It says could not determine the type.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 322.59,
+          "end": 328.31,
+          "en": "Okay, so when you refer the alien inside laptop, you have to mention that which relationship it is",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 328.35,
+          "end": 329.15,
+          "en": "happening here.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 329.55,
+          "end": 332.39,
+          "en": "So from a laptop perspective it is many to one.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 332.59000000000003,
+          "end": 333.71,
+          "en": "That's something you have to change.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 333.75,
+          "end": 334.83,
+          "en": "Let's run this.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 334.83,
+          "end": 339.27,
+          "en": "So again before we do check that from the alien perspective it is one to many because one alien can",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 339.27,
+          "end": 340.47,
+          "en": "have multiple laptops.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 340.47,
+          "end": 345.23,
+          "en": "From laptop perspective, it is many to one because many laptop can belong to one alien.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 345.23,
+          "end": 350.55,
+          "en": "And if you look at the structure we are first creating, okay, I mean, I'm not expecting a third table",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 350.55,
+          "end": 350.67,
+          "en": "now.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 350.67,
+          "end": 353.95,
+          "en": "In fact checking instead of checking here, let's check the database.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 353.95,
+          "end": 354.99,
+          "en": "Let's refresh.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 355.67,
+          "end": 357.47,
+          "en": "Oh, we got a table.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 357.67,
+          "end": 359.67,
+          "en": "And if you're thinking it's there from earlier one.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 359.67,
+          "end": 361.15,
+          "en": "No, I've deleted that intentionally.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 361.55,
+          "end": 363.19,
+          "en": "But let's look at alien first.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 363.23,
+          "end": 364.11,
+          "en": "What alien says.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 364.11,
+          "end": 368.67,
+          "en": "Alien says I will only hold data about alien laptop.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 368.67,
+          "end": 370.79,
+          "en": "I'm expecting it should hold the data of alien.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 372.08,
+          "end": 373.52,
+          "en": "It is doing that, okay?",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 374.16,
+          "end": 375.16,
+          "en": "It is doing that.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 376,
+          "end": 381.12,
+          "en": "Then if a laptop is handling it, why alien laptop table is there?",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 381.6,
+          "end": 383.4,
+          "en": "Why do we have to refer two times?",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 383.4,
+          "end": 386,
+          "en": "And that's where the ego issue comes.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 386.8,
+          "end": 392.96,
+          "en": "I mean, the thing is, alien, says I, you have written one to many, so it is my job to create a",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 392.96,
+          "end": 396.08,
+          "en": "separate table which will maintain this records.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 396.32,
+          "end": 399.96,
+          "en": "Laptop says since you are saying that alien even I'm maintaining it.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 400.15999999999997,
+          "end": 402.32,
+          "en": "So you are maintaining those record two times.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 402.36,
+          "end": 404,
+          "en": "Redundancy is of no use.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 404.6,
+          "end": 406,
+          "en": "How do I skip that table?",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 406.88,
+          "end": 411.96,
+          "en": "So first of all, let me delete the table so that we know next time when you run this it should not",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 411.96,
+          "end": 412.76,
+          "en": "create once again.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 412.76,
+          "end": 413.64,
+          "en": "So I've deleted it.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 414.96,
+          "end": 417.96,
+          "en": "And if I go back now we have to tell alien.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 418,
+          "end": 419.68,
+          "en": "Hey don't do that.",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 419.72,
+          "end": 421.4,
+          "en": "Let laptop handle it.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 422.2,
+          "end": 429.4,
+          "en": "And the way you can do that is by putting here you are saying, hey, don't worry, you don't map it.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 429.44,
+          "end": 433.74,
+          "en": "It is mapped by laptop with a variable alien.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 434.54,
+          "end": 437.94,
+          "en": "So you have to say alien.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 437.94,
+          "end": 442.18,
+          "en": "So let me reiterate what we are saying is, hey alien, you don't map it because alien is creating the",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 442.18,
+          "end": 443.38,
+          "en": "new table, right?",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 443.42,
+          "end": 444.94,
+          "en": "So we are saying, hey, you don't do that.",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 444.94,
+          "end": 446.38,
+          "en": "It is done by the laptop.",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 446.38,
+          "end": 448.14,
+          "en": "So you can say mapped by alien.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 448.14,
+          "end": 451.14,
+          "en": "This alien variable is actually the name of this variable here.",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 451.14,
+          "end": 452.38,
+          "en": "So we are saying many to one.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 452.38,
+          "end": 454.82,
+          "en": "This is mapping it so you don't have to map it.",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 454.82,
+          "end": 457.34000000000003,
+          "en": "So just say map to by and this will not do it.",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 457.9,
+          "end": 458.58,
+          "en": "Hopefully.",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 458.86,
+          "end": 459.86,
+          "en": "Let's run this.",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 460.18,
+          "end": 461.06,
+          "en": "No error.",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 461.34000000000003,
+          "end": 462.62,
+          "en": "Let's go back to database.",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 463.34000000000003,
+          "end": 471.34000000000003,
+          "en": "Let's refresh this tables and voila you don't have the table and laptop is still holding it.",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 471.54,
+          "end": 472.42,
+          "en": "Yeah that's how you do it.",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 472.42,
+          "end": 475.65999999999997,
+          "en": "So by mapped by you're saying who is mapping it.",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 476.06,
+          "end": 477.54,
+          "en": "It is a responsibility of the laptop.",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 477.54,
+          "end": 482.54,
+          "en": "In this case it is a responsibility of this laptop class with the alien variable.",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 482.54,
+          "end": 485.18,
+          "en": "To do that you don't have to worry about it alien.",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 485.18,
+          "end": 487.1,
+          "en": "You don't have to worry about this one to many.",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 487.14,
+          "end": 491.18,
+          "en": "And that's how you do one to many and many to one.",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 491.94,
+          "end": 494.22,
+          "en": "What we are left now is many to many.",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 494.22,
+          "end": 496.06,
+          "en": "Let's see that in the next video.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "48336379",
+      "title": "Manytomany Mapping",
+      "lectureOrder": 146,
+      "videoOrder": 145,
+      "sourceHash": "9193820dc02eca0066847917831736135f117006161412e12501ac15d3a42d43",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 3.36,
+          "end": 6.72,
+          "en": "So now let's work with many to many.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.96,
+          "end": 9.88,
+          "en": "Now to do that, the example will convert this.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.88,
+          "end": 14,
+          "en": "First of all we got one alien can have multiple laptops.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 14,
+          "end": 17.6,
+          "en": "So instead of having one too many here we have to say many to many.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 18.16,
+          "end": 19.4,
+          "en": "So we'll do that.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.84,
+          "end": 22,
+          "en": "And let's remove this map by as of now.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 22.8,
+          "end": 26.6,
+          "en": "And let's stick to many to many on the laptop side as well.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 26.6,
+          "end": 30.92,
+          "en": "We have to make changes because here one laptop belongs to one alien.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 31.36,
+          "end": 36.64,
+          "en": "So in this case we have to create the list of aliens, because a laptop can belong to multiple aliens.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 36.84,
+          "end": 39.64,
+          "en": "And let's import that.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 39.64,
+          "end": 41.12,
+          "en": "And this is aliens.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 41.84,
+          "end": 44.2,
+          "en": "And then here also we cannot say many to one.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 44.2,
+          "end": 45.6,
+          "en": "We have to say many to many.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 45.64,
+          "end": 47.52,
+          "en": "The changes in this.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 47.76,
+          "end": 54.2,
+          "en": "Let's recreate the getter setters, because now we got the list of aliens.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 54.2,
+          "end": 57.12,
+          "en": "And anyway, we are not printing it here, so we don't have to change that.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 57.76,
+          "end": 60.56,
+          "en": "Nothing much this to we have to say list of aliens.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 60.56,
+          "end": 62.8,
+          "en": "And in aliens we got list of laptops.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 62.8,
+          "end": 65.29,
+          "en": "Both the places we have made to many in main Maine.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 65.29,
+          "end": 70.57,
+          "en": "We have to make some changes because now when you are setting an alien, we can set, you can see we",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 70.61,
+          "end": 74.17,
+          "en": "are saying set laptops and we are setting multiple laptops here for alien.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 74.17,
+          "end": 75.17,
+          "en": "Also, we have to do the same thing.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 75.17,
+          "end": 77.97,
+          "en": "But before I do that, I want to create one more laptop.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 77.97,
+          "end": 81.09,
+          "en": "So let's say we got three laptops here and this is three.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 81.33,
+          "end": 83.97,
+          "en": "So mind you I'm changing all these references here.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 83.97,
+          "end": 85.61,
+          "en": "And this is laptop ID three.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 85.65,
+          "end": 91.33,
+          "en": "Let's say we got Apple model is MacBook and Ram is let's say eight.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 91.37,
+          "end": 92.89,
+          "en": "Let's say I'm using MacBook air.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 93.00999999999999,
+          "end": 93.17,
+          "en": "Yeah.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 93.17,
+          "end": 99.09,
+          "en": "So we got three laptops and let's create few more aliens one and two.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 99.65,
+          "end": 100.89,
+          "en": "So this is a two.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 101.21000000000001,
+          "end": 102.61,
+          "en": "So making changes here.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 102.65,
+          "end": 104.28999999999999,
+          "en": "This is 102.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 104.65,
+          "end": 108.69,
+          "en": "Let's say hush hush loves Python.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 108.93,
+          "end": 112.49000000000001,
+          "en": "We got A3103",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 113.89,
+          "end": 115.25,
+          "en": "Kiran Kiran.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 115.25,
+          "end": 117.33,
+          "en": "Let's learn AI.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 118.28999999999999,
+          "end": 124.21,
+          "en": "And we have to make the changes here A3A3 and a three okay.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 124.21,
+          "end": 126.09,
+          "en": "So we got three aliens and three laptops.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 126.09,
+          "end": 132.51,
+          "en": "And now when you are assigning the value this is we have done only for the alien one.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 132.55,
+          "end": 134.31,
+          "en": "We have to do that for alien two as well.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 134.31,
+          "end": 139.82999999999998,
+          "en": "In fact, what I will do is instead of putting that here, let's do that separately somewhere here.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 140.31,
+          "end": 144.51,
+          "en": "So this is for the first alien, let's say alien two dot set laptops.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 144.51,
+          "end": 145.63,
+          "en": "And we'll do the same thing.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 145.67000000000002,
+          "end": 147.35,
+          "en": "Arrays dot as list.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 147.59,
+          "end": 151.67000000000002,
+          "en": "And let's say second alien has L2 and L3, the second laptop and third laptop.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 151.87,
+          "end": 157.99,
+          "en": "And alien three got only, let's say first laptop, only one.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 158.03,
+          "end": 158.23,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 158.27,
+          "end": 159.03,
+          "en": "Remember this.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 159.03,
+          "end": 165.03,
+          "en": "So alien one got two laptops one and two, alien two got two and three, and alien three got only one,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 165.03,
+          "end": 166.11,
+          "en": "which is a one.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 166.11,
+          "end": 168.47,
+          "en": "And we have to do that for the laptop as well.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 168.99,
+          "end": 171.91,
+          "en": "So L1 dot set aliens.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 172.11,
+          "end": 176.87,
+          "en": "So the first laptop belongs to alien one and alien two.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 177.27,
+          "end": 181.07,
+          "en": "So that is arrays dot as list.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 181.39,
+          "end": 184.67,
+          "en": "And the second laptop belongs to okay.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 184.71,
+          "end": 191.23,
+          "en": "The first laptop belongs to A1 and A3, not A1, A2, the second laptop A1 and A2.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 191.83,
+          "end": 195,
+          "en": "The third laptop Up belongs to only a two.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 195.2,
+          "end": 195.36,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 195.4,
+          "end": 196.4,
+          "en": "If you can match it.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 197.12,
+          "end": 200.96,
+          "en": "Okay, now you're getting this warning is because if you only have one element, you can use list off",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 201,
+          "end": 203.68,
+          "en": "instead of this particular as list method here.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 203.88,
+          "end": 205.52,
+          "en": "Okay, now things are looking good.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 205.52,
+          "end": 208.36,
+          "en": "We just have to make sure that we persist all the objects.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 208.68,
+          "end": 210.88,
+          "en": "So I will say session dot persist.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 210.88,
+          "end": 217.2,
+          "en": "I want to save a laptop three and session dot persist a two.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 217.44,
+          "end": 220.28,
+          "en": "Session dot persist a three.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 220.36,
+          "end": 223.16,
+          "en": "And then this should not be a let's say a five.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 223.2,
+          "end": 225.44,
+          "en": "We are fetching a five which is 102.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 225.48,
+          "end": 228.84,
+          "en": "Let's say this time, which is harsh and it should print the details of the harsh.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 229.4,
+          "end": 229.72,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 229.76,
+          "end": 230.44,
+          "en": "So many changes.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 230.44,
+          "end": 230.64,
+          "en": "Right?",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 230.68,
+          "end": 233.84,
+          "en": "We have we have done the many to many, uh, stuff here.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 234.32,
+          "end": 236.07999999999998,
+          "en": "And now let's see if this works.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 237.04,
+          "end": 237.44,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 237.64,
+          "end": 238.96,
+          "en": "Uh, let's run this.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 239.48,
+          "end": 239.68,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 239.72,
+          "end": 240.28,
+          "en": "It worked.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 240.64,
+          "end": 241.4,
+          "en": "No error.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 241.56,
+          "end": 242.36,
+          "en": "I'm happy.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 242.68,
+          "end": 248.44,
+          "en": "And you can see for the harsh alien two, it is printing the details, which is Dell and Apple.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 248.48,
+          "end": 249.24,
+          "en": "Is it true?",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 249.88,
+          "end": 250.64,
+          "en": "So harsh.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 250.68,
+          "end": 251.52,
+          "en": "Which is alien?",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 251.52,
+          "end": 253.72,
+          "en": "Two got first and second.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 253.72,
+          "end": 257,
+          "en": "That's why it is Dell and Alien two.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 257.04,
+          "end": 258.78,
+          "en": "We got Dell and Apple.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 258.78,
+          "end": 259.14,
+          "en": "That's right.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 259.18,
+          "end": 259.78,
+          "en": "Okay, cool.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 260.02,
+          "end": 261.26,
+          "en": "So the output is correct.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 261.26,
+          "end": 264.14,
+          "en": "But if you go back to database let's verify from database as well.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 264.54,
+          "end": 265.7,
+          "en": "Let's refresh this.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 265.9,
+          "end": 270.9,
+          "en": "And if you observe we got 1234 tables.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 270.9,
+          "end": 272.86,
+          "en": "Student is already there from the earlier example.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 273.02,
+          "end": 275.22,
+          "en": "But here we got four tables.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 275.5,
+          "end": 276.26,
+          "en": "One for alien.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 276.26,
+          "end": 278.38,
+          "en": "Makes sense because alien will have its own data.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 278.42,
+          "end": 280.1,
+          "en": "And yeah, we got alien data here.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 280.1,
+          "end": 282.5,
+          "en": "We got three entries for laptop.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 282.74,
+          "end": 283.9,
+          "en": "Let's view laptop.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 283.9,
+          "end": 285.62,
+          "en": "We got three entries.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 285.62,
+          "end": 286.58,
+          "en": "That's perfect.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 286.74,
+          "end": 290.9,
+          "en": "But if you look at the tables, we got alien laptop and laptop alien.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 291.02,
+          "end": 292.26,
+          "en": "So I will just view data.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 292.26,
+          "end": 295.02,
+          "en": "And alien laptop is basically mapping the alien laptop.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 295.02,
+          "end": 301.9,
+          "en": "So it says 101, which is the ID for the first alien got two laptops, the second ID 102 got two laptops,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 301.9,
+          "end": 303.46,
+          "en": "the third ID got one laptop.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 303.82,
+          "end": 306.02,
+          "en": "So mapping is actually done in this table.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 306.06,
+          "end": 306.94,
+          "en": "Alien laptop.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 307.5,
+          "end": 310.86,
+          "en": "Then why in this world we got this laptop alien.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 311.02,
+          "end": 311.82,
+          "en": "Any guess?",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 312.26,
+          "end": 314.18,
+          "en": "This is something which we have faced in the earlier video.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 314.66,
+          "end": 317.18,
+          "en": "The thing is, so both alien and Laptop.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 317.18,
+          "end": 321.1,
+          "en": "Both are thinking it is their responsibility to map it.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 321.1,
+          "end": 323.91,
+          "en": "And we have to tell them, hey, one of you will map it.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 324.83,
+          "end": 327.91,
+          "en": "But the question is, from whom do you want to be mapped with?",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 328.07,
+          "end": 330.39,
+          "en": "So let's say I want this time to alien to map it.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 330.39,
+          "end": 333.15,
+          "en": "So we have to stop laptop to map it.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 333.47,
+          "end": 338.55,
+          "en": "And the way you can do that is by giving a bracket here and say mapped by.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 338.87,
+          "end": 340.07,
+          "en": "But who is mapping it?",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 340.51,
+          "end": 345.67,
+          "en": "So when you say map by you have to go to the other class like this alien class and see who's doing the",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 345.67,
+          "end": 346.19,
+          "en": "mapping.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 346.35,
+          "end": 348.31,
+          "en": "Mapping is done by the laptops here.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 348.99,
+          "end": 352.03,
+          "en": "So I will simply write here laptops.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 352.03,
+          "end": 355.15,
+          "en": "So our job is done hopefully.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 355.15,
+          "end": 358.79,
+          "en": "But before I run this I will delete this two particular tables.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 359.63,
+          "end": 361.07,
+          "en": "Oh not view it.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 361.19,
+          "end": 365.11,
+          "en": "Delete it even this one.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 367.51,
+          "end": 368.07,
+          "en": "Delete.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 368.55,
+          "end": 371.07,
+          "en": "And just to be on the safer side let me delete student as well.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 371.07,
+          "end": 372.51,
+          "en": "Why we got extra table there.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 373.07,
+          "end": 374.91,
+          "en": "So now if I refresh we got only two tables.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 374.91,
+          "end": 377.63,
+          "en": "Anyway they are going to recreate so we don't have to delete them.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 377.63,
+          "end": 379.19,
+          "en": "It will get deleted automatically.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 379.47,
+          "end": 381.15,
+          "en": "And now let's relaunch this.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 381.35,
+          "end": 382.63,
+          "en": "There is no error.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 382.67,
+          "end": 386.03,
+          "en": "Let's go back to our database and refresh this.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 386.49,
+          "end": 388.97,
+          "en": "And if you observe, we got three tables.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 388.97,
+          "end": 391.41,
+          "en": "There is no there is no mapping from the laptop alien.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 391.41,
+          "end": 393.53,
+          "en": "It is only from alien laptop.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 394.29,
+          "end": 396.37,
+          "en": "And we'll we'll check once again.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 396.37,
+          "end": 399.33,
+          "en": "Just to be clear, alien got its own record.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 399.37,
+          "end": 400.85,
+          "en": "No mention of the laptop.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 401.25,
+          "end": 404.49,
+          "en": "Laptop will get its own data, hopefully.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 404.53,
+          "end": 406.57,
+          "en": "Yeah, there's no mention of the alien there.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 406.97,
+          "end": 410.93,
+          "en": "And this table is responsible for the mapping and mapping.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 410.93,
+          "end": 411.33,
+          "en": "Done.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 411.57,
+          "end": 412.33,
+          "en": "We are happy.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 412.53,
+          "end": 416.77,
+          "en": "And maybe if you want, you can write a separate SQL query here to see if it is actually working.",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 416.77,
+          "end": 417.49,
+          "en": "And that's your job.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 417.53,
+          "end": 417.97,
+          "en": "Do it.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 418.33,
+          "end": 424.05,
+          "en": "There's not the SQL course but things are working out and that's how you use many to many.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 424.41,
+          "end": 429.97,
+          "en": "So just to reiterate what we have done, uh, from from the alien, we have one alien will have multiple",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 429.97,
+          "end": 431.73,
+          "en": "laptops and we are doing many to many.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 432.45,
+          "end": 434.73,
+          "en": "One laptop belongs to multiple aliens.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 434.73,
+          "end": 437.61,
+          "en": "And that's why we see a list of aliens, many to many.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 437.65,
+          "end": 442.45,
+          "en": "The only thing we are doing is map by laptop so that it will not do its own mapping.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 442.81,
+          "end": 447.57,
+          "en": "And from the main, you have to make sure that you create multiple objects and assign it so that it",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 447.57,
+          "end": 448.13,
+          "en": "will work.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 448.73,
+          "end": 449.93,
+          "en": "So that's it from this video.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 449.97,
+          "end": 451.69,
+          "en": "See you in the next topic.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

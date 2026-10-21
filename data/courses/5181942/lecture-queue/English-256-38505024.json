@@ -1,0 +1,427 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38505024",
+      "title": "Cron Variants Overview: `vixie-cron`, `anacron` & `cronie`",
+      "lectureOrder": 288,
+      "videoOrder": 256,
+      "sourceHash": "88c593ce96fe4df82691fde81c8f4cc6f1be6e534e6f61fdc922e5fb16d19b56",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.29,
+          "end": 5.51,
+          "en": "I want to give you a quick heads up before we start to actually work with Chrome, because there are",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.51,
+          "end": 8.6,
+          "en": "quite a few different cron implementations out there.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 9.56,
+          "end": 13.46,
+          "en": "The reason is that historically they've grown that way.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.46,
+          "end": 16.74,
+          "en": "So we just have different implementations.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 16.76,
+          "end": 20.09,
+          "en": "They all kind of share the same configuration file.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 20.09,
+          "end": 26.78,
+          "en": "I said kind of because the, the, the features that they support might be slightly different.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 26.78,
+          "end": 32.75,
+          "en": "For example, some cron implementations can send the output by email of a cron job.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 32.78,
+          "end": 33.98,
+          "en": "Others can't.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 34.01,
+          "end": 40.1,
+          "en": "The ones we will look at here, the default ones on Ubuntu and CentOS, they can send the output by",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 40.1,
+          "end": 44.06,
+          "en": "email, but there are more implementations for cron out there.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 44.06,
+          "end": 50,
+          "en": "So they support different features and sometimes even the syntax of the configuration files might be",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 50,
+          "end": 54.5,
+          "en": "slightly different or some syntax might not be supported from another implementation.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 54.98,
+          "end": 58.32,
+          "en": "I want to go through the most popular implementations for Cron.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 58.45,
+          "end": 60.45,
+          "en": "The one would be Vixie Cron.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 60.45,
+          "end": 63.06,
+          "en": "I'm not sure how to pronounce that name properly.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 63.09,
+          "end": 67.26,
+          "en": "This is used in ubuntu as the default cron implementation.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 67.26,
+          "end": 72.03,
+          "en": "It's in the package cron, so there's nothing immediately revealing the name.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 72.6,
+          "end": 74.1,
+          "en": "Um, this is um.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 74.1,
+          "end": 82.32,
+          "en": "This is a service that allows us to run tasks in the background periodically by defining the timestamps",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 82.59,
+          "end": 83.82,
+          "en": "when it should run.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 84,
+          "end": 85.98,
+          "en": "Then we also got anacron.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 86.46000000000001,
+          "end": 91.44,
+          "en": "This is used in ubuntu to support jobs that should be run at in regular intervals.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 91.47,
+          "end": 97.2,
+          "en": "The difference here is that if the system is shut down that they can be run during the next boot or",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 97.2,
+          "end": 98.91,
+          "en": "after a certain period there.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 98.91,
+          "end": 103.71000000000001,
+          "en": "So for example, if we are like, hey, this should be run every day, but then our system is turned",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 103.71000000000001,
+          "end": 109.83,
+          "en": "off for several days and we turn it back on, then it will be run as soon as possible or as soon as",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 109.83,
+          "end": 112.22999999999999,
+          "en": "Anacron is being executed the next time.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 112.22999999999999,
+          "end": 117.15,
+          "en": "So we have a different this is a different way to see those tasks.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 117.15,
+          "end": 122.88,
+          "en": "And for some tasks we want to be able to specify the times and for others we are like, Hey, this just",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 122.88,
+          "end": 125.19,
+          "en": "make sure that this is run every day.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 125.61,
+          "end": 130.23,
+          "en": "Um, if the system is running and other ways, make sure it's run as soon as possible.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 131.05,
+          "end": 134.87,
+          "en": "Anacron in general has different configuration files than normal cron.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 134.88,
+          "end": 136.82999999999998,
+          "en": "How exactly Anacron works?",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 136.82999999999998,
+          "end": 141.48,
+          "en": "What are the configuration files there we will have a look at here later in this chapter.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 141.84,
+          "end": 143.67000000000002,
+          "en": "Then there's also Chrony.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 143.7,
+          "end": 149.97,
+          "en": "That's the cron implementation on CentOS and on a lot of Linux distributions of the RedHat family,",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 150,
+          "end": 152.28,
+          "en": "Fedora, CentOS, red hat and so on.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 153.03,
+          "end": 157.95,
+          "en": "It's a fork of vixie cron, but it has slightly different features and the configuration files, they",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 157.95,
+          "end": 161.82,
+          "en": "share the same syntax, but the defaults there are slightly different.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 162.18,
+          "end": 165.66,
+          "en": "Um, and anacron is integrated into it.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 165.66,
+          "end": 173.49,
+          "en": "So in a sense the way it works on Ubuntu, those are completely separate packages and on CentOS anacron",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 173.49,
+          "end": 175.5,
+          "en": "is part of the crony package.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 175.5,
+          "end": 181.7,
+          "en": "But we will also have a look at this in a separate lecture for Anacron on CentOS, there are way more",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 181.7,
+          "end": 183.38,
+          "en": "cron implementations.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 183.82,
+          "end": 190.73,
+          "en": "Um, we don't need to look at those in this course because the thing they all share in common that they",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 190.73,
+          "end": 197.03,
+          "en": "all pretty much, um, work with the same configuration file and the commands are almost the same,",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 197.03,
+          "end": 198.26,
+          "en": "how we can work with them.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 198.26,
+          "end": 200.54,
+          "en": "So for us this is now enough.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 200.54,
+          "end": 206.96,
+          "en": "And luckily in the installs that we did through for our Ubuntu and our CentOS, everything is already",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 206.96,
+          "end": 208.57999999999998,
+          "en": "installed for us.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 209.03,
+          "end": 214.52,
+          "en": "So we can go straight to how we can create cron jobs and how we can use them.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 214.79,
+          "end": 221.63,
+          "en": "Just be aware that some lectures here are specific for Ubuntu or for CentOS because of those different",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 221.63,
+          "end": 222.77,
+          "en": "cron implementations.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 222.77,
+          "end": 228.92000000000002,
+          "en": "But as long as I don't say anything, the concepts that you will learn here in this chapter should work",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 228.92000000000002,
+          "end": 230.99,
+          "en": "on Ubuntu and on CentOS as well.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 231.35,
+          "end": 234.74,
+          "en": "And if there are differences there will be different lectures for those.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 234.86,
+          "end": 235.57,
+          "en": "All right.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 235.57999999999998,
+          "end": 241.23,
+          "en": "With that in mind, I would say let's now get started and let's now have a look at how everything works.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

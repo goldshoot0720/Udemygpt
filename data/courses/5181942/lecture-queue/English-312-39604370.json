@@ -1,0 +1,861 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "39604370",
+      "title": "Security tips (part 2, users)",
+      "lectureOrder": 344,
+      "videoOrder": 312,
+      "sourceHash": "9d6278ab8041d5217fffe9627c180d1ceddfb4f8d423fc8c1ec55ed5eee194bb",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.45,
+          "end": 3.74,
+          "en": "So let's now have another look at SSH security.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.75,
+          "end": 7.89,
+          "en": "Another thing that we should make sure is that we disable root login.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.92,
+          "end": 14.76,
+          "en": "The problem is that by default all normal users with password can use SSH depending on the configuration.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 14.76,
+          "end": 17.73,
+          "en": "Sometimes this also applies to the user root.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.76,
+          "end": 22.17,
+          "en": "We should check and consider disabling the root login completely.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 22.26,
+          "end": 28.55,
+          "en": "We can do this by editing the SSH config and we can set permit root login to no.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 28.59,
+          "end": 35.85,
+          "en": "This helps a little bit because now an attacker has to first log in as a normal user and then he has",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 35.85,
+          "end": 38.4,
+          "en": "to elevate his privileges with sudo.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 38.4,
+          "end": 44.52,
+          "en": "So he need to first know the password of the user and then use the same password again to elevate his",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 44.52,
+          "end": 46.44,
+          "en": "privileges through sudo.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 46.47,
+          "end": 52.68,
+          "en": "This doesn't sound more secure than just allowing root login, but here in this case the attacker now",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 52.68,
+          "end": 54.6,
+          "en": "also has to guess the username.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 54.6,
+          "end": 60.64,
+          "en": "And later we will also see how we can replace the first login with a password with a so-called public",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 60.64,
+          "end": 62.74,
+          "en": "private key combination.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 62.89,
+          "end": 67.75,
+          "en": "And then he would need to guess a key and the password that he will need for sudo.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 67.75,
+          "end": 73.27,
+          "en": "And that would be extremely difficult and extremely well.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 73.27,
+          "end": 75.58,
+          "en": "It's pretty much impossible.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 75.58,
+          "end": 84.34,
+          "en": "So if we permit root login, if we set that to no, this can enhance our security because it will force",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 84.34,
+          "end": 87.07,
+          "en": "all logins that they happen through normal users.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 87.1,
+          "end": 91.74,
+          "en": "Let's first have a have a look at whether root login here is enabled anyway.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 91.75,
+          "end": 97.6,
+          "en": "So the first thing, if I want to test whether root login is enabled here is that I can just try to",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 97.6,
+          "end": 99.22,
+          "en": "log in as the user root.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 99.25,
+          "end": 104.92,
+          "en": "If I do this here, we can see here that this one here doesn't work because we are asked for a password",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 104.92,
+          "end": 112,
+          "en": "and whatever, whatever I enter here, this one here will be incorrect because by default, sshd should",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 112,
+          "end": 118.27000000000001,
+          "en": "be configured in a way that if a user doesn't have a password, then we also can't use it through SSH.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 118.27000000000001,
+          "end": 120.46,
+          "en": "So I need to log in as a normal user.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 120.46,
+          "end": 121.27,
+          "en": "Here again.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 121.27,
+          "end": 128.74,
+          "en": "And now I would for example, need to set a password for the root user so I give myself additional privileges.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 128.77,
+          "end": 130.15,
+          "en": "Now I'm the root user.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 130.15,
+          "end": 133.24,
+          "en": "Now I could set a password for the root user.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 135.47,
+          "end": 139.31,
+          "en": "It's a bad password because I just use ubuntu as a password here.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 139.31,
+          "end": 144.36,
+          "en": "But now my root user here has a has a password.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 144.38,
+          "end": 145.55,
+          "en": "Now I can just exit.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 145.55,
+          "end": 147.29,
+          "en": "Quit the connection again.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 147.29,
+          "end": 152.32999999999998,
+          "en": "And now i could try to log in as the root user root with the password ubuntu.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 152.32999999999998,
+          "end": 158.06,
+          "en": "And you can see here in this case it is actually disabled already.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 158.24,
+          "end": 161.78,
+          "en": "So we can see here right now root login doesn't work.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 161.81,
+          "end": 166.25,
+          "en": "This is already good, but let's just confirm what's written in the configuration file.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 166.25,
+          "end": 172.57999999999998,
+          "en": "So I go back as the user says, and then I just edit my configuration file.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 172.7,
+          "end": 174.2,
+          "en": "Clear my screen first.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 174.2,
+          "end": 176.27,
+          "en": "Sudo nano etk.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 176.42000000000002,
+          "end": 179,
+          "en": "Ssh ssh config.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 179.03,
+          "end": 181.16,
+          "en": "This is the file that I would like to edit.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 181.16,
+          "end": 186.95,
+          "en": "And now let's see permit root login and here we can see prohibit password.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 186.95,
+          "end": 189.47,
+          "en": "So this is the default value here.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 189.47,
+          "end": 193.9,
+          "en": "That's why it's well, for the sake of clarity, what are the default values?",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 193.91,
+          "end": 200.34,
+          "en": "All those default values are commented out here, but I could just uncomment that line and then we could",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 200.34,
+          "end": 204.69,
+          "en": "see here, for example, Root is not allowed to log in with a password.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 205.35,
+          "end": 208.47,
+          "en": "Again, how you can log in with a so-called public private key.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 208.5,
+          "end": 209.82,
+          "en": "More on that later.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 209.82,
+          "end": 215.61,
+          "en": "But if we want to disable the root login completely, we can just set this one to no.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 215.61,
+          "end": 220.56,
+          "en": "And this will now make sure that Root cannot log in no matter how.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 220.56,
+          "end": 222.51,
+          "en": "So I can now quit that file.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 222.69,
+          "end": 229.41,
+          "en": "Now I can test my new configuration sudo ssh dash t and we can see here this has now worked.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 229.41,
+          "end": 237.84,
+          "en": "And then I can say systemctl restart sshd and now the ssh service has been restarted.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 237.84,
+          "end": 240.72,
+          "en": "So now root can no longer log in here.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 241.02,
+          "end": 245.73,
+          "en": "Then the next thing we can do is that we can also whitelist users.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 245.76,
+          "end": 247.29,
+          "en": "Why would we want to do that?",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 247.32,
+          "end": 251.43,
+          "en": "Well, by default all normal users with password can use SSH.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 251.46,
+          "end": 258.99,
+          "en": "I use the term normal users here because as we have seen before, Root might already be disabled depending",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 258.99,
+          "end": 261.9,
+          "en": "on the default configuration of your operating system.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 261.9,
+          "end": 268.8,
+          "en": "But by default, all normal users with password can use SSH and can connect to our server with SSH.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 268.83,
+          "end": 270.51,
+          "en": "Maybe we don't want that.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 270.69,
+          "end": 272.88,
+          "en": "We might want to whitelist our users.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 272.88,
+          "end": 278.27,
+          "en": "So we have to explicitly think about who is able to access our server through SSH.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 278.28,
+          "end": 280.35,
+          "en": "We can do this by setting the option.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 280.35,
+          "end": 284.67,
+          "en": "Allow users to only allow a few users on our system.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 284.85,
+          "end": 291.51,
+          "en": "So for example, if I would only allow me to connect through SSH, I could just enable this one user",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 291.51,
+          "end": 297.75,
+          "en": "or I could also list additional users here by just adding them like s for me, for example.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 297.75,
+          "end": 301.95,
+          "en": "And then I could have a space there and then the next user name and so on.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 302.16,
+          "end": 308.58,
+          "en": "The advantage here is imagine you have like maybe like five users, like normal users on your system,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 309.33,
+          "end": 314.13,
+          "en": "maybe the users that are allowed to use SSH.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 314.13,
+          "end": 321.17,
+          "en": "Maybe you can tell them to have a more strict or more strict password policy so that the password are",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 321.17,
+          "end": 322.28,
+          "en": "more difficult to guess.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 322.28,
+          "end": 326.93,
+          "en": "So maybe you can do something there to make your system more secure.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 326.93,
+          "end": 330.29,
+          "en": "And then of course you want to limit the attack surface.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 330.29,
+          "end": 332.51,
+          "en": "So let's have a look at how we can do this.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 332.51,
+          "end": 339.29,
+          "en": "So I go into my ssh config ssh config file and now let's say here allow users.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 339.29,
+          "end": 342.59000000000003,
+          "en": "Let's see if there's already something in that file.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 342.59000000000003,
+          "end": 343.13,
+          "en": "Nope.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 343.13,
+          "end": 344.81,
+          "en": "So I can just add it here.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 344.81,
+          "end": 351.92,
+          "en": "Allow users and for example here I would want to allow me to connect to that computer, but for the",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 351.92,
+          "end": 357.71,
+          "en": "sake of this lecture, let's say I forgot the initial of my last name here and I just use my first name",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 357.71,
+          "end": 358.01,
+          "en": "here.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 358.01,
+          "end": 359.42,
+          "en": "Let's just save it.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 359.42,
+          "end": 366.89,
+          "en": "And now, of course, I can just try to retest the configuration so here we can see it looks all right,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 367.28,
+          "end": 369.38,
+          "en": "so let's just see.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 369.38,
+          "end": 369.89,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 369.89,
+          "end": 370.46,
+          "en": "Okay.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 370.46,
+          "end": 374.3,
+          "en": "Sudo systemctl restart sshd.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 374.33,
+          "end": 376.31,
+          "en": "Now sshd has been restarted.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 376.31,
+          "end": 379.14,
+          "en": "I can still use the existing connection here.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 379.14,
+          "end": 381.18,
+          "en": "Now let me just quit my connection.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 381.18,
+          "end": 382.56,
+          "en": "Try to connect again.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 382.56,
+          "end": 388.89,
+          "en": "I enter my correct password here and we can see we have pretty much locked ourselves out because I did",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 388.89,
+          "end": 394.47,
+          "en": "some changes to my sshd configuration and now I'm unable to connect.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 394.5,
+          "end": 400.95,
+          "en": "Luckily, this is a virtual machine, so I could just go back into the machine itself without SSH.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 400.95,
+          "end": 407.04,
+          "en": "And here I have a new terminal and I could just revert that change or fix it so I could go here.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 407.07,
+          "end": 415.32,
+          "en": "E.T.C. ssh ssh config, enter my password and then here fix this.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 415.32,
+          "end": 423.99,
+          "en": "Allow users to use the actual username and then save that file test sudo ssh to test the configuration",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 423.99,
+          "end": 425.73,
+          "en": "sudo systemctl.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 425.73,
+          "end": 427.27,
+          "en": "Restart sshd.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 427.44,
+          "end": 432.57,
+          "en": "And now I have fixed my configuration and now I should be able to connect again.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 432.57,
+          "end": 434.79,
+          "en": "So luckily here everything was simple.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 434.79,
+          "end": 435.14,
+          "en": "I can now.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 435.26,
+          "end": 436.25,
+          "en": "Just reconnect.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 436.25,
+          "end": 437.78,
+          "en": "Enter my password again.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 437.78,
+          "end": 439.43,
+          "en": "So here, enter my password.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 439.43,
+          "end": 442.22,
+          "en": "And you can see here everything has worked properly.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 442.55,
+          "end": 446.27,
+          "en": "But imagine this was not a virtual machine.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 446.27,
+          "end": 451.58,
+          "en": "I did not have that user interface available, but imagine this would be a remote server and maybe a",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 451.58,
+          "end": 453.89,
+          "en": "server where I can't just physically go to.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 454.13,
+          "end": 461.15,
+          "en": "And this can sometimes be a little bit dangerous because then resetting all of that would be a little",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 461.15,
+          "end": 462.26,
+          "en": "bit difficult.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 462.29,
+          "end": 468.89,
+          "en": "We would have to boot a rescue Linux either through the control panel of our server or by inserting",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 468.89,
+          "end": 472.61,
+          "en": "a bootable drive and then booting from that and then fixing that mistake.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 472.61,
+          "end": 481.94,
+          "en": "So when we do any changes to open SSH, we want to reduce the risk that we do some changes that break",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 481.94,
+          "end": 488.39,
+          "en": "our SSH server because maybe we are dependent on it and the way you can approach that.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 488.66,
+          "end": 494.18,
+          "en": "This is what I want to talk about in the next lecture to minimize the risk that something like this",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 494.18,
+          "end": 497.48,
+          "en": "happens to you in an actual production system.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

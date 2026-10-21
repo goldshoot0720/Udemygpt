@@ -1,0 +1,749 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38457916",
+      "title": "Inspecting Context Switches: How Multitasking Works",
+      "lectureOrder": 175,
+      "videoOrder": 149,
+      "sourceHash": "5db879b7367397a7493c0eddd190a0ae4ae7df6cdee36041672d641bebffb24f",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 1.13,
+          "end": 7.04,
+          "en": "It's the next thing in this chapter, we want to have a look at how we can prioritize processes.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.43,
+          "end": 13.76,
+          "en": "But in order to understand that on a really deep level, it makes sense that we have that We watch a",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 13.76,
+          "end": 21.17,
+          "en": "quick crash course about multitasking, and we have a look at the scheduler, how the operating system",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 21.17,
+          "end": 21.95,
+          "en": "does that.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 21.98,
+          "end": 29.39,
+          "en": "Then in the next lecture, we can have a look at how we can assign a certain priority to a process.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 29.51,
+          "end": 33.41,
+          "en": "So let's first have a look at how does multitasking work?",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 33.59,
+          "end": 40.67,
+          "en": "Let's say let's simplify our problem and let's assume that we have only one processor in our system",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 40.67,
+          "end": 43.89,
+          "en": "and we don't have any hyperthreading enabled.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 43.91,
+          "end": 50.78,
+          "en": "We literally just have one CPU and it also only shows as one core to our operating system.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 50.79,
+          "end": 55.52,
+          "en": "So how can we execute multiple programs at the same time?",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 55.52,
+          "end": 57.75,
+          "en": "In that case, we can't.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 57.77,
+          "end": 63.91,
+          "en": "But the idea is that we just let our processor or our CPU switch between those.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 63.93,
+          "end": 69.42,
+          "en": "If we switch fast enough, it will seem like we are running all the programs at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 69.42,
+          "end": 74.61,
+          "en": "This switching is handled by the operating system and it's called scheduling.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 74.7,
+          "end": 81.12,
+          "en": "So imagine we have a time here and we want to execute, let's say, three programs at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 81.12,
+          "end": 87.78,
+          "en": "Then our CPU would work for, for example, for program three, then program two and program one, and",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 87.78,
+          "end": 89.58,
+          "en": "then it may start again.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 89.58,
+          "end": 95.88,
+          "en": "And this is the way how, for example, multiple programs can be executed at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 97.65,
+          "end": 103.05,
+          "en": "This is enough of a theory, but I would like to visualize that a little bit.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 103.08,
+          "end": 111.63,
+          "en": "Can't we inspect it and watch the operating system, how it schedules the tasks on our CPU and the way",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 111.63,
+          "end": 116.00999999999999,
+          "en": "it's called if our CPU switches from one program to another.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 116.03999999999999,
+          "end": 118.62,
+          "en": "That's a so called context switch.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 118.71000000000001,
+          "end": 124.68,
+          "en": "You really don't need to remember this, but we are able to visualize those context switches.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 124.71,
+          "end": 126.96,
+          "en": "There's a file that we could output.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 126.96,
+          "end": 133.02,
+          "en": "It's in slash proc, then the process ID slash status in that file.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 133.02,
+          "end": 136.98,
+          "en": "There are quite a few information about that process.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 136.98,
+          "end": 147.18,
+          "en": "And if we grab that file for ktxt, that means context switching or context switch, then we are able",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 147.18,
+          "end": 151.74,
+          "en": "to output how many context switches have occurred for that program?",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 151.98,
+          "end": 153.42000000000002,
+          "en": "Let's have a look at this.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 153.42000000000002,
+          "end": 155.19,
+          "en": "So let me just start a program.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 155.19,
+          "end": 162.07,
+          "en": "Let's say I want to start the system monitor here and I want to see how often does it do a context switch",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 162.46,
+          "end": 164.02,
+          "en": "just to visualize it.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 164.14,
+          "end": 166.27,
+          "en": "Then I make sure, okay, it's my.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 166.66,
+          "end": 169.63,
+          "en": "Yeah, but it should work anyway because I've just started that.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 169.63,
+          "end": 176.82999999999998,
+          "en": "So I look for the system monitor and we see this is the name of the program that we are having here.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 177.79,
+          "end": 181.84,
+          "en": "I'm just interested in the process ID 49225.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 181.87,
+          "end": 196.36,
+          "en": "Now I can go into the proc folder then in the folder 49225 and then I can output the status file over",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 196.36,
+          "end": 196.57,
+          "en": "here.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 196.57,
+          "end": 198.79,
+          "en": "You can see there are quite a few files.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 198.79,
+          "end": 200.95,
+          "en": "Well, technically they're kind of files.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 200.95,
+          "end": 206.05,
+          "en": "They just provide information about the process in a file like way.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 206.05,
+          "end": 211.54,
+          "en": "So they seem to be a file, but they are not actually files that are stored on your hard drive or on",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 211.54,
+          "end": 212.23,
+          "en": "your SSD.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 212.71,
+          "end": 220.32999999999998,
+          "en": "But to us they seem like they are files, so we can just use the Cat program to query or to get information",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 220.32999999999998,
+          "end": 221.77,
+          "en": "about this process.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 221.77,
+          "end": 226.06,
+          "en": "And then we can see several things here, whatever, how many threads it has.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 226.06,
+          "end": 230.74,
+          "en": "But we can also see here the amount of context switches that have occurred.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 231.13,
+          "end": 233.29,
+          "en": "We are not interested in all the rest.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 233.32,
+          "end": 235.69,
+          "en": "We are only interested in those two lines.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 235.69,
+          "end": 242.62,
+          "en": "So I can clear my screen and I could go back here and for example, I could grab this for Ktxt.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 243.01,
+          "end": 249.82,
+          "en": "Now we can see the amount of context switches that have occurred voluntarily means that the program",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 249.82,
+          "end": 250.69,
+          "en": "is doing something.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 250.69,
+          "end": 257.86,
+          "en": "For example, it can request a file or do some input output work so it tries to read something or write",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 257.86,
+          "end": 261.73,
+          "en": "something to a file, to a network connection or anything like this.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 261.73,
+          "end": 265.24,
+          "en": "And it's kind of like waiting for this to happen.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 265.24,
+          "end": 270.16,
+          "en": "Then that's a so-called voluntary context switch because the program is like, okay, here, I'm just",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 270.16,
+          "end": 272.28,
+          "en": "waiting for something to happen.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 272.29,
+          "end": 274.39,
+          "en": "The processor can do something else.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 274.48,
+          "end": 280.21,
+          "en": "In the meantime, Nonvoluntary context switches are if the program is like, Hey, I'm working, I'm",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 280.21,
+          "end": 285.28,
+          "en": "working, I'm working, and then the operating system is like, Um, nope, you're going to stop now.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 285.28,
+          "end": 292,
+          "en": "We need to execute another program that's totally normal and it's totally fine that programs, um,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 292.48,
+          "end": 297.67,
+          "en": "do this, but um, that those are the two groups that are being collected here.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 298.27,
+          "end": 302.17,
+          "en": "Um, we want to see how the context switching happens.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 302.17,
+          "end": 310.42,
+          "en": "And for that I need to, um, or we want to watch this and I would now need to execute this one here",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 310.42,
+          "end": 311.8,
+          "en": "over and over again.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 311.8,
+          "end": 314.65,
+          "en": "And you can see how the context switches here.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 314.68,
+          "end": 320.89,
+          "en": "They keep piling up, even though the program is just opened for like a few seconds, you can see they",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 320.89,
+          "end": 326.8,
+          "en": "are really piling up and you can see the number of context switches that are happening just in order",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 326.8,
+          "end": 329.53,
+          "en": "to execute this little program here.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 329.95,
+          "end": 333.61,
+          "en": "I would now like to output this over and over again.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 333.79,
+          "end": 339.28,
+          "en": "And I don't want to have to repeat myself here to execute this command over and over again.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 339.28,
+          "end": 342.55,
+          "en": "So luckily I can combine it with the watch command.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 342.55,
+          "end": 344.32,
+          "en": "That's another utility.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 344.32,
+          "end": 350.8,
+          "en": "And this is a bash utility that allows us to automatically re-execute a command here.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 350.8,
+          "end": 358.69,
+          "en": "We want to refresh the output every 0.5 seconds so we can say watch minus n 0.5, and then we can only",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 358.72,
+          "end": 360.7,
+          "en": "we shouldn't use a pipe after that.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 360.88,
+          "end": 366.34,
+          "en": "So we need to use the grep command for something immediately on the file so we don't cut the file first",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 366.34,
+          "end": 368.26,
+          "en": "and then pipe it into the grep command.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 368.26,
+          "end": 374.89,
+          "en": "But we grab in that file, we then we just have one program and then we can use it with watch.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 374.89,
+          "end": 380.98,
+          "en": "The watch command would be a little bit more complicated if we would want to use a pipe that should",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 380.98,
+          "end": 382.93,
+          "en": "be executed over and over again.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 382.93,
+          "end": 389.05,
+          "en": "Luckily, we can also use grep to work directly on a file, so let's just execute that one.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 389.05,
+          "end": 394.39,
+          "en": "So here I can say watch minus n 0.5 every 0.5 seconds.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 394.39,
+          "end": 396.82,
+          "en": "I want this to be executed.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 396.96,
+          "end": 404.76,
+          "en": "For the file proc Um, then, uh, for, to, to, uh, what was the process?",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 404.76,
+          "end": 406.26,
+          "en": "ID Let me check it again.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 406.5,
+          "end": 410.55,
+          "en": "Uh, (492) 254-9225.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 411,
+          "end": 412.11,
+          "en": "Uh, status.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 412.26,
+          "end": 416.79,
+          "en": "And now we can see here that we are watching the context switches.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 416.79,
+          "end": 421.74,
+          "en": "And you can see here it's maybe one per second or even two per second.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 421.77,
+          "end": 424.56,
+          "en": "I think it's 2 or 3 context switches per second.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 424.56,
+          "end": 425.91,
+          "en": "But let's just have a look.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 425.91,
+          "end": 431.55,
+          "en": "When we are here doing something with that program, you can see here, it's maybe like 100 context",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 431.55,
+          "end": 436.47,
+          "en": "switches per second that are happening here when the application is active.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 436.47,
+          "end": 441.69,
+          "en": "And this is because, of course, all this information here has to be refreshed, but also everything",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 441.69,
+          "end": 445.8,
+          "en": "else from our operating system must work properly.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 446.16,
+          "end": 452.49,
+          "en": "So you can see the number of context switches that are happening here and how incredibly fast they are.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 453.12,
+          "end": 461.53,
+          "en": "Um, so the visualization here really shows you that this is a super common thing, um, and how this",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 461.53,
+          "end": 463.09000000000003,
+          "en": "scheduling works.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 463.09000000000003,
+          "end": 470.59000000000003,
+          "en": "And this is the reason why we are able to multitask and run multiple applications at the same time now.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 471.32,
+          "end": 477.26,
+          "en": "Can't we influence that in any way, for example, that we say, okay, here, this program is extremely",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 477.26,
+          "end": 482.06,
+          "en": "important, maybe give it a little bit more processor time.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 482.06,
+          "end": 488.15,
+          "en": "And this is where the niceness or the priority of a process comes into play.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 488.15,
+          "end": 491.36,
+          "en": "And we will have a look at that in the next lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -5,7 +5,7 @@ const courses = require('../udemy-bilingual/courses.js');
 const manifest = require('../udemy-bilingual/manifest.json');
 
 async function main() {
-  assert.equal(courses.courses.length, 23);
+  assert.equal(courses.courses.length, 27);
   const dsa = courses.courses.find(item => item.slug === 'javascript-data-structures-and-algorithms');
   assert.equal(dsa.id, 4905690);
   assert.equal(dsa.title, '100 Days of Code: JavaScript Data Structures and Algorithms');
@@ -44,6 +44,22 @@ async function main() {
   assert.equal(ccna.title, 'The Complete Networking Fundamentals Course. Your CCNA start');
   assert.equal(ccna.instructor, 'David Bombal');
   assert.notEqual(ccna.id, courses.courses.find(item => item.slug === 'introduction-to-computer-networks').id);
+  const spring = courses.courses.find(item => item.slug === 'spring-5-with-spring-boot-2');
+  assert.equal(spring.id, 2167814);
+  assert.equal(spring.title, 'Java Spring Framework, Spring Boot, Spring AI - Gen AI');
+  assert.equal(spring.instructor, 'Navin Reddy、Telusko Edutech');
+  const laravel = courses.courses.find(item => item.slug === 'laravel-basics-to-advance');
+  assert.equal(laravel.id, 6117817);
+  assert.equal(laravel.title, 'Laravel 11 - From Basics to Advance');
+  assert.equal(laravel.instructor, 'Web Solution Us、Md Morshedul Arefin');
+  const phaser = courses.courses.find(item => item.slug === 'game-development-in-js-the-complete-guide-w-phaser-3');
+  assert.equal(phaser.id, 3568507);
+  assert.equal(phaser.title, 'Game Development in JS/TS - The Complete Guide (w/ Phaser 3)');
+  assert.equal(phaser.instructor, 'Eincode by Filip Jerga、Filip Jerga');
+  const solid = courses.courses.find(item => item.slug === 'solid-js-firebase-the-complete-guide-twitter-clone-app');
+  assert.equal(solid.id, 5011402);
+  assert.equal(solid.title, 'Solid JS & Firebase - Complete Guide to X(Twitter) Clone');
+  assert.equal(solid.instructor, 'Eincode by Filip Jerga、Filip Jerga');
   assert.equal(courses.courses.find(item => item.slug === 'react-the-complete-guide-incl-redux').instructor, 'Maximilian Schwarzmüller');
   // Any Udemy course player loads; courses outside the list are flagged, not rejected.
   const unlistedUrl = 'https://www.udemy.com/course/claude-code-the-practical-guide/learn/lecture/123';

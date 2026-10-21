@@ -1,0 +1,1442 @@
+{
+  "version": 1,
+  "courseId": 2167814,
+  "courseSlug": "spring-5-with-spring-boot-2",
+  "courseTitle": "Java Spring Framework, Spring Boot, Spring AI - Gen AI",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "41665568",
+      "title": "Dispatcher Servlet",
+      "lectureOrder": 221,
+      "videoOrder": 220,
+      "sourceHash": "e4443f8b6cbb3f2ea1cdad5cc663a56b1eaafb90e621ecf6fa17567a69af6dac",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0,
+          "end": 3.21,
+          "en": "(gentle music)",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 3.21,
+          "end": 6.27,
+          "en": "-: So, we have created this project off SpringMVC,",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 6.27,
+          "end": 7.77,
+          "en": "and that is a Maven project, right?",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 7.77,
+          "end": 9.63,
+          "en": "And then, when we were trying to run the project,",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 9.63,
+          "end": 10.98,
+          "en": "it is not working.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 10.98,
+          "end": 12.81,
+          "en": "Now, mind you, we do have a controller.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 12.81,
+          "end": 15.66,
+          "en": "So if you see the code, we do have a controller here,",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 15.66,
+          "end": 16.65,
+          "en": "which is HomeController.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 16.65,
+          "end": 20.34,
+          "en": "And then, we do have a mapping for the homepage.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 20.34,
+          "end": 22.44,
+          "en": "It should return the index.jsp,",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 22.44,
+          "end": 25.62,
+          "en": "but what you got here is not found.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 25.62,
+          "end": 26.97,
+          "en": "What went wrong here?",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 26.97,
+          "end": 29.01,
+          "en": "See, the thing is, this is not a Spring Boot project.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 29.01,
+          "end": 31.59,
+          "en": "This is a normal Maven project.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 31.59,
+          "end": 34.86,
+          "en": "Now even if you added your Spring dependencies here,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 34.86,
+          "end": 37.65,
+          "en": "your Maven has no idea that it has to call",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 37.65,
+          "end": 38.7,
+          "en": "this particular controller.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 38.7,
+          "end": 40.41,
+          "en": "It's because in this Maven project,",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 40.41,
+          "end": 42.09,
+          "en": "which we are running on Tomcat,",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 42.09,
+          "end": 44.7,
+          "en": "now Tomcat being a Servlet Container,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 44.7,
+          "end": 47.4,
+          "en": "it is responsible to run the servlets.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 47.4,
+          "end": 49.32,
+          "en": "But then there has to be mapping, right?",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 49.32,
+          "end": 53.76,
+          "en": "So there have to be a mapping for a request and a servlet.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 53.76,
+          "end": 54.99,
+          "en": "And we are not doing that.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 54.99,
+          "end": 56.64,
+          "en": "Of course, we will say there is a controller,",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 56.64,
+          "end": 59.28,
+          "en": "but then your Tomcat has no idea.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 59.28,
+          "end": 60.87,
+          "en": "The thing is, in Spring Framework,",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 60.87,
+          "end": 62.58,
+          "en": "we can have multiple controllers, right?",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 62.58,
+          "end": 64.47,
+          "en": "As I mentioned before, for different requests,",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 64.47,
+          "end": 65.76,
+          "en": "we'll be having different controllers.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 65.76,
+          "end": 67.8,
+          "en": "And to navigate to different controllers,",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 67.8,
+          "end": 69.15,
+          "en": "we have our Front controllers.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 69.15,
+          "end": 71.1,
+          "en": "So basically, you have a client,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 71.1,
+          "end": 73.56,
+          "en": "and then you have a lot of controllers on the other side.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 73.56,
+          "end": 75.18,
+          "en": "But when a client sends a request,",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 75.18,
+          "end": 77.52,
+          "en": "the request will not directly go to a particular controller.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 77.52,
+          "end": 80.25,
+          "en": "The request will go to something called a Front controller.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 80.25,
+          "end": 82.2,
+          "en": "Now, this sits in between.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 82.2,
+          "end": 84.75,
+          "en": "And your Front controller is responsible",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 84.75,
+          "end": 86.13,
+          "en": "to send a particular request",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 86.13,
+          "end": 87.33,
+          "en": "to a particular controller.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 87.33,
+          "end": 89.13,
+          "en": "So let's say if you request for the homepage,",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 89.13,
+          "end": 91.5,
+          "en": "it is a job of your Front controller to know",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 91.5,
+          "end": 92.88,
+          "en": "that I have a controller here",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 92.88,
+          "end": 95.67,
+          "en": "who can accept the request for the homepage.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 95.67,
+          "end": 97.44,
+          "en": "Let's say you request for an addition of two numbers.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 97.44,
+          "end": 98.61,
+          "en": "You are saying add.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 98.61,
+          "end": 99.9,
+          "en": "Now, you have a controller there",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 99.9,
+          "end": 101.88,
+          "en": "who is responsible to add two numbers.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 101.88,
+          "end": 103.56,
+          "en": "Now, your front controller will know that,",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 103.56,
+          "end": 105.87,
+          "en": "hey, we have a controller there who can add two numbers",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 105.87,
+          "end": 107.55,
+          "en": "with a request \"add\".",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 107.55,
+          "end": 108.9,
+          "en": "Now, this controller,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 108.9,
+          "end": 110.7,
+          "en": "the Front controller in Spring Framework",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 110.7,
+          "end": 113.34,
+          "en": "is called a DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 113.34,
+          "end": 116.58,
+          "en": "So this is the first servlet which you have to go to.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 116.58,
+          "end": 119.00999999999999,
+          "en": "And then this will navigate to different controllers.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 119.00999999999999,
+          "end": 121.53,
+          "en": "Now, in this project, we do have a controller,",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 121.53,
+          "end": 123.75,
+          "en": "but we don't have a DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 123.75,
+          "end": 127.2,
+          "en": "Now, do we have to create our own DispatcherServlet? No.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 127.2,
+          "end": 128.25,
+          "en": "Basically, Spring says,",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 128.25,
+          "end": 130.32,
+          "en": "don't worry, I do have a DispatcherServlet,",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 130.32,
+          "end": 131.88,
+          "en": "you just have to configure it.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 131.88,
+          "end": 133.5,
+          "en": "So you have to tell your Tomcat,",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 133.5,
+          "end": 135.63,
+          "en": "hey, you know, every time you send a request,",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 135.63,
+          "end": 138.21,
+          "en": "send the request to the DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 138.21,
+          "end": 139.44,
+          "en": "DispatcherServlet will take care",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 139.44,
+          "end": 141.24,
+          "en": "of the remaining operations.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 141.24,
+          "end": 142.98,
+          "en": "Now, how will you configure that?",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 142.98,
+          "end": 145.26,
+          "en": "Now see, one of the file which goes,",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 145.26,
+          "end": 146.94,
+          "en": "I mean every time you run this project,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 146.94,
+          "end": 149.25,
+          "en": "your Tomcat goes to one file,",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 149.25,
+          "end": 151.35,
+          "en": "which is the web.xml.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 151.35,
+          "end": 152.7,
+          "en": "Now, this is where you have to mention,",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 152.7,
+          "end": 153.96,
+          "en": "hey, you know, when you send a request,",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 153.96,
+          "end": 156,
+          "en": "send request to this particular servlet.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 156,
+          "end": 159.45,
+          "en": "And the way you do that is by providing two tags.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 159.45,
+          "end": 163.05,
+          "en": "So basically the first tag is the servlet tag",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 163.05,
+          "end": 167.55,
+          "en": "and the second one is the servlet-mapping tag.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 167.55,
+          "end": 169.82999999999998,
+          "en": "So basically, we have to use this too,",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 169.82999999999998,
+          "end": 171.78,
+          "en": "which is servlet tag and servlet-mapping tag.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 171.78,
+          "end": 173.49,
+          "en": "Now, in this servlet mapping,",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 173.49,
+          "end": 177.32999999999998,
+          "en": "basically this is where you mention the url-pattern.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 177.32999999999998,
+          "end": 179.25,
+          "en": "So you can say for all the requests,",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 179.25,
+          "end": 181.44,
+          "en": "doesn't matter what request we are getting.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 181.44,
+          "end": 183.21,
+          "en": "For all the requests,",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 183.21,
+          "end": 185.67,
+          "en": "send the request to this particular servlet.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 185.67,
+          "end": 187.02,
+          "en": "Now, which servlet I am talking about?",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 187.02,
+          "end": 190.44,
+          "en": "I'm talking about the DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 190.44,
+          "end": 191.79,
+          "en": "Now, how do you get DispatcherServlet?",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 191.79,
+          "end": 193.47,
+          "en": "So, if you go to your dependency,",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 193.47,
+          "end": 194.85,
+          "en": "of course, I know the full name,",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 194.85,
+          "end": 196.5,
+          "en": "but if you want to know the full name,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 196.5,
+          "end": 198.87,
+          "en": "even we can forgot that, right?",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 198.87,
+          "end": 200.73,
+          "en": "So if you expand your Maven Dependencies,",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 200.73,
+          "end": 202.53,
+          "en": "we see something called webmvc.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 202.53,
+          "end": 204.15,
+          "en": "If you expand this,",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 204.15,
+          "end": 208.2,
+          "en": "there's something called \"org.springframework.web.servlet.\"",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 208.2,
+          "end": 209.25,
+          "en": "And if you expand this,",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 209.25,
+          "end": 212.16,
+          "en": "you will find a DispatcherServlet here.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 212.16,
+          "end": 214.53,
+          "en": "This is the class you have to use.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 214.53,
+          "end": 218.4,
+          "en": "So I can simply copy the qualified name for it",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 218.4,
+          "end": 222.03,
+          "en": "and paste it here without the \".class\" extension.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 222.03,
+          "end": 222.863,
+          "en": "And that's done.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 222.863,
+          "end": 224.07,
+          "en": "So what we are saying is,",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 224.07,
+          "end": 226.5,
+          "en": "every time someone sends a request for the url-mapping",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 226.5,
+          "end": 229.89,
+          "en": "or this particular URL, which is the homepage,",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 229.89,
+          "end": 232.35,
+          "en": "you have to call the DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 232.35,
+          "end": 234.48,
+          "en": "In fact, not just the homepage, any request.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 234.48,
+          "end": 236.52,
+          "en": "But then to map these two,",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 236.52,
+          "end": 237.864,
+          "en": "basically there are different tags, right?",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 237.864,
+          "end": 240.15,
+          "en": "Servlet and servlet-mapping are two different tags.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 240.15,
+          "end": 241.62,
+          "en": "If you want to connect these two,",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 241.62,
+          "end": 243.72,
+          "en": "you have to add one more tag here,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 243.72,
+          "end": 246.09,
+          "en": "which is your servlet-name.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 246.09,
+          "end": 247.53,
+          "en": "Of course, you can name anything here.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 247.53,
+          "end": 249.99,
+          "en": "I can say \"dispatcher\" or I can say \"telusko\".",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 249.99,
+          "end": 252.72,
+          "en": "Let's say I'm going for the servlet name as \"telusko\".",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 252.72,
+          "end": 254.203,
+          "en": "And here also, you have to do the same thing,",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 254.203,
+          "end": 256.2,
+          "en": "\"<servlet-name>telusko\".",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 256.2,
+          "end": 258.09,
+          "en": "You have to make sure these two are the same",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 258.09,
+          "end": 260.4,
+          "en": "because you can have multiple servlet tags",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 260.4,
+          "end": 261.63,
+          "en": "in this particular file",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 261.63,
+          "end": 263.76,
+          "en": "for different URL or mapping.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 263.76,
+          "end": 266.85,
+          "en": "But at this point, I want to make sure that I only have one.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 266.85,
+          "end": 270.42,
+          "en": "So for all of the requests, call the display servlet.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 270.42,
+          "end": 273.45,
+          "en": "And to map these two, we have to use \"telusko\", \"telusko\".",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 273.45,
+          "end": 275.25,
+          "en": "Okay, now we have done the mapping.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 275.25,
+          "end": 277.53,
+          "en": "Now we are saying, hey Tomcat,",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 277.53,
+          "end": 278.90999999999997,
+          "en": "every time you get a request,",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 278.90999999999997,
+          "end": 280.68,
+          "en": "send the request to the DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 280.68,
+          "end": 283.47,
+          "en": "DispatcherServlet will take care of the other operations.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 283.47,
+          "end": 285.27,
+          "en": "I hope this time this will work now.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 285.27,
+          "end": 287.01,
+          "en": "Let's run this application.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 287.01,
+          "end": 289.11,
+          "en": "You can see there is no problem.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 289.11,
+          "end": 290.76,
+          "en": "Tomcat started.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 290.76,
+          "end": 293.28,
+          "en": "So let me go to the browser and run.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 293.28,
+          "end": 295.26,
+          "en": "Okay, I think I missed one more.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 295.26,
+          "end": 296.4,
+          "en": "Let me just change the configuration,",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 296.4,
+          "end": 297.6,
+          "en": "this is still not working.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 297.6,
+          "end": 298.74,
+          "en": "So I will go to the Build Path.",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 298.74,
+          "end": 302.04,
+          "en": "I'm not sure if it is accepting our Tomcat data.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 302.04,
+          "end": 302.873,
+          "en": "We'll go to library.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 302.873,
+          "end": 305.31,
+          "en": "Okay, so we have forgot to add the Tomcat library here.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 305.31,
+          "end": 307.35,
+          "en": "So sometimes, if it doesn't work,",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 307.35,
+          "end": 309.12,
+          "en": "please check your Build Path.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 309.12,
+          "end": 313.14,
+          "en": "So what I did, is I right-clicked on my project,",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 313.14,
+          "end": 314.61,
+          "en": "go to the Build Path.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 314.61,
+          "end": 315.443,
+          "en": "And that's what, you know,",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 315.443,
+          "end": 317.1,
+          "en": "when you work with normal SpringMVC",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 317.1,
+          "end": 318.311,
+          "en": "or normal Spring Framework,",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 318.311,
+          "end": 319.86,
+          "en": "you have to do a lot of configuration.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 319.86,
+          "end": 321.63,
+          "en": "And if you're thinking you'll be doing this every time,",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 321.63,
+          "end": 322.463,
+          "en": "not exactly.",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 322.463,
+          "end": 324.57,
+          "en": "This configuration will be done only once",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 324.57,
+          "end": 325.71,
+          "en": "when you start the project.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 325.71,
+          "end": 326.64,
+          "en": "So click on library.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 326.64,
+          "end": 329.25,
+          "en": "First of all, I will change my Java version to Java 21",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 329.25,
+          "end": 330.87,
+          "en": "because that's what I'm using.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 330.87,
+          "end": 331.74,
+          "en": "Finish.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 331.74,
+          "end": 335.7,
+          "en": "And then here, I want to add the Runtime as well.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 335.7,
+          "end": 336.84000000000003,
+          "en": "Just on the safer side.",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 336.84000000000003,
+          "end": 338.94,
+          "en": "Click on Apply and Close.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 338.94,
+          "end": 340.2,
+          "en": "Let's see if this works now.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 340.2,
+          "end": 342.36,
+          "en": "Restart the server, go back, refresh.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 342.36,
+          "end": 343.47,
+          "en": "Still not working.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 343.47,
+          "end": 345.33,
+          "en": "Okay, so now when I'm running this,",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 345.33,
+          "end": 348.3,
+          "en": "there was some issue with the cashier or something.",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 348.3,
+          "end": 350.01,
+          "en": "So you can see when I run this now,",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 350.01,
+          "end": 351.36,
+          "en": "we got a different error.",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 351.36,
+          "end": 353.13,
+          "en": "So this time you're not getting 404.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 353.13,
+          "end": 354.78,
+          "en": "That means it was able to find it.",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 354.78,
+          "end": 356.94,
+          "en": "We got a different error, which is the 500.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 356.94,
+          "end": 359.37,
+          "en": "It says \"Internal Server Error\".",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 359.37,
+          "end": 361.53,
+          "en": "Now, if you read the error",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 361.53,
+          "end": 363.75,
+          "en": "and that's what you do when you get the errors, right?",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 363.75,
+          "end": 366.24,
+          "en": "So it says, if you see the Root Cause,",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 366.24,
+          "end": 369.3,
+          "en": "it says there is a problem with the IOException",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 369.3,
+          "end": 370.38,
+          "en": "with the XML file.",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 370.38,
+          "end": 372.87,
+          "en": "It's because it is not able to.",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 372.87,
+          "end": 376,
+          "en": "I mean, from this file, which is called telusko-servlet.xml.",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 376,
+          "end": 377.28,
+          "en": "Okay, now this is weird",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 377.28,
+          "end": 379.08,
+          "en": "because we don't even have this file",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 379.08,
+          "end": 381.39,
+          "en": "and if you go down it actually says",
+          "zh": ""
+        },
+        {
+          "id": 185,
+          "start": 381.39,
+          "end": 383.43,
+          "en": "you don't have this file.",
+          "zh": ""
+        },
+        {
+          "id": 186,
+          "start": 383.43,
+          "end": 385.47,
+          "en": "But why do we need this file?",
+          "zh": ""
+        },
+        {
+          "id": 187,
+          "start": 385.47,
+          "end": 388.35,
+          "en": "I mean that's crazy, right? We got the DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 188,
+          "start": 388.35,
+          "end": 390.495,
+          "en": "It should send the request to DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 189,
+          "start": 390.495,
+          "end": 391.328,
+          "en": "And you know what?",
+          "zh": ""
+        },
+        {
+          "id": 190,
+          "start": 391.328,
+          "end": 394.073,
+          "en": "It is actually sending the request to the DispatcherServlet.",
+          "zh": ""
+        },
+        {
+          "id": 191,
+          "start": 394.073,
+          "end": 396.06,
+          "en": "But DispatcherServlet has its own problem.",
+          "zh": ""
+        },
+        {
+          "id": 192,
+          "start": 396.06,
+          "end": 397.89,
+          "en": "DispatcherServlet says, if you want me to work,",
+          "zh": ""
+        },
+        {
+          "id": 193,
+          "start": 397.89,
+          "end": 400.86,
+          "en": "and if you want me to understand different controllers",
+          "zh": ""
+        },
+        {
+          "id": 194,
+          "start": 400.86,
+          "end": 403.77,
+          "en": "and mapping, you have to configure me.",
+          "zh": ""
+        },
+        {
+          "id": 195,
+          "start": 403.77,
+          "end": 406.14,
+          "en": "Of course, we were expecting that the DispatcherServlet",
+          "zh": ""
+        },
+        {
+          "id": 196,
+          "start": 406.14,
+          "end": 410.07,
+          "en": "will be a magician to know all the controllers, but not.",
+          "zh": ""
+        },
+        {
+          "id": 197,
+          "start": 410.07,
+          "end": 411.96,
+          "en": "We have to configure that as well.",
+          "zh": ""
+        },
+        {
+          "id": 198,
+          "start": 411.96,
+          "end": 413.04,
+          "en": "And how do you configure?",
+          "zh": ""
+        },
+        {
+          "id": 199,
+          "start": 413.04,
+          "end": 415.62,
+          "en": "How do you talk to dispatch servlet?",
+          "zh": ""
+        },
+        {
+          "id": 200,
+          "start": 415.62,
+          "end": 417.27,
+          "en": "And that's where we have to create this file,",
+          "zh": ""
+        },
+        {
+          "id": 201,
+          "start": 417.27,
+          "end": 419.61,
+          "en": "which is telusko-servlet.",
+          "zh": ""
+        },
+        {
+          "id": 202,
+          "start": 419.61,
+          "end": 420.443,
+          "en": "How do we do that?",
+          "zh": ""
+        },
+        {
+          "id": 203,
+          "start": 420.443,
+          "end": 421.79,
+          "en": "Let's see in the next video.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

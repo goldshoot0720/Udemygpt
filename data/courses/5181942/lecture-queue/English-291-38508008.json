@@ -1,0 +1,1309 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38508008",
+      "title": "Port Scanning with Nmap",
+      "lectureOrder": 323,
+      "videoOrder": 291,
+      "sourceHash": "ff52ac8fabbddbae88b7dc244b1724e96fec826f5615a8756d7dfdff8ae8f1e6",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.33,
+          "end": 6.3,
+          "en": "Now that we had a look at how TCP, how the connection handshake there works, we can now have a look",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.3,
+          "end": 7.28,
+          "en": "at the port scanner.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.29,
+          "end": 8.04,
+          "en": "Nmap.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 8.28,
+          "end": 14.4,
+          "en": "A port scanner is a program that allows us to find out which ports are open on another system.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 14.4,
+          "end": 20.58,
+          "en": "We could also run it on our own system, but we can also run it on another on our system to scan another",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 20.58,
+          "end": 21.3,
+          "en": "system.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 21.93,
+          "end": 27.36,
+          "en": "The idea here is that we can just try to connect through all possible ports, like in the lecture before",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 27.36,
+          "end": 35.7,
+          "en": "you have seen, we have tried to open a connection to Port 443 of Google.com to create a TCP https connection",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 35.7,
+          "end": 38.34,
+          "en": "or an https connection on top of TCP.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 38.58,
+          "end": 41.67,
+          "en": "And the default port for that one is 443.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 42,
+          "end": 48.69,
+          "en": "But instead of just connecting on one port, we could just go through all the possible ports and try",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 48.87,
+          "end": 51.93,
+          "en": "to connect through them if a port of open.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 52.5,
+          "end": 57.87,
+          "en": "So if we do that for all the ports, if a port is open, we will get a message back from the server.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 57.87,
+          "end": 59.79,
+          "en": "We have seen that during that handshake.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 59.79,
+          "end": 66.94,
+          "en": "So we send a syn packet to the destination and if the port is open, we get a response.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 67.96,
+          "end": 72.53,
+          "en": "This will then tell us that this port is open and that something is going on.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 72.55,
+          "end": 79.02,
+          "en": "If the port is not open, we will either get a message telling us that the port is not open.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 79.03,
+          "end": 87.01,
+          "en": "That's the so-called reset message or we will get no message at all back so we can identify which ports",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 87.01,
+          "end": 89.98,
+          "en": "are open and reachable on a remote machine.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 90.31,
+          "end": 92.14,
+          "en": "Legal implications here.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 92.17,
+          "end": 99.16,
+          "en": "Port scanners are used quite often by attackers to get an overview about the system, but they are also",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 99.16,
+          "end": 105.49000000000001,
+          "en": "used by security experts or so-called ethical hackers to help them find potential vulnerabilities.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 105.49000000000001,
+          "end": 107.05,
+          "en": "And I want to focus on that one.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 107.05,
+          "end": 110.62,
+          "en": "How you can scan your own systems in your own network.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 111.16,
+          "end": 116.95,
+          "en": "In my opinion, you should know how a port scanner works because it will allow you to detect open ports",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 116.95,
+          "end": 118.12,
+          "en": "on your system.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 118.57,
+          "end": 124.3,
+          "en": "This will also allow you to test your firewall in a sense that you could see whether this has been set",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 124.3,
+          "end": 125.26,
+          "en": "up properly.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 125.71,
+          "end": 134.32,
+          "en": "My feeling is that testing our own firewall is legal, especially definitely if it's within our home",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 134.32,
+          "end": 136.6,
+          "en": "network and we just do it to another computer there.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 136.6,
+          "end": 141.57999999999998,
+          "en": "But also if that other computer is owned by us or we have the authorization to.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 141.57999999999998,
+          "end": 147.34,
+          "en": "But I want to emphasize, this is just my feeling and you should never trust my feeling when it comes",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 147.34,
+          "end": 148.45,
+          "en": "to legal stuff.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 149.17000000000002,
+          "end": 155.59,
+          "en": "So what I want to emphasize here is that those laws might be different depending on where you live,",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 156.01,
+          "end": 159.61,
+          "en": "and you should not or you cannot rely on my feelings here.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 160.15,
+          "end": 165.34,
+          "en": "In addition, my feeling is, and I think this is quite understandable.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 165.37,
+          "end": 169.15,
+          "en": "Unauthorized port scanning is highly likely to be illegal.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 169.15,
+          "end": 171.37,
+          "en": "It also, again, depends on where you live.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 171.88,
+          "end": 178.45,
+          "en": "It may also happen that intrusion detection systems flag you or they tell the sysadmins that there's",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 178.45,
+          "end": 179.41,
+          "en": "an alert there.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 179.41,
+          "end": 184.81,
+          "en": "I think when I researched this, the legality of port scanning, I even found some cases in Finland",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 184.81,
+          "end": 191.89,
+          "en": "where a person tried to do a port scan to a bank, didn't found anything there, but an intrusion detection",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 191.89,
+          "end": 198.13,
+          "en": "system flagged him and he had to pay the damages for the work they needed to do after that to detect",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 198.13,
+          "end": 200.17000000000002,
+          "en": "whether something has happened there or not.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 200.74,
+          "end": 207.22,
+          "en": "So it can be really serious, but it really depends on your local laws.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 207.82,
+          "end": 212.77,
+          "en": "And I want to emphasize this, that local laws in your jurisdiction might be different than in mine.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 212.8,
+          "end": 217.6,
+          "en": "Thus, before installing or running a port scanner, be sure to check your local laws.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 217.63,
+          "end": 219.57999999999998,
+          "en": "And I want to emphasize installing.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 219.57999999999998,
+          "end": 226.3,
+          "en": "Already in Germany there were some laws where they wanted to outlaw even having those tools installed",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 226.3,
+          "end": 227.02,
+          "en": "on your computer.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 227.02,
+          "end": 228.7,
+          "en": "It didn't get passed, luckily.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 229.93,
+          "end": 235.18,
+          "en": "But be aware, maybe there are some countries where even installing those tools might be illegal.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 235.73,
+          "end": 241.07,
+          "en": "With the legal disclaimer out of the way, let's have a look at how the port scanner nmap what it is,",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 241.37,
+          "end": 243.68,
+          "en": "and Nmap is a port scanner.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 243.68,
+          "end": 248.18,
+          "en": "It's one of the most common ones, and it's a powerful, flexible, open source tool.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 248.18,
+          "end": 252.98,
+          "en": "And we can use it for network discovery or security auditing or port scanning.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 252.98,
+          "end": 258.17,
+          "en": "It can also efficiently scan single host, or we can even let it scan a whole network.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 258.17,
+          "end": 263.9,
+          "en": "So for example, if you were the sysadmin in your company and you had the authorization of all required",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 263.9,
+          "end": 270.65,
+          "en": "people, you would have to make sure who those are, whether it's all users or only you can give yourself",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 270.65,
+          "end": 271.94,
+          "en": "that authorization.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 272.06,
+          "end": 273.56,
+          "en": "I can't speak for that.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 273.56,
+          "end": 278.78,
+          "en": "But then you could, for example, scan your whole network, all the computers there to see which ports",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 278.78,
+          "end": 279.47,
+          "en": "are open there.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 279.47,
+          "end": 285.47,
+          "en": "So you can't just port scan or with Nmap, you can just port scan a single host, but you could also",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 285.47,
+          "end": 291.47,
+          "en": "port scan a whole network and Nmap will just do that for you to install Nmap.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 291.47,
+          "end": 294.23,
+          "en": "You can install it with APT or DNF.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 294.26,
+          "end": 297.81,
+          "en": "It should be available in the default repositories on windows.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 297.81,
+          "end": 300.96,
+          "en": "You might have to download it from nmap.org.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 301.62,
+          "end": 305.55,
+          "en": "Once it's installed we can scan a specific host by default.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 305.55,
+          "end": 312.15,
+          "en": "It will scan the most common 1000 TCP ports ports and we can just say Nmap and then the Hostname or",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 312.15,
+          "end": 318.75,
+          "en": "the IPS or hostname could for example, be a local host name in our network, or it could also be,",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 318.75,
+          "end": 320.01,
+          "en": "for example, Google.com.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 320.01,
+          "end": 324.9,
+          "en": "But in that case we should make sure that we have the authorization of Google.com to do a port scan",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 324.9,
+          "end": 325.2,
+          "en": "there.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 325.2,
+          "end": 327.27,
+          "en": "I doubt that we would get that one.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 327.27,
+          "end": 335.19,
+          "en": "I doubt we would even get a response, but theoretically we could just do a port scan there or we could",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 335.19,
+          "end": 336.57,
+          "en": "just port scan an IP.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 336.93,
+          "end": 343.05,
+          "en": "We can also specify the ports manually by using minus P and then the ports that we want to scan.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 343.05,
+          "end": 350.46,
+          "en": "So that could either be one port or here we could list the ports or we could even specify a range,",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 350.46,
+          "end": 356.67,
+          "en": "or we could even specify that we want to scan all post ports by just using a minus.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 356.67,
+          "end": 360.42,
+          "en": "Here, we can also scan a range of IP addresses.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 360.42,
+          "end": 365.52,
+          "en": "So there the way it works is that we specify the first IP and then the last number of the last IP.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 365.64,
+          "end": 371.34,
+          "en": "So for example, something like this would scan my pretty much my whole home network here in that case,",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 371.58,
+          "end": 378.27,
+          "en": "or at least the IPS that end with .1.2.3.. and so on until Dot 100.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 378.39,
+          "end": 380.82,
+          "en": "Let's have a look at how we can use this port scan.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 380.82,
+          "end": 387.27,
+          "en": "So here in my case Nmap is installed and it's best if we do a pseudo in front because this will give",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 387.3,
+          "end": 396,
+          "en": "Nmap additional rights to create those packets for a port scan and this will mean that it doesn't need",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 396,
+          "end": 401.19,
+          "en": "to rely on some operating system functionality, meaning for us that will be faster.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 401.67,
+          "end": 407.19,
+          "en": "We will have a look at the different scan modes in the next lecture, but I can just scan my local host",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 407.19,
+          "end": 411.42,
+          "en": "and this will now take the most 1000 most common ports.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 411.42,
+          "end": 414.03,
+          "en": "And here we can see that certain ports are open.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 414.03,
+          "end": 418.40999999999997,
+          "en": "And this means that here we were able to send a packet and we got a reply here.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 418.40999999999997,
+          "end": 422.61,
+          "en": "So those packets, those ports could be reached here.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 423.39,
+          "end": 425.88,
+          "en": "We can see here also.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 425.88,
+          "end": 431.58,
+          "en": "Well, only all the ports are open, all the ports that were closed in that case there we got a message",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 431.58,
+          "end": 433.71,
+          "en": "back, Hey, this port is not reachable.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 434.04,
+          "end": 437.91,
+          "en": "Another thing that I would like to emphasize, this is the reason why Nmap is here.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 437.91,
+          "end": 440.37,
+          "en": "In that course, we can see what's running here.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 440.37,
+          "end": 444.3,
+          "en": "So for example, we can see that there's a mail server right now reachable.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 444.3,
+          "end": 450.3,
+          "en": "So we would need to check whether that one is maybe it doesn't need a log in or maybe it does and then",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 450.3,
+          "end": 451.44,
+          "en": "everything is all right.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 451.44,
+          "end": 454.77,
+          "en": "But we can also see, for example, that a database is running here.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 454.77,
+          "end": 460.02,
+          "en": "And then if this was a real server, we could be like, Why is there a database running on that port?",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 460.05,
+          "end": 461.49,
+          "en": "Do we actually need that one?",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 461.49,
+          "end": 469.08,
+          "en": "Or we would go on to another computer and map our server by just changing this to our IP of our server?",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 469.08,
+          "end": 475.26,
+          "en": "And then we would go to another server and we would see is MySQL, is this database still reachable",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 475.26,
+          "end": 478.44,
+          "en": "from other computers and from the internet or from the network?",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 478.44,
+          "end": 481.74,
+          "en": "And if we find that one, then we might be like, Do we need this one?",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 481.74,
+          "end": 485.31,
+          "en": "Can we add a firewall here to block those?",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 485.31,
+          "end": 490.92,
+          "en": "Or in this case, for example, we could also just say, okay, no MySQL, we don't need that one.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 490.92,
+          "end": 492.9,
+          "en": "We just installed it out of mistake.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 492.9,
+          "end": 493.56,
+          "en": "Maybe.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 494.21,
+          "end": 501.98,
+          "en": "And then I could say for example, sudo systemctl, disable MySQL dot service, for example.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 501.98,
+          "end": 503.24,
+          "en": "Let's see if this one works.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 503.24,
+          "end": 510.41,
+          "en": "And now we can see here MySQL dot service has been disabled and we could also stop it immediately.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 511.5,
+          "end": 517.44,
+          "en": "And then we could confirm that, for example, whether MySQL is now no longer reachable by doing another",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 517.44,
+          "end": 517.8,
+          "en": "Nmap.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 517.8,
+          "end": 524.04,
+          "en": "And then we would find out here MySQL is now no longer reachable here and if there is a service running",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 524.04,
+          "end": 529.41,
+          "en": "here that we don't need and we can just shut it off, that would for example, already enhance the security",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 529.41,
+          "end": 530.34,
+          "en": "of our system.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 530.34,
+          "end": 534.93,
+          "en": "And this is the reason why it was so important for me to have this Nmap here on.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 535.47,
+          "end": 538.05,
+          "en": "As a lecturer here in this course.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 538.05,
+          "end": 546.54,
+          "en": "I will now do a system Ctl enable now of MySQL dot service again just because it was enabled before.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 546.54,
+          "end": 550.38,
+          "en": "And yeah, so I'm just enabling it again.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 550.38,
+          "end": 557.04,
+          "en": "So this is the advantage of what happens when we do a port scan that we can get aware of things like",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 557.04,
+          "end": 557.67,
+          "en": "this.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 557.97,
+          "end": 560.58,
+          "en": "We can also nmap other computers.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 560.61,
+          "end": 566.16,
+          "en": "We could for example, in my home network that would be in this address range and this should be my",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 566.16,
+          "end": 566.76,
+          "en": "router.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 566.79,
+          "end": 568.65,
+          "en": "This router is owned by me.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 568.68,
+          "end": 573.64,
+          "en": "So I believe or I in my jurisdiction I can just nmap that one.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 573.73,
+          "end": 580.54,
+          "en": "I'm not entirely sure how it would be in my jurisdiction if that router was rented by my ISP, but in",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 580.54,
+          "end": 581.56,
+          "en": "my case here it's easy.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 581.56,
+          "end": 583.3,
+          "en": "It's owned by me, so I can just do it.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 583.3,
+          "end": 589.15,
+          "en": "And there we can see it takes a little bit longer, but we can see here a lot of ports are open and",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 589.15,
+          "end": 591.07,
+          "en": "it also lists what those are.",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 591.1,
+          "end": 596.68,
+          "en": "So for example, here, that would be for the domain name system that we can the router can help us",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 596.68,
+          "end": 603.31,
+          "en": "resolve, for example, Google.com to their IP address and then the router has a web interface and also",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 603.31,
+          "end": 605.86,
+          "en": "some other TCP ports that are open here.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 606.76,
+          "end": 611.53,
+          "en": "We can also see that one port here is filtered.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 611.56,
+          "end": 618.58,
+          "en": "Filtered means that when we try to initiate a connection there, we didn't get any reply, so usually",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 618.58,
+          "end": 625.48,
+          "en": "we would get a reply when we try to initiate a connection to a port that doesn't exist, we usually",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 625.48,
+          "end": 626.74,
+          "en": "would get a reply.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 626.74,
+          "end": 629.56,
+          "en": "But here in this case we did not get a reply.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 629.89,
+          "end": 636.12,
+          "en": "And this is why Nmap is probably there's a firewall preventing those packets to even be received.",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 636.12,
+          "end": 638.22,
+          "en": "So this is why it's shown as filtered.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 638.22,
+          "end": 639.81,
+          "en": "But that's totally all right here.",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 639.81,
+          "end": 641.37,
+          "en": "It just shows that one.",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 641.49,
+          "end": 646.02,
+          "en": "Another thing that I would like to emphasize is that we can specify the port ranges.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 646.02,
+          "end": 652.29,
+          "en": "So for example, here I could say I want all ports to be scanned and now it will take a little bit longer",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 652.29,
+          "end": 660.39,
+          "en": "because now not just the top 1000 ports need to be scanned, but about 65,500 and something ports need",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 660.39,
+          "end": 661.47,
+          "en": "to be scanned.",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 662.22,
+          "end": 667.38,
+          "en": "We have in total, we have 65,535 ports available.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 667.38,
+          "end": 674.31,
+          "en": "And here we can see no additional ports could be found, but we have scanned significantly more more",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 674.31,
+          "end": 678.12,
+          "en": "ports here because, well, those ports exist.",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 678.12,
+          "end": 679.71,
+          "en": "So we can also scan them.",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 680.22,
+          "end": 682.83,
+          "en": "We are also able to scan a whole network.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 682.83,
+          "end": 685.8,
+          "en": "I will just do that on the most common 1000 ports.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 685.8,
+          "end": 690.39,
+          "en": "So I could say here, .1.1 until 100, for example.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 690.39,
+          "end": 692.32,
+          "en": "I just want to scan all of those.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 692.32,
+          "end": 699.19,
+          "en": "This is now port scanning 100 hosts with the 1000 most popular TCP ports for each.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 700.34,
+          "end": 702.14,
+          "en": "So this might take quite a while.",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 702.14,
+          "end": 705.14,
+          "en": "So I will just wait now until this is done.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 705.53,
+          "end": 708.35,
+          "en": "And this now took maybe like 5 or 6 minutes.",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 708.35,
+          "end": 709.49,
+          "en": "I had a coffee in between.",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 709.49,
+          "end": 711.63,
+          "en": "It may take significantly longer.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 711.65,
+          "end": 718.25,
+          "en": "You can see that there is 37 hosts here in my network, which are just hosts that are in the network.",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 718.25,
+          "end": 723.47,
+          "en": "In a sense that, for example, I run a computer with lots of VM on them, virtual machines on them,",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 723.47,
+          "end": 725.51,
+          "en": "and they are all becoming part of my network.",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 725.51,
+          "end": 731,
+          "en": "So it's not actual physical devices here, but it's transparent to our network.",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 731,
+          "end": 732.5,
+          "en": "So we don't see that here.",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 732.8,
+          "end": 735.08,
+          "en": "But this is why I have so many devices here.",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 735.08,
+          "end": 738.5,
+          "en": "We can see also how long it took and we got a list of devices.",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 738.5,
+          "end": 744.02,
+          "en": "I don't want to scroll too much through that one because it's pretty much my whole, whole home network.",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 744.95,
+          "end": 752.39,
+          "en": "But here we can see, for example, the one scan report and if I would now scroll up, there might be",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 752.39,
+          "end": 757.97,
+          "en": "another report for the next IP that's reachable here in my home network.",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 758.33,
+          "end": 763.8,
+          "en": "But this can be useful and especially you could you could combine it, of course, with all the batch",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 763.8,
+          "end": 765.44,
+          "en": "features that you know of.",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 765.45,
+          "end": 770.64,
+          "en": "So for example, here we could redirect that output to a file if we just want to save it.",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 770.64,
+          "end": 776.46,
+          "en": "And this can be useful for scanning a whole corporate network, for example, or your whole home network",
+          "zh": ""
+        },
+        {
+          "id": 181,
+          "start": 776.46,
+          "end": 781.71,
+          "en": "if you want to find out what's going on there, which ports might be open and so on.",
+          "zh": ""
+        },
+        {
+          "id": 182,
+          "start": 781.92,
+          "end": 787.92,
+          "en": "But there are a few scan modes here for Nmap and there's there are also ways how we could scan for UDP",
+          "zh": ""
+        },
+        {
+          "id": 183,
+          "start": 787.92,
+          "end": 790.26,
+          "en": "ports and how those work.",
+          "zh": ""
+        },
+        {
+          "id": 184,
+          "start": 790.26,
+          "end": 792.78,
+          "en": "We will have a look at that in the next lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

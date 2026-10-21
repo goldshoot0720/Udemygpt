@@ -1,0 +1,1050 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "38500382",
+      "title": "Scheduling Delayed Tasks with systemd Timers: Precision and Efficiency",
+      "lectureOrder": 245,
+      "videoOrder": 215,
+      "sourceHash": "98f545c698731d7b091e967483c33e9ce60748edb0089d3ceae58fd89a1069af",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.41,
+          "end": 1.07,
+          "en": "All right.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 1.1,
+          "end": 5.08,
+          "en": "We have now already looked at how we can create our own service.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 5.09,
+          "end": 9.56,
+          "en": "But now let's have a look at another kind of unit, the so-called timers.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 9.74,
+          "end": 14.39,
+          "en": "With systemd, we can also schedule tasks for a later date.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 14.48,
+          "end": 21.62,
+          "en": "Our task in this lecture will be that we use the service of the last lecture that we created, where",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 21.62,
+          "end": 26.99,
+          "en": "we created the tool that logs the output of a few commands into a file.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 27.23,
+          "end": 31.46,
+          "en": "And we want to delay this by five minutes, for example, for performance reasons.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 31.49,
+          "end": 36.35,
+          "en": "Of course, the tool that we wrote with the ping and the date, it doesn't really use a lot of processing",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 36.35,
+          "end": 42.8,
+          "en": "power, but imagine we had a more complicated task and we want this to start five minutes after we booted",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 42.8,
+          "end": 43.67,
+          "en": "our system.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 43.67,
+          "end": 45.56,
+          "en": "So how do we do this?",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 46.31,
+          "end": 54.17,
+          "en": "We are able to create a timer, but first we need a service that is also disabled.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 54.56,
+          "end": 60.9,
+          "en": "So we first need to disable our existing service so that it doesn't start automatically anymore.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 60.9,
+          "end": 71.25,
+          "en": "So I go over here into my terminal sudo systemctl, disable my network log service and now this service",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 71.25,
+          "end": 72.27,
+          "en": "should be disabled.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 72.27,
+          "end": 77.82,
+          "en": "Now we can see here how the symlink has been removed and this service is now disabled.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 78.15,
+          "end": 84.66,
+          "en": "We need to do this because otherwise this service would of course still start the first time, at least",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 84.66,
+          "end": 85.71000000000001,
+          "en": "when we boot our system.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 85.71000000000001,
+          "end": 86.78999999999999,
+          "en": "But we don't want this.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 86.82,
+          "end": 92.67,
+          "en": "We want to delay this by five minutes the next way, the next thing we need to do is that we create",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 92.67,
+          "end": 93.81,
+          "en": "a new unit.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 94.05,
+          "end": 101.07,
+          "en": "The best thing is if our service was called my network log, the timer unit should be called my network",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 101.07,
+          "end": 106.62,
+          "en": "log the same name but with the extension timer so we can just create that file.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 106.62,
+          "end": 108.21000000000001,
+          "en": "Systemctl.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 108.21000000000001,
+          "end": 115.97999999999999,
+          "en": "Edit Dash dash 4-- full my network log dot timer.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 115.97999999999999,
+          "end": 117.99000000000001,
+          "en": "So now we are creating this timer.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 117.99000000000001,
+          "end": 122.43,
+          "en": "And now let's have a look at how we can write this timer file.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 122.61,
+          "end": 128.85,
+          "en": "And the way we write it would for example, be like this that we specify a unit with a description.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 128.85,
+          "end": 134.73,
+          "en": "So for example here run the network logging service on boot and then the timer on active means that",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 134.73,
+          "end": 144,
+          "en": "we want to wait five minutes after this timer has been enabled and if it's installed, it will be enabled",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 144,
+          "end": 145.95,
+          "en": "whenever we try to reach that target.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 145.95,
+          "end": 150.32999999999998,
+          "en": "And this target is part of our multiuser target.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 150.78,
+          "end": 159.87,
+          "en": "So this means that we wait five minutes after and then we say, okay, we want to start another service,",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 159.87,
+          "end": 163.35,
+          "en": "or here this unit, my network, locked service.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 163.35,
+          "end": 168.77,
+          "en": "There are also other ways we could set a timer, for example, that would also be on boot seg.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 168.81,
+          "end": 173.76,
+          "en": "That would then mean after our system has booted, we want to wait a certain amount.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 173.76,
+          "end": 176.7,
+          "en": "But there are even more ways to to set this up.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 176.91,
+          "end": 180.96,
+          "en": "But what we see here, that's a proper way to create a timer.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 180.96,
+          "end": 187.59,
+          "en": "You also see that we specify the unit here technically as long as the file names match without the extension.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 187.59,
+          "end": 194.85,
+          "en": "So as long as our service has exactly the name, the same name as our timer, we don't need to specify",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 194.85,
+          "end": 195.72,
+          "en": "the unit here.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 195.72,
+          "end": 202.74,
+          "en": "I've just specified the unit here because some if our timer would have a different name, then we might",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 202.74,
+          "end": 204.54,
+          "en": "need to specify the unit here.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 205.82999999999998,
+          "end": 207.99,
+          "en": "So let's just see how this works.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 207.99,
+          "end": 209.43,
+          "en": "So here I'm in my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 209.43,
+          "end": 213.66,
+          "en": "I've now pasted that code here, so I don't need to type it.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 213.66,
+          "end": 217.71,
+          "en": "One thing that I will change here is that I will just wait one minute here.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 217.71,
+          "end": 219.87,
+          "en": "So I just save this file here.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 219.87,
+          "end": 221.7,
+          "en": "And this is now my timer.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 221.7,
+          "end": 225.57,
+          "en": "And now let's just see how we can use this timer.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 225.57,
+          "end": 228.06,
+          "en": "Well, the timer, it's just a normal unit.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 228.09,
+          "end": 230.4,
+          "en": "We can use it just as any other unit.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 230.4,
+          "end": 237.24,
+          "en": "So, for example, I could do System Ctl and I could, for example, a system, Ctl.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 237.45,
+          "end": 245.37,
+          "en": "I could now just start the timer by using the Start command and I could say my network log dot timer.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 245.4,
+          "end": 247.74,
+          "en": "That's the timer that I would like to start.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 247.74,
+          "end": 249.93,
+          "en": "So now this timer is running.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 249.93,
+          "end": 252.48,
+          "en": "Let's just have a look at the current time.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 252.9,
+          "end": 257.1,
+          "en": "The current time, Uh, usually you we use a plus here.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 257.43,
+          "end": 261.69,
+          "en": "Um, the current time is 6 p.m. and 13 minutes.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 262.08,
+          "end": 266.11,
+          "en": "So in about a minute or so, um, let's just have a look.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 266.14,
+          "end": 271.96,
+          "en": "Tail minus f, um, into my folder here and the log dot txt.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 272.08,
+          "end": 276.34000000000003,
+          "en": "And now let's just wait a little bit and let's see if something appears here.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 276.61,
+          "end": 279.94,
+          "en": "Thanks to the minus F here for our tail command.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 279.94,
+          "end": 281.8,
+          "en": "We should be following that file.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 281.8,
+          "end": 285.37,
+          "en": "So if something appears here, it should immediately show up here.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 287.48,
+          "end": 288.5,
+          "en": "And here we go.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 288.5,
+          "end": 289.55,
+          "en": "It was showing up.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 289.55,
+          "end": 295.15999999999997,
+          "en": "I haven't recorded it at the same time it appeared, but it was first writing this line, then this",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 295.15999999999997,
+          "end": 300.41,
+          "en": "line, and then all those pings, one after the others got written into that file.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 300.68,
+          "end": 303.02,
+          "en": "And now you can see here, this has worked.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 303.05,
+          "end": 306.26,
+          "en": "This timer has been enabled and it's working properly.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 307.79,
+          "end": 309.8,
+          "en": "I now quit this one here.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 310.58,
+          "end": 318.3,
+          "en": "One thing we do need to be aware of is, by the way, that the time is not super exact with System D,",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 318.68,
+          "end": 320.36,
+          "en": "What do I mean by this?",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 320.36,
+          "end": 323.75,
+          "en": "Look here I was starting my timer here.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 323.75,
+          "end": 324.98,
+          "en": "We can see here.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 324.98,
+          "end": 327.65,
+          "en": "It was six seconds here.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 328.25,
+          "end": 329.54,
+          "en": "This is but.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 329.54,
+          "end": 333.26,
+          "en": "But you see here, this was the command that I had entered before.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 333.26,
+          "end": 338.3,
+          "en": "So it must have been before this time that I had executed this command.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 338.33,
+          "end": 340.55,
+          "en": "Now let's see what's being logged here.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 340.55,
+          "end": 342.56,
+          "en": "It's exactly this time here.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 342.56,
+          "end": 349.83,
+          "en": "So it's somewhat a minute, but it's actually been a little bit more than a minute that this timer has",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 349.83,
+          "end": 355.83,
+          "en": "waited because here after typing that one in, it took me maybe a second or two, maybe a little bit",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 355.83,
+          "end": 356.04,
+          "en": "more.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 356.04,
+          "end": 359.28,
+          "en": "I'm not sure to type in this command here.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 359.28,
+          "end": 362.88,
+          "en": "And you can see here it has waited a little bit more than a minute.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 363.15,
+          "end": 367.26,
+          "en": "This is because the timers in System D are not super exact.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 367.92,
+          "end": 372.36,
+          "en": "So if we go back into our file here, wait, I just clear my screen.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 372.36,
+          "end": 379.11,
+          "en": "If we go back into the editing of our file here, we can see here that we told the timer to just wait",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 379.11,
+          "end": 379.65,
+          "en": "one minute.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 379.65,
+          "end": 383.28,
+          "en": "Well, the resolution of our timers is one minute.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 383.31,
+          "end": 389.88,
+          "en": "The idea is that once every minute our processor wakes up and checks whether there are timers active,",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 389.91,
+          "end": 397.89,
+          "en": "the idea is that on low power systems or on notebooks, the CPU doesn't need to wake up every second",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 397.89,
+          "end": 400.53,
+          "en": "to check for timers or multiple times a second.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 400.53,
+          "end": 408.27,
+          "en": "So that's why by default, the the resolution of our timer might only be one minute.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 408.48,
+          "end": 415.86,
+          "en": "If we do want to have a higher accuracy here, we can set a parameter or an option for that and we could",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 415.86,
+          "end": 418.53,
+          "en": "set that one, for example, to one second.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 418.53,
+          "end": 425.46,
+          "en": "And that means that every second we want to check whether this timer should be run and then those intervals",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 425.46,
+          "end": 426.66,
+          "en": "would be more exact.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 426.66,
+          "end": 433.74,
+          "en": "But then of course, our CPU will have to wake up way more often and it might cost a little bit of battery",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 433.74,
+          "end": 438.03,
+          "en": "life, especially on, on, on mobile machines.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 438.33,
+          "end": 442.47,
+          "en": "Um, but now this timer should be a little bit more precise.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 443.04,
+          "end": 447.96,
+          "en": "Um, I could now start the timer again, but there's another thing that I could also do.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 447.99,
+          "end": 448.47,
+          "en": "A timer.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 448.47,
+          "end": 450,
+          "en": "It's just a normal unit.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 450,
+          "end": 455.55,
+          "en": "So what I could do, for example, as well, because in the timer I had this install written there.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 455.58,
+          "end": 457.38,
+          "en": "Wait, I just show you one more time.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 457.38,
+          "end": 464.01,
+          "en": "We can see here it's installing itself into the timers target and we can enable that timer to start",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 464.01,
+          "end": 464.7,
+          "en": "during boot.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 464.7,
+          "end": 468.5,
+          "en": "So I can say system Ctl enable.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 469.19,
+          "end": 472.52,
+          "en": "My network locked timer.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 472.67,
+          "end": 477.2,
+          "en": "Now, this one here is enabled, and whenever the timer target is reached.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 477.23,
+          "end": 479.27,
+          "en": "This timer should be started as well.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 479.27,
+          "end": 484.58,
+          "en": "And because timer start, target is part of our boot procedure, this timer now should work on every",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 484.58,
+          "end": 485.06,
+          "en": "boot.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 485.09,
+          "end": 486.55,
+          "en": "Let's just have a look.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 486.56,
+          "end": 492.53,
+          "en": "I can just reboot my computer here, and then I just wait until it's rebooted.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 492.89,
+          "end": 494.27,
+          "en": "And here we go.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 494.27,
+          "end": 495.14,
+          "en": "Let's just.",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 495.14,
+          "end": 496.1,
+          "en": "Let me be quick.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 496.13,
+          "end": 500.39,
+          "en": "Percentage t and now let's just follow the file.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 500.81,
+          "end": 502.55,
+          "en": "Um, in the.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 503.39,
+          "end": 507.98,
+          "en": "Uh, not this one in the network log log dot txt.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 508.01,
+          "end": 509.87,
+          "en": "Let's just follow that file.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 509.87,
+          "end": 515.66,
+          "en": "And now I think in about a minute, probably a little bit less compared to that time, the new lines",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 515.66,
+          "end": 516.62,
+          "en": "should show up.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 517.72,
+          "end": 522.88,
+          "en": "By the way, in case you have any problems with those timers or something doesn't seem to work.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 522.91,
+          "end": 524.77,
+          "en": "You can use the system.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 524.77,
+          "end": 531.55,
+          "en": "Ctl list Timers Command to just list all the active timers right now, and then you get a list.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 531.55,
+          "end": 538,
+          "en": "And for example, here you can see the my network lock timer still has a few minutes left until it's",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 538,
+          "end": 542.8,
+          "en": "run, but you can also see that there are quite a few other timers here from our system.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 542.8,
+          "end": 545.71,
+          "en": "So this will give you an overview about all the timers.",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 545.71,
+          "end": 551.32,
+          "en": "You could also add another option all to see all loaded but inactive timers too.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 551.32,
+          "end": 555.88,
+          "en": "But here, by default, it shows you all active timers.",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 556.33,
+          "end": 562.93,
+          "en": "So this gives you like an overview how you can use those timers and how you can inspect what timers",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 562.93,
+          "end": 565.57,
+          "en": "are running on your system right now to exit that.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 565.57,
+          "end": 570.1,
+          "en": "You can just use the key and then you are back in your shell.",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 570.49,
+          "end": 576.4,
+          "en": "So this is how you can set a timer for a certain interval or for a certain amount of minutes.",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 576.76,
+          "end": 581.63,
+          "en": "So now we have seen how in general we can create those timers.",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 582.14,
+          "end": 588.53,
+          "en": "But there's also another way to create timers, which is that we specify the times when this timer should",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 588.53,
+          "end": 590.9,
+          "en": "be run our service, for example.",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 591.41,
+          "end": 595.34,
+          "en": "That's the on calendar option in our timer file.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 595.37,
+          "end": 598.28,
+          "en": "But we will have a look at this in the next lecture.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 598.28,
+          "end": 603.65,
+          "en": "And this will then allow you, for example, to specify, okay, every hour, every full hour, our",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 603.65,
+          "end": 604.94,
+          "en": "timer should be run.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 605.03,
+          "end": 609.23,
+          "en": "But how this works, we will have a look at that in the next lecture.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

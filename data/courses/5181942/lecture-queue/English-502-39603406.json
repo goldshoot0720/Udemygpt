@@ -1,0 +1,532 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "39603406",
+      "title": "Exercise: Write a Backup Script",
+      "lectureOrder": 554,
+      "videoOrder": 502,
+      "sourceHash": "7f0734643e9f0084f4faf0f975a8a95067f3574693451f81abff64d0af2669c9",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.26,
+          "end": 5.12,
+          "en": "In this lecture, I want to give you an exercise to create a nice backup script.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 5.72,
+          "end": 11.81,
+          "en": "Let's create a backup script and we combine all the knowledge that we gathered about Bash scripting",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 11.81,
+          "end": 13.31,
+          "en": "into this one script.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 13.46,
+          "end": 19.4,
+          "en": "I feel like the backup script is a super practical example because in practice most likely you will",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 19.4,
+          "end": 25.58,
+          "en": "be writing things like this in order to automate backups or common tasks that need to run every day.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 25.94,
+          "end": 31.91,
+          "en": "In our case, this backup script should take several folders and turn them into individual archives,",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 31.91,
+          "end": 34.85,
+          "en": "meaning tar bzip2 files in our case.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 34.85,
+          "end": 40.97,
+          "en": "And those archives should then also be tagged with the current date, meaning that the current date",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 40.97,
+          "end": 45.78,
+          "en": "should be in the file name of the output or of those files.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 45.8,
+          "end": 51.32,
+          "en": "This will allow us to have daily snapshots of our data and if something would go wrong, we would have",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 51.32,
+          "end": 52.97,
+          "en": "a backup then for our data.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 53.09,
+          "end": 60.15,
+          "en": "Also, we want or we have already a tool that generates an SQL dump of our database.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 60.15,
+          "end": 63.09,
+          "en": "And we also need to back up this output there.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 63.12,
+          "end": 64.05,
+          "en": "Don't worry about it.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 64.08,
+          "end": 66.24,
+          "en": "We will have a look at this in this lecture here.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 66.78,
+          "end": 72.53999999999999,
+          "en": "So what is the data, by the way, if you don't have this data at the beginning of this chapter, I",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 72.53999999999999,
+          "end": 74.97,
+          "en": "gave you a downloadable zip file.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 75.21000000000001,
+          "end": 79.89,
+          "en": "Be sure to download that and then you can work with exactly the same data as me here.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 80.13,
+          "end": 85.94,
+          "en": "Let's say we would be running an online shop and we had some text files here that we need to back up.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 85.95,
+          "end": 93.47999999999999,
+          "en": "I know usually the customer's data, we would not store this in a CSV file, it would be more in a database,",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 93.47999999999999,
+          "end": 99.33,
+          "en": "but maybe we would store some images that the customers can upload on our website in a folder like this.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 99.33,
+          "end": 105.53999999999999,
+          "en": "And here in the inventory underscore data we are storing also a CSV file with data.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 105.57,
+          "end": 111.33,
+          "en": "I also know this would usually be in a database, but let's say we needed to store some images in that",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 111.33,
+          "end": 117.27000000000001,
+          "en": "folder and we just care that we back up the whole folder here no matter what data is inside.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 117.27000000000001,
+          "end": 123.66,
+          "en": "So we have those two folders here and we have this one backup script here that generates a MySQL dump.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 124.32,
+          "end": 127.29,
+          "en": "Let me show you the backup underscore DB.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 127.65,
+          "end": 130.32,
+          "en": "This is just a bash executable.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 130.47,
+          "end": 138.66,
+          "en": "We can just execute it and we can see here it generates MySQL code that would generate a table in some",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 138.66,
+          "end": 144.69,
+          "en": "data for this and the output that this script is generating, we want to back up this output.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 144.69,
+          "end": 149.82,
+          "en": "So if we go through from this file, we want to back up the output and we want to back up the folder.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 149.82,
+          "end": 156.27,
+          "en": "Customers underscore data and we want to back up the folder inventory, underscore data, how or what",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 156.27,
+          "end": 157.8,
+          "en": "exactly is then the task.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 157.8,
+          "end": 163.47,
+          "en": "So the task is as an exercise, create a script called backups that backs up the folder.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 163.47,
+          "end": 173.18,
+          "en": "Customers underscore data to backup slash customers minus theta minus month minus day.tar.bz two.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 173.19,
+          "end": 179.19,
+          "en": "So here of course you need to generate the current month and the current day in order to facilitate",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 179.19,
+          "end": 181.07,
+          "en": "or to allow that.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 181.07,
+          "end": 184.7,
+          "en": "Then it should back up the folder inventory data to backups.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 184.7,
+          "end": 188.93,
+          "en": "Inventory minus data minus month minus day.tar.bz two.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 188.96,
+          "end": 197.32999999999998,
+          "en": "It should also back up the output of the script to backups orders minus month minus day dot SQL Bz2.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 197.36,
+          "end": 200.25,
+          "en": "This script is called backup underscore db dot.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 200.66,
+          "end": 202.82,
+          "en": "That was the file that I showed you earlier.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 202.82,
+          "end": 205.88,
+          "en": "Feel free to have a look at this script first before executing.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 205.88,
+          "end": 210.47,
+          "en": "This is always recommended when you run untrusted code or code from an unknown source.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 211.52,
+          "end": 218.27,
+          "en": "So also here you might want to consider having a look at this and be aware you might need to make this",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 218.27,
+          "end": 222.8,
+          "en": "file executable in order to execute this file directly in practice.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 222.8,
+          "end": 224.93,
+          "en": "Again, this would not be our own tool.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 224.93,
+          "end": 230.99,
+          "en": "It would more be a tool like MySQL dump that would then pretty much generate output in the same syntax.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 231.5,
+          "end": 237.14,
+          "en": "And yeah, but here it's our own file, so it's easier for me to give you this exercise.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 237.14,
+          "end": 242.16,
+          "en": "Also, this script should lock each action into a log file backup dot log.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 242.7,
+          "end": 248.19,
+          "en": "Also, it would be great if the folders customers underscore data and inventory data were configurable",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 248.19,
+          "end": 253.02,
+          "en": "with an array at the beginning of the script and then the rest should work automatically.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 253.41,
+          "end": 259.74,
+          "en": "And one thing that also would be great if it would be that if an error occurs that it should be logged",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 259.74,
+          "end": 262.49,
+          "en": "to stderr and also to the log file.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 262.5,
+          "end": 268.05,
+          "en": "The idea here is if we would be running the script as a cron job or something like this, we could say",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 268.05,
+          "end": 273.69,
+          "en": "okay, here we are not interested in stdout, but stderr is important and then we try to inform the",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 273.69,
+          "end": 275.79,
+          "en": "admin through this.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 275.79,
+          "end": 283.23,
+          "en": "Maybe we have configured our cron jobs that they send us an email if errors happen there or we use a",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 283.23,
+          "end": 285.57,
+          "en": "wrapper script around that to facilitate that.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 285.57,
+          "end": 293.97,
+          "en": "So if an error would be logged to stderr, that could be useful to maybe have another automated mechanism",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 293.97,
+          "end": 295.05,
+          "en": "to inform us.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 295.08,
+          "end": 299.79,
+          "en": "This is not part of the setup, but this is why we want to make sure that we log to stderr.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 299.89,
+          "end": 301,
+          "en": "To allow that.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 301,
+          "end": 305.35,
+          "en": "And also we want to lock the same to also the log file backup log.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 305.38,
+          "end": 311.89,
+          "en": "Because here the idea is that whatever happens, it's also in the log file and we can see it at a later",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 311.89,
+          "end": 312.46,
+          "en": "date.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 312.73,
+          "end": 314.8,
+          "en": "So this is the task.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 314.8,
+          "end": 320.89,
+          "en": "If you need a little bit of hints, how to generate those month and day strings here, because of course,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 320.89,
+          "end": 324.97,
+          "en": "this shouldn't be like we should put the current month here and the current day here.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 324.97,
+          "end": 327.64,
+          "en": "We will have a quick look at that in the next lecture.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 327.64,
+          "end": 331.33,
+          "en": "And after that you can then start implementing this backup script.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 331.33,
+          "end": 336.04,
+          "en": "And after that I will then also provide you with the sample solution.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 336.04,
+          "end": 343.3,
+          "en": "So in the next lecture, let's have a quick look how we generate this part here of our file names and",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 343.3,
+          "end": 346.63,
+          "en": "then you can start implementing the backup script.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

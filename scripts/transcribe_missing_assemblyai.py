@@ -147,6 +147,9 @@ def main() -> int:
             audio = ROOT / audio
         audio = audio.resolve()
         if not audio.is_file():
+            if item.get("status") == "needs-audio":
+                print(f"Skip {item['lectureId']}: waiting for audio at {audio}")
+                continue
             raise FileNotFoundError(f"Audio file not found for lecture {item['lectureId']}: {audio}")
         language = args.language or item.get("sourceLanguage") or item.get("language") or "en"
         language = str(language)
@@ -164,7 +167,7 @@ def main() -> int:
         print(f"Uploading lecture {item['lectureOrder']}: {item['title']}", flush=True)
         audio_url = upload(audio, api_key)
         course_title = item.get("courseTitle", "a programming course")
-        keyterms = SVELTE_KEYTERMS if "svelte" in course_title.lower() else GENERAL_KEYTERMS
+        keyterms = item.get("keyterms") or (SVELTE_KEYTERMS if "svelte" in course_title.lower() else GENERAL_KEYTERMS)
         result = transcribe(audio_url, api_key, course_title, language, keyterms)
         candidate = {
             "schemaVersion": 1,

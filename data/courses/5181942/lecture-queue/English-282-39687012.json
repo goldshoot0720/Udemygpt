@@ -1,0 +1,329 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "39687012",
+      "title": "Inspecting DHCP Logs with `systemd-networkd`: Troubleshooting IP Address Issues",
+      "lectureOrder": 314,
+      "videoOrder": 282,
+      "sourceHash": "03b3ba94ed01b75cc158c9a59f39228b0d2320e0d83c38005999c426bb91c396",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.5,
+          "end": 6.59,
+          "en": "In the last lecture we have seen all those Dhcp messages and how they were able to get us an IP address",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.59,
+          "end": 7.73,
+          "en": "in our network.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.76,
+          "end": 14.42,
+          "en": "In this lecture we want to inspect the logs for that one because this can help us to debug or to find",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 14.45,
+          "end": 16.85,
+          "en": "potential issues and then we can Google for them.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 16.85,
+          "end": 23.33,
+          "en": "And in this lecture we want to do this specifically for systems with system D minus network D that use",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 23.33,
+          "end": 26.72,
+          "en": "the network D part of system D to handle Dhcp.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 27.29,
+          "end": 31.31,
+          "en": "For me according to my current configuration, that's my ubuntu.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 31.31,
+          "end": 35.84,
+          "en": "But please note if that one here doesn't work, be sure to watch the next version.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 35.99,
+          "end": 40.76,
+          "en": "Maybe your ubuntu might use network manager because you've installed it there.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 40.94,
+          "end": 47.87,
+          "en": "But usually this lecture should work on ubuntu and the lecture about network manager should work on",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 47.87,
+          "end": 48.77,
+          "en": "centos.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 48.77,
+          "end": 54.71,
+          "en": "So usually Dhcp is being run every time we connect to a network or during boot.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 54.71,
+          "end": 58.49,
+          "en": "So of course the question is if something goes wrong here, what happens then?",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 58.49,
+          "end": 66.06,
+          "en": "Well we might not have an IP address or we might automatically assign an IP address to ourselves which",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 66.06,
+          "end": 68.52,
+          "en": "might be in a different range than the rest of the network.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 68.52,
+          "end": 71.64,
+          "en": "And then of course, we can't communicate with the network.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 72.93,
+          "end": 80.78999999999999,
+          "en": "So if there are any problems, we need to inspect Dhcp and on systems that use system D or the network",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 80.78999999999999,
+          "end": 86.78999999999999,
+          "en": "component of system D to also manage their network, we can just show the logs for this unit because",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 86.78999999999999,
+          "end": 92.88,
+          "en": "this unit is called System D, Network D and we can just open those logs with Journalctl.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 92.88,
+          "end": 101.72999999999999,
+          "en": "So here I could go to my terminal and I could be like, okay, Journal Ctl for the unit system D Journal",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 102.36,
+          "end": 103.14,
+          "en": "Network D.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 104.39,
+          "end": 109.43,
+          "en": "And if I execute that, you can see here this is now chronologically.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 109.43,
+          "end": 115.55,
+          "en": "So I need to reverse the order or only print out the last few lines, but then I can see the logs of",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 115.55,
+          "end": 118.00999999999999,
+          "en": "our network unit here.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 118.55,
+          "end": 120.92,
+          "en": "So let me just add the parameters here.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 121.93,
+          "end": 127.3,
+          "en": "Um, I will just say, okay, I'm only interested in the messages, uh, since the last boot.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 127.3,
+          "end": 128.54,
+          "en": "And here we are.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 128.56,
+          "end": 130.87,
+          "en": "So this is all during the last boot.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 130.87,
+          "end": 135.91,
+          "en": "And here, for example, we can see not just the Dhcp stuff, but also here, for example, the link",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 135.91,
+          "end": 144.76,
+          "en": "is available now and then here it has gotten a Dhcp address for the normal IPV four IPS and here for",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 144.76,
+          "end": 145.66,
+          "en": "example.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 145.96,
+          "end": 147.46,
+          "en": "Now this is the loopback.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 147.46,
+          "end": 154.12,
+          "en": "But here for example, we can see here that we that the Dhcp lease got lost maybe because the device",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 154.12,
+          "end": 156.97,
+          "en": "got disabled or it got disconnected for whatever reason.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 156.97,
+          "end": 163.18,
+          "en": "And then we can see here it tried to reconnect or here again, the network device has been turned off",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 163.18,
+          "end": 164.26,
+          "en": "and on again.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 164.26,
+          "end": 170.02,
+          "en": "I did a lot of that stuff right now here to record that video or those videos here.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 170.14,
+          "end": 176.07999999999998,
+          "en": "So you can see here how we get logs about Dhcp and if you have any connection problems.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 176.07999999999998,
+          "end": 178.12,
+          "en": "But it looks like the cable is plugged in.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 178.12,
+          "end": 183.41,
+          "en": "For example, it looks like everything works, but somehow the IP addresses of then that would be the",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 183.44,
+          "end": 189.95,
+          "en": "hint that it's probably a Dhcp related problem and you might debug your Dhcp client and also the Dhcp",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 189.95,
+          "end": 190.58,
+          "en": "server.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 190.58,
+          "end": 196.46,
+          "en": "So this will give you some hints where you can start debugging if any problems here occur.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 196.99,
+          "end": 206.14,
+          "en": "So this is Dhcp and how it allows us to get our IP address automatically within our local area network.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

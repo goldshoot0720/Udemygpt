@@ -1,0 +1,5174 @@
+{
+  "version": 1,
+  "courseId": 5181942,
+  "courseSlug": "mastering-linux",
+  "courseTitle": "Mastering Linux: The Comprehensive Guide",
+  "sourceLanguage": "en",
+  "targetLanguage": "zh-TW",
+  "lectures": [
+    {
+      "id": "40797788",
+      "title": "Buffered vs. unbuffered I/O",
+      "lectureOrder": 138,
+      "videoOrder": 115,
+      "sourceHash": "28dc9b73d6ee6a87ec8512a623925730408c70ccdd1795813b1b8d903ee6d265",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.51,
+          "end": 7.14,
+          "en": "In the next lecture I will talk about buffered versus unbuffered and I will be using those terms.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 7.14,
+          "end": 13.47,
+          "en": "And I've realized that I do need to add this quick lecture here to talk a little bit about those differences.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 13.62,
+          "end": 18.54,
+          "en": "So let's first have a look at buffered unbuffered input or output.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 18.78,
+          "end": 25.65,
+          "en": "Unbuffered means that the data that's being handled between our I o device and the program is directly",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 25.65,
+          "end": 26.49,
+          "en": "being handled.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 26.49,
+          "end": 28.01,
+          "en": "What is an I o device?",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 28.02,
+          "end": 33.99,
+          "en": "An I o device is pretty much everything that creates an output or receives input.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 33.99,
+          "end": 41.28,
+          "en": "So just as an example, a hard disk would be an I o device because we can it creates output.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 41.28,
+          "end": 46.44,
+          "en": "If we are trying to access a file it gives us those bytes and it also takes input.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 46.47,
+          "end": 50.64,
+          "en": "We could for example write a file into that device.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 50.64,
+          "end": 53.7,
+          "en": "So an I o device would be a simple hard drive.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 53.73,
+          "end": 56.82,
+          "en": "But an I o device can be way more broad.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 56.82,
+          "end": 62.28,
+          "en": "So for example, a keyboard is also an I o device because we can read input from that one.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 62.28,
+          "end": 68.88,
+          "en": "Or a mouse is also an I o device because it generates output and we can read input from a mouse as well.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 69.72,
+          "end": 75.39,
+          "en": "But also network connections, for example, would also be considered an I o device because there's",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 75.39,
+          "end": 82.92,
+          "en": "also input and output being generated in the sense that on like Linux systems, the way those are represented",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 82.92,
+          "end": 87.42,
+          "en": "means that we can just like write to this network connection.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 87.42,
+          "end": 89.76,
+          "en": "And then this is being sent through the network.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 89.76,
+          "end": 93.6,
+          "en": "So also a network connection would be considered an I o device.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 93.6,
+          "end": 96.53999999999999,
+          "en": "So this is why I'm using those terms here.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 96.53999999999999,
+          "end": 103.56,
+          "en": "Because I o devices are pretty broad in the way how they can be utilized, but unbuffered means that",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 103.56,
+          "end": 108.21000000000001,
+          "en": "the data is being handled directly by the I o device and the program.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 108.21000000000001,
+          "end": 114.63,
+          "en": "The advantage is that Unbuffered is great for real time data, so that means that we get immediate access",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 114.63,
+          "end": 115.58,
+          "en": "to the data.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 115.59,
+          "end": 122.01,
+          "en": "It also gives our application additional control over how everything should work and the timing.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 122.13,
+          "end": 124.56,
+          "en": "There are no additional delays here.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 125.07,
+          "end": 131.46,
+          "en": "And examples here would be for example, reading data from a keyboard or reading data from sensors.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 131.46,
+          "end": 138.78,
+          "en": "Just to show you a practical example, I could, for example, output the input that my mouse is generating.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 138.78,
+          "end": 148.05,
+          "en": "That would be in the device dev input mice, and I could just cut that through sudo I have muted.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 148.05,
+          "end": 149.19,
+          "en": "Now here my system.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 149.19,
+          "end": 152.34,
+          "en": "And if I now just press here or press enter.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 152.34,
+          "end": 157.44,
+          "en": "Now we can see here once I'm moving my mouse a lot of commands here are being generated.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 157.44,
+          "end": 162.03,
+          "en": "You can also see that sometimes my cursor looks like it's moving backwards.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 162.03,
+          "end": 167.01,
+          "en": "This is not actually like anything that's being done here.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 167.01,
+          "end": 174.66,
+          "en": "It's more like that the mice or the mouse is sending commands here that just happen to move the cursor",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 174.66,
+          "end": 176.34,
+          "en": "backwards in our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 176.57999999999998,
+          "end": 184.2,
+          "en": "But in general, now my mouse is just sending input to my system and this is handled directly.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 184.2,
+          "end": 191.61,
+          "en": "And we can see here that this is now here the terminal trying to do its best to display this binary",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 191.64,
+          "end": 192.21,
+          "en": "data.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 192.99,
+          "end": 199.56,
+          "en": "Of course if this now was a real application, it could then look into this binary data and then move",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 199.56,
+          "end": 200.4,
+          "en": "the cursor.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 200.97,
+          "end": 203.94,
+          "en": "This is what the operating system is doing here with the cursor.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 203.94,
+          "end": 210.84,
+          "en": "But nonetheless we can see we also have access to the raw data that the mouse has sent to the operating",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 210.84,
+          "end": 211.23,
+          "en": "system.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 211.23,
+          "end": 215.97,
+          "en": "So this would be an example for unbuffered I o buffered I o.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 216,
+          "end": 222.27,
+          "en": "However, on the other side utilizes a temporary storage area, a so-called buffer, to hold the data",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 222.3,
+          "end": 227.26,
+          "en": "before it's being received or sent to the corresponding I o device.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 227.28,
+          "end": 233.82,
+          "en": "The advantage with with buffered I o is that it's significantly more efficient, so that reduces the",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 233.82,
+          "end": 238.53,
+          "en": "number of I o operations that we need by accumulating data before processing.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 238.53,
+          "end": 244.8,
+          "en": "In those cases that we need it, it's significantly more performant in a sense that by accumulating",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 244.8,
+          "end": 249.57,
+          "en": "this data, it enhances the speed, especially for disk and network operations.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 249.57,
+          "end": 255.18,
+          "en": "And if we always only get like chunks of data at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 255.18,
+          "end": 259.32,
+          "en": "This then also simplifies the implementation of data integrity checks.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 259.32,
+          "end": 264.36,
+          "en": "Because imagine we would have to implement this and our application would only get like a byte at the",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 264.36,
+          "end": 265.02,
+          "en": "same time.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 265.02,
+          "end": 268.02,
+          "en": "Then those data integrity checks would be pretty difficult.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 268.02,
+          "end": 273.45,
+          "en": "But if our application gets like a whole kilobyte of data at the same time, then we could spare a few",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 273.45,
+          "end": 277.17,
+          "en": "bytes there at the end for implementing data integrity checks.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 277.17,
+          "end": 281.22,
+          "en": "So it significantly simplifies the implementation of those.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 281.90999999999997,
+          "end": 286.56,
+          "en": "So buffered I o is ideal for large and sequential data transfers.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 286.56,
+          "end": 292.68,
+          "en": "So for example, typical examples would be reading a file from a disk or writing data to disk.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 292.68,
+          "end": 296.49,
+          "en": "And then usually we would write blocks then there to the disk.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 297.09000000000003,
+          "end": 300,
+          "en": "The goal here is that we reduce the number of those input.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 300.16,
+          "end": 301.45,
+          "en": "Output operations.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 301.69,
+          "end": 308.5,
+          "en": "By accumulating data and by maybe even fetching additional data that our application then probably soon",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 308.5,
+          "end": 309.49,
+          "en": "will need as well.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 309.49,
+          "end": 313.63,
+          "en": "So this temporary storage area can be quite beneficial.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 313.63,
+          "end": 316.06,
+          "en": "Just be aware it's not always beneficial.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 316.06,
+          "end": 318.79,
+          "en": "So back to my mouse example here.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 318.79,
+          "end": 324.67,
+          "en": "If I would do this here again here I don't want to wait until data has accumulated because then I would",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 324.67,
+          "end": 331.39,
+          "en": "wait maybe a minute or two and then at some point I could move my cursor here, or I could output the",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 331.39,
+          "end": 332.38,
+          "en": "mouse input here.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 332.38,
+          "end": 338.95,
+          "en": "So for example, for this mouse here, what we need is actually unbuffered access directly to the underlying",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 338.95,
+          "end": 345.94,
+          "en": "hardware, because that's our only chance that that the mouse cursor here will feel fluent in our operating",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 345.94,
+          "end": 346.69,
+          "en": "system.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 346.99,
+          "end": 353.8,
+          "en": "Whereas for example, when we are loading a file, we do want to have this additional temporary storage",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 353.8,
+          "end": 359.53,
+          "en": "area there to to enhance the speed in which we can read the file.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 359.53,
+          "end": 362.47,
+          "en": "So that's just what I want to emphasize here.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 362.47,
+          "end": 367.18,
+          "en": "Sometimes unbuffered is the way to go and sometimes buffered is the way to go.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 367.42,
+          "end": 374.35,
+          "en": "So with all of that in mind, let's now continue with the next lecture in which I will talk about what",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 374.35,
+          "end": 378.76,
+          "en": "is a device, and we will further explore that.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38121140",
+      "title": "What is a Device?",
+      "lectureOrder": 139,
+      "videoOrder": 116,
+      "sourceHash": "a50f90c30d0fc46f5e1e5a5748a6541e8d536e7be13f3b2b809d015b5bce1acd",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.43,
+          "end": 1.54,
+          "en": "In this lecture.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 1.54,
+          "end": 4.03,
+          "en": "We want to have a look at what is a device?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 4.87,
+          "end": 6.31,
+          "en": "What is a device?",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 6.34,
+          "end": 12.65,
+          "en": "We have seen before when we had looked at what is a file that I had also talked about devices there.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.67,
+          "end": 16.6,
+          "en": "So our devices files or how does that work?",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 16.96,
+          "end": 23.95,
+          "en": "The idea is in general on Unix that everything is a file, but more precisely would be to say that everything",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 23.95,
+          "end": 25.6,
+          "en": "is a stream of bytes.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 25.72,
+          "end": 31,
+          "en": "This is a quote from Linus Torvalds, one of the initiator and the main developers of the Linux kernel.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 32.5,
+          "end": 34.53,
+          "en": "Why is it a slightly different?",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 34.54,
+          "end": 38.62,
+          "en": "The reason is a file would be something on our file system.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 38.62,
+          "end": 44.86,
+          "en": "And there are also things or devices or connections that are more represented through the kernel and",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 44.86,
+          "end": 47.05,
+          "en": "they don't actually appear as a device.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 47.05,
+          "end": 53.41,
+          "en": "So technically speaking, the the second quote is more correct because there we also have a stream of",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 53.41,
+          "end": 57.48,
+          "en": "bytes, but it may not be a file on our file system.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 57.49,
+          "end": 65.24,
+          "en": "The way it works here is that almost all hardware devices are represented as files on our file system,",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 65.24,
+          "end": 69.98,
+          "en": "or to be more precise, as a stream of bytes that we can then interact with.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 70.58,
+          "end": 77.39,
+          "en": "And this allows us to access the underlying hardware without knowing its technical details.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 77.39,
+          "end": 84.11,
+          "en": "So, for example, if we have a hard drive that is represented as a file, we can just interact with",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 84.11,
+          "end": 91.64,
+          "en": "that file, read parts of that file and the hardware or the hard disk then will just fetch the correct",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 91.64,
+          "end": 96.32,
+          "en": "part of the drive to be to facilitate our request.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 96.59,
+          "end": 100.19,
+          "en": "But we don't know the need to know the technical details.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 100.19,
+          "end": 103.55,
+          "en": "The kernel will be handling the technical details for us.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 103.55,
+          "end": 106.07,
+          "en": "So to sum up, what is a device?",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 106.07,
+          "end": 113.36,
+          "en": "A device thus refers to a physical or virtual entity that can be accessed through a file like interface.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 113.36,
+          "end": 120.47,
+          "en": "That was all the files in our slash dev folder devices in Unix then serve as an interface between the",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 120.47,
+          "end": 124.22,
+          "en": "operating system and the various hardware or virtual components.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 124.22,
+          "end": 131.42,
+          "en": "Usually the kernel provides those interfaces to us and then they are there like the represented in our",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 131.42,
+          "end": 138.68,
+          "en": "file system so that we can easily access them and they allow applications and users to interact with",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 138.68,
+          "end": 143.42000000000002,
+          "en": "those components by reading and writing to the corresponding device files.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 143.42000000000002,
+          "end": 146.12,
+          "en": "So this is how we can then access those.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 147.7,
+          "end": 151.12,
+          "en": "We should also have a look at what kind of devices they are.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 151.15,
+          "end": 154.99,
+          "en": "So one of those types are the so-called character devices.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 155.02,
+          "end": 159.73,
+          "en": "They allow us to gain unbuffered quite direct access to the hardware.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 159.73,
+          "end": 165.88,
+          "en": "And usually we can then access those devices by reading a byte or so-called character.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 166.48,
+          "end": 169.77,
+          "en": "This is why those devices are called character devices.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 169.78,
+          "end": 174.57999999999998,
+          "en": "The idea here is that we can just say, Hey, we are interested in this and this and this character",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 174.57999999999998,
+          "end": 179.37,
+          "en": "and this and this position, and then the device can just read it and provide it to us.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 179.38,
+          "end": 185.68,
+          "en": "We could also say, Hey, we are interested in ten characters starting at a certain position, and then",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 185.68,
+          "end": 189.43,
+          "en": "the device might give us all of those ten characters.",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 189.43,
+          "end": 194.08,
+          "en": "Or there are also other character devices where we can only request.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 194.08,
+          "end": 200.82999999999998,
+          "en": "For example, we want to read up to ten characters, and then if we reach the end of the device, we",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 200.82999999999998,
+          "end": 203.86,
+          "en": "might maybe only read maybe eight characters.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 204.49,
+          "end": 211.31,
+          "en": "But the idea here is that we gain Unbuffered direct access to the hardware and we can just read characters",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 211.31,
+          "end": 214.31,
+          "en": "or bytes from those devices directly.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 214.98,
+          "end": 219.75,
+          "en": "Then we also have block devices that will show up in our LZ small B.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 220.68,
+          "end": 223.74,
+          "en": "They allow us to gain buffered access to the hardware.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 223.74,
+          "end": 227.34,
+          "en": "So instead of just being able to access a byte, they work differently.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 227.37,
+          "end": 230.64,
+          "en": "The idea here is that multiple bytes are bundled into a block.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 230.64,
+          "end": 237.18,
+          "en": "So for example, a block size could be 512 bytes and then we can access this device through accessing",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 237.18,
+          "end": 237.84,
+          "en": "those blocks.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 237.84,
+          "end": 243.36,
+          "en": "So we could be like, Hey, we would like to get access to a certain block and then we get this block",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 243.36,
+          "end": 245.19,
+          "en": "back and then we can work with it.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 245.19,
+          "end": 246.54,
+          "en": "So it works different.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 246.54,
+          "end": 253.32,
+          "en": "We are a little bit more limited in a sense what we can do, but because we have bundled those bytes",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 253.32,
+          "end": 258.66,
+          "en": "into blocks and we always read those blocks at the same time, this can greatly improve our performance",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 258.66,
+          "end": 259.11,
+          "en": "there.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 259.11,
+          "end": 262.8,
+          "en": "So or at least for some hardware applications.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 262.8,
+          "end": 265.29,
+          "en": "So for example, let's say we had a spinning hard drive.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 265.29,
+          "end": 268.38,
+          "en": "I know nowadays they are not that common anymore.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 268.38,
+          "end": 276.7,
+          "en": "But then for example, if we would be reading 512 bytes at the same time, that would greatly improve",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 276.76,
+          "end": 278.62,
+          "en": "the efficiency of our reads.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 278.62,
+          "end": 282.15999999999997,
+          "en": "So it makes sense that we have different kinds of devices here.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 282.78,
+          "end": 290.1,
+          "en": "Those are the two main types of devices that Unix supports, but there are also so-called pseudo devices.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 290.7,
+          "end": 297.57,
+          "en": "The idea here is that those devices don't necessarily refer to a physical device and then they are called",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 297.57,
+          "end": 298.65,
+          "en": "pseudo device.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 298.83,
+          "end": 301.92,
+          "en": "But also there they are like virtual devices.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 301.92,
+          "end": 303.66,
+          "en": "We can imagine those like this.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 303.69,
+          "end": 308.55,
+          "en": "And those virtual devices, they can exist either in a character device flavor.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 308.58,
+          "end": 314.76,
+          "en": "Then they would show up as a C in our RLS command or as a block device, then as a B.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 315.42,
+          "end": 322.05,
+          "en": "The idea here is that we have those real let me call them like real character devices or real block",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 322.05,
+          "end": 330.18,
+          "en": "devices and those pseudo devices that are just virtual devices and that enable us to use certain features.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 330.18,
+          "end": 337.5,
+          "en": "Just as an example, for example, our hard drive might be slash dev SDA and that would then be a block",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 337.5,
+          "end": 338.36,
+          "en": "device.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 338.37,
+          "end": 343.51,
+          "en": "But we could say a pseudo device would, for example, be the partition of a hard drive, something",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 343.51,
+          "end": 346.42,
+          "en": "like slash dev sda1 for example.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 346.42,
+          "end": 351.90999999999997,
+          "en": "That could then we could then label that as a pseudo device because it doesn't directly represent the",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 351.90999999999997,
+          "end": 355.48,
+          "en": "hardware, it only represents something on that hardware.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 356.35,
+          "end": 363.16,
+          "en": "But you can see how we can argue about that distinction, whether that's now a real pseudo device or",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 363.16,
+          "end": 365.98,
+          "en": "whether it's still referring to physical hardware.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 365.98,
+          "end": 368.35,
+          "en": "I don't want to get into that debate.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 369.13,
+          "end": 372.1,
+          "en": "Let's have a look at how those devices work.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 372.4,
+          "end": 375.25,
+          "en": "Let's have a look at some of those devices.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 375.37,
+          "end": 381.97,
+          "en": "So usually on a Linux system, all of those devices are being represented inside the slash dev folder.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 381.97,
+          "end": 385.12,
+          "en": "So we can just change our directory to that folder.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 385.12,
+          "end": 388.81,
+          "en": "And then, for example, just list all of those devices here.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 388.84,
+          "end": 395.26,
+          "en": "You can see we got quite a few devices here and yeah, let's just have a look at some of them.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 395.64,
+          "end": 401.05,
+          "en": "Um, let's say for example here, where's my hard drive That should be here.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 401.05,
+          "end": 403.78,
+          "en": "In my case it should be called SDA.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 405.17,
+          "end": 410.3,
+          "en": "Um, we can see that it's right here.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 410.36,
+          "end": 412.15999999999997,
+          "en": "Sda1 and Sda2.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 412.43,
+          "end": 414.74,
+          "en": "Those are two partitions on one drive.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 414.87,
+          "end": 420.2,
+          "en": "Um, the naming here with those partitions is that this is, uh, the hard drive so that they are both",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 420.23,
+          "end": 421.49,
+          "en": "on the same hard drive.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 421.52,
+          "end": 423.77,
+          "en": "But this is the first part of that hard drive.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 423.8,
+          "end": 426.29,
+          "en": "This is the second part of the hard drive.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 426.29,
+          "end": 427.91,
+          "en": "And here we got a second hard drive.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 427.94,
+          "end": 429.56,
+          "en": "That would be SDB two.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 429.8,
+          "end": 433.49,
+          "en": "We are able to just interact with those devices.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 434.06,
+          "end": 441.71,
+          "en": "For example, I could try to just output the contents of my drive by using the cut program so I could",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 441.71,
+          "end": 447.05,
+          "en": "say, Here, cut my file, SDA one and this will mean don't execute it for now, please.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 447.65,
+          "end": 453.89,
+          "en": "This will mean that we try to access that device and of course then cut will just output that data.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 454.58,
+          "end": 460.15999999999997,
+          "en": "This will be binary data and we should avoid just outputting or printing binary data to our terminal",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 460.19,
+          "end": 465.42,
+          "en": "because there might be so-called escape sequences or escape characters in it that change the behavior",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 465.42,
+          "end": 466.56,
+          "en": "of our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 466.98,
+          "end": 473.7,
+          "en": "And this can lead to us no longer being able to properly use the terminal after having outputted binary",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 473.73,
+          "end": 474.24,
+          "en": "data.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 474.24,
+          "end": 475.83,
+          "en": "So we should really avoid that.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 475.83,
+          "end": 480.18,
+          "en": "But we can see here, luckily this didn't even work because we got a permission denied.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 480.21,
+          "end": 484.62,
+          "en": "This is because we need additional privileges to be able to access that device.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 484.62,
+          "end": 487.68,
+          "en": "But if I put a pseudo in front, then it's executing.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 487.68,
+          "end": 494.52,
+          "en": "I'm rerecording this audio now because there are also a lot of characters that cause sound to be played",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 494.52,
+          "end": 496.41,
+          "en": "here in from my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 496.41,
+          "end": 501.57,
+          "en": "But as you can see here, this is now the raw data from our device that we are printing here.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 502.08,
+          "end": 508.75,
+          "en": "So you can see even though it's a real device, we were just able to use it just as a normal file.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 508.77,
+          "end": 513.45,
+          "en": "I'm not entirely sure if my terminal still works, but I think for now it looks still quite all right.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 514.02,
+          "end": 523.14,
+          "en": "Um, let's see if we now had access here with our command before when we access that partition, whether",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 523.14,
+          "end": 527.7,
+          "en": "we were accessing a character or a block device.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 527.7,
+          "end": 531.3,
+          "en": "And the way we can do this is with the LS minus L command.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 531.3,
+          "end": 536.4,
+          "en": "And then for all of our devices, we can see whether it's a character or a block device.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 536.4,
+          "end": 544.89,
+          "en": "So if I scroll up to Sda1, our first partition here, I keep scrolling up and at some point Sda1 shows",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 544.89,
+          "end": 545.25,
+          "en": "up.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 545.25,
+          "end": 553.02,
+          "en": "We can see here this was a block device, so we had buffered access to our drive and there was a small",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 553.17,
+          "end": 554.88,
+          "en": "abstraction layer in between.",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 554.88,
+          "end": 561.12,
+          "en": "So this would be, for example, here one of those devices that show up over here.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 561.65,
+          "end": 565.32,
+          "en": "Another device that I would like to show you here on Ubuntu.",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 565.35,
+          "end": 569.94,
+          "en": "We find that in a folder that folder would be the let's scroll up.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 570.42,
+          "end": 574.04,
+          "en": "That folder is this folder over here.",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 574.05,
+          "end": 583.08,
+          "en": "This contains the so-called TS or the terminal interfaces that allow us to output stuff and that will",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 583.08,
+          "end": 585.07,
+          "en": "then be shown here in our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 585.09,
+          "end": 586.89,
+          "en": "Let's have a look at how this works.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 586.89,
+          "end": 594.08,
+          "en": "So we got a T command here in our terminal and this tells us that this is the device, that it's like",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 594.09,
+          "end": 599.34,
+          "en": "a virtual device in a sense that if we write data to it, it will be shown here on this terminal.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 599.34,
+          "end": 606.66,
+          "en": "So one thing I could do, for example, I could output Hello World and I could just redirect that into",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 606.66,
+          "end": 611.46,
+          "en": "this device and then we can see that this will now be shown here in my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 611.67,
+          "end": 618.15,
+          "en": "The way we can imagine this here, back in the days when we had hardware terminals, not just monitors",
+          "zh": ""
+        },
+        {
+          "id": 136,
+          "start": 618.15,
+          "end": 625.44,
+          "en": "that display an image, but actual hardware terminals, um, we would just send text commands to that",
+          "zh": ""
+        },
+        {
+          "id": 137,
+          "start": 625.44,
+          "end": 631.86,
+          "en": "terminal or special commands to that terminal to be able to display all those characters here.",
+          "zh": ""
+        },
+        {
+          "id": 138,
+          "start": 631.86,
+          "end": 640.53,
+          "en": "And we can imagine this one here as the virtual or pseudo terminal where our shell so our bash, for",
+          "zh": ""
+        },
+        {
+          "id": 139,
+          "start": 640.53,
+          "end": 644.52,
+          "en": "example, could send those commands in, for example, here, which color should it be?",
+          "zh": ""
+        },
+        {
+          "id": 140,
+          "start": 644.52,
+          "end": 645.84,
+          "en": "Where should the cursor be?",
+          "zh": ""
+        },
+        {
+          "id": 141,
+          "start": 645.84,
+          "end": 647.82,
+          "en": "Which text should be printed here?",
+          "zh": ""
+        },
+        {
+          "id": 142,
+          "start": 647.82,
+          "end": 655.8,
+          "en": "It can send this to this pseudo pseudo terminal, and then all of this information would be sent to",
+          "zh": ""
+        },
+        {
+          "id": 143,
+          "start": 655.8,
+          "end": 657.63,
+          "en": "our actual terminal application.",
+          "zh": ""
+        },
+        {
+          "id": 144,
+          "start": 657.63,
+          "end": 662.94,
+          "en": "In my case here, this nice user interface that I have tabs here and all of this kind of stuff.",
+          "zh": ""
+        },
+        {
+          "id": 145,
+          "start": 663,
+          "end": 668.94,
+          "en": "But we can imagine this as like a pseudo terminal where we can just send those terminal commands to",
+          "zh": ""
+        },
+        {
+          "id": 146,
+          "start": 668.94,
+          "end": 671.78,
+          "en": "and then they will be sent to our actual terminal.",
+          "zh": ""
+        },
+        {
+          "id": 147,
+          "start": 671.79,
+          "end": 678.51,
+          "en": "Please note that depending on how you start in that terminal, how many other terminals are being opened",
+          "zh": ""
+        },
+        {
+          "id": 148,
+          "start": 678.54,
+          "end": 679.38,
+          "en": "on your system?",
+          "zh": ""
+        },
+        {
+          "id": 149,
+          "start": 679.38,
+          "end": 684,
+          "en": "This might be here, another, another uh, pseudo device.",
+          "zh": ""
+        },
+        {
+          "id": 150,
+          "start": 684.03,
+          "end": 689.49,
+          "en": "Or we might also have, for example, it might also be in a different path or it might be just slash",
+          "zh": ""
+        },
+        {
+          "id": 151,
+          "start": 689.76,
+          "end": 695.67,
+          "en": "slash t, then it would be more like a T on ubuntu and not a virtual terminal.",
+          "zh": ""
+        },
+        {
+          "id": 152,
+          "start": 696.57,
+          "end": 703.05,
+          "en": "But this is now here my virtual terminal device and when I send output to that one it will be displayed",
+          "zh": ""
+        },
+        {
+          "id": 153,
+          "start": 703.05,
+          "end": 704.16,
+          "en": "here in this terminal.",
+          "zh": ""
+        },
+        {
+          "id": 154,
+          "start": 704.3,
+          "end": 705.2,
+          "en": "Why is this important?",
+          "zh": ""
+        },
+        {
+          "id": 155,
+          "start": 705.23,
+          "end": 707.11,
+          "en": "Why is this interesting?",
+          "zh": ""
+        },
+        {
+          "id": 156,
+          "start": 707.12,
+          "end": 714.35,
+          "en": "Well, let's say I'm in a different terminal and I just open or I just say t then we see this terminal",
+          "zh": ""
+        },
+        {
+          "id": 157,
+          "start": 714.35,
+          "end": 718.34,
+          "en": "has a different virtual terminal interface here.",
+          "zh": ""
+        },
+        {
+          "id": 158,
+          "start": 718.34,
+          "end": 723.32,
+          "en": "So let's just see what happens if I use exactly this one here, this command here.",
+          "zh": ""
+        },
+        {
+          "id": 159,
+          "start": 723.32,
+          "end": 726.65,
+          "en": "But I, but I execute it in a different terminal.",
+          "zh": ""
+        },
+        {
+          "id": 160,
+          "start": 726.65,
+          "end": 728.75,
+          "en": "If I now hit enter, we can see here.",
+          "zh": ""
+        },
+        {
+          "id": 161,
+          "start": 728.75,
+          "end": 734.54,
+          "en": "Hello World has now been redirected to this virtual terminal device.",
+          "zh": ""
+        },
+        {
+          "id": 162,
+          "start": 734.54,
+          "end": 737.75,
+          "en": "And then we can see here it now has been printed here.",
+          "zh": ""
+        },
+        {
+          "id": 163,
+          "start": 738.29,
+          "end": 743.03,
+          "en": "And this this information has now been sent here to this terminal client.",
+          "zh": ""
+        },
+        {
+          "id": 164,
+          "start": 743.36,
+          "end": 750.56,
+          "en": "So as you can see, we got devices that represent real physical devices on our system, but we also",
+          "zh": ""
+        },
+        {
+          "id": 165,
+          "start": 750.56,
+          "end": 757.67,
+          "en": "got devices that are more like pseudo devices in a sense that they represent, for example, here,",
+          "zh": ""
+        },
+        {
+          "id": 166,
+          "start": 758.21,
+          "end": 759.8,
+          "en": "a virtual terminal.",
+          "zh": ""
+        },
+        {
+          "id": 167,
+          "start": 760.25,
+          "end": 762.47,
+          "en": "Back in the days it was a hardware terminal.",
+          "zh": ""
+        },
+        {
+          "id": 168,
+          "start": 762.47,
+          "end": 763.46,
+          "en": "It was a real device.",
+          "zh": ""
+        },
+        {
+          "id": 169,
+          "start": 763.46,
+          "end": 767.91,
+          "en": "Nowadays it's a virtual terminal, but it's nonetheless represented here by a device.",
+          "zh": ""
+        },
+        {
+          "id": 170,
+          "start": 767.91,
+          "end": 774.48,
+          "en": "And we could just redirect output into that device and then it will be just shown in the different terminal",
+          "zh": ""
+        },
+        {
+          "id": 171,
+          "start": 775.14,
+          "end": 782.73,
+          "en": "so we can see how those devices allow us to easily communicate with things on our system with just normal",
+          "zh": ""
+        },
+        {
+          "id": 172,
+          "start": 782.73,
+          "end": 785.82,
+          "en": "commands here, at least for those devices.",
+          "zh": ""
+        },
+        {
+          "id": 173,
+          "start": 785.82,
+          "end": 791.04,
+          "en": "Some devices are a little bit more complex, but a lot of those devices, we can really easily deal",
+          "zh": ""
+        },
+        {
+          "id": 174,
+          "start": 791.04,
+          "end": 791.73,
+          "en": "with them.",
+          "zh": ""
+        },
+        {
+          "id": 175,
+          "start": 792,
+          "end": 795.75,
+          "en": "So this is the first thing, how those devices work.",
+          "zh": ""
+        },
+        {
+          "id": 176,
+          "start": 795.75,
+          "end": 801.09,
+          "en": "We have seen that they are devices that are not necessarily hardware devices, those so-called pseudo",
+          "zh": ""
+        },
+        {
+          "id": 177,
+          "start": 801.09,
+          "end": 807.9,
+          "en": "devices, and there are quite a few more that are extremely useful and where we also might have used",
+          "zh": ""
+        },
+        {
+          "id": 178,
+          "start": 807.9,
+          "end": 809.37,
+          "en": "1 or 2 of them already.",
+          "zh": ""
+        },
+        {
+          "id": 179,
+          "start": 809.37,
+          "end": 815.01,
+          "en": "So in the next lecture, I want to give you an overview about the few most important pseudo devices",
+          "zh": ""
+        },
+        {
+          "id": 180,
+          "start": 815.01,
+          "end": 817.56,
+          "en": "that we got available in our dev folder.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38121148",
+      "title": "Examples of Pseudo-Devices: `/dev/null`, `/dev/random`, `/dev/urandom`,...",
+      "lectureOrder": 140,
+      "videoOrder": 117,
+      "sourceHash": "78687db401d06e9a4aac247c98a0ca01cd84bed13e36aa1272d3ad67dd96e308",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.65,
+          "end": 6.08,
+          "en": "In this lecture, I want to introduce you to a few important pseudo devices.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 6.23,
+          "end": 7.62,
+          "en": "So what are those?",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.64,
+          "end": 9.98,
+          "en": "One would be the dev null device.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 10.01,
+          "end": 12.08,
+          "en": "This is a special device.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 12.29,
+          "end": 15.23,
+          "en": "And when we are reading, it will always just return.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.23,
+          "end": 16.37,
+          "en": "End of file.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 16.52,
+          "end": 21.29,
+          "en": "So it will indicate, hey, there's nothing to read here, but when we are writing it, then it will",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 21.29,
+          "end": 24.38,
+          "en": "discard the information that we are trying to write to it.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 24.41,
+          "end": 30.51,
+          "en": "This sounds at first it doesn't sound that important, but we have used that one before.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 30.53,
+          "end": 34.12,
+          "en": "So for example, here I could just output something here.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 34.13,
+          "end": 40.19,
+          "en": "For example, I could have a program that just prints out Hello World, and I could just redirect or",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 40.19,
+          "end": 41.66,
+          "en": "write to my device.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 41.66,
+          "end": 42.92,
+          "en": "Dev null.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 43.25,
+          "end": 45.2,
+          "en": "We have seen that one before as well.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 45.2,
+          "end": 48.71,
+          "en": "And we can see here the output is just being discarded.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 48.83,
+          "end": 51.29,
+          "en": "This is for example here.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 51.29,
+          "end": 57.08,
+          "en": "This is not really useful, but imagine we had a program like this and we want to redirect the normal",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 57.41,
+          "end": 64.65,
+          "en": "or the standard output to the file dev null to not print it here in our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 64.65,
+          "end": 69.21000000000001,
+          "en": "And then you can see here how we can redirect the output of this program to dev null.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 69.21000000000001,
+          "end": 71.74,
+          "en": "And it's not being printed here in our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 71.76,
+          "end": 77.66,
+          "en": "I have canceled this command with control C so I can type in my terminal again.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 77.67,
+          "end": 79.83,
+          "en": "So this is the dev null device.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 79.83,
+          "end": 86.82,
+          "en": "But when we read it, so for example here dev null, then we can see here it's indicating end of file.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 86.82,
+          "end": 88.35,
+          "en": "There's nothing to read here.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 88.89,
+          "end": 91.32,
+          "en": "So this is now just an empty file.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 91.89,
+          "end": 97.71000000000001,
+          "en": "So this is extremely useful when working with the command line, especially because we can just redirect",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 97.75,
+          "end": 102,
+          "en": "output into this file and then it's being discarded automatically.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 102.50999999999999,
+          "end": 107.83,
+          "en": "The next file or pseudo device that I would like to introduce you to would be dev random.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 107.85,
+          "end": 114.72,
+          "en": "This produces a stream of random numbers and it only produces random data as long as enough environmental",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 114.72,
+          "end": 116.00999999999999,
+          "en": "noise is available.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 116.03999999999999,
+          "end": 121.95,
+          "en": "Environmental noise is a form of entropy that our computer is collecting.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 121.95,
+          "end": 127.8,
+          "en": "Entropy means that it collects random data from the environment that could be sensors in the computer,",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 127.8,
+          "end": 133.92,
+          "en": "that could be timings from, for example, USB interfaces or network interfaces.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 133.92,
+          "end": 139.05,
+          "en": "So it tries to produce a random data from there to make it available here.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 139.56,
+          "end": 145.14,
+          "en": "And the idea here is that we have purely random data that's not artificially generated, but that's",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 145.35,
+          "end": 151.82999999999998,
+          "en": "generated by our environment without the control of our computer, because then we can rely on that",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 151.82999999999998,
+          "end": 155.37,
+          "en": "random data for cryptographic operations.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 156.25,
+          "end": 158.47,
+          "en": "This file, we could also adjust output.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 158.47,
+          "end": 165.28,
+          "en": "So, for example, here, we could just cut that file and I will I try to avoid printing binary data",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 165.28,
+          "end": 171.64,
+          "en": "to my terminal because then it can change my terminal settings with special characters that can change",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 171.64,
+          "end": 173.07999999999998,
+          "en": "the behavior of my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 173.07999999999998,
+          "end": 177.22,
+          "en": "And they might be generated here if we are just printing out random data.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 177.43,
+          "end": 181.9,
+          "en": "So I try to avoid that to avoid problems here in my terminal session.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 181.9,
+          "end": 187.81,
+          "en": "So what I do is that I just redirect that to a file and I say, okay, this file should be in my home",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 187.81,
+          "end": 194.08,
+          "en": "directory and I just call that new file, for example, random without any extension.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 194.08,
+          "end": 199.81,
+          "en": "So this is now generating this data that is now being redirected to that file.",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 199.81,
+          "end": 200.89,
+          "en": "It can run forever.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 200.92000000000002,
+          "end": 202.57,
+          "en": "There's like an endless stream of data.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 202.57,
+          "end": 205.96,
+          "en": "It might be slower though, if not enough entropy is available.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 205.96,
+          "end": 212.65,
+          "en": "I can now cancel that one control C and now I can go into my home directory and now we can just see",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 212.65,
+          "end": 218.39,
+          "en": "here that there is now this new random file and we can also ask for the file.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 218.39,
+          "end": 223.7,
+          "en": "So for example here random, and we can see here that it's now already quite large.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 224.06,
+          "end": 226.88,
+          "en": "Uh, this should be about six gigabytes.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 227.39,
+          "end": 233.18,
+          "en": "If we just want to access the first few bytes from that file, we could, by the way, also use the",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 233.18,
+          "end": 237.98,
+          "en": "head command and then we could say, okay, here we are only interested in the first ten for example,",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 237.98,
+          "end": 240.71,
+          "en": "bytes of our file dev random.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 240.71,
+          "end": 245.18,
+          "en": "And because this device, it's just a file, we can just do this.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 245.21,
+          "end": 249.89,
+          "en": "And now, luckily there were no bytes here that control my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 249.89,
+          "end": 251.15,
+          "en": "At least I hope so.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 251.15,
+          "end": 256.25,
+          "en": "Usually this one should work, but it might also be if you execute this, if there is data generated",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 256.25,
+          "end": 262.46,
+          "en": "that controls your terminal, that after that maybe your terminal works or doesn't work properly anymore.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 262.67,
+          "end": 264.41,
+          "en": "But here everything worked.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 264.62,
+          "end": 269.42,
+          "en": "So those would be now like, uh, ten bytes that we have read from this device.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 269.42,
+          "end": 275.6,
+          "en": "This is what we should use for cryptographic operations or when this randomness is extremely important.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 276.23,
+          "end": 278.96,
+          "en": "Another device would be the random.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 278.96,
+          "end": 283.82,
+          "en": "It's similar to dev random, but it always produces that data.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 284.18,
+          "end": 287.72,
+          "en": "But it may reuse already used in environmental noise.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 287.72,
+          "end": 294.47,
+          "en": "So the advantage here is that this one can be faster because it doesn't need to wait for entropy to",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 294.47,
+          "end": 298.28,
+          "en": "be collected for like timings and temperature or whatever sensors.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 298.58,
+          "end": 305.45,
+          "en": "Um, this environmental noise is coming from, um, and the advantages that it will always produce data.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 305.45,
+          "end": 310.76,
+          "en": "And if we request more data and there's not enough environmental noise available, then it will just",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 310.76,
+          "end": 314.15,
+          "en": "reuse that to generate additional random data.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 314.18,
+          "end": 321.53,
+          "en": "The disadvantages, if you would be using this one here for applications that rely on the data to be",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 321.53,
+          "end": 328.28,
+          "en": "random, for example, cryptographic operations, then this might not be as safe or it would might compromise",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 328.28,
+          "end": 329.3,
+          "en": "the security.",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 329.93,
+          "end": 334.13,
+          "en": "We can see it here that it works just as just as dev random.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 334.13,
+          "end": 340.29,
+          "en": "So here you can see also here I could just generate ten random bytes of data.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 340.32,
+          "end": 343.38,
+          "en": "They now have been displayed in less characters here on my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 343.38,
+          "end": 348.84000000000003,
+          "en": "Maybe there was like a special character or some characters that didn't show up in my terminal, but",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 349.05,
+          "end": 351.42,
+          "en": "at least we were able to generate this.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 352.01,
+          "end": 359.81,
+          "en": "The next few devices I would like to mention here would be dev std in dev stdout and stderr.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 359.84000000000003,
+          "end": 366.47,
+          "en": "They facilitate the input output and errors for normal Unix programs and they are unique to our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 366.47,
+          "end": 373.85,
+          "en": "So for example here I could just say hello world and I could for example, just redirect that to our",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 373.91,
+          "end": 375.05,
+          "en": "STD out.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 375.05,
+          "end": 381.88,
+          "en": "And now you can see here how it's now being printed here, but I could also redirect this to the STD",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 381.89,
+          "end": 388.1,
+          "en": "in and then it shows up here because it it's the same as if we would type it and then characters would",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 388.1,
+          "end": 389.36,
+          "en": "also show up here.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 389.99,
+          "end": 393.47,
+          "en": "Or I could also redirect it to STD error.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 393.53,
+          "end": 397.76,
+          "en": "And you can see how it's then also printed here to my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 398.06,
+          "end": 403.90999999999997,
+          "en": "The way those files are important is because those are the default files, at least stdout for example",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 403.90999999999997,
+          "end": 409.52,
+          "en": "for the standard out and this is the default device or file for the standard error output.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 409.52,
+          "end": 416.52,
+          "en": "So technically if I just want to print something, this one here is already sending this output of the",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 417,
+          "end": 424.8,
+          "en": "of this program to slash dev STD out and then it's being displayed being sent to the virtual terminal",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 424.8,
+          "end": 426.87,
+          "en": "and then my terminal can display this.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 426.87,
+          "end": 435.75,
+          "en": "But if I but what I want to emphasize here is that, um, this being printed is pretty much just a file",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 435.75,
+          "end": 441.99,
+          "en": "operation in a sense that this content or this output that's being generated by this command is being",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 441.99,
+          "end": 450,
+          "en": "sent or is being written into the file slash dev slash STD out with, which then makes sure that it's",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 450,
+          "end": 451.8,
+          "en": "being shown here in my terminal.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 452.28,
+          "end": 459.54,
+          "en": "I want to emphasize this because all we do here with this one, with this redirect operator, when we",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 459.54,
+          "end": 465.93,
+          "en": "want to redirect something into a file and I say, for example, Hello.txt or something like this,",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 465.93,
+          "end": 469.92,
+          "en": "in this case I'm just redirecting that output into a different file.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 469.95,
+          "end": 476.85,
+          "en": "But I want to emphasize that even before when we are just printing it to STD out, without this redirect,",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 476.88,
+          "end": 479.82,
+          "en": "this would technically still write into a file.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 479.82,
+          "end": 486.9,
+          "en": "In a sense that slash dev slash STD out is a file, but this file just represents a device in a sense",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 486.9,
+          "end": 493.47,
+          "en": "that it takes this output, it sends that to or it writes that to stdout.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 493.68,
+          "end": 499.98,
+          "en": "Stdout writes this to the corresponding virtual terminal and then this output is being sent to our actual",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 499.98,
+          "end": 501.33,
+          "en": "terminal application.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 501.33,
+          "end": 507.24,
+          "en": "But I just want to emphasize that no matter how we output here, technically it's always written into",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 507.24,
+          "end": 507.66,
+          "en": "a file.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 507.66,
+          "end": 512.46,
+          "en": "It just might be this file here, like an actual file in a classical sense.",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 512.46,
+          "end": 518.94,
+          "en": "Or if we leave it out, it will be written to dev STD out, which will then lead to this output being",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 518.94,
+          "end": 520.47,
+          "en": "shown here in our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 520.47,
+          "end": 526.59,
+          "en": "So I just wanted to emphasize this because it really shows that pretty much what we are doing with Bash",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 526.59,
+          "end": 533.61,
+          "en": "here is that we are just using the functionality that our operating system provides and that would,",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 533.61,
+          "end": 538.89,
+          "en": "for example, be that we can change this device or this file by another file.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 539.37,
+          "end": 546,
+          "en": "And Bash just facilitates us to use the feature that our operating system provides for us.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 546.3,
+          "end": 554.37,
+          "en": "So those would be a few more additional important pseudo devices that we have available on Unix or Linux",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 554.37,
+          "end": 555.15,
+          "en": "systems.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38121152",
+      "title": "System Insights: Files in the Folder `/proc`",
+      "lectureOrder": 141,
+      "videoOrder": 118,
+      "sourceHash": "6ef2a0c92e42d7b70ad740719a8cef19de3a4ae2c653da7918252c45535f8c3d",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.27,
+          "end": 1.35,
+          "en": "In this lecture.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 1.35,
+          "end": 4.23,
+          "en": "We want to have a closer look at the folder slash proc.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 4.89,
+          "end": 11.61,
+          "en": "This folder allows us to easily inspect our system, and for that we can look into the files into the",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.61,
+          "end": 13.08,
+          "en": "slash proc folder.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 13.11,
+          "end": 15.57,
+          "en": "Why would we want to inspect our system?",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 15.57,
+          "end": 18.81,
+          "en": "Well, let's say we are not the authors of that system.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 18.81,
+          "end": 19.26,
+          "en": "In a sense.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 19.26,
+          "end": 21.36,
+          "en": "We have not built that computer ourselves.",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 21.39,
+          "end": 26.79,
+          "en": "But let's say, for example, we are just renting a machine and the vendor has promised us a certain",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 26.79,
+          "end": 30.66,
+          "en": "amount of CPU power and a certain amount of memory.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 30.75,
+          "end": 37.26,
+          "en": "Then inspecting the files in slash proc can give us at least an estimate whether this information can",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 37.26,
+          "end": 40.41,
+          "en": "be can be trusted or not.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 40.53,
+          "end": 45.39,
+          "en": "So if we want to inspect our system, we can look into the files, into the folder.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 45.39,
+          "end": 50.19,
+          "en": "So for example, we could look into the slash proc cpuinfo file.",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 50.19,
+          "end": 56.76,
+          "en": "And this contains information about the system CPUs and it shows things like vendor model and speed",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 56.76,
+          "end": 58.37,
+          "en": "and additional features.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 58.38,
+          "end": 60.73,
+          "en": "Let's have a look at that, how that looks here.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 60.73,
+          "end": 69.28,
+          "en": "So here I'm logged in into a virtual machine and I can just output the file proc cpuinfo to list information",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 69.28,
+          "end": 70.8,
+          "en": "about my processors.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 70.81,
+          "end": 78.76,
+          "en": "This file is quite long because we have multiple CPUs available to our system, so here we can see the",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 78.76,
+          "end": 81.01,
+          "en": "information about our first core.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 81.03999999999999,
+          "end": 87.46000000000001,
+          "en": "Please note depending on your processor, your processor might support a feature called Hyperthreading,",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 87.46000000000001,
+          "end": 94.87,
+          "en": "which means that one physical core might appear as two logical cores to our operating system in order",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 94.87,
+          "end": 98.11,
+          "en": "to run even more applications at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 98.11,
+          "end": 104.68,
+          "en": "And in that case, it might be listed two times here because this will print how our operating system",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 104.68,
+          "end": 105.72999999999999,
+          "en": "sees those cores.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 105.72999999999999,
+          "end": 113.89,
+          "en": "So just as an example, maybe a few years ago we might have had a dual core with hyper threading and",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 113.89,
+          "end": 120.49,
+          "en": "that would look like a quad core to our system so that our system can feed enough tasks to our processor",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 120.49,
+          "end": 122.05,
+          "en": "to fully utilize it.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 122.05,
+          "end": 126.88,
+          "en": "So but that depends on your processor, whether it supports that feature or not.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 126.88,
+          "end": 132.7,
+          "en": "But this is our first logical processor or core here that we have in our system.",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 132.7,
+          "end": 134.47,
+          "en": "We can see here it's an Intel CPU.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 134.5,
+          "end": 137.53,
+          "en": "We can see this is the generation that I'm using here.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 137.53,
+          "end": 139.9,
+          "en": "It's already an older CPU by now.",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 139.9,
+          "end": 144.28,
+          "en": "We can also see this is the speed that this processor can run at.",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 144.31,
+          "end": 152.26,
+          "en": "We can see the cache and we can also see that this processor supports certain CPU features or flags",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 152.26,
+          "end": 153.16,
+          "en": "called here.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 153.22,
+          "end": 154.72,
+          "en": "What's up with those flags?",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 154.72,
+          "end": 155.62,
+          "en": "What do they mean?",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 155.62,
+          "end": 163.42000000000002,
+          "en": "Well, we can imagine it like this, that the processor supports the general tasks or the general commands",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 163.78,
+          "end": 172.15,
+          "en": "that our applications expect, but it can also support additional commands that maybe not all processors",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 172.15,
+          "end": 173.02,
+          "en": "support.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 173.29,
+          "end": 178.6,
+          "en": "This is referring to the low level instruction code that our processor can execute.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 178.6,
+          "end": 184.45,
+          "en": "And if it has certain flags or certain features here, for example, those here, but also the others,",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 184.45,
+          "end": 192.1,
+          "en": "they have a different idea here that they extend the the instruction set that our processor can understand.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 192.13,
+          "end": 198.37,
+          "en": "This could, for example, be that instead of multiplying multiple numbers together with a single with",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 198.37,
+          "end": 204.16,
+          "en": "a single instruction each, we could also have a combined command, for example, that can multiply",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 204.19,
+          "end": 212.92000000000002,
+          "en": "several matrices together in just one single instruction that our that that we need to send to our processor.",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 212.92000000000002,
+          "end": 217.12,
+          "en": "And then it can work on maybe like eight multiplications at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 217.12,
+          "end": 223.32999999999998,
+          "en": "And you can imagine that this is way faster than if we would have to multiply eight numbers individually",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 223.32999999999998,
+          "end": 225.28,
+          "en": "with separate instructions.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 225.28,
+          "end": 230.95,
+          "en": "It's a little bit like instead of just doing one thing after the other, we can be like, Hey, do those",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 230.95,
+          "end": 236.05,
+          "en": "eight multiplications at the same time as fast as you can and then let's continue our program.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 236.62,
+          "end": 238.66,
+          "en": "And this is extremely important.",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 238.66,
+          "end": 239.95,
+          "en": "Those CPU features.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 239.95,
+          "end": 247.81,
+          "en": "For example, if you want to work with a lot of data that could be video transcoding training neural",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 247.81,
+          "end": 253.81,
+          "en": "network, though you should rather do that on a graphical on a GPU.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 254.41,
+          "end": 263.05,
+          "en": "But if your application can use those features, then it usually gives a huge boost to the performance.",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 263.98,
+          "end": 269.89,
+          "en": "Now if we just scroll down, we can also see we have the next processor here, that's the next logical",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 269.89,
+          "end": 270.7,
+          "en": "core here.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 271,
+          "end": 276.3,
+          "en": "It's from the same CPU here and yeah, it just repeats it.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 276.31,
+          "end": 279.73,
+          "en": "Then we have the next processor that's now processor three.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 279.73,
+          "end": 286.93,
+          "en": "And then if we scroll down, then we see this is our fourth core and if we keep scrolling down then",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 286.93,
+          "end": 289.54,
+          "en": "that's it with our CPU info file.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 289.54,
+          "end": 293.23,
+          "en": "But if we look into the documentation here of this CPU.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 294.27,
+          "end": 302.79,
+          "en": "This CPU should have 20 threads or 20 logical cores or 12 physical cores, but it should count until",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 302.79,
+          "end": 304.83,
+          "en": "19 here and not just stop at three.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 304.86,
+          "end": 306.39,
+          "en": "Why does it stop at three?",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 306.42,
+          "end": 312.51,
+          "en": "Well, this is a virtual machine and when I created that virtual machine, I told my virtual machine",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 312.51,
+          "end": 317.94,
+          "en": "software that I only want this virtual machine to be able to use four CPUs.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 317.94,
+          "end": 321.72,
+          "en": "So we are limited here and we are not able to use the full power.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 322.14,
+          "end": 327.36,
+          "en": "So this is something, for example, you could check whether you get the number of threads here and",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 327.36,
+          "end": 332.13,
+          "en": "what kind of hardware your virtual machine that has been provided to you is running on.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 333.57,
+          "end": 340.29,
+          "en": "It may also be, by the way, that if the host if one computer runs multiple virtual machines at the",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 340.29,
+          "end": 346.26,
+          "en": "same time, that it shows up here, but that you can't use the full power of one core because maybe",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 346.26,
+          "end": 352.17,
+          "en": "on the same computer there are multiple virtual machines running at the same time and the host doesn't",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 352.17,
+          "end": 358.57,
+          "en": "give the full performance to your computer, but at least you get a quick or a good overview what kind",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 358.57,
+          "end": 361,
+          "en": "of hardware your system is running on.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 361.84,
+          "end": 367.96,
+          "en": "The next thing I would like to mention would be proc meminfo, which is pretty much similar to the CPU",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 367.96,
+          "end": 368.17,
+          "en": "info.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 368.2,
+          "end": 373.21,
+          "en": "It just gives you information about the memory that your that your system is using.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 373.21,
+          "end": 381.49,
+          "en": "So if we output that one cut proc meminfo then you can see here right now if I scroll up here, we got",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 381.52,
+          "end": 387.28,
+          "en": "eight gigabytes of memory available, 6.8GB about our free.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 387.31,
+          "end": 394.09000000000003,
+          "en": "I say about here because technically if we want to turn this into megabytes, we would have to divide",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 394.09000000000003,
+          "end": 395.86,
+          "en": "it by 1024.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 395.89,
+          "end": 397.21,
+          "en": "That's the factor here.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 397.81,
+          "end": 401.26,
+          "en": "But we can see here there's enough memory available.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 401.26,
+          "end": 405.01,
+          "en": "It also gives us additional things here.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 405.01,
+          "end": 409.81,
+          "en": "For example, this is the memory that's available in a sense that some of the memory that we are using",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 409.81,
+          "end": 412.75,
+          "en": "could be purged or we would not necessarily need that one.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 412.75,
+          "end": 418.57,
+          "en": "So we do have enough memory here available, but this could we could also use this one if we get a virtual",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 418.57,
+          "end": 424.66,
+          "en": "machine or something like this to confirm, do we actually have access to the promised memory that our",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 424.66,
+          "end": 426.22,
+          "en": "vendor promised to us?",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 427.3,
+          "end": 432.19,
+          "en": "The next file would be proc version that contains version information about the kernel.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 432.22,
+          "end": 437.59,
+          "en": "Our compiler, for example here, the C plus plus compiler and our operating system.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 437.59,
+          "end": 441.46,
+          "en": "So we can also just output that one proc version.",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 441.46,
+          "end": 447.61,
+          "en": "So I will output this one and we can see here, this is my current kernel and I'm running this is my",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 447.61,
+          "end": 451,
+          "en": "compiler that has been used here to compile that kernel.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 451,
+          "end": 455.92,
+          "en": "So this gives us a rough idea what kind of Linux we are running on here.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 456.19,
+          "end": 458.2,
+          "en": "Another file is proc uptime.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 458.2,
+          "end": 463.12,
+          "en": "This displays the time that the system has been up and the amount of time it has been idle.",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 463.65999999999997,
+          "end": 470.98,
+          "en": "So if we just exit or output that file proc uptime, then we can see here it has been running for this",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 470.98,
+          "end": 474.4,
+          "en": "many seconds and it has been idle for this many seconds.",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 474.4,
+          "end": 477.98,
+          "en": "Why is it idling more than it has been running here?",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 477.99,
+          "end": 481.74,
+          "en": "This is because we got four CPU cores here right now in my system.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 481.74,
+          "end": 485.79,
+          "en": "And if one of those is idling, then it already counts this one up.",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 485.79,
+          "end": 492.12,
+          "en": "So you can see here a few seconds later here, just about 18 seconds have passed.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 492.12,
+          "end": 497.94,
+          "en": "And here you can see that we have a significantly higher number because, again, we have four cores",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 497.94,
+          "end": 500.4,
+          "en": "and they can all idle at the same time.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 500.4,
+          "end": 507.24,
+          "en": "So this gives us an overview or we can use this as an overview about our uptime and how our system is",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 507.24,
+          "end": 507.84,
+          "en": "running.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 508.08,
+          "end": 513.09,
+          "en": "The next command would be or file would be proc load avg load average.",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 513.09,
+          "end": 518.85,
+          "en": "And this shows us the load average for the past one, five and 15 minutes, followed by the number of",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 518.85,
+          "end": 523.89,
+          "en": "currently running processes and then the number of threads that are on our system in total.",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 523.89,
+          "end": 526.77,
+          "en": "And then the last process ID that we have started.",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 526.77,
+          "end": 535.81,
+          "en": "So if I just cut that one proc load avg, then we can see here the load average is that it's using 0.03",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 535.84,
+          "end": 542.8,
+          "en": "cores here in the last minute, 0.02 cores in the last five minutes and in the last 15 minutes, zero",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 542.8,
+          "end": 544.24,
+          "en": "cores of CPU power.",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 544.24,
+          "end": 545.98,
+          "en": "So this can be above one.",
+          "zh": ""
+        },
+        {
+          "id": 120,
+          "start": 545.98,
+          "end": 556.18,
+          "en": "If we are using more than one core, we have one process running and 442 threads that are that also",
+          "zh": ""
+        },
+        {
+          "id": 121,
+          "start": 556.18,
+          "end": 557.32,
+          "en": "might be in the background.",
+          "zh": ""
+        },
+        {
+          "id": 122,
+          "start": 557.32,
+          "end": 561.82,
+          "en": "And this is the last process that has been started here on our system.",
+          "zh": ""
+        },
+        {
+          "id": 123,
+          "start": 561.82,
+          "end": 567.76,
+          "en": "So you can see how all of those files here in the proc folder give you information about the hardware",
+          "zh": ""
+        },
+        {
+          "id": 124,
+          "start": 567.76,
+          "end": 569.38,
+          "en": "that your system is running on.",
+          "zh": ""
+        },
+        {
+          "id": 125,
+          "start": 569.38,
+          "end": 574.81,
+          "en": "Please note there are way more files in that folder, but the list that we have looked at that are the",
+          "zh": ""
+        },
+        {
+          "id": 126,
+          "start": 574.81,
+          "end": 576.4,
+          "en": "most common ones.",
+          "zh": ""
+        },
+        {
+          "id": 127,
+          "start": 576.4,
+          "end": 585.82,
+          "en": "But I just want you to be aware that in the proc folder this allows you to inspect your hardware and",
+          "zh": ""
+        },
+        {
+          "id": 128,
+          "start": 585.82,
+          "end": 588.43,
+          "en": "this information can be found in this folder.",
+          "zh": ""
+        },
+        {
+          "id": 129,
+          "start": 588.73,
+          "end": 590.95,
+          "en": "So this would be our proc folder.",
+          "zh": ""
+        },
+        {
+          "id": 130,
+          "start": 590.98,
+          "end": 592.6,
+          "en": "They are not real files here.",
+          "zh": ""
+        },
+        {
+          "id": 131,
+          "start": 592.6,
+          "end": 593.08,
+          "en": "They are.",
+          "zh": ""
+        },
+        {
+          "id": 132,
+          "start": 593.08,
+          "end": 593.62,
+          "en": "I mean, they are.",
+          "zh": ""
+        },
+        {
+          "id": 133,
+          "start": 593.64,
+          "end": 598.62,
+          "en": "Real faults, but in a sense that we can use them as if they were real files, that we can read them,",
+          "zh": ""
+        },
+        {
+          "id": 134,
+          "start": 598.62,
+          "end": 603.51,
+          "en": "but they are generated on the fly with always up to date information.",
+          "zh": ""
+        },
+        {
+          "id": 135,
+          "start": 603.51,
+          "end": 608.91,
+          "en": "And this folder you can use to inspect your system's resources and what's available there.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38120854",
+      "title": "Filesystem Hierarchy Standard (Part 1): / (root), /bin, /boot, /dev, /etc",
+      "lectureOrder": 142,
+      "videoOrder": 119,
+      "sourceHash": "a5de07f90356bea63e2d0fde8ed7f3b8269f036bac33e0473902869f002ce0c0",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 0.4,
+          "end": 1.66,
+          "en": "In this lecture.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 1.66,
+          "end": 8.08,
+          "en": "We want to have a look at the so called filesystem hierarchy standard, which allows us or which is",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 8.08,
+          "end": 12.61,
+          "en": "a standard that defines how a Unix system should structure its folders.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 12.85,
+          "end": 17.98,
+          "en": "Specifically, if we are here in a file browser, but we could also be in a terminal now if we would",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.98,
+          "end": 23.59,
+          "en": "go to other locations and then just open our computer drive, we can see that there are quite a few",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 23.59,
+          "end": 24.67,
+          "en": "folders here.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 24.67,
+          "end": 28.96,
+          "en": "And in this lecture we want to analyze the meaning of those folders.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 29.29,
+          "end": 32.77,
+          "en": "So what's up with this filesystem hierarchy standard?",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 33.25,
+          "end": 39.72,
+          "en": "It's a standard that defines the directory structure and directory contents In Unix like operating systems,",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 39.73,
+          "end": 45.79,
+          "en": "it provides a consistent and predictable location for specific types of files and directories and the",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 45.79,
+          "end": 51.88,
+          "en": "purposes that different distributions are compatible with each other and that it's easier for users,",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 51.88,
+          "end": 55.15,
+          "en": "administrators and developers to locate files.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 55.15,
+          "end": 60.83,
+          "en": "Please note that this is just a standard and unixes are not forced to abide by it.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 60.83,
+          "end": 68.48,
+          "en": "For example, Mac likes to for some folders, there are different names or certain files need to be",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 68.48,
+          "end": 73.67,
+          "en": "placed in different directories and the same is also for different Linux distributions.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 73.67,
+          "end": 77.39,
+          "en": "They might distributions, they might deviate from that standard.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 77.39,
+          "end": 83.6,
+          "en": "But still, let's have a look at those folders because it still allows us to get a general overview.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 83.72,
+          "end": 85.61,
+          "en": "Let's start with the root directory.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 85.61,
+          "end": 87.86,
+          "en": "That's just the directory slash.",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 87.89,
+          "end": 90.38,
+          "en": "This is the root directory of the hierarchy.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 90.38,
+          "end": 95.15,
+          "en": "And in this, everything or all the files on our computer are in this directory.",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 95.15,
+          "end": 100.64,
+          "en": "This is the directory that's currently open here and this is also where all the paths start.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 100.64,
+          "end": 104.81,
+          "en": "By the way, of course we can also navigate there in our terminal.",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 104.81,
+          "end": 110.99000000000001,
+          "en": "We can just change to our root directory and then just output all the folders that we can find here.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 111.94,
+          "end": 116.34,
+          "en": "The next folder that I would like to introduce you to, that would be the slash bin folder.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 116.35,
+          "end": 120.7,
+          "en": "This contains essential command binaries required for users.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 121.36,
+          "end": 128.47,
+          "en": "The idea here is that those are just the essential binaries, only the essential programs that we might",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 128.47,
+          "end": 131.11,
+          "en": "need, for example, if our system would break.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 131.44,
+          "end": 136.12,
+          "en": "But nowadays this is being merged into slash user slash bin.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 136.32999999999998,
+          "end": 142.24,
+          "en": "This is not the filesystem hierarchy standard to merge it in there, but this is a project that has",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 142.24,
+          "end": 147.46,
+          "en": "been started to simplify the folder structure and more and more Linux distributions are following that",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 147.46,
+          "end": 148.09,
+          "en": "pattern.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 148.09,
+          "end": 149.53,
+          "en": "We can have a look at that.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 149.53,
+          "end": 156.79,
+          "en": "So here we can just change our directory into the bin folder and then if we ls that folder, then we",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 156.79,
+          "end": 163.32999999999998,
+          "en": "can see there are quite a few binaries and those are all binaries that we as a normal user might need",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 163.32999999999998,
+          "end": 165.04,
+          "en": "or might want to use.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 165.28,
+          "end": 170.47,
+          "en": "If we just have a look at this folder, I just go back to my one directory above.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 170.47,
+          "end": 174.89,
+          "en": "I clear my screen and I say lSl here.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 174.92000000000002,
+          "end": 181.61,
+          "en": "Then we can see here that we got this bin folder over here and we can see here that this folder, at",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 181.61,
+          "end": 185.54,
+          "en": "least here on my ubuntu it's just a symlink to usr bin.",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 185.54,
+          "end": 191.51,
+          "en": "So we can see here how this user merge project has been applied here, meaning that a symlink has been",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 191.51,
+          "end": 194.45,
+          "en": "set from slash bin to slash usr bin.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 194.45,
+          "end": 197.21,
+          "en": "So this is not a folder here anymore.",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 197.21,
+          "end": 200.27,
+          "en": "It's just a symlink to this folder here.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 200.57,
+          "end": 202.67000000000002,
+          "en": "So this has been merged here already.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 202.67000000000002,
+          "end": 208.13,
+          "en": "It might also be that on some Linux systems the symlink might be in the opposite direction that this",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 208.13,
+          "end": 210.14,
+          "en": "here would be a symlink to this folder.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 210.14,
+          "end": 214.76,
+          "en": "And then of course this one here would just show up as a normal folder and this one here would then",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 214.79,
+          "end": 219.29,
+          "en": "be a slash user slash bin would then be a symlink to slash bin.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 219.29,
+          "end": 223.79,
+          "en": "But here in this case slash bin is a symlink to slash usr bin.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 224.18,
+          "end": 225.38,
+          "en": "So those.",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 225.65,
+          "end": 226.31,
+          "en": "Yeah.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 226.4,
+          "end": 229.4,
+          "en": "Um, this user merge has already been applied here.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 230.18,
+          "end": 236.06,
+          "en": "Um, the next folder that I would like to talk about is the boot folder because we go through those",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 236.06,
+          "end": 238.28,
+          "en": "folders in alphabetical order.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 238.49,
+          "end": 244.22,
+          "en": "Slash boot contains files for the boot loader and is responsible for that.",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 244.22,
+          "end": 247.46,
+          "en": "So if we have a look at that, I will just use the file browser.",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 247.46,
+          "end": 253.55,
+          "en": "Now, if we go into the boot folder, you can see here that there is, for example, um, this would",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 253.55,
+          "end": 257.81,
+          "en": "be our Linux kernel that will be loaded here or the initial Ram disk.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 257.84,
+          "end": 262.82,
+          "en": "That's also part of the system boot sequence or also our boot loader configuration.",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 262.82,
+          "end": 266.21,
+          "en": "All of that is stored here in the folder slash boot.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 266.3,
+          "end": 275.57,
+          "en": "So this is important in order to start our Linux up and to load the core system in memory and to make",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 275.57,
+          "end": 277.28,
+          "en": "sure that everything works there.",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 277.28,
+          "end": 280.25,
+          "en": "So that's the responsibility of slash boot.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 280.67,
+          "end": 282.68,
+          "en": "The next folder is slash dev.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 282.71,
+          "end": 286.73,
+          "en": "This contains device files that represent hardware and software devices.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 286.73,
+          "end": 296.06,
+          "en": "So for example, slash dev null dev SDA for if we use a Sata device or slash dev t for terminal devices,",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 296.21,
+          "end": 301.16,
+          "en": "we will have a separate lecture about those devices and how slash dev works.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 301.31,
+          "end": 305.72,
+          "en": "But we can still nonetheless go into that folder here for now.",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 305.72,
+          "end": 310.13,
+          "en": "And here you can see we got quite a few folders, but if I do scroll, scroll down.",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 310.13,
+          "end": 315.68,
+          "en": "You could see for example here that we got folders that represent devices.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 315.68,
+          "end": 322.19,
+          "en": "So for example, those here would represent a hard drive and the corresponding partitions, but you",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 322.19,
+          "end": 325.28,
+          "en": "can see that there are folders for a lot more in this folder.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 325.7,
+          "end": 328.1,
+          "en": "But again, we'll talk about those later.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 329.04,
+          "end": 335.43,
+          "en": "The next folder that I would like to mention is slash e.t.c. that is responsible for containing system",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 335.43,
+          "end": 336.75,
+          "en": "wide configuration.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 337.14,
+          "end": 341.64,
+          "en": "Um, so there would be configuration files and directories needed for that.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 341.90999999999997,
+          "end": 348.96,
+          "en": "Um, usually those config files are text files and we can edit them to change our system configuration.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 348.96,
+          "end": 354.33,
+          "en": "If we have a look at that, we can just go here into the E.T.C. folder and then you can see here, for",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 354.33,
+          "end": 358.95,
+          "en": "example, this would be for one graphical user interface.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 359.02,
+          "end": 362.58,
+          "en": "Uh, the config files there, this would be for a web server.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 362.61,
+          "end": 368.97,
+          "en": "Or if we keep scrolling down, we would see, for example, um, tasks that should be run repeatedly",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 368.97,
+          "end": 369.87,
+          "en": "on our system.",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 369.87,
+          "end": 377.55,
+          "en": "They might be in those, uh, files or if we keep scrolling down at some point, somehow the scroll",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 377.55,
+          "end": 379.38,
+          "en": "bar doesn't now should work again.",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 379.77,
+          "end": 385.86,
+          "en": "Um, if we keep going down at some point we would see here, for example, VPN configuration, open",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 385.86,
+          "end": 393.04,
+          "en": "VPN here, or if we keep scrolling down python config or at some point there should also be system D,",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 393.07,
+          "end": 399.28,
+          "en": "for example, which is responsible for system diesel component responsible for starting up our system.",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 399.28,
+          "end": 406.65999999999997,
+          "en": "Like once the boot, like the kernel has been loaded, it will hand off the booting of our system to",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 406.65999999999997,
+          "end": 412.81,
+          "en": "system D and then system D will manage to store a start everything that we need to run our system.",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 412.81,
+          "end": 416.08,
+          "en": "There's a separate chapter about that in that course here as well.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 416.59000000000003,
+          "end": 419.92,
+          "en": "So you can see here how a lot of config files are here.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 419.92,
+          "end": 425.11,
+          "en": "And of course those might also be folders with even more folders in them.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 425.65,
+          "end": 429.58,
+          "en": "So this is the e.t.c. folder for system wide config.",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 429.91,
+          "end": 431.89,
+          "en": "Those are the first few folders.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 431.89,
+          "end": 438.34,
+          "en": "Let's now in the next lecture, have a look at the next few folders here in our root directory.",
+          "zh": ""
+        }
+      ]
+    },
+    {
+      "id": "38121126",
+      "title": "Filesystem Hierarchy Standard (Part 2): /home, /lib, /media, /mnt, /opt",
+      "lectureOrder": 143,
+      "videoOrder": 120,
+      "sourceHash": "cd39f2f9fa5f397eb27c1f9f3e8a646d00cb5ce79b352095ed9ac3d192c8279a",
+      "sourceLanguage": "en",
+      "cues": [
+        {
+          "id": 1,
+          "start": 1.18,
+          "end": 4.45,
+          "en": "Let's now continue with the filesystem hierarchy standard.",
+          "zh": ""
+        },
+        {
+          "id": 2,
+          "start": 4.45,
+          "end": 7.9,
+          "en": "The next folder that I would like to talk about is the home folder.",
+          "zh": ""
+        },
+        {
+          "id": 3,
+          "start": 7.93,
+          "end": 11.35,
+          "en": "This is meant to contain personal directories for users.",
+          "zh": ""
+        },
+        {
+          "id": 4,
+          "start": 11.35,
+          "end": 17.56,
+          "en": "If our system is supposed to have users, which would be, for example, a normal desktop Ubuntu.",
+          "zh": ""
+        },
+        {
+          "id": 5,
+          "start": 17.59,
+          "end": 18.49,
+          "en": "Definitely.",
+          "zh": ""
+        },
+        {
+          "id": 6,
+          "start": 19.03,
+          "end": 24.01,
+          "en": "It contains user specific settings, documents and other files that can be stored there.",
+          "zh": ""
+        },
+        {
+          "id": 7,
+          "start": 24.01,
+          "end": 25.36,
+          "en": "Let's just have a look here.",
+          "zh": ""
+        },
+        {
+          "id": 8,
+          "start": 25.36,
+          "end": 30.7,
+          "en": "So for example here that would be the home folder and here we would see this is the user that I'm currently",
+          "zh": ""
+        },
+        {
+          "id": 9,
+          "start": 30.7,
+          "end": 34.87,
+          "en": "logged in as and this would be my home folder with all my personal data.",
+          "zh": ""
+        },
+        {
+          "id": 10,
+          "start": 34.87,
+          "end": 39.07,
+          "en": "So this is stored in slash home and then the corresponding username.",
+          "zh": ""
+        },
+        {
+          "id": 11,
+          "start": 39.07,
+          "end": 42.85,
+          "en": "Me as a normal user, I don't have access to other users data.",
+          "zh": ""
+        },
+        {
+          "id": 12,
+          "start": 42.85,
+          "end": 47.02,
+          "en": "So here we can see I'm not allowed to access this other folder here.",
+          "zh": ""
+        },
+        {
+          "id": 13,
+          "start": 47.17,
+          "end": 51.94,
+          "en": "This is how it's supposed to be so that the files from the other users are safe.",
+          "zh": ""
+        },
+        {
+          "id": 14,
+          "start": 52.87,
+          "end": 59.74,
+          "en": "The next folder is the slash lib folder that's meant to contain library files that supports the binaries",
+          "zh": ""
+        },
+        {
+          "id": 15,
+          "start": 59.74,
+          "end": 63.05,
+          "en": "located under slash bin and slash spin.",
+          "zh": ""
+        },
+        {
+          "id": 16,
+          "start": 63.05,
+          "end": 67.13,
+          "en": "So this folder, we already talked about this one.",
+          "zh": ""
+        },
+        {
+          "id": 17,
+          "start": 67.13,
+          "end": 68.33,
+          "en": "We will talk later.",
+          "zh": ""
+        },
+        {
+          "id": 18,
+          "start": 68.33,
+          "end": 74.57,
+          "en": "We go through it in alphabetical order, but it's enough if we look at this for the slash bin folder.",
+          "zh": ""
+        },
+        {
+          "id": 19,
+          "start": 75.11,
+          "end": 82.7,
+          "en": "The idea here is that those programs might need additional libraries to load and all of those files",
+          "zh": ""
+        },
+        {
+          "id": 20,
+          "start": 83.12,
+          "end": 85.19,
+          "en": "will be placed in the lib folder.",
+          "zh": ""
+        },
+        {
+          "id": 21,
+          "start": 86.06,
+          "end": 93.22999999999999,
+          "en": "There might also be additional lib folders for additional architectures, for example, lib 32 or lib",
+          "zh": ""
+        },
+        {
+          "id": 22,
+          "start": 93.22999999999999,
+          "end": 94.19,
+          "en": "64.",
+          "zh": ""
+        },
+        {
+          "id": 23,
+          "start": 94.88,
+          "end": 101.78,
+          "en": "Please note this folders or also the other folders are nowadays also being merged into slash user slash",
+          "zh": ""
+        },
+        {
+          "id": 24,
+          "start": 101.78,
+          "end": 102.2,
+          "en": "lib.",
+          "zh": ""
+        },
+        {
+          "id": 25,
+          "start": 102.2,
+          "end": 106.16,
+          "en": "So you might also encounter symlinks instead of real folders here.",
+          "zh": ""
+        },
+        {
+          "id": 26,
+          "start": 106.37,
+          "end": 107.66,
+          "en": "Let's have a look at this.",
+          "zh": ""
+        },
+        {
+          "id": 27,
+          "start": 107.66,
+          "end": 113.72,
+          "en": "So here I'm on my computer again in my file system, in my root folder and here we can see lib.",
+          "zh": ""
+        },
+        {
+          "id": 28,
+          "start": 113.72,
+          "end": 117.5,
+          "en": "It's indicated that it's a symlink through this symbol here.",
+          "zh": ""
+        },
+        {
+          "id": 29,
+          "start": 117.5,
+          "end": 120.02,
+          "en": "But here for example, we could see several files.",
+          "zh": ""
+        },
+        {
+          "id": 30,
+          "start": 120.02,
+          "end": 122.78,
+          "en": "Let's just have a look at some of those files here.",
+          "zh": ""
+        },
+        {
+          "id": 31,
+          "start": 122.78,
+          "end": 123.83,
+          "en": "What's in there?",
+          "zh": ""
+        },
+        {
+          "id": 32,
+          "start": 124.34,
+          "end": 127.97,
+          "en": "There should also be files here, for example, for Python.",
+          "zh": ""
+        },
+        {
+          "id": 33,
+          "start": 127.97,
+          "end": 133.07,
+          "en": "If we keep scrolling down at some point we should find something for Python.",
+          "zh": ""
+        },
+        {
+          "id": 34,
+          "start": 133.07,
+          "end": 138.44,
+          "en": "So here, for example, for a specific python version, we can go in and then we can see here there",
+          "zh": ""
+        },
+        {
+          "id": 35,
+          "start": 138.44,
+          "end": 144.56,
+          "en": "are a few libs there for Python or there were more items in the folder right now, at least for Python",
+          "zh": ""
+        },
+        {
+          "id": 36,
+          "start": 144.56,
+          "end": 145.73,
+          "en": "3.10.",
+          "zh": ""
+        },
+        {
+          "id": 37,
+          "start": 145.73,
+          "end": 150.86,
+          "en": "And if we go into that folder, you can see here, for example, there are various Python files.",
+          "zh": ""
+        },
+        {
+          "id": 38,
+          "start": 150.86,
+          "end": 155.75,
+          "en": "This would be the Python standard library that is being shipped here in our lib folder.",
+          "zh": ""
+        },
+        {
+          "id": 39,
+          "start": 156.14,
+          "end": 163.25,
+          "en": "So for example, if we have a Python program, it needs to have access to this folder here because this",
+          "zh": ""
+        },
+        {
+          "id": 40,
+          "start": 163.25,
+          "end": 168.74,
+          "en": "is when we want to use the Python standard library, how it will be loaded and it will be loaded here",
+          "zh": ""
+        },
+        {
+          "id": 41,
+          "start": 168.74,
+          "end": 171.14,
+          "en": "from this folder here.",
+          "zh": ""
+        },
+        {
+          "id": 42,
+          "start": 171.14,
+          "end": 174.53,
+          "en": "This ubuntu version is running in a virtual machine on my mac.",
+          "zh": ""
+        },
+        {
+          "id": 43,
+          "start": 174.53,
+          "end": 183.23,
+          "en": "It's the version of ubuntu, but if you run ubuntu for example on a normal Intel or AMD processor with",
+          "zh": ""
+        },
+        {
+          "id": 44,
+          "start": 183.23,
+          "end": 189.85,
+          "en": "the x86 architecture, it's like the normal architecture of computers that would be here.",
+          "zh": ""
+        },
+        {
+          "id": 45,
+          "start": 189.85,
+          "end": 192.4,
+          "en": "Then you might have additional lib folders here.",
+          "zh": ""
+        },
+        {
+          "id": 46,
+          "start": 192.4,
+          "end": 199.39,
+          "en": "So for example you might have lib 32 here or lib 64 and this one here for example would be the libraries",
+          "zh": ""
+        },
+        {
+          "id": 47,
+          "start": 199.39,
+          "end": 201.64,
+          "en": "that 32 bit programs run.",
+          "zh": ""
+        },
+        {
+          "id": 48,
+          "start": 201.64,
+          "end": 210.7,
+          "en": "So your computer or your processor allows in this case here to run 64 bit programs, but also it allows",
+          "zh": ""
+        },
+        {
+          "id": 49,
+          "start": 210.7,
+          "end": 216.4,
+          "en": "you to run 32 bit programs and those libraries might be the same.",
+          "zh": ""
+        },
+        {
+          "id": 50,
+          "start": 216.4,
+          "end": 219.19,
+          "en": "They might be shared between different CPU architectures.",
+          "zh": ""
+        },
+        {
+          "id": 51,
+          "start": 219.19,
+          "end": 224.32,
+          "en": "So, for example, those Python files that you've seen before, they are just Python files, they are",
+          "zh": ""
+        },
+        {
+          "id": 52,
+          "start": 224.32,
+          "end": 225.07,
+          "en": "source files.",
+          "zh": ""
+        },
+        {
+          "id": 53,
+          "start": 225.07,
+          "end": 230.17000000000002,
+          "en": "They can just be executed with Python with 64 bit, but also with 32 bit.",
+          "zh": ""
+        },
+        {
+          "id": 54,
+          "start": 230.53,
+          "end": 240.46,
+          "en": "But when you have shared libraries in a more cplusplus in one of those compiled languages sense, then",
+          "zh": ""
+        },
+        {
+          "id": 55,
+          "start": 241.42,
+          "end": 247.51,
+          "en": "you have different architectures and those libraries are also different that need to be loaded there.",
+          "zh": ""
+        },
+        {
+          "id": 56,
+          "start": 247.51,
+          "end": 253.69,
+          "en": "So this is why we do have here multiple folders here because our processor here in this case on this",
+          "zh": ""
+        },
+        {
+          "id": 57,
+          "start": 253.69,
+          "end": 260.32,
+          "en": "computer supports not just the one CPU architecture, but also different CPU architectures that can",
+          "zh": ""
+        },
+        {
+          "id": 58,
+          "start": 260.32,
+          "end": 266.89,
+          "en": "be run all at the same time and they have different dependencies or different libraries and that's why",
+          "zh": ""
+        },
+        {
+          "id": 59,
+          "start": 266.89,
+          "end": 268.87,
+          "en": "we have different folders there.",
+          "zh": ""
+        },
+        {
+          "id": 60,
+          "start": 268.87,
+          "end": 274.9,
+          "en": "So one library might be installed, for example, for 32 bit, but not for this one, or it might be",
+          "zh": ""
+        },
+        {
+          "id": 61,
+          "start": 274.9,
+          "end": 277.3,
+          "en": "installed for 64 bit, but not for this one.",
+          "zh": ""
+        },
+        {
+          "id": 62,
+          "start": 277.3,
+          "end": 278.98,
+          "en": "Or it might be installed for both.",
+          "zh": ""
+        },
+        {
+          "id": 63,
+          "start": 278.98,
+          "end": 286.54,
+          "en": "So the same library might have to be installed multiple times for the different CPU architectures if",
+          "zh": ""
+        },
+        {
+          "id": 64,
+          "start": 286.54,
+          "end": 287.83,
+          "en": "you want to use that one.",
+          "zh": ""
+        },
+        {
+          "id": 65,
+          "start": 287.83,
+          "end": 295.12,
+          "en": "But usually when you install software on Linux, the package manager should do all of that for you automatically.",
+          "zh": ""
+        },
+        {
+          "id": 66,
+          "start": 295.12,
+          "end": 300.61,
+          "en": "So you don't have to worry too much about that and more about package.",
+          "zh": ""
+        },
+        {
+          "id": 67,
+          "start": 300.73,
+          "end": 304.11,
+          "en": "Management later here in this course in a separate chapter.",
+          "zh": ""
+        },
+        {
+          "id": 68,
+          "start": 304.12,
+          "end": 306.31,
+          "en": "So those are the additional folders.",
+          "zh": ""
+        },
+        {
+          "id": 69,
+          "start": 306.31,
+          "end": 312.76,
+          "en": "Please note nowadays they are all being merged into usr lib, so the main folders in your root directory",
+          "zh": ""
+        },
+        {
+          "id": 70,
+          "start": 312.76,
+          "end": 318.52,
+          "en": "might be symlinks or those might be symlinks to the root folders, but usually it's the root folders",
+          "zh": ""
+        },
+        {
+          "id": 71,
+          "start": 318.52,
+          "end": 322.78,
+          "en": "that are symlinks to our lib and us lib 32 and so on.",
+          "zh": ""
+        },
+        {
+          "id": 72,
+          "start": 322.78,
+          "end": 324.97,
+          "en": "So that would be the lib folder.",
+          "zh": ""
+        },
+        {
+          "id": 73,
+          "start": 325.33,
+          "end": 329.05,
+          "en": "The next folder I would like to talk about is the slash media folder.",
+          "zh": ""
+        },
+        {
+          "id": 74,
+          "start": 329.05,
+          "end": 332.26,
+          "en": "This contains mount points for removable storage media.",
+          "zh": ""
+        },
+        {
+          "id": 75,
+          "start": 332.26,
+          "end": 339.13,
+          "en": "So for example, if you would plug in a USB drive or an SD card, then they get mounted into that folder",
+          "zh": ""
+        },
+        {
+          "id": 76,
+          "start": 339.13,
+          "end": 340.9,
+          "en": "here to this virtual machine.",
+          "zh": ""
+        },
+        {
+          "id": 77,
+          "start": 340.9,
+          "end": 342.79,
+          "en": "I have connected an SD card.",
+          "zh": ""
+        },
+        {
+          "id": 78,
+          "start": 342.79,
+          "end": 344.44,
+          "en": "It shows up in a user folder.",
+          "zh": ""
+        },
+        {
+          "id": 79,
+          "start": 344.44,
+          "end": 348.90999999999997,
+          "en": "So slash media, then the user and then, oh, it's not an SD card right now.",
+          "zh": ""
+        },
+        {
+          "id": 80,
+          "start": 348.90999999999997,
+          "end": 351.28,
+          "en": "It's it's an SSD that's connected here.",
+          "zh": ""
+        },
+        {
+          "id": 81,
+          "start": 351.28,
+          "end": 355.87,
+          "en": "And this would be an external volume and it just shows up here in my path.",
+          "zh": ""
+        },
+        {
+          "id": 82,
+          "start": 355.87,
+          "end": 362.41,
+          "en": "We can also see that in the terminal here, I can just change into media into that folder and then we",
+          "zh": ""
+        },
+        {
+          "id": 83,
+          "start": 362.41,
+          "end": 368.62,
+          "en": "can see here, this is just my external SSD and it's just a normal folder in a sense that I can just",
+          "zh": ""
+        },
+        {
+          "id": 84,
+          "start": 368.62,
+          "end": 370.57,
+          "en": "navigate to into that folder.",
+          "zh": ""
+        },
+        {
+          "id": 85,
+          "start": 370.78,
+          "end": 376.03,
+          "en": "But physically speaking, this is now an external drive that I'm accessing here and it's just being",
+          "zh": ""
+        },
+        {
+          "id": 86,
+          "start": 376.03,
+          "end": 379.42,
+          "en": "made available here in my normal file system hierarchy.",
+          "zh": ""
+        },
+        {
+          "id": 87,
+          "start": 380.05,
+          "end": 386.86,
+          "en": "And the best practice is here that those removable drives are made available in slash media.",
+          "zh": ""
+        },
+        {
+          "id": 88,
+          "start": 386.86,
+          "end": 392.11,
+          "en": "And this then also tells the user interface here that this, for example, should be clickable here",
+          "zh": ""
+        },
+        {
+          "id": 89,
+          "start": 392.11,
+          "end": 395.53,
+          "en": "and that we want to easily access it here.",
+          "zh": ""
+        },
+        {
+          "id": 90,
+          "start": 396.49,
+          "end": 403.33,
+          "en": "More about mounts in a separate chapter here in this course, there's also another folder that would",
+          "zh": ""
+        },
+        {
+          "id": 91,
+          "start": 403.33,
+          "end": 404.35,
+          "en": "be slash mnt.",
+          "zh": ""
+        },
+        {
+          "id": 92,
+          "start": 404.59000000000003,
+          "end": 411.97,
+          "en": "And this is this contains mount points for additional file systems that are not usually that removable.",
+          "zh": ""
+        },
+        {
+          "id": 93,
+          "start": 412.21,
+          "end": 413.77,
+          "en": "I mean, they can still be.",
+          "zh": ""
+        },
+        {
+          "id": 94,
+          "start": 414.51,
+          "end": 419.61,
+          "en": "It's called unmounting, which means that they can still be removed and stuff, but they are not showing",
+          "zh": ""
+        },
+        {
+          "id": 95,
+          "start": 419.61,
+          "end": 421.59,
+          "en": "up in the user interface, for example.",
+          "zh": ""
+        },
+        {
+          "id": 96,
+          "start": 421.59,
+          "end": 427.11,
+          "en": "So there if we want to manually mount something, um, for example, we have a second drive and we want",
+          "zh": ""
+        },
+        {
+          "id": 97,
+          "start": 427.11,
+          "end": 429.03,
+          "en": "to make that available to our system.",
+          "zh": ""
+        },
+        {
+          "id": 98,
+          "start": 429.03,
+          "end": 432.9,
+          "en": "Best practice would be to create a folder there and mount the folder over there.",
+          "zh": ""
+        },
+        {
+          "id": 99,
+          "start": 432.9,
+          "end": 435.81,
+          "en": "Again, Mount is a separate chapter here in this course.",
+          "zh": ""
+        },
+        {
+          "id": 100,
+          "start": 435.9,
+          "end": 438.18,
+          "en": "So those would be those folders.",
+          "zh": ""
+        },
+        {
+          "id": 101,
+          "start": 438.18,
+          "end": 444.51,
+          "en": "The next folder that I would like to talk about is Slash Opt, and that's for optional application software",
+          "zh": ""
+        },
+        {
+          "id": 102,
+          "start": 444.51,
+          "end": 446.25,
+          "en": "packages that can be stored here.",
+          "zh": ""
+        },
+        {
+          "id": 103,
+          "start": 446.25,
+          "end": 453.65999999999997,
+          "en": "So if we have a look at that one, I can just go into the opt folder here, slash opt and where is it?",
+          "zh": ""
+        },
+        {
+          "id": 104,
+          "start": 453.65999999999997,
+          "end": 459.78,
+          "en": "If we scroll up, we can see it's over here and we can see here right now the optional packages here,",
+          "zh": ""
+        },
+        {
+          "id": 105,
+          "start": 459.78,
+          "end": 460.95,
+          "en": "they are empty.",
+          "zh": ""
+        },
+        {
+          "id": 106,
+          "start": 461.94,
+          "end": 468.48,
+          "en": "But here, for example, on another machine of mine, if I open the folder, we can see there's a from",
+          "zh": ""
+        },
+        {
+          "id": 107,
+          "start": 468.48,
+          "end": 474.75,
+          "en": "the virtual machine, some guest additions and they have been probably installed into that folder.",
+          "zh": ""
+        },
+        {
+          "id": 108,
+          "start": 474.75,
+          "end": 478.05,
+          "en": "So this is where optional packages are being stored.",
+          "zh": ""
+        },
+        {
+          "id": 109,
+          "start": 478.83,
+          "end": 486.18,
+          "en": "This folder is not that much used here on Ubuntu and also not that much on CentOS.",
+          "zh": ""
+        },
+        {
+          "id": 110,
+          "start": 486.21,
+          "end": 491.64,
+          "en": "There's pretty much also just this one here inside we there might be some applications that install",
+          "zh": ""
+        },
+        {
+          "id": 111,
+          "start": 491.64,
+          "end": 499.62,
+          "en": "themselves to opt, but I found on Linux not that much software installs into opt.",
+          "zh": ""
+        },
+        {
+          "id": 112,
+          "start": 500.28,
+          "end": 506.67,
+          "en": "Also on Mac, the core operating system does not install itself into opt but for example additional",
+          "zh": ""
+        },
+        {
+          "id": 113,
+          "start": 506.67,
+          "end": 510.51,
+          "en": "software that we install especially for example the package manager Homebrew.",
+          "zh": ""
+        },
+        {
+          "id": 114,
+          "start": 510.54,
+          "end": 516.4,
+          "en": "If we install packages through that one, they all end up in the opt folder for because they are like",
+          "zh": ""
+        },
+        {
+          "id": 115,
+          "start": 516.45,
+          "end": 522.91,
+          "en": "optional software and that's not really part of the operating system, but that we still want to use",
+          "zh": ""
+        },
+        {
+          "id": 116,
+          "start": 522.94,
+          "end": 526.12,
+          "en": "and this is what belongs into that opt folder.",
+          "zh": ""
+        },
+        {
+          "id": 117,
+          "start": 526.12,
+          "end": 532.39,
+          "en": "So those would be the next few folders that I would like to introduce you here in this lecture.",
+          "zh": ""
+        },
+        {
+          "id": 118,
+          "start": 532.39,
+          "end": 537.4,
+          "en": "In the next lecture, I want to continue with the filesystem hierarchy standard, and I would like to",
+          "zh": ""
+        },
+        {
+          "id": 119,
+          "start": 537.4,
+          "end": 540.58,
+          "en": "introduce you to the next few folders on Linux.",
+          "zh": ""
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
