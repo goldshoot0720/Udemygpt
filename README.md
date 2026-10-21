@@ -38,7 +38,7 @@ Firefox、Chrome、Edge 開發者載入包與 Safari 轉換來源包見 [GitHub 
 - [Java Spring Framework, Spring Boot, Spring AI - Gen AI](https://www.udemy.com/course/spring-5-with-spring-boot-2/) — 499／499 堂英文已驗證（83,763 段），中文 2／499 堂
 - [Laravel 11 - From Basics to Advance](https://www.udemy.com/course/laravel-basics-to-advance/) — 253／253 堂英文已驗證（50,046 段），中文 5／253 堂
 - [Game Development in JS/TS - The Complete Guide (w/ Phaser 3)](https://www.udemy.com/course/game-development-in-js-the-complete-guide-w-phaser-3/) — 247 堂英文已驗證，中文翻譯中
-- [Solid JS & Firebase - Complete Guide to X(Twitter) Clone](https://www.udemy.com/course/solid-js-firebase-the-complete-guide-twitter-clone-app/) — 215 堂英文已驗證，中文 76／215（9,438 段），尚未匯入
+- [Solid JS & Firebase - Complete Guide to X(Twitter) Clone](https://www.udemy.com/course/solid-js-firebase-the-complete-guide-twitter-clone-app/) — 215 堂英文已驗證，中文 83／215（10,214 段），尚未匯入
 
 已完成課程合計 **4,672** 堂影片（不含文章與測驗）。
 
