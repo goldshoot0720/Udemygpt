@@ -32,6 +32,31 @@ TOKEN_CHARS = set(
 )
 
 
+def fold_whitespace(raw):
+    """Collapse the translator's line wrapping without welding latin words together.
+
+    Subtitles are single lines, so the newlines a writer adds for readability have
+    to go. Deleting *every* space, though, silently turns `export default` into
+    `exportdefault` and `Ruby on Rails` into `RubyonRails` — damaged identifiers
+    that read as typos in the finished subtitle. Chinese never needs a space, so
+    keep a single space only when both sides of it are latin/digit characters.
+    """
+    text = ' '.join(raw.split())
+    if ' ' not in text:
+        return text
+    out, i = [], 0
+    while i < len(text):
+        char = text[i]
+        if char == ' ' and 0 < i < len(text) - 1:
+            if text[i - 1] in TOKEN_CHARS and text[i + 1] in TOKEN_CHARS:
+                out.append(' ')
+            i += 1
+            continue
+        out.append(char)
+        i += 1
+    return ''.join(out)
+
+
 def valid_breaks(zh):
     """Offsets that never cut a latin token into two pieces."""
     n = len(zh)
@@ -46,7 +71,12 @@ def valid_breaks(zh):
             i = j
             continue
         i += 1
-    return [p for p in range(1, n) if p not in forbidden]
+    # Never cut next to a space. A cue that consists of nothing but the space
+    # between "special" and "attributes" renders as an empty subtitle, and a cue
+    # that starts with one picks up a leading blank; keeping the space attached
+    # to the word it follows avoids both.
+    return [p for p in range(1, n)
+            if p not in forbidden and zh[p - 1] != ' ' and zh[p] != ' ']
 
 
 def split_segments(zh, weights, window=60):
@@ -138,8 +168,7 @@ def main():
     source = Path(args.input)
     cues = json.loads(source.read_text(encoding='utf-8'))[args.lecture_id]
     raw = Path(args.translation).read_text(encoding='utf-8').strip()
-    # Subtitle cues are single lines: fold the translator's paragraph wrapping away.
-    zh = ''.join(raw.split())
+    zh = fold_whitespace(raw)
     if not zh:
         raise SystemExit('譯文檔案是空的。')
 
