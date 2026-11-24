@@ -88,7 +88,7 @@ React 標示的 71 小時換算為約 4,260 分鐘；面板優先使用各堂影
 
 Firefox 完全關閉後暫用附加元件會移除；長期安裝需要 Mozilla 簽章。請保留譯文 JSON 作為備份。
 
-2.7.0 至 2.7.13 另提供 `udemy-bilingual-firefox-版本-signed.xpi`，已由 Mozilla 簽署：在「附加元件與主題」頁的齒輪選「從檔案安裝附加元件」即可永久安裝，重開瀏覽器不會被移除。2.7.14 沒有簽署，請用 Firefox ZIP 暫時載入。
+2.7.16 提供 `udemy-bilingual-firefox-2.7.16-signed.xpi`，已由 Mozilla 簽署：在「附加元件與主題」頁的齒輪選「從檔案安裝附加元件」即可永久安裝，重開瀏覽器不會被移除。2.7.14 沒有簽署。
 
 未簽署的 `udemy-bilingual-firefox-版本.xpi` 與 ZIP 內容相同（SHA-256 一致），只能用同一個「載入暫用附加元件」對話框載入，雙擊安裝一定會被拒絕。自行簽署請依 [取得 API Key 與 API Secret](https://addons.mozilla.org/zh-TW/developers/addon/api/key/) 建立 AMO 憑證（需接受未上架 add-on 的條款），再執行 `WEB_EXT_API_KEY=<key> WEB_EXT_API_SECRET=<secret> npx web-ext@7 sign --source-dir udemy-bilingual --channel unlisted`。憑證只留在本機，不要提交進這個儲存庫。
 

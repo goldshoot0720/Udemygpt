@@ -1,23 +1,31 @@
-# Udemy 中英/中日雙語特效字幕 2.7.14
+# Udemy 中英/中日雙語特效字幕 2.7.16
 
-GitHub Release 提供 Firefox、Chrome、Edge 的開發者載入包，以及 Safari 原始碼包。這一版沒有向 Mozilla 申請簽章，因此沒有 `-signed.xpi`。未發布到瀏覽器商店。包內不包含課程影片、音訊、帳號資料或已翻譯的課程字幕。
+GitHub Release 提供 Firefox 的簽章 XPI 與 ZIP、Chrome、Edge 的開發者載入包，以及 Safari 原始碼包。Firefox 的 `-signed.xpi` 已由 Mozilla 簽署，可直接安裝且重開瀏覽器不會被移除；未發布到瀏覽器商店。包內不包含課程影片、音訊、帳號資料或已翻譯的課程字幕。
 
 ## Firefox（115 以上）
 
-1. 解壓縮 `udemy-bilingual-firefox-2.7.14.zip`（或直接使用本機的擴充功能資料夾）。
+### 方式一：安裝簽章版
+
+1. 下載 `udemy-bilingual-firefox-2.7.16-signed.xpi`。
+2. Firefox 選單「工具」→「附加元件與主題」，右上角齒輪選「從檔案安裝附加元件」。
+3. 選該 XPI，按「立即安裝」。
+
+此版本由 Mozilla 簽署，可長期安裝，重新開啟 Firefox 不會被移除。升級新版本時重複以上步驟即可。
+
+### 方式二：暫時載入
+
+1. 解壓縮 `udemy-bilingual-firefox-2.7.16.zip`（或直接使用本機的擴充功能資料夾）。
 2. 開啟 `about:debugging#/runtime/this-firefox`，按「載入暫用附加元件」。
 3. 選擇解壓縮資料夾內的 `manifest.json`，在確認對話框按「載入」。
 4. 回到 Udemy 播放器重新整理。
 
 已從資料夾載入過的使用者不必重裝，對既有項目按「重新載入」即可取得新版本。Firefox 關閉後暫用附加元件會移除。
 
-`udemy-bilingual-firefox-2.7.14-UNSIGNED-DO-NOT-INSTALL.xpi` 與 ZIP 內容相同，**雙擊安裝會被 Firefox 拒絕**。請用上面的暫時載入，不要去雙擊它。
-
-需要長期安裝、重開瀏覽器仍保留的簽章版，請用上一版 `udemy-bilingual-firefox-2.7.13-signed.xpi`。那一版沒有左上角的堂次顯示。自行簽署請依 [取得 API Key 與 API Secret](https://addons.mozilla.org/zh-TW/developers/addon/api/key/) 建立憑證後執行 `WEB_EXT_API_KEY=<key> WEB_EXT_API_SECRET=<secret> npx web-ext@7 sign --source-dir udemy-bilingual --channel unlisted`。憑證只留在本機，不要提交進儲存庫。
+`udemy-bilingual-firefox-2.7.16-UNSIGNED-DO-NOT-INSTALL.xpi` 與 ZIP 內容相同，**雙擊安裝會被 Firefox 拒絕**。請安裝 `-signed.xpi`，或用上面的暫時載入。
 
 ## Chrome／Edge（109 以上，建議目前穩定版）
 
-1. 下載相應的 `udemy-bilingual-chrome-2.7.14.zip` 或 `udemy-bilingual-edge-2.7.14.zip`，解壓縮到固定位置。
+1. 下載相應的 `udemy-bilingual-chrome-2.7.16.zip` 或 `udemy-bilingual-edge-2.7.16.zip`，解壓縮到固定位置。
 2. Chrome 開啟 `chrome://extensions`；Edge 開啟 `edge://extensions`。
 3. 開啟「開發人員模式」，按「載入未封裝項目」，選擇包含 `manifest.json` 的資料夾。
 4. 回到 Udemy 課程播放器重新整理；保留解壓縮資料夾供後續載入。
@@ -26,7 +34,7 @@ Chrome／Edge 包使用 Manifest V3 service worker，並處理非同步訊息與
 
 ## Safari
 
-`udemy-bilingual-safari-source-2.7.14.zip` 是 Safari Web Extension 轉換來源，不能直接安裝。本次未生成或編譯 Xcode 專案：發布主機只有 Command Line Tools，未安裝完整 Xcode。
+`udemy-bilingual-safari-source-2.7.16.zip` 是 Safari Web Extension 轉換來源，不能直接安裝。本次未生成或編譯 Xcode 專案：發布主機只有 Command Line Tools，未安裝完整 Xcode。
 
 在已安裝完整 Xcode 的 Mac 解壓縮來源包，執行 `sh convert-safari.sh`，再開啟產生的 Xcode 專案。設定開發團隊、檢查轉換工具列出的 API 相容性警告，編譯並簽署應用程式及擴充套件。Safari 版本仍待原生編譯與實際播放驗證，詳見包內 `SAFARI.md`。
 
