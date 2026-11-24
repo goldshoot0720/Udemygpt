@@ -39,7 +39,9 @@
     button,select,input { font: inherit; }
     button { color: #eef6ff; background: #0a1527e8; border: 1px solid #ffffff30; border-radius: 9px; padding: 7px 10px; font-size: 12px; cursor: pointer; }
     button:hover,button:focus-visible { border-color: #79e6ff; outline: none; }
+    .top-row { display: flex; align-items: center; gap: 6px; }
     .toolbar { display: flex; gap: 4px; opacity: .25; transition: opacity .15s; }
+    .lecture-index { color:#eef6ff; background:#0a1527e8; border:1px solid #ffffff30; border-radius:9px; padding:7px 10px; font-size:12px; font-weight:650; font-variant-numeric:tabular-nums; line-height:1.2; }
     .course-id { color:#79e6ff; font-weight:650; margin-bottom:4px; user-select:text; }
     .course-time { width: 100%; margin-bottom:12px; padding:8px 10px; border:1px solid #ffffff30; border-radius:9px; background:#0a1527e8; font-size:12px; line-height:1.5; pointer-events:auto; }
     .time-current { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#eef6ff; }
@@ -149,7 +151,7 @@
     shadow = root.attachShadow({ mode: "open" });
     shadow.innerHTML = `<style>${css}</style>
       <div class="captions"><div class="lines" hidden><div class="zh" lang="zh-TW"></div><div class="en" lang="en"></div></div></div>
-      <div class="controls"><div class="toolbar"><button class="toggle" type="button">中英 CC ✓</button><button class="settings" type="button" aria-label="雙語字幕設定" aria-expanded="false">設定</button></div>
+      <div class="controls"><div class="top-row"><div class="toolbar"><button class="toggle" type="button">中英 CC ✓</button><button class="settings" type="button" aria-label="雙語字幕設定" aria-expanded="false">設定</button></div><span class="lecture-index" hidden></span></div>
       <div class="panel" hidden>
       <div class="course-time" aria-label="課程影片分鐘數" hidden>
       <div class="course-id">課程 ID：讀取中…</div>
@@ -260,19 +262,29 @@
     const current = shadow.querySelector(".time-current"), total = shadow.querySelector(".time-total");
     const watched = shadow.querySelector(".time-watched"), remaining = shadow.querySelector(".time-remaining");
     const note = shadow.querySelector(".time-note"), retry = shadow.querySelector(".time-retry");
+    const index = shadow.querySelector(".lecture-index");
     const lecture = location.pathname.match(/\/lecture\/(\d+)/)?.[1];
     const courseId = shadow.querySelector(".course-id");
     courseId.textContent = timeCourseId ? `課程 ID：${timeCourseId} · 資料夾 data/courses/${timeCourseId}` : "課程 ID：讀取中…";
     courseId.title = course ? `${course.title || course.slug}（${timeCourseId || "讀取中"}）` : "";
     if (!timeItems) {
       current.textContent = timeError || "正在讀取課程時長…";
+      current.title = current.textContent;
       total.textContent = ""; watched.textContent = "已觀看 — 分鐘"; remaining.textContent = "未觀看 — 分鐘";
       note.textContent = "依序觀看估算：前面影片＋本堂播放位置";
-      retry.hidden = !timeError; return;
+      retry.hidden = !timeError;
+      index.hidden = true; index.textContent = ""; index.title = ""; index.setAttribute("aria-label", "");
+      return;
     }
     const result = UdemyCourseTime.calculate(timeItems, lecture, video?.currentTime || 0);
-    current.textContent = result.current ? `目前：${result.current.order}. ${result.current.title}` : "目前講座不在課程清單中";
+    const count = timeItems.length;
+    const ratio = result.current ? `${result.current.order}/${count}` : `—/${count}`;
+    current.textContent = result.current ? `目前：${ratio} ${result.current.title}` : "目前講座不在課程清單中";
     current.title = current.textContent;
+    index.textContent = ratio;
+    index.hidden = false;
+    index.title = current.textContent;
+    index.setAttribute("aria-label", result.current ? `目前第 ${result.current.order} 堂，共 ${count} 堂` : `共 ${count} 堂`);
     total.textContent = `總影片 ${UdemyCourseTime.minutes(result.total)} 分鐘`;
     watched.textContent = `已觀看 ${UdemyCourseTime.minutes(result.watched)} 分鐘`;
     remaining.textContent = `未觀看 ${UdemyCourseTime.minutes(result.remaining)} 分鐘`;
