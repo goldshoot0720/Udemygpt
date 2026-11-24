@@ -117,9 +117,10 @@ async function workflow(course, index, withoutEnglish = false, chromium = false)
   assert.equal(shadow.querySelector('.export-current').textContent, '匯出本堂英文');
   assert.equal(shadow.querySelector('.export-course').textContent, '匯出全課英文');
   assert.equal(shadow.querySelector('.import').textContent, '匯入中英雙語字幕');
-  assert.equal(shadow.querySelector('.time-current').textContent, '目前：1/1 Fixture lecture');
-  assert.equal(shadow.querySelector('.lecture-index').textContent, '1/1');
-  assert.equal(shadow.querySelector('.lecture-index').hidden, false);
+  assert.equal(shadow.querySelector('.time-ratio').textContent, '1/1');
+  assert.equal(shadow.querySelector('.time-ratio').hidden, false);
+  assert.equal(shadow.querySelector('.time-current').textContent, '目前：1. Fixture lecture');
+  assert.ok(!fs.readFileSync(require.resolve('../udemy-bilingual/content.js'), 'utf8').includes('lecture-index'));
   assert.equal(shadow.querySelector('.course-id').textContent, `課程 ID：${courseId} · 資料夾 data/courses/${courseId}`);
   assert.equal(shadow.querySelector('.time-total').textContent, '總影片 2.0 分鐘');
   assert.equal(shadow.querySelector('.time-watched').textContent, '已觀看 0.0 分鐘');
