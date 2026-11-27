@@ -16,6 +16,7 @@
     } },
     tabs: { getZoom: tabId => call(api.tabs, "getZoom", tabId) },
     runtime: {
+      getURL: path => api.runtime.getURL(path),
       async sendMessage(message) {
         const response = await call(api.runtime, "sendMessage", message);
         if (response?.udemyBilingualResponse !== 1) throw new Error("擴充功能背景程式未回應，請重新載入");

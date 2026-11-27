@@ -3,6 +3,8 @@ import importlib.util
 import json
 from pathlib import Path
 import tempfile
+import sys
+from unittest import TestCase, mock
 from zipfile import ZipFile
 
 root = Path(__file__).resolve().parent.parent
@@ -52,6 +54,26 @@ with tempfile.TemporaryDirectory() as temp:
         # Nothing that could pass as a Mozilla signature may ship in the package.
         assert not any(name.startswith('META-INF') or name.endswith(('.rsa', '.sf', '.pem', '.key')) for name in package.namelist())
     assert xpi.read_bytes() == (output / f'udemy-bilingual-firefox-{firefox_manifest["version"]}.zip').read_bytes()
+    sys.path.insert(0, str(root / 'scripts'))
+    import build_release
+    checks = TestCase()
+    with checks.assertRaisesRegex(ValueError, '缺少 Mozilla 簽章'):
+        build_release.verify_xpi_pair(xpi, xpi)
+    signed = output / 'fixture.xpi'
+    # These fixture entries exercise archive comparison only. Firefox validates real signatures.
+    signatures = {name: b'fixture' for name in ('META-INF/mozilla.rsa', 'META-INF/mozilla.sf', 'META-INF/manifest.mf')}
+    fixture = {**firefox_expected, **signatures, 'manifest.json': json.dumps(firefox_manifest).encode()}
+    builder.write_archive(signed, fixture, firefox_manifest)
+    build_release.verify_xpi_pair(xpi, signed)
+    fixture['content.js'] += b'// different build'
+    builder.write_archive(signed, fixture, firefox_manifest)
+    with checks.assertRaisesRegex(ValueError, 'content.js'):
+        build_release.verify_xpi_pair(xpi, signed)
+    with mock.patch.object(sys, 'argv', ['build_release.py', '--output', str(output)]), \
+         mock.patch.object(build_release, 'read_credentials', return_value=(None, None)), \
+         mock.patch.object(build_release, 'build'), \
+         checks.assertRaisesRegex(SystemExit, '發行未完成'):
+        build_release.main()
     for line in (output / 'SHA256SUMS.txt').read_text().splitlines():
         checksum, name = line.split('  ')
         assert hashlib.sha256((output / name).read_bytes()).hexdigest() == checksum

@@ -1,6 +1,6 @@
 # Udemy 中英/中日雙語特效字幕
 
-Firefox、Chrome、Edge 開發者載入包與 Safari 轉換來源包見 [GitHub Releases](https://github.com/goldshoot0720/Udemygpt/releases)。安裝方式與簽章限制見 [安裝指南](releases/INSTALL.md)。執行 `python3 scripts/build_extensions.py` 可重建四種套件，輸出至 `dist/v版本/`。
+Firefox、Chrome、Edge 開發者載入包與 Safari 轉換來源包見 [GitHub Releases](https://github.com/goldshoot0720/Udemygpt/releases)。安裝方式與簽章限制見 [安裝指南](releases/INSTALL.md)。執行 `python3 scripts/build_release.py` 會在 `dist/v版本/` 建立四種瀏覽器的套件，並驗證正式安裝與暫時測試用的兩份 Firefox XPI。Mozilla 簽署排隊時會等待；中斷後重跑同一指令即可續取。
 
 支援課程的字幕流程：**英文原字幕 → ChatGPT 線上逐段翻譯 → 台灣繁體術語檢查 → 依英文時間軸顯示**。
 
@@ -58,7 +58,7 @@ React 標示的 71 小時換算為約 4,260 分鐘；面板優先使用各堂影
 
 ## 播放與縮放
 
-繁體中文在上，英文在下，支援關鍵字光暈＋淡入、電影描邊、簡潔閱讀。播放器左上角「中英 CC」可開關；「設定」可調整字體、字幕水平／垂直位置與時間校正。播放時可直接拖曳字幕移動，也能聚焦字幕後用方向鍵微調；位置會保存在瀏覽器中，按「重設字幕位置」可回到預設位置。字幕會限制在播放器範圍內，播放器大小變動時依比例保留位置。
+繁體中文在上，英文在下，支援關鍵字光暈＋淡入、電影描邊、簡潔閱讀。字幕底框與播放器設定面板預設為淡橘底，文字採深色。可在「設定 → 字幕調整 → 字幕底色」切換為淡藍底，瀏覽器會記住選擇。播放器左上角「中英 CC」可開關；「設定」可調整字體、字幕水平／垂直位置與時間校正。播放時可直接拖曳字幕移動，也能聚焦字幕後用方向鍵微調；位置會保存在瀏覽器中，按「重設字幕位置」可回到預設位置。字幕會限制在播放器範圍內，播放器大小變動時依比例保留位置。
 
 字幕與面板會補償 Firefox 的頁面縮放，包含 150%。長中文字幕會依播放器寬度縮小字級；播放器變窄或進入全螢幕也會重新計算，字幕框使用較小留白。
 
@@ -66,9 +66,9 @@ React 標示的 71 小時換算為約 4,260 分鐘；面板優先使用各堂影
 
 ## 翻譯與匯入
 
-在已登入的課程播放器網址加上 `?subtitleExport=batch`（原本已有查詢參數則加上 `&subtitleExport=batch`），即可開啟「課程英文字幕匯出」。此專用分頁須保持開啟，可逐課下載目前清單中的英文 JSON 與匯出報告。預設沿用 React 既有完整英文備份；影片與文章清單分別記錄，缺少英文字幕或無觀看權限的項目會列入報告。選項頁也有相同介面；若跨來源請求無回應，使用播放器內的匯出頁。
+在已登入的課程播放器網址加上 `?subtitleExport=batch`（原本已有查詢參數則加上 `&subtitleExport=batch`），即可開啟「課程字幕匯出」。此專用分頁須保持開啟，可逐課下載目前清單中的原文字幕 JSON 與匯出報告。預設沿用 React 既有完整英文備份；影片與文章清單分別記錄，缺少英文字幕或無觀看權限的項目會列入報告。選項頁也有相同介面；若跨來源請求無回應，使用播放器內的匯出頁。
 
-同一個頁面的「讀取我的課程」會讀取目前帳號已加入的全部課程，列出課程 ID、標題、原文語言與講師。已在翻譯清單的課程會略過。英文新課程預設勾選。按「登錄選取的課程」會下載 `subscribed-courses-register.json`，並把選取的課程加入這次的匯出清單。下載後執行 `node scripts/register_subscribed_courses.cjs /完整路徑/subscribed-courses-register.json`，才會寫進擴充功能的課程清單；寫入後要在 `about:debugging` 重新載入擴充功能。原文不是英文的課程可以登錄，但現有英文匯出驗證不會收。
+展開「從我的課程加入」，按「讀取我的課程」可讀取目前帳號已加入的全部課程，列出課程 ID、標題、原文語言與講師。已在翻譯清單的課程會略過。英文新課程預設勾選。按「加入匯出清單」會下載 `subscribed-courses-register.json`，並把選取的課程加入這次的匯出清單。下載後執行 `node scripts/register_subscribed_courses.cjs /完整路徑/subscribed-courses-register.json`，才會寫進擴充功能的課程清單；寫入後要在 `about:debugging` 重新載入擴充功能。原文不是英文的課程可以登錄，但現有英文匯出驗證不會收。
 
 下載後執行 `node prepare_course_sources.cjs /完整路徑/Udemy-English-course-ID.json`，驗證英文、時間軸雜湊、影片覆蓋範圍與缺漏記錄，並在 `data/courses/ID/` 保存原文、逐堂英文檔及約 800 段的 ChatGPT 批次（不拆開單堂）。各課程獨立的翻譯進度會初始化為待翻譯；既有進度不會重設。`data/english-download-progress.json` 記錄 27 門課的下載與驗證狀態，和 React 既有翻譯進度分開。
 
@@ -88,9 +88,9 @@ React 標示的 71 小時換算為約 4,260 分鐘；面板優先使用各堂影
 
 Firefox 完全關閉後暫用附加元件會移除；長期安裝需要 Mozilla 簽章。請保留譯文 JSON 作為備份。
 
-2.7.16 提供 `udemy-bilingual-firefox-2.7.16-signed.xpi`，已由 Mozilla 簽署：在「附加元件與主題」頁的齒輪選「從檔案安裝附加元件」即可永久安裝，重開瀏覽器不會被移除。2.7.14 沒有簽署。
+每版提供兩份 Firefox XPI。日常使用請在「附加元件與主題」按齒輪，選「從檔案安裝附加元件」，使用 `-signed.xpi`。開發測試可在 `about:debugging#/runtime/this-firefox` 選「載入暫用附加元件」，使用 `-UNSIGNED-DO-NOT-INSTALL.xpi`。
 
-未簽署的 `udemy-bilingual-firefox-版本.xpi` 與 ZIP 內容相同（SHA-256 一致），只能用同一個「載入暫用附加元件」對話框載入，雙擊安裝一定會被拒絕。自行簽署請依 [取得 API Key 與 API Secret](https://addons.mozilla.org/zh-TW/developers/addon/api/key/) 建立 AMO 憑證（需接受未上架 add-on 的條款），再執行 `WEB_EXT_API_KEY=<key> WEB_EXT_API_SECRET=<secret> npx web-ext@7 sign --source-dir udemy-bilingual --channel unlisted`。憑證只留在本機，不要提交進這個儲存庫。
+正式打包會使用環境中的 AMO 憑證，或本機的 `~/.config/udemy-bilingual/amo-key.txt`。也可用 `--key-file` 指定其他位置。只需在本機製作暫用測試包時，可明確指定 `--unsigned-only`。
 
 只在 `https://www.udemy.com/course/*/learn/*` 播放器頁面執行（其他網址與非播放器頁面一律拒絕訊息），使用正常登入權限取得英文字幕；不下載影片、不讀取 Cookie API、不儲存登入憑證。ChatGPT 檔案上傳由使用者或授權的瀏覽器操作完成，擴充功能不擷取 ChatGPT 登入資訊。
 

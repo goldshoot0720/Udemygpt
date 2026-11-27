@@ -3,7 +3,11 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 class Element {
   constructor() { this.children = []; this.events = {}; this.checked = true; this.disabled = false; this.textContent = ''; }
-  append(...values) { this.children.push(...values); }
+  append(...values) {
+    this.children.push(...values);
+    for (const value of values) if (value instanceof Element) value.parent = this;
+  }
+  remove() { this.parent.children = this.parent.children.filter(child => child !== this); }
   prepend(value) { this.children.unshift(value); }
   replaceChildren() { this.children.length = 0; }
   addEventListener(name, fn) { this.events[name] = fn; }
@@ -13,9 +17,10 @@ Element.prototype.__defineSetter__('download', function (value) { this.fileName 
 (async () => {
   const known = [{ slug: 'react-the-complete-guide-incl-redux', title: 'React', id: 1362070, known: true }];
   const nodes = Object.fromEntries(['#status', '#courses', '#start', '#skip-react', '#load-mine', '#register-mine', '#mine-status', '#mine'].map(key => [key, new Element()]));
-  const files = [], requests = [];
+  const files = [], requests = [], revoked = [];
   class TestURL extends URL {}
   TestURL.createObjectURL = blob => { files.push(blob); return 'blob:fixture'; };
+  TestURL.revokeObjectURL = address => revoked.push(address);
   const page2 = { next: null, results: [
     { id: 1000, title: '日文課', url: '/course/nihongo/', locale: 'ja_JP', visible_instructors: [{ display_name: 'Yuki' }] },
     { id: 999, title: 'New English', url: '/course/new-english/', locale: 'en_US' },
@@ -66,6 +71,8 @@ Element.prototype.__defineSetter__('download', function (value) { this.fileName 
   assert.equal(nodes['#register-mine'].disabled, false);
   nodes['#register-mine'].events.click();
   assert.match(nodes['#mine-status'].textContent, /請先勾選/);
+  assert.equal(nodes['#mine-status'].children.some(node => node.tag === 'a'), false);
+  assert.deepEqual(revoked, ['blob:fixture']);
   rows[2].box.checked = true;
   nodes['#register-mine'].events.click();
   const second = JSON.parse(await files[1].text());

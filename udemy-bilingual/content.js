@@ -6,7 +6,11 @@
   if (!course) return;
   const convertCharacters = OpenCC.Converter({ from: "cn", to: "tw" });
   const toTraditional = text => SubtitleCore.localizeTaiwan(convertCharacters(text));
-  const defaults = { enabled: true, effect: "glow", size: 25, x: 50, y: 80, offset: 0 };
+  const backgroundColors = {
+    orange: { label: "淡橘色", hex: "#f6c48a", ink: "#3c2614", muted: "#6a4e38", accent: "#7a3208", warning: "#7a3208", line: "#3c261447", control: "#3c2614ad", key: "#ffffff80", caption: "#2f1c0e", english: "#4a3424", mark: "#8a3408" },
+    blue: { label: "淡藍色", hex: "#b7def6", ink: "#123044", muted: "#3d5c74", accent: "#0c4e86", warning: "#7a3208", line: "#12304447", control: "#123044ad", key: "#ffffff80", caption: "#102838", english: "#2c4a60", mark: "#0a4a86" }
+  };
+  const defaults = { enabled: true, effect: "glow", color: "orange", size: 25, x: 50, y: 80, offset: 0 };
   let prefs = { ...defaults }, video, player, root, shadow, chineseLine, englishLine, panel, status, toggle;
   let setPanel = () => {};
   let en = [], zh = [], key = "", loaded = false, generation = 0, controller, last = "", savedTimer;
@@ -17,57 +21,152 @@
   let timeCourse = null, timeCourseId = null, timeItems = null, timeError = "", timeRevision = 0, timeController;
   const terms = /\b(Claude(?: Code)?|Codex|Flutter|Dart|Node(?:\.js|JS)?|React Native|NativeScript|Angular|Svelte(?:\.js)?|Remix(?:\.js)?|GraphQL|Express|MongoDB|Deno|Flexbox|Sass|React(?:\.js)?|JavaScript|TypeScript|JSX|Redux|Next\.js|Hooks?|useState|useEffect|useReducer|useRef|useContext|props|state|components?|DOM|API|HTTP|CSS|HTML|Vite)\b/gi;
   const css = `
-    :host { all: initial; position: absolute; inset: 0; z-index: 30; pointer-events: none; font-family: -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif; color: white; }
+    :host { all: initial; position: absolute; inset: 0; z-index: 30; pointer-events: none; font-family: -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif; color: var(--caption-ink, #2f1c0e); }
     * { box-sizing: border-box; }
     .captions { position: absolute; left: var(--caption-x,50%); top: var(--caption-y,80%); width: 84%; transform: translate(-50%,-100%); text-align: center; pointer-events: none; }
-    .lines { display: inline-flex; max-width: 100%; flex-direction: column; gap: calc(5px*var(--ui-scale,1)); padding: calc(9px*var(--ui-scale,1)) calc(16px*var(--ui-scale,1)); border-radius: calc(12px*var(--ui-scale,1)); background: linear-gradient(120deg,rgba(8,14,28,.89),rgba(14,21,39,.82)); border: 1px solid rgba(136,187,255,.25); box-shadow: 0 4px 20px #0006; pointer-events: auto; touch-action: none; cursor: grab; user-select: none; }
+    .lines { display: inline-flex; max-width: 100%; flex-direction: column; gap: calc(5px*var(--ui-scale,1)); padding: calc(9px*var(--ui-scale,1)) calc(16px*var(--ui-scale,1)); border-radius: calc(12px*var(--ui-scale,1)); background: var(--subtitle-background); border: 1px solid var(--line, #3c261447); box-shadow: 0 4px 20px #0003; pointer-events: auto; touch-action: none; cursor: grab; user-select: none; }
     .lines:active { cursor: grabbing; }
-    .lines:focus-visible { outline: 2px solid #79e6ff; outline-offset: 3px; }
+    .lines:focus-visible { outline: 2px solid var(--ink, #3c2614); outline-offset: 3px; }
     .lines[hidden], [hidden] { display: none !important; }
-    .zh { font-size: var(--zh-size,var(--size,25px)); line-height: 1.35; font-weight: 650; text-wrap: pretty; line-break: strict; word-break: normal; text-shadow: 0 1px 4px #000; }
-    .en { font-size: calc(var(--size,25px)*.76); line-height: 1.3; color: #e1eaff; text-wrap: pretty; text-shadow: 0 1px 4px #000; }
-    mark { color: #79e6ff; background: transparent; font-weight: 750; text-shadow: 0 0 14px #49b7ff88; }
+    .zh { font-size: var(--zh-size,var(--size,25px)); line-height: 1.35; font-weight: 650; text-wrap: pretty; line-break: strict; word-break: normal; }
+    .en { font-size: calc(var(--size,25px)*.76); line-height: 1.3; color: var(--english-ink, #4a3424); text-wrap: pretty; }
+    mark { color: var(--mark-ink, #8a3408); background: transparent; font-weight: 750; }
     .fade { animation: cue-in .16s ease-out both; }
     @keyframes cue-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-    :host([data-effect="minimal"]) .lines { background: #0009; border: 0; border-radius: 6px; box-shadow: none; }
+    :host([data-effect="minimal"]) .lines { border: 0; border-radius: 6px; box-shadow: none; }
     :host([data-effect="minimal"]) mark { color: inherit; font-weight: inherit; text-shadow: inherit; }
     :host([data-effect="minimal"]) .fade { animation: none; }
-    :host([data-effect="cinema"]) .lines { background: transparent; border: 0; box-shadow: none; }
-    :host([data-effect="cinema"]) .zh,:host([data-effect="cinema"]) .en { text-shadow: 1px 1px 3px #000,-1px -1px 3px #000,0 2px 8px #000; }
-    :host([data-effect="cinema"]) mark { color: #ffe29d; text-shadow: 0 2px 4px #000; }
-    .controls { --panel-width: min(460px, calc(var(--player-width, 800px) / var(--ui-scale, 1) - 24px)); position: absolute; top: 10px; left: 10px; pointer-events: auto; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; transform:scale(var(--ui-scale,1)); transform-origin:top left; }
-    button,select,input { font: inherit; }
-    button { color: #eef6ff; background: #0a1527e8; border: 1px solid #ffffff30; border-radius: 9px; padding: 7px 10px; font-size: 12px; cursor: pointer; }
-    button:hover,button:focus-visible { border-color: #79e6ff; outline: none; }
-    .toolbar { display: flex; gap: 4px; opacity: .25; transition: opacity .15s; }
+    :host([data-effect="cinema"]) .lines { border: 0; box-shadow: none; }
+    .controls {
+      --panel: var(--subtitle-background);
+      color-scheme: light;
+      --panel-width: min(448px, calc(var(--player-width, 800px) / var(--ui-scale, 1) - 20px));
+      color: var(--ink);
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      pointer-events: none;
+      display: grid;
+      justify-items: start;
+      gap: 6px;
+      transform: scale(var(--ui-scale, 1));
+      transform-origin: top left;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .toolbar, .panel { pointer-events: auto; }
+    button, select, input { font: inherit; }
+    button, select, input[type="number"] {
+      min-height: 32px;
+      border: 1px solid var(--control-line);
+      border-radius: 6px;
+      background: var(--key);
+      color: var(--ink);
+      padding: 4px 8px;
+    }
+    select option { background: var(--panel); color: var(--ink); }
+    button { cursor: pointer; font-weight: 600; }
+    button:hover:enabled, select:hover { border-color: var(--accent); }
+    button:active:enabled { background: var(--panel); }
+    button:disabled { color: var(--muted); cursor: default; }
+    .controls :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .toolbar { display: flex; align-items: flex-start; gap: 6px; }
+    .toolbar button { background: var(--panel); }
+    .toolbar .toggle[aria-pressed="true"] { color: var(--accent); }
     .toolbar[data-open="true"] { width: var(--panel-width); }
     .toolbar[data-open="true"] .settings { margin-left: auto; }
-    .course-id { color:#79e6ff; font-weight:650; margin-bottom:4px; user-select:text; }
-    .course-time { width: 100%; margin-bottom:12px; padding:8px 10px; border:1px solid #ffffff30; border-radius:9px; background:#0a1527e8; font-size:12px; line-height:1.5; pointer-events:auto; }
-    .time-ratio { color:#79e6ff; font-weight:700; font-variant-numeric:tabular-nums; }
-    .time-current { color:#eef6ff; white-space:normal; overflow:visible; overflow-wrap:break-word; }
-    .time-values { display:flex; flex-wrap:wrap; column-gap:12px; color:#79e6ff; font-variant-numeric:tabular-nums; }
-    .time-total,.time-note { color:#b9cee8; font-size:11px; }
-    .time-retry { margin-top:5px; padding:4px 8px; }
-    :host(:hover) .toolbar,.toolbar:focus-within,.toolbar[data-open="true"] { opacity: 1; }
-    .panel { width: var(--panel-width); max-height:calc(var(--player-height,400px)/var(--ui-scale,1) - 65px); overflow:auto; background: #0a1527f5; border: 1px solid #ffffff30; border-radius: 12px; padding: 14px; box-shadow: 0 6px 20px #0008; font-size: 13px; }
-    label { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; }
-    select { max-width: 145px; color: white; border: 1px solid #ffffff40; background: #14253d; border-radius: 6px; padding: 4px; }
-    input[type="range"] { width: 125px; accent-color: #7fdcff; }
-    input[type="number"] { width: 80px; color: white; border: 1px solid #ffffff40; background: #14253d; border-radius: 6px; padding: 4px; }
-    .status { color: #b9cee8; font-size: 12px; line-height: 1.5; margin-bottom: 10px; }
-    .notice { width: 100%; margin-bottom: 10px; padding: 8px 10px; border: 1px solid #ffd47966; border-radius: 9px; background: #2a1f06e8; color: #ffe3a6; font-size: 12px; line-height: 1.5; }
-    .progress { width: 100%; margin-bottom: 10px; }
-    .progress-label { color: #b9cee8; font-size: 12px; line-height: 1.5; margin-bottom: 5px; word-break: break-word; }
-    .progress-track { height: 6px; border-radius: 3px; background: #ffffff1f; overflow: hidden; }
-    .progress-bar { height: 100%; width: 0%; border-radius: 3px; background: linear-gradient(90deg,#79e6ff,#4b8dff); transition: width .2s ease-out; }
-    .source { font-size: 11px; color: #a0b2c9; line-height: 1.5; margin: 8px 0 0; }
+    .settings[aria-expanded="true"] { border-color: var(--accent); }
+    .panel {
+      width: var(--panel-width);
+      max-height: calc(var(--player-height, 400px) / var(--ui-scale, 1) - var(--toolbar-space, 60px));
+      padding: 16px;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow-wrap: anywhere;
+    }
+    .panel h2, .panel h3, .panel p { margin: 0; }
+    .panel h2 { font-size: 18px; line-height: 1.3; }
+    .panel h3 { margin-bottom: 8px; font-size: 14px; }
+    .course-time { margin-top: 12px; }
+    .time-order { display: flex; align-items: baseline; gap: 6px; }
+    .time-ratio[hidden] + span { display: none; }
+    .time-ratio { color: var(--accent); font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .time-current { margin-block: 2px 6px; font-weight: 600; }
+    .time-values { display: flex; flex-wrap: wrap; gap: 2px 12px; font-variant-numeric: tabular-nums; }
+    .course-id, .time-note, .source, .position-tip { color: var(--muted); font-size: 12px; }
+    .course-id { user-select: text; }
+    .panel-section, .status-area { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
+    .panel-section > label {
+      display: grid;
+      grid-template-columns: minmax(6.5em, .85fr) minmax(0, 1.15fr);
+      align-items: center;
+      gap: 8px;
+      min-height: 36px;
+    }
+    .color-picker { margin: 4px 0; padding: 0; min-width: 0; border: 0; }
+    .color-picker legend { padding: 0; }
+    .color-options { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .color-options label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      min-height: 32px;
+      border: 1px solid var(--control-line);
+      border-radius: 6px;
+      background: var(--choice-color);
+      color: var(--choice-ink);
+      cursor: pointer;
+    }
+    .color-options label:has(:checked) { border-color: currentColor; font-weight: 700; }
+    .color-options input { margin: 0; accent-color: var(--choice-ink); }
+    select, input[type="number"], input[type="range"] { width: 100%; min-width: 0; }
+    input[type="range"] { margin: 0; min-height: 28px; accent-color: var(--accent); }
+    .panel .position-tip, .panel .source { margin-top: 8px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .reset-position, .time-retry { margin-top: 6px; }
+    .import { background: var(--accent); color: var(--panel); border-color: var(--accent); }
+    .import:active:enabled { color: var(--ink); }
+    .notice, :host([data-status="error"]) .status { color: var(--warning); }
+    .notice { margin-block: 6px; }
+    .status, .progress-label { font-size: 12px; }
+    .progress { margin-top: 8px; }
+    .progress-track { height: 5px; margin-top: 4px; border-radius: 3px; background: var(--line); overflow: hidden; }
+    .progress-bar { height: 100%; width: 0; background: var(--accent); }
+    @media (pointer: coarse) {
+      .controls { --toolbar-space: 72px; }
+      .controls button, .controls input:not([type="radio"]), .controls select { min-height: 44px; }
+      .panel-section label { min-height: 48px; }
+    }
     @media(max-width:600px) { .captions { width: 94%; } .lines { padding: 8px 12px; } .zh { font-size: min(var(--zh-size,var(--size,25px)),20px); } .en { font-size: min(calc(var(--size,25px)*.76),16px); } }
     @media(prefers-reduced-motion:reduce) { .fade { animation: none; } .toolbar { transition: none; } }
   `;
+  function applyTheme() {
+    const theme = backgroundColors[prefs.color];
+    for (const [name, value] of Object.entries({
+      "--subtitle-background": theme.hex,
+      "--ink": theme.ink,
+      "--muted": theme.muted,
+      "--accent": theme.accent,
+      "--warning": theme.warning,
+      "--line": theme.line,
+      "--control-line": theme.control,
+      "--key": theme.key,
+      "--caption-ink": theme.caption,
+      "--english-ink": theme.english,
+      "--mark-ink": theme.mark
+    })) root.style.setProperty(name, value);
+  }
+  function writePrefs() {
+    return browser.storage.local.set({ subtitlePrefs: prefs }).catch(() => {});
+  }
   function save() {
     clearTimeout(savedTimer);
-    savedTimer = setTimeout(() => browser.storage.local.set({ subtitlePrefs: prefs }).catch(() => {}), 200);
+    savedTimer = setTimeout(writePrefs, 200);
   }
   function clamp(value, min, max) { return Math.min(max, Math.max(min, value)); }
   function positionBounds() {
@@ -149,35 +248,65 @@
   }
   function mount() {
     root = document.createElement("div"); root.id = "udemy-bilingual-root";
+    root.lang = "zh-TW";
+    applyTheme();
     shadow = root.attachShadow({ mode: "open" });
     shadow.innerHTML = `<style>${css}</style>
       <div class="captions"><div class="lines" hidden><div class="zh" lang="zh-TW"></div><div class="en" lang="en"></div></div></div>
-      <div class="controls"><div class="toolbar"><button class="toggle" type="button">中英 CC ✓</button><button class="settings" type="button" aria-label="雙語字幕設定" aria-expanded="false">設定</button></div>
-      <div class="panel" hidden>
-      <div class="course-time" aria-label="課程影片分鐘數" hidden>
-      <div class="course-id">課程 ID：讀取中…</div>
-      <div class="notice" role="status" hidden></div>
-      <div class="time-ratio" hidden></div>
-      <div class="time-current">正在讀取課程時長…</div><div class="time-total"></div>
-      <div class="time-values"><span class="time-watched"></span><span class="time-remaining"></span></div>
-      <div class="time-note">依序觀看估算：前面影片＋本堂播放位置</div>
-      <button class="time-retry" type="button" hidden>重新讀取時長</button></div>
-      <div class="status" role="status">正在讀取課程字幕…</div>
-      <div class="progress" hidden><div class="progress-label"></div>
-      <div class="progress-track" role="progressbar" aria-label="全課字幕匯出進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar"></div></div></div>
-      <label>字幕效果<select name="effect"><option value="glow">光暈＋淡入</option><option value="cinema">電影描邊</option><option value="minimal">簡潔閱讀</option></select></label>
-      <label>字體大小<input name="size" type="range" min="16" max="40" aria-label="字體大小"></label>
-      <label>水平位置<input name="x" type="range" min="8" max="92" aria-label="字幕水平位置"></label>
-      <label>垂直位置<input name="y" type="range" min="4" max="96" aria-label="字幕垂直位置"></label>
-      <p class="source">也可以直接拖曳字幕移動；聚焦字幕後可用方向鍵微調。</p>
-      <button class="reset-position" type="button">重設字幕位置</button>
-      <label>時間校正（秒）<input name="offset" type="number" min="-10" max="10" step="0.1" aria-label="字幕時間校正"></label>
-      <button class="retry" type="button">重新讀取字幕</button>
-      <button class="export-current" type="button">匯出本堂原文</button>
-      <button class="export-course" type="button">匯出全課原文</button>
-      <button class="import" type="button">匯入中英雙語字幕</button>
-      <input class="import-file" type="file" accept=".json,application/json" hidden>
-      <p class="source">中文由原文預先翻譯，採台灣術語；不使用 Udemy 自己的中文字幕。尚未匯入譯文時只顯示原文。</p></div></div>`;
+      <div class="controls">
+        <div class="toolbar">
+          <button class="toggle" type="button">中英 CC ✓</button>
+          <button class="settings" type="button" aria-label="雙語字幕設定" aria-controls="subtitle-settings" aria-expanded="false">設定</button>
+        </div>
+        <section class="panel" id="subtitle-settings" aria-labelledby="settings-title" hidden>
+          <h2 id="settings-title">雙語字幕設定</h2>
+          <div class="course-time" aria-label="課程影片分鐘數" hidden>
+            <div class="time-order"><strong class="time-ratio" hidden></strong><span>堂</span></div>
+            <div class="time-current">正在讀取課程時長…</div>
+            <div class="time-values"><span class="time-total"></span><span class="time-watched"></span><span class="time-remaining"></span></div>
+            <div class="time-note">依序觀看估算：前面影片＋本堂播放位置</div>
+            <div class="course-id">課程 ID：讀取中…</div>
+            <div class="notice" role="status" hidden></div>
+            <button class="time-retry" type="button" hidden>重新讀取時長</button>
+          </div>
+          <div class="status-area">
+            <div class="status" role="status">正在讀取課程字幕…</div>
+            <div class="progress" hidden>
+              <div class="progress-label"></div>
+              <div class="progress-track" role="progressbar" aria-label="全課字幕匯出進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar"></div></div>
+            </div>
+          </div>
+          <section class="panel-section">
+            <h3>字幕調整</h3>
+            <label>字幕效果<select name="effect"><option value="glow">光暈＋淡入</option><option value="cinema">電影描邊</option><option value="minimal">簡潔閱讀</option></select></label>
+            <fieldset class="color-picker">
+              <legend>字幕底色</legend>
+              <div class="color-options">
+                ${Object.entries(backgroundColors).map(([value, { label, hex, ink }]) =>
+                  `<label style="--choice-color: ${hex}; --choice-ink: ${ink}"><input type="radio" name="color" value="${value}"${prefs.color === value ? " checked" : ""}>${label}</label>`
+                ).join("")}
+              </div>
+            </fieldset>
+            <label>字體大小<input name="size" type="range" min="16" max="40" aria-label="字體大小"></label>
+            <label>水平位置<input name="x" type="range" min="8" max="92" aria-label="字幕水平位置"></label>
+            <label>垂直位置<input name="y" type="range" min="4" max="96" aria-label="字幕垂直位置"></label>
+            <label>時間校正（秒）<input name="offset" type="number" min="-10" max="10" step="0.1" aria-label="字幕時間校正"></label>
+            <p class="position-tip">拖曳字幕即可移動；聚焦字幕後可用方向鍵微調。</p>
+            <button class="reset-position" type="button">重設字幕位置</button>
+          </section>
+          <section class="panel-section">
+            <h3>字幕檔案</h3>
+            <div class="actions">
+              <button class="import" type="button">匯入中英雙語字幕</button>
+              <button class="export-current" type="button">匯出本堂原文</button>
+              <button class="export-course" type="button">匯出全課原文</button>
+              <button class="retry" type="button">重新讀取字幕</button>
+            </div>
+            <input class="import-file" type="file" accept=".json,application/json" hidden>
+            <p class="source">中文由原文預先翻譯，採台灣術語；不使用 Udemy 自己的中文字幕。尚未匯入譯文時只顯示原文。</p>
+          </section>
+        </section>
+      </div>`;
     player.append(root);
     chineseLine = shadow.querySelector(".zh"); englishLine = shadow.querySelector(".en");
     toggle = shadow.querySelector(".toggle"); status = shadow.querySelector(".status"); panel = shadow.querySelector(".panel");
@@ -207,7 +336,14 @@
     shadow.querySelector(".export-course").addEventListener("click", exportCourse);
     shadow.querySelector(".import").addEventListener("click", () => shadow.querySelector(".import-file").click());
     shadow.querySelector(".import-file").addEventListener("change", importTranslation);
-    for (const input of shadow.querySelectorAll("select,input[name]")) {
+    shadow.querySelector(".color-picker").addEventListener("change", event => {
+      const color = event.target.value;
+      if (!Object.hasOwn(backgroundColors, color)) return;
+      prefs.color = color;
+      applyTheme();
+      writePrefs();
+    });
+    for (const input of shadow.querySelectorAll('select, input[type="range"], input[type="number"]')) {
       input.value = prefs[input.name];
       input.addEventListener("input", () => {
         prefs[input.name] = input.name === "effect" ? input.value : Number(input.value);
@@ -253,7 +389,11 @@
     });
     root.addEventListener("keydown", event => {
       event.stopPropagation();
-      if (event.key === "Escape" && !panel.hidden) setPanel(false);
+      if (event.key === "Escape" && !panel.hidden) {
+        event.preventDefault();
+        setPanel(false);
+        settings.focus();
+      }
     });
     root.addEventListener("click", event => event.stopPropagation());
     apply();
@@ -380,8 +520,7 @@
       status.textContent = error.message || "字幕讀取失敗，請重試";
       root.dataset.status = "error";
       toggle.textContent = `${pairShort} CC · 請開設定`;
-      panel.hidden = false;
-      shadow.querySelector(".toolbar").dataset.open = "true";
+      setPanel(true);
     }
   }
   async function sourceHash(cues) {
@@ -533,8 +672,9 @@
   }
   async function importTranslation(event) {
     const activeCourse = course;
+    const input = event.target;
     try {
-      const file = event.target.files[0]; if (!file) return;
+      const file = input.files[0]; if (!file) return;
       const value = JSON.parse(await file.text());
       const courseId = await UdemyCourses.idFor(activeCourse);
       if (value.courseId !== courseId || value.targetLanguage !== "zh-TW") throw new Error("譯文必須來自本課原始字幕，目標語言為 zh-TW");
@@ -556,7 +696,7 @@
       await browser.storage.local.set(updates);
       if (course === activeCourse) { key = ""; check(); }
     } catch(error) { status.textContent = `匯入失敗：${error.message}`; }
-    finally { event.target.value = ""; }
+    finally { input.value = ""; }
   }
   function check() {
     const activeCourse = UdemyCourses.forUrl(location.href);
@@ -615,6 +755,7 @@
     const stored = result.subtitlePrefs || {};
     const legacyY = stored.bottom === undefined || Number(stored.bottom) === 10 ? defaults.y : 100 - Number(stored.bottom);
     prefs = { ...defaults, ...stored, y: stored.y ?? legacyY };
+    if (!Object.hasOwn(backgroundColors, prefs.color)) prefs.color = defaults.color;
     prefs.x = Number.isFinite(Number(prefs.x)) ? Math.min(92, Math.max(8, Number(prefs.x))) : defaults.x;
     prefs.y = Number.isFinite(Number(prefs.y)) ? Math.min(96, Math.max(4, Number(prefs.y))) : defaults.y;
     delete prefs.bottom;

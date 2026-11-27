@@ -8,7 +8,7 @@ const SubtitleCore = require('../udemy-bilingual/subtitle-core.js');
 class Element {
   constructor() {
     this.children = new Map(); this.events = {}; this.isConnected = true;
-    this.style = { setProperty() {} }; this.dataset = {}; this.clientWidth = 800; this.clientHeight = 450;
+    this.style = { setProperty(name, value) { this[name] = value; } }; this.dataset = {}; this.clientWidth = 800; this.clientHeight = 450;
     this.classList = { add() {}, remove() {}, toggle() {} };
   }
   querySelector(selector) {
@@ -31,11 +31,12 @@ class Element {
 }
 const settle = async () => { for (let i = 0; i < 25; i++) await new Promise(setImmediate); };
 
-async function workflow(course, index, withoutEnglish = false, chromium = false) {
+async function workflow(course, index, withoutEnglish = false, chromium = false, storedPrefs) {
   let captionAvailable = !withoutEnglish, playbackText = 'Hello world', denied = false;
   const courseId = course.id || 8000000 + index, lectureId = '123';
   const video = new Element(); video.player = new Element(); video.currentTime = 1.5;
   const nodes = [], downloads = [], storage = {}, requests = [];
+  if (storedPrefs) storage.subtitlePrefs = { ...storedPrefs };
   const document = {
     head: new Element(), body: new Element(), title: 'Fixture lecture', fullscreenElement: null,
     getElementById: () => null,
@@ -90,6 +91,18 @@ async function workflow(course, index, withoutEnglish = false, chromium = false)
   vm.runInContext(fs.readFileSync(require.resolve('../udemy-bilingual/content.js'), 'utf8'), context);
   await settle();
   const root = nodes.find(node => node.id === 'udemy-bilingual-root'), shadow = root.shadow;
+  if (course.id === 1362070) {
+    assert.equal(root.style['--subtitle-background'], storedPrefs?.color === 'blue' ? '#b7def6' : '#f6c48a');
+    const chooseColor = shadow.querySelector('.color-picker').events.change;
+    for (const [color, expected, ink] of [['blue', '#b7def6', '#123044'], ['orange', '#f6c48a', '#3c2614']]) {
+      chooseColor({ target: { value: color } });
+      assert.equal(root.style['--subtitle-background'], expected);
+      assert.equal(root.style['--ink'], ink);
+      assert.match(shadow.innerHTML, new RegExp(color === 'blue' ? '淡藍色' : '淡橘色'));
+      assert.equal(storage.subtitlePrefs.color, color);
+      assert.equal(storage.subtitlePrefs.size, storedPrefs?.size ?? 25);
+    }
+  }
   const upload = value => ({ target: { files: [{ text: async () => JSON.stringify(value) }], value: 'fixture' } });
   if (withoutEnglish) {
     // Courses without an official English track report the gap and expose no supplement import.
@@ -144,7 +157,13 @@ async function workflow(course, index, withoutEnglish = false, chromium = false)
   await shadow.querySelector('.import-file').events.change(upload(wrong));
   assert.match(shadow.querySelector('.status').textContent, /匯入失敗/);
   assert.equal(Object.keys(storage).length, storedBeforeWrongImport);
-  await shadow.querySelector('.import-file').events.change(upload(translated));
+  const changeEvent = upload(translated);
+  const fileInput = changeEvent.target;
+  const importDone = shadow.querySelector('.import-file').events.change(changeEvent);
+  // Shadow DOM clears the event target after dispatch, before the file read finishes.
+  changeEvent.target = null;
+  await importDone;
+  assert.equal(fileInput.value, '');
   await settle();
   assert.ok(storage[`translation:${courseId}:${lectureId}`]);
   assert.equal(root.dataset.status, 'bilingual-ready');
@@ -160,6 +179,10 @@ async function workflow(course, index, withoutEnglish = false, chromium = false)
   for (const [index, course] of courses.entries()) await workflow(course, index);
   await workflow(courses.find(course=>course.slug==='sveltejs-the-complete-guide'), 100, true);
   for (const [index, course] of courses.entries()) await workflow(course, index, false, true);
+  const react = courses.find(course => course.id === 1362070);
+  for (const prefs of [{ size: 30 }, { size: 30, color: 'purple' }, { size: 30, color: 'blue' }]) {
+    await workflow(react, 0, false, false, prefs);
+  }
   await workflow(courses.find(course=>course.slug==='sveltejs-the-complete-guide'), 100, true, true);
   console.log(`PASS: All ${courses.length} courses load, export and import subtitles with native and Chromium APIs; source fallback, authorization and legacy React storage remain verified.`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

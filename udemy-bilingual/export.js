@@ -1,24 +1,29 @@
 /* Runs in an extension page; uses the existing Udemy host permissions only. */
 (async () => {
   'use strict';
-  const surface = document.getElementById?.('udemy-english-export')?.shadowRoot || document;
-  const start = surface.querySelector('#start');
+  const inPlayer = typeof location !== 'undefined' && location.origin === 'https://www.udemy.com';
+  const surface = inPlayer ? document.getElementById('udemy-english-export')?.shadowRoot : document;
+  const start = surface?.querySelector('#start');
   if (!start) return;
   const status = surface.querySelector('#status'), list = surface.querySelector('#courses');
   const skipReact = surface.querySelector('#skip-react');
-  const inPlayer = typeof location !== 'undefined' && location.origin === 'https://www.udemy.com';
   const timedFetch = (url, options) => fetch(url, { ...options, signal: AbortSignal.timeout(30000) });
   const rows = new Map();
-  // The course open in the player is always offered, even when it is not in the prepared list.
-  const current = inPlayer ? UdemyCourses.forUrl(location.href) : null;
-  const offered = [...UdemyCourses.courses];
-  if (current && !offered.some(course => course.slug === current.slug)) offered.unshift(current);
-  for (const course of offered) {
+  const courseCount = surface.querySelector('#course-count');
+  function addExportRow(course) {
+    if (rows.has(course.slug)) return;
     const row = document.createElement('li');
     row.textContent = course.known ? course.title : `${course.slug}（目前課程，未加入翻譯清單）`;
-    const state = document.createElement('small'); state.textContent = '待下載'; row.append(state); list.append(row);
-    rows.set(course.slug, { row, state });
+    const state = document.createElement('small');
+    state.textContent = '待下載';
+    row.append(state);
+    list.append(row);
+    rows.set(course.slug, { course, row, state });
+    if (courseCount) courseCount.textContent = `${rows.size} 門課程`;
   }
+  const current = inPlayer ? UdemyCourses.forUrl(location.href) : null;
+  if (current && !current.known) addExportRow(current);
+  UdemyCourses.courses.forEach(addExportRow);
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   async function json(url) {
     const address = new URL(url, 'https://www.udemy.com');
@@ -41,20 +46,36 @@
     const data = new TextEncoder().encode(JSON.stringify(cues.map(({ start, end, text }) => ({ start, end, text }))));
     return [...new Uint8Array(await crypto.subtle.digest('SHA-256', data))].map(x => x.toString(16).padStart(2, '0')).join('');
   }
+  const downloadLinks = new WeakMap();
+  function clearDownload(container) {
+    const link = downloadLinks.get(container);
+    if (!link) return;
+    URL.revokeObjectURL(link.href);
+    link.remove();
+    downloadLinks.delete(container);
+  }
   function download(value, filename, row) {
-    const link = document.createElement('a'); link.textContent = '下載 JSON'; link.download = filename;
+    const link = document.createElement('a');
+    link.textContent = '下載 JSON';
+    link.download = filename;
     link.href = URL.createObjectURL(new Blob([JSON.stringify(value, null, 2)], { type: 'application/json' }));
+    downloadLinks.set(row, link);
     row.append(link); link.click();
   }
   start.addEventListener('click', async () => {
     start.disabled = true; skipReact.disabled = true;
     const report = { version: 1, startedAt: new Date().toISOString(), courses: [] };
     const skipped = new Set(inPlayer ? (new URL(location.href).searchParams.get('subtitleExportSkip') || '').split(',') : []);
-    const targets = offered.filter(course => !(skipReact.checked && course.id === 1362070) && !skipped.has(course.slug));
+    const targets = [...rows.values()].filter(({ course }) => !(skipReact.checked && course.id === 1362070) && !skipped.has(course.slug));
+    clearDownload(status);
+    for (const { row, state } of rows.values()) {
+      clearDownload(row);
+      row.className = '';
+      state.textContent = '待下載';
+    }
     for (const slug of skipped) if (rows.has(slug)) rows.get(slug).state.textContent = '沿用已驗證英文備份';
     if (skipReact.checked) rows.get('react-the-complete-guide-incl-redux').state.textContent = '沿用已有完整英文備份';
-    for (const [index, course] of targets.entries()) {
-      const { row, state } = rows.get(course.slug);
+    for (const [index, { course, row, state }] of targets.entries()) {
       const record = { slug: course.slug, title: course.title, status: 'pending' }; report.courses.push(record);
       try {
         status.textContent = `課程 ${index + 1}/${targets.length} · ${course.title}`;
@@ -117,10 +138,11 @@
         download(result, record.filename, row);
         state.textContent = `${courseName}匯出：${record.downloadedLectures}/${record.videoCount} 堂影片、${record.cueCount} 段；${result.errors.length} 堂待補`;
       } catch (error) { record.status = 'failed'; record.error = error.message; state.textContent = error.message; }
+      row.className = record.status;
     }
     report.finishedAt = new Date().toISOString();
+    status.textContent = `匯出結束：${report.courses.filter(x => x.status === 'downloaded').length}/${targets.length} 門成功。請檢查各課程結果。 `;
     download(report, 'Udemy-export-report.json', status);
-    status.prepend(document.createTextNode(`匯出結束：${report.courses.filter(x => x.status === 'downloaded').length}/${targets.length} 門成功；請檢查各課程結果。 `));
     start.disabled = false; skipReact.disabled = false;
   });
   const loadMine = surface.querySelector('#load-mine');
@@ -129,20 +151,10 @@
   const mineList = surface.querySelector('#mine');
   if (loadMine && registerMine && mineStatus && mineList && typeof UdemySubscribed !== 'undefined') {
     const mineRows = [];
-    function addExportRow(course) {
-      if (rows.has(course.slug)) return;
-      offered.push(course);
-      const row = document.createElement('li');
-      row.textContent = course.title;
-      const state = document.createElement('small');
-      state.textContent = '待下載';
-      row.append(state);
-      list.append(row);
-      rows.set(course.slug, { row, state });
-    }
     loadMine.addEventListener('click', async () => {
       loadMine.disabled = true;
       registerMine.disabled = true;
+      clearDownload(mineStatus);
       mineRows.length = 0;
       mineList.replaceChildren();
       mineStatus.textContent = '正在讀取已加入的課程…';
@@ -199,6 +211,7 @@
       }
     });
     registerMine.addEventListener('click', () => {
+      clearDownload(mineStatus);
       const selected = mineRows.filter(row => row.box.checked && !row.box.disabled).map(row => row.course);
       if (!selected.length) {
         mineStatus.textContent = '請先勾選要登錄的課程。';
@@ -218,8 +231,8 @@
         row.box.disabled = true;
         row.state.textContent = `課程 ID ${row.course.id} · ${row.course.locale || '語言未知'} · 已加入本次匯出清單`;
       }
+      mineStatus.textContent = `已登錄 ${selected.length} 門，並加入本次匯出清單。請再執行 node scripts/register_subscribed_courses.cjs，把下載的 subscribed-courses-register.json 寫進專案。 `;
       download(documentJson, 'subscribed-courses-register.json', mineStatus);
-      mineStatus.prepend(document.createTextNode(`已登錄 ${selected.length} 門，並加入下方匯出清單。請再執行 node scripts/register_subscribed_courses.cjs，把下載的 subscribed-courses-register.json 寫進專案。 `));
       registerMine.disabled = !mineRows.some(row => !row.box.disabled);
     });
   }

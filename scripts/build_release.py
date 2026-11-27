@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build every browser package and, when AMO credentials are available, the signed Firefox XPI too.
+"""Build every browser package and require the matching signed and unsigned Firefox XPIs.
 
 Produces both XPI flavours into dist/v版本/ so a release never ships only one:
     udemy-bilingual-firefox-版本-UNSIGNED-DO-NOT-INSTALL.xpi  unsigned, identical bytes to the ZIP
@@ -10,7 +10,7 @@ Signing needs an AMO unlisted-signing credential. Supply it either way:
     python3 scripts/build_release.py --key-file ~/.config/udemy-bilingual/amo-key.txt
 
 The key file is read from outside this repository and is never written to it.
-Without credentials the signed XPI is skipped and the unsigned packages are still built.
+An incomplete release exits with an error. Pass --unsigned-only explicitly for local testing.
 """
 import argparse
 import hashlib
@@ -21,23 +21,12 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+from zipfile import ZipFile
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / 'scripts'))
 from build_extensions import build, package_files  # noqa: E402
-
-
-def read_credentials(key_file):
-    """Return (issuer, secret) from the environment or a two-line key file outside the repo."""
-    issuer = os.environ.get('AMO_JWT_ISSUER') or os.environ.get('WEB_EXT_API_KEY')
-    secret = os.environ.get('AMO_JWT_SECRET') or os.environ.get('WEB_EXT_API_SECRET')
-    if key_file and not (issuer and secret):
-        path = Path(key_file).expanduser()
-        if path.exists():
-            lines = [line.strip() for line in path.read_text(encoding='utf-8').splitlines() if line.strip()]
-            if len(lines) >= 2:
-                issuer, secret = lines[0], lines[1]
-    return issuer, secret
+from fetch_signed import fetch_signed, read_credentials, token, version_info  # noqa: E402
 
 
 def stage_firefox_source(destination):
@@ -101,10 +90,33 @@ def describe_failure(result):
     return '簽署失敗：\n' + '\n'.join(f'  {line}' for line in lines)
 
 
+def verify_xpi_pair(unsigned, signed):
+    """Check signature metadata and ensure both archives carry the same extension."""
+    with ZipFile(unsigned) as original, ZipFile(signed) as stamped:
+        if stamped.testzip() is not None:
+            raise ValueError('簽署版 XPI 的封裝校驗失敗。')
+        payload = set(original.namelist())
+        members = [entry.filename for entry in stamped.infolist() if not entry.is_dir()]
+        signature = {name for name in members if name.startswith('META-INF/')}
+        if not {'META-INF/mozilla.rsa', 'META-INF/mozilla.sf', 'META-INF/manifest.mf'} <= signature:
+            raise ValueError('簽署版 XPI 缺少 Mozilla 簽章。')
+        if len(set(members)) != len(members) or set(members) - signature != payload:
+            raise ValueError('兩份 XPI 的檔案清單不同。請確認版本與原始碼。')
+        for name in payload:
+            left, right = original.read(name), stamped.read(name)
+            if name == 'manifest.json':
+                # AMO may serialize the same manifest with escaped Unicode.
+                matches = json.loads(left) == json.loads(right)
+            else:
+                matches = left == right
+            if not matches:
+                raise ValueError(f'兩份 XPI 的 {name} 不同。變更內容後請使用新版本號。')
+
+
 def write_checksums(output_dir):
     """Hash every asset in the output directory so SHA256SUMS.txt always covers all of them."""
     sums = output_dir / 'SHA256SUMS.txt'
-    assets = sorted(path for path in output_dir.iterdir() if path.name != sums.name)
+    assets = sorted(path for path in output_dir.iterdir() if path.is_file() and path.name not in (sums.name, '.DS_Store'))
     lines = [f'{hashlib.sha256(path.read_bytes()).hexdigest()}  {path.name}' for path in assets]
     sums.write_text('\n'.join(lines) + '\n', encoding='utf-8')
     return sums
@@ -116,30 +128,44 @@ def main():
     parser.add_argument('--key-file', help='file outside this repo holding the AMO issuer on line 1 and secret on line 2')
     parser.add_argument('--timeout', type=int, default=300000, help='signing timeout in milliseconds')
     parser.add_argument('--resign', action='store_true',
-                        help='sign again even when a signed XPI is already present')
+                        help='retrieve a fresh signed XPI from AMO even when a cached copy exists')
+    parser.add_argument('--wait', type=int, default=1800, help='seconds to wait for an existing AMO submission')
+    parser.add_argument('--unsigned-only', action='store_true', help='local testing only: skip the release signing step')
     args = parser.parse_args()
 
     version = json.loads((ROOT / 'udemy-bilingual/manifest.json').read_text(encoding='utf-8'))['version']
-    output = Path(args.output).expanduser() if args.output else ROOT / 'dist' / f'v{version}'
+    base = ROOT / 'dist' / 'dev' if args.unsigned_only else ROOT / 'dist'
+    output = Path(args.output).expanduser() if args.output else base / f'v{version}'
     build(output)
+    if args.unsigned_only:
+        print('已產生暫時測試用套件。')
+        return 0
 
-    # AMO refuses to sign the same version twice, so a signature already fetched
-    # from AMO (see scripts/fetch_signed.py) must be reused rather than requested
-    # again; only a build whose manifest version changed can be re-signed.
-    signed_path = output / f'udemy-bilingual-firefox-{version}-signed.xpi'
-    if signed_path.exists() and not args.resign:
-        print(f'沿用既有簽章版：{signed_path}')
+    signed = output / f'udemy-bilingual-firefox-{version}-signed.xpi'
+    unsigned = output / f'udemy-bilingual-firefox-{version}-UNSIGNED-DO-NOT-INSTALL.xpi'
+    issuer, secret = read_credentials(args.key_file)
+    if issuer and secret:
+        registered = version_info(version, token(issuer, secret))
+        with tempfile.TemporaryDirectory(dir=output) as tmp:
+            candidate = Path(tmp) / signed.name
+            if not registered:
+                try:
+                    sign(ROOT / 'udemy-bilingual', Path(tmp), version, issuer, secret, args.timeout)
+                except RuntimeError:
+                    # An accepted upload can still be queued (or submitted concurrently).
+                    if version_info(version, token(issuer, secret)) is None:
+                        raise
+            elif signed.is_file() and not args.resign:
+                shutil.copyfile(signed, candidate)
+            fetch_signed(version, candidate, issuer, secret, args.wait)
+            verify_xpi_pair(unsigned, candidate)
+            candidate.replace(signed)
+    elif signed.is_file() and not args.resign:
+        verify_xpi_pair(unsigned, signed)
     else:
-        issuer, secret = read_credentials(args.key_file)
-        if issuer and secret:
-            signed = sign(ROOT / 'udemy-bilingual', output, version, issuer, secret, args.timeout)
-            print(f'已簽署：{signed}')
-        else:
-            print('未提供 AMO 憑證，略過簽署版 XPI（其餘套件已產生）')
-
-    manifest, files = package_files('firefox')
-    unsigned = output / f'udemy-bilingual-firefox-{manifest["version"]}-UNSIGNED-DO-NOT-INSTALL.xpi'
-    print(f'未簽署 XPI：{unsigned}')
+        raise SystemExit('缺少 Mozilla 簽署版與 AMO 憑證，發行未完成。請設定憑證後重新執行。')
+    print(f'正式安裝（Mozilla 簽署）：{signed}')
+    print(f'暫時測試（未簽署）：{unsigned}')
     print(f'校驗碼：{write_checksums(output)}')
     return 0
 

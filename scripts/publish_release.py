@@ -57,13 +57,7 @@ def build(version, key_file, skip_tests):
     command = [sys.executable, str((ROOT / 'scripts/build_release.py').relative_to(ROOT))]
     if key_file:
         command += ['--key-file', str(key_file)]
-    result = run(command, check=False)
-    signed = output / f'udemy-bilingual-firefox-{version}-signed.xpi'
-    if result.returncode != 0 or not signed.exists():
-        # Signing is commonly queued at AMO. Keep the build, publish nothing.
-        print('== 3/6 簽署未完成 ==')
-        print(f'缺少 {signed.name}，本次不提交、不發布。AMO 簽署完成後重新執行本指令即可續行。')
-        raise SystemExit(2)
+    run(command)
     return output
 
 
@@ -108,7 +102,7 @@ def publish(version, output, notes_file, paths):
     if run(['gh', 'release', 'view', tag], check=False).returncode == 0:
         print(f'  {tag} 已存在，改為補上最新資產。')
         assets = [str(p) for p in sorted(output.iterdir()) if p.name != '.DS_Store']
-        run(['gh', 'upload', tag, '--clobber'] + assets)
+        run(['gh', 'release', 'upload', tag, '--clobber'] + assets)
         return
     command = ['gh', 'release', 'create', tag, '--title', f'udemy-bilingual {version}',
                '--notes-file', str(notes_file)]

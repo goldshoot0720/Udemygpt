@@ -81,4 +81,5 @@ def build(output=None):
 
 
 if __name__ == '__main__':
-    build()
+    from build_release import main
+    raise SystemExit(main())
